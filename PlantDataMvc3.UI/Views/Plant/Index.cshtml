@@ -1,0 +1,14 @@
+﻿@model ListViewModel<PlantListViewModel>
+
+@using PlantDataMvc3.UI.Helpers
+@using PlantDataMvc3.UI.Models
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>My Plant List</h2>
+<p>This is my list of current plants.</p>
+
+@Html.Partial("PlantListTable", Model)
+@Html.PagingLinksFor(m => Model)

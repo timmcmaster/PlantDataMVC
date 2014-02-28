@@ -1,0 +1,26 @@
+﻿@model PlantDataMvc3.UI.Models.PlantSeedEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Update", "Seed"))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Seed Batch</legend>
+
+        @Html.EditorForModel()
+
+        <p>
+            <input type="submit" value="Update" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to Index", "Index")
+</div>
+

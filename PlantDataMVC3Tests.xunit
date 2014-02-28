@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xunit>
+  <assemblies>
+    <assembly filename="PlantDataMvc3.Tests.DAL\bin\Debug\PlantDataMvc3.Tests.DAL.dll" shadow-copy="true" />
+    <assembly filename="PlantDataMvc3.Tests.Core\bin\Debug\PlantDataMvc3.Tests.Core.dll" shadow-copy="true" />
+    <assembly filename="PlantDataMvc3.Tests.UI\bin\Debug\PlantDataMvc3.Tests.UI.dll" shadow-copy="true" />
+  </assemblies>
+</xunit>

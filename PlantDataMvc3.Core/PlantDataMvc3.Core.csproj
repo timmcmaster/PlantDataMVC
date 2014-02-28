@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{21BAD16D-E308-41F0-8246-6BA0003C9139}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlantDataMvc3.Core</RootNamespace>
+    <AssemblyName>PlantDataMvc3.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataAccess\IUnitOfWorkManager.cs" />
+    <Compile Include="DataAccess\UnitOfWorkManager.cs" />
+    <Compile Include="Domain\BusinessObjects\PlantSeedSite.cs" />
+    <Compile Include="Domain\BusinessObjects\DomainEntity.cs" />
+    <Compile Include="Domain\BusinessObjects\Plant.cs" />
+    <Compile Include="Domain\BusinessObjects\PlantPriceListType.cs" />
+    <Compile Include="Domain\BusinessObjects\PlantProductPrice.cs" />
+    <Compile Include="Domain\BusinessObjects\PlantProductType.cs" />
+    <Compile Include="Domain\BusinessObjects\PlantSeed.cs" />
+    <Compile Include="Domain\BusinessObjects\PlantSeedTray.cs" />
+    <Compile Include="Domain\BusinessObjects\PlantStockEntry.cs" />
+    <Compile Include="Domain\BusinessObjects\PlantStockTransaction.cs" />
+    <Compile Include="Domain\BusinessObjects\PlantStockTransactionType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Mappers\AutoMapperCoreConfiguration.cs" />
+    <Compile Include="SimpleServiceLayer\BasicDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantSeedSiteDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantSeedTrayDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantSeedDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantProductTypeDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantStockEntryDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantStockTransactionDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantStockTransactionTypeDataService.cs" />
+    <Compile Include="ServiceLayer\IBasicDataService.cs" />
+    <Compile Include="ServiceLayer\IServiceLayer.cs" />
+    <Compile Include="ServiceLayer\Requests\CreateRequest.cs" />
+    <Compile Include="ServiceLayer\Requests\DeleteRequest.cs" />
+    <Compile Include="ServiceLayer\Requests\ListRequest.cs" />
+    <Compile Include="ServiceLayer\Requests\Request.cs" />
+    <Compile Include="ServiceLayer\Requests\UpdateRequest.cs" />
+    <Compile Include="ServiceLayer\Requests\ViewRequest.cs" />
+    <Compile Include="ServiceLayer\Responses\CreateResponse.cs" />
+    <Compile Include="ServiceLayer\Responses\DeleteResponse.cs" />
+    <Compile Include="ServiceLayer\Responses\ListResponse.cs" />
+    <Compile Include="ServiceLayer\Responses\Response.cs" />
+    <Compile Include="ServiceLayer\Responses\UpdateResponse.cs" />
+    <Compile Include="ServiceLayer\Responses\ViewResponse.cs" />
+    <Compile Include="SimpleServiceLayer\SimpleServiceLayer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\PlantDataServices.Entities.Genus.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.Entities.JournalEntry.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.Entities.JournalEntryType.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.Entities.PlantStock.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.Entities.ProductType.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.Entities.SeedBatch.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.Entities.SeedTray.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.Entities.Species.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.Genus.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.JournalEntry.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.JournalEntryType.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.PlantStock.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.ProductType.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.SeedBatch.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.SeedTray.datasource" />
+    <None Include="Properties\DataSources\PlantDataServices.Species.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlantDataMvc3.DAL.EF\PlantDataMvc3.DAL.EF.csproj">
+      <Project>{05C217A2-01BD-42CD-A756-849EC564A873}</Project>
+      <Name>PlantDataMvc3.DAL.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC3.DAL.LinqToSql\PlantDataMvc3.DAL.LinqToSql.csproj">
+      <Project>{131C0FB8-556F-4BFC-A37D-C221833B5C18}</Project>
+      <Name>PlantDataMvc3.DAL.LinqToSql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMvc3.DAL\PlantDataMvc3.DAL.csproj">
+      <Project>{FB368D7F-221A-424E-A218-7E0D0DAA2353}</Project>
+      <Name>PlantDataMvc3.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

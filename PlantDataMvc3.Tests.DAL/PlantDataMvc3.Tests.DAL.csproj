@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{987574E0-6B9F-484B-AAE2-A2F4D4F89A9B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlantDataMvc3.Tests.DAL</RootNamespace>
+    <AssemblyName>PlantDataMvc3.Tests.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\ExternalAssemblies\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="xunit, Version=1.9.1.1600, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.extensions">
+      <HintPath>..\packages\xunit.extensions.1.9.1\lib\net20\xunit.extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LinqToSqlMappingFixture.cs" />
+    <Compile Include="EFMappingFixture.cs" />
+    <Compile Include="MappingTests\LinqToSqlEntityMappingFacts.cs" />
+    <Compile Include="MappingTests\EFEntityMappingFacts.cs" />
+    <Compile Include="EntityTests\GenusFacts.cs" />
+    <Compile Include="EntityTests\SpeciesFacts.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWorkTests\BaseUnitOfWorkFacts.cs" />
+    <Compile Include="UnitOfWorkTests\EFUnitOfWorkFacts.cs" />
+    <Compile Include="UnitOfWorkTests\LinqToSqlUnitOfWorkFacts.cs" />
+    <Compile Include="RepositoryTests\BaseGenusRepositoryFacts.cs" />
+    <Compile Include="RepositoryTests\EFGenusRepositoryFacts.cs" />
+    <Compile Include="RepositoryTests\LinqToSqlGenusRepositoryFacts.cs" />
+    <Compile Include="RepositoryTests\TestGenusRepositoryFacts.cs" />
+    <Compile Include="UnitOfWorkTests\TestUnitOfWorkFacts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlantDataMvc3.DAL.EF\PlantDataMvc3.DAL.EF.csproj">
+      <Project>{05C217A2-01BD-42CD-A756-849EC564A873}</Project>
+      <Name>PlantDataMvc3.DAL.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC3.DAL.LinqToSql\PlantDataMvc3.DAL.LinqToSql.csproj">
+      <Project>{131C0FB8-556F-4BFC-A37D-C221833B5C18}</Project>
+      <Name>PlantDataMvc3.DAL.LinqToSql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMvc3.DAL.TestData\PlantDataMvc3.DAL.TestData.csproj">
+      <Project>{9E4BC26B-3260-48FE-B90D-F8B43D3B7FC9}</Project>
+      <Name>PlantDataMvc3.DAL.TestData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMvc3.DAL\PlantDataMvc3.DAL.csproj">
+      <Project>{FB368D7F-221A-424E-A218-7E0D0DAA2353}</Project>
+      <Name>PlantDataMvc3.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

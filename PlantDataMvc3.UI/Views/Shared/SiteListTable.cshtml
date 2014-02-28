@@ -1,0 +1,33 @@
+﻿@model IList<SiteListViewModel>
+
+@using PlantDataMvc3.UI.Helpers
+@using PlantDataMvc3.UI.Models
+
+@{
+    SiteListViewModel sampleElement = new SiteListViewModel();   
+}
+<table class="grid">
+    <tr>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.SiteName)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Suburb)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Latitude)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Longitude)</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@{
+int count = 0;
+foreach (var model in Model) {
+    <tr>
+        <td>@Html.ActionLink(model.SiteName, "Show", "Site", new { id = model.Id }, null)</td>
+        <td>@Html.DisplayFor(m => m.ElementAt(count).Suburb)</td>
+        <td>@Html.DisplayFor(m => m.ElementAt(count).Latitude)</td>
+        <td>@Html.DisplayFor(m => m.ElementAt(count).Longitude)</td>
+        <td>@Html.ActionLink("Edit", "Edit", "Site", new { id = model.Id }, null)</td>
+        <td>@Html.ActionLink("Delete", "Delete", "Site", new { id = model.Id }, null)</td>
+    </tr>
+    count++;
+}
+}
+</table>

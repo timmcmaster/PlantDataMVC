@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FB368D7F-221A-424E-A218-7E0D0DAA2353}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlantDataMvc3.DAL</RootNamespace>
+    <AssemblyName>PlantDataMvc3.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LocalInterfaces\ILocalEntities.cs" />
+    <Compile Include="LocalInterfaces\ILocalGenusRepository.cs" />
+    <Compile Include="LocalInterfaces\ILocalJournalEntryRepository.cs" />
+    <Compile Include="LocalInterfaces\ILocalJournalEntryTypeRepository.cs" />
+    <Compile Include="LocalInterfaces\ILocalPlantStockRepository.cs" />
+    <Compile Include="LocalInterfaces\ILocalProductTypeRepository.cs" />
+    <Compile Include="LocalInterfaces\ILocalRepository.cs" />
+    <Compile Include="LocalInterfaces\ILocalSeedBatchRepository.cs" />
+    <Compile Include="LocalInterfaces\ILocalSeedTrayRepository.cs" />
+    <Compile Include="LocalInterfaces\ILocalSiteRepository.cs" />
+    <Compile Include="LocalInterfaces\ILocalSpeciesRepository.cs" />
+    <Compile Include="LocalInterfaces\ILocalUnitOfWork.cs" />
+    <Compile Include="Entities\Site.cs" />
+    <Compile Include="Interfaces\IEntities.cs" />
+    <Compile Include="Entities\Genus.cs" />
+    <Compile Include="Entities\JournalEntry.cs" />
+    <Compile Include="Entities\JournalEntryType.cs" />
+    <Compile Include="Entities\PlantStock.cs" />
+    <Compile Include="Entities\PriceListType.cs" />
+    <Compile Include="Entities\ProductPrice.cs" />
+    <Compile Include="Entities\ProductType.cs" />
+    <Compile Include="Entities\SeedBatch.cs" />
+    <Compile Include="Entities\SeedTray.cs" />
+    <Compile Include="Entities\Species.cs" />
+    <Compile Include="Interfaces\ISiteRepository.cs" />
+    <Compile Include="Interfaces\IProductTypeRepository.cs" />
+    <Compile Include="Interfaces\IPlantStockRepository.cs" />
+    <Compile Include="Interfaces\IJournalEntryTypeRepository.cs" />
+    <Compile Include="Interfaces\IJournalEntryRepository.cs" />
+    <Compile Include="Interfaces\ISeedTrayRepository.cs" />
+    <Compile Include="Interfaces\ISeedBatchRepository.cs" />
+    <Compile Include="Interfaces\ISpeciesRepository.cs" />
+    <Compile Include="Interfaces\IGenusRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MappingUnitOfWork.cs" />
+    <Compile Include="Repositories\JournalEntryTypeMappingRepository.cs" />
+    <Compile Include="Repositories\PlantStockMappingRepository.cs" />
+    <Compile Include="Repositories\ProductTypeMappingRepository.cs" />
+    <Compile Include="Repositories\SeedBatchMappingRepository.cs" />
+    <Compile Include="Repositories\SeedTrayMappingRepository.cs" />
+    <Compile Include="Repositories\SiteMappingRepository.cs" />
+    <Compile Include="Repositories\JournalEntryMappingRepository.cs" />
+    <Compile Include="Repositories\SpeciesMappingRepository.cs" />
+    <Compile Include="Repositories\GenusMappingRepository.cs" />
+    <Compile Include="Repositories\SortOrder.cs" />
+    <Compile Include="Repositories\MappingRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

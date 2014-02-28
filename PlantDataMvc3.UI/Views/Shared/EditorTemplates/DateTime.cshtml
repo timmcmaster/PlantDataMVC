@@ -1,0 +1,15 @@
+﻿@model System.DateTime
+
+@{
+string prefixName = ViewData.TemplateInfo.HtmlFieldPrefix;
+} 
+
+
+<script type="text/javascript">
+    $(function () {
+        // Call datepicker
+        
+        $('#@prefixName').datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+</script>
+@Html.TextBox("", String.Format("{0:dd/MM/yyyy}", Model))

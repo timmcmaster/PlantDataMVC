@@ -1,0 +1,26 @@
+﻿using PlantDataMvc3.Core.Domain.BusinessObjects;
+using PlantDataMvc3.Core.ServiceLayer;
+using PlantDataMvc3.UI.Models;
+
+namespace PlantDataMvc3.UI.Helpers.Handlers
+{
+    public class SiteDestroyEditModelFormHandler : IFormHandler<SiteDestroyEditModel>
+    {
+        private IBasicDataService<PlantSeedSite> _dataService;
+
+        public SiteDestroyEditModelFormHandler(IBasicDataService<PlantSeedSite> dataService)
+        {
+            _dataService = dataService;
+        }
+
+        public void Handle(SiteDestroyEditModel form)
+        {
+            // Map local model to business object
+            PlantSeedSite item = AutoMapper.Mapper.Map<SiteDestroyEditModel, PlantSeedSite>(form);
+
+            DeleteRequest<PlantSeedSite> request = new DeleteRequest<PlantSeedSite>(item.Id);
+
+            DeleteResponse<PlantSeedSite> response = _dataService.Delete(request);
+        }
+    }
+}

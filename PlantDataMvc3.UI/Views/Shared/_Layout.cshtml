@@ -1,0 +1,108 @@
+﻿@using PlantDataMvc3.UI.Helpers
+@using PlantDataMvc3.UI.Areas.Security.Controllers
+@using PlantDataMvc3.UI.Controllers
+@using StackExchange.Profiling
+@{
+    var profiler = MiniProfiler.Current;
+    
+    // allows us to test out starting a profiler hidden - use ALT + P to toggle display of results
+    var startHidden = !string.IsNullOrEmpty(Request.QueryString["startHidden"]);
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+@using (profiler.Step("<head> rendering"))
+{ 
+    <title>@ViewBag.Title</title>
+
+    @* general CSS content *@
+    <link href="@Url.Content("~/Content/sinorcaish-screen.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/CustomStyles.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+
+    @* general jQuery content *@
+    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+
+    @* jQuery validation content *@
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+    @* jQuery UI content *@
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-ui.min.js")" type="text/javascript"></script>
+
+    @* jQuery menu *@
+@*    <link href="@Url.Content("~/Content/menu-style.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-menu.js")" type="text/javascript"></script>*@
+}
+</head>
+<body>
+    <div id="header">
+        <div class="left">
+            <div id="title">
+                MVC Plant Data Application
+            </div>
+        </div>
+        <div class="right">
+            <div id="logindisplay">
+                @{ Html.RenderAction<AccountController>(c => c.RenderLogonControl()); }
+            </div>
+        </div>
+        <div class="subheader">
+        <em>Displaying plant info for today's world... :)</em>
+        </div>
+
+
+        <div id="sidebar">
+            <div>
+            <ul id="menu" class="mymenu">
+                @Html.ListItem("Home", "Index", "Home")
+                @Html.BeginListItem("Plants", "Index", "Plant")
+                    <ul class="mysub-menu">
+                        @Html.ListItem("New", "New", "Plant")
+                    </ul>
+                @Html.EndListItem()
+                @Html.BeginListItem("Plant Seeds", "Index", "Seed")
+                    <ul class="mysub-menu">
+                        @Html.ListItem("New", "New", "Seed")
+                    </ul>
+                @Html.EndListItem()
+                @Html.BeginListItem("Sites", "Index", "Site")
+                    <ul class="mysub-menu">
+                        @Html.ListItem("New", "New", "Site")
+                    </ul>
+                @Html.EndListItem()
+                @Html.BeginListItem("Plant Stock", "Index", "PlantStock")
+                    <ul class="mysub-menu">
+                        @Html.ListItem("New", "New", "PlantStock")
+                    </ul>
+                @Html.EndListItem()
+                @Html.BeginListItem("Plant Transactions", "Index", "Transaction")
+                    <ul class="mysub-menu">
+                        @Html.ListItem("New", "New", "Transaction")
+                    </ul>
+                @Html.EndListItem()
+                @Html.BeginListItem("Seed Trays", "Index", "Tray")
+                    <ul class="mysub-menu">
+                        @Html.ListItem("New", "New", "Tray")
+                    </ul>
+                @Html.EndListItem()
+                @Html.ListItem("About", "About", "Home")
+            </ul>
+            <hr />
+            </div>
+        </div>
+    </div>
+
+    <div id="main">
+        @RenderBody()
+    </div>
+
+    <div id="footer">
+        A web page by Tim McMaster.
+    </div>
+
+    @MiniProfiler.RenderIncludes(position: RenderPosition.Left, showTrivial: false, showTimeWithChildren: false, startHidden: startHidden)
+</body>
+</html>

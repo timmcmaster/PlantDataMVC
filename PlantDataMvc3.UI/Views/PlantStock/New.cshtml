@@ -1,0 +1,56 @@
+﻿@model PlantDataMvc3.UI.Models.PlantStockEntryNewViewModel
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+
+@using (Html.BeginForm("Create", "PlantStock"))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Tubes Model</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SpeciesId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SpeciesId)
+            @Html.ValidationMessageFor(model => model.SpeciesId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.ProductTypeId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")
+            @Html.ValidationMessageFor(model => model.ProductTypeId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductTypeId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProductTypeId)
+            @Html.ValidationMessageFor(model => model.ProductTypeId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.QuantityInStock)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.QuantityInStock)
+            @Html.ValidationMessageFor(model => model.QuantityInStock)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to Index", "Index")
+</div>
+

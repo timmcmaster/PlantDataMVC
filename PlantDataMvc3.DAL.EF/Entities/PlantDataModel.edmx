@@ -1,0 +1,795 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PlantDataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="PlantDataModelStoreContainer">
+          <EntitySet Name="Genus" EntityType="PlantDataModel.Store.Genus" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="JournalEntry" EntityType="PlantDataModel.Store.JournalEntry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="JournalEntryType" EntityType="PlantDataModel.Store.JournalEntryType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PlantStock" EntityType="PlantDataModel.Store.PlantStock" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PriceListType" EntityType="PlantDataModel.Store.PriceListType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProductPrice" EntityType="PlantDataModel.Store.ProductPrice" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProductType" EntityType="PlantDataModel.Store.ProductType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SeedBatch" EntityType="PlantDataModel.Store.SeedBatch" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SeedTray" EntityType="PlantDataModel.Store.SeedTray" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Site" EntityType="PlantDataModel.Store.Site" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Species" EntityType="PlantDataModel.Store.Species" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_PlantStock_ProductType" Association="PlantDataModel.Store.FK_PlantStock_ProductType">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="PlantStock" EntitySet="PlantStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlantStock_Species" Association="PlantDataModel.Store.FK_PlantStock_Species">
+            <End Role="Species" EntitySet="Species" />
+            <End Role="PlantStock" EntitySet="PlantStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductPrices_PriceListType" Association="PlantDataModel.Store.FK_ProductPrices_PriceListType">
+            <End Role="PriceListType" EntitySet="PriceListType" />
+            <End Role="ProductPrice" EntitySet="ProductPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductPrices_ProductType" Association="PlantDataModel.Store.FK_ProductPrices_ProductType">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="ProductPrice" EntitySet="ProductPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeedBatch_Site" Association="PlantDataModel.Store.FK_SeedBatch_Site">
+            <End Role="Site" EntitySet="Site" />
+            <End Role="SeedBatch" EntitySet="SeedBatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeedBatch_Species" Association="PlantDataModel.Store.FK_SeedBatch_Species">
+            <End Role="Species" EntitySet="Species" />
+            <End Role="SeedBatch" EntitySet="SeedBatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeedTray_SeedBatch" Association="PlantDataModel.Store.FK_SeedTray_SeedBatch">
+            <End Role="SeedBatch" EntitySet="SeedBatch" />
+            <End Role="SeedTray" EntitySet="SeedTray" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Species_Genus" Association="PlantDataModel.Store.FK_Species_Genus">
+            <End Role="Genus" EntitySet="Genus" />
+            <End Role="Species" EntitySet="Species" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_PlantStock" Association="PlantDataModel.Store.FK_Transactions_PlantStock">
+            <End Role="PlantStock" EntitySet="PlantStock" />
+            <End Role="JournalEntry" EntitySet="JournalEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_SeedTray" Association="PlantDataModel.Store.FK_Transactions_SeedTray">
+            <End Role="SeedTray" EntitySet="SeedTray" />
+            <End Role="JournalEntry" EntitySet="JournalEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_TransactionType" Association="PlantDataModel.Store.FK_Transactions_TransactionType">
+            <End Role="JournalEntryType" EntitySet="JournalEntryType" />
+            <End Role="JournalEntry" EntitySet="JournalEntry" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Genus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LatinName" Type="nvarchar" Nullable="false" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="JournalEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PlantStockId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="JournalEntryTypeId" Type="int" Nullable="false" />
+          <Property Name="TransactionDate" Type="date" Nullable="false" />
+          <Property Name="Source" Type="nvarchar" MaxLength="50" />
+          <Property Name="SeedTrayId" Type="int" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="JournalEntryType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Effect" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlantStock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SpeciesId" Type="int" Nullable="false" />
+          <Property Name="ProductTypeId" Type="int" Nullable="false" />
+          <Property Name="QuantityInStock" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PriceListType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Kind" Type="nvarchar" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="ProductPrice">
+          <Key>
+            <PropertyRef Name="PriceListTypeId" />
+            <PropertyRef Name="ProductTypeId" />
+            <PropertyRef Name="DateEffective" />
+          </Key>
+          <Property Name="PriceListTypeId" Type="int" Nullable="false" />
+          <Property Name="ProductTypeId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="DateEffective" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SeedBatch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SpeciesId" Type="int" Nullable="false" />
+          <Property Name="DateCollected" Type="date" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="30" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+          <Property Name="SiteId" Type="int" />
+        </EntityType>
+        <EntityType Name="SeedTray">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SeedBatchId" Type="int" Nullable="false" />
+          <Property Name="DatePlanted" Type="date" Nullable="false" />
+          <Property Name="Treatment" Type="nvarchar" MaxLength="50" />
+          <Property Name="ThrownOut" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Site">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SiteName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Suburb" Type="nvarchar" MaxLength="50" />
+          <Property Name="Latitude" Type="decimal" />
+          <Property Name="Longitude" Type="decimal" />
+        </EntityType>
+        <EntityType Name="Species">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GenusId" Type="int" Nullable="false" />
+          <Property Name="LatinName" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="CommonName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="PropagationTime" Type="int" />
+          <Property Name="Native" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PlantStock_ProductType">
+          <End Role="ProductType" Type="PlantDataModel.Store.ProductType" Multiplicity="1" />
+          <End Role="PlantStock" Type="PlantDataModel.Store.PlantStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlantStock">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlantStock_Species">
+          <End Role="Species" Type="PlantDataModel.Store.Species" Multiplicity="1" />
+          <End Role="PlantStock" Type="PlantDataModel.Store.PlantStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Species">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlantStock">
+              <PropertyRef Name="SpeciesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductPrices_PriceListType">
+          <End Role="PriceListType" Type="PlantDataModel.Store.PriceListType" Multiplicity="1" />
+          <End Role="ProductPrice" Type="PlantDataModel.Store.ProductPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceListType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductPrice">
+              <PropertyRef Name="PriceListTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductPrices_ProductType">
+          <End Role="ProductType" Type="PlantDataModel.Store.ProductType" Multiplicity="1" />
+          <End Role="ProductPrice" Type="PlantDataModel.Store.ProductPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductPrice">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeedBatch_Site">
+          <End Role="Site" Type="PlantDataModel.Store.Site" Multiplicity="0..1" />
+          <End Role="SeedBatch" Type="PlantDataModel.Store.SeedBatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeedBatch">
+              <PropertyRef Name="SiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeedBatch_Species">
+          <End Role="Species" Type="PlantDataModel.Store.Species" Multiplicity="1" />
+          <End Role="SeedBatch" Type="PlantDataModel.Store.SeedBatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Species">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeedBatch">
+              <PropertyRef Name="SpeciesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeedTray_SeedBatch">
+          <End Role="SeedBatch" Type="PlantDataModel.Store.SeedBatch" Multiplicity="1" />
+          <End Role="SeedTray" Type="PlantDataModel.Store.SeedTray" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SeedBatch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeedTray">
+              <PropertyRef Name="SeedBatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Species_Genus">
+          <End Role="Genus" Type="PlantDataModel.Store.Genus" Multiplicity="1" />
+          <End Role="Species" Type="PlantDataModel.Store.Species" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Species">
+              <PropertyRef Name="GenusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_PlantStock">
+          <End Role="PlantStock" Type="PlantDataModel.Store.PlantStock" Multiplicity="1" />
+          <End Role="JournalEntry" Type="PlantDataModel.Store.JournalEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlantStock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JournalEntry">
+              <PropertyRef Name="PlantStockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_SeedTray">
+          <End Role="SeedTray" Type="PlantDataModel.Store.SeedTray" Multiplicity="0..1" />
+          <End Role="JournalEntry" Type="PlantDataModel.Store.JournalEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SeedTray">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JournalEntry">
+              <PropertyRef Name="SeedTrayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_TransactionType">
+          <End Role="JournalEntryType" Type="PlantDataModel.Store.JournalEntryType" Multiplicity="1" />
+          <End Role="JournalEntry" Type="PlantDataModel.Store.JournalEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JournalEntryType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JournalEntry">
+              <PropertyRef Name="JournalEntryTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PlantDataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="PlantDbContext" annotation:LazyLoadingEnabled="false" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <EntitySet Name="Genus" EntityType="PlantDataModel.Genus" />
+          <EntitySet Name="JournalEntryTypes" EntityType="PlantDataModel.JournalEntryType" />
+          <EntitySet Name="PlantStocks" EntityType="PlantDataModel.PlantStock" />
+          <EntitySet Name="PriceListTypes" EntityType="PlantDataModel.PriceListType" />
+          <EntitySet Name="ProductTypes" EntityType="PlantDataModel.ProductType" />
+          <EntitySet Name="SeedBatches" EntityType="PlantDataModel.SeedBatch" />
+          <EntitySet Name="SeedTrays" EntityType="PlantDataModel.SeedTray" />
+          <EntitySet Name="Species" EntityType="PlantDataModel.Species" />
+          <AssociationSet Name="FK_Species_Genus" Association="PlantDataModel.FK_Species_Genus">
+            <End Role="Genus" EntitySet="Genus" />
+            <End Role="Species" EntitySet="Species" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlantStock_ProductType" Association="PlantDataModel.FK_PlantStock_ProductType">
+            <End Role="ProductType" EntitySet="ProductTypes" />
+            <End Role="PlantStock" EntitySet="PlantStocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlantStock_Species" Association="PlantDataModel.FK_PlantStock_Species">
+            <End Role="Species" EntitySet="Species" />
+            <End Role="PlantStock" EntitySet="PlantStocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeedBatch_Species" Association="PlantDataModel.FK_SeedBatch_Species">
+            <End Role="Species" EntitySet="Species" />
+            <End Role="SeedBatch" EntitySet="SeedBatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeedTray_SeedBatch" Association="PlantDataModel.FK_SeedTray_SeedBatch">
+            <End Role="SeedBatch" EntitySet="SeedBatches" />
+            <End Role="SeedTray" EntitySet="SeedTrays" />
+          </AssociationSet>
+          <EntitySet Name="ProductPrices" EntityType="PlantDataModel.ProductPrice" />
+          <AssociationSet Name="FK_ProductPrices_PriceListType" Association="PlantDataModel.FK_ProductPrices_PriceListType">
+            <End Role="PriceListType" EntitySet="PriceListTypes" />
+            <End Role="ProductPrice" EntitySet="ProductPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductPrices_ProductType" Association="PlantDataModel.FK_ProductPrices_ProductType">
+            <End Role="ProductType" EntitySet="ProductTypes" />
+            <End Role="ProductPrice" EntitySet="ProductPrices" />
+          </AssociationSet>
+          <EntitySet Name="JournalEntries" EntityType="PlantDataModel.JournalEntry" />
+          <AssociationSet Name="FK_Transactions_PlantStock" Association="PlantDataModel.FK_Transactions_PlantStock">
+            <End Role="PlantStock" EntitySet="PlantStocks" />
+            <End Role="JournalEntry" EntitySet="JournalEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_SeedTray" Association="PlantDataModel.FK_Transactions_SeedTray">
+            <End Role="SeedTray" EntitySet="SeedTrays" />
+            <End Role="JournalEntry" EntitySet="JournalEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_TransactionType" Association="PlantDataModel.FK_Transactions_TransactionType">
+            <End Role="JournalEntryType" EntitySet="JournalEntryTypes" />
+            <End Role="JournalEntry" EntitySet="JournalEntries" />
+          </AssociationSet>
+          <EntitySet Name="Sites" EntityType="PlantDataModel.Site" />
+          <AssociationSet Name="FK_SeedBatch_Site" Association="PlantDataModel.FK_SeedBatch_Site">
+            <End Role="Site1" EntitySet="Sites" />
+            <End Role="SeedBatch" EntitySet="SeedBatches" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Genus" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LatinName" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Species" Relationship="PlantDataModel.FK_Species_Genus" FromRole="Genus" ToRole="Species" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+        </EntityType>
+        <EntityType Name="JournalEntryType" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Effect" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="JournalEntries" Relationship="PlantDataModel.FK_Transactions_TransactionType" FromRole="JournalEntryType" ToRole="JournalEntry" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+        </EntityType>
+        <EntityType Name="PlantStock" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpeciesId" Type="Int32" Nullable="false" />
+          <Property Name="ProductTypeId" Type="Int32" Nullable="false" />
+          <Property Name="QuantityInStock" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductType" Relationship="PlantDataModel.FK_PlantStock_ProductType" FromRole="PlantStock" ToRole="ProductType" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+          <NavigationProperty Name="Species" Relationship="PlantDataModel.FK_PlantStock_Species" FromRole="PlantStock" ToRole="Species" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+          <NavigationProperty Name="JournalEntries" Relationship="PlantDataModel.FK_Transactions_PlantStock" FromRole="PlantStock" ToRole="JournalEntry" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+        </EntityType>
+        <EntityType Name="PriceListType" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Kind" Type="String" Nullable="false" MaxLength="1" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="ProductPrices" Relationship="PlantDataModel.FK_ProductPrices_PriceListType" FromRole="PriceListType" ToRole="ProductPrice" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+        </EntityType>
+        <EntityType Name="ProductType" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="PlantStock" Relationship="PlantDataModel.FK_PlantStock_ProductType" FromRole="ProductType" ToRole="PlantStock" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+          <NavigationProperty Name="ProductPrices" Relationship="PlantDataModel.FK_ProductPrices_ProductType" FromRole="ProductType" ToRole="ProductPrice" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+        </EntityType>
+        <EntityType Name="SeedBatch" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpeciesId" Type="Int32" Nullable="false" />
+          <Property Name="DateCollected" Type="DateTime" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="30" Unicode="true" FixedLength="true" />
+          <Property Name="Notes" Type="String" MaxLength="200" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Species" Relationship="PlantDataModel.FK_SeedBatch_Species" FromRole="SeedBatch" ToRole="Species" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+          <NavigationProperty Name="SeedTrays" Relationship="PlantDataModel.FK_SeedTray_SeedBatch" FromRole="SeedBatch" ToRole="SeedTray" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+          <Property Type="Int32" Name="SiteId" />
+          <NavigationProperty Name="Site" Relationship="PlantDataModel.FK_SeedBatch_Site" FromRole="SeedBatch" ToRole="Site1" />
+        </EntityType>
+        <EntityType Name="SeedTray" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SeedBatchId" Type="Int32" Nullable="false" />
+          <Property Name="DatePlanted" Type="DateTime" Nullable="false" />
+          <Property Name="Treatment" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="ThrownOut" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SeedBatch" Relationship="PlantDataModel.FK_SeedTray_SeedBatch" FromRole="SeedTray" ToRole="SeedBatch" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+          <NavigationProperty Name="JournalEntries" Relationship="PlantDataModel.FK_Transactions_SeedTray" FromRole="SeedTray" ToRole="JournalEntry" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+        </EntityType>
+        <EntityType Name="Species" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GenusId" Type="Int32" Nullable="false" />
+          <Property Name="LatinName" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="true" />
+          <Property Name="CommonName" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="true" />
+          <Property Name="PropagationTime" Type="Int32" />
+          <Property Name="Native" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Genus" Relationship="PlantDataModel.FK_Species_Genus" FromRole="Species" ToRole="Genus" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+          <NavigationProperty Name="PlantStock" Relationship="PlantDataModel.FK_PlantStock_Species" FromRole="Species" ToRole="PlantStock" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+          <NavigationProperty Name="SeedBatch" Relationship="PlantDataModel.FK_SeedBatch_Species" FromRole="Species" ToRole="SeedBatch" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+        </EntityType>
+        <Association Name="FK_Species_Genus">
+          <End Role="Genus" Type="PlantDataModel.Genus" Multiplicity="1" />
+          <End Role="Species" Type="PlantDataModel.Species" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Species">
+              <PropertyRef Name="GenusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlantStock_ProductType">
+          <End Role="ProductType" Type="PlantDataModel.ProductType" Multiplicity="1" />
+          <End Role="PlantStock" Type="PlantDataModel.PlantStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlantStock">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlantStock_Species">
+          <End Role="Species" Type="PlantDataModel.Species" Multiplicity="1" />
+          <End Role="PlantStock" Type="PlantDataModel.PlantStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Species">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlantStock">
+              <PropertyRef Name="SpeciesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeedBatch_Species">
+          <End Role="Species" Type="PlantDataModel.Species" Multiplicity="1" />
+          <End Role="SeedBatch" Type="PlantDataModel.SeedBatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Species">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeedBatch">
+              <PropertyRef Name="SpeciesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeedTray_SeedBatch">
+          <End Role="SeedBatch" Type="PlantDataModel.SeedBatch" Multiplicity="1" />
+          <End Role="SeedTray" Type="PlantDataModel.SeedTray" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SeedBatch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeedTray">
+              <PropertyRef Name="SeedBatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductPrice" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="PriceListTypeId" />
+            <PropertyRef Name="ProductTypeId" />
+            <PropertyRef Name="DateEffective" />
+          </Key>
+          <Property Type="Int32" Name="PriceListTypeId" Nullable="false" />
+          <Property Type="Int32" Name="ProductTypeId" Nullable="false" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="DateEffective" Nullable="false" />
+          <NavigationProperty Name="PriceListType" Relationship="PlantDataModel.FK_ProductPrices_PriceListType" FromRole="ProductPrice" ToRole="PriceListType" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+          <NavigationProperty Name="ProductType" Relationship="PlantDataModel.FK_ProductPrices_ProductType" FromRole="ProductPrice" ToRole="ProductType" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+        </EntityType>
+        <Association Name="FK_ProductPrices_PriceListType">
+          <End Type="PlantDataModel.PriceListType" Role="PriceListType" Multiplicity="1" />
+          <End Type="PlantDataModel.ProductPrice" Role="ProductPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceListType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductPrice">
+              <PropertyRef Name="PriceListTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductPrices_ProductType">
+          <End Type="PlantDataModel.ProductType" Role="ProductType" Multiplicity="1" />
+          <End Type="PlantDataModel.ProductPrice" Role="ProductPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductPrice">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="JournalEntry" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="PlantStockId" Nullable="false" />
+          <Property Type="Int32" Name="Quantity" Nullable="false" />
+          <Property Type="Int32" Name="JournalEntryTypeId" Nullable="false" />
+          <Property Type="DateTime" Name="TransactionDate" Nullable="false" />
+          <Property Type="String" Name="Source" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="SeedTrayId" />
+          <Property Type="String" Name="Notes" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PlantStock" Relationship="PlantDataModel.FK_Transactions_PlantStock" FromRole="JournalEntry" ToRole="PlantStock" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+          <NavigationProperty Name="SeedTray" Relationship="PlantDataModel.FK_Transactions_SeedTray" FromRole="JournalEntry" ToRole="SeedTray" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+          <NavigationProperty Name="JournalEntryType" Relationship="PlantDataModel.FK_Transactions_TransactionType" FromRole="JournalEntry" ToRole="JournalEntryType" a:GetterAccess="Internal" a:SetterAccess="Internal" />
+        </EntityType>
+        <Association Name="FK_Transactions_PlantStock">
+          <End Type="PlantDataModel.PlantStock" Role="PlantStock" Multiplicity="1" />
+          <End Type="PlantDataModel.JournalEntry" Role="JournalEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlantStock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JournalEntry">
+              <PropertyRef Name="PlantStockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_SeedTray">
+          <End Type="PlantDataModel.SeedTray" Role="SeedTray" Multiplicity="0..1" />
+          <End Type="PlantDataModel.JournalEntry" Role="JournalEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SeedTray">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JournalEntry">
+              <PropertyRef Name="SeedTrayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_TransactionType">
+          <End Type="PlantDataModel.JournalEntryType" Role="JournalEntryType" Multiplicity="1" />
+          <End Type="PlantDataModel.JournalEntry" Role="JournalEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JournalEntryType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JournalEntry">
+              <PropertyRef Name="JournalEntryTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Site">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="SiteName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Suburb" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="Latitude" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Longitude" Precision="18" Scale="0" />
+          <NavigationProperty Name="SeedBatches" Relationship="PlantDataModel.FK_SeedBatch_Site" FromRole="Site1" ToRole="SeedBatch" />
+        </EntityType>
+        <Association Name="FK_SeedBatch_Site">
+          <End Type="PlantDataModel.Site" Role="Site1" Multiplicity="0..1" />
+          <End Type="PlantDataModel.SeedBatch" Role="SeedBatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site1">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeedBatch">
+              <PropertyRef Name="SiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PlantDataModelStoreContainer" CdmEntityContainer="PlantDbContext">
+          <EntitySetMapping Name="Genus"><EntityTypeMapping TypeName="PlantDataModel.Genus"><MappingFragment StoreEntitySet="Genus">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="LatinName" ColumnName="LatinName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="JournalEntryTypes"><EntityTypeMapping TypeName="PlantDataModel.JournalEntryType"><MappingFragment StoreEntitySet="JournalEntryType">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Effect" ColumnName="Effect" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PlantStocks"><EntityTypeMapping TypeName="PlantDataModel.PlantStock"><MappingFragment StoreEntitySet="PlantStock">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="SpeciesId" ColumnName="SpeciesId" />
+            <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
+            <ScalarProperty Name="QuantityInStock" ColumnName="QuantityInStock" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PriceListTypes"><EntityTypeMapping TypeName="PlantDataModel.PriceListType"><MappingFragment StoreEntitySet="PriceListType">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Kind" ColumnName="Kind" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ProductTypes"><EntityTypeMapping TypeName="PlantDataModel.ProductType"><MappingFragment StoreEntitySet="ProductType">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SeedBatches"><EntityTypeMapping TypeName="PlantDataModel.SeedBatch"><MappingFragment StoreEntitySet="SeedBatch">
+            <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="SpeciesId" ColumnName="SpeciesId" />
+            <ScalarProperty Name="DateCollected" ColumnName="DateCollected" />
+            <ScalarProperty Name="Location" ColumnName="Location" />
+            <ScalarProperty Name="Notes" ColumnName="Notes" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SeedTrays"><EntityTypeMapping TypeName="PlantDataModel.SeedTray"><MappingFragment StoreEntitySet="SeedTray">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="SeedBatchId" ColumnName="SeedBatchId" />
+            <ScalarProperty Name="DatePlanted" ColumnName="DatePlanted" />
+            <ScalarProperty Name="Treatment" ColumnName="Treatment" />
+            <ScalarProperty Name="ThrownOut" ColumnName="ThrownOut" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Species"><EntityTypeMapping TypeName="PlantDataModel.Species"><MappingFragment StoreEntitySet="Species">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="GenusId" ColumnName="GenusId" />
+            <ScalarProperty Name="LatinName" ColumnName="LatinName" />
+            <ScalarProperty Name="CommonName" ColumnName="CommonName" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="PropagationTime" ColumnName="PropagationTime" />
+            <ScalarProperty Name="Native" ColumnName="Native" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ProductPrices">
+            <EntityTypeMapping TypeName="PlantDataModel.ProductPrice">
+              <MappingFragment StoreEntitySet="ProductPrice">
+                <ScalarProperty Name="DateEffective" ColumnName="DateEffective" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
+                <ScalarProperty Name="PriceListTypeId" ColumnName="PriceListTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JournalEntries">
+            <EntityTypeMapping TypeName="PlantDataModel.JournalEntry">
+              <MappingFragment StoreEntitySet="JournalEntry">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="SeedTrayId" ColumnName="SeedTrayId" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="JournalEntryTypeId" ColumnName="JournalEntryTypeId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="PlantStockId" ColumnName="PlantStockId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sites">
+            <EntityTypeMapping TypeName="PlantDataModel.Site">
+              <MappingFragment StoreEntitySet="Site">
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Suburb" ColumnName="Suburb" />
+                <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="PlantDataModel" ZoomLevel="64">
+        <EntityTypeShape EntityType="PlantDataModel.Genus" Width="1.5" PointX="1.75" PointY="0.625" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantDataModel.JournalEntryType" Width="1.75" PointX="13.375" PointY="5.125" Height="1.7879850260416665" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantDataModel.PlantStock" Width="1.5" PointX="7.25" PointY="0.5" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantDataModel.PriceListType" Width="1.5" PointX="15.875" PointY="1" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantDataModel.ProductType" Width="1.5" PointX="10.5" PointY="0.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantDataModel.SeedBatch" Width="1.5" PointX="5.625" PointY="5.25" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantDataModel.SeedTray" Width="1.5" PointX="8.125" PointY="5.75" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlantDataModel.Species" Width="1.5" PointX="4.25" PointY="0.5" Height="2.9417936197916665" IsExpanded="true" />
+        <AssociationConnector Association="PlantDataModel.FK_Species_Genus" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.25" PointY="1.4228417968749998" />
+          <ConnectorPoint PointX="4.25" PointY="1.4228417968749998" />
+        </AssociationConnector>
+        <AssociationConnector Association="PlantDataModel.FK_PlantStock_ProductType" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.5" PointY="1.6439925130208333" />
+          <ConnectorPoint PointX="8.75" PointY="1.6439925130208333" />
+        </AssociationConnector>
+        <AssociationConnector Association="PlantDataModel.FK_PlantStock_Species" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.75" PointY="1.6824446614583337" />
+          <ConnectorPoint PointX="7.25" PointY="1.6824446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="PlantDataModel.FK_SeedBatch_Species" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.0937494999999995" PointY="3.4417936197916665" />
+          <ConnectorPoint PointX="5.0937494999999995" PointY="7.4490364583333335" />
+          <ConnectorPoint PointX="5.625" PointY="7.4490364583333335" />
+        </AssociationConnector>
+        <AssociationConnector Association="PlantDataModel.FK_SeedTray_SeedBatch" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.125" PointY="6.87474609375" />
+          <ConnectorPoint PointX="8.125" PointY="6.87474609375" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="PlantDataModel.ProductPrice" Width="1.5" PointX="13.125" PointY="0.75" Height="2.1725878906250031" />
+        <AssociationConnector Association="PlantDataModel.FK_ProductPrices_PriceListType" >
+          <ConnectorPoint PointX="15.875" PointY="1.8939925130208335" />
+          <ConnectorPoint PointX="14.625" PointY="1.8939925130208335" />
+        </AssociationConnector>
+        <AssociationConnector Association="PlantDataModel.FK_ProductPrices_ProductType" >
+          <ConnectorPoint PointX="12" PointY="1.6439925130208333" />
+          <ConnectorPoint PointX="13.125" PointY="1.6439925130208333" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="PlantDataModel.JournalEntry" Width="1.5" PointX="10.875" PointY="4.375" Height="3.1340950520833388" />
+        <AssociationConnector Association="PlantDataModel.FK_Transactions_PlantStock" >
+          <ConnectorPoint PointX="7.65625" PointY="2.864889322916667" />
+          <ConnectorPoint PointX="7.65625" PointY="5.03125" />
+          <ConnectorPoint PointX="10.875" PointY="5.03125" />
+        </AssociationConnector>
+        <AssociationConnector Association="PlantDataModel.FK_Transactions_SeedTray" >
+          <ConnectorPoint PointX="9.625" PointY="6.6295475260416694" />
+          <ConnectorPoint PointX="10.875" PointY="6.6295475260416694" />
+        </AssociationConnector>
+        <AssociationConnector Association="PlantDataModel.FK_Transactions_TransactionType" >
+          <ConnectorPoint PointX="13.375" PointY="6.0189925130208337" />
+          <ConnectorPoint PointX="12.375" PointY="6.0189925130208337" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="PlantDataModel.Site" Width="1.5" PointX="1.125" PointY="7" Height="2.1725878906250031" />
+        <AssociationConnector Association="PlantDataModel.FK_SeedBatch_Site" >
+          <ConnectorPoint PointX="2.625" PointY="7.49974609375" />
+          <ConnectorPoint PointX="5.625" PointY="7.49974609375" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,32 @@
+﻿@model IList<PlantStockEntryListViewModel>
+
+@using PlantDataMvc3.UI.Models
+@using PlantDataMvc3.UI.Helpers
+
+@{
+    PlantStockEntryListViewModel sampleElement = new PlantStockEntryListViewModel();
+}
+
+<table class="grid">
+    <tr>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesId)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.QuantityInStock)</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@{
+int count = 0;
+foreach (var model in Model) {
+    <tr>
+        <td>@Html.ActionLink(model.SpeciesId.ToString(), "Show", "PlantStock", new { id = model.Id }, null)</td>
+        <td>@Html.DisplayFor(m => m.ElementAt(count).ProductTypeName)</td>
+        <td>@Html.DisplayFor(m => m.ElementAt(count).QuantityInStock)</td>
+        <td>@Html.ActionLink("Edit", "Edit", "PlantStock", new { id = model.Id }, null)</td>
+        <td>@Html.ActionLink("Delete", "Delete", "PlantStock", new { id = model.Id }, null)</td>
+    </tr>
+    count++;
+}
+}
+</table>

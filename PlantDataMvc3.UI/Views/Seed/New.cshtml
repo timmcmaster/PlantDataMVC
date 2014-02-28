@@ -1,0 +1,25 @@
+﻿@model PlantDataMvc3.UI.Models.PlantSeedNewViewModel
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+
+@using (Html.BeginForm("Create","Seed")) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Seed Batch</legend>
+
+        @Html.EditorForModel()
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to Index", "Index")
+</div>
+
