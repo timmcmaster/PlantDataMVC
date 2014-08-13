@@ -7,7 +7,7 @@ using AutoMapper;
 using PlantDataMvc3.DAL.Interfaces;
 using PlantDataMvc3.DAL.LocalInterfaces;
 
-namespace PlantDataMvc3.DAL.Repositories
+namespace PlantDataMvc3.DAL.MappingRepositories
 {
     /// <summary>
     /// This class is built on the basic IRepository interface exposed to the DAL layer.

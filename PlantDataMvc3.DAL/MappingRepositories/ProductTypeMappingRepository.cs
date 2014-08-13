@@ -8,13 +8,13 @@ using PlantDataMvc3.DAL.Entities;
 using PlantDataMvc3.DAL.LocalInterfaces;
 using System;
 
-namespace PlantDataMvc3.DAL.Repositories
+namespace PlantDataMvc3.DAL.MappingRepositories
 {
-    public class SeedBatchMappingRepository<TLocalEntity> : MappingRepository<SeedBatch,TLocalEntity>, ISeedBatchRepository
-        where TLocalEntity : ILocalSeedBatch
+    public class ProductTypeMappingRepository<TLocalEntity> : MappingRepository<ProductType,TLocalEntity>, IProductTypeRepository
+        where TLocalEntity : ILocalProductType
     {
 
-        public SeedBatchMappingRepository(ILocalRepository<TLocalEntity> localRepository)
+        public ProductTypeMappingRepository(ILocalRepository<TLocalEntity> localRepository)
             : base(localRepository)
         {
         }

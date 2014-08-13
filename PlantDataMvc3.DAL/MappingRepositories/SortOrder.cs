@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Linq.Expressions;
 
-namespace PlantDataMvc3.DAL.Repositories
+namespace PlantDataMvc3.DAL.MappingRepositories
 {
     public class SortOrder<TEntity,TKey>
     {

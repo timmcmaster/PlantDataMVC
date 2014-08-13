@@ -121,18 +121,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\MappingUnitOfWork.cs" />
-    <Compile Include="Repositories\JournalEntryTypeMappingRepository.cs" />
-    <Compile Include="Repositories\PlantStockMappingRepository.cs" />
-    <Compile Include="Repositories\ProductTypeMappingRepository.cs" />
-    <Compile Include="Repositories\SeedBatchMappingRepository.cs" />
-    <Compile Include="Repositories\SeedTrayMappingRepository.cs" />
-    <Compile Include="Repositories\SiteMappingRepository.cs" />
-    <Compile Include="Repositories\JournalEntryMappingRepository.cs" />
-    <Compile Include="Repositories\SpeciesMappingRepository.cs" />
-    <Compile Include="Repositories\GenusMappingRepository.cs" />
-    <Compile Include="Repositories\SortOrder.cs" />
-    <Compile Include="Repositories\MappingRepository.cs" />
+    <Compile Include="MappingRepositories\MappingUnitOfWork.cs" />
+    <Compile Include="MappingRepositories\JournalEntryTypeMappingRepository.cs" />
+    <Compile Include="MappingRepositories\PlantStockMappingRepository.cs" />
+    <Compile Include="MappingRepositories\ProductTypeMappingRepository.cs" />
+    <Compile Include="MappingRepositories\SeedBatchMappingRepository.cs" />
+    <Compile Include="MappingRepositories\SeedTrayMappingRepository.cs" />
+    <Compile Include="MappingRepositories\SiteMappingRepository.cs" />
+    <Compile Include="MappingRepositories\JournalEntryMappingRepository.cs" />
+    <Compile Include="MappingRepositories\SpeciesMappingRepository.cs" />
+    <Compile Include="MappingRepositories\GenusMappingRepository.cs" />
+    <Compile Include="MappingRepositories\SortOrder.cs" />
+    <Compile Include="MappingRepositories\MappingRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

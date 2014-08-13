@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using PlantDataMvc3.DAL.Interfaces;
-using PlantDataMvc3.DAL.Repositories;
+using PlantDataMvc3.DAL.MappingRepositories;
 //using PlantDataMvc3.DAL.TestRepositories;
 //using PlantDataMvc3.DAL.LinqToSql.Repositories;
 using PlantDataMvc3.DAL.EF.Repositories;

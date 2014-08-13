@@ -3,7 +3,7 @@ using PlantDataMvc3.DAL.Entities;
 using PlantDataMvc3.DAL.Interfaces;
 using PlantDataMvc3.DAL.LocalInterfaces;
 
-namespace PlantDataMvc3.DAL.Repositories
+namespace PlantDataMvc3.DAL.MappingRepositories
 {
     /// <summary>
     /// This class derives from MappingRepository to provide generic mapping from ILocalGenus to Genus.

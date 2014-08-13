@@ -8,7 +8,7 @@ using PlantDataMvc3.DAL.LocalInterfaces;
 using PlantDataMvc3.DAL.Entities;
 using System;
 
-namespace PlantDataMvc3.DAL.Repositories
+namespace PlantDataMvc3.DAL.MappingRepositories
 {
     public class JournalEntryMappingRepository<TLocalEntity> : MappingRepository<JournalEntry, TLocalEntity>, IJournalEntryRepository
         where TLocalEntity : ILocalJournalEntry

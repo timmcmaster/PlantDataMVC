@@ -8,13 +8,13 @@ using PlantDataMvc3.DAL.Entities;
 using PlantDataMvc3.DAL.LocalInterfaces;
 using System;
 
-namespace PlantDataMvc3.DAL.Repositories
+namespace PlantDataMvc3.DAL.MappingRepositories
 {
-    public class SiteMappingRepository<TLocalEntity> : MappingRepository<Site,TLocalEntity>, ISiteRepository
-        where TLocalEntity : ILocalSite
+    public class SpeciesMappingRepository<TLocalEntity> : MappingRepository<Species,TLocalEntity>, ISpeciesRepository
+        where TLocalEntity : ILocalSpecies
     {
 
-        public SiteMappingRepository(ILocalRepository<TLocalEntity> localRepository)
+        public SpeciesMappingRepository(ILocalRepository<TLocalEntity> localRepository)
             : base(localRepository)
         {
         }

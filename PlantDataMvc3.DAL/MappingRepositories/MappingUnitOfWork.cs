@@ -3,7 +3,7 @@ using System.Data.Entity;
 using PlantDataMvc3.DAL.Interfaces;
 using PlantDataMvc3.DAL.LocalInterfaces;
 
-namespace PlantDataMvc3.DAL.Repositories
+namespace PlantDataMvc3.DAL.MappingRepositories
 {
     /// <summary>
     /// Implements the UnitOfWork pattern 
