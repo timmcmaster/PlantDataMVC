@@ -52,28 +52,28 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit, Version=1.9.1.1600, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+    <Reference Include="xunit, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
+      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.extensions">
-      <HintPath>..\packages\xunit.extensions.1.9.1\lib\net20\xunit.extensions.dll</HintPath>
+    <Reference Include="xunit.extensions, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\xunit.extensions.1.9.2\lib\net20\xunit.extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LinqToSqlMappingFixture.cs" />
     <Compile Include="EFMappingFixture.cs" />
-    <Compile Include="MappingTests\LinqToSqlEntityMappingFacts.cs" />
+    <Compile Include="LocalRepositoryTests\BaseRepositoryFacts.cs" />
+    <Compile Include="LocalRepositoryTests\LocalGenusRepositoryFacts.cs" />
     <Compile Include="MappingTests\EFEntityMappingFacts.cs" />
     <Compile Include="EntityTests\GenusFacts.cs" />
     <Compile Include="EntityTests\SpeciesFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryTests\GenusMappingRepositoryFacts.cs" />
     <Compile Include="UnitOfWorkTests\BaseUnitOfWorkFacts.cs" />
     <Compile Include="UnitOfWorkTests\EFUnitOfWorkFacts.cs" />
-    <Compile Include="UnitOfWorkTests\LinqToSqlUnitOfWorkFacts.cs" />
     <Compile Include="RepositoryTests\BaseGenusRepositoryFacts.cs" />
-    <Compile Include="RepositoryTests\EFGenusRepositoryFacts.cs" />
-    <Compile Include="RepositoryTests\LinqToSqlGenusRepositoryFacts.cs" />
+    <Compile Include="LocalRepositoryTests\EFGenusRepositoryFacts.cs" />
     <Compile Include="RepositoryTests\TestGenusRepositoryFacts.cs" />
     <Compile Include="UnitOfWorkTests\TestUnitOfWorkFacts.cs">
       <SubType>Code</SubType>
@@ -83,10 +83,6 @@
     <ProjectReference Include="..\PlantDataMvc3.DAL.EF\PlantDataMvc3.DAL.EF.csproj">
       <Project>{05C217A2-01BD-42CD-A756-849EC564A873}</Project>
       <Name>PlantDataMvc3.DAL.EF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC3.DAL.LinqToSql\PlantDataMvc3.DAL.LinqToSql.csproj">
-      <Project>{131C0FB8-556F-4BFC-A37D-C221833B5C18}</Project>
-      <Name>PlantDataMvc3.DAL.LinqToSql</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMvc3.DAL.TestData\PlantDataMvc3.DAL.TestData.csproj">
       <Project>{9E4BC26B-3260-48FE-B90D-F8B43D3B7FC9}</Project>

@@ -55,18 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LocalInterfaces\ILocalEntities.cs" />
-    <Compile Include="LocalInterfaces\ILocalGenusRepository.cs" />
-    <Compile Include="LocalInterfaces\ILocalJournalEntryRepository.cs" />
-    <Compile Include="LocalInterfaces\ILocalJournalEntryTypeRepository.cs" />
-    <Compile Include="LocalInterfaces\ILocalPlantStockRepository.cs" />
-    <Compile Include="LocalInterfaces\ILocalProductTypeRepository.cs" />
-    <Compile Include="LocalInterfaces\ILocalRepository.cs" />
-    <Compile Include="LocalInterfaces\ILocalSeedBatchRepository.cs" />
-    <Compile Include="LocalInterfaces\ILocalSeedTrayRepository.cs" />
-    <Compile Include="LocalInterfaces\ILocalSiteRepository.cs" />
-    <Compile Include="LocalInterfaces\ILocalSpeciesRepository.cs" />
-    <Compile Include="LocalInterfaces\ILocalUnitOfWork.cs" />
     <Compile Include="Entities\Site.cs" />
     <Compile Include="Interfaces\IEntities.cs" />
     <Compile Include="Entities\Genus.cs" />
@@ -90,6 +78,43 @@
     <Compile Include="Interfaces\IGenusRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="LocalInterfaces\ILocalEntities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\ILocalGenusRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\ILocalJournalEntryRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\ILocalJournalEntryTypeRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\ILocalPlantStockRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\ILocalProductTypeRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\ILocalRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\ILocalSeedBatchRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\ILocalSeedTrayRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\ILocalSiteRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\ILocalSpeciesRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\ILocalUnitOfWork.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LocalInterfaces\IRepositoryContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

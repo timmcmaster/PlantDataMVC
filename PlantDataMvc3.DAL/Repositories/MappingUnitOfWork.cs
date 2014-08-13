@@ -7,6 +7,8 @@ namespace PlantDataMvc3.DAL.Repositories
 {
     /// <summary>
     /// Implements the UnitOfWork pattern 
+    /// Maps from the local entities to the entities exposed by the DAL.
+    /// Wraps a local unit of work to commit at the base level.
     /// </summary>
     public class MappingUnitOfWork : IUnitOfWork, IDisposable
     {
@@ -28,6 +30,11 @@ namespace PlantDataMvc3.DAL.Repositories
 
         #endregion Variables
 
+        /// <summary>
+        /// Constructor.
+        /// Takes a local uow object
+        /// </summary>
+        /// <param name="localUow"></param>
         public MappingUnitOfWork(ILocalUnitOfWork localUow)
         {
             this.Uow = localUow;
@@ -41,6 +48,9 @@ namespace PlantDataMvc3.DAL.Repositories
             set { _uow = value; }
         }
 
+        /// <summary>
+        /// Implement lazy initialisation of genus repository object using mapping repos.
+        /// </summary>
         public IGenusRepository GenusRepository
         {
             get

@@ -1,6 +1,6 @@
 ﻿using PlantDataMvc3.Core.Mappers;
 using PlantDataMvc3.DAL.EF.Infrastructure;
-using PlantDataMvc3.DAL.LinqToSql.Infrastructure;
+//using PlantDataMvc3.DAL.LinqToSql.Infrastructure;
 
 namespace PlantDataMvc3.UI.Mappers
 {
@@ -20,7 +20,7 @@ namespace PlantDataMvc3.UI.Mappers
 
                 AutoMapperDALConfigurationEF.Configure();
 
-                AutoMapperDALConfigurationLinqToSql.Configure();
+                //AutoMapperDALConfigurationLinqToSql.Configure();
             }
         }
     }

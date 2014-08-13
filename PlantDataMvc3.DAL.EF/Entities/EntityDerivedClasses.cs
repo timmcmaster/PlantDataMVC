@@ -1,5 +1,4 @@
-﻿//using PlantDataMvc3.DAL.Entities;
-using PlantDataMvc3.DAL.LocalInterfaces;
+﻿using PlantDataMvc3.DAL.LocalInterfaces;
 
 namespace PlantDataMvc3.DAL.EF.Entities
 {

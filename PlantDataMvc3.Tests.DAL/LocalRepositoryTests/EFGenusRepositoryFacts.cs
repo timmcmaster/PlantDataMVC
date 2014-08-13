@@ -1,9 +1,9 @@
-﻿using PlantDataMvc3.DAL.Interfaces;
-using PlantDataMvc3.DAL.EF.Repositories;
-using PlantDataMvc3.DAL.EF.Entities;
+﻿using PlantDataMvc3.DAL.EF.Entities;
 using PlantDataMvc3.DAL.EF.Infrastructure;
-using Xunit;
+using PlantDataMvc3.DAL.EF.Repositories;
+using PlantDataMvc3.DAL.Interfaces;
 using System;
+using Xunit;
 
 namespace PlantDataMvc3.Tests.DAL
 {

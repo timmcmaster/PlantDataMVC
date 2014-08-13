@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using PlantDataMvc3.DAL.Entities;
+using PlantDataMvc3.DAL.Interfaces;
 
 namespace PlantDataMvc3.Tests.DAL
 {
@@ -12,7 +13,7 @@ namespace PlantDataMvc3.Tests.DAL
             var species = new Species();
 
             // Assert
-            var entity = Assert.IsAssignableFrom<Entity>(species);
+            var entity = Assert.IsAssignableFrom<IEntity>(species);
             Assert.Null(species.LatinName);
             Assert.Equal<int>(0, species.Id);
             Assert.Equal<int>(0, species.GenusId);
@@ -41,7 +42,7 @@ namespace PlantDataMvc3.Tests.DAL
                             };
 
             // Assert
-            var entity = Assert.IsAssignableFrom<Entity>(species);
+            var entity = Assert.IsAssignableFrom<IEntity>(species);
             Assert.Equal<int>(1, species.Id);
             Assert.Equal<int>(1, species.GenusId);
             Assert.Equal<string>("Eremophila", species.GenusLatinName);

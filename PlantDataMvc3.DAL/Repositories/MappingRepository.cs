@@ -9,22 +9,39 @@ using PlantDataMvc3.DAL.LocalInterfaces;
 
 namespace PlantDataMvc3.DAL.Repositories
 {
+    /// <summary>
+    /// This class is built on the basic IRepository interface exposed to the DAL layer.
+    /// Given the local and DAL entity types, this repo provides mappings 
+    /// from the local repo to the DAL repo.
+    /// The MappingRepository provides all the base methods defined by IRepository
+    /// while also performing mappings between two repo types.
+    /// There may be some overhead in doing these mappings every time.
+    /// </summary>
+    /// <typeparam name="TDALEntity">The type for the entity to be mapped to and used externally</typeparam>
+    /// <typeparam name="TLocalEntity">The type for the local entity to be mapped from</typeparam>
     public class MappingRepository<TDALEntity, TLocalEntity> : IRepository<TDALEntity>
         where TDALEntity : IEntity, new()
         where TLocalEntity : ILocalEntity
     {
-
+        /// <summary>
+        /// The local repository which contains objects in a format that suits the providing source
+        /// </summary>
         protected ILocalRepository<TLocalEntity> LocalRepository { get; set; }
 
+        /// <summary>
+        /// Constructs a new mapping repository around a defined local repository
+        /// </summary>
+        /// <param name="localRepository">The local repository which defines the local object types</param>
         public MappingRepository(ILocalRepository<TLocalEntity> localRepository)
         {
             this.LocalRepository = localRepository;
         }
 
-        #region ILocalRepository implementation
+        #region IRepository implementation
 
         /// <summary>
         /// Gets all entities in the repository.
+        /// Maps all elements from the local repo entity type to the DAL repo entity type
         /// </summary>
         /// <returns></returns>
         public virtual IList<TDALEntity> GetAll()

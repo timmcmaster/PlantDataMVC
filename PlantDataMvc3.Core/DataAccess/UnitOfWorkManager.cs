@@ -14,7 +14,7 @@ namespace PlantDataMvc3.Core.DataAccess
 {
     /// <summary>
     /// This is the central class for managing access to the DAL.
-    /// This will probably be replaced by IoC once I work out how that works.
+    /// This will be replaced by IoC once I work out how that works.
     /// Implements the singleton pattern to ensure we only ever have one manager and RepositorySet.
     /// </summary>
     public class UnitOfWorkManager: IUnitOfWorkManager

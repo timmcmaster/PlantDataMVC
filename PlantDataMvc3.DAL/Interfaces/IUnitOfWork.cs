@@ -6,6 +6,10 @@ using PlantDataMvc3.DAL.Entities;
 
 namespace PlantDataMvc3.DAL.Interfaces
 {
+    /// <summary>
+    /// This is the base interface for the unit of work object that is exposed from the DAL to the business layer.
+    /// If a new repository type is added to the model, an interface get property should be added here.
+    /// </summary>
     public interface IUnitOfWork: IDisposable
     {
         IGenusRepository GenusRepository { get; }
@@ -18,6 +22,9 @@ namespace PlantDataMvc3.DAL.Interfaces
         ISpeciesRepository SpeciesRepository { get; }
         ISiteRepository SiteRepository { get; }
 
+        /// <summary>
+        /// Commit the transaction to the repository collection.
+        /// </summary>
         void Commit();
     }
 }

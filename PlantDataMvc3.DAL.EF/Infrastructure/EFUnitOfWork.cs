@@ -3,7 +3,6 @@ using System.Data.Entity;
 using PlantDataMvc3.DAL.EF.Entities;
 using PlantDataMvc3.DAL.EF.Repositories;
 using PlantDataMvc3.DAL.LocalInterfaces;
-using PlantDataMvc3.DAL.Repositories;
 
 namespace PlantDataMvc3.DAL.EF.Infrastructure
 {

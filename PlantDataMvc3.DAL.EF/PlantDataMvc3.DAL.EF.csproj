@@ -140,7 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlantDataMvc3.DAL\PlantDataMvc3.DAL.csproj">
-      <Project>{FB368D7F-221A-424E-A218-7E0D0DAA2353}</Project>
+      <Project>{fb368d7f-221a-424e-a218-7e0d0daa2353}</Project>
       <Name>PlantDataMvc3.DAL</Name>
     </ProjectReference>
   </ItemGroup>

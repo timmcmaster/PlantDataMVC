@@ -6,9 +6,7 @@ using System.Text;
 namespace PlantDataMvc3.DAL.LocalInterfaces
 {
     /// <summary>
-    /// This interface is the basic interface for entity objects passed outside the DAL.
-    /// Interactions between the Data Access Layer and the Business Layer 
-    /// are all done with Entity-derived objects.
+    /// This interface is the basic interface for ... 
     /// </summary>
     public interface ILocalEntity
     {

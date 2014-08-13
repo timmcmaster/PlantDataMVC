@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Web Developer Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc3.Core", "PlantDataMvc3.Core\PlantDataMvc3.Core.csproj", "{21BAD16D-E308-41F0-8246-6BA0003C9139}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FB368D7F-221A-424E-A218-7E0D0DAA2353} = {FB368D7F-221A-424E-A218-7E0D0DAA2353}
@@ -25,6 +27,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc3.DAL.LinqToSql", "PlantDataMVC3.DAL.LinqToSql\PlantDataMvc3.DAL.LinqToSql.csproj", "{131C0FB8-556F-4BFC-A37D-C221833B5C18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc3.DAL.TestData", "PlantDataMvc3.DAL.TestData\PlantDataMvc3.DAL.TestData.csproj", "{9E4BC26B-3260-48FE-B90D-F8B43D3B7FC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FDD2BEF9-ADC5-4899-87A0-4E6E5CA3FA3E}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,7 +7,9 @@ using System.Linq.Expressions;
 namespace PlantDataMvc3.DAL.Interfaces
 {
     /// <summary>
-    /// Defines base operations that must be provided by all repositories
+    /// This is the base interface for generic repositories implemented within the 
+    /// unit of work that is exposed at the DAL level.
+    /// It defines base operations that must be provided by all repositories
     /// </summary>
     /// <typeparam name="T">The type of object that the repository works with.</typeparam>
     public interface IRepository<T>
