@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper">
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -103,18 +104,18 @@
     <Compile Include="Entities\Species.cs">
       <DependentUpon>PlantDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\EFRepositoryBase.cs" />
+    <Compile Include="Infrastructure\EFUnitOfWork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EFGenusRepository.cs" />
     <Compile Include="Repositories\EFJournalEntryRepository.cs" />
     <Compile Include="Repositories\EFJournalEntryTypeRepository.cs" />
     <Compile Include="Repositories\EFPlantStockRepository.cs" />
     <Compile Include="Repositories\EFProductTypeRepository.cs" />
-    <Compile Include="Infrastructure\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\EFRepositoryBase.cs" />
     <Compile Include="Repositories\EFSeedBatchRepository.cs" />
     <Compile Include="Repositories\EFSeedTrayRepository.cs" />
     <Compile Include="Repositories\EFSiteRepository.cs" />
     <Compile Include="Repositories\EFSpeciesRepository.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

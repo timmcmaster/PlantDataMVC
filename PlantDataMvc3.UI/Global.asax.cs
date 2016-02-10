@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using PlantDataMvc3.UI.Mappers;
 using StackExchange.Profiling;
-using StackExchange.Profiling.MVCHelpers;
+//using StackExchange.Profiling.MVCHelpers;
 
 namespace PlantDataMvc3.UI
 {
