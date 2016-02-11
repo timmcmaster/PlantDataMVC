@@ -15,10 +15,12 @@ namespace PlantDataMvc3.Tests.Core
 {
     public class PlantDataServiceFacts: IClassFixture<CoreMappingFixture>
     {
+        CoreMappingFixture m_data;
 
-        public void SetFixture(CoreMappingFixture data)
+        public PlantDataServiceFacts(CoreMappingFixture data)
         {
-            data.Configure();
+            this.m_data = data;
+            this.m_data.Configure();
         }
 
         [Fact]

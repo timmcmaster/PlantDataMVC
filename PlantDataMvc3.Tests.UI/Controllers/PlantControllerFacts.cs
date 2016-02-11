@@ -17,10 +17,12 @@ namespace PlantDataMvc3.Tests.Controllers
 {
     public class PlantControllerFacts:IClassFixture<WebMappingFixture>
     {
+        WebMappingFixture m_data;
 
-        public void SetFixture(WebMappingFixture data)
+        public PlantControllerFacts(WebMappingFixture data)
         {
-            data.Configure();
+            this.m_data = data;
+            this.m_data.Configure();
         }
 
         public class Index

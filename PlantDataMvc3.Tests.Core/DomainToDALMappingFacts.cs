@@ -12,11 +12,6 @@ namespace PlantDataMvc3.Tests.Core
         {
         }
 
-        public void SetFixture(CoreMappingFixture mapping)
-        {
-            mapping.Configure();
-        }
-
         [Fact]
         public void TestMappingConfiguration()
         {
