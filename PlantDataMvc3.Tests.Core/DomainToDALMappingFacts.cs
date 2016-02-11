@@ -6,7 +6,7 @@ using Xunit;
 
 namespace PlantDataMvc3.Tests.Core
 {
-    public class DomainToDALMappingFacts : IUseFixture<CoreMappingFixture>
+    public class DomainToDALMappingFacts : IClassFixture<CoreMappingFixture>
     {
         public DomainToDALMappingFacts()
         {

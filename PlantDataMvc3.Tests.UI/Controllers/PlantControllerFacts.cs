@@ -15,7 +15,7 @@ using System;
 
 namespace PlantDataMvc3.Tests.Controllers
 {
-    public class PlantControllerFacts:IUseFixture<WebMappingFixture>
+    public class PlantControllerFacts:IClassFixture<WebMappingFixture>
     {
 
         public void SetFixture(WebMappingFixture data)

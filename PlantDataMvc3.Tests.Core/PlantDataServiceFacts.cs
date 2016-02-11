@@ -13,7 +13,7 @@ using Xunit;
 
 namespace PlantDataMvc3.Tests.Core
 {
-    public class PlantDataServiceFacts: IUseFixture<CoreMappingFixture>
+    public class PlantDataServiceFacts: IClassFixture<CoreMappingFixture>
     {
 
         public void SetFixture(CoreMappingFixture data)
