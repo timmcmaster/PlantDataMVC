@@ -141,6 +141,10 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Basic Hierarchy.cd" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Local Interfaces and Classes .cd" />
+    <None Include="DAL Exposed Interfaces and Classes.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

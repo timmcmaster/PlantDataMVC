@@ -122,6 +122,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Entity and Repository Classes.cd" />
     <None Include="Entities\PlantDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PlantDataModel.Context.cs</LastGenOutput>

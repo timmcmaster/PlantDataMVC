@@ -6,10 +6,12 @@ using PlantDataMvc3.DAL.Entities;
 
 namespace PlantDataMvc3.DAL.Interfaces
 {
-    public interface ISpeciesRepository : ISpeciesRepository<Species> { }
+    public interface ISpeciesRepository : ISpeciesRepository<Species>
+    {
+    }
 
     public interface ISpeciesRepository<T> : IRepository<T>
-        where T : ISpecies
+        where T: ISpecies
     {
     }
 }

@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.GenusMappingRepository&lt;TLocalEntity&gt;" Collapsed="true">
+    <Position X="0.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>MappingRepositories\GenusMappingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.JournalEntryMappingRepository&lt;TLocalEntity&gt;" Collapsed="true">
+    <Position X="12.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MappingRepositories\JournalEntryMappingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.JournalEntryTypeMappingRepository&lt;TLocalEntity&gt;" Collapsed="true">
+    <Position X="14" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MappingRepositories\JournalEntryTypeMappingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.MappingRepository&lt;TDALEntity, TLocalEntity&gt;" Collapsed="true">
+    <Position X="9.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAAAAAAAAAAAAAAAAACAAEAAAQAAgAAAAAAAAA=</HashCode>
+      <FileName>MappingRepositories\MappingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.PlantStockMappingRepository&lt;TLocalEntity&gt;" Collapsed="true">
+    <Position X="8.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MappingRepositories\PlantStockMappingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.ProductTypeMappingRepository&lt;TLocalEntity&gt;" Collapsed="true">
+    <Position X="4.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MappingRepositories\ProductTypeMappingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.SeedBatchMappingRepository&lt;TLocalEntity&gt;" Collapsed="true">
+    <Position X="16" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MappingRepositories\SeedBatchMappingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.SeedTrayMappingRepository&lt;TLocalEntity&gt;" Collapsed="true">
+    <Position X="6.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MappingRepositories\SeedTrayMappingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.SiteMappingRepository&lt;TLocalEntity&gt;" Collapsed="true">
+    <Position X="2.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MappingRepositories\SiteMappingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.SpeciesMappingRepository&lt;TLocalEntity&gt;" Collapsed="true">
+    <Position X="10.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MappingRepositories\SpeciesMappingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.MappingUnitOfWork" Collapsed="true">
+    <Position X="12.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAMgCAigUAAAAIgQCEAAIAAQMAQAAAEAAEAAAAAI=</HashCode>
+      <FileName>MappingRepositories\MappingUnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PlantDataMvc3.DAL.MappingRepositories.SortOrder&lt;TEntity, TKey&gt;" Collapsed="true">
+    <Position X="15" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MappingRepositories\SortOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalEntity" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalGenus" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalSpecies" Collapsed="true">
+    <Position X="10" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalJournalEntry" Collapsed="true">
+    <Position X="12" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalJournalEntryType" Collapsed="true">
+    <Position X="14" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalPlantStock" Collapsed="true">
+    <Position X="8" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalPriceListType" Collapsed="true">
+    <Position X="17.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalProductPrice" Collapsed="true">
+    <Position X="19.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalProductType" Collapsed="true">
+    <Position X="4.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalSeedBatch" Collapsed="true">
+    <Position X="15.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalSeedTray" Collapsed="true">
+    <Position X="6" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalSite" Collapsed="true">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalEntities.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalGenusRepository&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalGenusRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalJournalEntryRepository&lt;T&gt;" Collapsed="true">
+    <Position X="11.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalJournalEntryRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalJournalEntryTypeRepository&lt;T&gt;" Collapsed="true">
+    <Position X="13.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalJournalEntryTypeRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalPlantStockRepository&lt;T&gt;" Collapsed="true">
+    <Position X="8" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalPlantStockRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalProductTypeRepository&lt;T&gt;" Collapsed="true">
+    <Position X="4" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalProductTypeRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalRepository&lt;T&gt;" Collapsed="true">
+    <Position X="10" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAAAAAAAAAAAAAAAAACAAEAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalSeedBatchRepository&lt;T&gt;" Collapsed="true">
+    <Position X="15.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalSeedBatchRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalSeedTrayRepository&lt;T&gt;" Collapsed="true">
+    <Position X="6" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalSeedTrayRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalSiteRepository&lt;T&gt;" Collapsed="true">
+    <Position X="2.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalSiteRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalSpeciesRepository&lt;T&gt;" Collapsed="true">
+    <Position X="9.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalInterfaces\ILocalSpeciesRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PlantDataMvc3.DAL.LocalInterfaces.ILocalUnitOfWork" Collapsed="true">
+    <Position X="10" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAMACAAAQAAAAAgAAAAAAAAQAAQAAAEAAEAAAAAI=</HashCode>
+      <FileName>LocalInterfaces\ILocalUnitOfWork.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
