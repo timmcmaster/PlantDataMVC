@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\Storage\Coding\Visual Studio Projects\PlantDataMVCApp\PlantDataMvc3.DAL.EF\Entities\PlantDataModel.edmx'. 
+﻿// T4 code generation is enabled for model 'G:\Storage\Coding\Visual Studio Projects\PlantDataMVCApp_old\PlantDataMvc3.DAL.EF\Entities\PlantDataModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

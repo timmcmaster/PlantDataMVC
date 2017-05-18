@@ -82,7 +82,7 @@ namespace PlantDataMvc3.DAL.EF.Repositories
 
         public T Save(T item)
         {
-            this.Context.Entry<T>(item).State = System.Data.EntityState.Modified;
+            this.Context.Entry<T>(item).State = System.Data.Entity.EntityState.Modified;
 
             return item;
         }

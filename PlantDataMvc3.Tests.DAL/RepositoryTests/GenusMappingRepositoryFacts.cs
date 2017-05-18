@@ -1,5 +1,5 @@
 ﻿using PlantDataMvc3.DAL.Interfaces;
-using PlantDataMvc3.DAL.Repositories;
+using PlantDataMvc3.DAL.MappingRepositories;
 using PlantDataMvc3.DAL.TestData;
 using System;
 

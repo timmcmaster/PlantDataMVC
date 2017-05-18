@@ -8,15 +8,14 @@ using PlantDataMvc3.DAL.EF.Infrastructure;
 
 namespace PlantDataMvc3.Tests.DAL
 {
-    public class EFEntityMappingFacts: IUseFixture<EFMappingFixture>
+    public class EFEntityMappingFacts: IClassFixture<EFMappingFixture>
     {
-        public EFEntityMappingFacts()
-        {
-        }
+        private EFMappingFixture m_mapping;
 
-        public void SetFixture(EFMappingFixture mapping)
+        public EFEntityMappingFacts(EFMappingFixture mapping)
         {
-            mapping.Configure();
+            m_mapping = mapping;
+            m_mapping.Configure();
         }
 
         [Fact]

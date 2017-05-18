@@ -7,8 +7,16 @@ using Xunit;
 
 namespace PlantDataMvc3.Tests.DAL
 {
-    public class EFGenusRepositoryFacts : BaseGenusRepositoryFacts, IDisposable, IUseFixture<EFMappingFixture>
+    public class EFGenusRepositoryFacts : BaseGenusRepositoryFacts, IDisposable, IClassFixture<EFMappingFixture>
     {
+        private EFMappingFixture m_mapping;
+
+        public EFGenusRepositoryFacts(EFMappingFixture mapping)
+        {
+            m_mapping = mapping;
+            m_mapping.Configure();
+        }
+
         protected override IGenusRepository CreateGenusRepository()
         {
             return new EFGenusRepository(new PlantDbContext());
@@ -18,10 +26,6 @@ namespace PlantDataMvc3.Tests.DAL
         {
         }
 
-        public void SetFixture(EFMappingFixture mapping)
-        {
-            mapping.Configure();
-        }
     }
 
 }
