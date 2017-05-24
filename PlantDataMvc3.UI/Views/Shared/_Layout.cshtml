@@ -2,6 +2,7 @@
 @using PlantDataMvc3.UI.Areas.Security.Controllers
 @using PlantDataMvc3.UI.Controllers
 @using StackExchange.Profiling
+@using System.Web.Optimization
 @{
     var profiler = MiniProfiler.Current;
     
@@ -16,21 +17,11 @@
 { 
     <title>@ViewBag.Title</title>
 
-    @* general CSS content *@
-    <link href="@Url.Content("~/Content/sinorcaish-screen.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/CustomStyles.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 
-    @* general jQuery content *@
-    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
 
-    @* jQuery validation content *@
-    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
-    @* jQuery UI content *@
-    <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jquery-ui.min.js")" type="text/javascript"></script>
+    @Styles.Render("~/Content/themes/base/css")
 
     @* jQuery menu *@
 @*    <link href="@Url.Content("~/Content/menu-style.css")" rel="stylesheet" type="text/css" />
@@ -102,6 +93,11 @@
     <div id="footer">
         A web page by Tim McMaster.
     </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+
 
     @MiniProfiler.RenderIncludes(position: RenderPosition.Left, showTrivial: false, showTimeWithChildren: false, startHidden: startHidden)
 </body>

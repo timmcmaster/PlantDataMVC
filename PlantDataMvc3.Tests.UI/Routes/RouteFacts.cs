@@ -14,7 +14,7 @@ namespace PlantDataMvc3.Tests.Routes
             // Arrange
             StubContext context = new StubContext("~/controller1");
             RouteCollection routes = new RouteCollection();
-            MvcApplication.RegisterRoutes(routes);
+            RouteConfig.RegisterRoutes(routes);
 
             // Act
             RouteData routeData = routes.GetRouteData(context);
@@ -32,7 +32,7 @@ namespace PlantDataMvc3.Tests.Routes
             // Arrange
             StubContext context = new StubContext("~/controller1/action2");
             RouteCollection routes = new RouteCollection();
-            MvcApplication.RegisterRoutes(routes);
+            RouteConfig.RegisterRoutes(routes);
 
             // Act
             RouteData routeData = routes.GetRouteData(context);
@@ -50,7 +50,7 @@ namespace PlantDataMvc3.Tests.Routes
             // Arrange
             StubContext context = new StubContext("~/controller1/action2/id3");
             RouteCollection routes = new RouteCollection();
-            MvcApplication.RegisterRoutes(routes);
+            RouteConfig.RegisterRoutes(routes);
 
             // Act
             RouteData routeData = routes.GetRouteData(context);
@@ -68,7 +68,7 @@ namespace PlantDataMvc3.Tests.Routes
             // Arrange
             StubContext context = new StubContext("~/a/b/c/d");
             RouteCollection routes = new RouteCollection();
-            MvcApplication.RegisterRoutes(routes);
+            RouteConfig.RegisterRoutes(routes);
 
             // Act
             RouteData routeData = routes.GetRouteData(context);
@@ -83,7 +83,7 @@ namespace PlantDataMvc3.Tests.Routes
             // Arrange
             StubContext context = new StubContext("~/foo.axd/bar/baz/biff");
             RouteCollection routes = new RouteCollection();
-            MvcApplication.RegisterRoutes(routes);
+            RouteConfig.RegisterRoutes(routes);
 
             // Act
             RouteData routeData = routes.GetRouteData(context);
