@@ -1,6 +1,6 @@
 ﻿using Xunit;
 using Rhino.Mocks;
-using PlantDataMvc3.DAL.LocalInterfaces;
+using PlantDataMVC.DAL.LocalInterfaces;
 
 namespace PlantDataMvc3.Tests.DAL
 {

@@ -1,5 +1,5 @@
-﻿using PlantDataMvc3.DAL.EF.Infrastructure;
-using PlantDataMvc3.DAL.LocalInterfaces;
+﻿using PlantDataMVC.DAL.EF.Infrastructure;
+using PlantDataMVC.DAL.LocalInterfaces;
 using System;
 
 namespace PlantDataMvc3.Tests.DAL

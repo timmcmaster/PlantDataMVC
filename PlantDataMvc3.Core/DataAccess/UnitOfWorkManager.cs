@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PlantDataMvc3.DAL.Interfaces;
-using PlantDataMvc3.DAL.MappingRepositories;
-//using PlantDataMvc3.DAL.TestRepositories;
-//using PlantDataMvc3.DAL.LinqToSql.Repositories;
-using PlantDataMvc3.DAL.EF.Repositories;
-using PlantDataMvc3.DAL.EF.Infrastructure;
+using PlantDataMVC.DAL.Interfaces;
+using PlantDataMVC.DAL.MappingRepositories;
+//using PlantDataMVC.DAL.TestRepositories;
+//using PlantDataMVC.DAL.LinqToSql.Repositories;
+using PlantDataMVC.DAL.EF.Repositories;
+using PlantDataMVC.DAL.EF.Infrastructure;
 
 
 namespace PlantDataMvc3.Core.DataAccess

@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using PlantDataMvc3.DAL.Interfaces;
+using PlantDataMVC.DAL.Interfaces;
 using System;
 
 namespace PlantDataMvc3.Tests.DAL

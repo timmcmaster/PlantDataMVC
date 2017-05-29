@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PlantDataMvc3.DAL.EF.Infrastructure;
+using PlantDataMVC.DAL.EF.Infrastructure;
 
 namespace PlantDataMvc3.Tests.DAL
 {

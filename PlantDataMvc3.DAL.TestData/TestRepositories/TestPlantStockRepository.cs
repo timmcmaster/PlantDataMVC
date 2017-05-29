@@ -1,9 +1,9 @@
-﻿using PlantDataMvc3.DAL.Entities;
-using PlantDataMvc3.DAL.Interfaces;
+﻿using PlantDataMVC.DAL.Entities;
+using PlantDataMVC.DAL.Interfaces;
 using System.Collections.Generic;
 using System;
 
-namespace PlantDataMvc3.DAL.TestData
+namespace PlantDataMVC.DAL.TestData
 {
     public class TestPlantStockRepository : TestRepositoryBase<PlantStock>, IPlantStockRepository
     {

@@ -94,17 +94,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PlantDataMvc3.DAL.EF\PlantDataMvc3.DAL.EF.csproj">
-      <Project>{05C217A2-01BD-42CD-A756-849EC564A873}</Project>
-      <Name>PlantDataMvc3.DAL.EF</Name>
+    <ProjectReference Include="..\PlantDataMVC.DAL.EF\PlantDataMVC.DAL.EF.csproj">
+      <Project>{05c217a2-01bd-42cd-a756-849ec564a873}</Project>
+      <Name>PlantDataMVC.DAL.EF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PlantDataMvc3.DAL.TestData\PlantDataMvc3.DAL.TestData.csproj">
+    <ProjectReference Include="..\PlantDataMVC.DAL\PlantDataMVC.DAL.csproj">
+      <Project>{fb368d7f-221a-424e-a218-7e0d0daa2353}</Project>
+      <Name>PlantDataMVC.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMvc3.DAL.TestData\PlantDataMVC.DAL.TestData.csproj">
       <Project>{9E4BC26B-3260-48FE-B90D-F8B43D3B7FC9}</Project>
-      <Name>PlantDataMvc3.DAL.TestData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlantDataMvc3.DAL\PlantDataMvc3.DAL.csproj">
-      <Project>{FB368D7F-221A-424E-A218-7E0D0DAA2353}</Project>
-      <Name>PlantDataMvc3.DAL</Name>
+      <Name>PlantDataMVC.DAL.TestData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

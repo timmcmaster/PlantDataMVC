@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using PlantDataMvc3.Core.DataAccess;
 using PlantDataMvc3.Core.Domain.BusinessObjects;
-using PlantDataMvc3.DAL.Entities;
-using PlantDataMvc3.DAL.Interfaces;
+using PlantDataMVC.DAL.Entities;
+using PlantDataMVC.DAL.Interfaces;
 using AutoMapper;
 
 namespace PlantDataMvc3.Core.SimpleServiceLayer

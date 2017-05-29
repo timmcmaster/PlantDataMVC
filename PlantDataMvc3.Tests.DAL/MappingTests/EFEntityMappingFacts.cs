@@ -4,7 +4,7 @@ using System.Linq;
 using AutoMapper;
 using System.Text;
 using Xunit;
-using PlantDataMvc3.DAL.EF.Infrastructure;
+using PlantDataMVC.DAL.EF.Infrastructure;
 
 namespace PlantDataMvc3.Tests.DAL
 {

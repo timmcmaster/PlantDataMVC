@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using PlantDataMvc3.DAL.Entities;
+using PlantDataMVC.DAL.Entities;
 
 namespace UnitTest.Utils.TestData
 {

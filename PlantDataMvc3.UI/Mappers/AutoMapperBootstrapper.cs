@@ -1,6 +1,6 @@
 ﻿using PlantDataMvc3.Core.Mappers;
-using PlantDataMvc3.DAL.EF.Infrastructure;
-//using PlantDataMvc3.DAL.LinqToSql.Infrastructure;
+using PlantDataMVC.DAL.EF.Infrastructure;
+//using PlantDataMVC.DAL.LinqToSql.Infrastructure;
 
 namespace PlantDataMvc3.UI.Mappers
 {

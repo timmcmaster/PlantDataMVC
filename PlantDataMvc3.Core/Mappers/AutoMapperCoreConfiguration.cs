@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using PlantDataMvc3.Core.Domain.BusinessObjects;
 using PlantDataMvc3.Core.DataAccess;
-using PlantDataMvc3.DAL.Entities;
+using PlantDataMVC.DAL.Entities;
 
 namespace PlantDataMvc3.Core.Mappers
 {

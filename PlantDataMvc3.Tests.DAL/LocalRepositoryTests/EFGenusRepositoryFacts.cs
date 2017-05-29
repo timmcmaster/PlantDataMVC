@@ -1,7 +1,7 @@
-﻿using PlantDataMvc3.DAL.EF.Entities;
-using PlantDataMvc3.DAL.EF.Infrastructure;
-using PlantDataMvc3.DAL.EF.Repositories;
-using PlantDataMvc3.DAL.Interfaces;
+﻿using PlantDataMVC.DAL.EF.Entities;
+using PlantDataMVC.DAL.EF.Infrastructure;
+using PlantDataMVC.DAL.EF.Repositories;
+using PlantDataMVC.DAL.Interfaces;
 using System;
 using Xunit;
 

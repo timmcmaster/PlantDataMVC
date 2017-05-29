@@ -1,8 +1,8 @@
 ﻿using Xunit;
 using Rhino.Mocks;
-using PlantDataMvc3.DAL.Interfaces;
-using PlantDataMvc3.DAL.TestData;
-using PlantDataMvc3.DAL.Entities;
+using PlantDataMVC.DAL.Interfaces;
+using PlantDataMVC.DAL.TestData;
+using PlantDataMVC.DAL.Entities;
 
 namespace PlantDataMvc3.Tests.DAL
 {

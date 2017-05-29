@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using PlantDataMvc3.Core.Domain.BusinessObjects;
 using PlantDataMvc3.Core.ServiceLayer;
-using PlantDataMvc3.DAL.Interfaces;
+using PlantDataMVC.DAL.Interfaces;
 using PlantDataMvc3.Core.DataAccess;
 
 namespace PlantDataMvc3.Core.SimpleServiceLayer

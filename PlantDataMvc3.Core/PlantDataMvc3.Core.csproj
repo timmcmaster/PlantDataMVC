@@ -117,19 +117,18 @@
     <None Include="Properties\DataSources\PlantDataServices.Species.datasource" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PlantDataMvc3.DAL.EF\PlantDataMvc3.DAL.EF.csproj">
-      <Project>{05C217A2-01BD-42CD-A756-849EC564A873}</Project>
-      <Name>PlantDataMvc3.DAL.EF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlantDataMvc3.DAL\PlantDataMvc3.DAL.csproj">
-      <Project>{FB368D7F-221A-424E-A218-7E0D0DAA2353}</Project>
-      <Name>PlantDataMvc3.DAL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PlantDataMVC.DAL.EF\PlantDataMVC.DAL.EF.csproj">
+      <Project>{05c217a2-01bd-42cd-a756-849ec564a873}</Project>
+      <Name>PlantDataMVC.DAL.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.DAL\PlantDataMVC.DAL.csproj">
+      <Project>{fb368d7f-221a-424e-a218-7e0d0daa2353}</Project>
+      <Name>PlantDataMVC.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

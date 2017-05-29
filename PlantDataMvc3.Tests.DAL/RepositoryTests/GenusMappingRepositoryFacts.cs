@@ -1,6 +1,6 @@
-﻿using PlantDataMvc3.DAL.Interfaces;
-using PlantDataMvc3.DAL.MappingRepositories;
-using PlantDataMvc3.DAL.TestData;
+﻿using PlantDataMVC.DAL.Interfaces;
+using PlantDataMVC.DAL.MappingRepositories;
+using PlantDataMVC.DAL.TestData;
 using System;
 
 namespace PlantDataMvc3.Tests.DAL
