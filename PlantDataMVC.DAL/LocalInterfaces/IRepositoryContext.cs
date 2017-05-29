@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 
-namespace PlantDataMvc3.DAL.Interfaces
+namespace PlantDataMVC.DAL.Interfaces
 {
     public interface IRepositoryContext
     {

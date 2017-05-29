@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PlantDataMvc3.DAL.LocalInterfaces
+namespace PlantDataMVC.DAL.LocalInterfaces
 {
     /// <summary>
     /// This interface is the basic interface for ... 

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using PlantDataMvc3.DAL.Entities;
+//using PlantDataMVC.DAL.Entities;
 
-namespace PlantDataMvc3.DAL.LocalInterfaces
+namespace PlantDataMVC.DAL.LocalInterfaces
 {
     //public interface ILocalJournalEntryTypeRepository : ILocalJournalEntryTypeRepository<ILocalJournalEntryType> { }
 

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using PlantDataMvc3.DAL.Entities;
-using PlantDataMvc3.DAL.Interfaces;
-using PlantDataMvc3.DAL.LocalInterfaces;
+using PlantDataMVC.DAL.Entities;
+using PlantDataMVC.DAL.Interfaces;
+using PlantDataMVC.DAL.LocalInterfaces;
 
-namespace PlantDataMvc3.DAL.MappingRepositories
+namespace PlantDataMVC.DAL.MappingRepositories
 {
     /// <summary>
     /// This class derives from MappingRepository to provide generic mapping from ILocalGenus to Genus.

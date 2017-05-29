@@ -4,10 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
-using PlantDataMvc3.DAL.Interfaces;
-using PlantDataMvc3.DAL.LocalInterfaces;
+using PlantDataMVC.DAL.Interfaces;
+using PlantDataMVC.DAL.LocalInterfaces;
 
-namespace PlantDataMvc3.DAL.MappingRepositories
+namespace PlantDataMVC.DAL.MappingRepositories
 {
     /// <summary>
     /// This class is built on the basic IRepository interface exposed to the DAL layer.

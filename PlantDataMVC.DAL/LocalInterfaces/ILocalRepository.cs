@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Linq.Expressions;
 
-namespace PlantDataMvc3.DAL.LocalInterfaces
+namespace PlantDataMVC.DAL.LocalInterfaces
 {
     /// <summary>
     /// Defines base operations that must be provided by all repositories
