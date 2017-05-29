@@ -8,8 +8,8 @@
     <ProjectGuid>{21BAD16D-E308-41F0-8246-6BA0003C9139}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlantDataMvc3.Core</RootNamespace>
-    <AssemblyName>PlantDataMvc3.Core</AssemblyName>
+    <RootNamespace>PlantDataMVC.Core</RootNamespace>
+    <AssemblyName>PlantDataMVC.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

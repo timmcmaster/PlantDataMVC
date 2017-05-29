@@ -8,8 +8,8 @@
     <ProjectGuid>{9E4BC26B-3260-48FE-B90D-F8B43D3B7FC9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlantDataMvc3.DAL.TestData</RootNamespace>
-    <AssemblyName>PlantDataMvc3.DAL.TestData</AssemblyName>
+    <RootNamespace>PlantDataMVC.DAL.TestData</RootNamespace>
+    <AssemblyName>PlantDataMVC.DAL.TestData</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
