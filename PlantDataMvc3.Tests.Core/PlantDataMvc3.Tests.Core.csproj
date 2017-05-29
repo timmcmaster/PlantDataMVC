@@ -80,13 +80,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PlantDataMVC.Core\PlantDataMVC.Core.csproj">
+      <Project>{21bad16d-e308-41f0-8246-6ba0003c9139}</Project>
+      <Name>PlantDataMVC.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.DAL\PlantDataMVC.DAL.csproj">
       <Project>{fb368d7f-221a-424e-a218-7e0d0daa2353}</Project>
       <Name>PlantDataMVC.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlantDataMvc3.Core\PlantDataMvc3.Core.csproj">
-      <Project>{21BAD16D-E308-41F0-8246-6BA0003C9139}</Project>
-      <Name>PlantDataMvc3.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitTest.Utils\UnitTest.Utils.csproj">
       <Project>{1A3A2975-AB2E-468B-914C-27D87A9E3804}</Project>

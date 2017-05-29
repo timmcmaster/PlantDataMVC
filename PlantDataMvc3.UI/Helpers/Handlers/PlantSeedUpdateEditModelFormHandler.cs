@@ -1,6 +1,6 @@
-﻿using PlantDataMvc3.Core.Domain.BusinessObjects;
+﻿using PlantDataMVC.Core.Domain.BusinessObjects;
 using PlantDataMvc3.UI.Models;
-using PlantDataMvc3.Core.ServiceLayer;
+using PlantDataMVC.Core.ServiceLayer;
 
 namespace PlantDataMvc3.UI.Helpers.Handlers
 {

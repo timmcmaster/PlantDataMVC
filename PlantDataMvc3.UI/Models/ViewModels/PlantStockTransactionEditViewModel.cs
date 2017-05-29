@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PlantDataMvc3.Core.Domain.BusinessObjects;
+using PlantDataMVC.Core.Domain.BusinessObjects;
 
 namespace PlantDataMvc3.UI.Models
 {

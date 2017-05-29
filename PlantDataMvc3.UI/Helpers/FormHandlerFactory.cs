@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using PlantDataMvc3.Core.Domain.BusinessObjects;
+using PlantDataMVC.Core.Domain.BusinessObjects;
 using PlantDataMvc3.UI.Models;
 using PlantDataMvc3.UI.ServiceLayerAccess;
 

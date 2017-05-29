@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PlantDataMvc3.Core.ServiceLayer;
-using PlantDataMvc3.Core.SimpleServiceLayer;
+using PlantDataMVC.Core.ServiceLayer;
+using PlantDataMVC.Core.SimpleServiceLayer;
 
 namespace PlantDataMvc3.UI.ServiceLayerAccess
 {

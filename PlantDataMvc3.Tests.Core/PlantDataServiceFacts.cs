@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using PlantDataMvc3.Core;
-using PlantDataMvc3.Core.DataAccess;
-using PlantDataMvc3.Core.Domain.BusinessObjects;
-using PlantDataMvc3.Core.ServiceLayer;
-using PlantDataMvc3.Core.SimpleServiceLayer;
+using PlantDataMVC.Core;
+using PlantDataMVC.Core.DataAccess;
+using PlantDataMVC.Core.Domain.BusinessObjects;
+using PlantDataMVC.Core.ServiceLayer;
+using PlantDataMVC.Core.SimpleServiceLayer;
 using PlantDataMVC.DAL.Entities;
 using PlantDataMVC.DAL.Interfaces;
 using Rhino.Mocks;

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PlantDataMvc3.Core.Domain.BusinessObjects;
+using PlantDataMVC.Core.Domain.BusinessObjects;
 using PlantDataMVC.DAL.Entities;
 using UnitTest.Utils.TestData;
 using Xunit;

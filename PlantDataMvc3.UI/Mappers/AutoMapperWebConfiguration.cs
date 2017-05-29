@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
-using PlantDataMvc3.Core.Domain.BusinessObjects;
-using PlantDataMvc3.Core.ServiceLayer;
+using PlantDataMVC.Core.Domain.BusinessObjects;
+using PlantDataMVC.Core.ServiceLayer;
 using PlantDataMvc3.UI.Models;
 using PlantDataMvc3.UI.ServiceLayerAccess;
 

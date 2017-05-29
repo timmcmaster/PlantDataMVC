@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using PlantDataMvc3.Core.Domain.BusinessObjects;
+using PlantDataMVC.Core.Domain.BusinessObjects;
 
 namespace UnitTest.Utils.TestData
 {
     /// <summary>
-    /// Creates random data against the domain objects in the namespace <code>PlantDataMvc3.Core.Domain.BusinessObjects</code>
+    /// Creates random data against the domain objects in the namespace <code>PlantDataMVC.Core.Domain.BusinessObjects</code>
     /// </summary>
     public static class DomainTestData
     {

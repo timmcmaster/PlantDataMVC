@@ -8,7 +8,7 @@ using PlantDataMVC.DAL.Entities;
 namespace UnitTest.Utils.TestData
 {
     /// <summary>
-    /// Creates random data against the data access objects in the namespace <code>PlantDataMvc3.Core.Domain.BusinessObjects</code>
+    /// Creates random data against the data access objects in the namespace <code>PlantDataMVC.Core.Domain.BusinessObjects</code>
     /// </summary>
     public static class DALTestData
     {
