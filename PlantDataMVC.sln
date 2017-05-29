@@ -20,8 +20,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc3.Tests.Core", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc3.Tests.UI", "PlantDataMvc3.Tests.UI\PlantDataMvc3.Tests.UI.csproj", "{E8C81B77-5B26-4695-B70A-C87832871915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc3.DAL.EF", "PlantDataMvc3.DAL.EF\PlantDataMvc3.DAL.EF.csproj", "{05C217A2-01BD-42CD-A756-849EC564A873}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc3.DAL.LinqToSql", "PlantDataMVC3.DAL.LinqToSql\PlantDataMvc3.DAL.LinqToSql.csproj", "{131C0FB8-556F-4BFC-A37D-C221833B5C18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc3.DAL.TestData", "PlantDataMvc3.DAL.TestData\PlantDataMvc3.DAL.TestData.csproj", "{9E4BC26B-3260-48FE-B90D-F8B43D3B7FC9}"
@@ -32,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FDD2BE
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.DAL", "PlantDataMVC.DAL\PlantDataMVC.DAL.csproj", "{FB368D7F-221A-424E-A218-7E0D0DAA2353}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.DAL.EF", "PlantDataMVC.DAL.EF\PlantDataMVC.DAL.EF.csproj", "{05C217A2-01BD-42CD-A756-849EC564A873}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,16 +113,6 @@ Global
 		{E8C81B77-5B26-4695-B70A-C87832871915}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E8C81B77-5B26-4695-B70A-C87832871915}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E8C81B77-5B26-4695-B70A-C87832871915}.Release|x86.ActiveCfg = Release|Any CPU
-		{05C217A2-01BD-42CD-A756-849EC564A873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05C217A2-01BD-42CD-A756-849EC564A873}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05C217A2-01BD-42CD-A756-849EC564A873}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{05C217A2-01BD-42CD-A756-849EC564A873}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{05C217A2-01BD-42CD-A756-849EC564A873}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{05C217A2-01BD-42CD-A756-849EC564A873}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05C217A2-01BD-42CD-A756-849EC564A873}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05C217A2-01BD-42CD-A756-849EC564A873}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{05C217A2-01BD-42CD-A756-849EC564A873}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{05C217A2-01BD-42CD-A756-849EC564A873}.Release|x86.ActiveCfg = Release|Any CPU
 		{131C0FB8-556F-4BFC-A37D-C221833B5C18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{131C0FB8-556F-4BFC-A37D-C221833B5C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{131C0FB8-556F-4BFC-A37D-C221833B5C18}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -155,6 +145,18 @@ Global
 		{FB368D7F-221A-424E-A218-7E0D0DAA2353}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FB368D7F-221A-424E-A218-7E0D0DAA2353}.Release|x86.ActiveCfg = Release|Any CPU
 		{FB368D7F-221A-424E-A218-7E0D0DAA2353}.Release|x86.Build.0 = Release|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Debug|x86.Build.0 = Debug|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Release|x86.ActiveCfg = Release|Any CPU
+		{05C217A2-01BD-42CD-A756-849EC564A873}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
