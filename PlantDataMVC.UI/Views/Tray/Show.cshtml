@@ -1,0 +1,19 @@
+﻿@model PlantDataMVC.UI.Models.TrayShowViewModel
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+<fieldset>
+    <legend>Seed Tray</legend>
+
+    @Html.DisplayForModel()
+</fieldset>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to Index", "Index")
+</p>
+

@@ -1,0 +1,13 @@
+﻿@model ListViewModel<TrayListViewModel>
+
+@using PlantDataMVC.UI.Helpers
+@using PlantDataMVC.UI.Models
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.Partial("TrayListTable", Model)
+@Html.PagingLinksFor(m => Model)

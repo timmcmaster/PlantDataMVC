@@ -1,0 +1,31 @@
+﻿@model IList<PlantSeedListViewModel>
+
+@using PlantDataMVC.UI.Helpers
+@using PlantDataMVC.UI.Models
+
+@{
+    PlantSeedListViewModel sampleElement = new PlantSeedListViewModel();   
+}
+<table class="grid">
+    <tr>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesId)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.DateCollected)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Location)</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@{
+int count = 0;
+foreach (var model in Model) {
+    <tr>
+        <td>@Html.ActionLink(model.SpeciesId.ToString(), "Show", "Seed", new { id = model.Id }, null)</td>
+        <td>@Html.DisplayFor(m => m.ElementAt(count).DateCollected)</td>
+        <td>@Html.DisplayFor(m => m.ElementAt(count).Location)</td>
+        <td>@Html.ActionLink("Edit", "Edit", "Seed", new { id = model.Id }, null)</td>
+        <td>@Html.ActionLink("Delete", "Delete", "Seed", new { id = model.Id }, null)</td>
+    </tr>
+    count++;
+}
+}
+</table>

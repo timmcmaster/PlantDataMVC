@@ -1,0 +1,22 @@
+﻿@model PlantDataMVC.UI.Models.PlantSeedShowViewModel
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+<fieldset>
+    <legend>SeedModel</legend>
+
+    @Html.DisplayForModel()
+    <div class="child-table">@Html.Partial("TrayListTable", Model.SeedTrays)</div>
+
+    <div class="button">@Html.ActionLink("New", "New", "Tray", new { seedBatchId = Model.Id }, null)</div>
+</fieldset>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to Index", "Index")
+</p>
+

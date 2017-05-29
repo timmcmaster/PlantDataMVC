@@ -1,0 +1,25 @@
+﻿@model PlantDataMVC.UI.Models.TrayNewViewModel
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+
+@using (Html.BeginForm("Create", "Tray")) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Seed Tray Model</legend>
+
+        @Html.EditorForModel()
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to Index", "Index")
+</div>
+
