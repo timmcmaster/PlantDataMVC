@@ -2,7 +2,53 @@
     ViewBag.Title = "About Us";
 }
 
+<link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
+
+<script src="https://openlayers.org/en/v4.1.1/build/ol.js" type="text/javascript"></script>
+
+<style>
+    .map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
 <h2>About</h2>
 <p>
      Put content here.
 </p>
+
+<!-- This is the div that will contain the map -->
+<div id="map" class="map"></div>
+
+<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
+@section scripts{
+    <script type="text/javascript">
+
+        // This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded.
+        $(document).ready(function () {
+            Initialise();
+        });
+
+        function Initialise() {
+            var map = mapAt(-27.45, 153.03, 6);
+        };
+
+        function mapAt(latitude, longitude, zoomLevel) {
+            var myMap = new ol.Map({
+                target: 'map',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat([longitude, latitude]),
+                    zoom: zoomLevel
+                })
+            });
+
+            return myMap;
+        }
+    </script>
+}
