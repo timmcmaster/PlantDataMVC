@@ -5,11 +5,12 @@
 <link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
 
 <script src="https://openlayers.org/en/v4.1.1/build/ol.js" type="text/javascript"></script>
+<script src="~/Scripts/OpenMapsLibrary.js" type="text/javascript"></script>
 
 <style>
     .map {
         height: 400px;
-        width: 100%;
+        width: 400px;
     }
 </style>
 
@@ -23,6 +24,7 @@
 
 <!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
 @section scripts{
+
     <script type="text/javascript">
 
         // This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded.
@@ -31,24 +33,10 @@
         });
 
         function Initialise() {
-            var map = mapAt(-27.45, 153.03, 6);
+            var map = Mapping.createMap('map', -27.45, 153.03, 14);
+            Mapping.addMarker(map, -27.44, 153.025);
+
         };
-
-        function mapAt(latitude, longitude, zoomLevel) {
-            var myMap = new ol.Map({
-                target: 'map',
-                layers: [
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM()
-                    })
-                ],
-                view: new ol.View({
-                    center: ol.proj.fromLonLat([longitude, latitude]),
-                    zoom: zoomLevel
-                })
-            });
-
-            return myMap;
-        }
+        
     </script>
 }
