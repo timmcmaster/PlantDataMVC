@@ -16,11 +16,12 @@
 
 <h2>About</h2>
 <p>
-     Put content here.
+    Put content here.
 </p>
 
 <!-- This is the div that will contain the map -->
 <div id="map" class="map"></div>
+<div id="popup"></div>
 
 <!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
 @section scripts{
@@ -33,10 +34,12 @@
         });
 
         function Initialise() {
-            var map = Mapping.createMap('map', -27.45, 153.03, 14);
-            Mapping.addMarker(map, -27.44, 153.025);
-
+            var map = Mapping.createMap(document.getElementById('map'), -27.45, 153.03, 14);
+            Mapping.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, -27.44, 153.025);
         };
-        
+
+
+
+
     </script>
 }

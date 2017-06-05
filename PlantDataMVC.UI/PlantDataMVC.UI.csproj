@@ -240,6 +240,7 @@
     <Content Include="Content\arrow_up.png" />
     <Content Include="Content\cancel.png" />
     <Content Include="Content\CustomStyles.css" />
+    <Content Include="Content\Images\place-marker.png" />
     <Content Include="Content\menu-style.css" />
     <Content Include="Content\OldSite.css" />
     <Content Include="Content\sinorcaish-screen.css" />
