@@ -9,6 +9,8 @@
     - https://lostechies.com/jimmybogard/2011/02/09/autoprojecting-linq-queries/
     - http://www.devtrends.co.uk/blog/stop-using-automapper-in-your-data-access-code
 - [x] [Done?] Remove code smell of using derived controller to pass form handler to formcontrollerbase
+- [ ] Better understanding of CSS scope and hierarchy
+	- https://www.w3schools.com/css/
 - [ ] Investigate repository query interfaces
     - http://stackoverflow.com/questions/29089102/repository-and-query-objects-pattern-how-to-implement-complex-queries
     - https://genericunitofworkandrepositories.codeplex.com/SourceControl/latest

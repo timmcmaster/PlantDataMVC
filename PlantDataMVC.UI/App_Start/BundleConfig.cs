@@ -9,6 +9,8 @@ namespace PlantDataMVC.UI
 {
     public class BundleConfig
     {
+        // TODO: change to minified files after debugging is done
+
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
@@ -28,12 +30,10 @@ namespace PlantDataMVC.UI
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/bootstrap.js"));
 
-            //bundles.Add(new StyleBundle("~/Content/css").Include(
-            //          "~/Content/bootstrap.css",
-            //          "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/bootstrapcss").Include(
+                      "~/Content/bootstrap.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/sinorcaish-screen.css",
