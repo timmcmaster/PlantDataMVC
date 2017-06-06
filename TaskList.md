@@ -1,6 +1,14 @@
 # Future dev tasks
 - (Taken from my trello)
 ## Immediate dev tasks
+- [x] [Done?] SimpleServiceLayer GetDataService<T> method should use a pattern to lookup the service for the data type
+- [x] [Done?] Remove code smell of passing IServiceLayer where we only need a specific service
+- [x] [Done?] Use Automapper Projections rather than Map in DAL to Domain mapping (lists only)
+    - https://lostechies.com/jimmybogard/2014/03/11/efficient-querying-with-linq-automapper-and-future-queries/
+    - https://github.com/AutoMapper/AutoMapper/wiki/Queryable-Extensions
+    - https://lostechies.com/jimmybogard/2011/02/09/autoprojecting-linq-queries/
+    - http://www.devtrends.co.uk/blog/stop-using-automapper-in-your-data-access-code
+- [x] [Done?] Remove code smell of using derived controller to pass form handler to formcontrollerbase
 - [ ] Investigate repository query interfaces
     - http://stackoverflow.com/questions/29089102/repository-and-query-objects-pattern-how-to-implement-complex-queries
     - https://genericunitofworkandrepositories.codeplex.com/SourceControl/latest
@@ -77,4 +85,15 @@
 - [ ] Angular 2 framework
 - [ ] Other web tech?
     
-    
+## One day dev tasks
+- [ ] Google maps or spatial data interface for seed collection sites
+    - https://www.programmableweb.com/news/top-10-mapping-apis-google-maps-microsoft-bing-maps-and-mapquest/analysis/2015/02/23
+    - Looking at OpenLayers at this stage, due to open source licence
+- [ ] Reports  
+    - label printing 
+    - propagation success rates 
+    - sales rates
+- [ ] OData/WCF services for data services
+- [ ] Deployment practices – how do we deploy it?
+- [ ] Improve visual layout of pages
+- [ ] Nhibernate - investigate as an EF alternative?
