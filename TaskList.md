@@ -23,6 +23,7 @@
 - [ ] Manage folder structure
     - https://chsakell.com/2015/02/15/asp-net-mvc-solution-architecture-best-practices/
     - http://www.matthewrenze.com/articles/clean-architecture-in-asp-net-mvc-5/
+	- https://www.toptal.com/dot-net/bootstrap-and-create-dot-net-projects
 - [ ] Would still like to encapsulate suite of required services, a bit like IServiceLayer
     - Aggregate services in Autofac?
     - http://docs.autofac.org/en/latest/advanced/aggregate-services.html?highlight=factory

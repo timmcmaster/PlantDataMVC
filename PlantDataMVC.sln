@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataWcfServices", "..\PlantDataWcfServices\PlantDataWcfServices\PlantDataWcfServices.csproj", "{E8487F53-2417-499B-A163-5D71DFBD169C}"
 EndProject
@@ -29,6 +29,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.Tests.UI", "PlantDataMVC.Tests.UI\PlantDataMVC.Tests.UI.csproj", "{E8C81B77-5B26-4695-B70A-C87832871915}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.DAL.LinqToSql", "PlantDataMVC.DAL.LinqToSql\PlantDataMVC.DAL.LinqToSql.csproj", "{131C0FB8-556F-4BFC-A37D-C221833B5C18}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{33ADC7C0-A99E-42C6-BB34-E6E255E85B6A}"
+	ProjectSection(SolutionItems) = preProject
+		GeneralLinks.md = GeneralLinks.md
+		README.md = README.md
+		TaskList.md = TaskList.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
