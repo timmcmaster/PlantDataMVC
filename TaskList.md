@@ -56,6 +56,7 @@
 - [ ] Investigate and understand jQuery use
 - [ ] Investigate AJAX
 - [ ] Angular 2 framework
+- [ ] Create a .NET Core version
 - [ ] Model changes to allow stock tracking
     - knowing what I have in stock currently, not just what plants I have ever had
 - [ ] OData services vs WCF vs WebAPI vs basic service layer. Odata is queryable
