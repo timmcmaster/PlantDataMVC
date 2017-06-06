@@ -1,0 +1,41 @@
+# Future dev tasks
+- (Taken from my trello)
+## Immediate dev tasks
+- [ ] Investigate repository query interfaces
+    - http://stackoverflow.com/questions/29089102/repository-and-query-objects-pattern-how-to-implement-complex-queries
+    - https://genericunitofworkandrepositories.codeplex.com/SourceControl/latest
+    - http://www.tugberkugurlu.com/archive/generic-repository-pattern-entity-framework-asp-net-mvc-and-unit-testing-triangle
+    - http://www.asp.net/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+- [ ] Investigate querying via service layer 
+    - Look at mediator pattern?
+    - https://lostechies.com/jimmybogard/2014/09/09/tackling-cross-cutting-concerns-with-a-mediator-pipeline/
+    - https://github.com/AutoMapper/AutoMapper/wiki/Expression-Translation-(UseAsDataSource)
+    - http://rdingwall.com/2010/06/16/brownfield-cqrs-part-3-queries-parameters-and-results/
+    - http://www.dofactory.com/net/mediator-design-pattern
+- [ ] Manage folder structure
+    - https://chsakell.com/2015/02/15/asp-net-mvc-solution-architecture-best-practices/
+    - http://www.matthewrenze.com/articles/clean-architecture-in-asp-net-mvc-5/
+- [ ] Would still like to encapsulate suite of required services, a bit like IServiceLayer
+    - Aggregate services in Autofac?
+    - http://docs.autofac.org/en/latest/advanced/aggregate-services.html?highlight=factory
+- [ ] Align text columns left on index pages
+- [ ] Set Lifetime on IOC registered entities
+    - http://autofac.readthedocs.io/en/latest/lifetime/index.html
+    - http://nblumhardt.com/2011/01/an-autofac-lifetime-primer/
+- [ ] Investigate T4 code templates (remove or update?)
+- [ ] Merge in changes made previously (from dodgy HDD if it gets fixed)
+
+## Short term dev tasks
+- [ ] Create and revise unit tests for each of the main program components
+- [ ] Reference data and dropdowns on the current interfaces
+    - https://lostechies.com/jimmybogard/2014/07/22/conventional-html-in-asp-net-mvc-replacing-form-helpers/
+    - http://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
+    - http://www.asp.net/mvc/overview/older-versions/working-with-the-dropdownlist-box-and-jquery/using-the-dropdownlist-helper-with-aspnet-mvc
+    - https://lostechies.com/jimmybogard/2014/07/23/conventional-html-in-asp-net-mvc-data-bound-elements/
+    - http://blog.simontimms.com/2015/06/09/getting-lookup-data-into-you-view/
+- [ ] Ease of use/design
+- [ ] Are pages as created sensible?
+- [ ] Attributes on ViewModels and EditModels - what can they do?
+- [ ] Migrate to ASP.NET 5
+    - http://blog.scottlogic.com/2015/05/14/aspnet50-intro.html
+    - http://weblogs.asp.net/paullitwin/migrating-an-asp-net-mvc-5-app-to-asp-net-5
