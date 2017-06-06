@@ -39,3 +39,42 @@
 - [ ] Migrate to ASP.NET 5
     - http://blog.scottlogic.com/2015/05/14/aspnet50-intro.html
     - http://weblogs.asp.net/paullitwin/migrating-an-asp-net-mvc-5-app-to-asp-net-5
+
+## Medium term dev tasks
+- [ ] Create integration tests
+- [ ] Consider potential aggregates at repository level
+- [ ] Implement error handling across the board
+- [ ] Investigate JSON use
+- [ ] Investigate and understand jQuery use
+- [ ] Investigate AJAX
+- [ ] Angular 2 framework
+- [ ] Model changes to allow stock tracking
+    - knowing what I have in stock currently, not just what plants I have ever had
+- [ ] OData services vs WCF vs WebAPI vs basic service layer. Odata is queryable
+    - This is where the value of JSON comes in, as resources are returned as a JSON objects from the service. Will then need to convert back to data objects.
+    - http://www.asp.net/web-api/overview/data/using-web-api-with-entity-framework/part-5
+    - http://stackoverflow.com/questions/22969225/how-do-i-map-an-odata-query-against-a-dto-to-an-ef-entity
+    - http://stackoverflow.com/questions/26628521/how-do-i-map-an-odata-query-against-a-dto-to-another-entity
+    - http://www.odata.org/
+    - https://en.wikipedia.org/wiki/Open_Data_Protocol
+- [ ] REST/Restful APIs
+    - Identify patterns and implementation of a RESTful service 
+    - URIs, using HTTP methods for data transfer
+    - https://en.wikipedia.org/wiki/Overview_of_RESTful_API_Description_Languages
+    - https://en.wikipedia.org/wiki/Representational_state_transfer
+- [ ] Bit more investigation of Factories in Autofac
+    - http://stackoverflow.com/questions/33288872/autofac-how-to-create-a-generated-factory-with-parameters
+    - http://thewalkingdev.blogspot.com.au/2013/05/autofac-dynamic-factories.html
+    - http://stackoverflow.com/questions/7522541/configuring-an-autofac-delegate-factory-thats-defined-on-an-abstract-class
+    - http://docs.autofac.org/en/latest/advanced/keyed-services.html
+    - http://stackoverflow.com/questions/10537188/paramaterized-abstract-factory-in-autofac
+    - http://peterspattern.com/generate-generic-factories-with-autofac/
+    - http://docs.autofac.org/en/latest/resolve/relationships.html
+    - http://docs.autofac.org/en/latest/advanced/delegate-factories.html?highlight=factory
+    - http://stackoverflow.com/questions/18366762/replace-factory-with-autofac
+    - http://jahyacode.blogspot.com.au/2012/03/using-autofacs-auto-factories-to-avoid.html
+    - https://codefirst.wordpress.com/2011/04/27/delegate-factories-with-autofac/
+- [ ] Angular 2 framework
+- [ ] Other web tech?
+    
+    
