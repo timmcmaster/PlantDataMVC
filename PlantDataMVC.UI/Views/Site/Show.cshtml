@@ -1,5 +1,17 @@
 ﻿@model PlantDataMVC.UI.Models.SiteShowViewModel
 
+<link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
+
+<script src="https://openlayers.org/en/v4.1.1/build/ol.js" type="text/javascript"></script>
+<script src="~/Scripts/OpenMapsLibrary.js" type="text/javascript"></script>
+
+<style>
+    .map {
+        height: 400px;
+        width: 400px;
+    }
+</style>
+
 @{
     ViewBag.Title = "Show";
 }
@@ -14,6 +26,35 @@
 
     <div class="button">@Html.ActionLink("New", "New", "Tray", new { seedBatchId = Model.Id }, null)</div>
 </fieldset>
+
+<!-- This is the div that will contain the map -->
+<div id="map" class="map"></div>
+<div id="popup"></div>
+
+<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
+@section scripts{
+
+    <script type="text/javascript">
+
+        // This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded.
+        $(document).ready(function () {
+            Initialise();
+        });
+
+        function Initialise() {
+            // get siteModel in JSON encoded format
+            var latitude = @Html.Raw(Json.Encode(Model.Latitude));
+            var longitude = @Html.Raw(Json.Encode(Model.Longitude));
+            var centreLat = latitude;
+            var centreLong = longitude;
+            var zoomLevel = 14;
+
+            var map = Mapping.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
+            Mapping.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, centreLat, centreLong);
+        };
+    </script>
+}
+
 
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
