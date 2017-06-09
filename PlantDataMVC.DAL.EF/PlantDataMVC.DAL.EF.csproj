@@ -44,6 +44,7 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -55,59 +56,106 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\GenusConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\JournalEntryConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\JournalEntryTypeConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\PlantData.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Configuration\PlantStockConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\PriceListTypeConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\ProductPriceConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\ProductTypeConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\SeedBatchConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\SeedTrayConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\SiteConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\SpeciesConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\PlantData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Genus.cs">
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\JournalEntry.cs">
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\JournalEntryType.cs">
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\PlantDataModel.Context.cs">
+    <Compile Include="Entities\PlantData.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PlantDataModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\PlantDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\PlantDbContext.cs" />
     <Compile Include="Entities\PlantStock.cs">
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\PriceListType.cs">
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\ProductPrice.cs">
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\ProductType.cs">
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\SeedBatch.cs">
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\SeedTray.cs">
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Site.cs">
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Species.cs">
-      <DependentUpon>PlantDataModel.tt</DependentUpon>
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\FakeDbSet.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\FakePlantDataDbContext.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\PlantDataDbContext.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\EFAutoMapperDALConfiguration.cs" />
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\EntityDerivedClasses.cs" />
-    <Compile Include="Entities\PlantDataModel.Designer.cs">
-      <DependentUpon>PlantDataModel.edmx</DependentUpon>
+    <Compile Include="Infrastructure\EFUnitOfWork.cs" />
+    <Compile Include="Interfaces\IPlantDataDbContext.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\PlantData.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Infrastructure\EFUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EFGenusRepository.cs" />
     <Compile Include="Repositories\EFJournalEntryRepository.cs" />
@@ -123,12 +171,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="EF.Reverse.POCO.Core.ttinclude" />
+    <None Include="EF.Reverse.POCO.ttinclude" />
     <None Include="Entity and Repository Classes.cd" />
-    <EntityDeploy Include="Entities\PlantDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PlantDataModel.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>PlantDataMVC.DAL.EF.Entities</CustomToolNamespace>
-    </EntityDeploy>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -141,17 +186,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Entities\PlantDataModel.Context.tt">
+    <Content Include="Configuration\PlantData.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PlantDataModel.Context.cs</LastGenOutput>
-      <DependentUpon>PlantDataModel.edmx</DependentUpon>
+      <LastGenOutput>PlantData.cs</LastGenOutput>
     </Content>
-    <Content Include="Entities\PlantDataModel.tt">
+    <Content Include="Entities\PlantData.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PlantDataModel.cs</LastGenOutput>
-      <DependentUpon>PlantDataModel.edmx</DependentUpon>
+      <LastGenOutput>PlantData.cs</LastGenOutput>
+    </Content>
+    <Content Include="Context\PlantData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PlantData.cs</LastGenOutput>
+    </Content>
+    <Content Include="Interfaces\PlantData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PlantData.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
