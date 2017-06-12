@@ -13,14 +13,16 @@ namespace PlantDataMVC.UI.Controllers
     {
         private IBasicDataService<PlantSeed> _dataService;
 
-        public SeedController(): this(null)
+        public SeedController(IServiceLayer serviceLayer)
         {
+            // get service from service layer
+            _dataService = serviceLayer.GetDataService<PlantSeed>();
         }
 
         public SeedController(IBasicDataService<PlantSeed> dataService)
         {
             // use passed in service or default instance service
-            _dataService = dataService ?? ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantSeed>();
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index

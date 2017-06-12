@@ -1,10 +1,10 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using PlantDataMVC.DAL.Interfaces;
+using PlantDataMVC.DAL.EF.Infrastructure;
+using PlantDataMVC.Core.SimpleServiceLayer;
+using PlantDataMVC.Core.ServiceLayer;
 
 namespace PlantDataMVC.UI
 {
@@ -34,6 +34,19 @@ namespace PlantDataMVC.UI
 
             // OPTIONAL: Enable action method parameter injection (RARE).
             //builder.InjectActionInvoker();
+
+
+            // DAL configurations
+            //builder.RegisterType<EFUnitOfWork>().As<IUnitOfWork>();
+
+
+            // Core configurations
+            builder.RegisterType<SimpleServiceLayer>().As<IServiceLayer>();
+
+
+            // UI configurations
+
+
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
