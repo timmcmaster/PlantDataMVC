@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity;
 using PlantDataMVC.DAL.EF.Entities;
-using PlantDataMVC.DAL.LocalInterfaces;
+using PlantDataMVC.DAL.Interfaces;
 
 namespace PlantDataMVC.DAL.EF.Repositories
 {
-    public class EFPlantStockRepository : EFRepositoryBase<PlantStock>, ILocalPlantStockRepository<PlantStock>
+    public class EFPlantStockRepository : EFRepositoryBase<PlantStock>, IPlantStockRepository<PlantStock>
     {
         public EFPlantStockRepository(DbContext context)
             : base(context)

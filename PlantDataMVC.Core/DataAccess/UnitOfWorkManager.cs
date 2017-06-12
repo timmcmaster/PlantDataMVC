@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using PlantDataMVC.DAL.Interfaces;
-using PlantDataMVC.DAL.MappingRepositories;
 //using PlantDataMVC.DAL.TestRepositories;
 //using PlantDataMVC.DAL.LinqToSql.Repositories;
 using PlantDataMVC.DAL.EF.Repositories;
@@ -43,7 +42,7 @@ namespace PlantDataMVC.Core.DataAccess
         {
             //return new TestUnitOfWork();
             //return new LinqToSqlUnitOfWork();
-            return new MappingUnitOfWork(new EFUnitOfWork());
+            return new EFUnitOfWork();
         }
     }
 }

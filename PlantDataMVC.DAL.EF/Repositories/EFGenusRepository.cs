@@ -1,11 +1,11 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using PlantDataMVC.DAL.EF.Entities;
-using PlantDataMVC.DAL.LocalInterfaces;
+using PlantDataMVC.DAL.Interfaces;
 
 namespace PlantDataMVC.DAL.EF.Repositories
 {
-    public class EFGenusRepository : EFRepositoryBase<Genus>, ILocalGenusRepository<Genus>
+    public class EFGenusRepository : EFRepositoryBase<Genus>, IGenusRepository<Genus>
     {
         public EFGenusRepository(DbContext context)
             : base(context)

@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity;
 using PlantDataMVC.DAL.EF.Entities;
-using PlantDataMVC.DAL.LocalInterfaces;
+using PlantDataMVC.DAL.Interfaces;
 
 namespace PlantDataMVC.DAL.EF.Repositories
 {
-    public class EFJournalEntryRepository : EFRepositoryBase<JournalEntry>, ILocalJournalEntryRepository<JournalEntry>
+    public class EFJournalEntryRepository : EFRepositoryBase<JournalEntry>, IJournalEntryRepository<JournalEntry>
     {
         public EFJournalEntryRepository(DbContext context)
             : base(context)

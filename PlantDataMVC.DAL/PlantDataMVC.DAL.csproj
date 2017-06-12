@@ -81,70 +81,17 @@
     <Compile Include="Interfaces\IGenusRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="LocalInterfaces\ILocalEntities.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\ILocalGenusRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\ILocalJournalEntryRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\ILocalJournalEntryTypeRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\ILocalPlantStockRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\ILocalProductTypeRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\ILocalRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\ILocalSeedBatchRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\ILocalSeedTrayRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\ILocalSiteRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\ILocalSpeciesRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\ILocalUnitOfWork.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LocalInterfaces\IRepositoryContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="MappingRepositories\MappingUnitOfWork.cs" />
-    <Compile Include="MappingRepositories\JournalEntryTypeMappingRepository.cs" />
-    <Compile Include="MappingRepositories\PlantStockMappingRepository.cs" />
-    <Compile Include="MappingRepositories\ProductTypeMappingRepository.cs" />
-    <Compile Include="MappingRepositories\SeedBatchMappingRepository.cs" />
-    <Compile Include="MappingRepositories\SeedTrayMappingRepository.cs" />
-    <Compile Include="MappingRepositories\SiteMappingRepository.cs" />
-    <Compile Include="MappingRepositories\JournalEntryMappingRepository.cs" />
-    <Compile Include="MappingRepositories\SpeciesMappingRepository.cs" />
-    <Compile Include="MappingRepositories\GenusMappingRepository.cs" />
-    <Compile Include="MappingRepositories\SortOrder.cs" />
-    <Compile Include="MappingRepositories\MappingRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Basic Hierarchy.cd" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="Local Interfaces and Classes .cd" />
-    <None Include="DAL Exposed Interfaces and Classes.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

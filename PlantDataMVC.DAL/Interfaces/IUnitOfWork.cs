@@ -22,6 +22,16 @@ namespace PlantDataMVC.DAL.Interfaces
         ISpeciesRepository SpeciesRepository { get; }
         ISiteRepository SiteRepository { get; }
 
+        //IGenusRepository<IGenus> GenusRepository { get; }
+        //IJournalEntryRepository<IJournalEntry> JournalEntryRepository { get; }
+        //IJournalEntryTypeRepository<IJournalEntryType> JournalEntryTypeRepository { get; }
+        //IPlantStockRepository<IPlantStock> PlantStockRepository { get; }
+        //IProductTypeRepository<IProductType> ProductTypeRepository { get; }
+        //ISeedBatchRepository<ISeedBatch> SeedBatchRepository { get; }
+        //ISeedTrayRepository<ISeedTray> SeedTrayRepository { get; }
+        //ISpeciesRepository<ISpecies> SpeciesRepository { get; }
+        //ISiteRepository<ISite> SiteRepository { get; }
+
         /// <summary>
         /// Commit the transaction to the repository collection.
         /// </summary>

@@ -1,35 +1,46 @@
-﻿using System;
-using System.Data.Entity;
+﻿using PlantDataMVC.DAL.EF.Context;
 using PlantDataMVC.DAL.EF.Entities;
 using PlantDataMVC.DAL.EF.Repositories;
-using PlantDataMVC.DAL.LocalInterfaces;
+using PlantDataMVC.DAL.Interfaces;
+using System;
+using System.Data.Entity;
 
 namespace PlantDataMVC.DAL.EF.Infrastructure
 {
     /// <summary>
     /// Implements the UnitOfWork pattern 
     /// </summary>
-    public class EFUnitOfWork : ILocalUnitOfWork, IDisposable
+    public class EFUnitOfWork : IUnitOfWork, IDisposable
     {
         #region Variables
 
         private bool _disposed = false;
         protected DbContext _context;
 
-        protected ILocalGenusRepository<Genus> _genusRepository;
-        protected ILocalJournalEntryRepository<JournalEntry> _journalEntryRepository;
-        protected ILocalJournalEntryTypeRepository<JournalEntryType> _journalEntryTypeRepository;
-        protected ILocalPlantStockRepository<PlantStock> _plantStockRepository;
-        protected ILocalProductTypeRepository<ProductType> _productTypeRepository;
-        protected ILocalSeedBatchRepository<SeedBatch> _seedBatchRepository;
-        protected ILocalSeedTrayRepository<SeedTray> _seedTrayRepository;
-        protected ILocalSpeciesRepository<Species> _speciesRepository;
-        protected ILocalSiteRepository<Site> _siteRepository;
+        protected IGenusRepository _genusRepository;
+        protected IJournalEntryRepository _journalEntryRepository;
+        protected IJournalEntryTypeRepository _journalEntryTypeRepository;
+        protected IPlantStockRepository _plantStockRepository;
+        protected IProductTypeRepository _productTypeRepository;
+        protected ISeedBatchRepository _seedBatchRepository;
+        protected ISeedTrayRepository _seedTrayRepository;
+        protected ISpeciesRepository _speciesRepository;
+        protected ISiteRepository _siteRepository;
+
+        //protected IGenusRepository<Genus> _genusRepository;
+        //protected IJournalEntryRepository<JournalEntry> _journalEntryRepository;
+        //protected IJournalEntryTypeRepository<JournalEntryType> _journalEntryTypeRepository;
+        //protected IPlantStockRepository<PlantStock> _plantStockRepository;
+        //protected IProductTypeRepository<ProductType> _productTypeRepository;
+        //protected ISeedBatchRepository<SeedBatch> _seedBatchRepository;
+        //protected ISeedTrayRepository<SeedTray> _seedTrayRepository;
+        //protected ISpeciesRepository<Species> _speciesRepository;
+        //protected ISiteRepository<Site> _siteRepository;
 
         #endregion Variables
 
         public EFUnitOfWork()
-            : this(new PlantDbContext())
+            : this(new PlantDataDbContext())
         {
         }
 
@@ -46,20 +57,20 @@ namespace PlantDataMVC.DAL.EF.Infrastructure
             set { _context = value; }
         }
 
-        public ILocalGenusRepository<ILocalGenus> GenusRepository
+        public IGenusRepository GenusRepository
         {
             get
             {
                 if (_genusRepository == null)
                 {
-                    _genusRepository = new EFGenusRepository(this.Context);
+                    _genusRepository = (IGenusRepository) new EFGenusRepository(this.Context);
                 }
 
-                return (ILocalGenusRepository<ILocalGenus>) _genusRepository; 
+                return (IGenusRepository<IGenus>) _genusRepository; 
             }
         }
 
-        public ILocalJournalEntryRepository<ILocalJournalEntry> JournalEntryRepository
+        public IJournalEntryRepository<IJournalEntry> JournalEntryRepository
         {
             get
             {
@@ -68,11 +79,11 @@ namespace PlantDataMVC.DAL.EF.Infrastructure
                     _journalEntryRepository = new EFJournalEntryRepository(this.Context);
                 }
 
-                return (ILocalJournalEntryRepository<ILocalJournalEntry>) _journalEntryRepository;
+                return (IJournalEntryRepository<IJournalEntry>) _journalEntryRepository;
             }
         }
 
-        public ILocalJournalEntryTypeRepository<ILocalJournalEntryType> JournalEntryTypeRepository
+        public IJournalEntryTypeRepository<IJournalEntryType> JournalEntryTypeRepository
         {
             get
             {
@@ -81,11 +92,11 @@ namespace PlantDataMVC.DAL.EF.Infrastructure
                     _journalEntryTypeRepository = new EFJournalEntryTypeRepository(this.Context);
                 }
 
-                return (ILocalJournalEntryTypeRepository<ILocalJournalEntryType>) _journalEntryTypeRepository;
+                return (IJournalEntryTypeRepository<IJournalEntryType>) _journalEntryTypeRepository;
             }
         }
 
-        public ILocalPlantStockRepository<ILocalPlantStock> PlantStockRepository
+        public IPlantStockRepository<IPlantStock> PlantStockRepository
         {
             get
             {
@@ -94,11 +105,11 @@ namespace PlantDataMVC.DAL.EF.Infrastructure
                     _plantStockRepository = new EFPlantStockRepository(this.Context);
                 }
 
-                return (ILocalPlantStockRepository<ILocalPlantStock>) _plantStockRepository;
+                return (IPlantStockRepository<IPlantStock>) _plantStockRepository;
             }
         }
 
-        public ILocalProductTypeRepository<ILocalProductType> ProductTypeRepository
+        public IProductTypeRepository<IProductType> ProductTypeRepository
         {
             get
             {
@@ -107,11 +118,11 @@ namespace PlantDataMVC.DAL.EF.Infrastructure
                     _productTypeRepository = new EFProductTypeRepository(this.Context);
                 }
 
-                return (ILocalProductTypeRepository<ILocalProductType>) _productTypeRepository;
+                return (IProductTypeRepository<IProductType>) _productTypeRepository;
             }
         }
 
-        public ILocalSeedBatchRepository<ILocalSeedBatch> SeedBatchRepository
+        public ISeedBatchRepository<ISeedBatch> SeedBatchRepository
         {
             get
             {
@@ -120,11 +131,11 @@ namespace PlantDataMVC.DAL.EF.Infrastructure
                     _seedBatchRepository = new EFSeedBatchRepository(this.Context);
                 }
 
-                return (ILocalSeedBatchRepository<ILocalSeedBatch>) _seedBatchRepository;
+                return (ISeedBatchRepository<ISeedBatch>) _seedBatchRepository;
             }
         }
 
-        public ILocalSeedTrayRepository<ILocalSeedTray> SeedTrayRepository
+        public ISeedTrayRepository<ISeedTray> SeedTrayRepository
         {
             get
             {
@@ -133,11 +144,11 @@ namespace PlantDataMVC.DAL.EF.Infrastructure
                     _seedTrayRepository = new EFSeedTrayRepository(this.Context);
                 }
 
-                return (ILocalSeedTrayRepository<ILocalSeedTray>) _seedTrayRepository;
+                return (ISeedTrayRepository<ISeedTray>) _seedTrayRepository;
             }
         }
 
-        public ILocalSpeciesRepository<ILocalSpecies> SpeciesRepository
+        public ISpeciesRepository<ISpecies> SpeciesRepository
         {
             get
             {
@@ -146,11 +157,11 @@ namespace PlantDataMVC.DAL.EF.Infrastructure
                     _speciesRepository = new EFSpeciesRepository(this.Context);
                 }
 
-                return (ILocalSpeciesRepository<ILocalSpecies>) _speciesRepository;
+                return (ISpeciesRepository<ISpecies>) _speciesRepository;
             }
         }
 
-        public ILocalSiteRepository<ILocalSite> SiteRepository
+        public ISiteRepository<ISite> SiteRepository
         {
             get
             {
@@ -159,7 +170,7 @@ namespace PlantDataMVC.DAL.EF.Infrastructure
                     _siteRepository = new EFSiteRepository(this.Context);
                 }
 
-                return (ILocalSiteRepository<ILocalSite>)_siteRepository;
+                return (ISiteRepository<ISite>)_siteRepository;
             }
         }
 

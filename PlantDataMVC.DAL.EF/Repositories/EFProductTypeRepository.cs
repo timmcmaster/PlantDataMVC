@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity;
 using PlantDataMVC.DAL.EF.Entities;
-using PlantDataMVC.DAL.LocalInterfaces;
+using PlantDataMVC.DAL.Interfaces;
 
 namespace PlantDataMVC.DAL.EF.Repositories
 {
-    public class EFProductTypeRepository : EFRepositoryBase<ProductType>, ILocalProductTypeRepository<ProductType>
+    public class EFProductTypeRepository : EFRepositoryBase<ProductType>, IProductTypeRepository<ProductType>
     {
         public EFProductTypeRepository(DbContext context)
             : base(context)

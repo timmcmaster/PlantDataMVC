@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using PlantDataMVC.DAL.LocalInterfaces;
+using PlantDataMVC.DAL.Interfaces;
 
 namespace PlantDataMVC.DAL.EF.Repositories
 {
@@ -14,8 +14,8 @@ namespace PlantDataMVC.DAL.EF.Repositories
     /// </summary>
     /// <typeparam name="TDALEntity">The external Entity-derived type.</typeparam>
     /// <typeparam name="T">The internal EntityObject-derived type.</typeparam>
-    public abstract class EFRepositoryBase<T> : ILocalRepository<T>
-        where T : class, ILocalEntity 
+    public abstract class EFRepositoryBase<T> : IRepository<T>
+        where T : class, IEntity 
     {
         private DbContext _context;
         private IDbSet<T> _dbSet;

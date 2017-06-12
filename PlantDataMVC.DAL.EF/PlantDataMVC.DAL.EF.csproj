@@ -99,6 +99,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\EntityDerivedClasses.cs" />
     <Compile Include="Entities\Genus.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
@@ -170,10 +172,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="EF.Reverse.POCO.Core.ttinclude" />
     <None Include="EF.Reverse.POCO.ttinclude" />
-    <None Include="Entity and Repository Classes.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
