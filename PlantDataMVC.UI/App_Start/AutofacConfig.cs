@@ -37,7 +37,7 @@ namespace PlantDataMVC.UI
 
 
             // DAL configurations
-            //builder.RegisterType<EFUnitOfWork>().As<IUnitOfWork>();
+            builder.RegisterType<EFUnitOfWork>().As<IUnitOfWork>();
 
 
             // Core configurations

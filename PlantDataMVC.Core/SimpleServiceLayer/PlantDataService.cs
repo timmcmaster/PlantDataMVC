@@ -11,8 +11,8 @@ namespace PlantDataMVC.Core.SimpleServiceLayer
 {
     public class PlantDataService : BasicDataService<Plant>
     {
-        public PlantDataService(IUnitOfWorkManager uowManager)
-            : base(uowManager)
+        public PlantDataService(IUnitOfWork uow)
+            : base(uow)
         {
         }
 
