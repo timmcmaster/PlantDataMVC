@@ -55,8 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\IUnitOfWorkManager.cs" />
-    <Compile Include="DataAccess\UnitOfWorkManager.cs" />
     <Compile Include="Domain\BusinessObjects\PlantSeedSite.cs" />
     <Compile Include="Domain\BusinessObjects\DomainEntity.cs" />
     <Compile Include="Domain\BusinessObjects\Plant.cs" />
