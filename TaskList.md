@@ -1,14 +1,14 @@
 # Future dev tasks
 - (Taken from my trello)
 ## Immediate dev tasks
-- [ ] [Done?] SimpleServiceLayer GetDataService<T> method should use a pattern to lookup the service for the data type
-- [ ] [Done?] Remove code smell of passing IServiceLayer where we only need a specific service
-- [ ] [Done?] Use Automapper Projections rather than Map in DAL to Domain mapping (lists only)
+- [ ] SimpleServiceLayer GetDataService<T> method should use a pattern to lookup the service for the data type
+- [ ] Remove code smell of passing IServiceLayer where we only need a specific service
+- [ ] Use Automapper Projections rather than Map in DAL to Domain mapping (lists only)
     - https://lostechies.com/jimmybogard/2014/03/11/efficient-querying-with-linq-automapper-and-future-queries/
     - https://github.com/AutoMapper/AutoMapper/wiki/Queryable-Extensions
     - https://lostechies.com/jimmybogard/2011/02/09/autoprojecting-linq-queries/
     - http://www.devtrends.co.uk/blog/stop-using-automapper-in-your-data-access-code
-- [ ] [Done?] Remove code smell of using derived controller to pass form handler to formcontrollerbase
+- [ ] Remove code smell of using derived controller to pass form handler to formcontrollerbase
 - [ ] Form controller base model
 	- https://github.com/Byndyusoft/ByndyuSoft.Dotnet.Infrastructure/blob/master/source/Infrastructure.Web/Forms/FormControllerBase.cs
 	- https://github.com/BrandyFx/Brandy/blob/master/src/Web/Forms/FormControllerBase.cs
