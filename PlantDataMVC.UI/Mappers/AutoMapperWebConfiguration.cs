@@ -12,8 +12,11 @@ namespace PlantDataMVC.UI.Mappers
     {
         public static void Configure()
         {
-            Mapper.Initialize(cfg => cfg.AddProfile(new BasicProfile()));
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<UIToDomainMappingProfile>();
+                cfg.AddProfile<DomainToUIMappingProfile>();
+            });
         }
-
     }
 }
