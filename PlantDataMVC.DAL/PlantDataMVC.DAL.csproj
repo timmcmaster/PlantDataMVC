@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Site.cs" />
+    <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IEntities.cs" />
     <Compile Include="Entities\Genus.cs" />
     <Compile Include="Entities\JournalEntry.cs" />
