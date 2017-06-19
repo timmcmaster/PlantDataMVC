@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using PlantDataMVC.Core.Domain.BusinessObjects;
+using PlantDataMVC.Domain.Entities;
 
 namespace UnitTest.Utils.TestData
 {

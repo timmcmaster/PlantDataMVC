@@ -1,6 +1,4 @@
-﻿using PlantDataMVC.Core.Mappers;
-using PlantDataMVC.DAL.EF.Infrastructure;
-//using PlantDataMVC.DAL.LinqToSql.Infrastructure;
+﻿using PlantDataMVC.Domain.Mappers;
 
 namespace PlantDataMVC.UI.Mappers
 {
@@ -17,10 +15,6 @@ namespace PlantDataMVC.UI.Mappers
                 AutoMapperWebConfiguration.Configure();
 
                 AutoMapperCoreConfiguration.Configure();
-
-                AutoMapperDALConfigurationEF.Configure();
-
-                //AutoMapperDALConfigurationLinqToSql.Configure();
             }
         }
     }

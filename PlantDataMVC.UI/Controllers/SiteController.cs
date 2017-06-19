@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.Core.ServiceLayer;
-using PlantDataMVC.UI.ServiceLayerAccess;
+﻿using Framework.Service.ServiceLayer;
+using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
@@ -13,13 +12,13 @@ namespace PlantDataMVC.UI.Controllers
     {
         private IBasicDataService<PlantSeedSite> _dataService;
 
-        public SiteController(IServiceLayer serviceLayer)
+        public SiteController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // get service from service layer
             _dataService = serviceLayer.GetDataService<PlantSeedSite>();
         }
 
-        public SiteController(IBasicDataService<PlantSeedSite> dataService)
+        public SiteController(IBasicDataService<PlantSeedSite> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service
             _dataService = dataService;

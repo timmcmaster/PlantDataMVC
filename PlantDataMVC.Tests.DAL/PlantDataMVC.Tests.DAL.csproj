@@ -99,7 +99,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EFMappingFixture.cs" />
     <Compile Include="LocalRepositoryTests\BaseRepositoryFacts.cs" />
     <Compile Include="LocalRepositoryTests\LocalGenusRepositoryFacts.cs" />
     <Compile Include="MappingTests\EFEntityMappingFacts.cs" />
@@ -116,17 +115,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PlantDataMVC.DAL.EF\PlantDataMVC.DAL.EF.csproj">
-      <Project>{05c217a2-01bd-42cd-a756-849ec564a873}</Project>
-      <Name>PlantDataMVC.DAL.EF</Name>
+    <ProjectReference Include="..\Framework.DAL\Framework.DAL.csproj">
+      <Project>{39A4295B-11F9-4B3E-8527-D99FFF87E10B}</Project>
+      <Name>Framework.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.DAL.TestData\PlantDataMVC.DAL.TestData.csproj">
       <Project>{9e4bc26b-3260-48fe-b90d-f8b43d3b7fc9}</Project>
       <Name>PlantDataMVC.DAL.TestData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.DAL\PlantDataMVC.DAL.csproj">
-      <Project>{fb368d7f-221a-424e-a218-7e0d0daa2353}</Project>
-      <Name>PlantDataMVC.DAL</Name>
+    <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
+      <Project>{ecc2f1e2-a2ea-4390-a75c-114d56f0bd96}</Project>
+      <Name>PlantDataMVC.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

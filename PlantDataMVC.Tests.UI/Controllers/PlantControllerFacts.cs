@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using PlantDataMVC.UI.Controllers;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.Core.ServiceLayer;
-using PlantDataMVC.Core.SimpleServiceLayer;
+using PlantDataMVC.Domain.Entities;
+using Framework.Service.ServiceLayer;
+using PlantDataMVC.Service.SimpleServiceLayer;
 using Rhino.Mocks;
 using UnitTest.Utils.TestData;
 using Xunit;

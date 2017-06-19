@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using PlantDataMVC.Core;
 using PlantDataMVC.Core.DataAccess;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.Core.ServiceLayer;
-using PlantDataMVC.Core.SimpleServiceLayer;
+using PlantDataMVC.Domain.Entities;
+using Framework.Service.ServiceLayer;
+using PlantDataMVC.Service.SimpleServiceLayer;
 using PlantDataMVC.DAL.Entities;
 using PlantDataMVC.DAL.Interfaces;
 using Rhino.Mocks;
 using UnitTest.Utils.TestData;
 using Xunit;
+using Framework.DAL.UnitOfWork;
 
 namespace PlantDataMvc3.Tests.Core
 {

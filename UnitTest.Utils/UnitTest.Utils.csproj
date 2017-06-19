@@ -50,17 +50,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PlantDataMVC.Core\PlantDataMVC.Core.csproj">
-      <Project>{21bad16d-e308-41f0-8246-6ba0003c9139}</Project>
-      <Name>PlantDataMVC.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.DAL\PlantDataMVC.DAL.csproj">
-      <Project>{fb368d7f-221a-424e-a218-7e0d0daa2353}</Project>
-      <Name>PlantDataMVC.DAL</Name>
-    </ProjectReference>
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
+      <Project>{157d351c-8da8-4a9b-b66d-20e4f49eb201}</Project>
+      <Name>PlantDataMVC.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
+      <Project>{ecc2f1e2-a2ea-4390-a75c-114d56f0bd96}</Project>
+      <Name>PlantDataMVC.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

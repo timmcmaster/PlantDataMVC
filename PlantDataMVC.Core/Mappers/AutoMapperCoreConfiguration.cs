@@ -8,8 +8,10 @@ namespace PlantDataMVC.Core.Mappers
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile<DALToDomainMappingProfile>();
-                cfg.AddProfile<DomainToDALMappingProfile>();
+                //cfg.AddProfile<DALToDomainMappingProfile>();
+                //cfg.AddProfile<DomainToDALMappingProfile>();
+                cfg.AddProfile<EFDALToDomainMappingProfile>();
+                cfg.AddProfile<EFDomainToDALMappingProfile>();
             });
         }
     }

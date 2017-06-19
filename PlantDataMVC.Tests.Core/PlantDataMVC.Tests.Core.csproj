@@ -98,13 +98,25 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PlantDataMVC.Core\PlantDataMVC.Core.csproj">
-      <Project>{21bad16d-e308-41f0-8246-6ba0003c9139}</Project>
-      <Name>PlantDataMVC.Core</Name>
+    <ProjectReference Include="..\Framework.DAL\Framework.DAL.csproj">
+      <Project>{39A4295B-11F9-4B3E-8527-D99FFF87E10B}</Project>
+      <Name>Framework.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.DAL\PlantDataMVC.DAL.csproj">
-      <Project>{fb368d7f-221a-424e-a218-7e0d0daa2353}</Project>
-      <Name>PlantDataMVC.DAL</Name>
+    <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
+      <Project>{fb582d72-f66a-4153-bb91-a4f339ed1795}</Project>
+      <Name>Framework.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
+      <Project>{157d351c-8da8-4a9b-b66d-20e4f49eb201}</Project>
+      <Name>PlantDataMVC.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
+      <Project>{ecc2f1e2-a2ea-4390-a75c-114d56f0bd96}</Project>
+      <Name>PlantDataMVC.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj">
+      <Project>{fe02e501-bd2c-4e07-9d83-1fd448ae476f}</Project>
+      <Name>PlantDataMVC.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitTest.Utils\UnitTest.Utils.csproj">
       <Project>{1A3A2975-AB2E-468B-914C-27D87A9E3804}</Project>

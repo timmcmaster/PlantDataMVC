@@ -8,7 +8,6 @@ namespace PlantDataMVC.Core.Mappers
     public class DALToDomainMappingProfile : Profile
     {
         public DALToDomainMappingProfile()
-
         {
             ConfigureDALToDomain();
         }

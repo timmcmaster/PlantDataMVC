@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PlantDataMVC.Core.Domain.BusinessObjects;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using PlantDataMVC.Domain.Entities;
 
 namespace PlantDataMVC.UI.Models
 {

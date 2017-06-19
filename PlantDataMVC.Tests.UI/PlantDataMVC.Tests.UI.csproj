@@ -128,9 +128,21 @@
     <Compile Include="TestDoubles\StubRequest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PlantDataMVC.Core\PlantDataMVC.Core.csproj">
-      <Project>{21bad16d-e308-41f0-8246-6ba0003c9139}</Project>
-      <Name>PlantDataMVC.Core</Name>
+    <ProjectReference Include="..\Framework.Domain\Framework.Domain.csproj">
+      <Project>{12D00995-55F2-4219-9DE4-A377E22174E5}</Project>
+      <Name>Framework.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
+      <Project>{fb582d72-f66a-4153-bb91-a4f339ed1795}</Project>
+      <Name>Framework.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
+      <Project>{157d351c-8da8-4a9b-b66d-20e4f49eb201}</Project>
+      <Name>PlantDataMVC.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj">
+      <Project>{fe02e501-bd2c-4e07-9d83-1fd448ae476f}</Project>
+      <Name>PlantDataMVC.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.UI\PlantDataMVC.UI.csproj">
       <Project>{be083dac-46de-46b3-bbb1-81381f94f40c}</Project>

@@ -131,7 +131,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Areas\Security\Controllers\AccountController.cs" />
     <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
+    <Compile Include="Controllers\FormControllerBase.cs" />
     <Compile Include="Controllers\SiteController.cs" />
+    <Compile Include="Helpers\IFormHandlerFactory.cs" />
     <Compile Include="Helpers\Handlers\SiteCreateEditModelFormHandler.cs" />
     <Compile Include="Helpers\Handlers\SiteDestroyEditModelFormHandler.cs" />
     <Compile Include="Helpers\Handlers\SiteUpdateEditModelFormHandler.cs" />
@@ -209,7 +211,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\FormActionResult.cs" />
     <Compile Include="Helpers\Handlers\PlantDestroyEditModelFormHandler.cs" />
     <Compile Include="Helpers\Handlers\PlantUpdateEditModelFormHandler.cs" />
     <Compile Include="Helpers\Handlers\PlantCreateEditModelFormHandler.cs" />
@@ -233,7 +234,6 @@
     <Compile Include="Models\ViewModels\PlantDeleteViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantShowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceLayerAccess\ServiceLayerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\ASPNETDB.MDF" />
@@ -441,22 +441,33 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PlantDataMVC.Core\PlantDataMVC.Core.csproj">
-      <Project>{21bad16d-e308-41f0-8246-6ba0003c9139}</Project>
-      <Name>PlantDataMVC.Core</Name>
+    <ProjectReference Include="..\Framework.DAL.EF\Framework.DAL.EF.csproj">
+      <Project>{23CE37B8-56FA-429A-AF13-3B06841C9817}</Project>
+      <Name>Framework.DAL.EF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.DAL.EF\PlantDataMVC.DAL.EF.csproj">
-      <Project>{05c217a2-01bd-42cd-a756-849ec564a873}</Project>
-      <Name>PlantDataMVC.DAL.EF</Name>
+    <ProjectReference Include="..\Framework.DAL\Framework.DAL.csproj">
+      <Project>{39A4295B-11F9-4B3E-8527-D99FFF87E10B}</Project>
+      <Name>Framework.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.DAL\PlantDataMVC.DAL.csproj">
-      <Project>{fb368d7f-221a-424e-a218-7e0d0daa2353}</Project>
-      <Name>PlantDataMVC.DAL</Name>
+    <ProjectReference Include="..\Framework.Domain\Framework.Domain.csproj">
+      <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
+      <Name>Framework.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
+      <Project>{FB582D72-F66A-4153-BB91-A4F339ED1795}</Project>
+      <Name>Framework.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
+      <Project>{157D351C-8DA8-4A9B-B66D-20E4F49EB201}</Project>
+      <Name>PlantDataMVC.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj">
+      <Project>{FE02E501-BD2C-4E07-9D83-1FD448AE476F}</Project>
+      <Name>PlantDataMVC.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

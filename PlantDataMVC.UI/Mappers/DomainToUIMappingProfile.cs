@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.Core.ServiceLayer;
+using PlantDataMVC.Domain.Entities;
+using Framework.Service.ServiceLayer;
 using PlantDataMVC.UI.Models;
-using PlantDataMVC.UI.ServiceLayerAccess;
 using System;
 using System.Collections.Generic;
 
@@ -77,16 +76,16 @@ namespace PlantDataMVC.UI.Mappers
         {
             // PlantStockEntry
             CreateMap<PlantStockEntry, PlantStockEntryDeleteViewModel>();
-            CreateMap<PlantStockEntry, PlantStockEntryEditViewModel>()
-                .ForMember(uio => uio.ProductTypes,
-                    opt => opt.MapFrom<IList<PlantProductType>>(
-                        bo => ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantProductType>().List(new ListRequest<PlantProductType>()).Items));
+            CreateMap<PlantStockEntry, PlantStockEntryEditViewModel>();
+                //.ForMember(uio => uio.ProductTypes,
+                //    opt => opt.MapFrom<IList<PlantProductType>>(
+                //        bo => _serviceLayer.GetDataService<PlantProductType>().List(new ListRequest<PlantProductType>()).Items));
 
             CreateMap<PlantStockEntry, PlantStockEntryListViewModel>();
-            CreateMap<PlantStockEntry, PlantStockEntryNewViewModel>()
-                .ForMember(uio => uio.ProductTypes,
-                    opt => opt.MapFrom<IList<PlantProductType>>(
-                        bo => ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantProductType>().List(new ListRequest<PlantProductType>()).Items));
+            CreateMap<PlantStockEntry, PlantStockEntryNewViewModel>();
+                //.ForMember(uio => uio.ProductTypes,
+                //    opt => opt.MapFrom<IList<PlantProductType>>(
+                //        bo => _serviceLayer.GetDataService<PlantProductType>().List(new ListRequest<PlantProductType>()).Items));
 
             CreateMap<PlantStockEntry, PlantStockEntryShowViewModel>();
         }
@@ -95,16 +94,16 @@ namespace PlantDataMVC.UI.Mappers
         {
             // PlantStockTransaction
             CreateMap<PlantStockTransaction, PlantStockTransactionDeleteViewModel>();
-            CreateMap<PlantStockTransaction, PlantStockTransactionEditViewModel>()
-                .ForMember(uio => uio.TransactionTypes,
-                        opt => opt.MapFrom<IList<PlantStockTransactionType>>(
-                            bo => ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantStockTransactionType>().List(new ListRequest<PlantStockTransactionType>()).Items));
+            CreateMap<PlantStockTransaction, PlantStockTransactionEditViewModel>();
+                //.ForMember(uio => uio.TransactionTypes,
+                //        opt => opt.MapFrom<IList<PlantStockTransactionType>>(
+                //            bo => _serviceLayer.GetDataService<PlantStockTransactionType>().List(new ListRequest<PlantStockTransactionType>()).Items));
 
             CreateMap<PlantStockTransaction, PlantStockTransactionListViewModel>();
-            CreateMap<PlantStockTransaction, PlantStockTransactionNewViewModel>()
-                .ForMember(uio => uio.TransactionTypes,
-                        opt => opt.MapFrom<IList<PlantStockTransactionType>>(
-                            bo => ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantStockTransactionType>().List(new ListRequest<PlantStockTransactionType>()).Items));
+            CreateMap<PlantStockTransaction, PlantStockTransactionNewViewModel>();
+                //.ForMember(uio => uio.TransactionTypes,
+                //        opt => opt.MapFrom<IList<PlantStockTransactionType>>(
+                //            bo => _serviceLayer.GetDataService<PlantStockTransactionType>().List(new ListRequest<PlantStockTransactionType>()).Items));
 
             CreateMap<PlantStockTransaction, PlantStockTransactionShowViewModel>();
         }

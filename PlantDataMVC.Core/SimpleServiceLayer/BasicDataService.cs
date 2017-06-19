@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using PlantDataMVC.Core.Domain.BusinessObjects;
 using PlantDataMVC.Core.ServiceLayer;
-using PlantDataMVC.DAL.Interfaces;
-using PlantDataMVC.Core.DataAccess;
+using Framework.DAL.UnitOfWork;
 
 namespace PlantDataMVC.Core.SimpleServiceLayer
 {

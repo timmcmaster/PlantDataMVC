@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PlantDataMVC.Core.Mappers;
+using PlantDataMVC.Domain.Mappers;
 
 namespace PlantDataMvc3.Tests.Core
 {

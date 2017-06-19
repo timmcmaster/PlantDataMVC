@@ -76,6 +76,7 @@
 - [ ] REST/Restful APIs
     - Identify patterns and implementation of a RESTful service 
     - URIs, using HTTP methods for data transfer
+	- may be best done via Web API?
     - https://en.wikipedia.org/wiki/Overview_of_RESTful_API_Description_Languages
     - https://en.wikipedia.org/wiki/Representational_state_transfer
 - [ ] Bit more investigation of Factories in Autofac

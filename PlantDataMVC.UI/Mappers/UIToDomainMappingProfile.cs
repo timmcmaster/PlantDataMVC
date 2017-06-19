@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.Core.ServiceLayer;
+using PlantDataMVC.Domain.Entities;
+using Framework.Service.ServiceLayer;
 using PlantDataMVC.UI.Models;
-using PlantDataMVC.UI.ServiceLayerAccess;
 using System;
 using System.Collections.Generic;
 
@@ -67,32 +66,32 @@ namespace PlantDataMVC.UI.Mappers
         private void ConfigurePlantStockEntryEditModels()
         {
             // PlantStockEntry
-            CreateMap<PlantStockEntryCreateEditModel, PlantStockEntry>()
-                .ForMember(bo => bo.ProductType,
-                            opt => opt.MapFrom<PlantProductType>(
-                                uio => ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantProductType>().View(new ViewRequest<PlantProductType>(uio.ProductTypeId)).Item));
+            CreateMap<PlantStockEntryCreateEditModel, PlantStockEntry>();
+                //.ForMember(bo => bo.ProductType,
+                //            opt => opt.MapFrom<PlantProductType>(
+                //                uio => _serviceLayer.GetDataService<PlantProductType>().View(new ViewRequest<PlantProductType>(uio.ProductTypeId)).Item));
 
             CreateMap<PlantStockEntryDestroyEditModel, PlantStockEntry>();
-            CreateMap<PlantStockEntryUpdateEditModel, PlantStockEntry>()
-                .ForMember(bo => bo.ProductType,
-                            opt => opt.MapFrom<PlantProductType>(
-                                uio => ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantProductType>().View(new ViewRequest<PlantProductType>(uio.ProductTypeId)).Item));
+            CreateMap<PlantStockEntryUpdateEditModel, PlantStockEntry>();
+                //.ForMember(bo => bo.ProductType,
+                //            opt => opt.MapFrom<PlantProductType>(
+                //                uio => _serviceLayer.GetDataService<PlantProductType>().View(new ViewRequest<PlantProductType>(uio.ProductTypeId)).Item));
 
         }
 
         private void ConfigurePlantStockTransactionEditModels()
         {
             // PlantStockTransaction
-            CreateMap<PlantStockTransactionCreateEditModel, PlantStockTransaction>()
-                .ForMember(bo => bo.TransactionType,
-                            opt => opt.MapFrom<PlantStockTransactionType>(
-                                uio => ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantStockTransactionType>().View(new ViewRequest<PlantStockTransactionType>(uio.TransactionTypeId)).Item));
+            CreateMap<PlantStockTransactionCreateEditModel, PlantStockTransaction>();
+                //.ForMember(bo => bo.TransactionType,
+                //            opt => opt.MapFrom<PlantStockTransactionType>(
+                //                uio => _serviceLayer.GetDataService<PlantStockTransactionType>().View(new ViewRequest<PlantStockTransactionType>(uio.TransactionTypeId)).Item));
 
             CreateMap<PlantStockTransactionDestroyEditModel, PlantStockTransaction>();
-            CreateMap<PlantStockTransactionUpdateEditModel, PlantStockTransaction>()
-                .ForMember(bo => bo.TransactionType,
-                            opt => opt.MapFrom<PlantStockTransactionType>(
-                                uio => ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantStockTransactionType>().View(new ViewRequest<PlantStockTransactionType>(uio.TransactionTypeId)).Item));
+            CreateMap<PlantStockTransactionUpdateEditModel, PlantStockTransaction>();
+                //.ForMember(bo => bo.TransactionType,
+                //            opt => opt.MapFrom<PlantStockTransactionType>(
+                //                uio => _serviceLayer.GetDataService<PlantStockTransactionType>().View(new ViewRequest<PlantStockTransactionType>(uio.TransactionTypeId)).Item));
 
         }
 

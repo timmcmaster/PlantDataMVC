@@ -1,10 +1,11 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Framework.DAL.EF.UnitOfWork;
+using Framework.DAL.UnitOfWork;
+using Framework.Service.ServiceLayer;
+using PlantDataMVC.Service.SimpleServiceLayer;
 using System.Web.Mvc;
-using PlantDataMVC.DAL.Interfaces;
-using PlantDataMVC.DAL.EF.Infrastructure;
-using PlantDataMVC.Core.SimpleServiceLayer;
-using PlantDataMVC.Core.ServiceLayer;
+using PlantDataMVC.UI.Helpers;
 
 namespace PlantDataMVC.UI
 {
@@ -37,7 +38,7 @@ namespace PlantDataMVC.UI
 
 
             // DAL configurations
-            builder.RegisterType<EFUnitOfWork>().As<IUnitOfWork>();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
 
             // Core configurations
@@ -45,7 +46,8 @@ namespace PlantDataMVC.UI
 
 
             // UI configurations
-
+            // TEMP: Want to build factory via IoC itself
+            builder.RegisterType<FormHandlerFactory>().As<IFormHandlerFactory>();
 
 
             // Set the dependency resolver to be Autofac.

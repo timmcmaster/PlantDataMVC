@@ -1,6 +1,6 @@
 ﻿using Xunit;
-using PlantDataMVC.DAL.Entities;
-using PlantDataMVC.DAL.Interfaces;
+using PlantDataMVC.Entities.Models;
+using Framework.DAL.Entity;
 
 namespace PlantDataMvc3.Tests.DAL
 {
