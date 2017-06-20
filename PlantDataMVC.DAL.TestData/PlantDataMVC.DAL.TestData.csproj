@@ -49,12 +49,27 @@
     <Compile Include="TestRepositories\TestJournalEntryTypeRepository.cs" />
     <Compile Include="TestRepositories\TestPlantStockRepository.cs" />
     <Compile Include="TestRepositories\TestProductTypeRepository.cs" />
+    <Compile Include="TestRepositories\TestRepository.cs" />
     <Compile Include="TestRepositories\TestRepositoryBase.cs" />
     <Compile Include="TestRepositories\TestUnitOfWork.cs" />
     <Compile Include="TestRepositories\TestSeedBatchRepository.cs" />
     <Compile Include="TestRepositories\TestSeedTrayRepository.cs" />
     <Compile Include="TestRepositories\TestSiteRepository.cs" />
     <Compile Include="TestRepositories\TestSpeciesRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework.DAL.EF\Framework.DAL.EF.csproj">
+      <Project>{23ce37b8-56fa-429a-af13-3b06841c9817}</Project>
+      <Name>Framework.DAL.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework.DAL\Framework.DAL.csproj">
+      <Project>{39a4295b-11f9-4b3e-8527-d99fff87e10b}</Project>
+      <Name>Framework.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
+      <Project>{ECC2F1E2-A2EA-4390-A75C-114D56F0BD96}</Project>
+      <Name>PlantDataMVC.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

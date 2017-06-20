@@ -99,29 +99,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LocalRepositoryTests\BaseRepositoryFacts.cs" />
-    <Compile Include="LocalRepositoryTests\LocalGenusRepositoryFacts.cs" />
     <Compile Include="MappingTests\EFEntityMappingFacts.cs" />
     <Compile Include="EntityTests\GenusFacts.cs" />
     <Compile Include="EntityTests\SpeciesFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryTests\GenusMappingRepositoryFacts.cs" />
     <Compile Include="UnitOfWorkTests\BaseUnitOfWorkFacts.cs" />
-    <Compile Include="RepositoryTests\BaseGenusRepositoryFacts.cs" />
-    <Compile Include="LocalRepositoryTests\EFGenusRepositoryFacts.cs" />
-    <Compile Include="RepositoryTests\TestGenusRepositoryFacts.cs" />
+    <Compile Include="RepositoryTests\GenusRepositoryFacts.cs" />
     <Compile Include="UnitOfWorkTests\TestUnitOfWorkFacts.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework.DAL.EF\Framework.DAL.EF.csproj">
+      <Project>{23ce37b8-56fa-429a-af13-3b06841c9817}</Project>
+      <Name>Framework.DAL.EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework.DAL\Framework.DAL.csproj">
       <Project>{39A4295B-11F9-4B3E-8527-D99FFF87E10B}</Project>
       <Name>Framework.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.DAL.TestData\PlantDataMVC.DAL.TestData.csproj">
-      <Project>{9e4bc26b-3260-48fe-b90d-f8b43d3b7fc9}</Project>
-      <Name>PlantDataMVC.DAL.TestData</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
       <Project>{ecc2f1e2-a2ea-4390-a75c-114d56f0bd96}</Project>

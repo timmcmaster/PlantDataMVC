@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.DAL.TestData
 {
-    public class TestJournalEntryRepository : TestRepositoryBase<JournalEntry>, IJournalEntryRepository
+    public class TestJournalEntryRepository : TestRepository<JournalEntry>
     {
         public TestJournalEntryRepository()
             : base()

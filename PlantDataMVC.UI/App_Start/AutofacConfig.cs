@@ -6,6 +6,8 @@ using Framework.Service.ServiceLayer;
 using PlantDataMVC.Service.SimpleServiceLayer;
 using System.Web.Mvc;
 using PlantDataMVC.UI.Helpers;
+using Framework.DAL.EF.Repository;
+using Framework.DAL.Repository;
 
 namespace PlantDataMVC.UI
 {
@@ -39,6 +41,10 @@ namespace PlantDataMVC.UI
 
             // DAL configurations
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+            // Register repository types for now
+            // TODO: Make factory instead, manage lifetime scope
+            builder.RegisterGeneric(typeof(Framework.DAL.EF.Repository.Repository<>))
+                .As(typeof(IRepository<>));
 
 
             // Core configurations

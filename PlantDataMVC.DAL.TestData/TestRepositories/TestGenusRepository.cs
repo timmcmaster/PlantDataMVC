@@ -1,11 +1,10 @@
-﻿using PlantDataMVC.DAL.Entities;
-using PlantDataMVC.DAL.Interfaces;
+﻿using PlantDataMVC.Entities.Models;
 using System;
 using System.Collections.Generic;
 
 namespace PlantDataMVC.DAL.TestData
 {
-    public class TestGenusRepository : TestRepositoryBase<Genus>, IGenusRepository
+    public class TestGenusRepository : TestRepository<Genus>
     {
 
         public TestGenusRepository()
