@@ -1,4 +1,5 @@
-﻿using Framework.DAL.EF.Repository;
+﻿using Framework.DAL.DataContext;
+using Framework.DAL.EF.Repository;
 using Framework.DAL.Entity;
 using Framework.DAL.Repository;
 using Framework.DAL.UnitOfWork;
@@ -17,20 +18,20 @@ namespace Framework.DAL.EF.UnitOfWork
         #region Variables
 
         private bool _disposed = false;
-        protected DbContext _context;
+        private IDataContext _dataContext;
         private Dictionary<string, dynamic> _repositories;
 
         #endregion Variables
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(IDataContext dataContext)
         {
-            _context = context;
+            _dataContext = dataContext;
             _repositories = new Dictionary<string, dynamic>();
         }
 
         public void Commit()
         {
-            _context.SaveChanges();
+            _dataContext.SaveChanges();
         }
 
 
@@ -40,7 +41,7 @@ namespace Framework.DAL.EF.UnitOfWork
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    _dataContext.Dispose();
                 }
             }
             this._disposed = true;
@@ -77,7 +78,7 @@ namespace Framework.DAL.EF.UnitOfWork
             // 3. Create new one, add to dictionary and return instance
             var repositoryType = typeof(Repository<>);
 
-            _repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _context, this));
+            _repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext, this));
 
             return _repositories[type];
         }

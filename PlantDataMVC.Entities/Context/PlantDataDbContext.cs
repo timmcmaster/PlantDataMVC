@@ -20,7 +20,7 @@ namespace PlantDataMVC.Entities.Context
     using System.Linq;
 
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.31.1.0")]
-    public partial class PlantDataDbContext : System.Data.Entity.DbContext, IPlantDataDbContext
+    public partial class PlantDataDbContext : Framework.DAL.EF.DataContext.DataContext, IPlantDataDbContext
     {
         public System.Data.Entity.DbSet<Genus> Genus { get; set; } // Genus
         public System.Data.Entity.DbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry

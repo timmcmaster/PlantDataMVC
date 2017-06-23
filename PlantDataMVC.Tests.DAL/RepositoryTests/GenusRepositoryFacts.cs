@@ -1,4 +1,5 @@
-﻿using Framework.DAL.EF.UnitOfWork;
+﻿using Framework.DAL.DataContext;
+using Framework.DAL.EF.UnitOfWork;
 using Framework.DAL.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
@@ -13,7 +14,7 @@ namespace PlantDataMvc3.Tests.DAL
         public void CanAddItemWithId()
         {
             // TODO: Needs an interface, as fake is not actually DbContext 
-            using (DbContext plantDataFakeDBContext = new FakePlantDataDbContext())
+            using (IDataContext plantDataFakeDBContext = new FakePlantDataDbContext())
             using (IUnitOfWork uow = new UnitOfWork(plantDataFakeDBContext))
             {
                 // Arrange

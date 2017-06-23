@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System;
+using Framework.DAL.DataContext;
 
 namespace Framework.DAL.EF.Repository
 {
@@ -20,32 +21,25 @@ namespace Framework.DAL.EF.Repository
     public class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity 
     {
-        private DbContext _context;
+        private IDataContext _context;
         private IDbSet<TEntity> _dbSet;
         //private IUnitOfWork _unitOfWork;
 
-        public DbContext Context
-        {
-            get
-            {
-                return _context;
-            }
-        }
-
-        protected IDbSet<TEntity> DbSet
-        {
-            get
-            {
-                return _dbSet;
-            }
-        }
-
         //public Repository(DbContext context, IUnitOfWork unitOfWork)
-        public Repository(DbContext context)
+        public Repository(IDataContext context)
             : base()
         {
             _context = context;
             //_unitOfWork = unitOfWork;
+
+            var dbContext = context as DbContext;
+
+            if (dbContext != null)
+            {
+                _dbSet = dbContext.Set<TEntity>();
+            }
+            else
+            { }
 
             _dbSet = context.Set<TEntity>();
         }
@@ -54,18 +48,18 @@ namespace Framework.DAL.EF.Repository
 
         public IList<TEntity> GetAll()
         {
-            return this.DbSet.ToList();
+            return _dbSet.ToList();
         }
 
         public TEntity GetItemById(int id)
         {
-            return this.DbSet.Find(id);
+            return _dbSet.Find(id);
         }
 
 
         public TEntity GetItemById(int id, params Expression<System.Func<TEntity, object>>[] includes)
         {
-            IQueryable<TEntity> query = this.DbSet.Where(s => s.Id == id);
+            IQueryable<TEntity> query = _dbSet.Where(s => s.Id == id);
 
             // Do we want to throw an error if we find more than 1 object?
 
@@ -82,7 +76,7 @@ namespace Framework.DAL.EF.Repository
 
         public TEntity Add(TEntity item)
         {
-            this.DbSet.Add(item);
+            _dbSet.Add(item);
 
             return item;
         }
@@ -96,7 +90,7 @@ namespace Framework.DAL.EF.Repository
 
         public void Delete(TEntity item)
         {
-            this.DbSet.Remove(item);
+            _dbSet.Remove(item);
         }
 
         public IQueryable<TEntity> Queryable()
