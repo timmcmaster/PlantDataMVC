@@ -11,12 +11,12 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 {
     public class PlantStockTransactionTypeDataService : BasicDataService<PlantStockTransactionType>
     {
-        public PlantStockTransactionTypeDataService(IUnitOfWork uow)
+        public PlantStockTransactionTypeDataService(IUnitOfWorkAsync uow)
             : base(uow)
         {
         }
 
-        protected override PlantStockTransactionType CreateItem(IUnitOfWork uow, PlantStockTransactionType requestItem)
+        protected override PlantStockTransactionType CreateItem(IUnitOfWorkAsync uow, PlantStockTransactionType requestItem)
         {
             // map 
             JournalEntryType mappedItem = AutoMapper.Mapper.Map<PlantStockTransactionType, JournalEntryType>(requestItem);
@@ -28,7 +28,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return finalItem;
         }
 
-        protected override PlantStockTransactionType SelectItem(IUnitOfWork uow, int id)
+        protected override PlantStockTransactionType SelectItem(IUnitOfWorkAsync uow, int id)
         {
             // map 
             //JournalEntryType mappedItem = AutoMapper.Mapper.Map<PlantStockTransactionType, JournalEntryType>(requestItem);
@@ -40,7 +40,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return finalItem;
         }
 
-        protected override PlantStockTransactionType UpdateItem(IUnitOfWork uow, PlantStockTransactionType requestItem)
+        protected override PlantStockTransactionType UpdateItem(IUnitOfWorkAsync uow, PlantStockTransactionType requestItem)
         {
             // map 
             JournalEntryType mappedItem = AutoMapper.Mapper.Map<PlantStockTransactionType, JournalEntryType>(requestItem);
@@ -52,7 +52,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return finalItem;
         }
 
-        protected override void DeleteItem(IUnitOfWork uow, int id)
+        protected override void DeleteItem(IUnitOfWorkAsync uow, int id)
         {
             // map 
             //JournalEntryType mappedItem = AutoMapper.Mapper.Map<PlantStockTransactionType, JournalEntryType>(requestItem);
@@ -60,7 +60,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             uow.Repository<JournalEntryType>().Delete(uow.Repository<JournalEntryType>().GetItemById(id));
         }
 
-        protected override IList<PlantStockTransactionType> ListItems(IUnitOfWork uow)
+        protected override IList<PlantStockTransactionType> ListItems(IUnitOfWorkAsync uow)
         {
             IList<JournalEntryType> allItems = uow.Repository<JournalEntryType>().GetAll();
 

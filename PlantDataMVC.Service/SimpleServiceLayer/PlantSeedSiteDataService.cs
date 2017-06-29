@@ -11,12 +11,12 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 {
     public class PlantSeedSiteDataService : BasicDataService<PlantSeedSite>
     {
-        public PlantSeedSiteDataService(IUnitOfWork uow)
+        public PlantSeedSiteDataService(IUnitOfWorkAsync uow)
             : base(uow)
         {
         }
 
-        protected override PlantSeedSite CreateItem(IUnitOfWork uow, PlantSeedSite requestItem)
+        protected override PlantSeedSite CreateItem(IUnitOfWorkAsync uow, PlantSeedSite requestItem)
         {
             // map 
             Site mappedItem = AutoMapper.Mapper.Map<PlantSeedSite, Site>(requestItem);
@@ -28,7 +28,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return finalItem;
         }
 
-        protected override PlantSeedSite SelectItem(IUnitOfWork uow, int id)
+        protected override PlantSeedSite SelectItem(IUnitOfWorkAsync uow, int id)
         {
             // map 
             //Site mappedItem = AutoMapper.Mapper.Map<PlantSeedSite, Site>(requestItem);
@@ -40,7 +40,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return finalItem;
         }
 
-        protected override PlantSeedSite UpdateItem(IUnitOfWork uow, PlantSeedSite requestItem)
+        protected override PlantSeedSite UpdateItem(IUnitOfWorkAsync uow, PlantSeedSite requestItem)
         {
             // map 
             Site mappedItem = AutoMapper.Mapper.Map<PlantSeedSite, Site>(requestItem);
@@ -52,7 +52,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return finalItem;
         }
 
-        protected override void DeleteItem(IUnitOfWork uow, int id)
+        protected override void DeleteItem(IUnitOfWorkAsync uow, int id)
         {
             // map 
             //Site mappedItem = AutoMapper.Mapper.Map<PlantSeedSite, Site>(requestItem);
@@ -60,7 +60,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             uow.Repository<Site>().Delete(uow.Repository<Site>().GetItemById(id));
         }
 
-        protected override IList<PlantSeedSite> ListItems(IUnitOfWork uow)
+        protected override IList<PlantSeedSite> ListItems(IUnitOfWorkAsync uow)
         {
             IList<Site> allItems = uow.Repository<Site>().GetAll();
 

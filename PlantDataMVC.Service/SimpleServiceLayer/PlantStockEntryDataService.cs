@@ -11,12 +11,12 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 {
     public class PlantStockEntryDataService : BasicDataService<PlantStockEntry>
     {
-        public PlantStockEntryDataService(IUnitOfWork uow)
+        public PlantStockEntryDataService(IUnitOfWorkAsync uow)
             : base(uow)
         {
         }
 
-        protected override PlantStockEntry CreateItem(IUnitOfWork uow, PlantStockEntry requestItem)
+        protected override PlantStockEntry CreateItem(IUnitOfWorkAsync uow, PlantStockEntry requestItem)
         {
                 // map 
                 PlantStock mappedItem = AutoMapper.Mapper.Map<PlantStockEntry, PlantStock>(requestItem);
@@ -28,7 +28,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
                 return finalItem;
         }
 
-        protected override PlantStockEntry SelectItem(IUnitOfWork uow, int id)
+        protected override PlantStockEntry SelectItem(IUnitOfWorkAsync uow, int id)
         {
                 // map 
                 //PlantStock mappedItem = AutoMapper.Mapper.Map<PlantStockEntry, PlantStock>(requestItem);
@@ -40,7 +40,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
                 return finalItem;
         }
 
-        protected override PlantStockEntry UpdateItem(IUnitOfWork uow, PlantStockEntry requestItem)
+        protected override PlantStockEntry UpdateItem(IUnitOfWorkAsync uow, PlantStockEntry requestItem)
         {
             // map 
             PlantStock mappedItem = AutoMapper.Mapper.Map<PlantStockEntry, PlantStock>(requestItem);
@@ -52,7 +52,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return finalItem;
         }
 
-        protected override void DeleteItem(IUnitOfWork uow, int id)
+        protected override void DeleteItem(IUnitOfWorkAsync uow, int id)
         {
             // map 
             //PlantStock mappedItem = AutoMapper.Mapper.Map<PlantStockEntry, PlantStock>(requestItem);
@@ -60,7 +60,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             uow.Repository<PlantStock>().Delete(uow.Repository<PlantStock>().GetItemById(id));
         }
 
-        protected override IList<PlantStockEntry> ListItems(IUnitOfWork uow)
+        protected override IList<PlantStockEntry> ListItems(IUnitOfWorkAsync uow)
         {
             IList<PlantStock> allItems = uow.Repository<PlantStock>().GetAll();
 

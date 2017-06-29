@@ -1,20 +1,21 @@
-﻿using Framework.DAL.Entity;
+﻿using Framework.DAL.EF;
+using Framework.DAL.Entity;
 
 namespace PlantDataMVC.Entities.Models
 {
-    partial class Site : IEntity
+    partial class Site : Entity
     {
     }
 
-    partial class PriceListType : IEntity
+    partial class PriceListType : Entity
     {
     }
 
-    partial class JournalEntryType : IEntity
+    partial class JournalEntryType : Entity
     {
     }
 
-    partial class ProductPrice : IEntity
+    partial class ProductPrice : Entity
     {
         // HACK: Putting Id in just to meet interface requirements
         public int Id
@@ -23,31 +24,31 @@ namespace PlantDataMVC.Entities.Models
         }
     }
 
-    partial class ProductType : IEntity
+    partial class ProductType : Entity
     {
     }
 
-    partial class JournalEntry : IEntity
+    partial class JournalEntry : Entity
     {
     }
 
-    partial class PlantStock : IEntity
+    partial class PlantStock : Entity
     {
     }
 
-    partial class SeedTray : IEntity
+    partial class SeedTray : Entity
     {
     }
 
-    partial class SeedBatch : IEntity
+    partial class SeedBatch : Entity
     {
     }
 
-    partial class Species : IEntity
+    partial class Species : Entity
     {
     }
 
-    partial class Genus : IEntity
+    partial class Genus : Entity
     {
     }
 }

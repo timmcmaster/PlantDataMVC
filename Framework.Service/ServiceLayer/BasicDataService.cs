@@ -6,9 +6,9 @@ namespace Framework.Service.ServiceLayer
 {
     public abstract class BasicDataService<T> : IBasicDataService<T> where T : IDomainEntity
     {
-        protected IUnitOfWork UnitOfWork { get; set; }
+        protected IUnitOfWorkAsync UnitOfWork { get; set; }
 
-        public BasicDataService(IUnitOfWork unitOfWork)
+        public BasicDataService(IUnitOfWorkAsync unitOfWork)
         {
             this.UnitOfWork = unitOfWork;
         }
@@ -19,7 +19,7 @@ namespace Framework.Service.ServiceLayer
             {
                 T createdItem = CreateItem(uow, request.Item);
 
-                uow.Commit();
+                uow.SaveChanges();
 
                 return new CreateResponse<T>(createdItem.Id, createdItem);
             }
@@ -41,7 +41,7 @@ namespace Framework.Service.ServiceLayer
             {
                 T updatedItem = UpdateItem(uow, request.Item);
 
-                uow.Commit();
+                uow.SaveChanges();
 
                 return new UpdateResponse<T>(updatedItem);
             }
@@ -53,7 +53,7 @@ namespace Framework.Service.ServiceLayer
             {
                 DeleteItem(uow, request.Id);
 
-                uow.Commit();
+                uow.SaveChanges();
 
                 return new DeleteResponse<T>();
             }
@@ -69,10 +69,10 @@ namespace Framework.Service.ServiceLayer
             }
         }
 
-        protected abstract T CreateItem(IUnitOfWork uow, T requestItem);
-        protected abstract T SelectItem(IUnitOfWork uow, int id);
-        protected abstract T UpdateItem(IUnitOfWork uow, T requestItem);
-        protected abstract void DeleteItem(IUnitOfWork uow, int id);
-        protected abstract IList<T> ListItems(IUnitOfWork uow);
+        protected abstract T CreateItem(IUnitOfWorkAsync uow, T requestItem);
+        protected abstract T SelectItem(IUnitOfWorkAsync uow, int id);
+        protected abstract T UpdateItem(IUnitOfWorkAsync uow, T requestItem);
+        protected abstract void DeleteItem(IUnitOfWorkAsync uow, int id);
+        protected abstract IList<T> ListItems(IUnitOfWorkAsync uow);
     }
 }

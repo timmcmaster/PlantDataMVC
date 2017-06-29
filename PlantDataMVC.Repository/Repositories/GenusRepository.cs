@@ -13,7 +13,6 @@ namespace PlantDataMVC.Repository.Repositories
         public static Genus GetItemByLatinName(this IRepository<Genus> repository, string latinName)
         {
             return repository.Queryable().FirstOrDefault(p => p.LatinName == latinName);
-            ;
         }
     }
 }

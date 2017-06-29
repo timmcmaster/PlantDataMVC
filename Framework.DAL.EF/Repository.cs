@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System;
 using Framework.DAL.DataContext;
 
-namespace Framework.DAL.EF.Repository
+namespace Framework.DAL.EF
 {
     /// <summary>
     /// The base class for a repository in the EF.Repositories space.
@@ -18,20 +18,21 @@ namespace Framework.DAL.EF.Repository
     /// </summary>
     /// <typeparam name="TEntity">The external Entity-derived type.</typeparam>
     /// <typeparam name="T">The internal EntityObject-derived type.</typeparam>
-    public class Repository<TEntity> : IRepository<TEntity>
+    public class Repository<TEntity> : IRepositoryAsync<TEntity>
         where TEntity : class, IEntity 
     {
-        private IDataContext _context;
+        private IDataContextAsync _context;
         private IDbSet<TEntity> _dbSet;
-        //private IUnitOfWork _unitOfWork;
+        //private IUnitOfWorkAsync _unitOfWork;
 
-        //public Repository(DbContext context, IUnitOfWork unitOfWork)
-        public Repository(IDataContext context)
+        //public Repository(IDataContextAsync context, IUnitOfWorkAsync unitOfWork)
+        public Repository(IDataContextAsync context)
             : base()
         {
             _context = context;
             //_unitOfWork = unitOfWork;
 
+            // HACK: Feels dodgy to need to know which context type it is here
             var dbContext = context as DbContext;
 
             if (dbContext != null)
@@ -39,9 +40,15 @@ namespace Framework.DAL.EF.Repository
                 _dbSet = dbContext.Set<TEntity>();
             }
             else
-            { }
+            {
+                var fakeContext = context as FakeDbContext;
 
-            _dbSet = context.Set<TEntity>();
+                if (fakeContext != null)
+                {
+                    _dbSet = fakeContext.Set<TEntity>();
+                }
+
+            }
         }
 
         #region IRepository implementation
@@ -83,7 +90,8 @@ namespace Framework.DAL.EF.Repository
 
         public TEntity Save(TEntity item)
         {
-            this.Context.Entry<TEntity>(item).State = System.Data.Entity.EntityState.Modified;
+            //_context.Entry<TEntity>(item).State = System.Data.Entity.EntityState.Modified;
+            _dbSet.Attach(item);
 
             return item;
         }

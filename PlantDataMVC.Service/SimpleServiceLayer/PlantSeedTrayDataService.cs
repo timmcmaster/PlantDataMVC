@@ -11,12 +11,12 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 {
     public class PlantSeedTrayDataService : BasicDataService<PlantSeedTray>
     {
-        public PlantSeedTrayDataService(IUnitOfWork uow)
+        public PlantSeedTrayDataService(IUnitOfWorkAsync uow)
             : base(uow)
         {
         }
 
-        protected override PlantSeedTray CreateItem(IUnitOfWork uow, PlantSeedTray requestItem)
+        protected override PlantSeedTray CreateItem(IUnitOfWorkAsync uow, PlantSeedTray requestItem)
         {
             // map 
             SeedTray mappedItem = AutoMapper.Mapper.Map<PlantSeedTray, SeedTray>(requestItem);
@@ -28,7 +28,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return finalItem;
         }
 
-        protected override PlantSeedTray SelectItem(IUnitOfWork uow, int id)
+        protected override PlantSeedTray SelectItem(IUnitOfWorkAsync uow, int id)
         {
             // map 
             //SeedTray mappedItem = AutoMapper.Mapper.Map<PlantSeedTray, SeedTray>(requestItem);
@@ -40,7 +40,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return finalItem;
         }
 
-        protected override PlantSeedTray UpdateItem(IUnitOfWork uow, PlantSeedTray requestItem)
+        protected override PlantSeedTray UpdateItem(IUnitOfWorkAsync uow, PlantSeedTray requestItem)
         {
             // map 
             SeedTray mappedItem = AutoMapper.Mapper.Map<PlantSeedTray, SeedTray>(requestItem);
@@ -52,7 +52,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return finalItem;
         }
 
-        protected override void DeleteItem(IUnitOfWork uow, int id)
+        protected override void DeleteItem(IUnitOfWorkAsync uow, int id)
         {
             // map 
             //SeedTray mappedItem = AutoMapper.Mapper.Map<PlantSeedTray, SeedTray>(requestItem);
@@ -60,7 +60,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             uow.Repository<SeedTray>().Delete(uow.Repository<SeedTray>().GetItemById(id));
         }
 
-        protected override IList<PlantSeedTray> ListItems(IUnitOfWork uow)
+        protected override IList<PlantSeedTray> ListItems(IUnitOfWorkAsync uow)
         {
             IList<SeedTray> allItems = uow.Repository<SeedTray>().GetAll();
 

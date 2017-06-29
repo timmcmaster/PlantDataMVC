@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Framework.DAL.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Framework.DAL.Entity
     /// are all done with IEntity-derived objects. 
     /// Each object type should have an IEntity derived class to contain type-specific properties
     /// </summary>
-    public interface IEntity
+    public interface IEntity: IObjectState
     {
         int Id { get; }
     }  

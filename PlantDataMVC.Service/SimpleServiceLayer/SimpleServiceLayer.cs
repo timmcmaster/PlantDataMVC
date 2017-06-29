@@ -7,10 +7,10 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 {
     public class SimpleServiceLayer : IServiceLayer
     {
-        private IUnitOfWork _uow;
+        private IUnitOfWorkAsync _uow;
 
         //Add constructor for constructor dependency injection
-        public SimpleServiceLayer(IUnitOfWork uow)
+        public SimpleServiceLayer(IUnitOfWorkAsync uow)
         {
             _uow = uow;
         }

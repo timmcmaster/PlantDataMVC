@@ -12,7 +12,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 {
     public class PlantDataService : BasicDataService<Plant>
     {
-        public PlantDataService(IUnitOfWork uow)
+        public PlantDataService(IUnitOfWorkAsync uow)
             : base(uow)
         {
         }
@@ -25,7 +25,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         /// </summary>
         /// <param name="requestItem"></param>
         /// <returns></returns>
-        protected override Plant CreateItem(IUnitOfWork uow, Plant requestItem)
+        protected override Plant CreateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
             // get genus
             Genus requiredGenus = GetGenus(uow, requestItem);
@@ -47,7 +47,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         }
 
 
-        public Genus GetGenus(IUnitOfWork uow, Plant requestItem)
+        public Genus GetGenus(IUnitOfWorkAsync uow, Plant requestItem)
         {
             // search in list by name
             Genus requiredGenus = uow.Repository<Genus>().GetItemByLatinName(requestItem.GenusLatinName);
@@ -55,7 +55,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return requiredGenus;
         }
 
-        public Genus CreateGenus(IUnitOfWork uow, Plant requestItem)
+        public Genus CreateGenus(IUnitOfWorkAsync uow, Plant requestItem)
         {
             // map plant to genus
             Genus requestGenus = Mapper.Map<Plant, Genus>(requestItem);
@@ -66,7 +66,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return requiredGenus;
         }
 
-        private Species CreateSpecies(IUnitOfWork uow, Plant requestItem, Genus parentGenus)
+        private Species CreateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
         {
             // map plant to species
             Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
@@ -81,7 +81,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return requiredSpecies;
         }
 
-        private Species UpdateSpecies(IUnitOfWork uow, Plant requestItem, Genus parentGenus)
+        private Species UpdateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
         {
             // map plant to species
             Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
@@ -98,7 +98,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
 
 
-        protected override Plant SelectItem(IUnitOfWork uow, int id)
+        protected override Plant SelectItem(IUnitOfWorkAsync uow, int id)
         {
             // map plant to species
             //Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
@@ -116,7 +116,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             return plant;
         }
 
-        protected override Plant UpdateItem(IUnitOfWork uow, Plant requestItem)
+        protected override Plant UpdateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
             // get genus
             Genus requiredGenus = GetGenus(uow, requestItem);
@@ -129,14 +129,14 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
             Species savedSpecies = UpdateSpecies(uow, requestItem, requiredGenus);
 
-            uow.Commit();
+            uow.SaveChanges();
 
             Plant plant = Mapper.Map<Species, Plant>(savedSpecies);
 
             return plant;
         }
 
-        protected override void DeleteItem(IUnitOfWork uow, int id)
+        protected override void DeleteItem(IUnitOfWorkAsync uow, int id)
         {
             if (id <= 0)
             {
@@ -147,10 +147,10 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
             uow.Repository<Species>().Delete(uow.Repository<Species>().GetItemById(id));
 
-            uow.Commit();
+            uow.SaveChanges();
         }
 
-        protected override IList<Plant> ListItems(IUnitOfWork uow)
+        protected override IList<Plant> ListItems(IUnitOfWorkAsync uow)
         {
             IList<Species> allSpecies = uow.Repository<Species>().GetAll();
 
