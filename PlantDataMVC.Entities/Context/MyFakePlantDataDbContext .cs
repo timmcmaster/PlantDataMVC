@@ -29,17 +29,17 @@ namespace PlantDataMVC.Entities.Context
             AddFakeDbSet<Species, SpeciesDbSet>();
         }
 
-        public DbSet<Genus> Genus { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<JournalEntry> JournalEntries { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<JournalEntryType> JournalEntryTypes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<PlantStock> PlantStocks { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<PriceListType> PriceListTypes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<ProductPrice> ProductPrices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<ProductType> ProductTypes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<SeedBatch> SeedBatches { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<SeedTray> SeedTrays { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<Site> Sites { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<Species> Species { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DbSet<Genus> Genus { get => Set<Genus>(); set => throw new NotImplementedException(); }
+        public DbSet<JournalEntry> JournalEntries { get => Set<JournalEntry>(); set => throw new NotImplementedException(); }
+        public DbSet<JournalEntryType> JournalEntryTypes { get => Set<JournalEntryType>(); set => throw new NotImplementedException(); }
+        public DbSet<PlantStock> PlantStocks { get => Set<PlantStock>(); set => throw new NotImplementedException(); }
+        public DbSet<PriceListType> PriceListTypes { get => Set<PriceListType>(); set => throw new NotImplementedException(); }
+        public DbSet<ProductPrice> ProductPrices { get => Set<ProductPrice>(); set => throw new NotImplementedException(); }
+        public DbSet<ProductType> ProductTypes { get => Set<ProductType>(); set => throw new NotImplementedException(); }
+        public DbSet<SeedBatch> SeedBatches { get => Set<SeedBatch>(); set => throw new NotImplementedException(); }
+        public DbSet<SeedTray> SeedTrays { get => Set<SeedTray>(); set => throw new NotImplementedException(); }
+        public DbSet<Site> Sites { get => Set<Site>(); set => throw new NotImplementedException(); }
+        public DbSet<Species> Species { get => Set<Species>(); set => throw new NotImplementedException(); }
 
         public DbChangeTracker _changeTracker;
         public DbChangeTracker ChangeTracker { get { return _changeTracker; } }

@@ -1,6 +1,9 @@
 ﻿using Framework.DAL.DataContext;
+using Framework.DAL.Infrastructure;
 using System;
 using System.Data.Entity;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Framework.DAL.EF
 {
@@ -34,6 +37,42 @@ namespace Framework.DAL.EF
         {
             _instanceId = Guid.NewGuid();
         }
+
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync()
+        {
+            return await this.SaveChangesAsync(CancellationToken.None);
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        {
+            SyncObjectsStatePreCommit();
+            var changesAsync = await base.SaveChangesAsync(cancellationToken);
+            SyncObjectsStatePostCommit();
+            return changesAsync;
+        }
+
+        private void SyncObjectsStatePreCommit()
+        {
+            // Map state on generic entity to EF state
+            foreach (var dbEntityEntry in ChangeTracker.Entries())
+            {
+                dbEntityEntry.State = StateHelper.ConvertState(((IObjectState)dbEntityEntry.Entity).ObjectState);
+            }
+        }
+
+        public void SyncObjectsStatePostCommit()
+        {
+            // Map state on EF entity to generic state
+            foreach (var dbEntityEntry in ChangeTracker.Entries())
+            {
+                ((IObjectState)dbEntityEntry.Entity).ObjectState = StateHelper.ConvertState(dbEntityEntry.State);
+            }
+        }
         #endregion
 
         protected override void Dispose(bool disposing)
@@ -53,6 +92,11 @@ namespace Framework.DAL.EF
             }
 
             base.Dispose(disposing);
+        }
+
+        public void SyncObjectState<TEntity>(TEntity entity) where  TEntity : class, IObjectState
+        {
+            Entry(entity).State = StateHelper.ConvertState(entity.ObjectState);
         }
     }
 }

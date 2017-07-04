@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Framework.DAL.Entity;
+using System.Threading;
+using Framework.DAL.Infrastructure;
 
 namespace PlantDataMVC.Entities.Context
 {
@@ -33,6 +35,16 @@ namespace PlantDataMVC.Entities.Context
             return default(int);
         }
 
+        public Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        {
+            return new Task<int>(() => default(int));
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return new Task<int>(() => default(int));
+        }
+
         public DbSet<T> Set<T>() where T : class
         {
             return (DbSet<T>)_fakeDbSets[typeof(T)];
@@ -44,6 +56,14 @@ namespace PlantDataMVC.Entities.Context
         {
             var fakeDbSet = Activator.CreateInstance<TFakeDbSet>();
             _fakeDbSets.Add(typeof(TEntity), fakeDbSet);
+        }
+
+        public void SyncObjectState<TEntity>(TEntity entity) where TEntity : class, IObjectState
+        {
+        }
+
+        public void SyncObjectsStatePostCommit()
+        {
         }
     }
 }

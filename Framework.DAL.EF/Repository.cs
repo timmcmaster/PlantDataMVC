@@ -1,12 +1,12 @@
-﻿using Framework.DAL.Entity;
+﻿using Framework.DAL.DataContext;
+using Framework.DAL.Entity;
+using Framework.DAL.Infrastructure;
 using Framework.DAL.Repository;
 //using Framework.DAL.UnitOfWork;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System;
-using Framework.DAL.DataContext;
 
 namespace Framework.DAL.EF
 {
@@ -41,12 +41,12 @@ namespace Framework.DAL.EF
             }
             else
             {
-                var fakeContext = context as FakeDbContext;
+                //var fakeContext = context as FakeDbContext;
 
-                if (fakeContext != null)
-                {
-                    _dbSet = fakeContext.Set<TEntity>();
-                }
+                //if (fakeContext != null)
+                //{
+                //    _dbSet = fakeContext.Set<TEntity>();
+                //}
 
             }
         }
@@ -83,22 +83,30 @@ namespace Framework.DAL.EF
 
         public TEntity Add(TEntity item)
         {
-            _dbSet.Add(item);
+            item.ObjectState = ObjectState.Added;
+            _dbSet.Attach(item);
+            _context.SyncObjectState(item);
 
             return item;
         }
 
         public TEntity Save(TEntity item)
         {
+            // TODO: Need object state stuff here to ensure data actually gets saved
+            // while also allowing non-EF implementations of generic pattern
             //_context.Entry<TEntity>(item).State = System.Data.Entity.EntityState.Modified;
+            item.ObjectState = ObjectState.Modified;
             _dbSet.Attach(item);
+            _context.SyncObjectState(item);
 
             return item;
         }
 
         public void Delete(TEntity item)
         {
-            _dbSet.Remove(item);
+            item.ObjectState = ObjectState.Deleted;
+            _dbSet.Attach(item);
+            _context.SyncObjectState(item);
         }
 
         public IQueryable<TEntity> Queryable()

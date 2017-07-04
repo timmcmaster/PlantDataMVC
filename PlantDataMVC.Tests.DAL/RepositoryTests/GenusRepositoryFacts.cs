@@ -1,5 +1,5 @@
 ﻿using Framework.DAL.DataContext;
-using Framework.DAL.EF.UnitOfWork;
+using Framework.DAL.EF;
 using Framework.DAL.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
@@ -14,8 +14,8 @@ namespace PlantDataMvc3.Tests.DAL
         public void CanAddItemWithId()
         {
             // TODO: Needs an interface, as fake is not actually DbContext 
-            using (IDataContext plantDataFakeDBContext = new FakePlantDataDbContext())
-            using (IUnitOfWork uow = new UnitOfWork(plantDataFakeDBContext))
+            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
             {
                 // Arrange
                 var repository = uow.Repository<Genus>();
@@ -35,8 +35,8 @@ namespace PlantDataMvc3.Tests.DAL
         public void CanAddItemWithoutId()
         {
             // TODO: Needs an interface, as fake is not actually DbContext 
-            using (DbContext plantDataFakeDBContext = new FakePlantDataDbContext())
-            using (IUnitOfWork uow = new UnitOfWork(plantDataFakeDBContext))
+            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
             {
                 // Arrange
                 var repository = uow.Repository<Genus>();
@@ -55,8 +55,8 @@ namespace PlantDataMvc3.Tests.DAL
         public void CanGetItemById()
         {
             // TODO: Needs an interface, as fake is not actually DbContext 
-            using (DbContext plantDataFakeDBContext = new FakePlantDataDbContext())
-            using (IUnitOfWork uow = new UnitOfWork(plantDataFakeDBContext))
+            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
             {
                 // Arrange
                 var repository = uow.Repository<Genus>();

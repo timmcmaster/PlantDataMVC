@@ -1,13 +1,12 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using Framework.DAL.EF.UnitOfWork;
+using Framework.DAL.EF;
+using Framework.DAL.Repository;
 using Framework.DAL.UnitOfWork;
 using Framework.Service.ServiceLayer;
 using PlantDataMVC.Service.SimpleServiceLayer;
-using System.Web.Mvc;
 using PlantDataMVC.UI.Helpers;
-using Framework.DAL.EF.Repository;
-using Framework.DAL.Repository;
+using System.Web.Mvc;
 
 namespace PlantDataMVC.UI
 {
@@ -43,7 +42,7 @@ namespace PlantDataMVC.UI
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
             // Register repository types for now
             // TODO: Make factory instead, manage lifetime scope
-            builder.RegisterGeneric(typeof(Framework.DAL.EF.Repository.Repository<>))
+            builder.RegisterGeneric(typeof(Framework.DAL.EF.Repository<>))
                 .As(typeof(IRepository<>));
 
 

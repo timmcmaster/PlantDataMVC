@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Entities.Context
 {
-    public interface IFakeDbContext : IDataContext
+    public interface IFakeDbContext : IDataContextAsync
     {
         DbSet<T> Set<T>() where T : class;
 
