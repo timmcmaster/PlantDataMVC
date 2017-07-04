@@ -99,15 +99,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MappingTests\EFEntityMappingFacts.cs" />
     <Compile Include="EntityTests\GenusFacts.cs" />
     <Compile Include="EntityTests\SpeciesFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWorkTests\BaseUnitOfWorkFacts.cs" />
     <Compile Include="RepositoryTests\GenusRepositoryFacts.cs" />
-    <Compile Include="UnitOfWorkTests\TestUnitOfWorkFacts.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework.DAL.EF\Framework.DAL.EF.csproj">

@@ -13,7 +13,7 @@ namespace PlantDataMvc3.Tests.DAL
         [Fact]
         public void CanAddItemWithId()
         {
-            // TODO: Needs an interface, as fake is not actually DbContext 
+            // TODO: fix use of MyFakePlantDataDbContext
             using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
             {
@@ -34,7 +34,7 @@ namespace PlantDataMvc3.Tests.DAL
         [Fact]
         public void CanAddItemWithoutId()
         {
-            // TODO: Needs an interface, as fake is not actually DbContext 
+            // TODO: fix use of MyFakePlantDataDbContext
             using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
             {
@@ -54,7 +54,7 @@ namespace PlantDataMvc3.Tests.DAL
         [Fact]
         public void CanGetItemById()
         {
-            // TODO: Needs an interface, as fake is not actually DbContext 
+            // TODO: fix use of MyFakePlantDataDbContext
             using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
             {

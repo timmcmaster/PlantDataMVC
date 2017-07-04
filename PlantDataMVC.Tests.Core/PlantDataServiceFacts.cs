@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using PlantDataMVC.Core;
-using PlantDataMVC.Core.DataAccess;
 using PlantDataMVC.Domain.Entities;
 using Framework.Service.ServiceLayer;
 using PlantDataMVC.Service.SimpleServiceLayer;
-using PlantDataMVC.DAL.Entities;
-using PlantDataMVC.DAL.Interfaces;
 using Rhino.Mocks;
 using UnitTest.Utils.TestData;
 using Xunit;
@@ -28,8 +24,7 @@ namespace PlantDataMvc3.Tests.Core
         public void TestGetGenusWhereLatinNameExists()
         {
             // Arrange
-            var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-            var uow = MockRepository.GenerateStub<IUnitOfWork>();
+            var uow = MockRepository.GenerateStub<IUnitOfWorkAsync>();
             var gdao = MockRepository.GenerateStub<IGenusRepository>();
             var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
 
@@ -39,7 +34,6 @@ namespace PlantDataMvc3.Tests.Core
             var genus = DALTestData.GenerateRandomGenus();
             genus.LatinName = plant.GenusLatinName;
 
-            mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
             uow.Stub(x => x.GenusRepository).Return(gdao);
             uow.Stub(x => x.SpeciesRepository).Return(sdao);
             gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(genus);
@@ -64,7 +58,6 @@ namespace PlantDataMvc3.Tests.Core
         public void TestGetGenusWhereLatinNameDoesNotExist()
         {
             // Arrange
-            var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
             var uow = MockRepository.GenerateStub<IUnitOfWork>();
             var gdao = MockRepository.GenerateStub<IGenusRepository>();
             var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
@@ -73,7 +66,6 @@ namespace PlantDataMvc3.Tests.Core
 
             var genusLatinName = plant.GenusLatinName;
 
-            mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
             uow.Stub(x => x.GenusRepository).Return(gdao);
             uow.Stub(x => x.SpeciesRepository).Return(sdao);
             gdao.Stub(x => x.GetItemByLatinName(genusLatinName)).Return(null);

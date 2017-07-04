@@ -1,138 +1,151 @@
 ﻿using Xunit;
-using PlantDataMVC.DAL.Interfaces;
 using System;
+using Framework.DAL.UnitOfWork;
+using Framework.DAL.EF;
+using Framework.DAL.DataContext;
+using PlantDataMVC.Entities.Context;
 
 namespace PlantDataMvc3.Tests.DAL
 {
-    public abstract class BaseUnitOfWorkFacts: IDisposable
+    public class BaseUnitOfWorkFacts: IDisposable
     {
-        protected BaseUnitOfWorkFacts()
+        public BaseUnitOfWorkFacts()
         {
-        }
-
-        protected abstract IUnitOfWork CreateUnitOfWork();
-        
-        [Fact]
-        public void CanCreate()
-        {
-            // Act
-            var sut = CreateUnitOfWork();
-
-            // Assert
-            var iUnitOfWork = Assert.IsAssignableFrom<IUnitOfWork>(sut);
-            Assert.NotNull(sut);
         }
 
         [Fact]
         public void HasGenusRepository()
         {
             // Arrange
-            var sut = CreateUnitOfWork();
+            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IUnitOfWorkAsync sut = new UnitOfWork(plantDataFakeDBContext))
+            {
+                // Act
+                var repository = sut.GenusRepository;
 
-            // Act
-            var repository = sut.GenusRepository;
-
-            // Assert
-            var iRepository = Assert.IsAssignableFrom<IGenusRepository>(repository);
-            Assert.NotNull(iRepository);
+                // Assert
+                var iRepository = Assert.IsAssignableFrom<IGenusRepository>(repository);
+                Assert.NotNull(iRepository);
+            }
         }
 
         [Fact]
         public void HasSpeciesRepository()
         {
             // Arrange
-            var sut = CreateUnitOfWork();
+            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IUnitOfWorkAsync sut = new UnitOfWork(plantDataFakeDBContext))
+            {
 
-            // Act
-            var repository = sut.SpeciesRepository;
+                // Act
+                var repository = sut.SpeciesRepository;
 
-            // Assert
-            var iRepository = Assert.IsAssignableFrom<ISpeciesRepository>(repository);
-            Assert.NotNull(iRepository);
+                // Assert
+                var iRepository = Assert.IsAssignableFrom<ISpeciesRepository>(repository);
+                Assert.NotNull(iRepository);
+            }
         }
 
         [Fact]
         public void HasSeedBatchRepository()
         {
             // Arrange
-            var sut = CreateUnitOfWork();
+            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IUnitOfWorkAsync sut = new UnitOfWork(plantDataFakeDBContext))
+            {
 
-            // Act
-            var repository = sut.SeedBatchRepository;
+                // Act
+                var repository = sut.SeedBatchRepository;
 
-            // Assert
-            var iRepository = Assert.IsAssignableFrom<ISeedBatchRepository>(repository);
-            Assert.NotNull(iRepository);
+                // Assert
+                var iRepository = Assert.IsAssignableFrom<ISeedBatchRepository>(repository);
+                Assert.NotNull(iRepository);
+            }
         }
 
         [Fact]
         public void HasSeedTrayRepository()
         {
             // Arrange
-            var sut = CreateUnitOfWork();
+            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IUnitOfWorkAsync sut = new UnitOfWork(plantDataFakeDBContext))
+            {
 
-            // Act
-            var repository = sut.SeedTrayRepository;
+                // Act
+                var repository = sut.SeedTrayRepository;
 
-            // Assert
-            var iRepository = Assert.IsAssignableFrom<ISeedTrayRepository>(repository);
-            Assert.NotNull(iRepository);
+                // Assert
+                var iRepository = Assert.IsAssignableFrom<ISeedTrayRepository>(repository);
+                Assert.NotNull(iRepository);
+            }
         }
 
         [Fact]
         public void HasPlantStockRepository()
         {
             // Arrange
-            var sut = CreateUnitOfWork();
+            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IUnitOfWorkAsync sut = new UnitOfWork(plantDataFakeDBContext))
+            {
 
-            // Act
-            var repository = sut.PlantStockRepository;
+                // Act
+                var repository = sut.PlantStockRepository;
 
-            // Assert
-            var iRepository = Assert.IsAssignableFrom<IPlantStockRepository>(repository);
-            Assert.NotNull(iRepository);
+                // Assert
+                var iRepository = Assert.IsAssignableFrom<IPlantStockRepository>(repository);
+                Assert.NotNull(iRepository);
+            }
         }
 
         [Fact]
         public void HasProductTypeRepository()
         {
             // Arrange
-            var sut = CreateUnitOfWork();
+            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IUnitOfWorkAsync sut = new UnitOfWork(plantDataFakeDBContext))
+            {
 
-            // Act
-            var repository = sut.ProductTypeRepository;
+                // Act
+                var repository = sut.ProductTypeRepository;
 
-            // Assert
-            var iRepository = Assert.IsAssignableFrom<IProductTypeRepository>(repository);
-            Assert.NotNull(iRepository);
+                // Assert
+                var iRepository = Assert.IsAssignableFrom<IProductTypeRepository>(repository);
+                Assert.NotNull(iRepository);
+            }
         }
 
         [Fact]
         public void HasJournalEntryRepository()
         {
             // Arrange
-            var sut = CreateUnitOfWork();
+            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IUnitOfWorkAsync sut = new UnitOfWork(plantDataFakeDBContext))
+            {
 
-            // Act
-            var repository = sut.JournalEntryRepository;
+                // Act
+                var repository = sut.JournalEntryRepository;
 
-            // Assert
-            var iRepository = Assert.IsAssignableFrom<IJournalEntryRepository>(repository);
-            Assert.NotNull(iRepository);
+                // Assert
+                var iRepository = Assert.IsAssignableFrom<IJournalEntryRepository>(repository);
+                Assert.NotNull(iRepository);
+            }
         }
 
         [Fact]
         public void HasJournalEntryTypeRepository()
         {
             // Arrange
-            var sut = CreateUnitOfWork();
+            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IUnitOfWorkAsync sut = new UnitOfWork(plantDataFakeDBContext))
+            {
 
-            // Act
-            var repository = sut.JournalEntryTypeRepository;
+                // Act
+                var repository = sut.JournalEntryTypeRepository;
 
-            // Assert
-            var iRepository = Assert.IsAssignableFrom<IJournalEntryTypeRepository>(repository);
-            Assert.NotNull(iRepository);
+                // Assert
+                var iRepository = Assert.IsAssignableFrom<IJournalEntryTypeRepository>(repository);
+                Assert.NotNull(iRepository);
+            }
         }
 
         public virtual void Dispose()
