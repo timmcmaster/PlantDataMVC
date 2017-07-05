@@ -33,6 +33,7 @@ namespace Framework.DAL.EF
             //_unitOfWork = unitOfWork;
 
             // HACK: Feels dodgy to need to know which context type it is here
+            // I suspect it is here because Set is an EF concept, not generic, hence not in interface 
             var dbContext = context as DbContext;
 
             if (dbContext != null)
@@ -41,13 +42,12 @@ namespace Framework.DAL.EF
             }
             else
             {
-                //var fakeContext = context as FakeDbContext;
+                var fakeContext = context as FakeDbContext;
 
-                //if (fakeContext != null)
-                //{
-                //    _dbSet = fakeContext.Set<TEntity>();
-                //}
-
+                if (fakeContext != null)
+                {
+                    _dbSet = fakeContext.Set<TEntity>();
+                }
             }
         }
 

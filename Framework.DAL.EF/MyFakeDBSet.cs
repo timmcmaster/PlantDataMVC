@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Linq.Expressions;
 
-namespace PlantDataMVC.Entities.Context
+namespace Framework.DAL.EF
 {
     public abstract class MyFakeDbSet<TEntity> : DbSet<TEntity>, IDbSet<TEntity> where TEntity : class, IEntity, new()
     {

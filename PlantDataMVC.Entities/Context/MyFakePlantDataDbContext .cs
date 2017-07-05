@@ -9,6 +9,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Threading;
+using Framework.DAL.EF;
 
 namespace PlantDataMVC.Entities.Context
 {

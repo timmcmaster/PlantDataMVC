@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Framework.DAL.DataContext;
 using Framework.DAL.EF;
 using Framework.DAL.Repository;
 using Framework.DAL.UnitOfWork;
 using Framework.Service.ServiceLayer;
+using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Service.SimpleServiceLayer;
 using PlantDataMVC.UI.Helpers;
 using System.Web.Mvc;
@@ -39,11 +41,13 @@ namespace PlantDataMVC.UI
 
 
             // DAL configurations
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+            builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
+
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
             // Register repository types for now
             // TODO: Make factory instead, manage lifetime scope
             builder.RegisterGeneric(typeof(Framework.DAL.EF.Repository<>))
-                .As(typeof(IRepository<>));
+                .As(typeof(IRepositoryAsync<>));
 
 
             // Core configurations

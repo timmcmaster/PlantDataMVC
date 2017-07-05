@@ -94,7 +94,6 @@
   <ItemGroup>
     <Compile Include="DomainToDALMappingFacts.cs" />
     <Compile Include="CoreMappingFixture.cs" />
-    <Compile Include="PlantDataServiceFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

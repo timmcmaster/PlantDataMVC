@@ -9,7 +9,7 @@ using Framework.DAL.Entity;
 using System.Threading;
 using Framework.DAL.Infrastructure;
 
-namespace PlantDataMVC.Entities.Context
+namespace Framework.DAL.EF
 {
     /// <summary>
     /// This class contains the generic EF stuff for a fake context.

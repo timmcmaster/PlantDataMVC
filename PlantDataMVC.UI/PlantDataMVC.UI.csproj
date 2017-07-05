@@ -465,6 +465,10 @@
       <Project>{157D351C-8DA8-4A9B-B66D-20E4F49EB201}</Project>
       <Name>PlantDataMVC.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
+      <Project>{ECC2F1E2-A2EA-4390-A75C-114D56F0BD96}</Project>
+      <Name>PlantDataMVC.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj">
       <Project>{FE02E501-BD2C-4E07-9D83-1FD448AE476F}</Project>
       <Name>PlantDataMVC.Service</Name>
