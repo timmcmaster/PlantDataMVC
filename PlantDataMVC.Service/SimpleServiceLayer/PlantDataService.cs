@@ -109,7 +109,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             List<string> includeProperties = new List<string>() { "Genus" };
 
             //Species species = uow.SpeciesRepository.GetItemById(id, includeProperties);
-            Species species = uow.Repository<Species>().GetItemById(id, s => s.GenusId);
+            //Species species = uow.Repository<Species>().GetItemById(id, s => s.Genus);
+            Species species = uow.Repository<Species>().GetItemById(id);
 
             Plant plant = Mapper.Map<Species, Plant>(species);
 
