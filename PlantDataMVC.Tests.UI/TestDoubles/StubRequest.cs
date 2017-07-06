@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace PlantDataMVC.Tests
+namespace PlantDataMVC.Tests.UI
 {
     public class StubRequest : HttpRequestBase
     {

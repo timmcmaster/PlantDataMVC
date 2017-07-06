@@ -2,7 +2,7 @@
 using PlantDataMVC.Entities.Models;
 using Framework.DAL.Entity;
 
-namespace PlantDataMvc3.Tests.DAL
+namespace PlantDataMVC.Tests.DAL
 {
     public class SpeciesFacts
     {

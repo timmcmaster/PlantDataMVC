@@ -13,7 +13,7 @@ using PlantDataMVC.UI.Models;
 using PlantDataMVC.UI.Mappers;
 using System;
 
-namespace PlantDataMVC.Tests.Controllers
+namespace PlantDataMVC.Tests.UI.Controllers
 {
     public class PlantControllerFacts:IClassFixture<WebMappingFixture>
     {

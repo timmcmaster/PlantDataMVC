@@ -117,7 +117,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\WebMappingFixture.cs" />
+    <Compile Include="UIToDomainMappingFacts.cs" />
+    <Compile Include="WebMappingFixture.cs" />
     <Compile Include="Controllers\HomeControllerFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routes\RouteFacts.cs" />

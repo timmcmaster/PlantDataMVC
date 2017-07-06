@@ -4,7 +4,7 @@ using PlantDataMVC.Entities.Models;
 using UnitTest.Utils.TestData;
 using Xunit;
 
-namespace PlantDataMvc3.Tests.Core
+namespace PlantDataMVC.Tests.Core
 {
     public class DomainToDALMappingFacts : IClassFixture<CoreMappingFixture>
     {

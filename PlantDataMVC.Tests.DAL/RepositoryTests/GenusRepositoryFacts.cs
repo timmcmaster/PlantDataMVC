@@ -6,7 +6,7 @@ using PlantDataMVC.Entities.Models;
 using System.Data.Entity;
 using Xunit;
 
-namespace PlantDataMvc3.Tests.DAL
+namespace PlantDataMVC.Tests.DAL
 {
     public class GenusRepositoryFacts
     {
