@@ -1,18 +1,17 @@
-﻿using System;
+﻿using AutoMapper;
+using Framework.DAL.UnitOfWork;
+using PlantDataMVC.Core.Domain.BusinessObjects;
+using PlantDataMVC.Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using PlantDataMVC.Core.DataAccess;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.DAL.Entities;
-using PlantDataMVC.DAL.Interfaces;
-using AutoMapper;
 
 namespace PlantDataMVC.Core.SimpleServiceLayer
 {
     public class PlantDataService : BasicDataService<Plant>
     {
-        public PlantDataService(IUnitOfWorkManager uowManager)
-            : base(uowManager)
+        public PlantDataService(IUnitOfWork uow)
+            : base(uow)
         {
         }
 

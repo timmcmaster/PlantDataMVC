@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using PlantDataMVC.Core.Domain.BusinessObjects;
+using PlantDataMVC.Domain.Entities;
 
 namespace PlantDataMVC.UI.Models
 {

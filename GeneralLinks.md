@@ -6,6 +6,8 @@
   - http://buildplease.com/pages/repositories-dto/
 ## DAL
   - https://blog.magnusmontin.net/2013/05/30/generic-dal-using-entity-framework/
+## EF Mocking and test doubles
+  - https://msdn.microsoft.com/en-us/data/dn314431.aspx
 ## Inventory
   - http://www.daniweb.com/web-development/databases/database-design/threads/182459
 ## Autofac - IOC

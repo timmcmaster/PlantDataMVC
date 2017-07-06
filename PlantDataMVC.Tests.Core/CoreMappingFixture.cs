@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PlantDataMVC.Core.Mappers;
+using PlantDataMVC.Domain.Mappers;
 
-namespace PlantDataMvc3.Tests.Core
+namespace PlantDataMVC.Tests.Core
 {
     public class CoreMappingFixture
     {
         public CoreMappingFixture()
         {
+            this.Configure();
         }
 
         public void Configure()

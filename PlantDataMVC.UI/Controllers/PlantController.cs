@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.Core.ServiceLayer;
-using PlantDataMVC.UI.ServiceLayerAccess;
+﻿using Framework.Service.ServiceLayer;
+using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
@@ -13,14 +12,16 @@ namespace PlantDataMVC.UI.Controllers
     {
         private IBasicDataService<Plant> _dataService;
 
-        public PlantController() : this(null)
+        public PlantController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory): base(formHandlerFactory)
         {
+            // get service from service layer
+            _dataService = serviceLayer.GetDataService<Plant>();
         }
 
-        public PlantController(IBasicDataService<Plant> dataService)
+        public PlantController(IBasicDataService<Plant> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
-            // use passed in service or default instance service
-            _dataService = dataService ?? ServiceLayerManager.Instance().GetServiceLayer().GetDataService<Plant>();
+            // use passed in service
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index
@@ -35,7 +36,7 @@ namespace PlantDataMVC.UI.Controllers
 
             ListResponse<Plant> response = _dataService.List(new ListRequest<Plant>());
 
-            IList<Plant> list = response.Items;
+            List<Plant> list = response.Items;
 
             //List<IModelConverter> converters = new List<IModelConverter>();
 
@@ -44,7 +45,7 @@ namespace PlantDataMVC.UI.Controllers
 
             //return new ModelConverterSequenceViewResult(converters.ToArray(), View(list));
 
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<IList<PlantListViewModel>>(View(list));
+            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantListViewModel>>(View(list));
 
             return ListView<PlantListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
         }

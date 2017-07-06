@@ -1,8 +1,8 @@
 ﻿using Xunit;
-using PlantDataMVC.DAL.Entities;
-using PlantDataMVC.DAL.Interfaces;
+using PlantDataMVC.Entities.Models;
+using Framework.DAL.Entity;
 
-namespace PlantDataMvc3.Tests.DAL
+namespace PlantDataMVC.Tests.DAL
 {
     public class SpeciesFacts
     {
@@ -17,7 +17,7 @@ namespace PlantDataMvc3.Tests.DAL
             Assert.Null(species.LatinName);
             Assert.Equal<int>(0, species.Id);
             Assert.Equal<int>(0, species.GenusId);
-            Assert.Null(species.GenusLatinName);
+            //Assert.Null(species.GenusLatinName);
             Assert.Null(species.CommonName);
             Assert.Null(species.Description);
             Assert.Equal<bool>(false, species.Native);
@@ -33,7 +33,7 @@ namespace PlantDataMvc3.Tests.DAL
                             {
                                 Id = 1,
                                 GenusId = 1,
-                                GenusLatinName = "Eremophila",
+                                //GenusLatinName = "Eremophila",
                                 CommonName = "Crimson emu bush",
                                 Description = "Arid zone plant",
                                 Native = true,
@@ -45,7 +45,7 @@ namespace PlantDataMvc3.Tests.DAL
             var entity = Assert.IsAssignableFrom<IEntity>(species);
             Assert.Equal<int>(1, species.Id);
             Assert.Equal<int>(1, species.GenusId);
-            Assert.Equal<string>("Eremophila", species.GenusLatinName);
+            //Assert.Equal<string>("Eremophila", species.GenusLatinName);
             Assert.Equal<string>("Crimson emu bush", species.CommonName);
             Assert.Equal<string>("Arid zone plant", species.Description);
             Assert.Equal<bool>(true, species.Native);

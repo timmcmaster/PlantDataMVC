@@ -1,6 +1,5 @@
-﻿using PlantDataMVC.Core.Mappers;
-using PlantDataMVC.DAL.EF.Infrastructure;
-//using PlantDataMVC.DAL.LinqToSql.Infrastructure;
+﻿using AutoMapper;
+using PlantDataMVC.Domain.Mappers;
 
 namespace PlantDataMVC.UI.Mappers
 {
@@ -13,14 +12,15 @@ namespace PlantDataMVC.UI.Mappers
             if (!_configured)
             {
                 _configured = true;
-                
-                AutoMapperWebConfiguration.Configure();
 
-                AutoMapperCoreConfiguration.Configure();
+                //AutoMapperWebConfiguration.Configure();
+                //AutoMapperCoreConfiguration.Configure();
 
-                AutoMapperDALConfigurationEF.Configure();
-
-                //AutoMapperDALConfigurationLinqToSql.Configure();
+                Mapper.Initialize(x =>
+                {
+                    AutoMapperWebConfiguration.ConfigAction.Invoke(x);
+                    AutoMapperCoreConfiguration.ConfigAction.Invoke(x);
+                });
             }
         }
     }

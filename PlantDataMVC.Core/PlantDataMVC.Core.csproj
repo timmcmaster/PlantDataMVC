@@ -34,8 +34,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -52,8 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\IUnitOfWorkManager.cs" />
-    <Compile Include="DataAccess\UnitOfWorkManager.cs" />
     <Compile Include="Domain\BusinessObjects\PlantSeedSite.cs" />
     <Compile Include="Domain\BusinessObjects\DomainEntity.cs" />
     <Compile Include="Domain\BusinessObjects\Plant.cs" />
@@ -65,6 +66,10 @@
     <Compile Include="Domain\BusinessObjects\PlantStockEntry.cs" />
     <Compile Include="Domain\BusinessObjects\PlantStockTransaction.cs" />
     <Compile Include="Domain\BusinessObjects\PlantStockTransactionType.cs" />
+    <Compile Include="Mappers\EFDomainToDALMappingProfile.cs" />
+    <Compile Include="Mappers\EFDALToDomainMappingProfile.cs" />
+    <Compile Include="Mappers\DALToDomainMappingProfile.cs" />
+    <Compile Include="Mappers\DomainToDALMappingProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mappers\AutoMapperCoreConfiguration.cs" />
     <Compile Include="SimpleServiceLayer\BasicDataService.cs" />
@@ -119,13 +124,13 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PlantDataMVC.DAL.EF\PlantDataMVC.DAL.EF.csproj">
-      <Project>{05c217a2-01bd-42cd-a756-849ec564a873}</Project>
-      <Name>PlantDataMVC.DAL.EF</Name>
+    <ProjectReference Include="..\Framework.DAL\Framework.DAL.csproj">
+      <Project>{39a4295b-11f9-4b3e-8527-d99fff87e10b}</Project>
+      <Name>Framework.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.DAL\PlantDataMVC.DAL.csproj">
-      <Project>{fb368d7f-221a-424e-a218-7e0d0daa2353}</Project>
-      <Name>PlantDataMVC.DAL</Name>
+    <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
+      <Project>{ecc2f1e2-a2ea-4390-a75c-114d56f0bd96}</Project>
+      <Name>PlantDataMVC.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

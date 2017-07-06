@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.Core.ServiceLayer;
-using PlantDataMVC.UI.ServiceLayerAccess;
+﻿using Framework.Service.ServiceLayer;
+using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
@@ -13,14 +12,16 @@ namespace PlantDataMVC.UI.Controllers
     {
         private IBasicDataService<PlantStockTransaction> _dataService;
 
-        public TransactionController() : this(null)
+        public TransactionController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory): base(formHandlerFactory)
         {
+            // get service from service layer
+            _dataService = serviceLayer.GetDataService<PlantStockTransaction>();
         }
 
-        public TransactionController(IBasicDataService<PlantStockTransaction> dataService)
+        public TransactionController(IBasicDataService<PlantStockTransaction> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
-            // use passed in service or default instance service
-            _dataService = dataService ?? ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantStockTransaction>();
+            // use passed in service
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index
@@ -29,9 +30,9 @@ namespace PlantDataMVC.UI.Controllers
         {
             ListResponse<PlantStockTransaction> response = _dataService.List(new ListRequest<PlantStockTransaction>());
 
-            IList<PlantStockTransaction> list = response.Items;
+            List<PlantStockTransaction> list = response.Items;
 
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<IList<PlantStockTransactionListViewModel>>(View(list));
+            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantStockTransactionListViewModel>>(View(list));
 
             return ListView<PlantStockTransactionListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
         }

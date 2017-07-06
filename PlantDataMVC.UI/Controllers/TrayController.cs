@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.Core.ServiceLayer;
-using PlantDataMVC.UI.ServiceLayerAccess;
+﻿using Framework.Service.ServiceLayer;
+using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
@@ -13,14 +12,16 @@ namespace PlantDataMVC.UI.Controllers
     {
         private IBasicDataService<PlantSeedTray> _dataService;
 
-        public TrayController() : this(null)
+        public TrayController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
+            // get service from service layer
+            _dataService = serviceLayer.GetDataService<PlantSeedTray>();
         }
 
-        public TrayController(IBasicDataService<PlantSeedTray> dataService)
+        public TrayController(IBasicDataService<PlantSeedTray> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
-            // use passed in service or default instance service
-            _dataService = dataService ?? ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantSeedTray>();
+            // use passed in service
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index
@@ -29,9 +30,9 @@ namespace PlantDataMVC.UI.Controllers
         {
             ListResponse<PlantSeedTray> response = _dataService.List(new ListRequest<PlantSeedTray>());
 
-            IList<PlantSeedTray> list = response.Items;
+            List<PlantSeedTray> list = response.Items;
 
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<IList<TrayListViewModel>>(View(list));
+            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<TrayListViewModel>>(View(list));
 
             return ListView<TrayListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
         }

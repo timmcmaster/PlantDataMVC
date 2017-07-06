@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.DAL.Entities;
+using PlantDataMVC.Domain.Entities;
+using PlantDataMVC.Entities.Models;
 using UnitTest.Utils.TestData;
 using Xunit;
 
-namespace PlantDataMvc3.Tests.Core
+namespace PlantDataMVC.Tests.Core
 {
     public class DomainToDALMappingFacts : IClassFixture<CoreMappingFixture>
     {
@@ -47,7 +47,7 @@ namespace PlantDataMvc3.Tests.Core
                 LatinName = plant.SpeciesLatinName,
                 CommonName = plant.CommonName,
                 Description = plant.Description,
-                GenusLatinName = plant.GenusLatinName,
+                //GenusLatinName = plant.GenusLatinName,
                 Native = plant.Native,
                 PropagationTime = plant.PropagationTime
             };
@@ -60,7 +60,7 @@ namespace PlantDataMvc3.Tests.Core
             Assert.Equal(expectedSpecies.LatinName, result.LatinName);
             Assert.Equal(expectedSpecies.CommonName, result.CommonName);
             Assert.Equal(expectedSpecies.Description, result.Description);
-            Assert.Equal(expectedSpecies.GenusLatinName, result.GenusLatinName);
+            //Assert.Equal(expectedSpecies.GenusLatinName, result.GenusLatinName);
             Assert.Equal(expectedSpecies.Native, result.Native);
             Assert.Equal(expectedSpecies.PropagationTime, result.PropagationTime);
         }

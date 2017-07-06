@@ -1,16 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using PlantDataMVC.Core.Domain.BusinessObjects;
+using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Models;
-using PlantDataMVC.UI.ServiceLayerAccess;
+using Framework.Service.ServiceLayer;
 
 namespace PlantDataMVC.UI.Helpers
 {
-    public static class FormHandlerFactory
+    public class FormHandlerFactory: IFormHandlerFactory
     {
-        private static Dictionary<Type, Object> _formHandlerDictionary = new Dictionary<Type, object>();
+        private IServiceLayer _serviceLayer;
 
-        public static IFormHandler<TForm> GetFormHandler<TForm>()
+        private Dictionary<Type, Object> _formHandlerDictionary = new Dictionary<Type, object>();
+
+        public FormHandlerFactory(IServiceLayer serviceLayer)
+        {
+            _serviceLayer = serviceLayer;
+            _formHandlerDictionary = new Dictionary<Type, object>();
+        }
+
+        public IFormHandler<TForm> GetFormHandler<TForm>()
         {
             IFormHandler<TForm> formHandler = FindHandler<TForm>();
 
@@ -23,43 +31,43 @@ namespace PlantDataMVC.UI.Helpers
             return formHandler;
         }
 
-        public static dynamic GetDataService<TForm>()
+        public dynamic GetDataService<TForm>()
         {
             if ((typeof(TForm) == typeof(PlantCreateEditModel)) ||
                 (typeof(TForm) == typeof(PlantDestroyEditModel)) ||
                 (typeof(TForm) == typeof(PlantUpdateEditModel)))
             {
-                return ServiceLayerManager.Instance().GetServiceLayer().GetDataService<Plant>();
+                return _serviceLayer.GetDataService<Plant>();
             }
             else if ((typeof(TForm) == typeof(PlantSeedCreateEditModel)) ||
                     (typeof(TForm) == typeof(PlantSeedDestroyEditModel)) ||
                     (typeof(TForm) == typeof(PlantSeedUpdateEditModel)))
             {
-                return ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantSeed>();
+                return _serviceLayer.GetDataService<PlantSeed>();
             }
             else if ((typeof(TForm) == typeof(PlantStockEntryCreateEditModel)) ||
                     (typeof(TForm) == typeof(PlantStockEntryDestroyEditModel)) ||
                     (typeof(TForm) == typeof(PlantStockEntryUpdateEditModel)))
             {
-                return ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantStockEntry>();
+                return _serviceLayer.GetDataService<PlantStockEntry>();
             }
             else if ((typeof(TForm) == typeof(PlantStockTransactionCreateEditModel)) ||
                     (typeof(TForm) == typeof(PlantStockTransactionDestroyEditModel)) ||
                     (typeof(TForm) == typeof(PlantStockTransactionUpdateEditModel)))
             {
-                return ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantStockTransaction>();
+                return _serviceLayer.GetDataService<PlantStockTransaction>();
             }
             else if ((typeof(TForm) == typeof(TrayCreateEditModel)) ||
                     (typeof(TForm) == typeof(TrayDestroyEditModel)) ||
                     (typeof(TForm) == typeof(TrayUpdateEditModel)))
             {
-                return ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantSeedTray>();
+                return _serviceLayer.GetDataService<PlantSeedTray>();
             }
             else if ((typeof(TForm) == typeof(SiteCreateEditModel)) ||
                     (typeof(TForm) == typeof(SiteDestroyEditModel)) ||
                     (typeof(TForm) == typeof(SiteUpdateEditModel)))
             {
-                return ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantSeedSite>();
+                return _serviceLayer.GetDataService<PlantSeedSite>();
             }
             else
             {
@@ -67,7 +75,7 @@ namespace PlantDataMVC.UI.Helpers
             }
         }
 
-        private static IFormHandler<TForm> FindHandler<TForm>()
+        private IFormHandler<TForm> FindHandler<TForm>()
         {
             if (_formHandlerDictionary.ContainsKey(typeof(TForm)))
             {
@@ -79,7 +87,7 @@ namespace PlantDataMVC.UI.Helpers
             }
         }
 
-        private static IFormHandler<TForm> CreateHandler<TForm>()
+        private IFormHandler<TForm> CreateHandler<TForm>()
         {
             var dataService = GetDataService<TForm>();
 
@@ -97,7 +105,7 @@ namespace PlantDataMVC.UI.Helpers
             return formHandler;
         }
 
-        private static void AddHandler<TForm>(IFormHandler<TForm> handler)
+        private void AddHandler<TForm>(IFormHandler<TForm> handler)
         {
             if (FindHandler<TForm>() == null)
             {

@@ -2,7 +2,7 @@
 using Xunit;
 using PlantDataMVC.UI.Controllers;
 
-namespace PlantDataMVC.Tests.Controllers
+namespace PlantDataMVC.Tests.UI.Controllers
 {
     public class HomeControllerFacts
     {

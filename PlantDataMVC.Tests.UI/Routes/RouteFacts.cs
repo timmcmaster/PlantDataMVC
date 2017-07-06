@@ -4,7 +4,7 @@ using System.Web.Routing;
 using Xunit;
 using PlantDataMVC.UI;
 
-namespace PlantDataMVC.Tests.Routes
+namespace PlantDataMVC.Tests.UI.Routes
 {
     public class RouteFacts
     {

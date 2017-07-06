@@ -10,8 +10,8 @@ namespace PlantDataMVC.Core.SimpleServiceLayer
 {
     public class PlantStockTransactionDataService : BasicDataService<PlantStockTransaction>
     {
-        public PlantStockTransactionDataService(IUnitOfWorkManager uowManager)
-            : base(uowManager)
+        public PlantStockTransactionDataService(IUnitOfWork uow)
+            : base(uow)
         {
         }
 

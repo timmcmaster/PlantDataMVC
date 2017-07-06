@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PlantDataMVC.Core.Domain.BusinessObjects;
+using PlantDataMVC.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.UI.Models

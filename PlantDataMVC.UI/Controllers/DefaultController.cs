@@ -19,8 +19,12 @@ namespace PlantDataMVC.UI.Controllers
     /// </summary>
     /// <typeparam name="T">The type of the business object being used.</typeparam>
     /// <typeparam name="U">The type of the local model for viewing the business object.</typeparam>
-    public abstract class DefaultController : Controller
+    public abstract class DefaultController : FormControllerBase
     {
+        public DefaultController(IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        {
+        }
+
         /// <summary>
         /// Maps the Model property of the View passed in to the destination type defined in the type parameter.
         /// An Automapper configuration to map between the two types should exist.
@@ -47,22 +51,6 @@ namespace PlantDataMVC.UI.Controllers
 
             return new AutoMapPreProcessingViewResult(modelType, typeof(TDestination), (PreProcessingViewResult)viewResult);
         }
-
-        /// <summary>
-        /// An action to handle posts from a form, defining the view to display on successful completion.
-        /// If the action is unsuccessful the form will be redisplayed.
-        /// </summary>
-        /// <typeparam name="TForm">The form type.</typeparam>
-        /// <param name="form">The form instance.</param>
-        /// <param name="success">The view to display on success.</param>
-        /// <returns></returns>
-        protected FormActionResult<TForm> Form<TForm>(TForm form, ActionResult success)
-        {
-            var failure = View(form);
-
-            return new FormActionResult<TForm>(form, success, failure);
-        }
-
 
         //protected ListViewResult<TElement> ListView<TElement>(ViewResult viewResult, int? page, int? pageSize, string sortBy, bool? ascending)
         //{

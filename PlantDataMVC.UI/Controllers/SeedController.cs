@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.Core.ServiceLayer;
-using PlantDataMVC.UI.ServiceLayerAccess;
+﻿using Framework.Service.ServiceLayer;
+using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
@@ -13,14 +12,16 @@ namespace PlantDataMVC.UI.Controllers
     {
         private IBasicDataService<PlantSeed> _dataService;
 
-        public SeedController(): this(null)
+        public SeedController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
+            // get service from service layer
+            _dataService = serviceLayer.GetDataService<PlantSeed>();
         }
 
-        public SeedController(IBasicDataService<PlantSeed> dataService)
+        public SeedController(IBasicDataService<PlantSeed> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service or default instance service
-            _dataService = dataService ?? ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantSeed>();
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index
@@ -29,9 +30,9 @@ namespace PlantDataMVC.UI.Controllers
         {
             ListResponse<PlantSeed> response = _dataService.List(new ListRequest<PlantSeed>());
 
-            IList<PlantSeed> list = response.Items;
+            List<PlantSeed> list = response.Items;
 
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<IList<PlantSeedListViewModel>>(View(list));
+            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantSeedListViewModel>>(View(list));
 
             return ListView<PlantSeedListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
         }

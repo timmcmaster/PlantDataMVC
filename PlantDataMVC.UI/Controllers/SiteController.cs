@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.Core.ServiceLayer;
-using PlantDataMVC.UI.ServiceLayerAccess;
+﻿using Framework.Service.ServiceLayer;
+using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
@@ -13,14 +12,16 @@ namespace PlantDataMVC.UI.Controllers
     {
         private IBasicDataService<PlantSeedSite> _dataService;
 
-        public SiteController(): this(null)
+        public SiteController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
+            // get service from service layer
+            _dataService = serviceLayer.GetDataService<PlantSeedSite>();
         }
 
-        public SiteController(IBasicDataService<PlantSeedSite> dataService)
+        public SiteController(IBasicDataService<PlantSeedSite> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
-            // use passed in service or default instance service
-            _dataService = dataService ?? ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantSeedSite>();
+            // use passed in service
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index
@@ -29,9 +30,9 @@ namespace PlantDataMVC.UI.Controllers
         {
             ListResponse<PlantSeedSite> response = _dataService.List(new ListRequest<PlantSeedSite>());
 
-            IList<PlantSeedSite> list = response.Items;
+            List<PlantSeedSite> list = response.Items;
 
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<IList<SiteListViewModel>>(View(list));
+            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<SiteListViewModel>>(View(list));
 
             return ListView<SiteListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
         }

@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using PlantDataMVC.Core.Domain.BusinessObjects;
-using PlantDataMVC.Core.ServiceLayer;
-using PlantDataMVC.UI.ServiceLayerAccess;
+﻿using Framework.Service.ServiceLayer;
+using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
@@ -13,14 +12,16 @@ namespace PlantDataMVC.UI.Controllers
     {
         private IBasicDataService<PlantStockEntry> _dataService;
 
-        public PlantStockController(): this(null)
+        public PlantStockController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
+            // get service from service layer
+            _dataService = serviceLayer.GetDataService<PlantStockEntry>();
         }
 
-        public PlantStockController(IBasicDataService<PlantStockEntry> dataService)
+        public PlantStockController(IBasicDataService<PlantStockEntry> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service or default instance service
-            _dataService = dataService ?? ServiceLayerManager.Instance().GetServiceLayer().GetDataService<PlantStockEntry>();
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index
@@ -29,9 +30,9 @@ namespace PlantDataMVC.UI.Controllers
         {
             ListResponse<PlantStockEntry> response = _dataService.List(new ListRequest<PlantStockEntry>());
 
-            IList<PlantStockEntry> list = response.Items;
+            List<PlantStockEntry> list = response.Items;
 
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<IList<PlantStockEntryListViewModel>>(View(list));
+            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantStockEntryListViewModel>>(View(list));
 
             return ListView<PlantStockEntryListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
         }
