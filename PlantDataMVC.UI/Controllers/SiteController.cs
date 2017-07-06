@@ -30,9 +30,9 @@ namespace PlantDataMVC.UI.Controllers
         {
             ListResponse<PlantSeedSite> response = _dataService.List(new ListRequest<PlantSeedSite>());
 
-            IList<PlantSeedSite> list = response.Items;
+            List<PlantSeedSite> list = response.Items;
 
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<IList<SiteListViewModel>>(View(list));
+            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<SiteListViewModel>>(View(list));
 
             return ListView<SiteListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
         }

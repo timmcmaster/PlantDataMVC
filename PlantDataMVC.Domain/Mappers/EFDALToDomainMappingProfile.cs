@@ -23,7 +23,9 @@ namespace PlantDataMVC.Domain.Mappers
             // as Species is required for defining Plant
             CreateMap<Species, Plant>()
                 //.ForMember(bo => bo.LatinName, opt => opt.MapFrom<String>(e => String.Format("{0} {1}", e.GenusLatinName.Trim(), e.LatinName.Trim())))
-                .ForMember(bo => bo.SpeciesLatinName, opt => opt.MapFrom<String>(e => e.LatinName));
+                .ForMember(bo => bo.SpeciesLatinName, opt => opt.MapFrom(e => e.LatinName))
+                .ForMember(bo => bo.Seeds, opt => opt.Ignore())
+                .ForMember(bo => bo.Stock, opt => opt.Ignore());
             //.ForMember(bo => bo.Seeds, opt => opt.MapFrom<SeedBatch[]>(e => e.SeedBatches.ToArray()))
             //.ForMember(bo => bo.Stock, opt => opt.MapFrom<PlantStock[]>(e => e.PlantStocks.ToArray()));
 
@@ -33,14 +35,17 @@ namespace PlantDataMVC.Domain.Mappers
             CreateMap<Site, PlantSeedSite>();
             //.ForMember(bo => bo.SeedBatches, opt => opt.MapFrom<SeedBatch[]>(e => e.SeedBatches.ToArray()));
 
-            CreateMap<SeedTray, PlantSeedTray>();
+            CreateMap<SeedTray, PlantSeedTray>()
+                .ForMember(bo => bo.PlantStockTransactions, opt => opt.Ignore());
                 //.ForMember(bo => bo.PlantStockTransactions, opt => opt.MapFrom<JournalEntry[]>(e => e.JournalEntries.ToArray()));
 
-            CreateMap<PlantStock, PlantStockEntry>();
+            CreateMap<PlantStock, PlantStockEntry>()
+                .ForMember(bo => bo.Transactions, opt => opt.Ignore());
 
             CreateMap<JournalEntry, PlantStockTransaction>()
-                .ForMember(bo => bo.PlantStockEntryId, opt => opt.MapFrom<int>(e => e.PlantStockId))
-                .ForMember(bo => bo.TransactionType, opt => opt.MapFrom<JournalEntryType>(e => e.JournalEntryType));
+                .ForMember(bo => bo.PlantStockEntryId, opt => opt.MapFrom(e => e.PlantStockId))
+                .ForMember(bo => bo.TransactionType, opt => opt.MapFrom(e => e.JournalEntryType))
+                .ForMember(bo => bo.TransactionSource, opt => opt.MapFrom(e => e.Source));
 
             CreateMap<JournalEntryType, PlantStockTransactionType>();
 

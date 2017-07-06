@@ -1,16 +1,25 @@
 ﻿using AutoMapper;
+using System;
 
 namespace PlantDataMVC.UI.Mappers
 {
     public static class AutoMapperWebConfiguration
     {
-        public static void Configure()
-        {
-            Mapper.Initialize(cfg =>
+        public static Action<IMapperConfigurationExpression> ConfigAction
+            = new Action<IMapperConfigurationExpression>(cfg =>
             {
                 cfg.AddProfile<UIToDomainMappingProfile>();
                 cfg.AddProfile<DomainToUIMappingProfile>();
             });
+
+
+        /// <summary>
+        /// NB: This will overwrite any previous Mapper definitions
+        /// This method should only be used for testing where we don't need other layer maps 
+        /// </summary>
+        public static void Configure()
+        {
+            Mapper.Initialize(ConfigAction);
         }
     }
 }

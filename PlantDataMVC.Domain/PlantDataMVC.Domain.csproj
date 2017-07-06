@@ -60,6 +60,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework.DAL.EF\Framework.DAL.EF.csproj">
+      <Project>{23CE37B8-56FA-429A-AF13-3B06841C9817}</Project>
+      <Name>Framework.DAL.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework.DAL\Framework.DAL.csproj">
+      <Project>{39A4295B-11F9-4B3E-8527-D99FFF87E10B}</Project>
+      <Name>Framework.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework.Domain\Framework.Domain.csproj">
       <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
       <Name>Framework.Domain</Name>

@@ -76,13 +76,15 @@ namespace PlantDataMVC.UI.Mappers
         {
             // PlantStockEntry
             CreateMap<PlantStockEntry, PlantStockEntryDeleteViewModel>();
-            CreateMap<PlantStockEntry, PlantStockEntryEditViewModel>();
+            CreateMap<PlantStockEntry, PlantStockEntryEditViewModel>()
+                .ForMember(uio => uio.ProductTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
                 //.ForMember(uio => uio.ProductTypes,
                 //    opt => opt.MapFrom<IList<PlantProductType>>(
                 //        bo => _serviceLayer.GetDataService<PlantProductType>().List(new ListRequest<PlantProductType>()).Items));
 
             CreateMap<PlantStockEntry, PlantStockEntryListViewModel>();
-            CreateMap<PlantStockEntry, PlantStockEntryNewViewModel>();
+            CreateMap<PlantStockEntry, PlantStockEntryNewViewModel>()
+                .ForMember(uio => uio.ProductTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
                 //.ForMember(uio => uio.ProductTypes,
                 //    opt => opt.MapFrom<IList<PlantProductType>>(
                 //        bo => _serviceLayer.GetDataService<PlantProductType>().List(new ListRequest<PlantProductType>()).Items));
@@ -94,13 +96,15 @@ namespace PlantDataMVC.UI.Mappers
         {
             // PlantStockTransaction
             CreateMap<PlantStockTransaction, PlantStockTransactionDeleteViewModel>();
-            CreateMap<PlantStockTransaction, PlantStockTransactionEditViewModel>();
+            CreateMap<PlantStockTransaction, PlantStockTransactionEditViewModel>()
+                .ForMember(uio => uio.TransactionTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
                 //.ForMember(uio => uio.TransactionTypes,
                 //        opt => opt.MapFrom<IList<PlantStockTransactionType>>(
                 //            bo => _serviceLayer.GetDataService<PlantStockTransactionType>().List(new ListRequest<PlantStockTransactionType>()).Items));
 
             CreateMap<PlantStockTransaction, PlantStockTransactionListViewModel>();
-            CreateMap<PlantStockTransaction, PlantStockTransactionNewViewModel>();
+            CreateMap<PlantStockTransaction, PlantStockTransactionNewViewModel>()
+                .ForMember(uio => uio.TransactionTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
                 //.ForMember(uio => uio.TransactionTypes,
                 //        opt => opt.MapFrom<IList<PlantStockTransactionType>>(
                 //            bo => _serviceLayer.GetDataService<PlantStockTransactionType>().List(new ListRequest<PlantStockTransactionType>()).Items));

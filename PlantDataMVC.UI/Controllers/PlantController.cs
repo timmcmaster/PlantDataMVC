@@ -36,7 +36,7 @@ namespace PlantDataMVC.UI.Controllers
 
             ListResponse<Plant> response = _dataService.List(new ListRequest<Plant>());
 
-            IList<Plant> list = response.Items;
+            List<Plant> list = response.Items;
 
             //List<IModelConverter> converters = new List<IModelConverter>();
 
@@ -45,7 +45,7 @@ namespace PlantDataMVC.UI.Controllers
 
             //return new ModelConverterSequenceViewResult(converters.ToArray(), View(list));
 
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<IList<PlantListViewModel>>(View(list));
+            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantListViewModel>>(View(list));
 
             return ListView<PlantListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
         }

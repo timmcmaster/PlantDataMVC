@@ -1,4 +1,5 @@
-﻿using PlantDataMVC.Domain.Mappers;
+﻿using AutoMapper;
+using PlantDataMVC.Domain.Mappers;
 
 namespace PlantDataMVC.UI.Mappers
 {
@@ -11,10 +12,15 @@ namespace PlantDataMVC.UI.Mappers
             if (!_configured)
             {
                 _configured = true;
-                
-                AutoMapperWebConfiguration.Configure();
 
-                AutoMapperCoreConfiguration.Configure();
+                //AutoMapperWebConfiguration.Configure();
+                //AutoMapperCoreConfiguration.Configure();
+
+                Mapper.Initialize(x =>
+                {
+                    AutoMapperWebConfiguration.ConfigAction.Invoke(x);
+                    AutoMapperCoreConfiguration.ConfigAction.Invoke(x);
+                });
             }
         }
     }
