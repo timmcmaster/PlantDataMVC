@@ -20,7 +20,7 @@ namespace PlantDataMVC.Entities.Models
     {
         public override int Id { get; set; } // Id (Primary key)
         public int GenusId { get; set; } // GenusId
-        public string LatinName { get; set; } // LatinName (length: 30)
+        public string SpecificName { get; set; } // SpecificName (length: 30)
         public string CommonName { get; set; } // CommonName (length: 50)
         public string Description { get; set; } // Description (length: 200)
         public int? PropagationTime { get; set; } // PropagationTime

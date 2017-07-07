@@ -22,18 +22,18 @@ namespace PlantDataMVC.Domain.Mappers
             // Maps from Domain to DB models
             CreateMap<Plant, Genus>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
-                .ForMember(e => e.LatinName, opt => opt.MapFrom<String>(bo => bo.GenusLatinName))
+                .ForMember(e => e.LatinName, opt => opt.MapFrom<String>(bo => bo.GenericName))
                 .ForMember(e => e.Species, opt => opt.Ignore())
                 .ForMember(e => e.ObjectState, opt => opt.Ignore());
             //.ForMember(e => e.LatinName, opt => opt.MapFrom<String>(bo => (bo.LatinName.IndexOf(' ') == -1) ? bo.LatinName : bo.LatinName.Substring(0, bo.LatinName.IndexOf(' '))));
 
             CreateMap<Plant, Species>()
-                .ForMember(e => e.LatinName, opt => opt.MapFrom<String>(bo => bo.SpeciesLatinName))
-                .ForMember(e => e.GenusId, opt => opt.MapFrom(bo => bo.Id))
+                .ForMember(e => e.GenusId, opt => opt.Ignore()) // TODO: Will need GenusId on species
                 .ForMember(e => e.Genus, opt => opt.Ignore())
+                .ForMember(e => e.GenericName, opt => opt.Ignore())
+                .ForMember(e => e.Binomial, opt => opt.Ignore())
                 .ForMember(e => e.PlantStocks, opt => opt.Ignore())
                 .ForMember(e => e.SeedBatches, opt => opt.Ignore())
-                .ForMember(e => e.PlantStocks, opt => opt.Ignore())
                 .ForMember(e => e.ObjectState, opt => opt.Ignore());
             //.ForMember(e => e.LatinName, opt => opt.MapFrom<String>(bo => (bo.LatinName.IndexOf(' ') == -1) ? "" : bo.LatinName.Substring(bo.LatinName.IndexOf(' ') + 1)));
 
@@ -72,7 +72,8 @@ namespace PlantDataMVC.Domain.Mappers
                 .ForMember(e => e.JournalEntries, opt => opt.Ignore());
 
             CreateMap<PlantProductPrice, ProductPrice>()
-                .ForMember(e => e.ObjectState, opt => opt.Ignore());
+                .ForMember(e => e.ObjectState, opt => opt.Ignore())
+                .ForMember(e => e.Id, opt => opt.Ignore());
 
             CreateMap<PlantProductType, ProductType>()
                 .ForMember(e => e.ObjectState, opt => opt.Ignore())

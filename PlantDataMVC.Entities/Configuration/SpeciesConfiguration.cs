@@ -32,7 +32,7 @@ namespace PlantDataMVC.Entities.Configuration
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.GenusId).HasColumnName(@"GenusId").HasColumnType("int").IsRequired();
-            Property(x => x.LatinName).HasColumnName(@"LatinName").HasColumnType("nvarchar").IsRequired().HasMaxLength(30);
+            Property(x => x.SpecificName).HasColumnName(@"SpecificName").HasColumnType("nvarchar").IsRequired().HasMaxLength(30);
             Property(x => x.CommonName).HasColumnName(@"CommonName").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
             Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar").IsOptional().HasMaxLength(200);
             Property(x => x.PropagationTime).HasColumnName(@"PropagationTime").HasColumnType("int").IsOptional();

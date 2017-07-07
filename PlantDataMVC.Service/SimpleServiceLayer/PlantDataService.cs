@@ -50,7 +50,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         public Genus GetGenus(IUnitOfWorkAsync uow, Plant requestItem)
         {
             // search in list by name
-            Genus requiredGenus = uow.Repository<Genus>().GetItemByLatinName(requestItem.GenusLatinName);
+            Genus requiredGenus = uow.Repository<Genus>().GetItemByLatinName(requestItem.GenericName);
 
             return requiredGenus;
         }
@@ -156,7 +156,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             IList<Species> allSpecies = uow.Repository<Species>().GetAll();
 
             IList<Plant> plants = Mapper.Map<IList<Species>, IList<Plant>>(allSpecies);
-            plants = plants.OrderBy(p => p.LatinName).ToList();
+            plants = plants.OrderBy(p => p.Binomial).ToList();
 
             return plants;
         }

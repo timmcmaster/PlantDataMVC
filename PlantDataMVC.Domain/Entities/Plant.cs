@@ -8,12 +8,13 @@ namespace PlantDataMVC.Domain.Entities
         private List<PlantSeed> _seeds;
         private List<PlantStockEntry> _stock;
 
-        public string LatinName
-        {
-            get { return Plant.FormatName(GenusLatinName, SpeciesLatinName); }
-        }
-        public string GenusLatinName { get; set; }
-        public string SpeciesLatinName { get; set; }
+        //public string LatinName
+        //{
+        //    get { return SpeciesBinomial; }
+        //}
+        public string GenericName { get; set; }
+        public string SpecificName { get; set; }
+        public string Binomial { get; set; }
         public string CommonName { get; set; }
         public string Description { get; set; }
         public bool Native { get; set; }
@@ -49,12 +50,12 @@ namespace PlantDataMVC.Domain.Entities
         }
 
         //public Plant(int id, string latinName, string commonName, string description, bool native, int propagationTime, PlantSeed[] seeds, PlantStockEntry[] stock)
-        public Plant(int id, string genusLatinName, string speciesLatinName, string commonName, string description, bool native, int propagationTime, PlantSeed[] seeds, PlantStockEntry[] stock)
+        public Plant(int id, string genericName, string specificName, string commonName, string description, bool native, int propagationTime, PlantSeed[] seeds, PlantStockEntry[] stock)
         {
             this.Id = id;
             //this.LatinName = latinName;
-            this.GenusLatinName = genusLatinName;
-            this.SpeciesLatinName = speciesLatinName;
+            this.GenericName = genericName;
+            this.SpecificName = specificName;
             this.CommonName = commonName;
             this.Description = description;
             this.Native = native;
@@ -63,16 +64,16 @@ namespace PlantDataMVC.Domain.Entities
             this.Stock = stock;
         }
 
-        public static string FormatName(string genus, string species)
-        {
-            if ((genus == null) && (species == null))
-                return "";
-            else if (genus == null)
-                return species;
-            else if (species == null)
-                return genus;
-            else
-                return String.Format("{0} {1}", genus.Trim(), species.Trim());
-        }
+        //public static string FormatName(string genus, string species)
+        //{
+        //    if ((genus == null) && (species == null))
+        //        return "";
+        //    else if (genus == null)
+        //        return species;
+        //    else if (species == null)
+        //        return genus;
+        //    else
+        //        return String.Format("{0} {1}", genus.Trim(), species.Trim());
+        //}
     }
 }

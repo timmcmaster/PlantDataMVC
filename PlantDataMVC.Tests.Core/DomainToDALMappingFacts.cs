@@ -26,7 +26,7 @@ namespace PlantDataMVC.Tests.Core
             var expectedGenus = new Genus()
             {
                 Id = plant.Id,
-                LatinName = plant.GenusLatinName
+                LatinName = plant.GenericName
             };
 
             // Act
@@ -44,7 +44,7 @@ namespace PlantDataMVC.Tests.Core
             var expectedSpecies = new Species()
             {
                 Id = plant.Id,
-                LatinName = plant.SpeciesLatinName,
+                SpecificName = plant.SpecificName,
                 CommonName = plant.CommonName,
                 Description = plant.Description,
                 //GenusLatinName = plant.GenusLatinName,
@@ -57,7 +57,7 @@ namespace PlantDataMVC.Tests.Core
 
             // Assert
             Assert.Equal(expectedSpecies.Id, result.Id);
-            Assert.Equal(expectedSpecies.LatinName, result.LatinName);
+            Assert.Equal(expectedSpecies.SpecificName, result.SpecificName);
             Assert.Equal(expectedSpecies.CommonName, result.CommonName);
             Assert.Equal(expectedSpecies.Description, result.Description);
             //Assert.Equal(expectedSpecies.GenusLatinName, result.GenusLatinName);

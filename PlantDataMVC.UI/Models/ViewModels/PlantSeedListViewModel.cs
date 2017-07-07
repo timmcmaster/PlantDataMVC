@@ -11,8 +11,11 @@ namespace PlantDataMVC.UI.Models
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        [Display(Name = "Species Id")]
+        [HiddenInput(DisplayValue = false)]
         public int SpeciesId { get; set; }
+
+        [Display(Name = "Species Name")]
+        public string SpeciesBinomial { get; private set; }
 
         [Display(Name = "Date Collected")]
         public DateTime DateCollected { get; set; }

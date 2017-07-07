@@ -22,8 +22,6 @@ namespace PlantDataMVC.Domain.Mappers
             // Note no map exists from Genus up to Plant (i.e. Mapper.CreateMap<Species, Plant>() )
             // as Species is required for defining Plant
             CreateMap<Species, Plant>()
-                //.ForMember(bo => bo.LatinName, opt => opt.MapFrom<String>(e => String.Format("{0} {1}", e.GenusLatinName.Trim(), e.LatinName.Trim())))
-                .ForMember(bo => bo.SpeciesLatinName, opt => opt.MapFrom(e => e.LatinName))
                 .ForMember(bo => bo.Seeds, opt => opt.Ignore())
                 .ForMember(bo => bo.Stock, opt => opt.Ignore());
             //.ForMember(bo => bo.Seeds, opt => opt.MapFrom<SeedBatch[]>(e => e.SeedBatches.ToArray()))

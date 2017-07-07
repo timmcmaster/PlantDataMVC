@@ -34,8 +34,9 @@ namespace PlantDataMVC.UI.Mappers
         {
             // Plant
             CreateMap<PlantCreateEditModel, Plant>()
-                .ForMember(bo => bo.GenusLatinName, opt => opt.MapFrom<String>(uio => uio.Genus.Trim()))
-                .ForMember(bo => bo.SpeciesLatinName, opt => opt.MapFrom<String>(uio => uio.Species.Trim()))
+                .ForMember(bo => bo.GenericName, opt => opt.MapFrom(uio => uio.Genus.Trim()))
+                .ForMember(bo => bo.SpecificName, opt => opt.MapFrom(uio => uio.Species.Trim()))
+                .ForMember(bo => bo.Binomial, opt => opt.Ignore())
                 .ForMember(bo => bo.Seeds, opt => opt.Ignore())
                 .ForMember(bo => bo.Stock, opt => opt.Ignore())
                 .ForMember(bo => bo.Id, opt => opt.Ignore());   // Id on create will come back from DB
@@ -45,8 +46,9 @@ namespace PlantDataMVC.UI.Mappers
                 .ForAllOtherMembers(opt => opt.Ignore());
 
             CreateMap<PlantUpdateEditModel, Plant>()
-                .ForMember(bo => bo.GenusLatinName, opt => opt.MapFrom<String>(uio => uio.Genus.Trim()))
-                .ForMember(bo => bo.SpeciesLatinName, opt => opt.MapFrom<String>(uio => uio.Species.Trim()))
+                .ForMember(bo => bo.GenericName, opt => opt.MapFrom(uio => uio.Genus.Trim()))
+                .ForMember(bo => bo.SpecificName, opt => opt.MapFrom(uio => uio.Species.Trim()))
+                .ForMember(bo => bo.Binomial, opt => opt.Ignore())
                 .ForMember(bo => bo.Seeds, opt => opt.Ignore())
                 .ForMember(bo => bo.Stock, opt => opt.Ignore());
         }
@@ -56,6 +58,7 @@ namespace PlantDataMVC.UI.Mappers
             // PlantSeed
             CreateMap<PlantSeedCreateEditModel, PlantSeed>()
                 .ForMember(bo => bo.SeedTrays, opt => opt.Ignore())
+                .ForMember(bo => bo.SpeciesBinomial, opt => opt.Ignore())
                 .ForMember(bo => bo.Id, opt => opt.Ignore());   // Id on create will come back from DB
 
             CreateMap<PlantSeedDestroyEditModel, PlantSeed>()
@@ -63,6 +66,7 @@ namespace PlantDataMVC.UI.Mappers
                 .ForAllOtherMembers(opt => opt.Ignore());
 
             CreateMap<PlantSeedUpdateEditModel, PlantSeed>()
+                .ForMember(bo => bo.SpeciesBinomial, opt => opt.Ignore())
                 .ForMember(bo => bo.SeedTrays, opt => opt.Ignore());
         }
 
@@ -86,6 +90,7 @@ namespace PlantDataMVC.UI.Mappers
             // PlantStockEntry
             CreateMap<PlantStockEntryCreateEditModel, PlantStockEntry>()
                 .ForMember(bo => bo.Id, opt => opt.Ignore())   // Id on create will come back from DB
+                .ForMember(bo => bo.SpeciesBinomial, opt => opt.Ignore())
                 .ForMember(bo => bo.Transactions, opt => opt.Ignore())
                 .ForMember(bo => bo.ProductType, opt => opt.Ignore());  // TODO: Do this by mapping from UI model as object
                 //.ForMember(bo => bo.ProductType,
@@ -97,6 +102,7 @@ namespace PlantDataMVC.UI.Mappers
                 .ForAllOtherMembers(opt => opt.Ignore());
 
             CreateMap<PlantStockEntryUpdateEditModel, PlantStockEntry>()
+                .ForMember(bo => bo.SpeciesBinomial, opt => opt.Ignore())
                 .ForMember(bo => bo.Transactions, opt => opt.Ignore())
                 .ForMember(bo => bo.ProductType, opt => opt.Ignore());  // TODO: Do this by mapping from UI model as object
                 //.ForMember(bo => bo.ProductType,

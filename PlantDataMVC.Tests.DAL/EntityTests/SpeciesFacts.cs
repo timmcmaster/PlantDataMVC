@@ -14,7 +14,7 @@ namespace PlantDataMVC.Tests.DAL
 
             // Assert
             var entity = Assert.IsAssignableFrom<IEntity>(species);
-            Assert.Null(species.LatinName);
+            Assert.Null(species.SpecificName);
             Assert.Equal<int>(0, species.Id);
             Assert.Equal<int>(0, species.GenusId);
             //Assert.Null(species.GenusLatinName);
@@ -22,7 +22,7 @@ namespace PlantDataMVC.Tests.DAL
             Assert.Null(species.Description);
             Assert.Equal<bool>(false, species.Native);
             Assert.Null(species.PropagationTime);
-            Assert.Null(species.LatinName);
+            Assert.Null(species.SpecificName);
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace PlantDataMVC.Tests.DAL
                                 Description = "Arid zone plant",
                                 Native = true,
                                 PropagationTime = 32,
-                                LatinName = "glabra"
+                                SpecificName = "glabra"
                             };
 
             // Assert
@@ -50,7 +50,7 @@ namespace PlantDataMVC.Tests.DAL
             Assert.Equal<string>("Arid zone plant", species.Description);
             Assert.Equal<bool>(true, species.Native);
             Assert.Equal<int?>(32, species.PropagationTime);
-            Assert.Equal<string>("glabra", species.LatinName);
+            Assert.Equal<string>("glabra", species.SpecificName);
         }
     }
 }

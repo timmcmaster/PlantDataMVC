@@ -8,7 +8,7 @@
 }
 <table class="grid">
     <tr>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.LatinName)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Binomial)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.CommonName)</th>
         <th></th>
         <th></th>
@@ -19,7 +19,7 @@
 int count = 0;
 foreach (var model in Model) {
     <tr>
-        <td>@Html.ActionLink(model.LatinName, "Show", "Plant", new { id = model.Id }, null)</td>
+        <td>@Html.ActionLink(model.Binomial, "Show", "Plant", new { id = model.Id }, null)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).CommonName)</td>
         <td>@Html.ActionLink("Edit", "Edit", "Plant", new { id = model.Id }, null)</td>
         <td>@Html.ActionLink("Delete", "Delete", "Plant", new { id = model.Id }, null)</td>

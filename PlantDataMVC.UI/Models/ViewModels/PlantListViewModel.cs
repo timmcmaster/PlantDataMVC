@@ -12,7 +12,7 @@ namespace PlantDataMVC.UI.Models
         public int Id { get; set; }
 
         [Display(Name = "Latin Name")]
-        public string LatinName { get; set; }
+        public string Binomial { get; set; }
         
         [Display(Name = "Common Name")]
         public string CommonName { get; set; }

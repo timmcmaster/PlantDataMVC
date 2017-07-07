@@ -34,22 +34,22 @@ namespace PlantDataMVC.UI.Mappers
         {
             // Plant
             CreateMap<Plant, PlantDeleteViewModel>()
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(bo => bo.GenusLatinName))
-               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpeciesLatinName));
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(bo => bo.GenericName))
+               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpecificName));
 
             CreateMap<Plant, PlantEditViewModel>()
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(bo => bo.GenusLatinName))
-               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpeciesLatinName));
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(bo => bo.GenericName))
+               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpecificName));
 
             CreateMap<Plant, PlantListViewModel>();
 
             CreateMap<Plant, PlantNewViewModel>()
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(bo => bo.GenusLatinName))
-               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpeciesLatinName));
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(bo => bo.GenericName))
+               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpecificName));
 
             CreateMap<Plant, PlantShowViewModel>()
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(bo => bo.GenusLatinName))
-               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpeciesLatinName));
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(bo => bo.GenericName))
+               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpecificName));
         }
 
         private void ConfigurePlantSeedViewModels()

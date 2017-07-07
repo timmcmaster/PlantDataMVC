@@ -9,6 +9,9 @@ namespace PlantDataMVC.UI.Models
         [Display(Name = "Species Id")]
         public int SpeciesId { get; set; }
 
+        [Display(Name = "Species Name")]
+        public string SpeciesBinomial { get; set; }
+
         [Display(Name = "Date Collected")]
         public DateTime DateCollected { get; set; }
 

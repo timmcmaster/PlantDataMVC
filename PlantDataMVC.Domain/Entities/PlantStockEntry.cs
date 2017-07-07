@@ -7,6 +7,7 @@ namespace PlantDataMVC.Domain.Entities
         private List<PlantStockTransaction> _transactions;
 
         public int SpeciesId { get; set; }
+        public string SpeciesBinomial { get; set; }
         public PlantProductType ProductType { get; set; }
         public int QuantityInStock { get; set; }
 

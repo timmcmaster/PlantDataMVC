@@ -8,6 +8,7 @@ namespace PlantDataMVC.Domain.Entities
         private List<PlantSeedTray> _seedTrays;
 
         public int SpeciesId { get; set; }
+        public string SpeciesBinomial { get; set; }
         public DateTime DateCollected { get; set; }
         public string Location { get; set; }
         public string Notes { get; set; }

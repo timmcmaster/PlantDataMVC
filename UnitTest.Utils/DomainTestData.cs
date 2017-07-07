@@ -44,8 +44,8 @@ namespace UnitTest.Utils.TestData
                                    Description = CommonTestData.GenerateRandomAlphabetString(200),
                                    PropagationTime = CommonTestData.GeneratRandomInt(),
                                    Native = CommonTestData.GenerateRandomBoolean(),
-                                   GenusLatinName = CommonTestData.GenerateRandomAlphabetString(10),
-                                   SpeciesLatinName = CommonTestData.GenerateRandomAlphabetString(10)
+                                   GenericName = CommonTestData.GenerateRandomAlphabetString(10),
+                                   SpecificName = CommonTestData.GenerateRandomAlphabetString(10)
                                };
             return plant;
         }
