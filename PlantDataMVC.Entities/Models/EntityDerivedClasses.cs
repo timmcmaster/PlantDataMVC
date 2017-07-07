@@ -21,6 +21,7 @@ namespace PlantDataMVC.Entities.Models
         public override int Id
         {
             get { return -1; }
+            set { }
         }
     }
 
