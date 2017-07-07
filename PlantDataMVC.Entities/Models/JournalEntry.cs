@@ -18,7 +18,7 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.31.1.0")]
     public partial class JournalEntry
     {
-        public int Id { get; set; } // Id (Primary key)
+        public override int Id { get; set; } // Id (Primary key)
         public int PlantStockId { get; set; } // PlantStockId
         public int Quantity { get; set; } // Quantity
         public int JournalEntryTypeId { get; set; } // JournalEntryTypeId

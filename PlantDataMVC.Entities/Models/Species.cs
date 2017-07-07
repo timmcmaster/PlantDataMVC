@@ -18,7 +18,7 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.31.1.0")]
     public partial class Species
     {
-        public int Id { get; set; } // Id (Primary key)
+        public override int Id { get; set; } // Id (Primary key)
         public int GenusId { get; set; } // GenusId
         public string LatinName { get; set; } // LatinName (length: 30)
         public string CommonName { get; set; } // CommonName (length: 50)

@@ -9,9 +9,12 @@ namespace Framework.DAL.EF
     /// <summary>
     /// Do we even need this class?
     /// </summary>
-    public abstract class EntityBase : IObjectState
+    public abstract class EntityBase : IObjectState, IEntity
     {
+        public abstract int Id { get; set; }
+
         [NotMapped]
         public ObjectState ObjectState { get; set; }
+
     }
 }

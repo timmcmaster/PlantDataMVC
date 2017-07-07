@@ -18,7 +18,7 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.31.1.0")]
     public partial class PriceListType
     {
-        public int Id { get; set; } // Id (Primary key)
+        public override int Id { get; set; } // Id (Primary key)
         public string Name { get; set; } // Name (length: 50)
         public string Kind { get; set; } // Kind (length: 1)
 

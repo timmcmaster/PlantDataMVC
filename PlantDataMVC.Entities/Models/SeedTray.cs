@@ -18,7 +18,7 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.31.1.0")]
     public partial class SeedTray
     {
-        public int Id { get; set; } // Id (Primary key)
+        public override int Id { get; set; } // Id (Primary key)
         public int SeedBatchId { get; set; } // SeedBatchId
         public System.DateTime DatePlanted { get; set; } // DatePlanted
         public string Treatment { get; set; } // Treatment (length: 50)

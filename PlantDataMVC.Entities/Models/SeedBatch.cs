@@ -18,7 +18,7 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.31.1.0")]
     public partial class SeedBatch
     {
-        public int Id { get; set; } // Id (Primary key)
+        public override int Id { get; set; } // Id (Primary key)
         public int SpeciesId { get; set; } // SpeciesId
         public System.DateTime DateCollected { get; set; } // DateCollected
         public string Location { get; set; } // Location (length: 30)

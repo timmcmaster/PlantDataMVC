@@ -3,52 +3,52 @@ using Framework.DAL.Entity;
 
 namespace PlantDataMVC.Entities.Models
 {
-    partial class Site : EntityBase, IEntity
+    partial class Site : EntityBase
     {
     }
 
-    partial class PriceListType : EntityBase, IEntity
+    partial class PriceListType : EntityBase
     {
     }
 
-    partial class JournalEntryType : EntityBase, IEntity
+    partial class JournalEntryType : EntityBase
     {
     }
 
-    partial class ProductPrice : EntityBase, IEntity
+    partial class ProductPrice : EntityBase
     {
         // HACK: Putting Id in just to meet interface requirements
-        public int Id
+        public override int Id
         {
             get { return -1; }
         }
     }
 
-    partial class ProductType : EntityBase, IEntity
+    partial class ProductType : EntityBase
     {
     }
 
-    partial class JournalEntry : EntityBase, IEntity
+    partial class JournalEntry : EntityBase
     {
     }
 
-    partial class PlantStock : EntityBase, IEntity
+    partial class PlantStock : EntityBase
     {
     }
 
-    partial class SeedTray : EntityBase, IEntity
+    partial class SeedTray : EntityBase
     {
     }
 
-    partial class SeedBatch : EntityBase, IEntity
+    partial class SeedBatch : EntityBase
     {
     }
 
-    partial class Species : EntityBase, IEntity
+    partial class Species : EntityBase
     {
     }
 
-    partial class Genus : EntityBase, IEntity
+    partial class Genus : EntityBase
     {
     }
 }
