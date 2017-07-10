@@ -17,7 +17,6 @@ namespace PlantDataMVC.Entities.Context
     using PlantDataMVC.Entities.Interfaces;
     using PlantDataMVC.Entities.Models;
 
-    using System.Linq;
 
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.31.1.0")]
     public partial class PlantDataDbContext : Framework.DAL.EF.DataContext, IPlantDataDbContext

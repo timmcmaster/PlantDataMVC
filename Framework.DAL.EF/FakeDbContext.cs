@@ -52,7 +52,7 @@ namespace Framework.DAL.EF
 
         public void AddFakeDbSet<TEntity, TFakeDbSet>() 
             where TEntity : class, IEntity, new()
-            where TFakeDbSet : MyFakeDbSet<TEntity>, IDbSet<TEntity>, new()
+            where TFakeDbSet : FakeDbSet<TEntity>, IDbSet<TEntity>, new()
         {
             var fakeDbSet = Activator.CreateInstance<TFakeDbSet>();
             _fakeDbSets.Add(typeof(TEntity), fakeDbSet);

@@ -11,14 +11,14 @@ using System.Linq.Expressions;
 
 namespace Framework.DAL.EF
 {
-    public abstract class MyFakeDbSet<TEntity> : DbSet<TEntity>, IDbSet<TEntity> where TEntity : class, IEntity, new()
+    public abstract class FakeDbSet<TEntity> : DbSet<TEntity>, IDbSet<TEntity> where TEntity : class, IEntity, new()
     {
         #region Private Fields
         private readonly ObservableCollection<TEntity> _items;
         private readonly IQueryable _query;
         #endregion Private Fields
 
-        protected MyFakeDbSet()
+        protected FakeDbSet()
         {
             _items = new ObservableCollection<TEntity>();
             _query = _items.AsQueryable();

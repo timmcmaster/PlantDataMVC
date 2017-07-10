@@ -92,9 +92,8 @@ namespace Framework.DAL.EF
 
         public TEntity Save(TEntity item)
         {
-            // TODO: Need object state stuff here to ensure data actually gets saved
+            // ObjectState is required here to ensure data actually gets saved
             // while also allowing non-EF implementations of generic pattern
-            //_context.Entry<TEntity>(item).State = System.Data.Entity.EntityState.Modified;
             item.ObjectState = ObjectState.Modified;
             _dbSet.Attach(item);
             _context.SyncObjectState(item);

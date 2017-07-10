@@ -14,7 +14,7 @@ namespace PlantDataMVC.Tests.DAL
         public void CanAddItemWithId()
         {
             // TODO: fix use of MyFakePlantDataDbContext
-            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IDataContextAsync plantDataFakeDBContext = new FakePlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
             {
                 // Arrange
@@ -35,7 +35,7 @@ namespace PlantDataMVC.Tests.DAL
         public void CanAddItemWithoutId()
         {
             // TODO: fix use of MyFakePlantDataDbContext
-            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IDataContextAsync plantDataFakeDBContext = new FakePlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
             {
                 // Arrange
@@ -55,7 +55,7 @@ namespace PlantDataMVC.Tests.DAL
         public void CanGetItemById()
         {
             // TODO: fix use of MyFakePlantDataDbContext
-            using (IDataContextAsync plantDataFakeDBContext = new MyFakePlantDataDbContext())
+            using (IDataContextAsync plantDataFakeDBContext = new FakePlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
             {
                 // Arrange

@@ -85,14 +85,8 @@
     <Compile Include="Configuration\SpeciesConfiguration.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Context\MyFakePlantDataDbContext .cs" />
-    <Compile Include="Context\FakeDbSet.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Context\FakePlantDataDbContext.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Context\MyFakePlantDataDbSets.cs" />
+    <Compile Include="Context\FakePlantDataDbContext .cs" />
+    <Compile Include="Context\FakePlantDataDbSets.cs" />
     <Compile Include="Context\PlantData.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
       <AutoGen>True</AutoGen>

@@ -13,9 +13,9 @@ using Framework.DAL.EF;
 
 namespace PlantDataMVC.Entities.Context
 {
-    public class MyFakePlantDataDbContext : FakeDbContext, IPlantDataDbContext
+    public class FakePlantDataDbContext : FakeDbContext, IPlantDataDbContext
     {
-        public MyFakePlantDataDbContext()
+        public FakePlantDataDbContext()
         {
             AddFakeDbSet<Genus, GenusDbSet>();
             AddFakeDbSet<JournalEntry, JournalEntryDbSet>();

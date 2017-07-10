@@ -15,6 +15,6 @@ namespace Framework.DAL.EF
 
         void AddFakeDbSet<TEntity, TFakeDbSet>()
             where TEntity : class, IEntity, new()
-            where TFakeDbSet : MyFakeDbSet<TEntity>, IDbSet<TEntity>, new();
+            where TFakeDbSet : FakeDbSet<TEntity>, IDbSet<TEntity>, new();
     }
 }
