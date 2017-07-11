@@ -5,11 +5,14 @@ using Framework.DAL.EF;
 using Framework.DAL.Entity;
 using Framework.DAL.Repository;
 using Framework.DAL.UnitOfWork;
+using Framework.Domain;
 using Framework.Service.ServiceLayer;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Service.SimpleServiceLayer;
 using PlantDataMVC.UI.Helpers;
+using PlantDataMVC.UI.Helpers.Handlers;
 using System;
+using System.Reflection;
 using System.Web.Mvc;
 
 namespace PlantDataMVC.UI
@@ -41,8 +44,9 @@ namespace PlantDataMVC.UI
             // OPTIONAL: Enable action method parameter injection (RARE).
             //builder.InjectActionInvoker();
 
-
+            // ****************************************************
             // DAL configurations
+            // ****************************************************
             builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
@@ -52,26 +56,41 @@ namespace PlantDataMVC.UI
                 .As(typeof(IRepositoryAsync<>));
 
 
+            // ****************************************************
             // Core configurations
+            // ****************************************************
             //builder.RegisterType<SimpleServiceLayer>().As<IServiceLayer>();
-            
-            // Register all classes that implement BasicDataService<T> as IBasicDataService<T>
-            // TODO: This doesn't work, as BasicDataService is abstract 
-            builder.RegisterGeneric(typeof(BasicDataService<>))
-                .As(typeof(IBasicDataService<>));
 
-            // Register 
-            builder.Register<Func<T,IBasicDataService<T>>>(c => 
-            {
-                var cc = c.Resolve<IComponentContext>();
-                return ds => cc.Resolve<T>();
-            });
+            // Register all types that implement IBasicDataService<T> from given assembly
+            var svcAssembly = Assembly.GetAssembly(typeof(PlantDataService));
+            builder.RegisterAssemblyTypes(svcAssembly)
+                .AsClosedTypesOf(typeof(IBasicDataService<>));
+
+            // Register component as factory
+            //builder.Register<Func<IDomainEntity,IBasicDataService<IDomainEntity>>>(c => 
+            //{
+            //    var cc = c.Resolve<IComponentContext>();
+            //    return ds => cc.Resolve<T>();
+            //});
 
 
+            // ****************************************************
             // UI configurations
+            // ****************************************************
+            // Register all types that implement IFormHandler<T> from given assembly
+            var formAssembly = Assembly.GetAssembly(typeof(PlantCreateEditModelFormHandler));
+            builder.RegisterAssemblyTypes(formAssembly)
+                .AsClosedTypesOf(typeof(IFormHandler<>));
+
             // TEMP: Want to build factory via IoC itself
             builder.RegisterType<FormHandlerFactory>().As<IFormHandlerFactory>();
 
+            // Register component as factory
+            //builder.Register<Func<IDomainEntity,IBasicDataService<IDomainEntity>>>(c => 
+            //{
+            //    var cc = c.Resolve<IComponentContext>();
+            //    return ds => cc.Resolve<T>();
+            //});
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
