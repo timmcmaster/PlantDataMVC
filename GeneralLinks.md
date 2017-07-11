@@ -14,6 +14,7 @@
   - http://autofac.readthedocs.io/en/latest/integration/mvc.html
   - http://autofac.readthedocs.io/en/latest/
   - http://autofac.org/
+  - https://codingfiasco.wordpress.com/2016/03/30/autofac-me/
 ## Patterns and IOC
   - http://blog.ploeh.dk/2010/09/29/TheRegisterResolveReleasepattern/
   - http://blog.ploeh.dk/2011/08/25/ServiceLocatorrolesvs.mechanics/

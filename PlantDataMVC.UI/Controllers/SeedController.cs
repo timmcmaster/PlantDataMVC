@@ -12,11 +12,11 @@ namespace PlantDataMVC.UI.Controllers
     {
         private IBasicDataService<PlantSeed> _dataService;
 
-        public SeedController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
-        {
-            // get service from service layer
-            _dataService = serviceLayer.GetDataService<PlantSeed>();
-        }
+        //public SeedController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        //{
+        //    // get service from service layer
+        //    _dataService = serviceLayer.GetDataService<PlantSeed>();
+        //}
 
         public SeedController(IBasicDataService<PlantSeed> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {

@@ -19,7 +19,7 @@ namespace PlantDataMVC.UI
         protected void Application_Start()
         {
             // Force break here
-            System.Diagnostics.Debugger.Break();
+            //System.Diagnostics.Debugger.Break();
 
             AutofacConfig.ConfigureContainer();
             AreaRegistration.RegisterAllAreas();

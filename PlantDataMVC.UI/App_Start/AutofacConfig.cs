@@ -2,12 +2,14 @@
 using Autofac.Integration.Mvc;
 using Framework.DAL.DataContext;
 using Framework.DAL.EF;
+using Framework.DAL.Entity;
 using Framework.DAL.Repository;
 using Framework.DAL.UnitOfWork;
 using Framework.Service.ServiceLayer;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Service.SimpleServiceLayer;
 using PlantDataMVC.UI.Helpers;
+using System;
 using System.Web.Mvc;
 
 namespace PlantDataMVC.UI
@@ -51,7 +53,19 @@ namespace PlantDataMVC.UI
 
 
             // Core configurations
-            builder.RegisterType<SimpleServiceLayer>().As<IServiceLayer>();
+            //builder.RegisterType<SimpleServiceLayer>().As<IServiceLayer>();
+            
+            // Register all classes that implement BasicDataService<T> as IBasicDataService<T>
+            // TODO: This doesn't work, as BasicDataService is abstract 
+            builder.RegisterGeneric(typeof(BasicDataService<>))
+                .As(typeof(IBasicDataService<>));
+
+            // Register 
+            builder.Register<Func<T,IBasicDataService<T>>>(c => 
+            {
+                var cc = c.Resolve<IComponentContext>();
+                return ds => cc.Resolve<T>();
+            });
 
 
             // UI configurations
