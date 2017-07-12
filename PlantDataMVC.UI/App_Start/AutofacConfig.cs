@@ -2,16 +2,13 @@
 using Autofac.Integration.Mvc;
 using Framework.DAL.DataContext;
 using Framework.DAL.EF;
-using Framework.DAL.Entity;
 using Framework.DAL.Repository;
 using Framework.DAL.UnitOfWork;
-using Framework.Domain;
 using Framework.Service.ServiceLayer;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Service.SimpleServiceLayer;
-using PlantDataMVC.UI.Helpers;
-using PlantDataMVC.UI.Helpers.Handlers;
-using System;
+using PlantDataMVC.UI.Forms;
+using PlantDataMVC.UI.Forms.Handlers;
 using System.Reflection;
 using System.Web.Mvc;
 
@@ -50,9 +47,10 @@ namespace PlantDataMVC.UI
             builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
+
             // Register repository types for now
             // TODO: Make factory instead, manage lifetime scope
-            builder.RegisterGeneric(typeof(Framework.DAL.EF.Repository<>))
+            builder.RegisterGeneric(typeof(Repository<>))
                 .As(typeof(IRepositoryAsync<>));
 
 
@@ -85,8 +83,9 @@ namespace PlantDataMVC.UI
             // TEMP: Want to build factory via IoC itself
             //builder.RegisterType<FormHandlerFactory>().As<IFormHandlerFactory>();
 
-            // Register anonymous method that resolves 
-            //builder.Register<Func<IDomainEntity,IBasicDataService<IDomainEntity>>>(c => 
+            // Register anonymous method that resolves FormHandlers based on type of form that they handle
+            // Data service will be injected via registration of types implementing IBasicDataService<> 
+            //builder.Register<Func<IF,IBasicDataService<IDomainEntity>>>(c => 
             //{
             //    var cc = c.Resolve<IComponentContext>();
             //    return ds => cc.Resolve<T>();

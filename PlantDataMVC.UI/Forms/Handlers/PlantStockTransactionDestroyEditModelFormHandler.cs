@@ -6,7 +6,7 @@ using PlantDataMVC.UI.Models;
 using PlantDataMVC.Domain.Entities;
 using Framework.Service.ServiceLayer;
 
-namespace PlantDataMVC.UI.Helpers.Handlers
+namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantStockTransactionDestroyEditModelFormHandler : IFormHandler<PlantStockTransactionDestroyEditModel>
     {

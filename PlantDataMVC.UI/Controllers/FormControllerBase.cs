@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Web;
+﻿using PlantDataMVC.UI.Forms;
+using System;
 using System.Web.Mvc;
-using PlantDataMVC.UI.Helpers;
-using PlantDataMVC.UI.Helpers.ViewResults;
-using PlantDataMVC.UI.Models;
 
 namespace PlantDataMVC.UI.Controllers
 {
@@ -36,23 +30,23 @@ namespace PlantDataMVC.UI.Controllers
         /// <param name="form">The form instance.</param>
         /// <param name="success">The view to display on success.</param>
         /// <returns></returns>
-        protected ActionResult Form<TForm>(TForm form, ActionResult successResult)
+        protected ActionResult Form<TForm>(TForm form, ActionResult successResult) where TForm : IForm
         {
             return Form(form, () => successResult);
         }
 
-        protected ActionResult Form<TForm>(TForm form, ActionResult successResult, ActionResult failureResult)
+        protected ActionResult Form<TForm>(TForm form, ActionResult successResult, ActionResult failureResult) where TForm : IForm
         {
             return Form(form, () => successResult, () => failureResult);
         }
 
-        protected ActionResult Form<TForm>(TForm form, Func<ActionResult> successResult)
+        protected ActionResult Form<TForm>(TForm form, Func<ActionResult> successResult) where TForm : IForm
         {
             return Form(form, successResult, () => Redirect(Request.UrlReferrer.AbsoluteUri));
         }
 
         // The generic form of the method
-        protected ActionResult Form<TForm>(TForm form, Func<ActionResult> successResult, Func<ActionResult> failResult)
+        protected ActionResult Form<TForm>(TForm form, Func<ActionResult> successResult, Func<ActionResult> failResult) where TForm : IForm
         {
             if (ModelState.IsValid)
             {

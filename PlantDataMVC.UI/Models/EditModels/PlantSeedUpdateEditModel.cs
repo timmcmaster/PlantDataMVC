@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using PlantDataMVC.UI.Forms;
+using System;
 
 namespace PlantDataMVC.UI.Models
 {
-    public class PlantSeedUpdateEditModel
+    public class PlantSeedUpdateEditModel : IForm
     {
         public int Id { get; set; }
         public int SpeciesId { get; set; }

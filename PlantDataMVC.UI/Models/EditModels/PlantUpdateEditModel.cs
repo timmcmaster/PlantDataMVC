@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using PlantDataMVC.UI.Forms;
 
 namespace PlantDataMVC.UI.Models
 {
-    public class PlantUpdateEditModel
+    public class PlantUpdateEditModel : IForm
     {
         public int Id { get; set; }
         public string Genus { get; set; }

@@ -4,7 +4,7 @@ using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Models;
 using Framework.Service.ServiceLayer;
 
-namespace PlantDataMVC.UI.Helpers
+namespace PlantDataMVC.UI.Forms
 {
     public class FormHandlerFactory: IFormHandlerFactory
     {
@@ -19,7 +19,7 @@ namespace PlantDataMVC.UI.Helpers
             _formHandlerDictionary = new Dictionary<Type, object>();
         }
 
-        public IFormHandler<TForm> GetFormHandler<TForm>()
+        public IFormHandler<TForm> GetFormHandler<TForm>() where TForm : IForm
         {
             IFormHandler<TForm> formHandler = FindHandler<TForm>();
 
@@ -32,7 +32,7 @@ namespace PlantDataMVC.UI.Helpers
             return formHandler;
         }
 
-        public dynamic GetDataService<TForm>()
+        public dynamic GetDataService<TForm>() where TForm : IForm
         {
             if ((typeof(TForm) == typeof(PlantCreateEditModel)) ||
                 (typeof(TForm) == typeof(PlantDestroyEditModel)) ||
@@ -76,7 +76,7 @@ namespace PlantDataMVC.UI.Helpers
             }
         }
 
-        private IFormHandler<TForm> FindHandler<TForm>()
+        private IFormHandler<TForm> FindHandler<TForm>() where TForm : IForm
         {
             if (_formHandlerDictionary.ContainsKey(typeof(TForm)))
             {
@@ -88,13 +88,13 @@ namespace PlantDataMVC.UI.Helpers
             }
         }
 
-        private IFormHandler<TForm> CreateHandler<TForm>()
+        private IFormHandler<TForm> CreateHandler<TForm>() where TForm : IForm
         {
             var dataService = GetDataService<TForm>();
 
             // Use convention that handler type name will be form type name + "FormHandler"
             string formTypeName = typeof(TForm).Name;
-            string handlerNamespace = "PlantDataMVC.UI.Helpers.Handlers";
+            string handlerNamespace = "PlantDataMVC.UI.Forms.Handlers";
             String handlerFullTypeName = String.Format("{0}.{1}FormHandler", handlerNamespace, formTypeName);
 
             // Get the type
@@ -106,7 +106,7 @@ namespace PlantDataMVC.UI.Helpers
             return formHandler;
         }
 
-        private void AddHandler<TForm>(IFormHandler<TForm> handler)
+        private void AddHandler<TForm>(IFormHandler<TForm> handler) where TForm : IForm
         {
             if (FindHandler<TForm>() == null)
             {

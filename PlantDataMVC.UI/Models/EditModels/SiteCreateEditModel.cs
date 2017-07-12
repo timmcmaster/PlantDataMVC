@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using PlantDataMVC.UI.Forms;
 
 namespace PlantDataMVC.UI.Models
 {
-    public class SiteCreateEditModel
+    public class SiteCreateEditModel : IForm
     {
         public string SiteName { get; set; }
         public string Suburb { get; set; }

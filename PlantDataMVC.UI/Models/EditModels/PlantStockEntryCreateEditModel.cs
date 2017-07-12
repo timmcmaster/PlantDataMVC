@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PlantDataMVC.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using PlantDataMVC.UI.Forms;
 
 namespace PlantDataMVC.UI.Models
 {
-    public class PlantStockEntryCreateEditModel
+    public class PlantStockEntryCreateEditModel : IForm
     {
         public int SpeciesId { get; set; }
         public int ProductTypeId { get; set; }
