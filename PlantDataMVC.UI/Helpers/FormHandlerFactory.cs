@@ -12,7 +12,7 @@ namespace PlantDataMVC.UI.Helpers
 
         private Dictionary<Type, Object> _formHandlerDictionary = new Dictionary<Type, object>();
 
-        // TODO: Remove dependency on IServiceLayer, should be only on data service needed for given form type 
+        // TODO: Remove dependency on IServiceLayer, factory 
         public FormHandlerFactory(IServiceLayer serviceLayer)
         {
             _serviceLayer = serviceLayer;

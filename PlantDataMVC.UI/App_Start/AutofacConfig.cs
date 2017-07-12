@@ -83,14 +83,16 @@ namespace PlantDataMVC.UI
                 .AsClosedTypesOf(typeof(IFormHandler<>));
 
             // TEMP: Want to build factory via IoC itself
-            builder.RegisterType<FormHandlerFactory>().As<IFormHandlerFactory>();
+            //builder.RegisterType<FormHandlerFactory>().As<IFormHandlerFactory>();
 
-            // Register component as factory
+            // Register anonymous method that resolves 
             //builder.Register<Func<IDomainEntity,IBasicDataService<IDomainEntity>>>(c => 
             //{
             //    var cc = c.Resolve<IComponentContext>();
             //    return ds => cc.Resolve<T>();
             //});
+
+
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
