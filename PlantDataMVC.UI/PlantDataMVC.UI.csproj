@@ -133,6 +133,7 @@
     <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
     <Compile Include="Controllers\FormControllerBase.cs" />
     <Compile Include="Controllers\SiteController.cs" />
+    <Compile Include="Forms\AutofacFormHandlerFactory.cs" />
     <Compile Include="Forms\IForm.cs" />
     <Compile Include="Forms\IFormHandlerFactory.cs" />
     <Compile Include="Forms\Handlers\SiteCreateEditModelFormHandler.cs" />

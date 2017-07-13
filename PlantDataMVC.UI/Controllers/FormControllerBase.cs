@@ -50,7 +50,7 @@ namespace PlantDataMVC.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _formHandlerFactory.GetFormHandler<TForm>().Handle(form);
+                _formHandlerFactory.Create<TForm>().Handle(form);
 
                 return successResult();
             }

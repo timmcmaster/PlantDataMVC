@@ -19,7 +19,7 @@ namespace PlantDataMVC.UI.Forms
             _formHandlerDictionary = new Dictionary<Type, object>();
         }
 
-        public IFormHandler<TForm> GetFormHandler<TForm>() where TForm : IForm
+        public IFormHandler<TForm> Create<TForm>() where TForm : IForm
         {
             IFormHandler<TForm> formHandler = FindHandler<TForm>();
 

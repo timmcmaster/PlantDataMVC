@@ -81,7 +81,7 @@ namespace PlantDataMVC.UI
                 .AsClosedTypesOf(typeof(IFormHandler<>));
 
             // TEMP: Want to build factory via IoC itself
-            //builder.RegisterType<FormHandlerFactory>().As<IFormHandlerFactory>();
+            builder.RegisterType<AutofacFormHandlerFactory>().As<IFormHandlerFactory>();
 
             // Register anonymous method that resolves FormHandlers based on type of form that they handle
             // Data service will be injected via registration of types implementing IBasicDataService<> 

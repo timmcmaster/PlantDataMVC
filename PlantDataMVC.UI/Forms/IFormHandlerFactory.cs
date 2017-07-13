@@ -2,6 +2,6 @@
 {
     public interface IFormHandlerFactory
     {
-        IFormHandler<TForm> GetFormHandler<TForm>() where TForm : IForm;
+        IFormHandler<TForm> Create<TForm>() where TForm : IForm;
    }
 }
