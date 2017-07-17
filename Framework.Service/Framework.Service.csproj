@@ -45,7 +45,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLayer\BasicDataService.cs" />
     <Compile Include="ServiceLayer\IBasicDataService.cs" />
-    <Compile Include="ServiceLayer\IServiceLayer.cs" />
     <Compile Include="ServiceLayer\Requests\CreateRequest.cs" />
     <Compile Include="ServiceLayer\Requests\DeleteRequest.cs" />
     <Compile Include="ServiceLayer\Requests\ListRequest.cs" />

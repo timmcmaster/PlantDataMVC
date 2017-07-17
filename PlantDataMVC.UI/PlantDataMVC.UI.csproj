@@ -217,7 +217,6 @@
     <Compile Include="Forms\Handlers\PlantUpdateEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\PlantCreateEditModelFormHandler.cs" />
     <Compile Include="Forms\IFormHandler.cs" />
-    <Compile Include="Forms\FormHandlerFactory.cs" />
     <Compile Include="Mappers\AutoMapperBootstrapper.cs" />
     <Compile Include="Models\EditModels\PlantDestroyEditModel.cs" />
     <Compile Include="Models\EditModels\PlantCreateEditModel.cs" />

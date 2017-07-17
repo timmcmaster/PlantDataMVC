@@ -52,7 +52,6 @@
     <Compile Include="SimpleServiceLayer\PlantStockEntryDataService.cs" />
     <Compile Include="SimpleServiceLayer\PlantStockTransactionDataService.cs" />
     <Compile Include="SimpleServiceLayer\PlantStockTransactionTypeDataService.cs" />
-    <Compile Include="SimpleServiceLayer\SimpleServiceLayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework.DAL.EF\Framework.DAL.EF.csproj">
