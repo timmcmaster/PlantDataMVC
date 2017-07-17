@@ -11,8 +11,12 @@ namespace PlantDataMVC.UI.Models
     {
         public List<PlantProductType> ProductTypes { get; set; }
 
+        // TODO: Use dropdown for selection
         [Display(Name = "Species Id")]
         public int SpeciesId { get; set; }
+
+        [Display(Name = "Species Name")]
+        public string SpeciesBinomial { get; private set; }
 
         [Display(Name = "Product Type")]
         public int ProductTypeId { get; set; }

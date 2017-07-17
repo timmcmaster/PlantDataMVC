@@ -6,6 +6,7 @@ namespace PlantDataMVC.UI.Models
 {
     public class PlantSeedNewViewModel
     {
+        // TODO: Make dropdown for ID and name
         [Display(Name = "Species Id")]
         public int SpeciesId { get; set; }
 
