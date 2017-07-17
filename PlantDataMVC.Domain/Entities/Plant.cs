@@ -5,8 +5,8 @@ namespace PlantDataMVC.Domain.Entities
 {
     public class Plant: DomainEntity
     {
-        private List<PlantSeed> _seeds;
-        private List<PlantStockEntry> _stock;
+        //private List<PlantSeed> _seeds;
+        //private List<PlantStockEntry> _stock;
 
         //public string LatinName
         //{
@@ -20,49 +20,51 @@ namespace PlantDataMVC.Domain.Entities
         public bool Native { get; set; }
         public int PropagationTime { get; set; }
 
-        public PlantSeed[] Seeds 
-        {
-            get
-            {
-                return _seeds.ToArray();
-            }
-            set
-            {
-                _seeds = new List<PlantSeed>(value);
-            }
-        }
+        public override string DisplayValue { get { return this.Binomial; } }
 
-        public PlantStockEntry[] Stock
-        {
-            get
-            {
-                return _stock.ToArray();
-            }
-            set
-            {
-                _stock = new List<PlantStockEntry>(value);
-            }
-        }
+        //public PlantSeed[] Seeds 
+        //{
+        //    get
+        //    {
+        //        return _seeds.ToArray();
+        //    }
+        //    set
+        //    {
+        //        _seeds = new List<PlantSeed>(value);
+        //    }
+        //}
 
-        public Plant()
-            : this(0, "", "", "", "", true, 0, new PlantSeed[] { }, new PlantStockEntry[] { })
-        {
-        }
+        //public PlantStockEntry[] Stock
+        //{
+        //    get
+        //    {
+        //        return _stock.ToArray();
+        //    }
+        //    set
+        //    {
+        //        _stock = new List<PlantStockEntry>(value);
+        //    }
+        //}
 
-        //public Plant(int id, string latinName, string commonName, string description, bool native, int propagationTime, PlantSeed[] seeds, PlantStockEntry[] stock)
-        public Plant(int id, string genericName, string specificName, string commonName, string description, bool native, int propagationTime, PlantSeed[] seeds, PlantStockEntry[] stock)
-        {
-            this.Id = id;
-            //this.LatinName = latinName;
-            this.GenericName = genericName;
-            this.SpecificName = specificName;
-            this.CommonName = commonName;
-            this.Description = description;
-            this.Native = native;
-            this.PropagationTime = propagationTime;
-            this.Seeds = seeds;
-            this.Stock = stock;
-        }
+        //public Plant()
+        //    : this(0, "", "", "", "", true, 0, new PlantSeed[] { }, new PlantStockEntry[] { })
+        //{
+        //}
+
+        ////public Plant(int id, string latinName, string commonName, string description, bool native, int propagationTime, PlantSeed[] seeds, PlantStockEntry[] stock)
+        //public Plant(int id, string genericName, string specificName, string commonName, string description, bool native, int propagationTime, PlantSeed[] seeds, PlantStockEntry[] stock)
+        //{
+        //    this.Id = id;
+        //    //this.LatinName = latinName;
+        //    this.GenericName = genericName;
+        //    this.SpecificName = specificName;
+        //    this.CommonName = commonName;
+        //    this.Description = description;
+        //    this.Native = native;
+        //    this.PropagationTime = propagationTime;
+        //    this.Seeds = seeds;
+        //    this.Stock = stock;
+        //}
 
         //public static string FormatName(string genus, string species)
         //{

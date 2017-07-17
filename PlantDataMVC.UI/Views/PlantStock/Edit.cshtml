@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.UI.Models.PlantStockEntryEditViewModel
+﻿@using PlantDataMVC.UI.Helpers
+@model PlantDataMVC.UI.Models.PlantStockEntryEditViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -26,6 +27,8 @@
             @Html.LabelFor(m => m.ProductTypeId)
         </div>
         <div class="editor-field">
+            @* TODO: Add new dropdown method here  *@
+            @*@Html.DropDownFor(m => m.ProductType, p => p.Id, p => p.DisplayValue);*@
             @Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")
             @Html.ValidationMessageFor(model => model.ProductTypeId)
         </div>

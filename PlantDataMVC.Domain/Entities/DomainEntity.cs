@@ -10,5 +10,6 @@ namespace PlantDataMVC.Domain.Entities
     public abstract class DomainEntity : IDomainEntity
     {
         public virtual int Id { get; set; }
+        public abstract string DisplayValue { get; }
     }
 }

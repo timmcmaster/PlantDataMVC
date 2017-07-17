@@ -4,14 +4,16 @@
     {
         public string Name { get; set; }
 
-        public PlantProductType(): this(0, "New Item")
-        {
-        }
+        public override string DisplayValue { get { return this.Name; } }
 
-        public PlantProductType(int id, string name)
-        {
-            this.Id = id;
-            this.Name = name;
-        }
+        //public PlantProductType(): this(0, "New Item")
+        //{
+        //}
+
+        //public PlantProductType(int id, string name)
+        //{
+        //    this.Id = id;
+        //    this.Name = name;
+        //}
     }
 }
