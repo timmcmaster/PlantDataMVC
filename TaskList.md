@@ -1,8 +1,10 @@
 # Future dev tasks
 - (Taken from my trello)
 ## Immediate dev tasks
-- [ ] SimpleServiceLayer GetDataService<T> method should use a pattern to lookup the service for the data type
-- [ ] Remove code smell of passing IServiceLayer where we only need a specific service
+- [X] SimpleServiceLayer GetDataService<T> method should use a pattern to lookup the service for the data type 
+	- actually removed IServiceLayer - uses IoC on IBasicDataService<> instead
+- [X] Remove code smell of passing IServiceLayer where we only need a specific service
+	- as above, removed IServiceLayer
 - [ ] Use Automapper Projections rather than Map in DAL to Domain mapping (lists only)
     - https://lostechies.com/jimmybogard/2014/03/11/efficient-querying-with-linq-automapper-and-future-queries/
     - https://github.com/AutoMapper/AutoMapper/wiki/Queryable-Extensions

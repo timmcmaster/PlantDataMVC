@@ -10,7 +10,7 @@ namespace PlantDataMVC.UI.Models
 {
     public class PlantStockEntryEditViewModel
     {
-        public List<PlantProductType> ProductTypes { get; set; }
+        //public List<PlantProductType> ProductTypes { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
@@ -21,8 +21,11 @@ namespace PlantDataMVC.UI.Models
         [Display(Name = "Species Name")]
         public string SpeciesBinomial { get; private set; }
 
-        [Display(Name = "Product Type")]
+        [Display(Name = "Product Type Id")]
         public int ProductTypeId { get; set; }
+
+        [Display(Name = "Product Type")]
+        public PlantProductType ProductType { get; set; }
 
         [Display(Name = "Quantity In Stock"),  Editable(false)]
         public int QuantityInStock { get; set; }

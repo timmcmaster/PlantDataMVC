@@ -76,15 +76,15 @@ namespace PlantDataMVC.UI.Mappers
         {
             // PlantStockEntry
             CreateMap<PlantStockEntry, PlantStockEntryDeleteViewModel>();
-            CreateMap<PlantStockEntry, PlantStockEntryEditViewModel>()
-                .ForMember(uio => uio.ProductTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
+            CreateMap<PlantStockEntry, PlantStockEntryEditViewModel>();
+                //.ForMember(uio => uio.ProductTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
                 //.ForMember(uio => uio.ProductTypes,
                 //    opt => opt.MapFrom<IList<PlantProductType>>(
                 //        bo => _serviceLayer.GetDataService<PlantProductType>().List(new ListRequest<PlantProductType>()).Items));
 
             CreateMap<PlantStockEntry, PlantStockEntryListViewModel>();
-            CreateMap<PlantStockEntry, PlantStockEntryNewViewModel>()
-                .ForMember(uio => uio.ProductTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
+            CreateMap<PlantStockEntry, PlantStockEntryNewViewModel>();
+                //.ForMember(uio => uio.ProductTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
                 //.ForMember(uio => uio.ProductTypes,
                 //    opt => opt.MapFrom<IList<PlantProductType>>(
                 //        bo => _serviceLayer.GetDataService<PlantProductType>().List(new ListRequest<PlantProductType>()).Items));
