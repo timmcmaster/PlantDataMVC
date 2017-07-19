@@ -34,39 +34,14 @@ namespace PlantDataMVC.UI.Helpers
             var dataService = DependencyResolver.Current.GetService<IBasicDataService<TItem>>();
             var items = dataService.List(new ListRequest<TItem>()).Items;
 
-            var selectListItems = GetItems(items, displayValueSelector, dataValueSelector, selectedItem);
-
-            return htmlHelper.DropDownList(fieldName(), selectListItems); 
-        }
-
-        /// <summary>
-        /// Convert a collection of generic items to a collection of SelectListItems 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="items"></param>
-        /// <param name="displayValueSelector"></param>
-        /// <param name="dataValueSelector"></param>
-        /// <returns></returns>
-        public static IEnumerable<SelectListItem> GetItems<T>(IEnumerable<T> items, Func<T, string> displayValueSelector, Func<T,object> dataValueSelector, T selectedItem)
-        {
-            //var listItems = items.Select(x => new SelectListItem
-            //    {
-            //        Text = displayValueSelector(x),
-            //        Value = dataValueSelector(x).ToString()
-            //    });
-
-            var listItems = new List<SelectListItem>();
-            foreach (var item in items)
+            var selectListItems = items.Select(x => new SelectListItem
             {
-                listItems.Add(new SelectListItem
-                {
-                    Text = displayValueSelector(item),
-                    Value = dataValueSelector(item).ToString(),
-                    Selected = (dataValueSelector(item).Equals(dataValueSelector(selectedItem)))
-                });
-            }
+                Text = displayValueSelector(x),
+                Value = dataValueSelector(x).ToString(),
+                Selected = (dataValueSelector(x).Equals(dataValueSelector(selectedItem)))
+            });
 
-            return new SelectList(listItems);
+            return htmlHelper.DropDownList(fieldName(), selectListItems,"Select an option");
         }
     }
 }

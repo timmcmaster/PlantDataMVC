@@ -432,7 +432,6 @@
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CustomString.cshtml" />
-    <Content Include="Views\PlantStock\ViewPage1.cshtml" />
     <Content Include="Views\Site\Delete.cshtml" />
     <Content Include="Views\Site\Edit.cshtml" />
     <Content Include="Views\Site\Index.cshtml" />

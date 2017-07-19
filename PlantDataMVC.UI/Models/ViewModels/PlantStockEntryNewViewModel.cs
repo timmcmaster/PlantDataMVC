@@ -9,7 +9,7 @@ namespace PlantDataMVC.UI.Models
 {
     public class PlantStockEntryNewViewModel
     {
-        public List<PlantProductType> ProductTypes { get; set; }
+        //public List<PlantProductType> ProductTypes { get; set; }
 
         // TODO: Use dropdown for selection
         [Display(Name = "Species Id")]
@@ -18,8 +18,8 @@ namespace PlantDataMVC.UI.Models
         [Display(Name = "Species Name")]
         public string SpeciesBinomial { get; private set; }
 
-        [Display(Name = "Product Type Id")]
-        public int ProductTypeId { get; set; }
+        //[Display(Name = "Product Type Id")]
+        //public int ProductTypeId { get; set; }
 
         [Display(Name = "Product Type")]
         public PlantProductType ProductType { get; set; }

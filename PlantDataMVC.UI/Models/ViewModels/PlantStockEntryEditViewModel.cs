@@ -21,9 +21,6 @@ namespace PlantDataMVC.UI.Models
         [Display(Name = "Species Name")]
         public string SpeciesBinomial { get; private set; }
 
-        [Display(Name = "Product Type Id")]
-        public int ProductTypeId { get; set; }
-
         [Display(Name = "Product Type")]
         public PlantProductType ProductType { get; set; }
 
