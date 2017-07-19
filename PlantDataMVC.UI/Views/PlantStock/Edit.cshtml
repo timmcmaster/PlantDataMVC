@@ -15,20 +15,21 @@
 
         @Html.HiddenFor(model => model.Id)
 
-        <div class="editor-label">
+        @Html.HiddenFor(model => model.SpeciesId)
+
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.SpeciesId)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.SpeciesId)
             @Html.ValidationMessageFor(model => model.SpeciesId)
-        </div>
+        </div>*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.SpeciesBinomial)
         </div>
         <div class="editor-field">
             @Html.DisplayFor(model => model.SpeciesBinomial)
-            @Html.ValidationMessageFor(model => model.SpeciesBinomial)
         </div>
 
         <div class="editor-label">
