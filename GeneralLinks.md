@@ -2,8 +2,11 @@
 ## Model binding
   - http://dotnetslackers.com/articles/aspnet/Understanding-ASP-NET-MVC-Model-Binding.aspx
   - https://docs.asp.net/en/latest/mvc/models/model-binding.html
+  - http://www.dalsoft.co.uk/blog/index.php/2010/05/21/mvc-model-binders/
 ## Mapping DTOs
   - http://buildplease.com/pages/repositories-dto/
+## Service/Business/DTOs
+  - https://stackoverflow.com/questions/16866102/using-dto-to-transfer-data-between-service-layer-and-ui-layer
 ## DAL
   - https://blog.magnusmontin.net/2013/05/30/generic-dal-using-entity-framework/
 ## EF Mocking and test doubles

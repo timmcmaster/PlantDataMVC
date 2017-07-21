@@ -26,19 +26,19 @@ namespace PlantDataMVC.Domain.Entities
         //    }
         //}
 
-        //public PlantSeedSite()
-        //    : this(0, "", "", 0, 0, new PlantSeed[] {})
-        //{
-        //}
+        public PlantSeedSite()
+            : this(0, "", "", 0, 0)
+        {
+        }
 
-        //public PlantSeedSite(int id, string siteName, string suburb, decimal latitude, decimal longitude, PlantSeed[] seedBatches)
-        //{
-        //    this.Id = id;
-        //    this.SiteName = siteName;
-        //    this.Suburb = suburb;
-        //    this.Latitude = latitude;
-        //    this.Longitude = longitude;
-        //    this.SeedBatches = seedBatches;
-        //}
+        public PlantSeedSite(int id, string siteName, string suburb, decimal latitude, decimal longitude)
+        {
+            this.Id = id;
+            this.SiteName = siteName;
+            this.Suburb = suburb;
+            this.Latitude = latitude;
+            this.Longitude = longitude;
+            //this.SeedBatches = seedBatches;
+        }
     }
 }

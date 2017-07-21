@@ -7,15 +7,15 @@
 
         public override string DisplayValue { get { return this.Name; } }
 
-        //public PlantPriceListType(): this(0, "New PriceList", "R")
-        //{
-        //}
+        public PlantPriceListType() : this(0, "New PriceList", "R")
+        {
+        }
 
-        //public PlantPriceListType(int id, string name, string kind)
-        //{
-        //    this.Id = id;
-        //    this.Name = name;
-        //    this.Kind = kind;
-        //}
+        public PlantPriceListType(int id, string name, string kind)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Kind = kind;
+        }
     }
 }

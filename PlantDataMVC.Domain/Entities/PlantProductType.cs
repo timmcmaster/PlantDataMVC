@@ -6,14 +6,14 @@
 
         public override string DisplayValue { get { return this.Name; } }
 
-        //public PlantProductType(): this(0, "New Item")
-        //{
-        //}
+        public PlantProductType() : this(0, "")
+        {
+        }
 
-        //public PlantProductType(int id, string name)
-        //{
-        //    this.Id = id;
-        //    this.Name = name;
-        //}
+        public PlantProductType(int id, string name)
+        {
+            this.Id = id;
+            this.Name = name;
+        }
     }
 }

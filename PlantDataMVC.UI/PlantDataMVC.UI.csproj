@@ -163,6 +163,7 @@
     <Compile Include="Mappers\AutoMapperWebConfiguration.cs" />
     <Compile Include="Mappers\DomainToUIMappingProfile.cs" />
     <Compile Include="Mappers\UIToDomainMappingProfile.cs" />
+    <Compile Include="ModelBinders\DebugModelBinder.cs" />
     <Compile Include="Models\EditModels\SiteCreateEditModel.cs" />
     <Compile Include="Models\EditModels\SiteDestroyEditModel.cs" />
     <Compile Include="Models\EditModels\SiteUpdateEditModel.cs" />
@@ -475,6 +476,7 @@
       <Name>PlantDataMVC.Service</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

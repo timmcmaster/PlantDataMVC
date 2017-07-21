@@ -46,25 +46,24 @@ namespace PlantDataMVC.Domain.Entities
         //    }
         //}
 
-        //public Plant()
-        //    : this(0, "", "", "", "", true, 0, new PlantSeed[] { }, new PlantStockEntry[] { })
-        //{
-        //}
+        public Plant()
+            : this(0, "", "", "", "", true, 0)
+        {
+        }
 
-        ////public Plant(int id, string latinName, string commonName, string description, bool native, int propagationTime, PlantSeed[] seeds, PlantStockEntry[] stock)
-        //public Plant(int id, string genericName, string specificName, string commonName, string description, bool native, int propagationTime, PlantSeed[] seeds, PlantStockEntry[] stock)
-        //{
-        //    this.Id = id;
-        //    //this.LatinName = latinName;
-        //    this.GenericName = genericName;
-        //    this.SpecificName = specificName;
-        //    this.CommonName = commonName;
-        //    this.Description = description;
-        //    this.Native = native;
-        //    this.PropagationTime = propagationTime;
-        //    this.Seeds = seeds;
-        //    this.Stock = stock;
-        //}
+        public Plant(int id, string genericName, string specificName, string commonName, string description, bool native, int propagationTime)
+        {
+            this.Id = id;
+            //this.LatinName = latinName;
+            this.GenericName = genericName;
+            this.SpecificName = specificName;
+            this.CommonName = commonName;
+            this.Description = description;
+            this.Native = native;
+            this.PropagationTime = propagationTime;
+            //this.Seeds = seeds;
+            //this.Stock = stock;
+        }
 
         //public static string FormatName(string genus, string species)
         //{

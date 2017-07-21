@@ -14,21 +14,21 @@ namespace PlantDataMVC.Domain.Entities
 
         public override string DisplayValue { get { return this.Id.ToString(); } }
 
-        //public PlantStockTransaction()
-        //    : this(0, 0, new PlantStockTransactionType(), DateTime.Today, 0, 0, "", "")
-        //{
-        //}
+        public PlantStockTransaction()
+            : this(0, 0, new PlantStockTransactionType(), new DateTime(), 0, 0, "", "")
+        {
+        }
 
-        //public PlantStockTransaction(int id, int plantStockEntryId, PlantStockTransactionType transactionType, DateTime transactionDate, int quantity, int seedTrayId, string transactionSource, string notes)
-        //{
-        //    this.Id = id;
-        //    this.PlantStockEntryId = plantStockEntryId;
-        //    this.TransactionType = transactionType;
-        //    this.TransactionDate = transactionDate;
-        //    this.Quantity = quantity;
-        //    this.SeedTrayId = seedTrayId;
-        //    this.TransactionSource = transactionSource;
-        //    this.Notes = notes;
-        //}
+        public PlantStockTransaction(int id, int plantStockEntryId, PlantStockTransactionType transactionType, DateTime transactionDate, int quantity, int seedTrayId, string transactionSource, string notes)
+        {
+            this.Id = id;
+            this.PlantStockEntryId = plantStockEntryId;
+            this.TransactionType = transactionType;
+            this.TransactionDate = transactionDate;
+            this.Quantity = quantity;
+            this.SeedTrayId = seedTrayId;
+            this.TransactionSource = transactionSource;
+            this.Notes = notes;
+        }
     }
 }

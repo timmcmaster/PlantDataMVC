@@ -26,19 +26,19 @@ namespace PlantDataMVC.Domain.Entities
         //    }
         //}
 
-        //public PlantSeedTray()
-        //    : this(0, 0, DateTime.Today, "", false, new PlantStockTransaction[] { })
-        //{
-        //}
+        public PlantSeedTray()
+            : this(0, 0, new DateTime(), "", false)
+        {
+        }
 
-        //public PlantSeedTray(int id, int seedBatchId, DateTime datePlanted, string treatment, bool thrownOut, PlantStockTransaction[] plantStockTransactions)
-        //{
-        //    this.Id = id;
-        //    this.SeedBatchId = seedBatchId;
-        //    this.DatePlanted = datePlanted;
-        //    this.Treatment = treatment;
-        //    this.ThrownOut = thrownOut;
-        //    this.PlantStockTransactions = plantStockTransactions;
-        //}
+        public PlantSeedTray(int id, int seedBatchId, DateTime datePlanted, string treatment, bool thrownOut)
+        {
+            this.Id = id;
+            this.SeedBatchId = seedBatchId;
+            this.DatePlanted = datePlanted;
+            this.Treatment = treatment;
+            this.ThrownOut = thrownOut;
+            //this.PlantStockTransactions = plantStockTransactions;
+        }
     }
 }
