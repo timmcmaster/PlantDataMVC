@@ -11,7 +11,9 @@ namespace PlantDataMVC.UI.ModelBinders
     {
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            return base.BindModel(controllerContext, bindingContext);
+            var boundData = base.BindModel(controllerContext, bindingContext);
+
+            return boundData;
         }
     }
 }
