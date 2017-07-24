@@ -1,7 +1,11 @@
 ﻿using PlantDataMVC.UI.Forms;
+using PlantDataMVC.UI.ModelBinders;
+using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Models
 {
+    // HACK: So that we can debug binding for this model
+    [ModelBinder(typeof(DebugModelBinder))]
     public class PlantCreateEditModel : IForm
     {
         public string Genus { get; set; }
