@@ -43,10 +43,12 @@ namespace PlantDataMVC.Domain.Mappers
                 .ForMember(e => e.SiteId, opt => opt.Ignore())
                 .ForMember(e => e.Site, opt => opt.Ignore())
                 .ForMember(e => e.Species, opt => opt.Ignore())
-                .ForMember(e => e.ObjectState, opt => opt.Ignore());
+                .ForMember(e => e.ObjectState, opt => opt.Ignore())
+                .ForMember(e => e.SeedTrays, opt => opt.Ignore());
 
             CreateMap<PlantSeedSite, Site>()
-                .ForMember(e => e.ObjectState, opt => opt.Ignore());
+                .ForMember(e => e.ObjectState, opt => opt.Ignore())
+                .ForMember(e => e.SeedBatches, opt => opt.Ignore());
 
             CreateMap<PlantSeedTray, SeedTray>()
                 .ForMember(e => e.JournalEntries, opt => opt.Ignore())

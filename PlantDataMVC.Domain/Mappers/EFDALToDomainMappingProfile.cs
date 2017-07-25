@@ -19,7 +19,7 @@ namespace PlantDataMVC.Domain.Mappers
         private void ConfigureDALToDomain()
         {
             // Maps from Data Layer entities to Domain business objects
-            // Note no map exists from Genus up to Plant (i.e. Mapper.CreateMap<Species, Plant>() )
+            // Note no map exists from Genus up to Plant (i.e. Mapper.CreateMap<Genus, Plant>() )
             // as Species is required for defining Plant
             CreateMap<Species, Plant>();
                 //.ForMember(bo => bo.Seeds, opt => opt.Ignore())

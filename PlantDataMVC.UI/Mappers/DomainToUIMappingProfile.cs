@@ -49,7 +49,9 @@ namespace PlantDataMVC.UI.Mappers
 
             CreateMap<Plant, PlantShowViewModel>()
                .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(bo => bo.GenericName))
-               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpecificName));
+               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpecificName))
+               .ForMember(uio => uio.Seeds, opt => opt.Ignore())
+               .ForMember(uio => uio.Stock, opt => opt.Ignore());
         }
 
         private void ConfigurePlantSeedViewModels()
@@ -59,7 +61,8 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantSeed, PlantSeedEditViewModel>();
             CreateMap<PlantSeed, PlantSeedListViewModel>();
             CreateMap<PlantSeed, PlantSeedNewViewModel>();
-            CreateMap<PlantSeed, PlantSeedShowViewModel>();
+            CreateMap<PlantSeed, PlantSeedShowViewModel>()
+                .ForMember(uio => uio.SeedTrays, opt => opt.Ignore());
         }
 
         private void ConfigurePlantSeedSiteViewModels()
@@ -69,7 +72,8 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantSeedSite, SiteEditViewModel>();
             CreateMap<PlantSeedSite, SiteListViewModel>();
             CreateMap<PlantSeedSite, SiteNewViewModel>();
-            CreateMap<PlantSeedSite, SiteShowViewModel>();
+            CreateMap<PlantSeedSite, SiteShowViewModel>()
+                .ForMember(uio => uio.SeedBatches, opt => opt.Ignore());
         }
 
         private void ConfigurePlantStockEntryViewModels()
@@ -89,7 +93,8 @@ namespace PlantDataMVC.UI.Mappers
                 //    opt => opt.MapFrom<IList<PlantProductType>>(
                 //        bo => _serviceLayer.GetDataService<PlantProductType>().List(new ListRequest<PlantProductType>()).Items));
 
-            CreateMap<PlantStockEntry, PlantStockEntryShowViewModel>();
+            CreateMap<PlantStockEntry, PlantStockEntryShowViewModel>()
+                .ForMember(uio => uio.Transactions, opt => opt.Ignore());
         }
 
         private void ConfigurePlantStockTransactionViewModels()
@@ -119,7 +124,8 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantSeedTray, TrayEditViewModel>();
             CreateMap<PlantSeedTray, TrayListViewModel>();
             CreateMap<PlantSeedTray, TrayNewViewModel>();
-            CreateMap<PlantSeedTray, TrayShowViewModel>();
+            CreateMap<PlantSeedTray, TrayShowViewModel>()
+                .ForMember(uio => uio.PlantStockTransactions, opt => opt.Ignore());
         }
 
         #endregion Configure View Models

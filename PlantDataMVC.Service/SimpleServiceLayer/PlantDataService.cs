@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Framework.DAL.UnitOfWork;
 using Framework.Service.ServiceLayer;
 using PlantDataMVC.Domain.Entities;
@@ -16,8 +17,6 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             : base(uow)
         {
         }
-
-        //TODO: Implement Commit method and transactions on unit of work
 
         /// <summary>
         /// Service method to create a new plant item
@@ -153,12 +152,11 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override IList<Plant> ListItems(IUnitOfWorkAsync uow)
         {
-            IList<Species> allSpecies = uow.Repository<Species>().GetAll();
+            var context = uow.Repository<Species>().Queryable();
+            var itemQuery = context.ProjectTo<Plant>().OrderBy(p => p.Binomial);
+            IList<Plant> items = itemQuery.ToList();
 
-            IList<Plant> plants = Mapper.Map<IList<Species>, IList<Plant>>(allSpecies);
-            plants = plants.OrderBy(p => p.Binomial).ToList();
-
-            return plants;
+            return items;
         }
     }
 }
