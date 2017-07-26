@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.Domain.Entities
 {
-    public class Plant: DomainEntity
+    public class Plant : DomainEntity
     {
         //private List<PlantSeed> _seeds;
         //private List<PlantStockEntry> _stock;
@@ -46,19 +46,15 @@ namespace PlantDataMVC.Domain.Entities
         //    }
         //}
 
-        //public Plant()
-        //    : this(0, "", "", "", "", true, 0)
+        // Default constructor
         public Plant()
         {
-            this.Id = 0;
-            this.GenericName = "";
-            this.SpecificName = "";
-            this.CommonName = "";
-            this.Description = "";
-            this.Native = true;
-            this.PropagationTime = 0;
-
         }
+
+        //public Plant()
+        //    : this(0, "", "", "", "", true, 0)
+        //{
+        //}
 
         //public Plant(int id, string genericName, string specificName, string commonName, string description, bool native, int propagationTime)
         //{

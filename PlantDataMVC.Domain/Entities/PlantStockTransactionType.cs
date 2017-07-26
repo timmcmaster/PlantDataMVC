@@ -7,15 +7,19 @@
 
         public override string DisplayValue { get { return this.Name; } }
 
-        public PlantStockTransactionType() : this(0, "", 0)
+        public PlantStockTransactionType()
         {
         }
 
-        public PlantStockTransactionType(int id, string name, int effect)
-        {
-            this.Id = id;
-            this.Name = name;
-            this.Effect = effect;
-        }
+        //public PlantStockTransactionType() : this(0, "", 0)
+        //{
+        //}
+
+        //public PlantStockTransactionType(int id, string name, int effect)
+        //{
+        //    this.Id = id;
+        //    this.Name = name;
+        //    this.Effect = effect;
+        //}
     }
 }

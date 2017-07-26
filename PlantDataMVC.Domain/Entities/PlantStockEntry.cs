@@ -27,17 +27,22 @@ namespace PlantDataMVC.Domain.Entities
 
 
         public PlantStockEntry()
-            : this(0, 0, new PlantProductType(), 0)
         {
+            this.ProductType = new PlantProductType();
         }
 
-        public PlantStockEntry(int id, int speciesId, PlantProductType productType, int quantityInStock)
-        {
-            this.Id = id;
-            this.SpeciesId = speciesId;
-            this.ProductType = productType;
-            this.QuantityInStock = quantityInStock;
-            //this.Transactions = transactions;
-        }
+        //public PlantStockEntry()
+        //    : this(0, 0, new PlantProductType(), 0)
+        //{
+        //}
+
+        //public PlantStockEntry(int id, int speciesId, PlantProductType productType, int quantityInStock)
+        //{
+        //    this.Id = id;
+        //    this.SpeciesId = speciesId;
+        //    this.ProductType = productType;
+        //    this.QuantityInStock = quantityInStock;
+        //    //this.Transactions = transactions;
+        //}
     }
 }

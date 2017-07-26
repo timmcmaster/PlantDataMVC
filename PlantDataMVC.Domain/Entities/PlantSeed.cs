@@ -26,14 +26,10 @@ namespace PlantDataMVC.Domain.Entities
         //        _seedTrays = new List<PlantSeedTray>(value);
         //    }
         //}
+
         public PlantSeed()
         {
-            this.Id = 0;
-            this.SpeciesId = 0;
-            this.SpeciesBinomial = "";
             this.DateCollected = new DateTime();
-            this.Location = "";
-            this.Notes = "";
         }
 
         //public PlantSeed()
