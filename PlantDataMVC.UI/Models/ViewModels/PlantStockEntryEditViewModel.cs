@@ -26,5 +26,11 @@ namespace PlantDataMVC.UI.Models
 
         [Display(Name = "Quantity In Stock"),  Editable(false)]
         public int QuantityInStock { get; set; }
+
+
+        public PlantStockEntryEditViewModel()
+        {
+            ProductType = new PlantProductType();
+        }
     }
 }

@@ -72,8 +72,8 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantSeedSite, SiteEditViewModel>();
             CreateMap<PlantSeedSite, SiteListViewModel>();
             CreateMap<PlantSeedSite, SiteNewViewModel>();
-            CreateMap<PlantSeedSite, SiteShowViewModel>()
-                .ForMember(uio => uio.SeedBatches, opt => opt.Ignore());
+            CreateMap<PlantSeedSite, SiteShowViewModel>();
+                //.ForMember(uio => uio.SeedBatches, opt => opt.Ignore());
         }
 
         private void ConfigurePlantStockEntryViewModels()
@@ -88,28 +88,28 @@ namespace PlantDataMVC.UI.Mappers
 
             CreateMap<PlantStockEntry, PlantStockEntryListViewModel>();
             CreateMap<PlantStockEntry, PlantStockEntryNewViewModel>();
-                //.ForMember(uio => uio.ProductTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
-                //.ForMember(uio => uio.ProductTypes,
-                //    opt => opt.MapFrom<IList<PlantProductType>>(
-                //        bo => _serviceLayer.GetDataService<PlantProductType>().List(new ListRequest<PlantProductType>()).Items));
+            //.ForMember(uio => uio.ProductTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
+            //.ForMember(uio => uio.ProductTypes,
+            //    opt => opt.MapFrom<IList<PlantProductType>>(
+            //        bo => _serviceLayer.GetDataService<PlantProductType>().List(new ListRequest<PlantProductType>()).Items));
 
-            CreateMap<PlantStockEntry, PlantStockEntryShowViewModel>()
-                .ForMember(uio => uio.Transactions, opt => opt.Ignore());
+            CreateMap<PlantStockEntry, PlantStockEntryShowViewModel>();
+                //.ForMember(uio => uio.Transactions, opt => opt.Ignore());
         }
 
         private void ConfigurePlantStockTransactionViewModels()
         {
             // PlantStockTransaction
             CreateMap<PlantStockTransaction, PlantStockTransactionDeleteViewModel>();
-            CreateMap<PlantStockTransaction, PlantStockTransactionEditViewModel>()
-                .ForMember(uio => uio.TransactionTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
+            CreateMap<PlantStockTransaction, PlantStockTransactionEditViewModel>();
+                //.ForMember(uio => uio.TransactionTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
                 //.ForMember(uio => uio.TransactionTypes,
                 //        opt => opt.MapFrom<IList<PlantStockTransactionType>>(
                 //            bo => _serviceLayer.GetDataService<PlantStockTransactionType>().List(new ListRequest<PlantStockTransactionType>()).Items));
 
             CreateMap<PlantStockTransaction, PlantStockTransactionListViewModel>();
-            CreateMap<PlantStockTransaction, PlantStockTransactionNewViewModel>()
-                .ForMember(uio => uio.TransactionTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
+            CreateMap<PlantStockTransaction, PlantStockTransactionNewViewModel>();
+                //.ForMember(uio => uio.TransactionTypes, opt => opt.Ignore());   // TODO: Go back to detail on querying ref data from UI 
                 //.ForMember(uio => uio.TransactionTypes,
                 //        opt => opt.MapFrom<IList<PlantStockTransactionType>>(
                 //            bo => _serviceLayer.GetDataService<PlantStockTransactionType>().List(new ListRequest<PlantStockTransactionType>()).Items));
@@ -124,8 +124,8 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantSeedTray, TrayEditViewModel>();
             CreateMap<PlantSeedTray, TrayListViewModel>();
             CreateMap<PlantSeedTray, TrayNewViewModel>();
-            CreateMap<PlantSeedTray, TrayShowViewModel>()
-                .ForMember(uio => uio.PlantStockTransactions, opt => opt.Ignore());
+            CreateMap<PlantSeedTray, TrayShowViewModel>();
+                //.ForMember(uio => uio.PlantStockTransactions, opt => opt.Ignore());
         }
 
         #endregion Configure View Models

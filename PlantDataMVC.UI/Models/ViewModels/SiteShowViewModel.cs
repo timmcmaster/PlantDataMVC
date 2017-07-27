@@ -20,7 +20,7 @@ namespace PlantDataMVC.UI.Models
 
         public decimal Longitude { get; private set; }
         
-        public IList<PlantSeedListViewModel> SeedBatches { get; private set; }
+        //public IList<PlantSeedListViewModel> SeedBatches { get; private set; }
 
         //public PlantSeedShowViewModel()
         //    : this(0, 0, DateTime.Today, "", "")

@@ -20,7 +20,7 @@ namespace PlantDataMVC.UI.Models
         public string SpeciesBinomial { get; private set; }
 
         [Display(Name = "Product Type")]
-        public String ProductTypeName { get; set; }
+        public string ProductTypeName { get; set; }
 
         [Display(Name = "Quantity In Stock")]
         public int QuantityInStock { get; set; }

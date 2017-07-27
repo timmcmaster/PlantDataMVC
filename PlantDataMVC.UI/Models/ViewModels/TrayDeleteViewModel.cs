@@ -21,5 +21,11 @@ namespace PlantDataMVC.UI.Models
 
         [Display(Name = "Thrown Out")]
         public bool ThrownOut { get; set; }
+
+
+        public TrayDeleteViewModel()
+        {
+            DatePlanted = new DateTime();
+        }
     }
 }

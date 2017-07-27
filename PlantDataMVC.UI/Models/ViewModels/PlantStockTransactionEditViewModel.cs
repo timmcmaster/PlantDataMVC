@@ -8,7 +8,7 @@ namespace PlantDataMVC.UI.Models
 {
     public class PlantStockTransactionEditViewModel
     {
-        public List<PlantStockTransactionType> TransactionTypes { get; set; }
+        //public List<PlantStockTransactionType> TransactionTypes { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
@@ -32,5 +32,11 @@ namespace PlantDataMVC.UI.Models
 
         [StringLength(50), DataType("CustomString")]
         public string Notes { get; set; }
+
+
+        public PlantStockTransactionEditViewModel()
+        {
+            TransactionDate = new DateTime();
+        }
     }
 }

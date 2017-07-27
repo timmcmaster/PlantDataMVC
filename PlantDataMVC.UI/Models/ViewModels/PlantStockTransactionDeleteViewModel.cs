@@ -29,5 +29,11 @@ namespace PlantDataMVC.UI.Models
         public string TransactionSource { get; set; }
 
         public string Notes { get; set; }
+
+
+        public PlantStockTransactionDeleteViewModel()
+        {
+            TransactionDate = new DateTime();
+        }
     }
 }

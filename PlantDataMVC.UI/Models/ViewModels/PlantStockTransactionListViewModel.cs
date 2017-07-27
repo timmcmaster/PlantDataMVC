@@ -20,5 +20,11 @@ namespace PlantDataMVC.UI.Models
         public DateTime TransactionDate { get; set; }
 
         public int Quantity { get; set; }
+
+
+        public PlantStockTransactionListViewModel()
+        {
+            TransactionDate = new DateTime();
+        }
     }
 }
