@@ -55,8 +55,12 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override IList<PlantStockEntry> ListItems(IUnitOfWorkAsync uow)
         {
-            var context = uow.Repository<PlantStock>().Queryable();
-            IList<PlantStockEntry> items = context.ProjectTo<PlantStockEntry>().ToList();
+            //var context = uow.Repository<PlantStock>().Queryable();
+            //// TODO: This projection fails on use of Binomial calculated property
+            //IList<PlantStockEntry> items = context.ProjectTo<PlantStockEntry>().ToList();
+
+            IList<PlantStock> allItems = uow.Repository<PlantStock>().GetAll();
+            IList<PlantStockEntry> items = Mapper.Map<IList<PlantStock>, IList<PlantStockEntry>>(allItems);
 
             return items;
         }

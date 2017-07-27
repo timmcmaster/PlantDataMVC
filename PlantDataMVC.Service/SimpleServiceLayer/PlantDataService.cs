@@ -152,9 +152,14 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override IList<Plant> ListItems(IUnitOfWorkAsync uow)
         {
-            var context = uow.Repository<Species>().Queryable();
-            var itemQuery = context.ProjectTo<Plant>().OrderBy(p => p.Binomial);
-            IList<Plant> items = itemQuery.ToList();
+            //var context = uow.Repository<Species>().Queryable();
+            //// TODO: This projection fails on use of GenericName and Binomial calculated properties.
+            //var itemQuery = context.ProjectTo<Plant>().OrderBy(p => p.Binomial);
+            //IList<Plant> items = itemQuery.ToList();
+
+            IList<Species> allItems = uow.Repository<Species>().GetAll();
+            IList<Plant> items = Mapper.Map<IList<Species>, IList<Plant>>(allItems);
+            items = items.OrderBy(p => p.Binomial).ToList();
 
             return items;
         }
