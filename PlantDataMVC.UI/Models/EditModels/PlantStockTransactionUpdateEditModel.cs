@@ -1,4 +1,5 @@
-﻿using Framework.Web.Forms;
+﻿using PlantDataMVC.Domain.Entities;
+using Framework.Web.Forms;
 using System;
 
 namespace PlantDataMVC.UI.Models
@@ -7,7 +8,7 @@ namespace PlantDataMVC.UI.Models
     {
         public int Id { get; set; }
         public int PlantStockEntryId { get; set; }
-        public int TransactionTypeId { get; set; }
+        public PlantStockTransactionType TransactionType { get; set; }
         public DateTime TransactionDate { get; set; }
         public int Quantity { get; set; }
         public int SeedTrayId { get; set; }

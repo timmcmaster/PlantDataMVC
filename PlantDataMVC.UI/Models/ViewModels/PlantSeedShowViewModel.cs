@@ -24,7 +24,7 @@ namespace PlantDataMVC.UI.Models
         
         public string Notes { get; private set; }
         
-        public IList<TrayListViewModel> SeedTrays { get; private set; }
+        //public IList<TrayListViewModel> SeedTrays { get; private set; }
 
         //public PlantSeedShowViewModel()
         //    : this(0, 0, DateTime.Today, "", "")

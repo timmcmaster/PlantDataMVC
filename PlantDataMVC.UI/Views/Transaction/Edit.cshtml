@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.UI.Models.PlantStockTransactionEditViewModel
+﻿@using PlantDataMVC.UI.Helpers
+@model PlantDataMVC.UI.Models.PlantStockTransactionEditViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -23,11 +24,12 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(m=>m.TransactionTypeId)
+            @Html.LabelFor(m => m.TransactionType)
         </div>
         <div class="editor-field">
+            @Html.DropDownFor(() => "TransactionType.Id", model => model.TransactionType, p => p.DisplayValue, p => p.Id)
             @*@Html.DropDownListFor(m => m.TransactionTypeId, new SelectList(Model.TransactionTypes, "Id", "Name", Model.TransactionTypeId), "Select an option")*@
-            @Html.ValidationMessageFor(model => model.TransactionTypeId)
+            @*@Html.ValidationMessageFor(model => model.TransactionTypeId)*@
         </div>
 
         <div class="editor-label">

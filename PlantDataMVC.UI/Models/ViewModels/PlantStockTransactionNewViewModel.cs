@@ -9,13 +9,11 @@ namespace PlantDataMVC.UI.Models
 {
     public class PlantStockTransactionNewViewModel
     {
-        //public List<PlantStockTransactionType> TransactionTypes { get; set; }
-
         [Display(Name = "Plant Stock Entry Id")]
         public int PlantStockEntryId { get; set; }
 
         [Display(Name = "Transaction Type")]
-        public int TransactionTypeId { get; set; }
+        public PlantStockTransactionType TransactionType { get; set; }
 
         [Display(Name = "Transaction Date")]
         public DateTime TransactionDate { get; set; }

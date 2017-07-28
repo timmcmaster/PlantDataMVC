@@ -10,8 +10,6 @@ namespace PlantDataMVC.UI.Models
 {
     public class PlantStockEntryEditViewModel
     {
-        //public List<PlantProductType> ProductTypes { get; set; }
-
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
