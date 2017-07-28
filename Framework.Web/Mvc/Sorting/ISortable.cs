@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PlantDataMVC.UI.Helpers
+namespace Framework.Web.Mvc.Sorting
 {
     public interface ISortable
     {

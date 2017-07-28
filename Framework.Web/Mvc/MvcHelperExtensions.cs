@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace PlantDataMVC.UI.Helpers
+namespace Framework.Web.Mvc
 {
     public static class MvcHelperExtensions
     {

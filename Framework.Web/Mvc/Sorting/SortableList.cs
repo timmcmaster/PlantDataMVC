@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic;
 
-namespace PlantDataMVC.UI.Helpers
+namespace Framework.Web.Mvc.Sorting
+
 {
     public class SortableList<T> : List<T>, ISortable
     {

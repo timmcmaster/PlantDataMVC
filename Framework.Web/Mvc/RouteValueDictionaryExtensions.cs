@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Routing;
 
-namespace PlantDataMVC.UI.Helpers
+namespace Framework.Web.Mvc
 {
     /// <summary>
     /// Contains extension methods for RouteValueDictionary class

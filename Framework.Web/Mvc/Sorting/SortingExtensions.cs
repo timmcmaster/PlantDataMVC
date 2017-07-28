@@ -8,7 +8,8 @@ using System.Linq.Expressions;
 using System.Web.Routing;
 using System.Reflection;
 
-namespace PlantDataMVC.UI.Helpers
+namespace Framework.Web.Mvc.Sorting
+
 {
     /// <summary>
     /// Contains Extension methods for HtmlHelper that implement column headers for tables.

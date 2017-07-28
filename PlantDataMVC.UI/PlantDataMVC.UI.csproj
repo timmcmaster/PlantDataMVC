@@ -138,8 +138,6 @@
     <Compile Include="Forms\Handlers\SiteUpdateEditModelFormHandler.cs" />
     <Compile Include="Helpers\DropDownExtensions.cs" />
     <Compile Include="Helpers\MenuExtensions.cs" />
-    <Compile Include="Helpers\SortingExtensions.cs" />
-    <Compile Include="Helpers\PagingExtensions.cs" />
     <Compile Include="Forms\Handlers\PlantStockTransactionCreateEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\PlantStockTransactionDestroyEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\PlantStockTransactionUpdateEditModelFormHandler.cs" />
@@ -152,8 +150,6 @@
     <Compile Include="Forms\Handlers\PlantSeedCreateEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\PlantSeedDestroyEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\PlantSeedUpdateEditModelFormHandler.cs" />
-    <Compile Include="Helpers\MvcHelperExtensions.cs" />
-    <Compile Include="Helpers\RenderActionExtensions.cs" />
     <Compile Include="Helpers\ViewResults\AutoMapPreProcessingViewResult.cs" />
     <Compile Include="Helpers\ViewResults\ListViewPreProcessingViewResult.cs" />
     <Compile Include="Helpers\ViewResults\PreProcessingViewResult.cs" />
@@ -220,12 +216,6 @@
     <Compile Include="Models\EditModels\PlantCreateEditModel.cs" />
     <Compile Include="Models\EditModels\PlantUpdateEditModel.cs" />
     <Compile Include="Models\ViewModels\ListViewModel.cs" />
-    <Compile Include="Helpers\SortableList.cs" />
-    <Compile Include="Helpers\Dynamic.cs" />
-    <Compile Include="Helpers\IPageable.cs" />
-    <Compile Include="Helpers\ISortable.cs" />
-    <Compile Include="Helpers\PageableList.cs" />
-    <Compile Include="Helpers\RouteValueDictionaryExtensions.cs" />
     <Compile Include="Areas\Security\Models\AccountModels.cs" />
     <Compile Include="Models\ViewModels\PlantNewViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantStockTransactionEditViewModel.cs" />

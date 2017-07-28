@@ -7,7 +7,7 @@ using System.Web.Mvc.Html;
 using System.Linq.Expressions;
 using System.Web.Routing;
 
-namespace PlantDataMVC.UI.Helpers
+namespace Framework.Web.Mvc
 {
     /// <summary>
     /// Contains Extension methods for HtmlHelper that implement wrappers for RenderAction method

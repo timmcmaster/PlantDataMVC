@@ -62,14 +62,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Dynamic.cs" />
     <Compile Include="Forms\FormControllerBase.cs" />
     <Compile Include="Forms\IForm.cs" />
     <Compile Include="Forms\IFormHandler.cs" />
     <Compile Include="Forms\IFormHandlerFactory.cs" />
+    <Compile Include="Mvc\MvcHelperExtensions.cs" />
+    <Compile Include="Mvc\Paging\IPageable.cs" />
+    <Compile Include="Mvc\Paging\PageableList.cs" />
+    <Compile Include="Mvc\Paging\PagingExtensions.cs" />
+    <Compile Include="Mvc\RenderActionExtensions.cs" />
+    <Compile Include="Mvc\RouteValueDictionaryExtensions.cs" />
+    <Compile Include="Mvc\Sorting\ISortable.cs" />
+    <Compile Include="Mvc\Sorting\SortableList.cs" />
+    <Compile Include="Mvc\Sorting\SortingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
