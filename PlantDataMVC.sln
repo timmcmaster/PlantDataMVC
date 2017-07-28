@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.Repository", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.Tests.DAL", "PlantDataMVC.Tests.DAL\PlantDataMVC.Tests.DAL.csproj", "{987574E0-6B9F-484B-AAE2-A2F4D4F89A9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Web", "Framework.Web\Framework.Web.csproj", "{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -223,6 +225,18 @@ Global
 		{987574E0-6B9F-484B-AAE2-A2F4D4F89A9B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{987574E0-6B9F-484B-AAE2-A2F4D4F89A9B}.Release|x86.ActiveCfg = Release|Any CPU
 		{987574E0-6B9F-484B-AAE2-A2F4D4F89A9B}.Release|x86.Build.0 = Release|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Debug|x86.Build.0 = Debug|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Release|x86.ActiveCfg = Release|Any CPU
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -241,5 +255,6 @@ Global
 		{157D351C-8DA8-4A9B-B66D-20E4F49EB201} = {25C7A4B6-71E1-41B6-9F5A-52FA5309F413}
 		{EC735467-12D4-471B-80D1-7D594E9E4E68} = {CCCA5B13-EEF2-44A1-B6B0-6819F412FEB0}
 		{987574E0-6B9F-484B-AAE2-A2F4D4F89A9B} = {CCCA5B13-EEF2-44A1-B6B0-6819F412FEB0}
+		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
 	EndGlobalSection
 EndGlobal

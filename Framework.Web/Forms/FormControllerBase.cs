@@ -1,8 +1,7 @@
-﻿using PlantDataMVC.UI.Forms;
-using System;
+﻿using System;
 using System.Web.Mvc;
 
-namespace PlantDataMVC.UI.Controllers
+namespace Framework.Web.Forms
 {
     /// <summary>
     /// An MVC controller that implements all of the basic CRUD methods (Create, Read, Update, Delete)

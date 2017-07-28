@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.UI.Models;
-using Framework.Service.ServiceLayer;
-using Autofac;
+﻿using Autofac;
+using Framework.Web.Forms;
 
 namespace PlantDataMVC.UI.Forms
 {

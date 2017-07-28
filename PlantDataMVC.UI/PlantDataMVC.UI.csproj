@@ -131,11 +131,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Areas\Security\Controllers\AccountController.cs" />
     <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
-    <Compile Include="Controllers\FormControllerBase.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Forms\AutofacFormHandlerFactory.cs" />
-    <Compile Include="Forms\IForm.cs" />
-    <Compile Include="Forms\IFormHandlerFactory.cs" />
     <Compile Include="Forms\Handlers\SiteCreateEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\SiteDestroyEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\SiteUpdateEditModelFormHandler.cs" />
@@ -218,7 +215,6 @@
     <Compile Include="Forms\Handlers\PlantDestroyEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\PlantUpdateEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\PlantCreateEditModelFormHandler.cs" />
-    <Compile Include="Forms\IFormHandler.cs" />
     <Compile Include="Mappers\AutoMapperBootstrapper.cs" />
     <Compile Include="Models\EditModels\PlantDestroyEditModel.cs" />
     <Compile Include="Models\EditModels\PlantCreateEditModel.cs" />
@@ -462,6 +458,10 @@
     <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
       <Project>{FB582D72-F66A-4153-BB91-A4F339ED1795}</Project>
       <Name>Framework.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework.Web\Framework.Web.csproj">
+      <Project>{2acec3d2-cb25-4b0d-a6bc-e224ecd5248e}</Project>
+      <Name>Framework.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
       <Project>{157D351C-8DA8-4A9B-B66D-20E4F49EB201}</Project>

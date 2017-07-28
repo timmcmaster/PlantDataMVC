@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UI.Forms
+namespace Framework.Web.Forms
 {
     /// <summary>
     /// Marker interface for forms

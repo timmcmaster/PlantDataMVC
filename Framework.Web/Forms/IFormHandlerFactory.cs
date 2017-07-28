@@ -1,4 +1,4 @@
-﻿namespace PlantDataMVC.UI.Forms
+﻿namespace Framework.Web.Forms
 {
     public interface IFormHandlerFactory
     {
