@@ -92,9 +92,6 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(bo => bo.Id, opt => opt.Ignore())   // Id on create will come back from DB
                 .ForMember(bo => bo.SpeciesBinomial, opt => opt.Ignore());
                 //.ForMember(bo => bo.Transactions, opt => opt.Ignore())
-                //.ForMember(bo => bo.ProductType,
-                //            opt => opt.MapFrom<PlantProductType>(
-                //                uio => _serviceLayer.GetDataService<PlantProductType>().View(new ViewRequest<PlantProductType>(uio.ProductTypeId)).Item));
 
             CreateMap<PlantStockEntryDestroyEditModel, PlantStockEntry>()
                 .ForMember(bo => bo.Id, opt => opt.MapFrom(uio => uio.Id))
@@ -103,31 +100,19 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantStockEntryUpdateEditModel, PlantStockEntry>()
                 .ForMember(bo => bo.SpeciesBinomial, opt => opt.Ignore());
                 //.ForMember(bo => bo.Transactions, opt => opt.Ignore())
-                //.ForMember(bo => bo.ProductType,
-                //            opt => opt.MapFrom<PlantProductType>(
-                //                uio => _serviceLayer.GetDataService<PlantProductType>().View(new ViewRequest<PlantProductType>(uio.ProductTypeId)).Item));
         }
 
         private void ConfigurePlantStockTransactionEditModels()
         {
             // PlantStockTransaction
             CreateMap<PlantStockTransactionCreateEditModel, PlantStockTransaction>()
-                .ForMember(bo => bo.Id, opt => opt.Ignore())                // Id on create will come back from DB
-                .ForMember(bo => bo.TransactionType, opt => opt.Ignore());  // TODO: Do this by mapping from UI model as object
-                //.ForMember(bo => bo.TransactionType,
-                //            opt => opt.MapFrom<PlantStockTransactionType>(
-                //                uio => _serviceLayer.GetDataService<PlantStockTransactionType>().View(new ViewRequest<PlantStockTransactionType>(uio.TransactionTypeId)).Item));
+                .ForMember(bo => bo.Id, opt => opt.Ignore());                // Id on create will come back from DB
 
             CreateMap<PlantStockTransactionDestroyEditModel, PlantStockTransaction>()
                 .ForMember(bo => bo.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForAllOtherMembers(opt => opt.Ignore());
 
-            CreateMap<PlantStockTransactionUpdateEditModel, PlantStockTransaction>()
-                .ForMember(bo => bo.TransactionType, opt => opt.Ignore());  // TODO: Do this by mapping from UI model as object
-                //.ForMember(bo => bo.TransactionType,
-                //            opt => opt.MapFrom<PlantStockTransactionType>(
-                //                uio => _serviceLayer.GetDataService<PlantStockTransactionType>().View(new ViewRequest<PlantStockTransactionType>(uio.TransactionTypeId)).Item));
-
+            CreateMap<PlantStockTransactionUpdateEditModel, PlantStockTransaction>();
         }
 
         private void ConfigurePlantSeedTrayEditModels()
