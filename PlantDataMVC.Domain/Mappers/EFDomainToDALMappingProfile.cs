@@ -5,7 +5,6 @@ using System;
 
 namespace PlantDataMVC.Domain.Mappers
 {
-    // HACK: This probably shouldn't be here and should be done by IoC - to fix
     public class EFDomainToDALMappingProfile: Profile
     {
         public EFDomainToDALMappingProfile()

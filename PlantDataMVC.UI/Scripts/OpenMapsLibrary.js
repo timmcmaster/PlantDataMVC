@@ -44,7 +44,6 @@ var Mapping = (function () {
         });
         map.addOverlay(popup);
 
-        // TODO: popover is part of bootstrap library which is not yet included (hence errors)
         // change mouse cursor when over marker
         map.on('pointermove', function (e) {
             if (e.dragging) {
