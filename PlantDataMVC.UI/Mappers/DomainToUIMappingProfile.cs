@@ -49,9 +49,9 @@ namespace PlantDataMVC.UI.Mappers
 
             CreateMap<Plant, PlantShowViewModel>()
                .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(bo => bo.GenericName))
-               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpecificName))
-               .ForMember(uio => uio.Seeds, opt => opt.Ignore())
-               .ForMember(uio => uio.Stock, opt => opt.Ignore());
+               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(bo => bo.SpecificName));
+               //.ForMember(uio => uio.Seeds, opt => opt.Ignore())
+               //.ForMember(uio => uio.Stock, opt => opt.Ignore());
         }
 
         private void ConfigurePlantSeedViewModels()

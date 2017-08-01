@@ -71,6 +71,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
 
             // add genus id (and latin name?)
+            // TODO: At this stage, Genus.Id is not yet set by DB
             requestSpecies.GenusId = parentGenus.Id;
             //requestSpecies.GenusLatinName = parentGenus.LatinName;
 

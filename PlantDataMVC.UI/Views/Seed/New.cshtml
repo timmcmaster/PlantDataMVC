@@ -11,8 +11,39 @@
     <fieldset>
         <legend>Seed Batch</legend>
 
-        @Html.EditorForModel()
+        @Html.HiddenFor(model => model.SpeciesId)
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SpeciesBinomial)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SpeciesBinomial)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateCollected)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateCollected)
+            @Html.ValidationMessageFor(model => model.DateCollected)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Location)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Notes)
+        </div>
+        <div class="editor-field">
+
+            @Html.EditorFor(model => model.Notes)
+            @Html.ValidationMessageFor(model => model.Notes)
+        </div>
         <p>
             <input type="submit" value="Create" />
         </p>

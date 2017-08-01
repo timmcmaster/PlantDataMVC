@@ -5,16 +5,17 @@
 	- actually removed IServiceLayer - uses IoC on IBasicDataService<> instead
 - [X] Remove code smell of passing IServiceLayer where we only need a specific service
 	- as above, removed IServiceLayer
-- [ ] Use Automapper Projections rather than Map in DAL to Domain mapping (lists only)
+- [X] Use Automapper Projections rather than Map in DAL to Domain mapping (lists only)
+    - done other than a couple of cases with calculated properties
     - https://lostechies.com/jimmybogard/2014/03/11/efficient-querying-with-linq-automapper-and-future-queries/
     - https://github.com/AutoMapper/AutoMapper/wiki/Queryable-Extensions
     - https://lostechies.com/jimmybogard/2011/02/09/autoprojecting-linq-queries/
     - http://www.devtrends.co.uk/blog/stop-using-automapper-in-your-data-access-code
-- [ ] Remove code smell of using derived controller to pass form handler to formcontrollerbase
-- [ ] Form controller base model
+- [X] Remove code smell of using derived controller to pass form handler to formcontrollerbase
+- [X] Form controller base model
 	- https://github.com/Byndyusoft/ByndyuSoft.Dotnet.Infrastructure/blob/master/source/Infrastructure.Web/Forms/FormControllerBase.cs
 	- https://github.com/BrandyFx/Brandy/blob/master/src/Web/Forms/FormControllerBase.cs
-- [ ] Fix repositories (again)
+- [X] Fix repositories (again)
 	- https://www.cuttingedge.it/blogs/steven/pivot/entry.php?id=84
 - [ ] Better understanding of CSS scope and hierarchy
 	- https://www.w3schools.com/css/
@@ -100,6 +101,7 @@
 - [ ] Google maps or spatial data interface for seed collection sites
     - https://www.programmableweb.com/news/top-10-mapping-apis-google-maps-microsoft-bing-maps-and-mapquest/analysis/2015/02/23
     - Looking at OpenLayers at this stage, due to open source licence
+	- allow display and selection via map interface
 - [ ] Reports  
     - label printing 
     - propagation success rates 

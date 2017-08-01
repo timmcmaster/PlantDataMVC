@@ -28,9 +28,9 @@ namespace PlantDataMVC.UI.Models
         
         public bool Native { get; set; }
         
-        public IList<PlantSeedListViewModel> Seeds { get; set; }
+        //public IList<PlantSeedListViewModel> Seeds { get; set; }
         
-        public IList<PlantStockEntryListViewModel> Stock { get; set; }
+        //public IList<PlantStockEntryListViewModel> Stock { get; set; }
 
         //public PlantShowViewModel()
         //    : this("", "", "", "", 0, true)
