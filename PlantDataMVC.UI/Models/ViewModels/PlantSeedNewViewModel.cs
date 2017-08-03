@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlantDataMVC.Domain.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -6,12 +7,14 @@ namespace PlantDataMVC.UI.Models
 {
     public class PlantSeedNewViewModel
     {
-        // TODO: Make dropdown for ID and name
-        [Display(Name = "Species Id")]
-        public int SpeciesId { get; set; }
-
         [Display(Name = "Species Name")]
-        public string SpeciesBinomial { get; set; }
+        public Plant PlantSpecies { get; set; }
+
+        //[Display(Name = "Species Id")]
+        //public int SpeciesId { get; set; }
+
+        //[Display(Name = "Species Name")]
+        //public string SpeciesBinomial { get; set; }
 
         [Display(Name = "Date Collected")]
         public DateTime DateCollected { get; set; }
@@ -21,5 +24,11 @@ namespace PlantDataMVC.UI.Models
 
         [StringLength(200), DataType("CustomString")]
         public string Notes { get; set; }
+
+
+        public PlantSeedNewViewModel()
+        {
+            this.PlantSpecies = new Plant();
+        }
     }
 }
