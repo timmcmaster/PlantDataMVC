@@ -8,8 +8,10 @@ string prefixName = ViewData.TemplateInfo.HtmlFieldPrefix;
 <script type="text/javascript">
     $(function () {
         // Call datepicker
-        
+
         $('#@prefixName').datepicker({ dateFormat: 'dd/mm/yy' });
+        //$('.datefield').datepicker({ dateFormat: 'dd/mm/yy' });
     });
 </script>
 @Html.TextBox("", String.Format("{0:dd/MM/yyyy}", Model))
+@*@Html.TextBox("", String.Format("{0:dd/MM/yyyy}", Model), new { @class = "datefield", type = "date" })*@
