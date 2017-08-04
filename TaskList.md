@@ -59,6 +59,10 @@
     - http://weblogs.asp.net/paullitwin/migrating-an-asp-net-mvc-5-app-to-asp-net-5
 
 ## Medium term dev tasks
+- [ ] Java script testing frameworks
+	- https://stackoverflow.com/questions/300855/javascript-unit-test-tools-for-tdd
+- [ ] Dev tools for page testing after creation (e.g. firebug etc) 
+	- https://developer.mozilla.org/en-US/docs/Tools
 - [ ] Create integration tests
 - [ ] Consider potential aggregates at repository level
 - [ ] Implement error handling across the board
