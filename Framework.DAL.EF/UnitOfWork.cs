@@ -2,7 +2,7 @@
 using Framework.DAL.Entity;
 using Framework.DAL.Repository;
 using Framework.DAL.UnitOfWork;
-using Microsoft.Practices.ServiceLocation;
+using CommonServiceLocator;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
