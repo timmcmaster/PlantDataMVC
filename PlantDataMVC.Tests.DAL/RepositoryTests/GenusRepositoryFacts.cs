@@ -26,7 +26,7 @@ namespace PlantDataMVC.Tests.DAL
                 // Assert
                 Assert.NotNull(addedGenus);
                 //Assert.Equal<int>(5, addedGenus.Id);    // Should ID stay the same?
-                Assert.Equal<string>(addedGenus.LatinName, genus.LatinName);
+                Assert.Equal(addedGenus.LatinName, genus.LatinName);
             }
         }
 
@@ -45,7 +45,7 @@ namespace PlantDataMVC.Tests.DAL
 
                 // Assert
                 Assert.NotNull(addedGenus);
-                Assert.Equal<string>(addedGenus.LatinName, genus.LatinName);
+                Assert.Equal(addedGenus.LatinName, genus.LatinName);
             }
         }
 
@@ -66,7 +66,7 @@ namespace PlantDataMVC.Tests.DAL
                 // Assert
                 Assert.NotNull(entity);
                 var returnedGenus = Assert.IsAssignableFrom<Genus>(entity);
-                Assert.Equal<string>(addedGenus.LatinName, returnedGenus.LatinName);
+                Assert.Equal(addedGenus.LatinName, returnedGenus.LatinName);
             }
         }
     }

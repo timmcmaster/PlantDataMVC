@@ -31,7 +31,7 @@ namespace PlantDataMVC.Tests.DAL
             // Assert
             var entity = Assert.IsAssignableFrom<IEntity>(genus);
             Assert.Equal<int>(1, genus.Id);
-            Assert.Equal<string>("Eremophila", genus.LatinName);
+            Assert.Equal("Eremophila", genus.LatinName);
         }
 
         [Fact]

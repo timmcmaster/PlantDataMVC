@@ -20,7 +20,7 @@ namespace PlantDataMVC.Tests.DAL
             //Assert.Null(species.GenusLatinName);
             Assert.Null(species.CommonName);
             Assert.Null(species.Description);
-            Assert.Equal<bool>(false, species.Native);
+            Assert.False(species.Native);
             Assert.Null(species.PropagationTime);
             Assert.Null(species.SpecificName);
         }
@@ -46,11 +46,11 @@ namespace PlantDataMVC.Tests.DAL
             Assert.Equal<int>(1, species.Id);
             Assert.Equal<int>(1, species.GenusId);
             //Assert.Equal<string>("Eremophila", species.GenusLatinName);
-            Assert.Equal<string>("Crimson emu bush", species.CommonName);
-            Assert.Equal<string>("Arid zone plant", species.Description);
-            Assert.Equal<bool>(true, species.Native);
+            Assert.Equal("Crimson emu bush", species.CommonName);
+            Assert.Equal("Arid zone plant", species.Description);
+            Assert.True(species.Native);
             Assert.Equal<int?>(32, species.PropagationTime);
-            Assert.Equal<string>("glabra", species.SpecificName);
+            Assert.Equal("glabra", species.SpecificName);
         }
     }
 }
