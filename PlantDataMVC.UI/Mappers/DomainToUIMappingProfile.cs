@@ -60,7 +60,8 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantSeed, PlantSeedDeleteViewModel>();
             CreateMap<PlantSeed, PlantSeedEditViewModel>();
             CreateMap<PlantSeed, PlantSeedListViewModel>();
-            CreateMap<PlantSeed, PlantSeedNewViewModel>();
+            CreateMap<PlantSeed, PlantSeedNewViewModel>()
+                .ForMember(uio => uio.PlantSpecies, opt => opt.Ignore()); // don't need to map species up for new seed batch
             CreateMap<PlantSeed, PlantSeedShowViewModel>();
                 //.ForMember(uio => uio.SeedTrays, opt => opt.Ignore());
         }
