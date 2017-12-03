@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataWcfServices", "..\PlantDataWcfServices\PlantDataWcfServices\PlantDataWcfServices.csproj", "{E8487F53-2417-499B-A163-5D71DFBD169C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Utils", "UnitTest.Utils\UnitTest.Utils.csproj", "{1A3A2975-AB2E-468B-914C-27D87A9E3804}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FDD2BEF9-ADC5-4899-87A0-4E6E5CA3FA3E}"
@@ -51,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.Tests.DAL", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Web", "Framework.Web\Framework.Web.csproj", "{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.WCFService", "PlantDataMVC.WCFService\PlantDataMVC.WCFService.csproj", "{550D9A0C-2D6A-46FD-9400-AA722D455F7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,16 +61,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E8487F53-2417-499B-A163-5D71DFBD169C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8487F53-2417-499B-A163-5D71DFBD169C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8487F53-2417-499B-A163-5D71DFBD169C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E8487F53-2417-499B-A163-5D71DFBD169C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E8487F53-2417-499B-A163-5D71DFBD169C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E8487F53-2417-499B-A163-5D71DFBD169C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8487F53-2417-499B-A163-5D71DFBD169C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8487F53-2417-499B-A163-5D71DFBD169C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E8487F53-2417-499B-A163-5D71DFBD169C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E8487F53-2417-499B-A163-5D71DFBD169C}.Release|x86.ActiveCfg = Release|Any CPU
 		{1A3A2975-AB2E-468B-914C-27D87A9E3804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A3A2975-AB2E-468B-914C-27D87A9E3804}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A3A2975-AB2E-468B-914C-27D87A9E3804}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -237,12 +227,23 @@ Global
 		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Release|x86.ActiveCfg = Release|Any CPU
 		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}.Release|x86.Build.0 = Release|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Debug|x86.Build.0 = Debug|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Release|x86.ActiveCfg = Release|Any CPU
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{E8487F53-2417-499B-A163-5D71DFBD169C} = {25C7A4B6-71E1-41B6-9F5A-52FA5309F413}
 		{22230FCA-989F-4CCC-93EA-8B10E8BE0232} = {25C7A4B6-71E1-41B6-9F5A-52FA5309F413}
 		{BE083DAC-46DE-46B3-BBB1-81381F94F40C} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
 		{E8C81B77-5B26-4695-B70A-C87832871915} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
@@ -256,5 +257,6 @@ Global
 		{EC735467-12D4-471B-80D1-7D594E9E4E68} = {CCCA5B13-EEF2-44A1-B6B0-6819F412FEB0}
 		{987574E0-6B9F-484B-AAE2-A2F4D4F89A9B} = {CCCA5B13-EEF2-44A1-B6B0-6819F412FEB0}
 		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
+		{550D9A0C-2D6A-46FD-9400-AA722D455F7A} = {25C7A4B6-71E1-41B6-9F5A-52FA5309F413}
 	EndGlobalSection
 EndGlobal
