@@ -4,10 +4,8 @@ using Framework.DAL.DataContext;
 using Framework.DAL.EF;
 using Framework.DAL.Repository;
 using Framework.DAL.UnitOfWork;
-using Framework.Service.ServiceLayer;
 using Framework.Web.Forms;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Service.SimpleServiceLayer;
 using PlantDataMVC.UI.Forms;
 using PlantDataMVC.UI.Forms.Handlers;
 using System.Reflection;
@@ -49,29 +47,16 @@ namespace PlantDataMVC.UI
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
 
-            // Register repository types for now
-            // TODO: Make factory instead, manage lifetime scope
-            builder.RegisterGeneric(typeof(Repository<>))
-                .As(typeof(IRepositoryAsync<>));
-
-
             // ****************************************************
             // Core configurations
             // ****************************************************
-            //builder.RegisterType<SimpleServiceLayer>().As<IServiceLayer>();
+            
+            // Register services from PlantDataMVC.Service assembly.
+            // i.e. when running assembly in same application
+            builder.RegisterModule(new PlantDataMVC.Service.ServiceModule() { });
 
-            // Register all types that implement IBasicDataService<T> from given assembly
-            var svcAssembly = Assembly.GetAssembly(typeof(PlantDataService));
-            builder.RegisterAssemblyTypes(svcAssembly)
-                .AsClosedTypesOf(typeof(IBasicDataService<>));
-
-            // Register component as factory
-            //builder.Register<Func<IDomainEntity,IBasicDataService<IDomainEntity>>>(c => 
-            //{
-            //    var cc = c.Resolve<IComponentContext>();
-            //    return ds => cc.Resolve<T>();
-            //});
-
+            // Register services from PlantDataMVC.WCFService assembly.
+            //builder.RegisterModule(new PlantDataMVC.WCFService.WebServiceModule() { });
 
             // ****************************************************
             // UI configurations
