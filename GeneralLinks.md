@@ -23,3 +23,7 @@
   - http://blog.ploeh.dk/2011/08/25/ServiceLocatorrolesvs.mechanics/
   - https://www.kenneth-truyers.net/2013/05/12/the-n-layer-myth-and-basic-dependency-injection/
   - https://stackoverflow.com/questions/9501604/ioc-di-why-do-i-have-to-reference-all-layers-assemblies-in-entry-application
+## Dependency Inversion Principle
+  - https://www.intertech.com/Blog/the-dependency-inversion-principle-with-c-examples/
+  - https://exceptionnotfound.net/simply-solid-the-dependency-inversion-principle/
+  - https://www.c-sharpcorner.com/UploadFile/pranayamr/dependency-inversion-principle/ (any good?)
