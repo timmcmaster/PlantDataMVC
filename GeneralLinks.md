@@ -18,6 +18,7 @@
   - http://autofac.readthedocs.io/en/latest/
   - http://autofac.org/
   - https://codingfiasco.wordpress.com/2016/03/30/autofac-me/
+  - https://code.msdn.microsoft.com/windowsdesktop/DI-with-WCF-using-Autofac-a3e8cbbb (2018-05-04)
 ## Patterns and IOC
   - http://blog.ploeh.dk/2010/09/29/TheRegisterResolveReleasepattern/
   - http://blog.ploeh.dk/2011/08/25/ServiceLocatorrolesvs.mechanics/
