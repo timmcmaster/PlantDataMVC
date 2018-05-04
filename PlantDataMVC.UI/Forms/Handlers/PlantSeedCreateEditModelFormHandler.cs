@@ -1,5 +1,6 @@
 ﻿using Framework.Service.ServiceLayer;
 using Framework.Web.Forms;
+using Interfaces.Service;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Models;
 
@@ -21,7 +22,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
             CreateRequest<PlantSeed> request = new CreateRequest<PlantSeed>(item);
 
-            CreateResponse<PlantSeed> response = _dataService.Create(request);
+            ICreateResponse<PlantSeed> response = _dataService.Create(request);
         }
     }
 }

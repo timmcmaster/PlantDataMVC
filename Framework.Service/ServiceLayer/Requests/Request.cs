@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Interfaces.Service;
 using System.Runtime.Serialization;
 
 namespace Framework.Service.ServiceLayer
@@ -11,7 +8,7 @@ namespace Framework.Service.ServiceLayer
     /// A data service action takes a Request object and returns a Response object. 
     /// </summary>
     [DataContract]
-    public abstract class Request
+    public abstract class Request: IRequest
     {
         public Request()
         {

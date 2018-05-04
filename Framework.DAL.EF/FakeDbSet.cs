@@ -1,4 +1,4 @@
-﻿using Framework.DAL.Entity;
+﻿using Interfaces.DAL.Entity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

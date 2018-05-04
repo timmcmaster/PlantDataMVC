@@ -1,15 +1,11 @@
-﻿using PlantDataMVC.Entities.Interfaces;
+﻿using Framework.DAL.EF;
+using PlantDataMVC.Entities.Interfaces;
+using PlantDataMVC.Entities.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PlantDataMVC.Entities.Models;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
-using System.Threading;
-using Framework.DAL.EF;
 
 namespace PlantDataMVC.Entities.Context
 {

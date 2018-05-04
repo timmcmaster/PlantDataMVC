@@ -1,4 +1,4 @@
-﻿namespace Framework.DAL.Infrastructure
+﻿namespace Interfaces.DAL.Infrastructure
 {
     public enum ObjectState
     {

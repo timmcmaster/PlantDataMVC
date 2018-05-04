@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Framework.DAL.DataContext
+namespace Interfaces.DAL.DataContext
 {
     public interface IDataContextAsync : IDataContext
     {

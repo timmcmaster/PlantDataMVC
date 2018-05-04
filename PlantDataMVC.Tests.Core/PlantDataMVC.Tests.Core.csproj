@@ -125,9 +125,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework.DAL\Framework.DAL.csproj">
+    <ProjectReference Include="..\Framework.DAL\Interfaces.DAL.csproj">
       <Project>{39A4295B-11F9-4B3E-8527-D99FFF87E10B}</Project>
-      <Name>Framework.DAL</Name>
+      <Name>Interfaces.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
       <Project>{fb582d72-f66a-4153-bb91-a4f339ed1795}</Project>

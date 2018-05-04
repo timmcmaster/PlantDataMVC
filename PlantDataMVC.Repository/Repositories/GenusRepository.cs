@@ -1,10 +1,6 @@
-﻿using Framework.DAL.Repository;
+﻿using Interfaces.DAL.Repository;
 using PlantDataMVC.Entities.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlantDataMVC.Repository.Repositories
 {

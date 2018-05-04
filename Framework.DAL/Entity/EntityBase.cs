@@ -1,10 +1,7 @@
-﻿using System;
-using Framework.DAL.EF;
-using Framework.DAL.Entity;
-using Framework.DAL.Infrastructure;
+﻿using Interfaces.DAL.Infrastructure;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Framework.DAL.EF
+namespace Interfaces.DAL.Entity
 {
     /// <summary>
     /// Do we even need this class?

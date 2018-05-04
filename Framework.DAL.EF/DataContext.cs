@@ -1,5 +1,5 @@
-﻿using Framework.DAL.DataContext;
-using Framework.DAL.Infrastructure;
+﻿using Interfaces.DAL.DataContext;
+using Interfaces.DAL.Infrastructure;
 using System;
 using System.Data.Entity;
 using System.Threading.Tasks;

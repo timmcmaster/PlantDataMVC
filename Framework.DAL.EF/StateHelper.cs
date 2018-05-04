@@ -1,4 +1,4 @@
-﻿using Framework.DAL.Infrastructure;
+﻿using Interfaces.DAL.Infrastructure;
 using System;
 using System.Data.Entity;
 

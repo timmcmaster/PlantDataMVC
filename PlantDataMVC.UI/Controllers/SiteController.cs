@@ -1,5 +1,6 @@
 ﻿using Framework.Service.ServiceLayer;
 using Framework.Web.Forms;
+using Interfaces.Service;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
@@ -28,9 +29,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            ListResponse<PlantSeedSite> response = _dataService.List(new ListRequest<PlantSeedSite>());
+            IListResponse<PlantSeedSite> response = _dataService.List(new ListRequest<PlantSeedSite>());
 
-            List<PlantSeedSite> list = response.Items;
+            IList<PlantSeedSite> list = response.Items;
 
             AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<SiteListViewModel>>(View(list));
 
@@ -42,7 +43,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            ViewResponse<PlantSeedSite> response = _dataService.View(new ViewRequest<PlantSeedSite>(id));
+            IViewResponse<PlantSeedSite> response = _dataService.View(new ViewRequest<PlantSeedSite>(id));
 
             PlantSeedSite item = response.Item;
 
@@ -86,7 +87,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            ViewResponse<PlantSeedSite> response = _dataService.View(new ViewRequest<PlantSeedSite>(id));
+            IViewResponse<PlantSeedSite> response = _dataService.View(new ViewRequest<PlantSeedSite>(id));
 
             PlantSeedSite item = response.Item;
 
@@ -107,7 +108,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            ViewResponse<PlantSeedSite> response = _dataService.View(new ViewRequest<PlantSeedSite>(id));
+            IViewResponse<PlantSeedSite> response = _dataService.View(new ViewRequest<PlantSeedSite>(id));
 
             PlantSeedSite item = response.Item;
 

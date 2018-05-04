@@ -1,5 +1,5 @@
 ﻿using Framework.DAL.EF;
-using Framework.DAL.Entity;
+using Interfaces.DAL.Entity;
 using System;
 
 namespace PlantDataMVC.Entities.Models

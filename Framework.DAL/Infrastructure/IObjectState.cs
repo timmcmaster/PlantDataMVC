@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Framework.DAL.Infrastructure
+namespace Interfaces.DAL.Infrastructure
 {
     public interface IObjectState
     {

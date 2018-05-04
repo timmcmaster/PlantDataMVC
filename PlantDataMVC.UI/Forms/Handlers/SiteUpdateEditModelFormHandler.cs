@@ -1,5 +1,6 @@
 ﻿using Framework.Service.ServiceLayer;
 using Framework.Web.Forms;
+using Interfaces.Service;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Models;
 
@@ -21,7 +22,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
             UpdateRequest<PlantSeedSite> request = new UpdateRequest<PlantSeedSite>(item);
 
-            UpdateResponse<PlantSeedSite> response = _dataService.Update(request);
+            IUpdateResponse<PlantSeedSite> response = _dataService.Update(request);
         }
     }
 }

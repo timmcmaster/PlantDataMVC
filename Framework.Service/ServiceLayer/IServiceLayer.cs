@@ -1,4 +1,4 @@
-﻿using Framework.Domain;
+﻿using Interfaces.Domain;
 
 namespace Framework.Service.ServiceLayer
 {

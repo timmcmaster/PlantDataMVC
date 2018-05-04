@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Interfaces.Service;
 using System.Runtime.Serialization;
-using System.Web;
 
 namespace Framework.Service.ServiceLayer
 {
     [DataContract]
-    public abstract class Response
+    public abstract class Response: IResponse
     {
         [DataMember]
         public int ErrorCode { get; set; }

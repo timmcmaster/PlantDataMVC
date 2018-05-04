@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Interfaces.Service;
 using System.Runtime.Serialization;
+
 
 namespace Framework.Service.ServiceLayer
 {
     [DataContract]
-    public class DeleteResponse<T> : Response
+    public class DeleteResponse<T> : Response, IDeleteResponse<T>
     {
         public DeleteResponse()
             : base()

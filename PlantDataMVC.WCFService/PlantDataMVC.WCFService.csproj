@@ -100,20 +100,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework.DAL.EF\Framework.DAL.EF.csproj">
-      <Project>{23CE37B8-56FA-429A-AF13-3B06841C9817}</Project>
+      <Project>{23ce37b8-56fa-429a-af13-3b06841c9817}</Project>
       <Name>Framework.DAL.EF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework.DAL\Framework.DAL.csproj">
+    <ProjectReference Include="..\Framework.DAL\Interfaces.DAL.csproj">
       <Project>{39a4295b-11f9-4b3e-8527-d99fff87e10b}</Project>
-      <Name>Framework.DAL</Name>
+      <Name>Interfaces.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework.Domain\Framework.Domain.csproj">
-      <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
-      <Name>Framework.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
-      <Project>{fb582d72-f66a-4153-bb91-a4f339ed1795}</Project>
-      <Name>Framework.Service</Name>
+    <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
+      <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>
+      <Name>Interfaces.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
       <Project>{157d351c-8da8-4a9b-b66d-20e4f49eb201}</Project>

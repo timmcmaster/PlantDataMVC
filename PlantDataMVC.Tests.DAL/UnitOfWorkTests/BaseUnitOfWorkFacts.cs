@@ -1,8 +1,8 @@
 ﻿using Xunit;
 using System;
-using Framework.DAL.UnitOfWork;
+using Interfaces.DAL.UnitOfWork;
 using Framework.DAL.EF;
-using Framework.DAL.DataContext;
+using Interfaces.DAL.DataContext;
 using PlantDataMVC.Entities.Context;
 
 namespace PlantDataMvc3.Tests.DAL

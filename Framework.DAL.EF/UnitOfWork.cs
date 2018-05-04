@@ -1,11 +1,10 @@
-﻿using Framework.DAL.DataContext;
-using Framework.DAL.Entity;
-using Framework.DAL.Repository;
-using Framework.DAL.UnitOfWork;
-using CommonServiceLocator;
+﻿using CommonServiceLocator;
+using Interfaces.DAL.DataContext;
+using Interfaces.DAL.Entity;
+using Interfaces.DAL.Repository;
+using Interfaces.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading;
 using System.Threading.Tasks;
 

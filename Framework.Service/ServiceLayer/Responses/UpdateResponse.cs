@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Interfaces.Service;
 using System.Runtime.Serialization;
-using System.Web;
 
 namespace Framework.Service.ServiceLayer
 {
     [DataContract]
-    public class UpdateResponse<T> : Response
+    public class UpdateResponse<T> : Response, IUpdateResponse<T>
     {
         [DataMember]
         public T Item { get; set; }

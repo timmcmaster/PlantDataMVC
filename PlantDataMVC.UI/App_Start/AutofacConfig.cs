@@ -1,9 +1,8 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using Framework.DAL.DataContext;
+using Interfaces.DAL.DataContext;
 using Framework.DAL.EF;
-using Framework.DAL.Repository;
-using Framework.DAL.UnitOfWork;
+using Interfaces.DAL.UnitOfWork;
 using Framework.Web.Forms;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.UI.Forms;

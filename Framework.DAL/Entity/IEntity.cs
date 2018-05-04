@@ -1,10 +1,6 @@
-﻿using Framework.DAL.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Interfaces.DAL.Infrastructure;
 
-namespace Framework.DAL.Entity
+namespace Interfaces.DAL.Entity
 {
     /// <summary>
     /// This interface is the basic interface for entity objects passed outside the DAL.

@@ -1,5 +1,6 @@
 ﻿using Framework.Service.ServiceLayer;
 using Framework.Web.Forms;
+using Interfaces.Service;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
@@ -34,9 +35,9 @@ namespace PlantDataMVC.UI.Controllers
             string localSortBy = sortBy ?? string.Empty;
             bool localAscending = ascending ?? true;
 
-            ListResponse<Plant> response = _dataService.List(new ListRequest<Plant>());
+            IListResponse<Plant> response = _dataService.List(new ListRequest<Plant>());
 
-            List<Plant> list = response.Items;
+            IList<Plant> list = response.Items;
 
             //List<IModelConverter> converters = new List<IModelConverter>();
 
@@ -55,7 +56,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            ViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
+            IViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
 
             Plant item = response.Item;
 
@@ -67,7 +68,7 @@ namespace PlantDataMVC.UI.Controllers
         public ActionResult ShowBasic(int id)
         {
             // return view for Model
-            ViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
+            IViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
 
             Plant item = response.Item;
 
@@ -98,7 +99,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            ViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
+            IViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
 
             Plant item = response.Item;
 
@@ -119,7 +120,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            ViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
+            IViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
 
             Plant item = response.Item;
 

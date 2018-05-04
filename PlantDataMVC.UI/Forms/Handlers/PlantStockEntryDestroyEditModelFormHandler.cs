@@ -1,5 +1,6 @@
 ﻿using Framework.Service.ServiceLayer;
 using Framework.Web.Forms;
+using Interfaces.Service;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.Models;
 
@@ -21,7 +22,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
             DeleteRequest<PlantStockEntry> request = new DeleteRequest<PlantStockEntry>(item.Id);
 
-            DeleteResponse<PlantStockEntry> response = _dataService.Delete(request);
+            IDeleteResponse<PlantStockEntry> response = _dataService.Delete(request);
         }
     }
 }

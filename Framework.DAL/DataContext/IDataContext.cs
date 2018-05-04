@@ -1,7 +1,7 @@
-﻿using Framework.DAL.Infrastructure;
+﻿using Interfaces.DAL.Infrastructure;
 using System;
 
-namespace Framework.DAL.DataContext
+namespace Interfaces.DAL.DataContext
 {
     public interface IDataContext : IDisposable
     {

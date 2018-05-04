@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PlantDataMVC.Domain.Entities
+﻿namespace PlantDataMVC.Domain.Entities
 {
     public class Plant : DomainEntity
     {

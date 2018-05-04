@@ -1,7 +1,7 @@
-﻿using Framework.DAL.DataContext;
-using Framework.DAL.Entity;
-using Framework.DAL.Infrastructure;
-using Framework.DAL.Repository;
+﻿using Interfaces.DAL.DataContext;
+using Interfaces.DAL.Entity;
+using Interfaces.DAL.Infrastructure;
+using Interfaces.DAL.Repository;
 //using Framework.DAL.UnitOfWork;
 using System.Collections.Generic;
 using System.Data.Entity;

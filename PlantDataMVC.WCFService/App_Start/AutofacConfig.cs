@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Autofac.Integration.Wcf;
 using Framework.DAL.EF;
-using Framework.DAL.UnitOfWork;
-using Framework.Service.ServiceLayer;
+using Interfaces.DAL.UnitOfWork;
+using Interfaces.Service;
 using PlantDataMVC.Service.SimpleServiceLayer;
 using System.Reflection;
 
@@ -10,9 +10,10 @@ namespace PlantDataMVC.WCFService
 {
     public class AutofacConfig
     {
+        // TODO: Not sure if we really need this config here.
+        // If we can take it out, we can remove specific reference to Framework.DAL.EF
         public static void ConfigureContainer()
         {
-
             var builder = new ContainerBuilder();
 
             // Register your service implementations. 

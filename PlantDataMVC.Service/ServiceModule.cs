@@ -1,6 +1,5 @@
 ﻿using Autofac;
-using Framework.Service.ServiceLayer;
-using PlantDataMVC.Domain.Entities;
+using Interfaces.Service;
 using PlantDataMVC.Service.SimpleServiceLayer;
 
 namespace PlantDataMVC.Service

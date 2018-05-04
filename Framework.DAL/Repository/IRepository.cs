@@ -1,10 +1,10 @@
-﻿using Framework.DAL.Entity;
+﻿using Interfaces.DAL.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Framework.DAL.Repository
+namespace Interfaces.DAL.Repository
 {
     /// <summary>
     /// This is the base interface for generic repositories implemented within the 

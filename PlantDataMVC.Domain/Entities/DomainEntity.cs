@@ -1,4 +1,4 @@
-﻿using Framework.Domain;
+﻿using Interfaces.Domain;
 
 namespace PlantDataMVC.Domain.Entities
 {

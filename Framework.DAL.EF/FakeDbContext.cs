@@ -1,13 +1,10 @@
-﻿using Framework.DAL.DataContext;
+﻿using Interfaces.DAL.Entity;
+using Interfaces.DAL.Infrastructure;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
-using Framework.DAL.Entity;
 using System.Threading;
-using Framework.DAL.Infrastructure;
+using System.Threading.Tasks;
 
 namespace Framework.DAL.EF
 {

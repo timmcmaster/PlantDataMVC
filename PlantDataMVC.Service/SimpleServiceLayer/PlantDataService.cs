@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Framework.DAL.UnitOfWork;
 using Framework.Service.ServiceLayer;
+using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Repositories;

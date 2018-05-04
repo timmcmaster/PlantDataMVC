@@ -1,4 +1,4 @@
-﻿using Framework.Domain;
+﻿using Interfaces.Domain;
 using System.ServiceModel;
 
 namespace Framework.Service.ServiceLayer

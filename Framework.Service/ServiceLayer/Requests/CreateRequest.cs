@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Interfaces.Service;
 using System.Runtime.Serialization;
 
 namespace Framework.Service.ServiceLayer
 {
     [DataContract]
-    public class CreateRequest<T>: Request
+    public class CreateRequest<T>: ICreateRequest<T>
     {
         [DataMember]
         public T Item { get; set; }

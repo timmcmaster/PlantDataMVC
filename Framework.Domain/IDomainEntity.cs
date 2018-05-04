@@ -1,4 +1,4 @@
-﻿namespace Framework.Domain
+﻿namespace Interfaces.Domain
 {
     public interface IDomainEntity
     {

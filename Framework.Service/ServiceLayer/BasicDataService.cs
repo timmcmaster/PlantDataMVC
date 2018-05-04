@@ -1,5 +1,6 @@
-﻿using Framework.DAL.UnitOfWork;
-using Framework.Domain;
+﻿using Interfaces.DAL.UnitOfWork;
+using Interfaces.Domain;
+using Interfaces.Service;
 using System.Collections.Generic;
 
 namespace Framework.Service.ServiceLayer
@@ -13,7 +14,7 @@ namespace Framework.Service.ServiceLayer
             this.UnitOfWork = unitOfWork;
         }
 
-        public virtual CreateResponse<T> Create(CreateRequest<T> request)
+        public virtual ICreateResponse<T> Create(ICreateRequest<T> request)
         {
             using (var uow = this.UnitOfWork)
             {
@@ -25,7 +26,7 @@ namespace Framework.Service.ServiceLayer
             }
         }
 
-        public virtual ViewResponse<T> View(ViewRequest<T> request)
+        public virtual IViewResponse<T> View(IViewRequest<T> request)
         {
             using (var uow = this.UnitOfWork)
             {
@@ -35,7 +36,7 @@ namespace Framework.Service.ServiceLayer
             }
         }
 
-        public virtual UpdateResponse<T> Update(UpdateRequest<T> request)
+        public virtual IUpdateResponse<T> Update(IUpdateRequest<T> request)
         {
             using (var uow = this.UnitOfWork)
             {
@@ -47,7 +48,7 @@ namespace Framework.Service.ServiceLayer
             }
         }
 
-        public virtual DeleteResponse<T> Delete(DeleteRequest<T> request)
+        public virtual IDeleteResponse<T> Delete(IDeleteRequest<T> request)
         {
             using (var uow = this.UnitOfWork)
             {
@@ -59,7 +60,7 @@ namespace Framework.Service.ServiceLayer
             }
         }
 
-        public virtual ListResponse<T> List(ListRequest<T> request)
+        public virtual IListResponse<T> List(IListRequest<T> request)
         {
             using (var uow = this.UnitOfWork)
             {

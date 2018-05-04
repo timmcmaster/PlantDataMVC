@@ -176,9 +176,9 @@
       <Project>{23ce37b8-56fa-429a-af13-3b06841c9817}</Project>
       <Name>Framework.DAL.EF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework.DAL\Framework.DAL.csproj">
+    <ProjectReference Include="..\Framework.DAL\Interfaces.DAL.csproj">
       <Project>{39A4295B-11F9-4B3E-8527-D99FFF87E10B}</Project>
-      <Name>Framework.DAL</Name>
+      <Name>Interfaces.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
