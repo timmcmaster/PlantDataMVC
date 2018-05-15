@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using PlantDataMVC.Domain.Entities;
-using Framework.Service.ServiceLayer;
 using PlantDataMVC.UI.Models;
 using System;
-using System.Collections.Generic;
 
 namespace PlantDataMVC.UI.Mappers
 {

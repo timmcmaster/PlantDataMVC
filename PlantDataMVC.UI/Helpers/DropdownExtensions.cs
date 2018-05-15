@@ -1,4 +1,4 @@
-﻿using Framework.Service.ServiceLayer;
+﻿using Framework.Service.Entities;
 using Interfaces.Domain;
 using Interfaces.Service;
 using System;

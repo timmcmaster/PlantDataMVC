@@ -43,19 +43,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceLayer\BasicDataService.cs" />
-    <Compile Include="ServiceLayer\Requests\CreateRequest.cs" />
-    <Compile Include="ServiceLayer\Requests\DeleteRequest.cs" />
-    <Compile Include="ServiceLayer\Requests\ListRequest.cs" />
-    <Compile Include="ServiceLayer\Requests\Request.cs" />
-    <Compile Include="ServiceLayer\Requests\UpdateRequest.cs" />
-    <Compile Include="ServiceLayer\Requests\ViewRequest.cs" />
-    <Compile Include="ServiceLayer\Responses\CreateResponse.cs" />
-    <Compile Include="ServiceLayer\Responses\DeleteResponse.cs" />
-    <Compile Include="ServiceLayer\Responses\ListResponse.cs" />
-    <Compile Include="ServiceLayer\Responses\Response.cs" />
-    <Compile Include="ServiceLayer\Responses\UpdateResponse.cs" />
-    <Compile Include="ServiceLayer\Responses\ViewResponse.cs" />
+    <Compile Include="BasicDataService.cs" />
+    <Compile Include="Entities\Requests\CreateRequest.cs" />
+    <Compile Include="Entities\Requests\DeleteRequest.cs" />
+    <Compile Include="Entities\Requests\ListRequest.cs" />
+    <Compile Include="Entities\Requests\Request.cs" />
+    <Compile Include="Entities\Requests\UpdateRequest.cs" />
+    <Compile Include="Entities\Requests\ViewRequest.cs" />
+    <Compile Include="Entities\Responses\CreateResponse.cs" />
+    <Compile Include="Entities\Responses\DeleteResponse.cs" />
+    <Compile Include="Entities\Responses\ListResponse.cs" />
+    <Compile Include="Entities\Responses\Response.cs" />
+    <Compile Include="Entities\Responses\UpdateResponse.cs" />
+    <Compile Include="Entities\Responses\ViewResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework.DAL\Interfaces.DAL.csproj">

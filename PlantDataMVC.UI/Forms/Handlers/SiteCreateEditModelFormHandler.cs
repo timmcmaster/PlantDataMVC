@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using PlantDataMVC.UI.Models;
-using PlantDataMVC.Domain.Entities;
-using Framework.Service.ServiceLayer;
+﻿using Framework.Service.Entities;
 using Framework.Web.Forms;
 using Interfaces.Service;
+using PlantDataMVC.Domain.Entities;
+using PlantDataMVC.UI.Models;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {

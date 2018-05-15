@@ -1,4 +1,4 @@
-﻿using Framework.Service.ServiceLayer;
+﻿using Framework.Service.Entities;
 using Framework.Web.Forms;
 using Interfaces.Service;
 using PlantDataMVC.Domain.Entities;

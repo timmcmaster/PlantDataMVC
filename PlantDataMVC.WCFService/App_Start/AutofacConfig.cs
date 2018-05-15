@@ -2,6 +2,7 @@
 using Autofac.Integration.Wcf;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
+//using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.Service;
 using PlantDataMVC.Entities.Context;
@@ -23,15 +24,14 @@ namespace PlantDataMVC.WCFService
             // DAL configurations
             // ****************************************************
             builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
+            
+            // Register repository types for now (used via ServiceLocator in UoW)
+            // TODO: Make factory instead, manage lifetime scope
+            //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
 
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
-
-            // Register dependencies
             builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
 
             // Register your service implementations. 
-            //builder.RegisterType<PlantDataService>();
-            //builder.RegisterType<PlantSeedDataService>();
             var svcAssembly = Assembly.GetAssembly(typeof(PlantDataService));
             builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IBasicDataService<>));
 
