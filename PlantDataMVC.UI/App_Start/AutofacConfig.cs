@@ -9,6 +9,8 @@ using PlantDataMVC.UI.Forms;
 using PlantDataMVC.UI.Forms.Handlers;
 using System.Reflection;
 using System.Web.Mvc;
+using PlantDataMVC.Service.SimpleServiceLayer;
+using Interfaces.Service;
 
 namespace PlantDataMVC.UI
 {
@@ -49,11 +51,12 @@ namespace PlantDataMVC.UI
             // ****************************************************
             // Core configurations
             // ****************************************************
-            
+
             // Register services from PlantDataMVC.Service assembly.
             // i.e. when running assembly in same application
-            builder.RegisterModule(new PlantDataMVC.Service.ServiceModule() { });
-
+            var svcAssembly = typeof(PlantDataService).Assembly;
+            builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IBasicDataService<>));
+            
             // Register services from PlantDataMVC.WCFService assembly.
             //builder.RegisterModule(new PlantDataMVC.WCFService.WebServiceModule() { });
 
@@ -62,8 +65,7 @@ namespace PlantDataMVC.UI
             // ****************************************************
             // Register all types that implement IFormHandler<T> from given assembly
             var formAssembly = Assembly.GetAssembly(typeof(PlantCreateEditModelFormHandler));
-            builder.RegisterAssemblyTypes(formAssembly)
-                .AsClosedTypesOf(typeof(IFormHandler<>));
+            builder.RegisterAssemblyTypes(formAssembly).AsClosedTypesOf(typeof(IFormHandler<>));
 
             // TEMP: Want to build factory via IoC itself
             builder.RegisterType<AutofacFormHandlerFactory>().As<IFormHandlerFactory>();

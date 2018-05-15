@@ -28,3 +28,7 @@
   - https://www.intertech.com/Blog/the-dependency-inversion-principle-with-c-examples/
   - https://exceptionnotfound.net/simply-solid-the-dependency-inversion-principle/
   - https://www.c-sharpcorner.com/UploadFile/pranayamr/dependency-inversion-principle/ (any good?)
+## WCF Services and IoC
+  - https://chsakell.com/2015/07/04/dependency-injection-in-wcf/
+  - https://chsakell.com/2015/10/15/wcf-proxies-from-beginner-to-expert/
+
