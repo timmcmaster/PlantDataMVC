@@ -1,16 +1,20 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using Interfaces.DAL.DataContext;
+using Autofac.Integration.Wcf;
+using ClientProxies;
 using Framework.DAL.EF;
-using Interfaces.DAL.UnitOfWork;
 using Framework.Web.Forms;
+using Interfaces.DAL.DataContext;
+using Interfaces.DAL.UnitOfWork;
+using Interfaces.Service;
+using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Entities.Context;
+using PlantDataMVC.Service.SimpleServiceLayer;
 using PlantDataMVC.UI.Forms;
 using PlantDataMVC.UI.Forms.Handlers;
 using System.Reflection;
+using System.ServiceModel;
 using System.Web.Mvc;
-using PlantDataMVC.Service.SimpleServiceLayer;
-using Interfaces.Service;
 
 namespace PlantDataMVC.UI
 {
@@ -56,9 +60,23 @@ namespace PlantDataMVC.UI
             // i.e. when running assembly in same application
             var svcAssembly = typeof(PlantDataService).Assembly;
             builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IBasicDataService<>));
+
+            // ****************************************************
+            // WCF Service configurations
+            // ****************************************************
             
-            // Register services from PlantDataMVC.WCFService assembly.
-            //builder.RegisterModule(new PlantDataMVC.WCFService.WebServiceModule() { });
+            /* TODO: Fix registration of WCF services
+             * 
+            // Register channel factory (for all generic types?)
+            builder.Register(c => new ChannelFactory<IBasicDataService<Plant>>(
+                                    new BasicHttpBinding(), 
+                                    new EndpointAddress("http://localhost:57889/")));
+
+            // Register client proxies (for all generic types?)
+            var wcfClientAssembly = typeof(ClientProxies.BasicDataServiceClient<>).Assembly;
+            builder.RegisterAssemblyTypes(wcfClientAssembly).AsClosedTypesOf(typeof(IBasicDataService<>)).UseWcfSafeRelease();
+            
+             */
 
             // ****************************************************
             // UI configurations

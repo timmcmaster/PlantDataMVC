@@ -31,7 +31,7 @@ namespace PlantDataMVC.WCFService
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
 
-            // Register your service implementations. 
+            // Register your service implementations (for injection into WCF *.svc definitions)
             var svcAssembly = Assembly.GetAssembly(typeof(PlantDataService));
             builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IBasicDataService<>));
 
