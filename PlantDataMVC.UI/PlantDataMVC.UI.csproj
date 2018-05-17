@@ -479,14 +479,6 @@
       <Project>{23CE37B8-56FA-429A-AF13-3B06841C9817}</Project>
       <Name>Framework.DAL.EF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework.DAL\Interfaces.DAL.csproj">
-      <Project>{39A4295B-11F9-4B3E-8527-D99FFF87E10B}</Project>
-      <Name>Interfaces.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Framework.Domain\Interfaces.Domain.csproj">
-      <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
-      <Name>Interfaces.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
       <Project>{FB582D72-F66A-4153-BB91-A4F339ED1795}</Project>
       <Name>Framework.Service</Name>
@@ -494,6 +486,14 @@
     <ProjectReference Include="..\Framework.Web\Framework.Web.csproj">
       <Project>{2acec3d2-cb25-4b0d-a6bc-e224ecd5248e}</Project>
       <Name>Framework.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
+      <Project>{39a4295b-11f9-4b3e-8527-d99fff87e10b}</Project>
+      <Name>Interfaces.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
+      <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
+      <Name>Interfaces.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
       <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>

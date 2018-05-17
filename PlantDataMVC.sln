@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Business", "2.Business", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Web", "3.Web", "{8359D422-6DDC-4C3C-89A1-69172DE28F52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.DAL", "Framework.DAL\Interfaces.DAL.csproj", "{39A4295B-11F9-4B3E-8527-D99FFF87E10B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.DAL", "Interfaces.DAL\Interfaces.DAL.csproj", "{39A4295B-11F9-4B3E-8527-D99FFF87E10B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.DAL.EF", "Framework.DAL.EF\Framework.DAL.EF.csproj", "{23CE37B8-56FA-429A-AF13-3B06841C9817}"
 EndProject
@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Service", "Framew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.Service", "PlantDataMVC.Service\PlantDataMVC.Service.csproj", "{FE02E501-BD2C-4E07-9D83-1FD448AE476F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Domain", "Framework.Domain\Interfaces.Domain.csproj", "{12D00995-55F2-4219-9DE4-A377E22174E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Domain", "Interfaces.Domain\Interfaces.Domain.csproj", "{12D00995-55F2-4219-9DE4-A377E22174E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.Domain", "PlantDataMVC.Domain\PlantDataMVC.Domain.csproj", "{157D351C-8DA8-4A9B-B66D-20E4F49EB201}"
 EndProject

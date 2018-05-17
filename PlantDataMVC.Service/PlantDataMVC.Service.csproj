@@ -58,17 +58,17 @@
     <Compile Include="SimpleServiceLayer\PlantStockTransactionTypeDataService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework.DAL\Interfaces.DAL.csproj">
-      <Project>{39a4295b-11f9-4b3e-8527-d99fff87e10b}</Project>
-      <Name>Interfaces.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Framework.Domain\Interfaces.Domain.csproj">
-      <Project>{12D00995-55F2-4219-9DE4-A377E22174E5}</Project>
-      <Name>Interfaces.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
       <Project>{fb582d72-f66a-4153-bb91-a4f339ed1795}</Project>
       <Name>Framework.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
+      <Project>{39a4295b-11f9-4b3e-8527-d99fff87e10b}</Project>
+      <Name>Interfaces.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
+      <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
+      <Name>Interfaces.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
       <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>

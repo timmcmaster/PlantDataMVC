@@ -45,8 +45,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework.Domain\Interfaces.Domain.csproj">
-      <Project>{12D00995-55F2-4219-9DE4-A377E22174E5}</Project>
+    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
+      <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
       <Name>Interfaces.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">

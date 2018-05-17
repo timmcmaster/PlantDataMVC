@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{12D00995-55F2-4219-9DE4-A377E22174E5}</ProjectGuid>
+    <ProjectGuid>{39A4295B-11F9-4B3E-8527-D99FFF87E10B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Framework.Domain</RootNamespace>
-    <AssemblyName>Framework.Domain</AssemblyName>
+    <RootNamespace>Interfaces.DAL</RootNamespace>
+    <AssemblyName>Interfaces.DAL</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,7 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDomainEntity.cs" />
+    <Compile Include="DataContext\IDataContextAsync.cs" />
+    <Compile Include="DataContext\IDataContext.cs" />
+    <Compile Include="Entity\EntityBase.cs" />
+    <Compile Include="Entity\IEntity.cs" />
+    <Compile Include="Infrastructure\IObjectState.cs" />
+    <Compile Include="Infrastructure\ObjectState.cs" />
+    <Compile Include="Repository\IRepositoryAsync.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWorkAsync.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
