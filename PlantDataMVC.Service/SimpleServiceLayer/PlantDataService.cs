@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace PlantDataMVC.Service.SimpleServiceLayer
 {
-    public class PlantDataService : BasicDataService<Plant>, IPlantDataService
+    public class PlantDataService : DataServiceBase<Plant>, IPlantDataService
     {
         public PlantDataService(IUnitOfWorkAsync uow)
             : base(uow)

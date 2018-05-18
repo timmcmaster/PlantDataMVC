@@ -12,10 +12,10 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class SiteController : DefaultController
     {
-        //private IBasicDataService<PlantSeedSite> _dataService;
+        //private IDataServiceBase<PlantSeedSite> _dataService;
         private IPlantSeedSiteDataService _dataService;
 
-        //public SiteController(IBasicDataService<PlantSeedSite> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        //public SiteController(IDataServiceBase<PlantSeedSite> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         public SiteController(IPlantSeedSiteDataService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service

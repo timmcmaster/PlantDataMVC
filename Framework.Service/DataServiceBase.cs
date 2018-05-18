@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace Framework.Service
 {
-    public abstract class BasicDataService<T> : IBasicDataService<T> where T : IDomainEntity
+    public abstract class DataServiceBase<T> : IDataServiceBase<T> where T : IDomainEntity
     {
         protected IUnitOfWorkAsync UnitOfWork { get; set; }
 
-        public BasicDataService(IUnitOfWorkAsync unitOfWork)
+        public DataServiceBase(IUnitOfWorkAsync unitOfWork)
         {
             this.UnitOfWork = unitOfWork;
         }

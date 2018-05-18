@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBasicDataService.cs" />
+    <Compile Include="IDataServiceBase.cs" />
     <Compile Include="Request\ICreateRequest.cs" />
     <Compile Include="Request\IDeleteRequest.cs" />
     <Compile Include="Request\IListRequest.cs" />

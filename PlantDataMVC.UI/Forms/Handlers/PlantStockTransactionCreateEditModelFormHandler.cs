@@ -8,9 +8,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantStockTransactionCreateEditModelFormHandler : IFormHandler<PlantStockTransactionCreateEditModel>
     {
-        private IBasicDataService<PlantStockTransaction> _dataService;
+        private IDataServiceBase<PlantStockTransaction> _dataService;
 
-        public PlantStockTransactionCreateEditModelFormHandler(IBasicDataService<PlantStockTransaction> dataService)
+        public PlantStockTransactionCreateEditModelFormHandler(IDataServiceBase<PlantStockTransaction> dataService)
         {
             _dataService = dataService;
         }

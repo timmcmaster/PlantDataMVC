@@ -2,7 +2,7 @@
 - (Taken from my trello)
 ## Immediate dev tasks
 - [X] SimpleServiceLayer GetDataService<T> method should use a pattern to lookup the service for the data type 
-	- actually removed IServiceLayer - uses IoC on IBasicDataService<> instead
+	- actually removed IServiceLayer - uses IoC on IDataServiceBase<> instead
 - [X] Remove code smell of passing IServiceLayer where we only need a specific service
 	- as above, removed IServiceLayer
 - [X] Use Automapper Projections rather than Map in DAL to Domain mapping (lists only)
@@ -42,6 +42,7 @@
     - http://autofac.readthedocs.io/en/latest/lifetime/index.html
     - http://nblumhardt.com/2011/01/an-autofac-lifetime-primer/
 - [ ] Investigate T4 code templates (remove or update?)
+- [ ] Sort out service and WCF interfaces
 
 ## Short term dev tasks
 - [ ] Create and revise unit tests for each of the main program components

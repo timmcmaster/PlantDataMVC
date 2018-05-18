@@ -60,9 +60,9 @@ namespace PlantDataMVC.UI
             // Register services from PlantDataMVC.Service assembly.
             // i.e. when running assembly in same application
             //var svcAssembly = typeof(PlantDataService).Assembly;
-            //builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IBasicDataService<>));
+            //builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IDataServiceBase<>));
 
-            // Required service is now IPlantDataService instead of IBasicDataService<Plant>
+            // Required service is now IPlantDataService instead of IDataServiceBase<Plant>
             // Register specific services for now
             builder.RegisterType<PlantDataService>().As<IPlantDataService>();
             builder.RegisterType<PlantProductTypeDataService>().As<IPlantProductTypeDataService>();
@@ -80,13 +80,13 @@ namespace PlantDataMVC.UI
             /* TODO: Fix registration of WCF services
              * 
             // Register channel factory (for all generic types?)
-            builder.Register(c => new ChannelFactory<IBasicDataService<Plant>>(
+            builder.Register(c => new ChannelFactory<IDataServiceBase<Plant>>(
                                     new BasicHttpBinding(), 
                                     new EndpointAddress("http://localhost:57889/")));
 
             // Register client proxies (for all generic types?)
-            var wcfClientAssembly = typeof(ClientProxies.BasicDataServiceClient<>).Assembly;
-            builder.RegisterAssemblyTypes(wcfClientAssembly).AsClosedTypesOf(typeof(IBasicDataService<>)).UseWcfSafeRelease();
+            var wcfClientAssembly = typeof(ClientProxies.DataServiceBaseClient<>).Assembly;
+            builder.RegisterAssemblyTypes(wcfClientAssembly).AsClosedTypesOf(typeof(IDataServiceBase<>)).UseWcfSafeRelease();
             
              */
 
@@ -101,8 +101,8 @@ namespace PlantDataMVC.UI
             builder.RegisterType<AutofacFormHandlerFactory>().As<IFormHandlerFactory>();
 
             // Register anonymous method that resolves FormHandlers based on type of form that they handle
-            // Data service will be injected via registration of types implementing IBasicDataService<> 
-            //builder.Register<Func<IF,IBasicDataService<IDomainEntity>>>(c => 
+            // Data service will be injected via registration of types implementing IDataServiceBase<> 
+            //builder.Register<Func<IF,IDataServiceBase<IDomainEntity>>>(c => 
             //{
             //    var cc = c.Resolve<IComponentContext>();
             //    return ds => cc.Resolve<T>();

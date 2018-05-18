@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.Service.SimpleServiceLayer
 {
-    public class PlantSeedDataService : BasicDataService<PlantSeed>, IPlantSeedDataService
+    public class PlantSeedDataService : DataServiceBase<PlantSeed>, IPlantSeedDataService
     {
         public PlantSeedDataService(IUnitOfWorkAsync uow)
             : base(uow)

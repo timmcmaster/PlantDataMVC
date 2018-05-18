@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.Service.SimpleServiceLayer
 {
-    public class PlantStockEntryDataService : BasicDataService<PlantStockEntry>, IPlantStockEntryDataService
+    public class PlantStockEntryDataService : DataServiceBase<PlantStockEntry>, IPlantStockEntryDataService
     {
         public PlantStockEntryDataService(IUnitOfWorkAsync uow)
             : base(uow)

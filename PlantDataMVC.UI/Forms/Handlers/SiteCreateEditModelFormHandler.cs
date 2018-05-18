@@ -8,9 +8,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class SiteCreateEditModelFormHandler : IFormHandler<SiteCreateEditModel>
     {
-        private IBasicDataService<PlantSeedSite> _dataService;
+        private IDataServiceBase<PlantSeedSite> _dataService;
 
-        public SiteCreateEditModelFormHandler(IBasicDataService<PlantSeedSite> dataService)
+        public SiteCreateEditModelFormHandler(IDataServiceBase<PlantSeedSite> dataService)
         {
             _dataService = dataService;
         }

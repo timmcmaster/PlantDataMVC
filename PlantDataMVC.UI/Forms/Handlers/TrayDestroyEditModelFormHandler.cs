@@ -8,9 +8,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class TrayDestroyEditModelFormHandler : IFormHandler<TrayDestroyEditModel>
     {
-        private IBasicDataService<PlantSeedTray> _dataService;
+        private IDataServiceBase<PlantSeedTray> _dataService;
 
-        public TrayDestroyEditModelFormHandler(IBasicDataService<PlantSeedTray> dataService)
+        public TrayDestroyEditModelFormHandler(IDataServiceBase<PlantSeedTray> dataService)
         {
             _dataService = dataService;
         }

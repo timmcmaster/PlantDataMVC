@@ -6,7 +6,7 @@ namespace Interfaces.Service
     // TODO: Sort out whether I can put WCF-specific attriubutes (contract stuff) elsewhere 
     // where we need WCF stuff (and not before)
     [ServiceContract]
-    public interface IBasicDataService<T> where T : IDomainEntity
+    public interface IDataServiceBase<T> where T : IDomainEntity
     {
         [OperationContract]
         ICreateResponse<T> Create(ICreateRequest<T> request);

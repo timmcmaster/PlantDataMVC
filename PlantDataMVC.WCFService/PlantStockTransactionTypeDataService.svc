@@ -1,7 +1,6 @@
 ﻿<%@ ServiceHost 
     Language="C#" 
     Debug="true" 
-    Service="Interfaces.Service.IBasicDataService<PlantStockTransactionType>, Interfaces.Service"
+    Service="PlantDataMVC.Service.ServiceContracts.IPlantStockTransactionTypeDataService, PlantDataMVC.Service.ServiceContracts"
     Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf" 
 %>
-    //Service="PlantDataMVC.Service.SimpleServiceLayer.PlantStockTransactionTypeDataService, PlantDataMVC.Service"

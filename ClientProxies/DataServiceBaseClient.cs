@@ -6,18 +6,18 @@ using System.ServiceModel.Channels;
 
 namespace ClientProxies
 {
-    public class BasicDataServiceClient<T> : ClientBase<IBasicDataService<T>>, IBasicDataService<T> where T : IDomainEntity
+    public class DataServiceBaseClient<T> : ClientBase<IDataServiceBase<T>>, IDataServiceBase<T> where T : IDomainEntity
     {
         // endpoint is going to be specific to service type (not generic)
-        public BasicDataServiceClient(string endpoint) : base(endpoint)
+        public DataServiceBaseClient(string endpoint) : base(endpoint)
         {
         }
 
-        public BasicDataServiceClient(Binding binding, EndpointAddress address) : base(binding, address)
+        public DataServiceBaseClient(Binding binding, EndpointAddress address) : base(binding, address)
         {
         }
 
-        #region IBasicDataService implementation
+        #region IDataServiceBase implementation
         public ICreateResponse<T> Create(ICreateRequest<T> request)
         {
             return Channel.Create(request);

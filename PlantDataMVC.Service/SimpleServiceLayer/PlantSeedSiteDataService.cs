@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace PlantDataMVC.Service.SimpleServiceLayer
 {
-    public class PlantSeedSiteDataService : BasicDataService<PlantSeedSite>, IPlantSeedSiteDataService
+    public class PlantSeedSiteDataService : DataServiceBase<PlantSeedSite>, IPlantSeedSiteDataService
     {
         public PlantSeedSiteDataService(IUnitOfWorkAsync uow)
             : base(uow)

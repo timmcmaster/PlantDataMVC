@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace PlantDataMVC.Service.SimpleServiceLayer
 {
-    public class PlantStockTransactionTypeDataService : BasicDataService<PlantStockTransactionType>, IPlantStockTransactionTypeDataService
+    public class PlantStockTransactionTypeDataService : DataServiceBase<PlantStockTransactionType>, IPlantStockTransactionTypeDataService
     {
         public PlantStockTransactionTypeDataService(IUnitOfWorkAsync uow)
             : base(uow)

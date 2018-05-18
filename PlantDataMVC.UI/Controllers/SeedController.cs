@@ -13,10 +13,10 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class SeedController : DefaultController
     {
-        //private IBasicDataService<PlantSeed> _dataService;
+        //private IDataServiceBase<PlantSeed> _dataService;
         private IPlantSeedDataService _dataService;
 
-        //public SeedController(IBasicDataService<PlantSeed> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        //public SeedController(IDataServiceBase<PlantSeed> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         public SeedController(IPlantSeedDataService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service or default instance service

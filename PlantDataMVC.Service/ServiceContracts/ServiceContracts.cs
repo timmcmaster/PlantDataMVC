@@ -10,42 +10,42 @@ using System.Threading.Tasks;
 namespace PlantDataMVC.Service.ServiceContracts
 {
     [ServiceContract]
-    public interface IPlantDataService: IBasicDataService<Plant>
+    public interface IPlantDataService: IDataServiceBase<Plant>
     {
     }
 
     [ServiceContract]
-    public interface IPlantProductTypeDataService : IBasicDataService<PlantProductType>
+    public interface IPlantProductTypeDataService : IDataServiceBase<PlantProductType>
     {
     }
 
     [ServiceContract]
-    public interface IPlantSeedDataService : IBasicDataService<PlantSeed>
+    public interface IPlantSeedDataService : IDataServiceBase<PlantSeed>
     {
     }
 
     [ServiceContract]
-    public interface IPlantSeedSiteDataService : IBasicDataService<PlantSeedSite>
+    public interface IPlantSeedSiteDataService : IDataServiceBase<PlantSeedSite>
     {
     }
 
     [ServiceContract]
-    public interface IPlantSeedTrayDataService : IBasicDataService<PlantSeedTray>
+    public interface IPlantSeedTrayDataService : IDataServiceBase<PlantSeedTray>
     {
     }
 
     [ServiceContract]
-    public interface IPlantStockEntryDataService : IBasicDataService<PlantStockEntry>
+    public interface IPlantStockEntryDataService : IDataServiceBase<PlantStockEntry>
     {
     }
 
     [ServiceContract]
-    public interface IPlantStockTransactionDataService : IBasicDataService<PlantStockTransaction>
+    public interface IPlantStockTransactionDataService : IDataServiceBase<PlantStockTransaction>
     {
     }
 
     [ServiceContract]
-    public interface IPlantStockTransactionTypeDataService : IBasicDataService<PlantStockTransactionType>
+    public interface IPlantStockTransactionTypeDataService : IDataServiceBase<PlantStockTransactionType>
     {
     }
 }

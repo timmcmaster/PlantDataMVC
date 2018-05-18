@@ -6,6 +6,7 @@ using Interfaces.DAL.DataContext;
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.Service;
 using PlantDataMVC.Entities.Context;
+using PlantDataMVC.Service.ServiceContracts;
 using PlantDataMVC.Service.SimpleServiceLayer;
 using System.Reflection;
 
@@ -32,8 +33,19 @@ namespace PlantDataMVC.WCFService
             builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
 
             // Register your service implementations (for injection into WCF *.svc definitions)
-            var svcAssembly = Assembly.GetAssembly(typeof(PlantDataService));
-            builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IBasicDataService<>));
+            //var svcAssembly = Assembly.GetAssembly(typeof(PlantDataService));
+            //builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IDataServiceBase<>));
+
+            // Required service is now IPlantDataService instead of IDataServiceBase<Plant>
+            // Register specific services for now
+            builder.RegisterType<PlantDataService>().As<IPlantDataService>();
+            builder.RegisterType<PlantProductTypeDataService>().As<IPlantProductTypeDataService>();
+            builder.RegisterType<PlantSeedDataService>().As<IPlantSeedDataService>();
+            builder.RegisterType<PlantSeedSiteDataService>().As<IPlantSeedSiteDataService>();
+            builder.RegisterType<PlantSeedTrayDataService>().As<IPlantSeedTrayDataService>();
+            builder.RegisterType<PlantStockEntryDataService>().As<IPlantStockEntryDataService>();
+            builder.RegisterType<PlantStockTransactionDataService>().As<IPlantStockTransactionDataService>();
+            builder.RegisterType<PlantStockTransactionTypeDataService>().As<IPlantStockTransactionTypeDataService>();
 
             // Set the dependency resolver. This works for both regular
             // WCF services and REST-enabled services.

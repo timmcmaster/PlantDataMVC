@@ -13,10 +13,10 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class TrayController : DefaultController
     {
-        //private IBasicDataService<PlantSeedTray> _dataService;
+        //private IDataServiceBase<PlantSeedTray> _dataService;
         private IPlantSeedTrayDataService _dataService;
 
-        //public TrayController(IBasicDataService<PlantSeedTray> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        //public TrayController(IDataServiceBase<PlantSeedTray> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         public TrayController(IPlantSeedTrayDataService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service

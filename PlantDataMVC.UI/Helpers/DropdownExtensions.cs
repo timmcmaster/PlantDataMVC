@@ -28,7 +28,7 @@ namespace PlantDataMVC.UI.Helpers
             var selectedItem = (TItem)metadata.Model;
 
             // Get list of options from dataService
-            var dataService = DependencyResolver.Current.GetService<IBasicDataService<TItem>>();
+            var dataService = DependencyResolver.Current.GetService<IDataServiceBase<TItem>>();
             var items = dataService.List(new ListRequest<TItem>()).Items;
 
             var selectListItems = items.Select(x => new SelectListItem
