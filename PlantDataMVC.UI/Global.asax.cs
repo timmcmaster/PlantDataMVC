@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Autofac;
+using Autofac.Integration.Mvc;
+using PlantDataMVC.UI.Mappers;
+using StackExchange.Profiling;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using PlantDataMVC.UI.Mappers;
-using StackExchange.Profiling;
 //using StackExchange.Profiling.MVCHelpers;
 
 namespace PlantDataMVC.UI
@@ -21,7 +20,10 @@ namespace PlantDataMVC.UI
             // Force break here
             //System.Diagnostics.Debugger.Break();
 
-            AutofacConfig.ConfigureContainer();
+            IContainer container = AutofacConfig.ConfigureContainer();
+            // Set the dependency resolver to be Autofac.
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

@@ -21,9 +21,8 @@ namespace PlantDataMVC.UI
 {
     public class AutofacConfig
     {
-        public static void ConfigureContainer()
+        public static IContainer ConfigureContainer()
         {
-
             var builder = new ContainerBuilder();
 
             // Register your MVC controllers. (MvcApplication is the name of
@@ -108,11 +107,7 @@ namespace PlantDataMVC.UI
             //    return ds => cc.Resolve<T>();
             //});
 
-
-
-            // Set the dependency resolver to be Autofac.
-            var container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            return builder.Build();
         }
     }
 }
