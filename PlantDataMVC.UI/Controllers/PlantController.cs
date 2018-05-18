@@ -2,6 +2,7 @@
 using Framework.Web.Forms;
 using Interfaces.Service;
 using PlantDataMVC.Domain.Entities;
+using PlantDataMVC.Service.ServiceContracts;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
 using System.Collections.Generic;
@@ -11,15 +12,11 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class PlantController : DefaultController
     {
-        private IBasicDataService<Plant> _dataService;
+        //private IBasicDataService<Plant> _dataService;
+        private IPlantDataService _dataService;
 
-        //public PlantController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory): base(formHandlerFactory)
-        //{
-        //    // get service from service layer
-        //    _dataService = serviceLayer.GetDataService<Plant>();
-        //}
-
-        public PlantController(IBasicDataService<Plant> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        //public PlantController(IBasicDataService<Plant> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public PlantController(IPlantDataService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service
             _dataService = dataService;

@@ -4,13 +4,14 @@ using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Repositories;
+using PlantDataMVC.Service.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PlantDataMVC.Service.SimpleServiceLayer
 {
-    public class PlantDataService : BasicDataService<Plant>
+    public class PlantDataService : BasicDataService<Plant>, IPlantDataService
     {
         public PlantDataService(IUnitOfWorkAsync uow)
             : base(uow)

@@ -9,6 +9,7 @@ using Interfaces.DAL.UnitOfWork;
 using Interfaces.Service;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Entities.Context;
+using PlantDataMVC.Service.ServiceContracts;
 using PlantDataMVC.Service.SimpleServiceLayer;
 using PlantDataMVC.UI.Forms;
 using PlantDataMVC.UI.Forms.Handlers;
@@ -58,13 +59,24 @@ namespace PlantDataMVC.UI
 
             // Register services from PlantDataMVC.Service assembly.
             // i.e. when running assembly in same application
-            var svcAssembly = typeof(PlantDataService).Assembly;
-            builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IBasicDataService<>));
+            //var svcAssembly = typeof(PlantDataService).Assembly;
+            //builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IBasicDataService<>));
+
+            // Required service is now IPlantDataService instead of IBasicDataService<Plant>
+            // Register specific services for now
+            builder.RegisterType<PlantDataService>().As<IPlantDataService>();
+            builder.RegisterType<PlantProductTypeDataService>().As<IPlantProductTypeDataService>();
+            builder.RegisterType<PlantSeedDataService>().As<IPlantSeedDataService>();
+            builder.RegisterType<PlantSeedSiteDataService>().As<IPlantSeedSiteDataService>();
+            builder.RegisterType<PlantSeedTrayDataService>().As<IPlantSeedTrayDataService>();
+            builder.RegisterType<PlantStockEntryDataService>().As<IPlantStockEntryDataService>();
+            builder.RegisterType<PlantStockTransactionDataService>().As<IPlantStockTransactionDataService>();
+            builder.RegisterType<PlantStockTransactionTypeDataService>().As<IPlantStockTransactionTypeDataService>();
 
             // ****************************************************
             // WCF Service configurations
             // ****************************************************
-            
+
             /* TODO: Fix registration of WCF services
              * 
             // Register channel factory (for all generic types?)

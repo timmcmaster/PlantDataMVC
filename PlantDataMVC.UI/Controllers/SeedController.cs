@@ -7,20 +7,17 @@ using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using PlantDataMVC.Service.ServiceContracts;
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class SeedController : DefaultController
     {
-        private IBasicDataService<PlantSeed> _dataService;
+        //private IBasicDataService<PlantSeed> _dataService;
+        private IPlantSeedDataService _dataService;
 
-        //public SeedController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
-        //{
-        //    // get service from service layer
-        //    _dataService = serviceLayer.GetDataService<PlantSeed>();
-        //}
-
-        public SeedController(IBasicDataService<PlantSeed> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        //public SeedController(IBasicDataService<PlantSeed> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public SeedController(IPlantSeedDataService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service or default instance service
             _dataService = dataService;

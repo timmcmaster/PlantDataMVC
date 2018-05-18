@@ -7,20 +7,17 @@ using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using PlantDataMVC.Service.ServiceContracts;
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class TransactionController : DefaultController
     {
-        private IBasicDataService<PlantStockTransaction> _dataService;
+        //private IBasicDataService<PlantStockTransaction> _dataService;
+        private IPlantStockTransactionDataService _dataService;
 
-        //public TransactionController(IServiceLayer serviceLayer, IFormHandlerFactory formHandlerFactory): base(formHandlerFactory)
-        //{
-        //    // get service from service layer
-        //    _dataService = serviceLayer.GetDataService<PlantStockTransaction>();
-        //}
-
-        public TransactionController(IBasicDataService<PlantStockTransaction> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        //public TransactionController(IBasicDataService<PlantStockTransaction> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public TransactionController(IPlantStockTransactionDataService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service
             _dataService = dataService;
