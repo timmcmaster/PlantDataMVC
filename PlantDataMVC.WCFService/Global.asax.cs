@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Autofac;
+using Autofac.Integration.Wcf;
+using System;
 using System.Web;
 
 namespace PlantDataMVC.WCFService
@@ -8,7 +10,8 @@ namespace PlantDataMVC.WCFService
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            AutofacConfig.ConfigureContainer();
+            IContainer container = AutofacConfig.ConfigureContainer();
+            AutofacHostFactory.Container = container;
         }
     }
 }

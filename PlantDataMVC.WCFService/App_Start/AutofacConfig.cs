@@ -17,7 +17,7 @@ namespace PlantDataMVC.WCFService
         /// <summary>
         /// Configures and builds Autofac IOC container.
         /// </summary>
-        public static void ConfigureContainer()
+        public static IContainer ConfigureContainer()
         {
             var builder = new ContainerBuilder();
 
@@ -49,8 +49,7 @@ namespace PlantDataMVC.WCFService
 
             // Set the dependency resolver. This works for both regular
             // WCF services and REST-enabled services.
-            var container = builder.Build();
-            AutofacHostFactory.Container = container;
+            return builder.Build();
         }
 
     }
