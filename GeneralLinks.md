@@ -31,4 +31,8 @@
 ## WCF Services and IoC
   - https://chsakell.com/2015/07/04/dependency-injection-in-wcf/
   - https://chsakell.com/2015/10/15/wcf-proxies-from-beginner-to-expert/
+## WCF Services and generics
+  - https://stackoverflow.com/questions/10500870/serialize-generic-type-over-wcf-service
+  - http://jeffbarnes.net/blog/post/2007/05/10/WCF-Serialization-and-Generics.aspx
+  
 
