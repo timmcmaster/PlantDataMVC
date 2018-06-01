@@ -34,5 +34,6 @@
 ## WCF Services and generics
   - https://stackoverflow.com/questions/10500870/serialize-generic-type-over-wcf-service
   - http://jeffbarnes.net/blog/post/2007/05/10/WCF-Serialization-and-Generics.aspx
-  
+## WCF Service interfaces
+  - https://stackoverflow.com/questions/11685319/c-inheriting-one-interface-to-another-that-will-act-as-a-wcf-interface
 
