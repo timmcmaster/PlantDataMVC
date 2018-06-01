@@ -10,6 +10,11 @@ using System.Threading.Tasks;
 namespace PlantDataMVC.Service.ServiceContracts
 {
     [ServiceContract]
+    public interface IPlantDataService: IDataServiceBase<Plant>
+    {
+    }
+
+    [ServiceContract]
     public interface IPlantProductTypeDataService : IDataServiceBase<PlantProductType>
     {
     }
