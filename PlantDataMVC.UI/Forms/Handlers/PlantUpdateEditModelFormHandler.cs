@@ -2,15 +2,16 @@
 using Framework.Web.Forms;
 using Interfaces.Service;
 using PlantDataMVC.Domain.Entities;
+using PlantDataMVC.Service.ServiceContracts;
 using PlantDataMVC.UI.Models;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantUpdateEditModelFormHandler : IFormHandler<PlantUpdateEditModel>
     {
-        private IDataServiceBase<Plant> _dataService;
+        private IPlantDataService _dataService;
 
-        public PlantUpdateEditModelFormHandler(IDataServiceBase<Plant> dataService)
+        public PlantUpdateEditModelFormHandler(IPlantDataService dataService)
         {
             _dataService = dataService;
         }

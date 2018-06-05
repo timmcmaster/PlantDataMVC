@@ -48,9 +48,9 @@ namespace PlantDataMVC.UI
             // ****************************************************
             // DAL configurations
             // ****************************************************
-            builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
+            //builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
 
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
+            //builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
 
             // ****************************************************
             // Core configurations
@@ -63,31 +63,74 @@ namespace PlantDataMVC.UI
 
             // Required service is now IPlantDataService instead of IDataServiceBase<Plant>
             // Register specific services for now
-            builder.RegisterType<PlantDataService>().As<IPlantDataService>();
-            builder.RegisterType<PlantProductTypeDataService>().As<IPlantProductTypeDataService>();
-            builder.RegisterType<PlantSeedDataService>().As<IPlantSeedDataService>();
-            builder.RegisterType<PlantSeedSiteDataService>().As<IPlantSeedSiteDataService>();
-            builder.RegisterType<PlantSeedTrayDataService>().As<IPlantSeedTrayDataService>();
-            builder.RegisterType<PlantStockEntryDataService>().As<IPlantStockEntryDataService>();
-            builder.RegisterType<PlantStockTransactionDataService>().As<IPlantStockTransactionDataService>();
-            builder.RegisterType<PlantStockTransactionTypeDataService>().As<IPlantStockTransactionTypeDataService>();
+            //builder.RegisterType<PlantDataService>().As<IPlantDataService>();
+            //builder.RegisterType<PlantProductTypeDataService>().As<IPlantProductTypeDataService>();
+            //builder.RegisterType<PlantSeedDataService>().As<IPlantSeedDataService>();
+            //builder.RegisterType<PlantSeedSiteDataService>().As<IPlantSeedSiteDataService>();
+            //builder.RegisterType<PlantSeedTrayDataService>().As<IPlantSeedTrayDataService>();
+            //builder.RegisterType<PlantStockEntryDataService>().As<IPlantStockEntryDataService>();
+            //builder.RegisterType<PlantStockTransactionDataService>().As<IPlantStockTransactionDataService>();
+            //builder.RegisterType<PlantStockTransactionTypeDataService>().As<IPlantStockTransactionTypeDataService>();
 
             // ****************************************************
             // WCF Service configurations
             // ****************************************************
 
-            /* TODO: Fix registration of WCF services
-             * 
-            // Register channel factory (for all generic types?)
-            builder.Register(c => new ChannelFactory<IDataServiceBase<Plant>>(
-                                    new BasicHttpBinding(), 
-                                    new EndpointAddress("http://localhost:57889/")));
+            //* TODO: Fix registration of WCF services
 
-            // Register client proxies (for all generic types?)
-            var wcfClientAssembly = typeof(ClientProxies.DataServiceBaseClient<>).Assembly;
-            builder.RegisterAssemblyTypes(wcfClientAssembly).AsClosedTypesOf(typeof(IDataServiceBase<>)).UseWcfSafeRelease();
-            
-             */
+            // Register channel factory (for all service interfaces)
+            builder.Register(c => new ChannelFactory<IPlantDataService>(
+                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantDataService.svc")))
+                .SingleInstance();
+            builder.Register(c => new ChannelFactory<IPlantProductTypeDataService>(
+                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantProductTypeDataService.svc")))
+                .SingleInstance();
+            builder.Register(c => new ChannelFactory<IPlantSeedDataService>(
+                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantSeedDataService.svc")))
+                .SingleInstance();
+            builder.Register(c => new ChannelFactory<IPlantSeedSiteDataService>(
+                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantSeedSiteDataService.svc")))
+                .SingleInstance();
+            builder.Register(c => new ChannelFactory<IPlantSeedTrayDataService>(
+                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantSeedTrayDataService.svc")))
+                .SingleInstance();
+            builder.Register(c => new ChannelFactory<IPlantStockEntryDataService>(
+                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantStockEntryDataService.svc")))
+                .SingleInstance();
+            builder.Register(c => new ChannelFactory<IPlantStockTransactionDataService>(
+                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantStockTransactionDataService.svc")))
+                .SingleInstance();
+            builder.Register(c => new ChannelFactory<IPlantStockTransactionTypeDataService>(
+                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantStockTransactionTypeDataService.svc")))
+                .SingleInstance();
+
+            // Register the service interface using a lambda that creates a channel from the factory. 
+            // Include the UseWcfSafeRelease() helper to handle proper disposal.
+            builder.Register(c => c.Resolve<ChannelFactory<IPlantDataService>>().CreateChannel())
+              .As<IPlantDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<ChannelFactory<IPlantProductTypeDataService>>().CreateChannel())
+              .As<IPlantProductTypeDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<ChannelFactory<IPlantSeedDataService>>().CreateChannel())
+              .As<IPlantSeedDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<ChannelFactory<IPlantSeedSiteDataService>>().CreateChannel())
+              .As<IPlantSeedSiteDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<ChannelFactory<IPlantSeedTrayDataService>>().CreateChannel())
+              .As<IPlantSeedTrayDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<ChannelFactory<IPlantStockEntryDataService>>().CreateChannel())
+              .As<IPlantStockEntryDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<ChannelFactory<IPlantStockTransactionDataService>>().CreateChannel())
+              .As<IPlantStockTransactionDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<ChannelFactory<IPlantStockTransactionTypeDataService>>().CreateChannel())
+              .As<IPlantStockTransactionTypeDataService>()
+              .UseWcfSafeRelease();
+            //*/
 
             // ****************************************************
             // UI configurations

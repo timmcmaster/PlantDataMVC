@@ -13,10 +13,8 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class PlantStockController : DefaultController
     {
-        //private IDataServiceBase<PlantStockEntry> _dataService;
         private IPlantStockEntryDataService _dataService;
 
-        //public PlantStockController(IDataServiceBase<PlantStockEntry> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         public PlantStockController(IPlantStockEntryDataService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service or default instance service

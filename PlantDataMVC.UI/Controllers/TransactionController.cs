@@ -13,10 +13,8 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class TransactionController : DefaultController
     {
-        //private IDataServiceBase<PlantStockTransaction> _dataService;
         private IPlantStockTransactionDataService _dataService;
 
-        //public TransactionController(IDataServiceBase<PlantStockTransaction> dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         public TransactionController(IPlantStockTransactionDataService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service

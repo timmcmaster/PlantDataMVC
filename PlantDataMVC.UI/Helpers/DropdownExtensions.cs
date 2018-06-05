@@ -28,6 +28,7 @@ namespace PlantDataMVC.UI.Helpers
             var selectedItem = (TItem)metadata.Model;
 
             // Get list of options from dataService
+            // TODO: need to fix this, as hoping to avoid registering IDataServiceBase instances 
             var dataService = DependencyResolver.Current.GetService<IDataServiceBase<TItem>>();
             var items = dataService.List(new ListRequest<TItem>()).Items;
 
