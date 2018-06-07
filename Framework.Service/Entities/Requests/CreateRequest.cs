@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Framework.Service.Entities
 {
-    [DataContract]
+    [DataContract(Name = "CreateRequestUsing{0}")]
     public class CreateRequest<T> : ICreateRequest<T>
     {
         [DataMember]

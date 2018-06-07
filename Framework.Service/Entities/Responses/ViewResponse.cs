@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Framework.Service.Entities
 {
-    [DataContract]
+    [DataContract(Name = "ViewResponseUsing{0}")]
     public class ViewResponse<T> : Response, IViewResponse<T>
     {
         [DataMember]

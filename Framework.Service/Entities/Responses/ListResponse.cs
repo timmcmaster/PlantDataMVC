@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace Framework.Service.Entities
 {
-    [DataContract]
+    [DataContract(Name = "ListResponseUsing{0}")]
     public class ListResponse<T> : Response, IListResponse<T>
     {
         [DataMember]

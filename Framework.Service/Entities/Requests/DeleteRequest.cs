@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Framework.Service.Entities
 {
-    [DataContract]
+    [DataContract(Name = "DeleteRequestUsing{0}")]
     public class DeleteRequest<T> : IDeleteRequest<T>
     {
         [DataMember]

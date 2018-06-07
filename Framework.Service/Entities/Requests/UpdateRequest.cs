@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Framework.Service.Entities
 {
-    [DataContract]
+    [DataContract(Name = "UpdateRequestUsing{0}")]
     public class UpdateRequest<T> : IUpdateRequest<T>
     {
         [DataMember]
