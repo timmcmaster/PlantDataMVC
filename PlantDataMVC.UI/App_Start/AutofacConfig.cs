@@ -78,30 +78,22 @@ namespace PlantDataMVC.UI
 
             //* TODO: Fix registration of WCF services
 
-            // Register channel factory (for all service interfaces)
-            builder.Register(c => new ChannelFactory<IPlantDataService>(
-                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantDataService.svc")))
+            // Register channel factory (for all service interfaces, based on Web.config definitions)
+            builder.Register(c => new ChannelFactory<IPlantDataService>("BasicHttpBinding_IPlantDataService"))
                 .SingleInstance();
-            builder.Register(c => new ChannelFactory<IPlantProductTypeDataService>(
-                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantProductTypeDataService.svc")))
+            builder.Register(c => new ChannelFactory<IPlantProductTypeDataService>("BasicHttpBinding_IPlantProductTypeDataService"))
                 .SingleInstance();
-            builder.Register(c => new ChannelFactory<IPlantSeedDataService>(
-                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantSeedDataService.svc")))
+            builder.Register(c => new ChannelFactory<IPlantSeedDataService>("BasicHttpBinding_IPlantSeedDataService"))
                 .SingleInstance();
-            builder.Register(c => new ChannelFactory<IPlantSeedSiteDataService>(
-                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantSeedSiteDataService.svc")))
+            builder.Register(c => new ChannelFactory<IPlantSeedSiteDataService>("BasicHttpBinding_IPlantSeedSiteDataService"))
                 .SingleInstance();
-            builder.Register(c => new ChannelFactory<IPlantSeedTrayDataService>(
-                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantSeedTrayDataService.svc")))
+            builder.Register(c => new ChannelFactory<IPlantSeedTrayDataService>("BasicHttpBinding_IPlantSeedTrayDataService"))
                 .SingleInstance();
-            builder.Register(c => new ChannelFactory<IPlantStockEntryDataService>(
-                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantStockEntryDataService.svc")))
+            builder.Register(c => new ChannelFactory<IPlantStockEntryDataService>("BasicHttpBinding_IPlantStockEntryDataService"))
                 .SingleInstance();
-            builder.Register(c => new ChannelFactory<IPlantStockTransactionDataService>(
-                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantStockTransactionDataService.svc")))
+            builder.Register(c => new ChannelFactory<IPlantStockTransactionDataService>("BasicHttpBinding_IPlantStockTransactionDataService"))
                 .SingleInstance();
-            builder.Register(c => new ChannelFactory<IPlantStockTransactionTypeDataService>(
-                new BasicHttpBinding(), new EndpointAddress("http://localhost:57889/PlantStockTransactionTypeDataService.svc")))
+            builder.Register(c => new ChannelFactory<IPlantStockTransactionTypeDataService>("BasicHttpBinding_IPlantStockTransactionTypeDataService"))
                 .SingleInstance();
 
             // Register the service interface using a lambda that creates a channel from the factory. 
