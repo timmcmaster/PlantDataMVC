@@ -111,7 +111,8 @@
     - label printing 
     - propagation success rates 
     - sales rates
-- [ ] OData/WCF services for data services
+- [X] WCF services for data services
+- [ ] OData services for data services?
 - [ ] Deployment practices – how do we deploy it?
 - [ ] Improve visual layout of pages
 - [ ] Nhibernate - investigate as an EF alternative?
