@@ -471,10 +471,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClientProxies\ClientProxies.csproj">
-      <Project>{01CDF8EC-132D-42F4-B028-E5D53B0A607D}</Project>
-      <Name>ClientProxies</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Framework.DAL.EF\Framework.DAL.EF.csproj">
       <Project>{23CE37B8-56FA-429A-AF13-3B06841C9817}</Project>
       <Name>Framework.DAL.EF</Name>

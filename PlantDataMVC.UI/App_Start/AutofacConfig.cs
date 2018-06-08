@@ -1,21 +1,12 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.Wcf;
-using ClientProxies;
-using Framework.DAL.EF;
 using Framework.Web.Forms;
-using Interfaces.DAL.DataContext;
-using Interfaces.DAL.UnitOfWork;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Service.ServiceContracts;
-using PlantDataMVC.Service.SimpleServiceLayer;
 using PlantDataMVC.UI.Forms;
 using PlantDataMVC.UI.Forms.Handlers;
 using System.Reflection;
 using System.ServiceModel;
-using System.Web.Mvc;
 
 namespace PlantDataMVC.UI
 {
