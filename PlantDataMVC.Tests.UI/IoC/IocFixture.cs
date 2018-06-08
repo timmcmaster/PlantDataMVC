@@ -9,7 +9,7 @@ namespace PlantDataMVC.Tests.UI
 {
     public class IocFixture
     {
-        public IContainer container { get; set; }
+        public IContainer Container { get; set; }
 
         public IocFixture()
         {
@@ -18,7 +18,7 @@ namespace PlantDataMVC.Tests.UI
 
         public void Configure()
         {
-            container = AutofacConfig.ConfigureContainer();
+            this.Container = AutofacConfig.ConfigureContainer();
         }
     }
 }
