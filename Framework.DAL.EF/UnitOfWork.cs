@@ -20,13 +20,16 @@ namespace Framework.DAL.EF
         private bool _disposed = false;
         private IDataContextAsync _dataContext;
         private Dictionary<string, dynamic> _repositories;
+        private IRepositoryFactory _repositoryFactory;
 
         #endregion Variables
 
-        public UnitOfWork(IDataContextAsync dataContext)
+        public UnitOfWork(IDataContextAsync dataContext, IRepositoryFactory repositoryFactory)
+        //public UnitOfWork(IDataContextAsync dataContext)
         {
             _dataContext = dataContext;
             _repositories = new Dictionary<string, dynamic>();
+            _repositoryFactory = repositoryFactory;
         }
 
         public int SaveChanges()
@@ -69,24 +72,24 @@ namespace Framework.DAL.EF
         /// <returns></returns>
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class, IEntity
         {
-            // 1. Try to get current instance from IoC?
-            // HACK: want to do constructor injection or delegate factory instead
-            if (ServiceLocator.IsLocationProviderSet)
-            {
-                return ServiceLocator.Current.GetInstance<IRepository<TEntity>>();
-            }
+            //// 1. Try to get current instance from IoC?
+            //// HACK: want to do constructor injection or delegate factory instead
+            //if (ServiceLocator.IsLocationProviderSet)
+            //{
+            //    return ServiceLocator.Current.GetInstance<IRepository<TEntity>>();
+            //}
 
             return RepositoryAsync<TEntity>();
         }
 
         public IRepositoryAsync<TEntity> RepositoryAsync<TEntity>() where TEntity : class, IEntity
         {
-            // 1. Try to get current instance from IoC?
-            // HACK: want to do constructor injection or delegate factory instead
-            if (ServiceLocator.IsLocationProviderSet)
-            {
-                return ServiceLocator.Current.GetInstance<IRepositoryAsync<TEntity>>();
-            }
+            //// 1. Try to get current instance from IoC?
+            //// HACK: want to do constructor injection or delegate factory instead
+            //if (ServiceLocator.IsLocationProviderSet)
+            //{
+            //    return ServiceLocator.Current.GetInstance<IRepositoryAsync<TEntity>>();
+            //}
 
             // 2. Try dictionary
             var type = typeof(TEntity).Name;
@@ -96,11 +99,17 @@ namespace Framework.DAL.EF
                 return (IRepositoryAsync<TEntity>)_repositories[type];
             }
 
-            // 3. Create new one, add to dictionary and return instance
-            var repositoryType = typeof(Repository<>);
+            // Call factory method to get repository instance
+            var repo = _repositoryFactory.Create<TEntity>();
+            // Add to dictionary
+            // TODO: check lifetime scope issues
+            _repositories.Add(type,repo);
 
-            //_repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext, this));
-            _repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext));
+            //// 3. Create new one, add to dictionary and return instance
+            //var repositoryType = typeof(Repository<>);
+
+            ////_repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext, this));
+            //_repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext));
 
             return _repositories[type];
         }

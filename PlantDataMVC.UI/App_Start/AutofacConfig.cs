@@ -69,7 +69,7 @@ namespace PlantDataMVC.UI
 
             //* TODO: Fix registration of WCF services
 
-            // Register channel factory (for all service interfaces, based on Web.config definitions)
+            // Register delegates using lambda which creates ChannelFactory<T> (for all service interfaces, based on Web.config definitions)
             builder.Register(c => new ChannelFactory<IPlantDataService>("BasicHttpBinding_IPlantDataService"))
                 .SingleInstance();
             builder.Register(c => new ChannelFactory<IPlantProductTypeDataService>("BasicHttpBinding_IPlantProductTypeDataService"))
@@ -87,7 +87,7 @@ namespace PlantDataMVC.UI
             builder.Register(c => new ChannelFactory<IPlantStockTransactionTypeDataService>("BasicHttpBinding_IPlantStockTransactionTypeDataService"))
                 .SingleInstance();
 
-            // Register the service interface using a lambda that creates a channel from the factory. 
+            // Register the service interface as delegate that uses a lambda to create a channel from the factory. 
             // Include the UseWcfSafeRelease() helper to handle proper disposal.
             builder.Register(c => c.Resolve<ChannelFactory<IPlantDataService>>().CreateChannel())
               .As<IPlantDataService>()

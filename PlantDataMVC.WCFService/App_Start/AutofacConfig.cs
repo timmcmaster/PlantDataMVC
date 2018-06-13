@@ -2,12 +2,13 @@
 using Autofac.Integration.Wcf;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
-//using Interfaces.DAL.Repository;
+using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.Service;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Service.ServiceContracts;
 using PlantDataMVC.Service.SimpleServiceLayer;
+using System;
 using System.Reflection;
 
 namespace PlantDataMVC.WCFService
@@ -25,10 +26,21 @@ namespace PlantDataMVC.WCFService
             // DAL configurations
             // ****************************************************
             builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
-            
+
             // Register repository types for now (used via ServiceLocator in UoW)
             // TODO: Make factory instead, manage lifetime scope
-            //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
+            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
+
+            
+            // TEMP: Want to build factory via IoC itself
+            builder.RegisterType<AutofacRepositoryFactory>().As<IRepositoryFactory>();
+
+            //// Register anonymous method as factory for repositories
+            //builder.Register<Func<T, IRepositoryAsync<T>>>(c =>
+            //{
+            //    var cc = c.Resolve<IComponentContext>();
+            //    return repo => cc.Resolve<T>();
+            //});
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
 
