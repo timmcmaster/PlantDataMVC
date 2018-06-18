@@ -21,7 +21,7 @@
 	- https://www.w3schools.com/css/
 - [ ] Investigate repository query interfaces
     - http://stackoverflow.com/questions/29089102/repository-and-query-objects-pattern-how-to-implement-complex-queries
-    - https://genericunitofworkandrepositories.codeplex.com/SourceControl/latest
+    - https://github.com/urfnet/URF.NET
     - http://www.tugberkugurlu.com/archive/generic-repository-pattern-entity-framework-asp-net-mvc-and-unit-testing-triangle
     - http://www.asp.net/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
 - [ ] Investigate querying via service layer 
