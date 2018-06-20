@@ -21,7 +21,6 @@ namespace PlantDataMVC.WCFService
         public IRepositoryAsync<TEntity> Create<TEntity>() where TEntity: class, IEntity
         {
             // Create repo by resolving it from context
-            // Data service parameter for formhandler will also be resolved from IoC (I think?)
             IRepositoryAsync<TEntity> repo = _c.Resolve<IRepositoryAsync<TEntity>>();
             return repo;
         }
