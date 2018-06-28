@@ -36,4 +36,5 @@
   - http://jeffbarnes.net/blog/post/2007/05/10/WCF-Serialization-and-Generics.aspx
 ## WCF Service interfaces
   - https://stackoverflow.com/questions/11685319/c-inheriting-one-interface-to-another-that-will-act-as-a-wcf-interface
-
+## ServiceLocator in repo/uow
+- https://stackoverflow.com/questions/16064902/dependency-injection-in-unit-of-work-pattern-using-repositories

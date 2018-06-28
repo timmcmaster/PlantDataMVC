@@ -27,12 +27,10 @@ namespace PlantDataMVC.WCFService
             // ****************************************************
             builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
 
-            // Register repository types for now (used via ServiceLocator in UoW)
-            // TODO: Make factory instead, manage lifetime scope
+            // Register repository types (used via RepositoryFactory)
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
 
-            
-            // TEMP: Want to build factory via IoC itself
+            // Register repository types (used via UoW to create repositories)
             builder.RegisterType<AutofacRepositoryFactory>().As<IRepositoryFactory>();
 
             //// Register anonymous method as factory for repositories
@@ -49,7 +47,7 @@ namespace PlantDataMVC.WCFService
             //builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IDataServiceBase<>));
 
             // Required service is now IPlantDataService instead of IDataServiceBase<Plant>
-            // Register specific services for now
+            // Register specific services
             builder.RegisterType<PlantDataService>().As<IPlantDataService>();
             builder.RegisterType<PlantProductTypeDataService>().As<IPlantProductTypeDataService>();
             builder.RegisterType<PlantSeedDataService>().As<IPlantSeedDataService>();

@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using Interfaces.DAL.DataContext;
+﻿using Interfaces.DAL.DataContext;
 using Interfaces.DAL.Entity;
 using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
@@ -24,6 +23,9 @@ namespace Framework.DAL.EF
 
         #endregion Variables
 
+        // TODO: While this is a "better" (more explicit) way to do it, it's still effectively a ServiceLocator pattern
+        // Issues are that UoW is dependent on implementations of IRepositoryFactory defining each of the repository types needed
+        // but there is no compulsion on the implementer to do this. AbstractFactory is better way, or redesign to register repo with uow.
         public UnitOfWork(IDataContextAsync dataContext, IRepositoryFactory repositoryFactory)
         //public UnitOfWork(IDataContextAsync dataContext)
         {
@@ -72,26 +74,12 @@ namespace Framework.DAL.EF
         /// <returns></returns>
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class, IEntity
         {
-            //// 1. Try to get current instance from IoC?
-            //// HACK: want to do constructor injection or delegate factory instead
-            //if (ServiceLocator.IsLocationProviderSet)
-            //{
-            //    return ServiceLocator.Current.GetInstance<IRepository<TEntity>>();
-            //}
-
             return RepositoryAsync<TEntity>();
         }
 
         public IRepositoryAsync<TEntity> RepositoryAsync<TEntity>() where TEntity : class, IEntity
         {
-            //// 1. Try to get current instance from IoC?
-            //// HACK: want to do constructor injection or delegate factory instead
-            //if (ServiceLocator.IsLocationProviderSet)
-            //{
-            //    return ServiceLocator.Current.GetInstance<IRepositoryAsync<TEntity>>();
-            //}
-
-            // 2. Try dictionary
+            // 1. Try dictionary
             var type = typeof(TEntity).Name;
 
             if (_repositories.ContainsKey(type))
@@ -99,17 +87,12 @@ namespace Framework.DAL.EF
                 return (IRepositoryAsync<TEntity>)_repositories[type];
             }
 
+            // 2. Create new one, add to dictionary and return instance
             // Call factory method to get repository instance
             var repo = _repositoryFactory.Create<TEntity>();
             // Add to dictionary
             // TODO: check lifetime scope issues
             _repositories.Add(type,repo);
-
-            //// 3. Create new one, add to dictionary and return instance
-            //var repositoryType = typeof(Repository<>);
-
-            ////_repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext, this));
-            //_repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext));
 
             return _repositories[type];
         }
