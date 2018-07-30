@@ -14,6 +14,9 @@ namespace Interfaces.DAL.Repository
     /// <typeparam name="TEntity">The type of object that the repository works with.</typeparam>
     public interface IRepository<TEntity> where TEntity : class, IEntity
     {
+
+        void Submit();
+
         /// <summary>
         /// Get list of items 
         /// </summary>

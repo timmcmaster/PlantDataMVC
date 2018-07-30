@@ -10,7 +10,7 @@ namespace Framework.Service
     {
         protected IUnitOfWorkAsync UnitOfWork { get; set; }
 
-        public DataServiceBase(IUnitOfWorkAsync unitOfWork)
+        public DataServiceBase(IUnitOfWorkAsync unitOfWork) 
         {
             this.UnitOfWork = unitOfWork;
         }

@@ -79,22 +79,24 @@ namespace Framework.DAL.EF
 
         public IRepositoryAsync<TEntity> RepositoryAsync<TEntity>() where TEntity : class, IEntity
         {
-            // 1. Try dictionary
             var type = typeof(TEntity).Name;
 
             if (_repositories.ContainsKey(type))
             {
                 return (IRepositoryAsync<TEntity>)_repositories[type];
             }
+            else
+            {
+                // TODO: What do we really want to do if repo type is not defined?
+                return null;
+            }
+        }
 
-            // 2. Create new one, add to dictionary and return instance
-            // Call factory method to get repository instance
-            var repo = _repositoryFactory.Create<TEntity>();
-            // Add to dictionary
-            // TODO: check lifetime scope issues
-            _repositories.Add(type,repo);
+        public void Register<TEntity>(IRepository<TEntity> repository) where TEntity : class, IEntity
+        {
+            var type = typeof(TEntity).Name;
 
-            return _repositories[type];
+            _repositories.Add(type, repository);
         }
     }
 }

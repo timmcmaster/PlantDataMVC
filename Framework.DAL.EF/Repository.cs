@@ -2,7 +2,7 @@
 using Interfaces.DAL.Entity;
 using Interfaces.DAL.Infrastructure;
 using Interfaces.DAL.Repository;
-//using Framework.DAL.UnitOfWork;
+using Interfaces.DAL.UnitOfWork;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -23,14 +23,17 @@ namespace Framework.DAL.EF
     {
         private IDataContextAsync _context;
         private IDbSet<TEntity> _dbSet;
-        //private IUnitOfWorkAsync _unitOfWork;
+        private IUnitOfWorkAsync _unitOfWork;
 
-        //public Repository(IDataContextAsync context, IUnitOfWorkAsync unitOfWork)
-        public Repository(IDataContextAsync context)
+        public Repository(IDataContextAsync context, IUnitOfWorkAsync unitOfWork)
+        //public Repository(IDataContextAsync context)
             : base()
         {
             _context = context;
-            //_unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+
+            // Register repository with uow
+            unitOfWork.Register(this);
 
             // HACK: Feels dodgy to need to know which context type it is here
             // I suspect it is here because Set is an EF concept, not generic, hence not in interface 
@@ -111,6 +114,12 @@ namespace Framework.DAL.EF
         public IQueryable<TEntity> Queryable()
         {
             return _dbSet;
+        }
+
+        public void Submit()
+        {
+            // HACK: not sure that each repo should save changes to single context
+            _context.SaveChanges();
         }
 
         //public IRepository<T> GetRepository<T>() where T : class, IEntity

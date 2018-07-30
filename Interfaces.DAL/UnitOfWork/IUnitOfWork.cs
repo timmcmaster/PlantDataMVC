@@ -9,6 +9,8 @@ namespace Interfaces.DAL.UnitOfWork
     /// </summary>
     public interface IUnitOfWork: IDisposable
     {
+        void Register<TEntity>(IRepository<TEntity> repository) where TEntity : class, IEntity;
+
         // Function to return repository of given type
         IRepository<TEntity> Repository<TEntity>() where TEntity : class, IEntity;
 
