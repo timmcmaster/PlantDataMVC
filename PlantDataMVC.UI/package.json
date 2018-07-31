@@ -1,0 +1,9 @@
+{
+  "name": "plantdatamvc",
+  "version": "1.0.0",
+  "dependencies": {
+    "ol": "^5.1.3"
+  },
+  "devDependencies": {
+  }
+}
