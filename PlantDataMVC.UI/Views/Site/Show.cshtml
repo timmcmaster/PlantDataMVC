@@ -1,8 +1,10 @@
 ﻿@model PlantDataMVC.UI.Models.SiteShowViewModel
 
-<link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
+<link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/css/ol.css">
 
-<script src="https://openlayers.org/en/v4.1.1/build/ol.js" type="text/javascript"></script>
+<!--Note: This is for dev mode only - includes entire module from external source -->
+<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/build/ol.js"></script>
+
 <script src="~/Scripts/OpenMapsLibrary.js" type="text/javascript"></script>
 
 <style>
@@ -46,9 +48,9 @@
             var longitude = @Html.Raw(Json.Encode(Model.Longitude));
             var centreLat = latitude;
             var centreLong = longitude;
-            var zoomLevel = 14;
+            var zoomLevel = 4;
 
-            var map = Mapping.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
+            var map = Mapping.createMap('map', latitude, longitude, zoomLevel);
             Mapping.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, centreLat, centreLong);
         };
     </script>
@@ -56,7 +58,7 @@
 
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to Index", "Index")
 </p>
 
