@@ -99,9 +99,11 @@
     @*@Scripts.Render("~/bundles/jqueryval")*@
     @*@Scripts.Render("~/bundles/bootstrap")*@
 
+    <!-- TODO: Dynamic inclusion of script? -->
+    <script type="text/javascript" src="~/Scripts/dist/main.bundle.js"></script>
+    @RenderSection("scripts", required: false)
+
     @MiniProfiler.RenderIncludes(position: RenderPosition.Left, showTrivial: false, showTimeWithChildren: false, startHidden: startHidden)
 
-    <script type="text/javascript" src="~/Scripts/dist/index.bundle.js"></script>
 </body>
-@RenderSection("scripts", required: false)
 </html>

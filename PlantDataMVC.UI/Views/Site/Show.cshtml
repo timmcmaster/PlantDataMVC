@@ -48,7 +48,7 @@
             var centreLong = longitude;
             var zoomLevel = 4;
 
-            var map = Mapping.createMap('map', latitude, longitude, zoomLevel);
+            var map = Mapping.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
             //Mapping.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, centreLat, centreLong);
         };
     </script>
