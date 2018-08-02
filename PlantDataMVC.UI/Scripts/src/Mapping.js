@@ -87,9 +87,9 @@ var Mapping = (function () {
     //}
 
     // createMap
-    var createMap = function (id, latitude, longitude, zoomLevel) {
+    var createMap = function (mapElement, latitude, longitude, zoomLevel) {
         var map = new Map({
-            target: id,
+            target: mapElement,
             layers: [
                 new TileLayer({
                     source: new OSM()
