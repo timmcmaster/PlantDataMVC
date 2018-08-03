@@ -19,4 +19,5 @@
     "webpack": "^4.16.3",
     "webpack-cli": "^3.1.0"
   }
+, "-vs-binding":{"BeforeBuild":["build:dev"]}
 }
