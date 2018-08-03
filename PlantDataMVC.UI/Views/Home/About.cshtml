@@ -2,9 +2,6 @@
     ViewBag.Title = "About Us";
 }
 
-<!-- TODO: Remove and fix css for site using web tools -->
-<link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/css/ol.css">
-
 <style>
     .map {
         height: 400px;
@@ -26,16 +23,26 @@
 
     <script type="text/javascript">
 
-        var map = Mapping.createMap(document.getElementById('map'), -27.45, 153.03, 14);
+        $(document).ready(function () {
+            Initialise();
+        });
 
-        //// This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded.
-        //$(document).ready(function () {
-        //    Initialise();
-        //});
+        function Initialise() {
+            var map = new ol.Map({
+                target: document.getElementById('map'),
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat([-27.45, 53.03]),
+                    zoom: 4
+                })
+            });
 
-        //function Initialise() {
-        //    var map = Mapping.createMap(document.getElementById('map'), -27.45, 153.03, 14);
-        //    //Mapping.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, -27.44, 153.025);
-        //};
+            @*var map = Mapping.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
+            Mapping.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, -27.44, 153.025);*@
+        };
     </script>
 }
