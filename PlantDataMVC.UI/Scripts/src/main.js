@@ -7,6 +7,10 @@
 
 // ECMA5 version
 var $ = require('jquery');
+require('jquery-ui');
+require('jquery-validation');
 require('popper.js');
 require('bootstrap');
-var Mapping = require('./Mapping');
+//use full open layers instead
+require('ol');
+//var Mapping = require('./Mapping');
