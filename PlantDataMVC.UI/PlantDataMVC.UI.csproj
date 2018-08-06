@@ -255,8 +255,9 @@
     <Content Include="Global.asax" />
     <Content Include="package.json" />
     <Content Include="Scripts\src\main.js" />
+    <Content Include="Scripts\src\maplib.js" />
     <Content Include="webpack.config.js" />
-    <Content Include="Scripts\src\Mapping.js" />
+    <Content Include="Scripts\src\mapping.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

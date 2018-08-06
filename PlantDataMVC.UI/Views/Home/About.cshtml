@@ -20,7 +20,7 @@
 
 <!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
 @section scripts{
-
+    <script type="text/javascript" src="~/Scripts/lib/maplib.bundle.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -28,19 +28,8 @@
         });
 
         function Initialise() {
-            var map = new ol.Map({
-                target: document.getElementById('map'),
-                layers: [
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM()
-                    })
-                ],
-                view: new ol.View({
-                    center: ol.proj.fromLonLat([-27.45, 53.03]),
-                    zoom: 4
-                })
-            });
 
+            var map = maplib.createMap(document.getElementById('map'), '0', '0', '4');
             @*var map = Mapping.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
             Mapping.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, -27.44, 153.025);*@
         };

@@ -27,7 +27,7 @@
 
 <!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
 @section scripts{
-
+    <script type="text/javascript" src="~/Scripts/lib/maplib.bundle.js"></script>
     <script type="text/javascript">
 
         // This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded.
@@ -43,21 +43,8 @@
             var centreLong = longitude;
             var zoomLevel = 4;
 
-            var map = new ol.Map({
-                target: document.getElementById('map'),
-                layers: [
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM()
-                    })
-                ],
-                view: new ol.View({
-                    center: ol.proj.fromLonLat([longitude, latitude]),
-                    zoom: zoomLevel
-                })
-            });
-
-            @*var map = Mapping.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
-            Mapping.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, centreLat, centreLong);*@
+            var map = maplib.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
+            @*Mapping.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, centreLat, centreLong);*@
         };
     </script>
 }
