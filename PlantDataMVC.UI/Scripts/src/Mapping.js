@@ -1,5 +1,5 @@
 ﻿/**
- * @module Mapping
+ * @module mapping
  */
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -8,7 +8,7 @@ import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
 
 // using module pattern to restrict function clashes
-var Mapping = (function () {
+var mapping = (function () {
 
     //// addMarker
     //var addMarker = function (imageSrc, map, latitude, longitude) {
@@ -111,5 +111,5 @@ var Mapping = (function () {
     };
 }());
 
-export default Mapping;
+export default mapping;
 

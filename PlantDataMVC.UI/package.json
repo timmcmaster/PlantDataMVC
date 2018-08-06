@@ -16,8 +16,14 @@
     "popper.js": "^1.14.3"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "expose-loader": "^0.7.5",
     "webpack": "^4.16.3",
     "webpack-cli": "^3.1.0"
+  },
+  "-vs-binding": {
+    "BeforeBuild": [
+      "build:dev"
+    ]
   }
-, "-vs-binding":{"BeforeBuild":["build:dev"]}
 }
