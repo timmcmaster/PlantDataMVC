@@ -15,8 +15,8 @@
 </p>
 
 <!-- This is the div that will contain the map -->
-<div id="map" class="map"></div>
-<div id="popup"></div>
+<div id="map" class="map"><div id="popup"></div></div>
+
 
 <!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
 @section scripts{
@@ -30,8 +30,7 @@
         function Initialise() {
 
             var map = maplib.createMap(document.getElementById('map'), '0', '0', '4');
-            @*var map = Mapping.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
-            Mapping.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, -27.44, 153.025);*@
+            maplib.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, 0, 0);
         };
     </script>
 }
