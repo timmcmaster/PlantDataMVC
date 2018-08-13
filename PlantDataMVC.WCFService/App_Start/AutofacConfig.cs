@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Autofac.Integration.Wcf;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
 //using Interfaces.DAL.Repository;
