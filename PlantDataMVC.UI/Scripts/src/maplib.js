@@ -1,14 +1,13 @@
-﻿import Map from 'ol/Map';
-import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import { fromLonLat } from 'ol/proj';
-import Feature from 'ol/Feature';
-import Point from 'ol/geom';
-import { Icon, Style } from 'ol/style';
-import VectorSource from 'ol/source/Vector';
-import VectorLayer from 'ol/layer/Vector';
-import Overlay from 'ol/Overlay';
+﻿import Map from 'ol/Map.js';
+import View from 'ol/View.js';
+import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer.js';
+import OSM from 'ol/source/OSM.js';
+import { fromLonLat } from 'ol/proj.js';
+import Feature from 'ol/Feature.js';
+import Point from 'ol/geom/Point.js';
+import { Icon, Style } from 'ol/style.js';
+import VectorSource from 'ol/source/Vector.js';
+import Overlay from 'ol/Overlay.js';
 
 export function createMap(mapElement, latitude, longitude, zoomLevel) {
 
@@ -47,7 +46,7 @@ export function addMarker(imageSrc, map, latitude, longitude) {
 
         // define style and image
         var iconStyle = new Style({
-            image: new Icon(/** @type {olx.style.IconOptions} */({
+            image: new Icon(/** @type {module:ol/style/Icon~Options} */({
                 anchor: [0.5, 1.0],
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'fraction',
@@ -81,17 +80,6 @@ export function addMarker(imageSrc, map, latitude, longitude) {
         });
         map.addOverlay(popup);
 
-        // change mouse cursor when over marker
-        map.on('pointermove', function (e) {
-            if (e.dragging) {
-                $(element).popover('destroy');
-                return;
-            }
-            var pixel = map.getEventPixel(e.originalEvent);
-            var hit = map.hasFeatureAtPixel(pixel);
-            map.getTarget().style.cursor = hit ? 'pointer' : '';
-        });
-
         // display popup on click
         map.on('click', function (evt) {
             var feature = map.forEachFeatureAtPixel(evt.pixel,
@@ -108,7 +96,19 @@ export function addMarker(imageSrc, map, latitude, longitude) {
                 });
                 $(element).popover('show');
             } else {
-                $(element).popover('destroy');
+                $(element).popover('dispose');
             }
         });
+
+        // change mouse cursor when over marker
+        map.on('pointermove', function (e) {
+            if (e.dragging) {
+                $(element).popover('dispose');
+                return;
+            }
+            var pixel = map.getEventPixel(e.originalEvent);
+            var hit = map.hasFeatureAtPixel(pixel);
+            map.getTarget().style.cursor = hit ? 'pointer' : '';
+        });
+
 }
