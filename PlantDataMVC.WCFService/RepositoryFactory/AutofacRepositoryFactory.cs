@@ -20,6 +20,7 @@ namespace PlantDataMVC.WCFService
 
         public IRepositoryAsync<TEntity> Create<TEntity>() where TEntity: class, IEntity
         {
+            // TODO: Look into scope issues
             // Create repo by resolving it from context
             IRepositoryAsync<TEntity> repo = _c.Resolve<IRepositoryAsync<TEntity>>();
             return repo;

@@ -38,3 +38,9 @@
   - https://stackoverflow.com/questions/11685319/c-inheriting-one-interface-to-another-that-will-act-as-a-wcf-interface
 ## ServiceLocator in repo/uow
 - https://stackoverflow.com/questions/16064902/dependency-injection-in-unit-of-work-pattern-using-repositories
+## Autofac lifetime scope issues
+- https://nblumhardt.com/2011/01/an-autofac-lifetime-primer/
+- http://autofac.readthedocs.io/en/latest/lifetime/index.html
+- http://autofac.readthedocs.io/en/latest/lifetime/instance-scope.html
+- http://autofac.readthedocs.io/en/latest/faq/per-request-scope.html
+- https://stackoverflow.com/questions/26353272/autofac-instance-scope-wcf (WCF)
