@@ -57,6 +57,60 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Service", "Inter
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2A.Service Host", "2A.Service Host", "{947EB8E6-3009-43A9-878A-4C5F3ADACE32}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.1.DB Scripts", "0.1.DB Scripts", "{DBF038BA-45CC-4FE7-95B8-96DA687D8D01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schema", "Schema", "{E1ECA279-B6BC-4EEC-AE52-7D4520F62EAB}"
+	ProjectSection(SolutionItems) = preProject
+		DBScripts\Schema\dbo.AllSeedBatchView.View.sql = DBScripts\Schema\dbo.AllSeedBatchView.View.sql
+		DBScripts\Schema\dbo.AllSpeciesView.View.sql = DBScripts\Schema\dbo.AllSpeciesView.View.sql
+		DBScripts\Schema\dbo.AllTubesView.View.sql = DBScripts\Schema\dbo.AllTubesView.View.sql
+		DBScripts\Schema\dbo.CuttingsTubesView.View.sql = DBScripts\Schema\dbo.CuttingsTubesView.View.sql
+		DBScripts\Schema\dbo.Genus.Table.sql = DBScripts\Schema\dbo.Genus.Table.sql
+		DBScripts\Schema\dbo.GetGenusId.UserDefinedFunction.sql = DBScripts\Schema\dbo.GetGenusId.UserDefinedFunction.sql
+		DBScripts\Schema\dbo.GetPrice.UserDefinedFunction.sql = DBScripts\Schema\dbo.GetPrice.UserDefinedFunction.sql
+		DBScripts\Schema\dbo.GetSeedBatchIdFromSpeciesIdDateCollected.UserDefinedFunction.sql = DBScripts\Schema\dbo.GetSeedBatchIdFromSpeciesIdDateCollected.UserDefinedFunction.sql
+		DBScripts\Schema\dbo.GetSeedTrayIdFromSeedBatchIdDatePlanted.UserDefinedFunction.sql = DBScripts\Schema\dbo.GetSeedTrayIdFromSeedBatchIdDatePlanted.UserDefinedFunction.sql
+		DBScripts\Schema\dbo.GetSpeciesByGenus.UserDefinedFunction.sql = DBScripts\Schema\dbo.GetSpeciesByGenus.UserDefinedFunction.sql
+		DBScripts\Schema\dbo.GetSpeciesIdFromGenusIdSpeciesName.UserDefinedFunction.sql = DBScripts\Schema\dbo.GetSpeciesIdFromGenusIdSpeciesName.UserDefinedFunction.sql
+		DBScripts\Schema\dbo.InsertSeedBatch.StoredProcedure.sql = DBScripts\Schema\dbo.InsertSeedBatch.StoredProcedure.sql
+		DBScripts\Schema\dbo.InsertSeedBatchBySpeciesId.StoredProcedure.sql = DBScripts\Schema\dbo.InsertSeedBatchBySpeciesId.StoredProcedure.sql
+		DBScripts\Schema\dbo.InsertSeedTray.StoredProcedure.sql = DBScripts\Schema\dbo.InsertSeedTray.StoredProcedure.sql
+		DBScripts\Schema\dbo.InsertSeedTrayByBatchId.StoredProcedure.sql = DBScripts\Schema\dbo.InsertSeedTrayByBatchId.StoredProcedure.sql
+		DBScripts\Schema\dbo.InsertSpecies.StoredProcedure.sql = DBScripts\Schema\dbo.InsertSpecies.StoredProcedure.sql
+		DBScripts\Schema\dbo.InsertTubeInfo.StoredProcedure.sql = DBScripts\Schema\dbo.InsertTubeInfo.StoredProcedure.sql
+		DBScripts\Schema\dbo.JournalEntry.Table.sql = DBScripts\Schema\dbo.JournalEntry.Table.sql
+		DBScripts\Schema\dbo.JournalEntryType.Table.sql = DBScripts\Schema\dbo.JournalEntryType.Table.sql
+		DBScripts\Schema\dbo.PlantStock.Table.sql = DBScripts\Schema\dbo.PlantStock.Table.sql
+		DBScripts\Schema\dbo.PriceListType.Table.sql = DBScripts\Schema\dbo.PriceListType.Table.sql
+		DBScripts\Schema\dbo.ProductPrice.Table.sql = DBScripts\Schema\dbo.ProductPrice.Table.sql
+		DBScripts\Schema\dbo.ProductType.Table.sql = DBScripts\Schema\dbo.ProductType.Table.sql
+		DBScripts\Schema\dbo.SeedBatch.Table.sql = DBScripts\Schema\dbo.SeedBatch.Table.sql
+		DBScripts\Schema\dbo.SeedTray.Table.sql = DBScripts\Schema\dbo.SeedTray.Table.sql
+		DBScripts\Schema\dbo.SeedTraysView.View.sql = DBScripts\Schema\dbo.SeedTraysView.View.sql
+		DBScripts\Schema\dbo.SeedTubesView.View.sql = DBScripts\Schema\dbo.SeedTubesView.View.sql
+		DBScripts\Schema\dbo.Site.Table.sql = DBScripts\Schema\dbo.Site.Table.sql
+		DBScripts\Schema\dbo.Species.Table.sql = DBScripts\Schema\dbo.Species.Table.sql
+		DBScripts\Schema\dbo.TubeInfo.Table.sql = DBScripts\Schema\dbo.TubeInfo.Table.sql
+		DBScripts\Schema\dbo.UpdateSpecies.StoredProcedure.sql = DBScripts\Schema\dbo.UpdateSpecies.StoredProcedure.sql
+		DBScripts\Schema\PlantData.Database.sql = DBScripts\Schema\PlantData.Database.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F5FEE829-BC4F-466F-8AA3-851BD5C43F1F}"
+	ProjectSection(SolutionItems) = preProject
+		DBScripts\Data\dbo.Genus.Table.sql = DBScripts\Data\dbo.Genus.Table.sql
+		DBScripts\Data\dbo.JournalEntry.Table.sql = DBScripts\Data\dbo.JournalEntry.Table.sql
+		DBScripts\Data\dbo.JournalEntryType.Table.sql = DBScripts\Data\dbo.JournalEntryType.Table.sql
+		DBScripts\Data\dbo.PlantStock.Table.sql = DBScripts\Data\dbo.PlantStock.Table.sql
+		DBScripts\Data\dbo.PriceListType.Table.sql = DBScripts\Data\dbo.PriceListType.Table.sql
+		DBScripts\Data\dbo.ProductPrice.Table.sql = DBScripts\Data\dbo.ProductPrice.Table.sql
+		DBScripts\Data\dbo.ProductType.Table.sql = DBScripts\Data\dbo.ProductType.Table.sql
+		DBScripts\Data\dbo.SeedBatch.Table.sql = DBScripts\Data\dbo.SeedBatch.Table.sql
+		DBScripts\Data\dbo.SeedTray.Table.sql = DBScripts\Data\dbo.SeedTray.Table.sql
+		DBScripts\Data\dbo.Site.Table.sql = DBScripts\Data\dbo.Site.Table.sql
+		DBScripts\Data\dbo.Species.Table.sql = DBScripts\Data\dbo.Species.Table.sql
+		DBScripts\Data\dbo.TubeInfo.Table.sql = DBScripts\Data\dbo.TubeInfo.Table.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -277,5 +331,10 @@ Global
 		{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
 		{550D9A0C-2D6A-46FD-9400-AA722D455F7A} = {947EB8E6-3009-43A9-878A-4C5F3ADACE32}
 		{F826FC20-06CE-4415-BFF1-7A0C44EB0E07} = {F470F8F5-6D8C-47F1-A0B8-2D436E6BC573}
+		{E1ECA279-B6BC-4EEC-AE52-7D4520F62EAB} = {DBF038BA-45CC-4FE7-95B8-96DA687D8D01}
+		{F5FEE829-BC4F-466F-8AA3-851BD5C43F1F} = {DBF038BA-45CC-4FE7-95B8-96DA687D8D01}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {60B4C356-76F5-4270-90B7-5609C4A1FDFE}
 	EndGlobalSection
 EndGlobal

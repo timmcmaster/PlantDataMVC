@@ -130,6 +130,7 @@
     <Compile Include="EntityTests\GenusFacts.cs" />
     <Compile Include="EntityTests\SiteFacts.cs" />
     <Compile Include="EntityTests\SpeciesFacts.cs" />
+    <Compile Include="IntegrationTests\SiteRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryTests\GenusRepositoryFacts.cs" />
   </ItemGroup>
