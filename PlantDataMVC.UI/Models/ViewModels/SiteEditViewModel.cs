@@ -15,8 +15,10 @@ namespace PlantDataMVC.UI.Models
         [StringLength(50), DataType("CustomString")]
         public string Suburb { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:0.00000}", ApplyFormatInEditMode = true)]
         public decimal Latitude { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:0.00000}", ApplyFormatInEditMode = true)]
         public decimal Longitude { get; set; }
     }
 }

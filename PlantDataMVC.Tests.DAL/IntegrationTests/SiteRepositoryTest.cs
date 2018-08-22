@@ -11,9 +11,8 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
     public class SiteRepositoryTest
     {
         [Fact]
-        public void CanUpdateSiteAndGetBackSame()
+        public void CanUpdateSiteAndGetBackSameWithSameContext()
         {
-
             using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
             {
@@ -23,8 +22,8 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
                 var site = repository.GetItemById(id);
 
                 // Act
-                site.Latitude = 1.5m;
-                site.Longitude = 1.5m;
+                site.Latitude = 1.12345m;
+                site.Longitude = 1.12345m;
 
                 try { 
                     var updatedSite = repository.Save(site);
@@ -41,6 +40,48 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
                 Assert.NotNull(retrievedSite);
                 Assert.Equal(site.Latitude, retrievedSite.Latitude);
                 Assert.Equal(site.Longitude, retrievedSite.Longitude);
+            }
+        }
+
+        [Fact]
+        public void CanUpdateSiteAndGetBackSameWithDiffContext()
+        {
+            var id = 6;
+            var siteLatitude = 1.12345m;
+            var siteLongitude = 1.12345m;
+
+            // Write with one context
+            using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+            {
+                // Arrange
+                var repository = uow.Repository<Site>();
+                var site = repository.GetItemById(id);
+
+                // Act
+                site.Latitude = siteLatitude;
+                site.Longitude = siteLongitude;
+
+                try
+                {
+                    var updatedSite = repository.Save(site);
+                    uow.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                }
+            }
+
+            using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+            {
+                var repository = uow.Repository<Site>();
+                var retrievedSite = repository.GetItemById(id);
+
+                // Assert
+                Assert.NotNull(retrievedSite);
+                Assert.Equal(siteLatitude, retrievedSite.Latitude);
+                Assert.Equal(siteLongitude, retrievedSite.Longitude);
             }
         }
     }

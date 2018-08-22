@@ -16,8 +16,10 @@ namespace PlantDataMVC.UI.Models
 
         public string Suburb { get; private set; }
 
+        [DisplayFormat(DataFormatString = "{0:0.00000}")]
         public decimal Latitude { get; private set; }
 
+        [DisplayFormat(DataFormatString = "{0:0.00000}")]
         public decimal Longitude { get; private set; }
         
         //public IList<PlantSeedListViewModel> SeedBatches { get; private set; }
