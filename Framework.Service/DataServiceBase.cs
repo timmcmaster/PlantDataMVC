@@ -2,6 +2,7 @@
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.Domain;
 using Interfaces.Service;
+using System;
 using System.Collections.Generic;
 
 namespace Framework.Service
@@ -53,11 +54,24 @@ namespace Framework.Service
         {
             using (var uow = this.UnitOfWork)
             {
-                DeleteItem(uow, request.Id);
+                var response = new DeleteResponse<T>();
 
-                uow.SaveChanges();
+                try
+                {
+                    DeleteItem(uow, request.Id);
 
-                return new DeleteResponse<T>();
+                    uow.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    response.ErrorCode = ex.HResult;
+                    throw; // to ensure error is seen for now
+                }
+                finally
+                {
+                }
+
+                return response;
             }
         }
 

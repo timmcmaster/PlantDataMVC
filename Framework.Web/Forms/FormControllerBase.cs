@@ -45,16 +45,19 @@ namespace Framework.Web.Forms
         }
 
         // The generic form of the method
-        protected ActionResult Form<TForm>(TForm form, Func<ActionResult> successResult, Func<ActionResult> failResult) where TForm : IForm
+        protected ActionResult Form<TForm>(TForm form, Func<ActionResult> successResult, Func<ActionResult> failureResult) where TForm : IForm
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _formHandlerFactory.Create<TForm>().Handle(form);
-
-                return successResult();
+                return failureResult();
             }
 
-            return failResult();
+            
+            _formHandlerFactory.Create<TForm>().Handle(form);
+
+            // TODO: Need behaviour triggered on non zero error-code in response
+
+            return successResult();
         }
 
 

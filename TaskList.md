@@ -67,6 +67,7 @@
 - [ ] Create integration tests
 - [ ] Consider potential aggregates at repository level
 - [ ] Implement error handling across the board
+    - https://www.red-gate.com/simple-talk/dotnet/net-framework/catching-bad-data-in-entity-framework/
 - [ ] Investigate JSON use
 - [ ] Investigate and understand jQuery use
 - [ ] Investigate AJAX

@@ -24,6 +24,17 @@ namespace PlantDataMVC.UI.Forms.Handlers
             DeleteRequest<PlantSeedSite> request = new DeleteRequest<PlantSeedSite>(item.Id);
 
             IDeleteResponse<PlantSeedSite> response = _dataService.Delete(request);
+
+            //TODO: Need behaviour triggered on non zero error-code in response
+            if (response.ErrorCode == 0)
+            {
+                // take good path
+            }
+            else
+            {
+                // take error path
+                // either rethrow exception or display error message of sorts
+            }
         }
     }
 }
