@@ -11,9 +11,9 @@
 {
     <fieldset>
         <legend>Transaction</legend>
-
+        @*Add hidden, as display for model doesn't show hidden input needed for submit*@
+        @Html.HiddenFor(model => model.Id)
         @Html.DisplayForModel()
-
     </fieldset>
     <p>
         <input type="submit" value="Delete" /> |
