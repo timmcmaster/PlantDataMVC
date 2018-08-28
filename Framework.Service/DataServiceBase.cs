@@ -4,6 +4,7 @@ using Interfaces.Domain;
 using Interfaces.Service;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace Framework.Service
 {
@@ -62,9 +63,9 @@ namespace Framework.Service
 
                     uow.SaveChanges();
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    response.ErrorCode = ex.HResult;
+                    response.ErrorCode = ex.Number;
                     throw; // to ensure error is seen for now
                 }
                 finally
