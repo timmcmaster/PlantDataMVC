@@ -73,10 +73,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ASPNETDB.MDF" />
-    <Content Include="App_Data\aspnetdb_log.ldf">
-      <DependentUpon>ASPNETDB.MDF</DependentUpon>
-    </Content>
     <Content Include="App_Data\PlantDataDB.mdf" />
     <Content Include="App_Data\PlantDataDB_log.ldf">
       <DependentUpon>PlantDataDB.mdf</DependentUpon>

@@ -33,8 +33,8 @@ namespace PlantDataMVC.Entities.Configuration
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.SiteName).HasColumnName(@"SiteName").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
             Property(x => x.Suburb).HasColumnName(@"Suburb").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("decimal").IsOptional().HasPrecision(18,0);
-            Property(x => x.Longitude).HasColumnName(@"Longitude").HasColumnType("decimal").IsOptional().HasPrecision(18,0);
+            Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("decimal").IsOptional().HasPrecision(8,5);
+            Property(x => x.Longitude).HasColumnName(@"Longitude").HasColumnType("decimal").IsOptional().HasPrecision(8,5);
             InitializePartial();
         }
         partial void InitializePartial();
