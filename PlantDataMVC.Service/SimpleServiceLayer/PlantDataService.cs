@@ -62,6 +62,9 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // add genus
             Genus requiredGenus = uow.Repository<Genus>().Add(requestGenus);
 
+            // HACK: testing if this helps with non-existent genus id prob (not a good fix though)
+            uow.SaveChanges();
+
             return requiredGenus;
         }
 
