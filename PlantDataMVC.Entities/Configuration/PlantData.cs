@@ -9,7 +9,7 @@
 // The following connection settings were used to generate this file:
 //     Configuration file:     "PlantDataMVC.Entities\App.config"
 //     Connection String Name: "PlantDataDbContext"
-//     Connection String:      "Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Storage\Coding\Visual Studio Projects\PlantDataMVCApp\PlantDataMVC.WCFService\App_Data\PlantDataDB.mdf;Integrated Security=True"
+//     Connection String:      "Data Source=(LocalDB)\ProjectsV13;Initial Catalog=PlantDataDB;Integrated Security=True"
 // ------------------------------------------------------------------------------------------------
 // Database Edition       : Express Edition (64-bit)
 // Database Engine Edition: Express

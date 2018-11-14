@@ -13,6 +13,7 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
         [Fact]
         public void CanUpdateSiteAndGetBackSameWithSameContext()
         {
+            // TODO: Fix test, as it fails due to being data dependent
             using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
             {
@@ -46,6 +47,7 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
         [Fact]
         public void CanUpdateSiteAndGetBackSameWithDiffContext()
         {
+            // TODO: Fix test, as it fails due to being data dependent
             var id = 6;
             var siteLatitude = 1.12345m;
             var siteLongitude = 1.12345m;
