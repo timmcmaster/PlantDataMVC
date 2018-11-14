@@ -17,6 +17,8 @@
 	- https://github.com/BrandyFx/Brandy/blob/master/src/Web/Forms/FormControllerBase.cs
 - [X] Fix repositories (again)
 	- https://www.cuttingedge.it/blogs/steven/pivot/entry.php?id=84
+- [ ] Fix plantDataService creation issue (creating parent and child objects with Pk/FK, without save)
+    - https://stackoverflow.com/questions/15708101/how-to-insert-with-foreign-key-that-doesnt-exist-yet-in-entity-framework
 - [ ] Better understanding of CSS scope and hierarchy
 	- https://www.w3schools.com/css/
 - [ ] Investigate repository query interfaces
