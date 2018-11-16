@@ -18,6 +18,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         {
         }
 
+        #region DataServiceBase overrides
         /// <summary>
         /// Service method to create a new plant item
         /// (i.e. a genus-species definition, not an individual plant) 
@@ -27,16 +28,20 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         protected override Plant CreateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
             // get genus
-            Genus requiredGenus = GetGenus(uow, requestItem);
+            Genus retrievedGenus = RetrieveGenus(uow, requestItem);
 
-            if (requiredGenus == null)
+            Species item = null;
+
+            if (retrievedGenus == null)
             {
-                // create genus and return it
-                requiredGenus = CreateGenus(uow, requestItem);
+                // create species
+                item = CreateGenusAndCreateSpecies(uow, requestItem);
             }
-
-            // create species
-            Species item = CreateSpecies(uow, requestItem, requiredGenus);
+            else
+            {
+                // create species
+                item = CreateSpecies(uow, requestItem, retrievedGenus);
+            }
 
             Plant newPlant = Mapper.Map<Species, Plant>(item);
 
@@ -45,59 +50,6 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // handle errors from responses
         }
 
-
-        public Genus GetGenus(IUnitOfWorkAsync uow, Plant requestItem)
-        {
-            // search in list by name
-            Genus requiredGenus = uow.Repository<Genus>().GetItemByLatinName(requestItem.GenericName);
-
-            return requiredGenus;
-        }
-
-        public Genus CreateGenus(IUnitOfWorkAsync uow, Plant requestItem)
-        {
-            // map plant to genus
-            Genus requestGenus = Mapper.Map<Plant, Genus>(requestItem);
-
-            // add genus
-            Genus requiredGenus = uow.Repository<Genus>().Add(requestGenus);
-
-            // HACK: testing if this helps with non-existent genus id prob (not a good fix though)
-            uow.SaveChanges();
-
-            return requiredGenus;
-        }
-
-        private Species CreateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
-        {
-            // map plant to species
-            Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
-
-            // add genus id (and latin name?)
-            // TODO: At this stage, Genus.Id is not yet set by DB
-            requestSpecies.GenusId = parentGenus.Id;
-            //requestSpecies.GenusLatinName = parentGenus.LatinName;
-
-            // create species
-            Species requiredSpecies = uow.Repository<Species>().Add(requestSpecies);
-
-            return requiredSpecies;
-        }
-
-        private Species UpdateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
-        {
-            // map plant to species
-            Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
-
-            // add genus id (and latin name?)
-            requestSpecies.GenusId = parentGenus.Id;
-            //requestSpecies.GenusLatinName = parentGenus.LatinName;
-
-            // create species
-            Species savedSpecies = uow.Repository<Species>().Save(requestSpecies);
-
-            return savedSpecies;
-        }
 
 
 
@@ -123,17 +75,20 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         protected override Plant UpdateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
             // get genus
-            Genus requiredGenus = GetGenus(uow, requestItem);
+            Genus retrievedGenus = RetrieveGenus(uow, requestItem);
 
-            if (requiredGenus == null)
+            Species savedSpecies = null;
+
+            if (retrievedGenus == null)
             {
-                // create genus and return it
-                requiredGenus = CreateGenus(uow, requestItem);
+                // create species
+                savedSpecies = CreateGenusAndUpdateSpecies(uow, requestItem);
             }
-
-            Species savedSpecies = UpdateSpecies(uow, requestItem, requiredGenus);
-
-            uow.SaveChanges();
+            else
+            {
+                // create species
+                savedSpecies = UpdateSpecies(uow, requestItem, retrievedGenus);
+            }
 
             Plant plant = Mapper.Map<Species, Plant>(savedSpecies);
 
@@ -167,5 +122,79 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
             return items;
         }
+        #endregion
+
+        #region Local methods 
+        public Genus RetrieveGenus(IUnitOfWorkAsync uow, Plant requestItem)
+        {
+            // search in list by name
+            Genus retrievedGenus = uow.Repository<Genus>().GetItemByLatinName(requestItem.GenericName);
+
+            return retrievedGenus;
+        }
+
+        private Species CreateGenusAndCreateSpecies(IUnitOfWorkAsync uow, Plant requestItem)
+        {
+            // map plant to genus
+            Genus requestGenus = Mapper.Map<Plant, Genus>(requestItem);
+
+            // map plant to species
+            Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
+
+            // add genus via navigation property
+            requestSpecies.Genus = requestGenus;
+
+            // create species
+            Species requiredSpecies = uow.Repository<Species>().Add(requestSpecies);
+
+            return requiredSpecies;
+        }
+
+        private Species CreateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
+        {
+            // map plant to species
+            Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
+
+            // Genus.Id shoulkd be set, because this is only called if genus is retrieved OK
+            requestSpecies.GenusId = parentGenus.Id;
+
+            // create species
+            Species requiredSpecies = uow.Repository<Species>().Add(requestSpecies);
+
+            return requiredSpecies;
+        }
+
+        private Species UpdateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
+        {
+            // map plant to species
+            Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
+
+            // add genus id (and latin name?)
+            requestSpecies.GenusId = parentGenus.Id;
+
+            // create species
+            Species savedSpecies = uow.Repository<Species>().Save(requestSpecies);
+
+            return savedSpecies;
+        }
+
+        private Species CreateGenusAndUpdateSpecies(IUnitOfWorkAsync uow, Plant requestItem)
+        {
+            // map plant to genus
+            Genus requestGenus = Mapper.Map<Plant, Genus>(requestItem);
+
+            // map plant to species
+            Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
+
+            // add genus via navigation property
+            requestSpecies.Genus = requestGenus;
+
+            // create species
+            Species requiredSpecies = uow.Repository<Species>().Save(requestSpecies);
+
+            return requiredSpecies;
+        }
+        #endregion
+
     }
 }
