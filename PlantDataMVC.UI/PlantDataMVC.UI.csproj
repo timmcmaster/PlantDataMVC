@@ -362,7 +362,9 @@
     <Content Include="Views\Site\New.cshtml" />
     <Content Include="Views\Site\Show.cshtml" />
     <Content Include="Views\Shared\SiteListTable.cshtml" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="package-lock.json" />
   </ItemGroup>
   <ItemGroup>
