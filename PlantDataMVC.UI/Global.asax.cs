@@ -46,7 +46,7 @@ namespace PlantDataMVC.UI
             // profile only for local requests (seems reasonable)
             if (Request.IsLocal)
             {
-                profiler = MiniProfiler.Start();
+                profiler = MiniProfiler.StartNew();
             }
 
             using (profiler.Step("Application_BeginRequest"))
@@ -60,7 +60,7 @@ namespace PlantDataMVC.UI
         /// </summary>
         protected void Application_EndRequest()
         {
-            MiniProfiler.Stop();
+            MiniProfiler.Current?.Stop();
         }
 
     }
