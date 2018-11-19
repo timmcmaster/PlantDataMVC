@@ -143,7 +143,7 @@
       <Name>Framework.DAL.EF</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
-      <Project>{39a4295b-11f9-4b3e-8527-d99fff87e10b}</Project>
+      <Project>{96fd9436-de5c-432a-94cb-ce5e63ee2405}</Project>
       <Name>Interfaces.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
