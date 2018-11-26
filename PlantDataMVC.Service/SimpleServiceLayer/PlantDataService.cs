@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Common.Logging;
 using Framework.Service;
 using Interfaces.DAL.UnitOfWork;
-using Common.Logging;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Repositories;
@@ -30,7 +30,12 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         /// <returns></returns>
         protected override Plant CreateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
+            // Test messages
             Log.Debug("Debug message - entering CreateItem");
+            Log.Info("Info message.");
+            Log.Warn("Warning message!");
+            Log.Error("Error message!!");
+            Log.Fatal("Fatal message!!!");
 
             // get genus
             Genus requiredGenus = GetGenus(uow, requestItem);

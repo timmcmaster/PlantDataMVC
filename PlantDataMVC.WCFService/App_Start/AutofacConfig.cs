@@ -49,7 +49,8 @@ namespace PlantDataMVC.WCFService
 
             // Register singleton instance of ILog for Common.Logging
             // TODO: This is a bit hacky, because it is only for one class type.
-            builder.RegisterInstance(LogManager.GetLogger<PlantDataService>()).As<ILog>();
+            //builder.RegisterInstance(LogManager.GetLogger<PlantDataService>()).As<ILog>();
+            builder.RegisterInstance(LogManager.GetLogger("PlantDataMVC.WCFServices")).As<ILog>();
 
             // Set the dependency resolver. This works for both regular
             // WCF services and REST-enabled services.
