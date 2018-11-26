@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Common.Logging;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
 //using Interfaces.DAL.Repository;
@@ -45,6 +46,10 @@ namespace PlantDataMVC.WCFService
             builder.RegisterType<PlantStockEntryDataService>().As<IPlantStockEntryDataService>();
             builder.RegisterType<PlantStockTransactionDataService>().As<IPlantStockTransactionDataService>();
             builder.RegisterType<PlantStockTransactionTypeDataService>().As<IPlantStockTransactionTypeDataService>();
+
+            // Register singleton instance of ILog for Common.Logging
+            // TODO: This is a bit hacky, because it is only for one class type.
+            builder.RegisterInstance(LogManager.GetLogger<PlantDataService>()).As<ILog>();
 
             // Set the dependency resolver. This works for both regular
             // WCF services and REST-enabled services.
