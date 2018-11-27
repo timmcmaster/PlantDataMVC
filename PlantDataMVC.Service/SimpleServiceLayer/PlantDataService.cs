@@ -30,12 +30,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         /// <returns></returns>
         protected override Plant CreateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
-            // Test messages
-            _log.Debug("Debug message - entering CreateItem");
-            _log.Info("Info message.");
-            _log.Warn("Warning message!");
-            _log.Error("Error message!!");
-            _log.Fatal("Fatal message!!!");
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
 
             // get genus
             Genus retrievedGenus = RetrieveGenus(uow, requestItem);
@@ -65,6 +60,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override Plant SelectItem(IUnitOfWorkAsync uow, int id)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             // map plant to species
             //Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
 
@@ -84,6 +81,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override Plant UpdateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             // get genus
             Genus retrievedGenus = RetrieveGenus(uow, requestItem);
 
@@ -107,6 +106,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override void DeleteItem(IUnitOfWorkAsync uow, int id)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             if (id <= 0)
             {
                 throw new ArgumentOutOfRangeException("id");
@@ -121,6 +122,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override IList<Plant> ListItems(IUnitOfWorkAsync uow)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             //var context = uow.Repository<Species>().Queryable();
             //// TODO: This projection fails on use of GenericName and Binomial calculated properties.
             //var itemQuery = context.ProjectTo<Plant>().OrderBy(p => p.Binomial);
@@ -137,6 +140,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         #region Local methods 
         public Genus RetrieveGenus(IUnitOfWorkAsync uow, Plant requestItem)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             // search in list by name
             Genus retrievedGenus = uow.Repository<Genus>().GetItemByLatinName(requestItem.GenericName);
 
@@ -145,6 +150,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         private Species CreateGenusAndCreateSpecies(IUnitOfWorkAsync uow, Plant requestItem)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             // map plant to genus
             Genus requestGenus = Mapper.Map<Plant, Genus>(requestItem);
 
@@ -162,6 +169,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         private Species CreateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             // map plant to species
             Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
 
@@ -176,6 +185,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         private Species UpdateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             // map plant to species
             Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
 
@@ -190,6 +201,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         private Species CreateGenusAndUpdateSpecies(IUnitOfWorkAsync uow, Plant requestItem)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             // map plant to genus
             Genus requestGenus = Mapper.Map<Plant, Genus>(requestItem);
 
