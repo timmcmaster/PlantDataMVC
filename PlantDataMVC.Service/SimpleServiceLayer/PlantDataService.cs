@@ -14,12 +14,11 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 {
     public class PlantDataService : DataServiceBase<Plant>, IPlantDataService
     {
-        private ILog Log { get; set; }
+        private static readonly ILog _log = LogManager.GetLogger<PlantDataService>();
 
-        public PlantDataService(IUnitOfWorkAsync uow, ILog log)
+        public PlantDataService(IUnitOfWorkAsync uow)
             : base(uow)
         {
-            this.Log = log;
         }
 
         /// <summary>
@@ -31,11 +30,11 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         protected override Plant CreateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
             // Test messages
-            Log.Debug("Debug message - entering CreateItem");
-            Log.Info("Info message.");
-            Log.Warn("Warning message!");
-            Log.Error("Error message!!");
-            Log.Fatal("Fatal message!!!");
+            _log.Debug("Debug message - entering CreateItem");
+            _log.Info("Info message.");
+            _log.Warn("Warning message!");
+            _log.Error("Error message!!");
+            _log.Fatal("Fatal message!!!");
 
             // get genus
             Genus requiredGenus = GetGenus(uow, requestItem);

@@ -37,6 +37,7 @@ namespace Framework.DAL.EF
         {
             _instanceId = Guid.NewGuid();
         }
+        #endregion
 
         public override int SaveChanges()
         {
@@ -73,7 +74,6 @@ namespace Framework.DAL.EF
                 ((IObjectState)dbEntityEntry.Entity).ObjectState = StateHelper.ConvertState(dbEntityEntry.State);
             }
         }
-        #endregion
 
         protected override void Dispose(bool disposing)
         {
