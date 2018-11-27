@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PlantDataMVC.Tests.Core</RootNamespace>
     <AssemblyName>PlantDataMVC.Tests.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -131,10 +131,6 @@
     <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
       <Project>{fb582d72-f66a-4153-bb91-a4f339ed1795}</Project>
       <Name>Framework.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
-      <Project>{39a4295b-11f9-4b3e-8527-d99fff87e10b}</Project>
-      <Name>Interfaces.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
       <Project>{157d351c-8da8-4a9b-b66d-20e4f49eb201}</Project>

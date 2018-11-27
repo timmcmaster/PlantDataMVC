@@ -4,13 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{39A4295B-11F9-4B3E-8527-D99FFF87E10B}</ProjectGuid>
+    <ProjectGuid>{96FD9436-DE5C-432A-94CB-CE5E63EE2405}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Interfaces.DAL</RootNamespace>
     <AssemblyName>Interfaces.DAL</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,17 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataContext\IDataContextAsync.cs" />
     <Compile Include="DataContext\IDataContext.cs" />
+    <Compile Include="DataContext\IDataContextAsync.cs" />
     <Compile Include="Entity\EntityBase.cs" />
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Infrastructure\IObjectState.cs" />
     <Compile Include="Infrastructure\ObjectState.cs" />
-    <Compile Include="Repository\IRepositoryAsync.cs" />
-    <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="UnitOfWork\IUnitOfWorkAsync.cs" />
-    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IRepositoryAsync.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWorkAsync.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

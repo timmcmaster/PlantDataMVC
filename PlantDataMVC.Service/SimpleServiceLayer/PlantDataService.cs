@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Logging;
 using Framework.Service;
 using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Domain.Entities;
@@ -13,6 +14,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 {
     public class PlantDataService : DataServiceBase<Plant>, IPlantDataService
     {
+        private static readonly ILog _log = LogManager.GetLogger<PlantDataService>();
+
         public PlantDataService(IUnitOfWorkAsync uow)
             : base(uow)
         {
@@ -27,6 +30,13 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         /// <returns></returns>
         protected override Plant CreateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
+            // Test messages
+            _log.Debug("Debug message - entering CreateItem");
+            _log.Info("Info message.");
+            _log.Warn("Warning message!");
+            _log.Error("Error message!!");
+            _log.Fatal("Fatal message!!!");
+
             // get genus
             Genus retrievedGenus = RetrieveGenus(uow, requestItem);
 

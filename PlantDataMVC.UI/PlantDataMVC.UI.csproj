@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PlantDataMVC.UI</RootNamespace>
     <AssemblyName>PlantDataMVC.UI</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
     <FileUpgradeFlags>
@@ -82,6 +82,15 @@
     <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.NLog4412, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.NLog4412.3.4.1\lib\net40\Common.Logging.NLog4412.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -104,6 +113,9 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="RouteDebug">
       <HintPath>..\ExternalAssemblies\RouteDebug.dll</HintPath>
     </Reference>
@@ -115,6 +127,7 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Caching" />
@@ -169,6 +182,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Areas\Security\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Security\Models\AccountModels.cs" />
     <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Forms\AutofacFormHandlerFactory.cs" />
@@ -255,7 +269,6 @@
     <Compile Include="Models\EditModels\PlantCreateEditModel.cs" />
     <Compile Include="Models\EditModels\PlantUpdateEditModel.cs" />
     <Compile Include="Models\ViewModels\ListViewModel.cs" />
-    <Compile Include="Areas\Security\Models\AccountModels.cs" />
     <Compile Include="Models\ViewModels\PlantNewViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantStockTransactionEditViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantEditViewModel.cs" />
@@ -268,6 +281,12 @@
     <Content Include="App_Data\aspnetdb_log.ldf">
       <DependentUpon>ASPNETDB.MDF</DependentUpon>
     </Content>
+    <Content Include="Areas\Security\Views\Account\ChangePassword.cshtml" />
+    <Content Include="Areas\Security\Views\Account\ChangePasswordSuccess.cshtml" />
+    <Content Include="Areas\Security\Views\Account\LogOn.cshtml" />
+    <Content Include="Areas\Security\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Security\Views\Shared\RenderLogOnControl.cshtml" />
+    <Content Include="Areas\Security\Views\Web.config" />
     <Content Include="Content\arrow_down.png" />
     <Content Include="Content\arrow_up.png" />
     <Content Include="Content\cancel.png" />
@@ -292,11 +311,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Areas\Security\Views\Account\ChangePassword.cshtml" />
-    <Content Include="Areas\Security\Views\Account\ChangePasswordSuccess.cshtml" />
-    <Content Include="Areas\Security\Views\Account\LogOn.cshtml" />
-    <Content Include="Areas\Security\Views\Account\Register.cshtml" />
-    <Content Include="Areas\Security\Views\Web.config" />
     <None Include="CodeTemplates\AddController\Controller.tt">
       <SubType>Designer</SubType>
     </None>
@@ -314,7 +328,6 @@
     <None Include="CodeTemplates\AddView\CSHTML\Details.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\Empty.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\List.tt" />
-    <Content Include="Areas\Security\Views\Shared\RenderLogOnControl.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\PlantStock\Delete.cshtml" />
@@ -366,6 +379,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="package-lock.json" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -382,10 +401,6 @@
     <ProjectReference Include="..\Framework.Web\Framework.Web.csproj">
       <Project>{2acec3d2-cb25-4b0d-a6bc-e224ecd5248e}</Project>
       <Name>Framework.Web</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
-      <Project>{39a4295b-11f9-4b3e-8527-d99fff87e10b}</Project>
-      <Name>Interfaces.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
       <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
