@@ -12,16 +12,15 @@ namespace Framework.DAL.EF
         private readonly Guid _instanceId;
         bool _disposed;
 
+        #region Implement all public constructors needed by PlantDataDbContext
+
         public DataContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
             _instanceId = Guid.NewGuid();
         }
 
-        #region Implement other constructors to fit with ReversePOCO generated PlantDataDbContext class
-        // HACK: Shouldn't need to do this if custom base class option worked properly
-
-        public DataContext(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model)
-            : base(connectionString, model)
+        public DataContext(string nameOrConnectionString, System.Data.Entity.Infrastructure.DbCompiledModel model)
+            : base(nameOrConnectionString, model)
         {
             _instanceId = Guid.NewGuid();
         }
