@@ -38,3 +38,5 @@
   - https://stackoverflow.com/questions/11685319/c-inheriting-one-interface-to-another-that-will-act-as-a-wcf-interface
 ## EF UnitOfWork patterns
   - https://lostechies.com/derekgreer/2015/11/01/survey-of-entity-framework-unit-of-work-patterns/
+## AutoMapper
+  - http://docs.automapper.org/en/stable/Getting-started.html
