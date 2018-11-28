@@ -38,6 +38,7 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -58,9 +59,9 @@
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Configuration\PlantData.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Configuration\PlantStockConfiguration.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
@@ -96,6 +97,14 @@
     <Compile Include="Context\PlantDataDbContext.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Context\PlantDataDbContextFactory.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\PlantData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EntityDerivedClasses.cs" />
     <Compile Include="Models\Genus.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
@@ -107,9 +116,9 @@
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlantData.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlantStock.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
@@ -138,11 +147,6 @@
     <Compile Include="Interfaces\IPlantDataDbContext.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\PlantData.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -160,11 +164,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PlantData.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\PlantData.tt">
+    <Content Include="Interfaces\PlantData.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PlantData.cs</LastGenOutput>
     </Content>
-    <Content Include="Interfaces\PlantData.tt">
+    <Content Include="Models\PlantData.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PlantData.cs</LastGenOutput>
     </Content>
