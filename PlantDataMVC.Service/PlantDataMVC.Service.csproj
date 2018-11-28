@@ -78,6 +78,7 @@
     <Compile Include="ServiceContracts\IPlantSeedDataService.cs" />
     <Compile Include="ServiceContracts\IPlantDataService.cs" />
     <Compile Include="SimpleServiceLayer\PlantDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantDataServiceAlt.cs" />
     <Compile Include="SimpleServiceLayer\PlantProductTypeDataService.cs" />
     <Compile Include="SimpleServiceLayer\PlantSeedDataService.cs" />
     <Compile Include="SimpleServiceLayer\PlantSeedSiteDataService.cs" />

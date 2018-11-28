@@ -55,9 +55,6 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // handle errors from responses
         }
 
-
-
-
         protected override Plant SelectItem(IUnitOfWorkAsync uow, int id)
         {
             _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Logging;
 using Framework.Service;
 using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Domain.Entities;
@@ -11,13 +12,20 @@ using System.Linq;
 
 namespace PlantDataMVC.Service.SimpleServiceLayer
 {
-    public class PlantDataServiceOld : DataServiceBase<Plant>, IPlantDataService
+    /// <summary>
+    /// Alternate version that currently works for genus and species creation
+    /// by using a second SaveChanges call
+    /// </summary>
+    public class PlantDataServiceAlt : DataServiceBase<Plant>, IPlantDataService
     {
-        public PlantDataServiceOld(IUnitOfWorkAsync uow)
+        private static readonly ILog _log = LogManager.GetLogger<PlantDataServiceAlt>();
+
+        public PlantDataServiceAlt(IUnitOfWorkAsync uow)
             : base(uow)
         {
         }
 
+        #region DataServiceBase overrides
         /// <summary>
         /// Service method to create a new plant item
         /// (i.e. a genus-species definition, not an individual plant) 
@@ -26,6 +34,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         /// <returns></returns>
         protected override Plant CreateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             // get genus
             Genus requiredGenus = GetGenus(uow, requestItem);
 
@@ -44,62 +54,6 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
             // handle errors from responses
         }
-
-
-        public Genus GetGenus(IUnitOfWorkAsync uow, Plant requestItem)
-        {
-            // search in list by name
-            Genus requiredGenus = uow.Repository<Genus>().GetItemByLatinName(requestItem.GenericName);
-
-            return requiredGenus;
-        }
-
-        public Genus CreateGenus(IUnitOfWorkAsync uow, Plant requestItem)
-        {
-            // map plant to genus
-            Genus requestGenus = Mapper.Map<Plant, Genus>(requestItem);
-
-            // add genus
-            Genus requiredGenus = uow.Repository<Genus>().Add(requestGenus);
-
-            // HACK: testing if this helps with non-existent genus id prob (not a good fix though)
-            uow.SaveChanges();
-
-            return requiredGenus;
-        }
-
-        private Species CreateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
-        {
-            // map plant to species
-            Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
-
-            // add genus id (and latin name?)
-            // TODO: At this stage, Genus.Id is not yet set by DB
-            requestSpecies.GenusId = parentGenus.Id;
-            //requestSpecies.GenusLatinName = parentGenus.LatinName;
-
-            // create species
-            Species requiredSpecies = uow.Repository<Species>().Add(requestSpecies);
-
-            return requiredSpecies;
-        }
-
-        private Species UpdateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
-        {
-            // map plant to species
-            Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
-
-            // add genus id (and latin name?)
-            requestSpecies.GenusId = parentGenus.Id;
-            //requestSpecies.GenusLatinName = parentGenus.LatinName;
-
-            // create species
-            Species savedSpecies = uow.Repository<Species>().Save(requestSpecies);
-
-            return savedSpecies;
-        }
-
-
 
         protected override Plant SelectItem(IUnitOfWorkAsync uow, int id)
         {
@@ -122,6 +76,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override Plant UpdateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             // get genus
             Genus requiredGenus = GetGenus(uow, requestItem);
 
@@ -142,6 +98,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override void DeleteItem(IUnitOfWorkAsync uow, int id)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             if (id <= 0)
             {
                 throw new ArgumentOutOfRangeException("id");
@@ -156,6 +114,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override IList<Plant> ListItems(IUnitOfWorkAsync uow)
         {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
             //var context = uow.Repository<Species>().Queryable();
             //// TODO: This projection fails on use of GenericName and Binomial calculated properties.
             //var itemQuery = context.ProjectTo<Plant>().OrderBy(p => p.Binomial);
@@ -167,5 +127,69 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
             return items;
         }
+        #endregion
+
+        #region Local methods 
+        public Genus GetGenus(IUnitOfWorkAsync uow, Plant requestItem)
+        {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
+            // search in list by name
+            Genus requiredGenus = uow.Repository<Genus>().GetItemByLatinName(requestItem.GenericName);
+
+            return requiredGenus;
+        }
+
+        public Genus CreateGenus(IUnitOfWorkAsync uow, Plant requestItem)
+        {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
+            // map plant to genus
+            Genus requestGenus = Mapper.Map<Plant, Genus>(requestItem);
+
+            // add genus
+            Genus requiredGenus = uow.Repository<Genus>().Add(requestGenus);
+
+            // HACK: testing if this helps with non-existent genus id prob (not a good fix though)
+            uow.SaveChanges();
+
+            return requiredGenus;
+        }
+
+        private Species CreateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
+        {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
+            // map plant to species
+            Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
+
+            // add genus id (and latin name?)
+            // TODO: At this stage, Genus.Id is not yet set by DB
+            requestSpecies.GenusId = parentGenus.Id;
+            //requestSpecies.GenusLatinName = parentGenus.LatinName;
+
+            // create species
+            Species requiredSpecies = uow.Repository<Species>().Add(requestSpecies);
+
+            return requiredSpecies;
+        }
+
+        private Species UpdateSpecies(IUnitOfWorkAsync uow, Plant requestItem, Genus parentGenus)
+        {
+            _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
+
+            // map plant to species
+            Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
+
+            // add genus id (and latin name?)
+            requestSpecies.GenusId = parentGenus.Id;
+            //requestSpecies.GenusLatinName = parentGenus.LatinName;
+
+            // create species
+            Species savedSpecies = uow.Repository<Species>().Save(requestSpecies);
+
+            return savedSpecies;
+        }
     }
+    #endregion
 }

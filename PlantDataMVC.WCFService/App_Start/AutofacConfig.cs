@@ -38,7 +38,8 @@ namespace PlantDataMVC.WCFService
 
             // Required service is now IPlantDataService instead of IDataServiceBase<Plant>
             // Register specific services for now
-            builder.RegisterType<PlantDataService>().As<IPlantDataService>();
+            builder.RegisterType<PlantDataServiceAlt>().As<IPlantDataService>();
+            //builder.RegisterType<PlantDataService>().As<IPlantDataService>();
             builder.RegisterType<PlantProductTypeDataService>().As<IPlantProductTypeDataService>();
             builder.RegisterType<PlantSeedDataService>().As<IPlantSeedDataService>();
             builder.RegisterType<PlantSeedSiteDataService>().As<IPlantSeedSiteDataService>();
