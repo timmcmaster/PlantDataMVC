@@ -4,6 +4,9 @@ using System.Data.Entity;
 
 namespace Framework.DAL.EF
 {
+    /// <summary>
+    /// Provides conversions between generic ObjectState values and EF-specific EntityStaet values 
+    /// </summary>
     public class StateHelper
     {
         /// <summary>

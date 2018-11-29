@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
 using System;
 
 namespace PlantDataMVC.Domain.Mappers
@@ -9,8 +8,6 @@ namespace PlantDataMVC.Domain.Mappers
         public static Action<IMapperConfigurationExpression> ConfigAction 
             = new Action<IMapperConfigurationExpression>(cfg =>
         {
-            //cfg.AddProfile<DALToDomainMappingProfile>();
-            //cfg.AddProfile<DomainToDALMappingProfile>();
             cfg.AddProfile<EFDALToDomainMappingProfile>();
             cfg.AddProfile<EFDomainToDALMappingProfile>();
         });
@@ -26,4 +23,5 @@ namespace PlantDataMVC.Domain.Mappers
         }
     }
 
+   
 }

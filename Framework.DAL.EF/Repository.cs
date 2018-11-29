@@ -11,13 +11,10 @@ using System.Linq.Expressions;
 namespace Framework.DAL.EF
 {
     /// <summary>
-    /// The base class for a repository in the EF.Repositories space.
+    /// The base class for a repository.
     /// All public methods are implemented in terms of Entity-derived classes (i.e. non-framework specific).
-    /// This class uses the mapper to map the repository object from a Entity to an EntityObject. 
-    /// It then calls the relevant datahandler CRUD operation which is implemented in terms of EntityObject-derived classes.
     /// </summary>
     /// <typeparam name="TEntity">The external Entity-derived type.</typeparam>
-    /// <typeparam name="T">The internal EntityObject-derived type.</typeparam>
     public class Repository<TEntity> : IRepositoryAsync<TEntity>
         where TEntity : class, IEntity 
     {

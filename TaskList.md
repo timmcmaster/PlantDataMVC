@@ -8,7 +8,7 @@
 - [ ] Use Automapper Projections rather than Map in DAL to Domain mapping (lists only)
     - done other than a couple of cases with calculated properties
     - https://lostechies.com/jimmybogard/2014/03/11/efficient-querying-with-linq-automapper-and-future-queries/
-    - https://github.com/AutoMapper/AutoMapper/wiki/Queryable-Extensions
+    - http://docs.automapper.org/en/stable/Queryable-Extensions.html
     - http://docs.automapper.org/en/stable/Getting-started.html
     - https://lostechies.com/jimmybogard/2011/02/09/autoprojecting-linq-queries/
     - http://www.devtrends.co.uk/blog/stop-using-automapper-in-your-data-access-code
