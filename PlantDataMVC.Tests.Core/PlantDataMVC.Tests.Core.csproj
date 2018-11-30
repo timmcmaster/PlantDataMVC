@@ -125,12 +125,21 @@
   <ItemGroup>
     <Compile Include="DomainToDALMappingFacts.cs" />
     <Compile Include="CoreMappingFixture.cs" />
+    <Compile Include="PlantDataServiceFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
       <Project>{fb582d72-f66a-4153-bb91-a4f339ed1795}</Project>
       <Name>Framework.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
+      <Project>{96FD9436-DE5C-432A-94CB-CE5E63EE2405}</Project>
+      <Name>Interfaces.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
+      <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>
+      <Name>Interfaces.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
       <Project>{157d351c-8da8-4a9b-b66d-20e4f49eb201}</Project>
@@ -158,6 +167,9 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IntegrationTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

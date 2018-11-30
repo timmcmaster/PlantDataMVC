@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using PlantDataMVC.Domain.Entities;
-using Framework.Service.ServiceLayer;
+using Interfaces.DAL;
 using PlantDataMVC.Service.SimpleServiceLayer;
 using Rhino.Mocks;
 using UnitTest.Utils.TestData;
 using Xunit;
-using Framework.DAL.UnitOfWork;
+using Interfaces.DAL.UnitOfWork;
 
-namespace PlantDataMvc3.Tests.Core
+namespace PlantDataMVC.Tests.Core
 {
     public class PlantDataServiceFacts: IClassFixture<CoreMappingFixture>
     {
@@ -25,7 +25,7 @@ namespace PlantDataMvc3.Tests.Core
         {
             // Arrange
             var uow = MockRepository.GenerateStub<IUnitOfWorkAsync>();
-            var gdao = MockRepository.GenerateStub<IGenusRepository>();
+            var gdao = MockRepository.GenerateStub<IRepositoryAsync<Genus>();
             var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
 
             var plant = DomainTestData.GenerateRandomPlant();
