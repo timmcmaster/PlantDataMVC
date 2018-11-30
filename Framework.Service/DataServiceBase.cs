@@ -17,6 +17,7 @@ namespace Framework.Service
             this.UnitOfWork = unitOfWork;
         }
 
+        #region IDataServiceBase implementation
         public virtual ICreateResponse<T> Create(ICreateRequest<T> request)
         {
             using (var uow = this.UnitOfWork)
@@ -85,11 +86,47 @@ namespace Framework.Service
                 return new ListResponse<T>(itemList);
             }
         }
+        #endregion
 
+        /// <summary>
+        /// Creates the item against the unit of work.
+        /// Implementations need to handle saving changes against the unit of work.
+        /// </summary>
+        /// <param name="uow">The unit of work.</param>
+        /// <param name="requestItem">The request item.</param>
+        /// <returns></returns>
         protected abstract T CreateItem(IUnitOfWorkAsync uow, T requestItem);
+
+        /// <summary>
+        /// Selects the item.
+        /// </summary>
+        /// <param name="uow">The unit of work.</param>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         protected abstract T SelectItem(IUnitOfWorkAsync uow, int id);
+
+        /// <summary>
+        /// Updates the item passed in against the unit of work.
+        /// Implementations need to handle saving changes against the unit of work.
+        /// </summary>
+        /// <param name="uow">The unit of work.</param>
+        /// <param name="requestItem">The request item.</param>
+        /// <returns></returns>
         protected abstract T UpdateItem(IUnitOfWorkAsync uow, T requestItem);
+
+        /// <summary>
+        /// Deletes the item with given id against the unit of work.
+        /// Implementations need to handle saving changes against the unit of work.
+        /// </summary>
+        /// <param name="uow">The unit of work.</param>
+        /// <param name="id">The identifier.</param>
         protected abstract void DeleteItem(IUnitOfWorkAsync uow, int id);
+
+        /// <summary>
+        /// Lists the items.
+        /// </summary>
+        /// <param name="uow">The unit of work.</param>
+        /// <returns>A list of type <typeparamref name="T"/></returns>
         protected abstract IList<T> ListItems(IUnitOfWorkAsync uow);
     }
 }

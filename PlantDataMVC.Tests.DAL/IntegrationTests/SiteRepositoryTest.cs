@@ -5,11 +5,74 @@ using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
 using System.Data.Entity.Validation;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace PlantDataMVC.Tests.DAL.IntegrationTests
 {
     public class SiteRepositoryTest
     {
+        private readonly ITestOutputHelper _output;
+
+        public SiteRepositoryTest(ITestOutputHelper output)
+        {
+            this._output = output;
+        }
+
+        [Fact]
+        public void CanCreateSiteAndReturnIdentity_withsavechanges()
+        {
+            using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+            {
+                // Arrange
+                var requestSite = new Site()
+                {
+                    SiteName = "Test Site 2",
+                    Suburb = "Kangaroo Valley",
+                    Latitude = 121.00m,
+                    Longitude = 44.00m
+                };
+                var repository = uow.Repository<Site>();
+
+                // Act
+                var returnedSite = repository.Add(requestSite);
+                uow.SaveChanges();
+
+                // Assert
+                Assert.NotNull(returnedSite);
+                Assert.NotEqual(0, returnedSite.Id);
+                _output.WriteLine("returnedSite.Id: {0}", returnedSite.Id);
+
+            }
+        }
+
+        //[Fact]
+        //public void CanCreateSiteAndReturnIdentity_retrieveonly()
+        //{
+        //    using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
+        //    using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+        //    {
+        //        // Arrange
+        //        var requestSite = new Site()
+        //        {
+        //            SiteName = "Test Site 1",
+        //            Suburb = "Fortitude Valley",
+        //            Latitude = 123.00m,
+        //            Longitude = 45.00m
+        //        };
+        //        var repository = uow.Repository<Site>();
+
+        //        // Act
+        //        var returnedSite = repository.Add(requestSite);
+        //        uow.SaveChanges();
+
+
+        //        // Assert
+        //        Assert.NotNull(returnedSite);
+        //        Assert.NotEqual(0, returnedSite.Id);
+        //    }
+        //}
+
         [Fact]
         public void CanUpdateSiteAndGetBackSameWithSameContext()
         {

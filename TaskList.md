@@ -19,6 +19,7 @@
 - [X] Fix repositories (again)
 	- https://www.cuttingedge.it/blogs/steven/pivot/entry.php?id=84
 - [X] Add Common.Logging, NLog & EF interceptor logging to WCF project to allow tracing SQL for EF
+- [ ] Move uow.SaveChanges in repositories, so that it is called before object is mapped back to domain
 - [ ] Fix plantDataService creation issue (creating parent and child objects with Pk/FK, without save)
     - https://stackoverflow.com/questions/15708101/how-to-insert-with-foreign-key-that-doesnt-exist-yet-in-entity-framework
 - [ ] Better understanding of CSS scope and hierarchy
