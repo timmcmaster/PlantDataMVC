@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using PlantDataMVC.Domain.Entities;
-using Interfaces.DAL;
+using Interfaces.DAL.Repository;
 using PlantDataMVC.Service.SimpleServiceLayer;
 using Rhino.Mocks;
 using UnitTest.Utils.TestData;
 using Xunit;
 using Interfaces.DAL.UnitOfWork;
+using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.Tests.Core
 {
     public class PlantDataServiceFacts: IClassFixture<CoreMappingFixture>
     {
-        CoreMappingFixture m_data;
-
-        public PlantDataServiceFacts(CoreMappingFixture data)
+        public PlantDataServiceFacts()
         {
-            this.m_data = data;
-            this.m_data.Configure();
         }
 
         [Fact]
@@ -32,7 +29,7 @@ namespace PlantDataMVC.Tests.Core
 
             // create genus with random Id, but set expected data
             var genus = DALTestData.GenerateRandomGenus();
-            genus.LatinName = plant.GenusLatinName;
+            genus.LatinName = plant.GenericName;
 
             uow.Stub(x => x.GenusRepository).Return(gdao);
             uow.Stub(x => x.SpeciesRepository).Return(sdao);
