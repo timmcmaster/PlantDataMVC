@@ -1,29 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using PlantDataMVC.Domain.Entities;
+﻿using Framework.Service.Entities;
 using Interfaces.DAL.Repository;
+using Interfaces.DAL.UnitOfWork;
+using Moq;
+using PlantDataMVC.Domain.Entities;
+using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Repository.Repositories;
 using PlantDataMVC.Service.SimpleServiceLayer;
-using Rhino.Mocks;
+using System;
 using UnitTest.Utils.TestData;
 using Xunit;
-using Interfaces.DAL.UnitOfWork;
-using PlantDataMVC.Entities.Models;
+using Xunit.Abstractions;
 
 namespace PlantDataMVC.Tests.Core
 {
-    public class PlantDataServiceFacts: IClassFixture<CoreMappingFixture>
+    public class PlantDataServiceFacts : IClassFixture<CoreMappingFixture>
     {
-        public PlantDataServiceFacts()
+        private readonly ITestOutputHelper _output;
+
+        public PlantDataServiceFacts(ITestOutputHelper output)
         {
+            this._output = output;
         }
 
         [Fact]
-        public void TestGetGenusWhereLatinNameExists()
+        public void TestRetrieveGenusWhereLatinNameExists()
         {
             // Arrange
-            var uow = MockRepository.GenerateStub<IUnitOfWorkAsync>();
-            var gdao = MockRepository.GenerateStub<IRepositoryAsync<Genus>();
-            var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
+            var repo = new MockRepository(MockBehavior.Loose);
+
+            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
+            var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
+            var gqMockWrapper = repo.Create<IGenusQueries>();
+            var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
 
             var plant = DomainTestData.GenerateRandomPlant();
 
@@ -31,460 +39,542 @@ namespace PlantDataMVC.Tests.Core
             var genus = DALTestData.GenerateRandomGenus();
             genus.LatinName = plant.GenericName;
 
-            uow.Stub(x => x.GenusRepository).Return(gdao);
-            uow.Stub(x => x.SpeciesRepository).Return(sdao);
-            gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(genus);
+            uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
+            uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
+
+            gqMockWrapper.Setup(gq => gq.GetItemByLatinName(genus.LatinName)).Returns(genus);
+            GenusRepository2.GenusQueriesFactory = st => gqMockWrapper.Object;
+
 
             // Act
-            var target = new PlantDataService(mgr);
-            var result = target.GetGenus(mgr.GetUnitOfWork(), plant);
+            var target = new PlantDataService(uowMockWrapper.Object);
+            var result = target.RetrieveGenus(uowMockWrapper.Object, plant);
 
             // Assert
             Assert.NotNull(result);
-            Console.WriteLine("Properties for result");
-            UnitTest.Utils.Print.PrintTypeAndProperties(result);
+            _output.WriteLine("Properties for result");
+            UnitTest.Utils.Print.PrintTypeAndProperties(_output, result);
 
-            uow.VerifyAllExpectations();
-            gdao.VerifyAllExpectations();
-            sdao.VerifyAllExpectations();
+            uowMockWrapper.Verify();
+            grMockWrapper.Verify();
+            srMockWrapper.Verify();
+
             Assert.Equal(genus.Id, result.Id);
             Assert.Equal(genus.LatinName, result.LatinName);
         }
 
+        //[Fact]
+        //public void TestRetrieveGenusWhereLatinNameExists()
+        //{
+        //    // Arrange
+        //    var uow = MockRepository.GenerateStub<IUnitOfWorkAsync>();
+        //    var gdao = MockRepository.GenerateStub<IGenusRepository>();
+        //    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
+
+        //    var plant = DomainTestData.GenerateRandomPlant();
+
+        //    // create genus with random Id, but set expected data
+        //    var genus = DALTestData.GenerateRandomGenus();
+        //    genus.LatinName = plant.GenusLatinName;
+
+        //    uow.Stub(x => x.GenusRepository).Return(gdao);
+        //    uow.Stub(x => x.SpeciesRepository).Return(sdao);
+        //    gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(genus);
+
+        //    // Act
+        //    var target = new PlantDataService(mgr);
+        //    var result = target.GetGenus(mgr.GetUnitOfWork(), plant);
+
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Console.WriteLine("Properties for result");
+        //    UnitTest.Utils.Print.PrintTypeAndProperties(result);
+
+        //    uow.VerifyAllExpectations();
+        //    gdao.VerifyAllExpectations();
+        //    sdao.VerifyAllExpectations();
+        //    Assert.Equal(genus.Id, result.Id);
+        //    Assert.Equal(genus.LatinName, result.LatinName);
+        //}
+
         [Fact]
-        public void TestGetGenusWhereLatinNameDoesNotExist()
+        public void TestRetrieveGenusWhereLatinNameDoesNotExist()
         {
             // Arrange
-            var uow = MockRepository.GenerateStub<IUnitOfWork>();
-            var gdao = MockRepository.GenerateStub<IGenusRepository>();
-            var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
+            var repo = new MockRepository(MockBehavior.Loose);
+
+            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
+            var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
+            var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
 
             var plant = DomainTestData.GenerateRandomPlant();
 
-            var genusLatinName = plant.GenusLatinName;
+            var genusLatinName = plant.GenericName;
 
-            uow.Stub(x => x.GenusRepository).Return(gdao);
-            uow.Stub(x => x.SpeciesRepository).Return(sdao);
-            gdao.Stub(x => x.GetItemByLatinName(genusLatinName)).Return(null);
+            uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
+            uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
+            grMockWrapper.Setup(gr => gr.GenusQueries().GetItemByLatinName(genusLatinName)).Returns<Genus>(null);
+
 
             // Act
-            var target = new PlantDataService(mgr);
-            var result = target.GetGenus(mgr.GetUnitOfWork(), plant);
+            var target = new PlantDataService(uowMockWrapper.Object);
+            var result = target.RetrieveGenus(uowMockWrapper.Object, plant);
 
             // Assert
-            gdao.VerifyAllExpectations();
-            sdao.VerifyAllExpectations();
+            Assert.NotNull(result);
+            _output.WriteLine("Properties for result");
+            UnitTest.Utils.Print.PrintTypeAndProperties(_output, result);
+
+            uowMockWrapper.Verify();
+            grMockWrapper.Verify();
+            srMockWrapper.Verify();
+
             Assert.Null(result);
         }
 
-        [Fact]
-        public void TestCreateGenus()
-        {
-            // Arrange
-            var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-            var uow = MockRepository.GenerateStub<IUnitOfWork>();
-            var gdao = MockRepository.GenerateStub<IGenusRepository>();
-            var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
+        //[Fact]
+        //public void TestGetGenusWhereLatinNameDoesNotExist()
+        //{
+        //    // Arrange
+        //    var uow = MockRepository.GenerateStub<IUnitOfWork>();
+        //    var gdao = MockRepository.GenerateStub<IGenusRepository>();
+        //    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
 
-            var plant = DomainTestData.GenerateRandomPlant();
+        //    var plant = DomainTestData.GenerateRandomPlant();
 
-            // create genus with random Id, but set expected data
-            var genusOut = DALTestData.GenerateRandomGenus();
-            genusOut.LatinName = plant.GenusLatinName;
+        //    var genusLatinName = plant.GenusLatinName;
 
-            var genusIn = new Genus()
-                {
-                    Id = 0,
-                    LatinName = genusOut.LatinName
-                };
+        //    uow.Stub(x => x.GenusRepository).Return(gdao);
+        //    uow.Stub(x => x.SpeciesRepository).Return(sdao);
+        //    gdao.Stub(x => x.GetItemByLatinName(genusLatinName)).Return(null);
 
-            mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-            uow.Stub(x => x.GenusRepository).Return(gdao);
-            uow.Stub(x => x.SpeciesRepository).Return(sdao);
-            gdao.Stub(x => x.Add(genusIn)).IgnoreArguments().Return(genusOut);
+        //    // Act
+        //    var target = new PlantDataService(mgr);
+        //    var result = target.GetGenus(mgr.GetUnitOfWork(), plant);
 
-            // Act
-            var target = new PlantDataService(mgr);
-            var result = target.CreateGenus(mgr.GetUnitOfWork(), plant);
+        //    // Assert
+        //    gdao.VerifyAllExpectations();
+        //    sdao.VerifyAllExpectations();
+        //    Assert.Null(result);
+        //}
 
-            // Assert
-            gdao.VerifyAllExpectations();
-            sdao.VerifyAllExpectations();
-            Assert.Equal(genusOut.Id, result.Id);
-            Assert.Equal(genusOut.LatinName, result.LatinName);
-        }
+        //[Fact]
+        //public void TestCreateGenus()
+        //{
+        //    // Arrange
+        //    var repo = new MockRepository(MockBehavior.Loose);
+
+        //    var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
+        //    var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
+        //    var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
+
+
+        //    var plant = DomainTestData.GenerateRandomPlant();
+
+        //    // create genus with random Id, but set expected data
+        //    var genusOut = DALTestData.GenerateRandomGenus();
+        //    genusOut.LatinName = plant.GenericName;
+
+
+        //    uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
+        //    uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
+        //    grMockWrapper.Setup(gr => gr.Add(It.IsAny<Genus>())).Returns(genusOut);
+
+        //    // Act
+        //    var target = new PlantDataService(uowMockWrapper.Object);
+        //    var result = target.CreateGenus(uowMockWrapper.Object, plant);
+
+        //    // Assert
+        //    gdao.VerifyAllExpectations();
+        //    sdao.VerifyAllExpectations();
+        //    Assert.Equal(genusOut.Id, result.Id);
+        //    Assert.Equal(genusOut.LatinName, result.LatinName);
+        //}
 
         [Fact]
         public void TestCreateWhereGenusLatinNameExists()
         {
             // Arrange
-            var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-            var uow = MockRepository.GenerateStub<IUnitOfWork>();
-            var gdao = MockRepository.GenerateStub<IGenusRepository>();
-            var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
-            
+            var repo = new MockRepository(MockBehavior.Loose);
+
+            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
+            var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
+            var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
+            var gqMockWrapper = repo.Create<IGenusQueries>();
+
+            // Create random plant, and set expected data
             var plant = DomainTestData.GenerateRandomPlant();
             plant.Id = 0;
-            var request = new CreateRequest<Plant>(plant);
 
             // create random genus, but set expected data
             var genus = DALTestData.GenerateRandomGenus();
-            genus.LatinName = plant.GenusLatinName;
-
-            mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-            uow.Stub(x => x.GenusRepository).Return(gdao);
-            uow.Stub(x => x.SpeciesRepository).Return(sdao);
-            gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(genus);
+            genus.LatinName = plant.GenericName;
 
             // create random species, but set expected data
             var species = DALTestData.GenerateRandomSpecies();
+            species.Genus = genus;
             species.CommonName = plant.CommonName;
             species.Description = plant.Description;
-            species.LatinName = plant.SpeciesLatinName;
+            species.SpecificName = plant.SpecificName;
             species.Native = plant.Native;
             species.PropagationTime = plant.PropagationTime;
 
+            // create species to return based on previous data
             var returnSpecies = new Species()
+            {
+                GenusId = genus.Id,
+                Id = species.Id,
+                CommonName = species.CommonName,
+                Description = species.Description,
+                SpecificName = species.SpecificName,
+                Native = species.Native,
+                PropagationTime = species.PropagationTime
+            };
+
+            // setup mocks with this data
+            gqMockWrapper.Setup(gq => gq.GetItemByLatinName(genus.LatinName)).Returns(genus);
+            GenusRepository2.GenusQueriesFactory = st => gqMockWrapper.Object;
+
+            srMockWrapper.Setup(x => x.Add(species)).Returns(returnSpecies);
+            
+            uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
+            uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
+
+
+            var request = new CreateRequest<Plant>(plant);
+
+
+
+
+            // Act
+            var target = new PlantDataService(uowMockWrapper.Object);
+            var result = target.Create(request);
+
+            // Assert
+            grMockWrapper.Verify();
+            srMockWrapper.Verify();
+            Assert.Equal(request.Item.CommonName, result.Item.CommonName);
+            Assert.Equal(request.Item.Description, result.Item.Description);
+            Assert.Equal(request.Item.SpecificName, result.Item.SpecificName);
+            Assert.Equal(request.Item.Native, result.Item.Native);
+            Assert.Equal(request.Item.PropagationTime, result.Item.PropagationTime);
+        }
+
+        /*
+                [Fact]
+                public void TestCreateWhereGenusLatinNameDoesNotExist()
                 {
-                    GenusId = genus.Id,
-                    GenusLatinName = genus.LatinName,
-                    Id = species.Id,
-                    CommonName = species.CommonName,
-                    Description = species.Description,
-                    LatinName = species.LatinName,
-                    Native = species.Native,
-                    PropagationTime = species.PropagationTime
-                };
+                    // Arrange
+                    var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
+                    var uow = MockRepository.GenerateStub<IUnitOfWork>();
+                    var gdao = MockRepository.GenerateStub<IGenusRepository>();
+                    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
 
-            sdao.Stub(x => x.Add(species)).IgnoreArguments().Return(returnSpecies);
+                    var plant = DomainTestData.GenerateRandomPlant();
+                    plant.Id = 0;
+                    var request = new CreateRequest<Plant>(plant);
 
-            // Act
-            var target = new PlantDataService(mgr);
-            var result = target.Create(request);
-           
-            // Assert
-            gdao.VerifyAllExpectations();
-            sdao.VerifyAllExpectations();
-            Assert.Equal(request.Item.CommonName, result.Item.CommonName);
-            Assert.Equal(request.Item.Description, result.Item.Description);
-            Assert.Equal(request.Item.LatinName, result.Item.LatinName);
-            Assert.Equal(request.Item.Native, result.Item.Native);
-            Assert.Equal(request.Item.PropagationTime, result.Item.PropagationTime);
-        }
+                    var genus = new Genus()
+                    {
+                        Id = 0,
+                        LatinName = plant.GenusLatinName
+                    };
 
-        [Fact]
-        public void TestCreateWhereGenusLatinNameDoesNotExist()
-        {
-            // Arrange
-            var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-            var uow = MockRepository.GenerateStub<IUnitOfWork>();
-            var gdao = MockRepository.GenerateStub<IGenusRepository>();
-            var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
+                    // create random genus, but set expected data
+                    var returnGenus = DALTestData.GenerateRandomGenus();
+                    returnGenus.LatinName = genus.LatinName;
 
-            var plant = DomainTestData.GenerateRandomPlant();
-            plant.Id = 0;
-            var request = new CreateRequest<Plant>(plant);
+                    mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
+                    uow.Stub(x => x.GenusRepository).Return(gdao);
+                    uow.Stub(x => x.SpeciesRepository).Return(sdao);
+                    gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(null);
+                    gdao.Stub(x => x.Add(genus)).IgnoreArguments().Return(returnGenus);
 
-            var genus = new Genus()
-            {
-                Id = 0,
-                LatinName = plant.GenusLatinName
-            };
+                    // create random species, but set expected data
+                    var species = DALTestData.GenerateRandomSpecies();
+                    species.CommonName = plant.CommonName;
+                    species.Description = plant.Description;
+                    species.LatinName = plant.SpeciesLatinName;
+                    species.Native = plant.Native;
+                    species.PropagationTime = plant.PropagationTime;
 
-            // create random genus, but set expected data
-            var returnGenus = DALTestData.GenerateRandomGenus();
-            returnGenus.LatinName = genus.LatinName;
+                    var returnSpecies = new Species()
+                    {
+                        GenusId = genus.Id,
+                        GenusLatinName = genus.LatinName,
+                        Id = species.Id,
+                        CommonName = species.CommonName,
+                        Description = species.Description,
+                        LatinName = species.LatinName,
+                        Native = species.Native,
+                        PropagationTime = species.PropagationTime
+                    };
 
-            mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-            uow.Stub(x => x.GenusRepository).Return(gdao);
-            uow.Stub(x => x.SpeciesRepository).Return(sdao);
-            gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(null);
-            gdao.Stub(x => x.Add(genus)).IgnoreArguments().Return(returnGenus);
+                    sdao.Stub(x => x.Add(species)).IgnoreArguments().Return(returnSpecies);
 
-            // create random species, but set expected data
-            var species = DALTestData.GenerateRandomSpecies();
-            species.CommonName = plant.CommonName;
-            species.Description = plant.Description;
-            species.LatinName = plant.SpeciesLatinName;
-            species.Native = plant.Native;
-            species.PropagationTime = plant.PropagationTime;
+                    // Act
+                    var target = new PlantDataService(mgr);
+                    var result = target.Create(request);
 
-            var returnSpecies = new Species()
-            {
-                GenusId = genus.Id,
-                GenusLatinName = genus.LatinName,
-                Id = species.Id,
-                CommonName = species.CommonName,
-                Description = species.Description,
-                LatinName = species.LatinName,
-                Native = species.Native,
-                PropagationTime = species.PropagationTime
-            };
+                    // Assert
+                    gdao.VerifyAllExpectations();
+                    sdao.VerifyAllExpectations();
+                    Assert.Equal(plant.CommonName, result.Item.CommonName);
+                    Assert.Equal(plant.Description, result.Item.Description);
+                    Assert.Equal(plant.LatinName, result.Item.LatinName);
+                    Assert.Equal(plant.Native, result.Item.Native);
+                    Assert.Equal(plant.PropagationTime, result.Item.PropagationTime);
+                }
 
-            sdao.Stub(x => x.Add(species)).IgnoreArguments().Return(returnSpecies);
+                [Fact]
+                public void TestSelect()
+                {
+                    // Arrange
+                    int id = 1;
+                    var request = new ViewRequest<Plant>(id);
 
-            // Act
-            var target = new PlantDataService(mgr);
-            var result = target.Create(request);
+                    var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
+                    var uow = MockRepository.GenerateStub<IUnitOfWork>();
+                    var gdao = MockRepository.GenerateStub<IGenusRepository>();
+                    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
 
-            // Assert
-            gdao.VerifyAllExpectations();
-            sdao.VerifyAllExpectations();
-            Assert.Equal(plant.CommonName, result.Item.CommonName);
-            Assert.Equal(plant.Description, result.Item.Description);
-            Assert.Equal(plant.LatinName, result.Item.LatinName);
-            Assert.Equal(plant.Native, result.Item.Native);
-            Assert.Equal(plant.PropagationTime, result.Item.PropagationTime);
-        }
+                    var species = DALTestData.GenerateRandomSpecies();
+                    species.Id = id;
 
-        [Fact]
-        public void TestSelect()
-        {
-            // Arrange
-            int id = 1;
-            var request = new ViewRequest<Plant>(id);
+                    mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
+                    uow.Stub(x => x.GenusRepository).Return(gdao);
+                    uow.Stub(x => x.SpeciesRepository).Return(sdao);
+                    sdao.Stub(x => x.GetItemById(id)).Return(species);
 
-            var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-            var uow = MockRepository.GenerateStub<IUnitOfWork>();
-            var gdao = MockRepository.GenerateStub<IGenusRepository>();
-            var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
-            
-            var species = DALTestData.GenerateRandomSpecies();
-            species.Id = id;
+                    // Act
+                    var target = new PlantDataService(mgr);
+                    var result = target.View(request);
 
-            mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-            uow.Stub(x => x.GenusRepository).Return(gdao);
-            uow.Stub(x => x.SpeciesRepository).Return(sdao);
-            sdao.Stub(x => x.GetItemById(id)).Return(species);
+                    // Assert
+                    sdao.VerifyAllExpectations();
+                    Assert.Equal(id, result.Item.Id);
+                    Assert.Equal(species.Description, result.Item.Description);
+                    Assert.Equal(species.CommonName, result.Item.CommonName);
+                }
 
-            // Act
-            var target = new PlantDataService(mgr);
-            var result = target.View(request);
+                [Fact]
+                public void TestUpdateWhereGenusLatinNameDoesNotExist()
+                {
+                    // Arrange
+                    var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
+                    var uow = MockRepository.GenerateStub<IUnitOfWork>();
+                    var gdao = MockRepository.GenerateStub<IGenusRepository>();
+                    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
 
-            // Assert
-            sdao.VerifyAllExpectations();
-            Assert.Equal(id, result.Item.Id);
-            Assert.Equal(species.Description, result.Item.Description);
-            Assert.Equal(species.CommonName, result.Item.CommonName);
-        }
+                    var plant = DomainTestData.GenerateRandomPlant();
+                    var request = new UpdateRequest<Plant>(plant);
 
-        [Fact]
-        public void TestUpdateWhereGenusLatinNameDoesNotExist()
-        {
-            // Arrange
-            var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-            var uow = MockRepository.GenerateStub<IUnitOfWork>();
-            var gdao = MockRepository.GenerateStub<IGenusRepository>();
-            var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
+                    var genus = new Genus()
+                    {
+                        Id = 0,
+                        LatinName = plant.GenusLatinName
+                    };
 
-            var plant = DomainTestData.GenerateRandomPlant();
-            var request = new UpdateRequest<Plant>(plant);
+                    // create random genus, but set expected data
+                    var returnGenus = DALTestData.GenerateRandomGenus();
+                    returnGenus.LatinName = genus.LatinName;
 
-            var genus = new Genus()
-            {
-                Id = 0,
-                LatinName = plant.GenusLatinName
-            };
+                    mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
+                    uow.Stub(x => x.GenusRepository).Return(gdao);
+                    uow.Stub(x => x.SpeciesRepository).Return(sdao);
+                    gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(null);
+                    gdao.Stub(x => x.Add(genus)).IgnoreArguments().Return(returnGenus);
 
-            // create random genus, but set expected data
-            var returnGenus = DALTestData.GenerateRandomGenus();
-            returnGenus.LatinName = genus.LatinName;
+                    // create random species, but set expected data
+                    var species = DALTestData.GenerateRandomSpecies();
+                    species.Id = plant.Id;
+                    species.CommonName = plant.CommonName;
+                    species.Description = plant.Description;
+                    species.LatinName = plant.SpeciesLatinName;
+                    species.Native = plant.Native;
+                    species.PropagationTime = plant.PropagationTime;
 
-            mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-            uow.Stub(x => x.GenusRepository).Return(gdao);
-            uow.Stub(x => x.SpeciesRepository).Return(sdao);
-            gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(null);
-            gdao.Stub(x => x.Add(genus)).IgnoreArguments().Return(returnGenus);
+                    var returnSpecies = new Species()
+                    {
+                        GenusId = returnGenus.Id,
+                        GenusLatinName = returnGenus.LatinName,
+                        Id = species.Id,
+                        CommonName = species.CommonName,
+                        Description = species.Description,
+                        LatinName = species.LatinName,
+                        Native = species.Native,
+                        PropagationTime = species.PropagationTime
+                    };
 
-            // create random species, but set expected data
-            var species = DALTestData.GenerateRandomSpecies();
-            species.Id = plant.Id;
-            species.CommonName = plant.CommonName;
-            species.Description = plant.Description;
-            species.LatinName = plant.SpeciesLatinName;
-            species.Native = plant.Native;
-            species.PropagationTime = plant.PropagationTime;
+                    sdao.Stub(x => x.Save(species)).IgnoreArguments().Return(returnSpecies);
 
-            var returnSpecies = new Species()
-            {
-                GenusId = returnGenus.Id,
-                GenusLatinName = returnGenus.LatinName,
-                Id = species.Id,
-                CommonName = species.CommonName,
-                Description = species.Description,
-                LatinName = species.LatinName,
-                Native = species.Native,
-                PropagationTime = species.PropagationTime
-            };
+                    // Act
+                    var target = new PlantDataService(mgr);
+                    var result = target.Update(request);
 
-            sdao.Stub(x => x.Save(species)).IgnoreArguments().Return(returnSpecies);
+                    // Assert
+                    gdao.VerifyAllExpectations();
+                    sdao.VerifyAllExpectations();
+                    Assert.Equal(request.Item.Id, result.Item.Id);
+                    Assert.Equal(request.Item.CommonName, result.Item.CommonName);
+                    Assert.Equal(request.Item.Description, result.Item.Description);
+                    Assert.Equal(request.Item.LatinName, result.Item.LatinName);
+                    Assert.Equal(request.Item.Native, result.Item.Native);
+                    Assert.Equal(request.Item.PropagationTime, result.Item.PropagationTime);
+                }
 
-            // Act
-            var target = new PlantDataService(mgr);
-            var result = target.Update(request);
+                [Fact]
+                public void TestUpdateWhereGenusLatinNameExists()
+                {
+                    // Arrange
+                    var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
+                    var uow = MockRepository.GenerateStub<IUnitOfWork>();
+                    var gdao = MockRepository.GenerateStub<IGenusRepository>();
+                    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
 
-            // Assert
-            gdao.VerifyAllExpectations();
-            sdao.VerifyAllExpectations();
-            Assert.Equal(request.Item.Id, result.Item.Id);
-            Assert.Equal(request.Item.CommonName, result.Item.CommonName);
-            Assert.Equal(request.Item.Description, result.Item.Description);
-            Assert.Equal(request.Item.LatinName, result.Item.LatinName);
-            Assert.Equal(request.Item.Native, result.Item.Native);
-            Assert.Equal(request.Item.PropagationTime, result.Item.PropagationTime);
-        }
+                    var plant = DomainTestData.GenerateRandomPlant();
+                    var request = new UpdateRequest<Plant>(plant);
 
-        [Fact]
-        public void TestUpdateWhereGenusLatinNameExists()
-        {
-            // Arrange
-            var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-            var uow = MockRepository.GenerateStub<IUnitOfWork>();
-            var gdao = MockRepository.GenerateStub<IGenusRepository>();
-            var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
+                    // create random genus, but set expected data
+                    var genus = DALTestData.GenerateRandomGenus();
+                    genus.LatinName = plant.GenusLatinName;
 
-            var plant = DomainTestData.GenerateRandomPlant();
-            var request = new UpdateRequest<Plant>(plant);
+                    mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
+                    uow.Stub(x => x.GenusRepository).Return(gdao);
+                    uow.Stub(x => x.SpeciesRepository).Return(sdao);
+                    gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(genus);
 
-            // create random genus, but set expected data
-            var genus = DALTestData.GenerateRandomGenus();
-            genus.LatinName = plant.GenusLatinName;
+                    // create random species, but set expected data
+                    var species = DALTestData.GenerateRandomSpecies();
+                    species.Id = plant.Id;
+                    species.CommonName = plant.CommonName;
+                    species.Description = plant.Description;
+                    species.LatinName = plant.SpeciesLatinName;
+                    species.Native = plant.Native;
+                    species.PropagationTime = plant.PropagationTime;
 
-            mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-            uow.Stub(x => x.GenusRepository).Return(gdao);
-            uow.Stub(x => x.SpeciesRepository).Return(sdao);
-            gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(genus);
+                    var returnSpecies = new Species()
+                    {
+                        GenusId = genus.Id,
+                        GenusLatinName = genus.LatinName,
+                        Id = species.Id,
+                        CommonName = species.CommonName,
+                        Description = species.Description,
+                        LatinName = species.LatinName,
+                        Native = species.Native,
+                        PropagationTime = species.PropagationTime
+                    };
 
-            // create random species, but set expected data
-            var species = DALTestData.GenerateRandomSpecies();
-            species.Id = plant.Id;
-            species.CommonName = plant.CommonName;
-            species.Description = plant.Description;
-            species.LatinName = plant.SpeciesLatinName;
-            species.Native = plant.Native;
-            species.PropagationTime = plant.PropagationTime;
+                    sdao.Stub(x => x.Save(species)).IgnoreArguments().Return(returnSpecies);
 
-            var returnSpecies = new Species()
-            {
-                GenusId = genus.Id,
-                GenusLatinName = genus.LatinName,
-                Id = species.Id,
-                CommonName = species.CommonName,
-                Description = species.Description,
-                LatinName = species.LatinName,
-                Native = species.Native,
-                PropagationTime = species.PropagationTime
-            };
+                    // Act
+                    var target = new PlantDataService(mgr);
+                    var result = target.Update(request);
 
-            sdao.Stub(x => x.Save(species)).IgnoreArguments().Return(returnSpecies);
-
-            // Act
-            var target = new PlantDataService(mgr);
-            var result = target.Update(request);
-
-            // Assert
-            gdao.VerifyAllExpectations();
-            sdao.VerifyAllExpectations();
-            Assert.Equal(request.Item.Id, result.Item.Id);
-            Assert.Equal(request.Item.CommonName, result.Item.CommonName);
-            Assert.Equal(request.Item.Description, result.Item.Description);
-            Assert.Equal(request.Item.LatinName, result.Item.LatinName);
-            Assert.Equal(request.Item.Native, result.Item.Native);
-            Assert.Equal(request.Item.PropagationTime, result.Item.PropagationTime);
-        }
+                    // Assert
+                    gdao.VerifyAllExpectations();
+                    sdao.VerifyAllExpectations();
+                    Assert.Equal(request.Item.Id, result.Item.Id);
+                    Assert.Equal(request.Item.CommonName, result.Item.CommonName);
+                    Assert.Equal(request.Item.Description, result.Item.Description);
+                    Assert.Equal(request.Item.LatinName, result.Item.LatinName);
+                    Assert.Equal(request.Item.Native, result.Item.Native);
+                    Assert.Equal(request.Item.PropagationTime, result.Item.PropagationTime);
+                }
 
 
-        [Fact]
-        public void TestDelete()
-        {
-            // Arrange
-            int id = 1;
-            var request = new DeleteRequest<Plant>(id);
+                [Fact]
+                public void TestDelete()
+                {
+                    // Arrange
+                    int id = 1;
+                    var request = new DeleteRequest<Plant>(id);
 
-            var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-            var uow = MockRepository.GenerateStub<IUnitOfWork>();
-            var gdao = MockRepository.GenerateStub<IGenusRepository>();
-            var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
+                    var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
+                    var uow = MockRepository.GenerateStub<IUnitOfWork>();
+                    var gdao = MockRepository.GenerateStub<IGenusRepository>();
+                    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
 
-            mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-            uow.Stub(x => x.GenusRepository).Return(gdao);
-            uow.Stub(x => x.SpeciesRepository).Return(sdao);
+                    mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
+                    uow.Stub(x => x.GenusRepository).Return(gdao);
+                    uow.Stub(x => x.SpeciesRepository).Return(sdao);
 
-            var species = new Species();
-            sdao.Stub(x => x.GetItemById(id)).Return(species);
-            sdao.Stub(x => x.Delete(species));
+                    var species = new Species();
+                    sdao.Stub(x => x.GetItemById(id)).Return(species);
+                    sdao.Stub(x => x.Delete(species));
 
-            // Act
-            var target = new PlantDataService(mgr);
-            target.Delete(request);
+                    // Act
+                    var target = new PlantDataService(mgr);
+                    target.Delete(request);
 
-            // Assert
-            sdao.VerifyAllExpectations();
-        }
+                    // Assert
+                    sdao.VerifyAllExpectations();
+                }
 
-        [Fact]
-        public void TestInvalidDelete()
-        {
-            // Arrange
-            int id = 0;
-            var request = new DeleteRequest<Plant>(id);
+                [Fact]
+                public void TestInvalidDelete()
+                {
+                    // Arrange
+                    int id = 0;
+                    var request = new DeleteRequest<Plant>(id);
 
-            var uow = MockRepository.GenerateStub<IUnitOfWork>();
-            var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-            var gdao = MockRepository.GenerateStub<IGenusRepository>();
-            var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
+                    var uow = MockRepository.GenerateStub<IUnitOfWork>();
+                    var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
+                    var gdao = MockRepository.GenerateStub<IGenusRepository>();
+                    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
 
-            mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-            uow.Stub(x => x.GenusRepository).Return(gdao);
-            uow.Stub(x => x.SpeciesRepository).Return(sdao);
-            // Act
-            try
-            {
-                var target = new PlantDataService(mgr);
-                target.Delete(request);
+                    mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
+                    uow.Stub(x => x.GenusRepository).Return(gdao);
+                    uow.Stub(x => x.SpeciesRepository).Return(sdao);
+                    // Act
+                    try
+                    {
+                        var target = new PlantDataService(mgr);
+                        target.Delete(request);
 
-                // Assert
-            }
-            catch (System.ArgumentOutOfRangeException ex)
-            {
-                Assert.NotNull(ex);
-                Assert.Equal("id", ex.ParamName);
-                //dont throw cos its expected
-            }
-      
-        }
+                        // Assert
+                    }
+                    catch (System.ArgumentOutOfRangeException ex)
+                    {
+                        Assert.NotNull(ex);
+                        Assert.Equal("id", ex.ParamName);
+                        //dont throw cos its expected
+                    }
 
-        [Fact]
-        public void TestList()
-        {
-            // Arrange
-            var request = new ListRequest<Plant>();
+                }
 
-            var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-            var uow = MockRepository.GenerateStub<IUnitOfWork>();
-            var gdao = MockRepository.GenerateStub<IGenusRepository>();
-            var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
+                [Fact]
+                public void TestList()
+                {
+                    // Arrange
+                    var request = new ListRequest<Plant>();
 
-            mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-            uow.Stub(x => x.GenusRepository).Return(gdao);
-            uow.Stub(x => x.SpeciesRepository).Return(sdao);
+                    var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
+                    var uow = MockRepository.GenerateStub<IUnitOfWork>();
+                    var gdao = MockRepository.GenerateStub<IGenusRepository>();
+                    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
 
-            var speciesList = new List<Species>();
-            for (int i = 0; i < 10; i++)
-            {
-                speciesList.Add(DALTestData.GenerateRandomSpecies());
-            }
+                    mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
+                    uow.Stub(x => x.GenusRepository).Return(gdao);
+                    uow.Stub(x => x.SpeciesRepository).Return(sdao);
 
-            sdao.Stub(x => x.GetAll()).Return(speciesList);
+                    var speciesList = new List<Species>();
+                    for (int i = 0; i < 10; i++)
+                    {
+                        speciesList.Add(DALTestData.GenerateRandomSpecies());
+                    }
 
-            // Act
-            var target = new PlantDataService(mgr);
-            var result = target.List(request);
+                    sdao.Stub(x => x.GetAll()).Return(speciesList);
 
-            // Assert
-            sdao.VerifyAllExpectations();
-            Assert.Equal(speciesList.Count, result.Items.Count);
-            // check order?
-        }
+                    // Act
+                    var target = new PlantDataService(mgr);
+                    var result = target.List(request);
+
+                    // Assert
+                    sdao.VerifyAllExpectations();
+                    Assert.Equal(speciesList.Count, result.Items.Count);
+                    // check order?
+                }
+            */
     }
 }

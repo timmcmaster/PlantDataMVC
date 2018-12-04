@@ -141,6 +141,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
             // search in list by name
             Genus retrievedGenus = uow.Repository<Genus>().GetItemByLatinName(requestItem.GenericName);
+            //Genus retrievedGenus = uow.Repository<Genus>().GenusQueries().GetItemByLatinName(requestItem.GenericName);
 
             return retrievedGenus;
         }

@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Collections;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace UnitTest.Utils
 {
     public static class Print
     {
-        public static void PrintTypeAndProperties(object obj)
+        public static void PrintTypeAndProperties(ITestOutputHelper output, object obj)
         {
             Type type = obj.GetType();
-            Console.WriteLine("Parent Object Type: {0}", type.ToString());
+            output.WriteLine("Parent Object Type: {0}", type.ToString());
 
             PropertyInfo[] props = type.GetProperties();
 
@@ -20,11 +22,11 @@ namespace UnitTest.Utils
             {
                 if ((p.PropertyType.IsPrimitive) || (p.PropertyType == typeof(String)))
                 {
-                    Console.WriteLine("{0}: {1}", p.Name, p.GetValue(obj, null));
+                    output.WriteLine("{0}: {1}", p.Name, p.GetValue(obj, null));
                 }
                 else
                 {
-                    Console.WriteLine("{0}: {1} Type: {2}", p.Name, "(value unknown)", p.PropertyType.ToString());
+                    output.WriteLine("{0}: {1} Type: {2}", p.Name, "(value unknown)", p.PropertyType.ToString());
                 }
             }
         }
