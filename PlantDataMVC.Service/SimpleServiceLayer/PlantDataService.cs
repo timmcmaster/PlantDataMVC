@@ -140,8 +140,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
 
             // search in list by name
-            Genus retrievedGenus = uow.Repository<Genus>().GetItemByLatinName(requestItem.GenericName);
-            //Genus retrievedGenus = uow.Repository<Genus>().GenusQueries().GetItemByLatinName(requestItem.GenericName);
+            //Genus retrievedGenus = uow.Repository<Genus>().GetItemByLatinName(requestItem.GenericName);
+            Genus retrievedGenus = uow.Repository<Genus>().GenusExtensions().GetItemByLatinName(requestItem.GenericName);
 
             return retrievedGenus;
         }

@@ -6,7 +6,6 @@ using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Repositories;
 using PlantDataMVC.Service.SimpleServiceLayer;
-using System;
 using UnitTest.Utils.TestData;
 using Xunit;
 using Xunit.Abstractions;
@@ -26,25 +25,24 @@ namespace PlantDataMVC.Tests.Core
         public void TestRetrieveGenusWhereLatinNameExists()
         {
             // Arrange
-            var repo = new MockRepository(MockBehavior.Loose);
+            var repo = new MockRepository(MockBehavior.Strict);
 
+            // create mocks
             var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
             var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
-            var gqMockWrapper = repo.Create<IGenusQueries>();
-            var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
+            var gqMockWrapper = repo.Create<IGenusExtensions>();
 
+            // create data
             var plant = DomainTestData.GenerateRandomPlant();
 
             // create genus with random Id, but set expected data
             var genus = DALTestData.GenerateRandomGenus();
             genus.LatinName = plant.GenericName;
 
-            uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
-            uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
-
+            // setup mocks
             gqMockWrapper.Setup(gq => gq.GetItemByLatinName(genus.LatinName)).Returns(genus);
-            GenusRepository2.GenusQueriesFactory = st => gqMockWrapper.Object;
-
+            GenusRepository.GenusExtensionsFactory = st => gqMockWrapper.Object;
+            uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
 
             // Act
             var target = new PlantDataService(uowMockWrapper.Object);
@@ -55,9 +53,11 @@ namespace PlantDataMVC.Tests.Core
             _output.WriteLine("Properties for result");
             UnitTest.Utils.Print.PrintTypeAndProperties(_output, result);
 
-            uowMockWrapper.Verify();
-            grMockWrapper.Verify();
-            srMockWrapper.Verify();
+            // Verify mocks only (i.e. those setup with .Verifiable())
+            //repo.Verify();
+
+            // Verify mocks and stubs on all (regardless of Verifiable)
+            repo.VerifyAll();
 
             Assert.Equal(genus.Id, result.Id);
             Assert.Equal(genus.LatinName, result.LatinName);
@@ -113,7 +113,7 @@ namespace PlantDataMVC.Tests.Core
 
             uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
             uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
-            grMockWrapper.Setup(gr => gr.GenusQueries().GetItemByLatinName(genusLatinName)).Returns<Genus>(null);
+            grMockWrapper.Setup(gr => gr.GenusExtensions().GetItemByLatinName(genusLatinName)).Returns<Genus>(null);
 
 
             // Act
@@ -121,13 +121,8 @@ namespace PlantDataMVC.Tests.Core
             var result = target.RetrieveGenus(uowMockWrapper.Object, plant);
 
             // Assert
-            Assert.NotNull(result);
-            _output.WriteLine("Properties for result");
-            UnitTest.Utils.Print.PrintTypeAndProperties(_output, result);
-
             uowMockWrapper.Verify();
             grMockWrapper.Verify();
-            srMockWrapper.Verify();
 
             Assert.Null(result);
         }
@@ -200,7 +195,7 @@ namespace PlantDataMVC.Tests.Core
             var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
             var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
             var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
-            var gqMockWrapper = repo.Create<IGenusQueries>();
+            var gqMockWrapper = repo.Create<IGenusExtensions>();
 
             // Create random plant, and set expected data
             var plant = DomainTestData.GenerateRandomPlant();
@@ -233,7 +228,7 @@ namespace PlantDataMVC.Tests.Core
 
             // setup mocks with this data
             gqMockWrapper.Setup(gq => gq.GetItemByLatinName(genus.LatinName)).Returns(genus);
-            GenusRepository2.GenusQueriesFactory = st => gqMockWrapper.Object;
+            GenusRepository.GenusExtensionsFactory = st => gqMockWrapper.Object;
 
             srMockWrapper.Setup(x => x.Add(species)).Returns(returnSpecies);
             
