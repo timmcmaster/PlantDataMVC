@@ -156,7 +156,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // add genus
             Genus requiredGenus = uow.Repository<Genus>().Add(requestGenus);
 
-            // HACK: testing if this helps with non-existent genus id prob (not a good fix though)
+            // HACK: testing if this helps with problem of non-existent genus id (not a good fix though)
             uow.SaveChanges();
 
             // map plant to species
@@ -199,7 +199,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // map plant to species
             Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
 
-            // Genus.Id shoulkd be set, because this is only called if genus is retrieved OK
+            // Genus.Id should be set, because this is only called if genus is retrieved OK
             requestSpecies.GenusId = parentGenus.Id;
 
             // create species
@@ -234,7 +234,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // add genus
             Genus requiredGenus = uow.Repository<Genus>().Add(requestGenus);
 
-            // HACK: testing if this helps with non-existent genus id prob (not a good fix though)
+            // HACK: testing if this helps with problem of non-existent genus id (not a good fix though)
             uow.SaveChanges();
             
             // map plant to species

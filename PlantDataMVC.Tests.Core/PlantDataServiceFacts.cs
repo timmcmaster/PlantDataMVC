@@ -25,13 +25,6 @@ namespace PlantDataMVC.Tests.Core
         public void TestRetrieveGenusWhereLatinNameExists()
         {
             // Arrange
-            var repo = new MockRepository(MockBehavior.Strict);
-
-            // create mocks
-            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
-            var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
-            var gqMockWrapper = repo.Create<IGenusExtensions>();
-
             // create data
             var plant = DomainTestData.GenerateRandomPlant();
 
@@ -39,119 +32,74 @@ namespace PlantDataMVC.Tests.Core
             var genus = DALTestData.GenerateRandomGenus();
             genus.LatinName = plant.GenericName;
 
+            // create mocks
+            var repo = new MockRepository(MockBehavior.Loose);
+            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
+            var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
+            var gqMockWrapper = repo.Create<IGenusExtensions>();
+
             // setup mocks
             gqMockWrapper.Setup(gq => gq.GetItemByLatinName(genus.LatinName)).Returns(genus);
             GenusRepository.GenusExtensionsFactory = st => gqMockWrapper.Object;
             uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
 
+
             // Act
+            // Note: this is not really testing much, as RetrieveGenus simply calls GetItemByLatinName
             var target = new PlantDataService(uowMockWrapper.Object);
             var result = target.RetrieveGenus(uowMockWrapper.Object, plant);
 
-            // Assert
-            Assert.NotNull(result);
-            _output.WriteLine("Properties for result");
-            UnitTest.Utils.Print.PrintTypeAndProperties(_output, result);
 
+            // Assert
             // Verify mocks only (i.e. those setup with .Verifiable())
             //repo.Verify();
 
             // Verify mocks and stubs on all (regardless of Verifiable)
             repo.VerifyAll();
 
+            Assert.NotNull(result);
+            _output.WriteLine("Properties for result");
+            UnitTest.Utils.Print.PrintTypeAndProperties(_output, result);
+
             Assert.Equal(genus.Id, result.Id);
             Assert.Equal(genus.LatinName, result.LatinName);
         }
 
-        //[Fact]
-        //public void TestRetrieveGenusWhereLatinNameExists()
-        //{
-        //    // Arrange
-        //    var uow = MockRepository.GenerateStub<IUnitOfWorkAsync>();
-        //    var gdao = MockRepository.GenerateStub<IGenusRepository>();
-        //    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
-
-        //    var plant = DomainTestData.GenerateRandomPlant();
-
-        //    // create genus with random Id, but set expected data
-        //    var genus = DALTestData.GenerateRandomGenus();
-        //    genus.LatinName = plant.GenusLatinName;
-
-        //    uow.Stub(x => x.GenusRepository).Return(gdao);
-        //    uow.Stub(x => x.SpeciesRepository).Return(sdao);
-        //    gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(genus);
-
-        //    // Act
-        //    var target = new PlantDataService(mgr);
-        //    var result = target.GetGenus(mgr.GetUnitOfWork(), plant);
-
-        //    // Assert
-        //    Assert.NotNull(result);
-        //    Console.WriteLine("Properties for result");
-        //    UnitTest.Utils.Print.PrintTypeAndProperties(result);
-
-        //    uow.VerifyAllExpectations();
-        //    gdao.VerifyAllExpectations();
-        //    sdao.VerifyAllExpectations();
-        //    Assert.Equal(genus.Id, result.Id);
-        //    Assert.Equal(genus.LatinName, result.LatinName);
-        //}
 
         [Fact]
         public void TestRetrieveGenusWhereLatinNameDoesNotExist()
         {
             // Arrange
-            var repo = new MockRepository(MockBehavior.Loose);
-
-            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
-            var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
-            var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
-
+            // create data
             var plant = DomainTestData.GenerateRandomPlant();
-
             var genusLatinName = plant.GenericName;
 
+            // create mocks
+            var repo = new MockRepository(MockBehavior.Loose);
+            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
+            var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
+            var gqMockWrapper = repo.Create<IGenusExtensions>();
+
+            // setup mocks
+            gqMockWrapper.Setup(gq => gq.GetItemByLatinName(genusLatinName)).Returns<Genus>(null);
+            GenusRepository.GenusExtensionsFactory = st => gqMockWrapper.Object;
             uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
-            uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
-            grMockWrapper.Setup(gr => gr.GenusExtensions().GetItemByLatinName(genusLatinName)).Returns<Genus>(null);
 
 
             // Act
+            // Note: this is not really testing much, as RetrieveGenus simply calls GetItemByLatinName
             var target = new PlantDataService(uowMockWrapper.Object);
             var result = target.RetrieveGenus(uowMockWrapper.Object, plant);
 
             // Assert
-            uowMockWrapper.Verify();
-            grMockWrapper.Verify();
+            // Verify mocks only (i.e. those setup with .Verifiable())
+            //repo.Verify();
+
+            // Verify mocks and stubs on all (regardless of Verifiable)
+            repo.VerifyAll();
 
             Assert.Null(result);
         }
-
-        //[Fact]
-        //public void TestGetGenusWhereLatinNameDoesNotExist()
-        //{
-        //    // Arrange
-        //    var uow = MockRepository.GenerateStub<IUnitOfWork>();
-        //    var gdao = MockRepository.GenerateStub<IGenusRepository>();
-        //    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
-
-        //    var plant = DomainTestData.GenerateRandomPlant();
-
-        //    var genusLatinName = plant.GenusLatinName;
-
-        //    uow.Stub(x => x.GenusRepository).Return(gdao);
-        //    uow.Stub(x => x.SpeciesRepository).Return(sdao);
-        //    gdao.Stub(x => x.GetItemByLatinName(genusLatinName)).Return(null);
-
-        //    // Act
-        //    var target = new PlantDataService(mgr);
-        //    var result = target.GetGenus(mgr.GetUnitOfWork(), plant);
-
-        //    // Assert
-        //    gdao.VerifyAllExpectations();
-        //    sdao.VerifyAllExpectations();
-        //    Assert.Null(result);
-        //}
 
         //[Fact]
         //public void TestCreateGenus()
@@ -187,17 +135,10 @@ namespace PlantDataMVC.Tests.Core
         //}
 
         [Fact]
-        public void TestCreateWhereGenusLatinNameExists()
+        public void TestCreatePlantWhereGenusLatinNameExists()
         {
             // Arrange
-            var repo = new MockRepository(MockBehavior.Loose);
-
-            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
-            var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
-            var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
-            var gqMockWrapper = repo.Create<IGenusExtensions>();
-
-            // Create random plant, and set expected data
+            // create random plant, and set expected data
             var plant = DomainTestData.GenerateRandomPlant();
             plant.Id = 0;
 
@@ -207,47 +148,48 @@ namespace PlantDataMVC.Tests.Core
 
             // create random species, but set expected data
             var species = DALTestData.GenerateRandomSpecies();
+            var returnSpeciesId = species.Id;
+            species.Id = 0;
             species.Genus = genus;
+            species.GenusId = genus.Id;
             species.CommonName = plant.CommonName;
             species.Description = plant.Description;
             species.SpecificName = plant.SpecificName;
             species.Native = plant.Native;
             species.PropagationTime = plant.PropagationTime;
 
-            // create species to return based on previous data
-            var returnSpecies = new Species()
-            {
-                GenusId = genus.Id,
-                Id = species.Id,
-                CommonName = species.CommonName,
-                Description = species.Description,
-                SpecificName = species.SpecificName,
-                Native = species.Native,
-                PropagationTime = species.PropagationTime
-            };
+            var request = new CreateRequest<Plant>(plant);
+
+            // create mocks
+            var repo = new MockRepository(MockBehavior.Loose);
+            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
+            var grMockWrapper = repo.Create<IRepositoryAsync<Genus>>();
+            var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
+            var gqMockWrapper = repo.Create<IGenusExtensions>();
 
             // setup mocks with this data
             gqMockWrapper.Setup(gq => gq.GetItemByLatinName(genus.LatinName)).Returns(genus);
             GenusRepository.GenusExtensionsFactory = st => gqMockWrapper.Object;
-
-            srMockWrapper.Setup(x => x.Add(species)).Returns(returnSpecies);
-            
+            srMockWrapper.Setup(x => x.Add(It.IsAny<Species>())).Returns(species);
             uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
             uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
-
-
-            var request = new CreateRequest<Plant>(plant);
-
-
+            // TODO: doesn't get the outcome I hoped for (i.e. ensuring output object has Id set)
+            uowMockWrapper.Setup(uow => uow.SaveChanges()).Callback(() => species.Id = returnSpeciesId);
 
 
             // Act
             var target = new PlantDataService(uowMockWrapper.Object);
             var result = target.Create(request);
 
+
             // Assert
-            grMockWrapper.Verify();
-            srMockWrapper.Verify();
+            // Verify mocks only (i.e. those setup with .Verifiable())
+            //repo.Verify();
+
+            // Verify mocks and stubs on all (regardless of Verifiable)
+            repo.VerifyAll();
+
+            // TODO: Maybe need to verify ID on result item?
             Assert.Equal(request.Item.CommonName, result.Item.CommonName);
             Assert.Equal(request.Item.Description, result.Item.Description);
             Assert.Equal(request.Item.SpecificName, result.Item.SpecificName);
