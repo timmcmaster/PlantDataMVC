@@ -135,7 +135,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         #endregion
 
         #region Local methods
-        public Genus RetrieveGenus(IUnitOfWorkAsync uow, Plant requestItem)
+        // TODO: I think these need to be refactored, simplified or removed
+        private Genus RetrieveGenus(IUnitOfWorkAsync uow, Plant requestItem)
         {
             _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
 

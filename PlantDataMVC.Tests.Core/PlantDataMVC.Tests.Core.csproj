@@ -129,9 +129,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrationTests\PlantDataServiceIntegrationTests.cs" />
     <Compile Include="UnitTests\DomainToDALMappingFacts.cs" />
     <Compile Include="UnitTests\CoreMappingFixture.cs" />
-    <Compile Include="UnitTests\PlantDataServiceFacts.cs" />
+    <Compile Include="UnitTests\Services\PlantDataServiceFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +179,7 @@
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IntegrationTests\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
