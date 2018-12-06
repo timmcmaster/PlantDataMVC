@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using AutoMapper;
 using PlantDataMVC.Domain.Mappers;
+using System;
 
 namespace PlantDataMVC.Tests.Core
 {
-    public class CoreMappingFixture
+    public class CoreMappingFixture: IDisposable
     {
         public CoreMappingFixture()
         {
@@ -16,6 +14,12 @@ namespace PlantDataMVC.Tests.Core
         public void Configure()
         {
             AutoMapperCoreConfiguration.Configure();
+        }
+
+        public void Dispose()
+        {
+            // Reset the mapper each time fixture is torn down
+            Mapper.Reset();
         }
     }
 }

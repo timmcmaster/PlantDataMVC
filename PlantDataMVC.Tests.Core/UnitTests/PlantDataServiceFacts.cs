@@ -174,7 +174,8 @@ namespace PlantDataMVC.Tests.Core
             uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
             uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
             // TODO: doesn't get the outcome I hoped for (i.e. ensuring output object has Id set)
-            uowMockWrapper.Setup(uow => uow.SaveChanges()).Callback(() => species.Id = returnSpeciesId);
+            //       This is because the output object is not this instance but a mapped copy
+            //uowMockWrapper.Setup(uow => uow.SaveChanges()).Callback(() => species.Id = returnSpeciesId);
 
 
             // Act
@@ -189,7 +190,10 @@ namespace PlantDataMVC.Tests.Core
             // Verify mocks and stubs on all (regardless of Verifiable)
             repo.VerifyAll();
 
-            // TODO: Maybe need to verify ID on result item?
+            // TODO: Need to verify ID on result item, but it fails because SaveChanges callback
+            //       does not set the correct object. May need to be integration test instead.
+            //Assert.Equal(returnSpeciesId, result.Item.Id);
+
             Assert.Equal(request.Item.CommonName, result.Item.CommonName);
             Assert.Equal(request.Item.Description, result.Item.Description);
             Assert.Equal(request.Item.SpecificName, result.Item.SpecificName);

@@ -129,9 +129,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainToDALMappingFacts.cs" />
-    <Compile Include="CoreMappingFixture.cs" />
-    <Compile Include="PlantDataServiceFacts.cs" />
+    <Compile Include="UnitTests\DomainToDALMappingFacts.cs" />
+    <Compile Include="UnitTests\CoreMappingFixture.cs" />
+    <Compile Include="UnitTests\PlantDataServiceFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
