@@ -27,7 +27,7 @@ namespace PlantDataMVC.Tests.Core
         {
             // TODO: Check if fake has same response as real (i.e. creates IDs on savechanges)
 
-            using (IDataContextAsync dataContext = new FakePlantDataDbContext())
+            using (IDataContextAsync dataContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
             {
                 // Arrange
