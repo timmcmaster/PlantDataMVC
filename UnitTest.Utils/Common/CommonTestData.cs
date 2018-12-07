@@ -45,6 +45,36 @@ namespace UnitTest.Utils.Common
         }
 
         /// <summary>
+        /// Generates a random decimal.
+        /// </summary>
+        /// <returns></returns>
+        public static decimal GenerateRandomDecimal(int precisionDigits)
+        {
+            var rnd = SeedRandom();
+            var num = rnd.Next() + rnd.NextDouble();
+
+            return decimal.Round(Convert.ToDecimal(num),precisionDigits);
+        }
+
+        public static decimal GenerateRandomDecimal(int minValue, int maxValue, int precisionDigits)
+        {
+            var rnd = SeedRandom();
+            var num = rnd.Next(minValue, maxValue - 1) + rnd.NextDouble();
+
+            return decimal.Round(Convert.ToDecimal(num), precisionDigits);
+        }
+
+        public static decimal GenerateRandomLatitude()
+        {
+            return GenerateRandomDecimal(-90, 90, 6);
+        }
+
+        public static decimal GenerateRandomLongitude()
+        {
+            return GenerateRandomDecimal(-180, 180, 6);
+        }
+
+        /// <summary>
         /// Gets a string from the English alphabet at random
         /// </summary>
         public static string GenerateRandomAlphabetString(int length)

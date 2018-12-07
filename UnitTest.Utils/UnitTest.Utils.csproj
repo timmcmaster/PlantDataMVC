@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Common\CommonTestData.cs" />
     <Compile Include="DAL\GenusBuilder.cs" />
+    <Compile Include="DAL\SiteBuilder.cs" />
     <Compile Include="DAL\SpeciesBuilder.cs" />
     <Compile Include="Domain\PlantBuilder.cs" />
     <Compile Include="Common\Print.cs" />

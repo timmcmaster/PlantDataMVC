@@ -1,9 +1,13 @@
 ﻿using Framework.DAL.EF;
+using Framework.Service.Entities;
 using Interfaces.DAL.DataContext;
 using Interfaces.DAL.UnitOfWork;
+using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Service.SimpleServiceLayer;
 using UnitTest.Utils.DAL;
+using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -27,23 +31,30 @@ namespace PlantDataMVC.Tests.Core
             using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
             {
                 // Arrange
-                // Create genus data
-                var genus = GenusBuilder.aGenus().withRandomValues().withId().Build();
+                // create first plant 
+                var firstPlant = PlantBuilder.aPlant().withRandomValues().withNoId().Build();
 
-                // Add genus via repository to ensure it exists in DB
-                uow.Repository<Genus>().Add(genus);
-                uow.SaveChanges();
+                // create another plant with same genus
+                var secondPlant = PlantBuilder.aPlant().withRandomValues().withNoId().Build();
+                secondPlant.GenericName = firstPlant.GenericName;
 
-                // create a plant with a genus that exists, but species does not
+                // add first plant
+                var requestOne = new CreateRequest<Plant>(firstPlant);
+                var serviceOne = new PlantDataService(uow);
+                var resultOne = serviceOne.Create(requestOne);
 
+                var requestTwo = new CreateRequest<Plant>(secondPlant);
 
                 // Act
-                //var target = new PlantDataService(uow);
-                //var result = target.Create(request);
-
+                // TODO: Does it need separate context?
+                var target = new PlantDataService(uow);
+                var result = target.Create(requestTwo);
+                // ensure we enforce ID updates after action
+                uow.SaveChanges(); 
 
                 // Assert
                 // verify that plant is created and species ID is set
+                Assert.NotEqual(0, result.Item.Id);
 
                 // clean up data to restore DB state
             }

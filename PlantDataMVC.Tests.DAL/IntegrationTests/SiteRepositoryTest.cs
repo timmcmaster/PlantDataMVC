@@ -4,6 +4,7 @@ using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
 using System.Data.Entity.Validation;
+using UnitTest.Utils.DAL;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -25,13 +26,7 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
             {
                 // Arrange
-                var requestSite = new Site()
-                {
-                    SiteName = "Test Site 2",
-                    Suburb = "Kangaroo Valley",
-                    Latitude = 121.00m,
-                    Longitude = 44.00m
-                };
+                var requestSite = SiteBuilder.aSite().withNoId().Build();
                 var repository = uow.Repository<Site>();
 
                 // Act
