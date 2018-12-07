@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
-using System.Collections;
-using Xunit;
 using Xunit.Abstractions;
 
-namespace UnitTest.Utils
+namespace UnitTest.Utils.Common
 {
     public static class Print
     {

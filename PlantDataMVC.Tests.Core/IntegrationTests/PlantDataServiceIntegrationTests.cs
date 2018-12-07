@@ -1,12 +1,9 @@
-﻿using Framework.Service.Entities;
-using Interfaces.DAL.Repository;
+﻿using Framework.DAL.EF;
+using Interfaces.DAL.DataContext;
 using Interfaces.DAL.UnitOfWork;
-using Moq;
-using PlantDataMVC.Domain.Entities;
+using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
-using PlantDataMVC.Repository.Repositories;
-using PlantDataMVC.Service.SimpleServiceLayer;
-using UnitTest.Utils.TestData;
+using UnitTest.Utils.DAL;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -24,18 +21,32 @@ namespace PlantDataMVC.Tests.Core
         [Fact]
         public void TestCreatePlantWhereGenusLatinNameExists()
         {
-            // Arrange
-            // create a plant with a genus that exists, but species does not
+            // TODO: Check if fake has same response as real (i.e. creates IDs on savechanges)
 
-            // Act
-            //var target = new PlantDataService(uow);
-            //var result = target.Create(request);
+            using (IDataContextAsync dataContext = new FakePlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
+            {
+                // Arrange
+                // Create genus data
+                var genus = GenusBuilder.aGenus().withRandomValues().withId().Build();
+
+                // Add genus via repository to ensure it exists in DB
+                uow.Repository<Genus>().Add(genus);
+                uow.SaveChanges();
+
+                // create a plant with a genus that exists, but species does not
 
 
-            // Assert
-            // verify that plant is created and species ID is set
+                // Act
+                //var target = new PlantDataService(uow);
+                //var result = target.Create(request);
 
-            // clean up data to restore DB state
+
+                // Assert
+                // verify that plant is created and species ID is set
+
+                // clean up data to restore DB state
+            }
         }
 
         //[Fact]

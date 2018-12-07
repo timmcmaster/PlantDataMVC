@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Entities.Models;
-using UnitTest.Utils.TestData;
+using UnitTest.Utils.Domain;
 using Xunit;
 
 namespace PlantDataMVC.Tests.Core
@@ -22,7 +22,7 @@ namespace PlantDataMVC.Tests.Core
         public void TestPlantToGenusMapping()
         {
             // Arrange
-            var plant = DomainTestData.GenerateRandomPlant();
+            var plant = PlantBuilder.aPlant().withRandomValues().Build();
             var expectedGenus = new Genus()
             {
                 Id = plant.Id,
@@ -40,7 +40,7 @@ namespace PlantDataMVC.Tests.Core
         public void TestPlantToSpeciesMapping()
         {
             // Arrange
-            var plant = DomainTestData.GenerateRandomPlant();
+            var plant = PlantBuilder.aPlant().withRandomValues().Build();
             var expectedSpecies = new Species()
             {
                 Id = plant.Id,

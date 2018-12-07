@@ -136,6 +136,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework.DAL.EF\Framework.DAL.EF.csproj">
+      <Project>{23CE37B8-56FA-429A-AF13-3B06841C9817}</Project>
+      <Name>Framework.DAL.EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
       <Project>{fb582d72-f66a-4153-bb91-a4f339ed1795}</Project>
       <Name>Framework.Service</Name>

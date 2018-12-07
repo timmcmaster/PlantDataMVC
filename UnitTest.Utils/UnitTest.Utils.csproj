@@ -58,10 +58,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonTestData.cs" />
-    <Compile Include="DALTestData.cs" />
-    <Compile Include="DomainTestData.cs" />
-    <Compile Include="Print.cs" />
+    <Compile Include="Common\CommonTestData.cs" />
+    <Compile Include="DAL\GenusBuilder.cs" />
+    <Compile Include="DAL\SpeciesBuilder.cs" />
+    <Compile Include="Domain\PlantBuilder.cs" />
+    <Compile Include="Common\Print.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

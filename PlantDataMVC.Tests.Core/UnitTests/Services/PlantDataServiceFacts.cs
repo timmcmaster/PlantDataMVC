@@ -6,7 +6,8 @@ using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Repositories;
 using PlantDataMVC.Service.SimpleServiceLayer;
-using UnitTest.Utils.TestData;
+using UnitTest.Utils.DAL;
+using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -26,24 +27,26 @@ namespace PlantDataMVC.Tests.Core
         {
             // Arrange
             // create random plant, and set expected data
-            var plant = DomainTestData.GenerateRandomPlant();
-            plant.Id = 0;
+            var plant = PlantBuilder.aPlant().withRandomValues()
+                                             .withNoId()
+                                             .Build();
 
-            // create random genus, but set expected data
-            var genus = DALTestData.GenerateRandomGenus();
-            genus.LatinName = plant.GenericName;
+            // create genus, with expected data
+            var genus = GenusBuilder.aGenus().withId()
+                                             .withLatinName(plant.GenericName)
+                                             .Build();
 
-            // create random species, but set expected data
-            var species = DALTestData.GenerateRandomSpecies();
+            // create species, with expected data
+            var species = SpeciesBuilder.aSpecies().withId()
+                                                   .withGenus(genus)
+                                                   .withCommonName(plant.CommonName)
+                                                   .withDescription(plant.Description)
+                                                   .withSpecificName(plant.SpecificName)
+                                                   .withNative(plant.Native)
+                                                   .withPropagationTime(plant.PropagationTime)
+                                                   .Build();
             var returnSpeciesId = species.Id;
             species.Id = 0;
-            species.Genus = genus;
-            species.GenusId = genus.Id;
-            species.CommonName = plant.CommonName;
-            species.Description = plant.Description;
-            species.SpecificName = plant.SpecificName;
-            species.Native = plant.Native;
-            species.PropagationTime = plant.PropagationTime;
 
             var request = new CreateRequest<Plant>(plant);
 
@@ -93,24 +96,26 @@ namespace PlantDataMVC.Tests.Core
         {
             // Arrange
             // create random plant, and set expected data
-            var plant = DomainTestData.GenerateRandomPlant();
-            plant.Id = 0;
+            var plant = PlantBuilder.aPlant().withRandomValues()
+                                             .withNoId()
+                                             .Build();
 
-            // create random genus, but set expected data
-            var genus = DALTestData.GenerateRandomGenus();
-            genus.LatinName = plant.GenericName;
+            // create genus, with expected data
+            var genus = GenusBuilder.aGenus().withId()
+                                             .withLatinName(plant.GenericName)
+                                             .Build();
 
-            // create random species, but set expected data
-            var species = DALTestData.GenerateRandomSpecies();
+            // create species, with expected data
+            var species = SpeciesBuilder.aSpecies().withId()
+                                                   .withGenus(genus)
+                                                   .withCommonName(plant.CommonName)
+                                                   .withDescription(plant.Description)
+                                                   .withSpecificName(plant.SpecificName)
+                                                   .withNative(plant.Native)
+                                                   .withPropagationTime(plant.PropagationTime)
+                                                   .Build();
             var returnSpeciesId = species.Id;
             species.Id = 0;
-            species.Genus = genus;
-            species.GenusId = genus.Id;
-            species.CommonName = plant.CommonName;
-            species.Description = plant.Description;
-            species.SpecificName = plant.SpecificName;
-            species.Native = plant.Native;
-            species.PropagationTime = plant.PropagationTime;
 
             var request = new CreateRequest<Plant>(plant);
 

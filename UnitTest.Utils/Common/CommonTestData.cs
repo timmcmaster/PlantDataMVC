@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace UnitTest.Utils.TestData
+namespace UnitTest.Utils.Common
 {
     /// <summary>
     /// Creates random data for general system objects
