@@ -5,6 +5,8 @@ using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,6 +21,7 @@ namespace Framework.DAL.EF
 
         private bool _disposed = false;
         private IDataContextAsync _dataContext;
+        private IDbTransaction _transaction;
         private Dictionary<string, dynamic> _repositories;
 
         #endregion Variables
@@ -103,6 +106,27 @@ namespace Framework.DAL.EF
             _repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext));
 
             return _repositories[type];
+        }
+
+        public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified)
+        {
+            var objectContext = ((IObjectContextAdapter) _dataContext).ObjectContext;
+            if (objectContext.Connection.State != ConnectionState.Open)
+            {
+                objectContext.Connection.Open();
+            }
+            _transaction = objectContext.Connection.BeginTransaction(isolationLevel);
+        }
+
+        public bool Commit()
+        {
+            _transaction.Commit();
+            return true;
+        }
+
+        public void Rollback()
+        {
+            _transaction.Rollback();
         }
     }
 }

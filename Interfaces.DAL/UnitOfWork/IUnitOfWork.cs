@@ -1,6 +1,7 @@
 ﻿using Interfaces.DAL.Entity;
 using Interfaces.DAL.Repository;
 using System;
+using System.Data;
 
 namespace Interfaces.DAL.UnitOfWork
 {
@@ -14,5 +15,8 @@ namespace Interfaces.DAL.UnitOfWork
         IRepository<TEntity> Repository<TEntity>() where TEntity : class, IEntity;
 
         int SaveChanges();
+        void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified);
+        bool Commit();
+        void Rollback();
     }
 }
