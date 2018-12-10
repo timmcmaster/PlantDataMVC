@@ -129,6 +129,7 @@ namespace PlantDataMVC.Tests.Core
             // setup mocks with this data
             gqMockWrapper.Setup(gq => gq.GetItemByLatinName(genus.LatinName)).Returns<Genus>(null);
             GenusRepository.GenusExtensionsFactory = st => gqMockWrapper.Object;
+            grMockWrapper.Setup(x => x.Add(It.IsAny<Genus>())).Returns(genus);
             srMockWrapper.Setup(x => x.Add(It.IsAny<Species>())).Returns(species);
             uowMockWrapper.Setup(uow => uow.Repository<Genus>()).Returns(grMockWrapper.Object);
             uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);

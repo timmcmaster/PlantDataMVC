@@ -23,9 +23,8 @@ namespace PlantDataMVC.Tests.Core
         }
 
         [Fact]
-        public void TestCreatePlantWhereGenusLatinNameExists()
+        public void TestCreatePlantWhereGenusLatinNameDoesNotExist()
         {
-            // TODO: Check if fake has same response as real (i.e. creates IDs on savechanges)
 
             using (IDataContextAsync dataContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
@@ -33,24 +32,55 @@ namespace PlantDataMVC.Tests.Core
                 // Arrange
                 // create first plant 
                 var firstPlant = PlantBuilder.aPlant().withRandomValues().withNoId().Build();
+                var request = new CreateRequest<Plant>(firstPlant);
 
-                // create another plant with same genus
-                var secondPlant = PlantBuilder.aPlant().withRandomValues().withNoId().Build();
-                secondPlant.GenericName = firstPlant.GenericName;
+                // Act
+                var serviceOne = new PlantDataService(uow);
+                var result = serviceOne.Create(request);
 
+                // Assert
+                // verify that plant is created and species ID is set
+                Assert.NotEqual(0, result.Item.Id);
+
+                // clean up data to restore DB state
+            }
+        }
+
+        [Fact]
+        public void TestCreatePlantWhereGenusLatinNameExists()
+        {
+            // TODO: Check if fake has same response as real (i.e. creates IDs on savechanges)
+
+            // Arrange
+            // create first plant 
+            var firstPlant = PlantBuilder.aPlant().withRandomValues().withNoId().Build();
+
+            // create another plant with same genus
+            var secondPlant = PlantBuilder.aPlant().withRandomValues().withNoId().Build();
+            secondPlant.GenericName = firstPlant.GenericName;
+
+            using (IDataContextAsync dataContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
+            {
                 // add first plant
                 var requestOne = new CreateRequest<Plant>(firstPlant);
                 var serviceOne = new PlantDataService(uow);
                 var resultOne = serviceOne.Create(requestOne);
 
+                // NOTE: within Create call, we should have called uow.SaveChanges();
+            }
+
+            using (IDataContextAsync dataContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
+            {
                 var requestTwo = new CreateRequest<Plant>(secondPlant);
 
                 // Act
-                // TODO: Does it need separate context?
                 var target = new PlantDataService(uow);
                 var result = target.Create(requestTwo);
-                // ensure we enforce ID updates after action
-                uow.SaveChanges(); 
+                // NOTE: within Create call, we should have called uow.SaveChanges();
+                //// ensure we enforce ID updates after action
+                //uow.SaveChanges();
 
                 // Assert
                 // verify that plant is created and species ID is set
