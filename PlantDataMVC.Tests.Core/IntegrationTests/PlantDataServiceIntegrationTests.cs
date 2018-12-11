@@ -4,16 +4,19 @@ using Interfaces.DAL.DataContext;
 using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service.SimpleServiceLayer;
-using UnitTest.Utils.DAL;
+using Respawn;
+using System;
+using System.Configuration;
+using System.Threading.Tasks;
 using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
 
+
 namespace PlantDataMVC.Tests.Core
 {
-    public class PlantDataServiceIntegrationTests : IClassFixture<CoreMappingFixture>
+    public class PlantDataServiceIntegrationTests : IntegrationTestBase, IClassFixture<CoreMappingFixture>
     {
         private readonly ITestOutputHelper _output;
 
@@ -23,16 +26,21 @@ namespace PlantDataMVC.Tests.Core
         }
 
         [Fact]
+        public void TestClearDB()
+        {
+            _output.WriteLine("test");
+        }
+
+        [Fact]
         public void TestCreatePlantWhereGenusLatinNameDoesNotExist()
         {
-
             using (IDataContextAsync dataContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
             {
                 // Arrange
-                // create first plant 
-                var firstPlant = PlantBuilder.aPlant().withRandomValues().withNoId().Build();
-                var request = new CreateRequest<Plant>(firstPlant);
+                // create plant 
+                var plant = PlantBuilder.aPlant().withNoId().Build();
+                var request = new CreateRequest<Plant>(plant);
 
                 // Act
                 var serviceOne = new PlantDataService(uow);
@@ -41,8 +49,6 @@ namespace PlantDataMVC.Tests.Core
                 // Assert
                 // verify that plant is created and species ID is set
                 Assert.NotEqual(0, result.Item.Id);
-
-                // clean up data to restore DB state
             }
         }
 
@@ -53,11 +59,10 @@ namespace PlantDataMVC.Tests.Core
 
             // Arrange
             // create first plant 
-            var firstPlant = PlantBuilder.aPlant().withRandomValues().withNoId().Build();
+            var firstPlant = PlantBuilder.aPlant().withNoId().Build();
 
             // create another plant with same genus
-            var secondPlant = PlantBuilder.aPlant().withRandomValues().withNoId().Build();
-            secondPlant.GenericName = firstPlant.GenericName;
+            var secondPlant = PlantBuilder.aPlant().withSpecificName("curtisii").withNoId().Build();
 
             using (IDataContextAsync dataContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))

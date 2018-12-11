@@ -10,7 +10,7 @@ using Xunit.Abstractions;
 
 namespace PlantDataMVC.Tests.DAL.IntegrationTests
 {
-    public class SiteRepositoryTest
+    public class SiteRepositoryTest : IntegrationTestBase
     {
         private readonly ITestOutputHelper _output;
 
@@ -37,7 +37,6 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
                 Assert.NotNull(returnedSite);
                 Assert.NotEqual(0, returnedSite.Id);
                 _output.WriteLine("returnedSite.Id: {0}", returnedSite.Id);
-
             }
         }
 
@@ -71,20 +70,37 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
         [Fact]
         public void CanUpdateSiteAndGetBackSameWithSameContext()
         {
-            // TODO: Fix test, as it fails due to being data dependent
+            int addedSiteId;
+            var siteLatitude = 1.12345m;
+            var siteLongitude = 1.12345m;
+
+            // Add a site so that we can update it
+            using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+            {
+                var requestSite = SiteBuilder.aSite().withNoId().Build();
+                var repository = uow.Repository<Site>();
+
+                // Act
+                var returnedSite = repository.Add(requestSite);
+                uow.SaveChanges();
+
+                addedSiteId = returnedSite.Id;
+            }
+
             using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
             {
                 // Arrange
-                var id = 6;
                 var repository = uow.Repository<Site>();
-                var site = repository.GetItemById(id);
+                var site = repository.GetItemById(addedSiteId);
 
                 // Act
-                site.Latitude = 1.12345m;
-                site.Longitude = 1.12345m;
+                site.Latitude = siteLatitude;
+                site.Longitude = siteLongitude;
 
-                try { 
+                try
+                {
                     var updatedSite = repository.Save(site);
                     uow.SaveChanges();
                 }
@@ -93,7 +109,7 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
 
                 }
 
-                var retrievedSite = repository.GetItemById(id);
+                var retrievedSite = repository.GetItemById(addedSiteId);
 
                 // Assert
                 Assert.NotNull(retrievedSite);
@@ -105,18 +121,31 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
         [Fact]
         public void CanUpdateSiteAndGetBackSameWithDiffContext()
         {
-            // TODO: Fix test, as it fails due to being data dependent
-            var id = 6;
+            int addedSiteId;
             var siteLatitude = 1.12345m;
             var siteLongitude = 1.12345m;
 
-            // Write with one context
+            // Add a site so that we can update it
+            using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+            {
+                var requestSite = SiteBuilder.aSite().withNoId().Build();
+                var repository = uow.Repository<Site>();
+
+                // Act
+                var returnedSite = repository.Add(requestSite);
+                uow.SaveChanges();
+
+                addedSiteId = returnedSite.Id;
+            }
+
+            // Update with one context
             using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
             {
                 // Arrange
                 var repository = uow.Repository<Site>();
-                var site = repository.GetItemById(id);
+                var site = repository.GetItemById(addedSiteId);
 
                 // Act
                 site.Latitude = siteLatitude;
@@ -132,11 +161,12 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
                 }
             }
 
+            // Retrieve with another
             using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
             {
                 var repository = uow.Repository<Site>();
-                var retrievedSite = repository.GetItemById(id);
+                var retrievedSite = repository.GetItemById(addedSiteId);
 
                 // Assert
                 Assert.NotNull(retrievedSite);
