@@ -40,33 +40,6 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
             }
         }
 
-        //[Fact]
-        //public void CanCreateSiteAndReturnIdentity_retrieveonly()
-        //{
-        //    using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
-        //    using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
-        //    {
-        //        // Arrange
-        //        var requestSite = new Site()
-        //        {
-        //            SiteName = "Test Site 1",
-        //            Suburb = "Fortitude Valley",
-        //            Latitude = 123.00m,
-        //            Longitude = 45.00m
-        //        };
-        //        var repository = uow.Repository<Site>();
-
-        //        // Act
-        //        var returnedSite = repository.Add(requestSite);
-        //        uow.SaveChanges();
-
-
-        //        // Assert
-        //        Assert.NotNull(returnedSite);
-        //        Assert.NotEqual(0, returnedSite.Id);
-        //    }
-        //}
-
         [Fact]
         public void CanUpdateSiteAndGetBackSameWithSameContext()
         {
