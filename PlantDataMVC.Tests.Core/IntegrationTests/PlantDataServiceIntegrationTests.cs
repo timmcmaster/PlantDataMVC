@@ -8,6 +8,7 @@ using PlantDataMVC.Domain.Mappers;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Service.SimpleServiceLayer;
 using System;
+using System.Threading.Tasks;
 using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
@@ -33,13 +34,13 @@ namespace PlantDataMVC.Tests.Core
         }
 
         [Fact]
-        public void TestClearDB()
+        public async Task TestClearDB()
         {
             _output.WriteLine("test");
         }
 
         [Fact]
-        public void TestCreatePlantWhereGenusLatinNameDoesNotExist()
+        public async Task TestCreatePlantWhereGenusLatinNameDoesNotExist()
         {
             using (IDataContextAsync dataContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
@@ -60,7 +61,7 @@ namespace PlantDataMVC.Tests.Core
         }
 
         [Fact]
-        public void TestCreatePlantWhereGenusLatinNameExists()
+        public async Task TestCreatePlantWhereGenusLatinNameExists()
         {
             // Arrange
             // create first plant 
