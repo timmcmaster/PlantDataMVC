@@ -1,10 +1,13 @@
-﻿using Framework.DAL.EF;
+﻿using AutoMapper;
+using Framework.DAL.EF;
 using Framework.Service.Entities;
 using Interfaces.DAL.DataContext;
 using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Domain.Entities;
+using PlantDataMVC.Domain.Mappers;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Service.SimpleServiceLayer;
+using System;
 using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
@@ -12,13 +15,21 @@ using Xunit.Abstractions;
 
 namespace PlantDataMVC.Tests.Core
 {
-    public class PlantDataServiceIntegrationTests : IntegrationTestBase, IClassFixture<CoreMappingFixture>
+    public class PlantDataServiceIntegrationTests : IntegrationTestBase, IDisposable
     {
         private readonly ITestOutputHelper _output;
 
         public PlantDataServiceIntegrationTests(ITestOutputHelper output)
         {
             this._output = output;
+            // Configure the mapper at start of each test
+            AutoMapperCoreConfiguration.Configure();
+        }
+
+        public void Dispose()
+        {
+            // Reset Mapper at end of each test
+            Mapper.Reset();
         }
 
         [Fact]
@@ -51,8 +62,6 @@ namespace PlantDataMVC.Tests.Core
         [Fact]
         public void TestCreatePlantWhereGenusLatinNameExists()
         {
-            // TODO: Check if fake has same response as real (i.e. creates IDs on savechanges)
-
             // Arrange
             // create first plant 
             var firstPlant = PlantBuilder.aPlant().withNoId().Build();

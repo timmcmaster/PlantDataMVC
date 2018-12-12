@@ -1,11 +1,14 @@
-﻿using Framework.Service.Entities;
+﻿using AutoMapper;
+using Framework.Service.Entities;
 using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
 using Moq;
 using PlantDataMVC.Domain.Entities;
+using PlantDataMVC.Domain.Mappers;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Repositories;
 using PlantDataMVC.Service.SimpleServiceLayer;
+using System;
 using UnitTest.Utils.DAL;
 using UnitTest.Utils.Domain;
 using Xunit;
@@ -13,13 +16,19 @@ using Xunit.Abstractions;
 
 namespace PlantDataMVC.Tests.Core
 {
-    public class PlantDataServiceFacts : IClassFixture<CoreMappingFixture>
+    public class PlantDataServiceFacts : IDisposable
     {
         private readonly ITestOutputHelper _output;
 
         public PlantDataServiceFacts(ITestOutputHelper output)
         {
             this._output = output;
+            AutoMapperCoreConfiguration.Configure();
+        }
+
+        public void Dispose()
+        {
+            Mapper.Reset();
         }
 
         [Fact]

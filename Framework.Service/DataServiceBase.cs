@@ -46,7 +46,7 @@ namespace Framework.Service
             {
                 T updatedItem = UpdateItem(uow, request.Item);
 
-                uow.SaveChanges();
+                //uow.SaveChanges();
 
                 return new UpdateResponse<T>(updatedItem);
             }

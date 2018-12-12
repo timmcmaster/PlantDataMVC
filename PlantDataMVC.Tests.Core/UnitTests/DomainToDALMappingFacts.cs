@@ -1,15 +1,25 @@
 ﻿using AutoMapper;
 using PlantDataMVC.Domain.Entities;
+using PlantDataMVC.Domain.Mappers;
 using PlantDataMVC.Entities.Models;
+using System;
 using UnitTest.Utils.Domain;
 using Xunit;
 
 namespace PlantDataMVC.Tests.Core
 {
-    public class DomainToDALMappingFacts : IClassFixture<CoreMappingFixture>
+    public class DomainToDALMappingFacts : IDisposable
     {
         public DomainToDALMappingFacts()
         {
+            // Configure the mapper at start of each test
+            AutoMapperCoreConfiguration.Configure();
+        }
+
+        public void Dispose()
+        {
+            // Reset Mapper at end of each test
+            Mapper.Reset();
         }
 
         [Fact]

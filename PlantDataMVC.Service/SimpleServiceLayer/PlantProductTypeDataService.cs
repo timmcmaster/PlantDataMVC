@@ -22,6 +22,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // map 
             ProductType mappedItem = Mapper.Map<PlantProductType, ProductType>(requestItem);
             ProductType item = uow.Repository<ProductType>().Add(mappedItem);
+            // Save changes before we map back
+            uow.SaveChanges();
             PlantProductType finalItem = Mapper.Map<ProductType, PlantProductType>(item);
 
             return finalItem;
@@ -42,6 +44,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // map 
             ProductType mappedItem = Mapper.Map<PlantProductType, ProductType>(requestItem);
             ProductType item = uow.Repository<ProductType>().Save(mappedItem);
+            // Save changes before we map back
+            uow.SaveChanges();
             PlantProductType finalItem = Mapper.Map<ProductType, PlantProductType>(item);
 
             return finalItem;

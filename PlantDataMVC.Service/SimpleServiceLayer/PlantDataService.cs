@@ -48,6 +48,9 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
                 item = CreateSpecies(uow, requestItem, retrievedGenus);
             }
 
+            // Save changes before we map back to Plant
+            uow.SaveChanges();
+
             Plant newPlant = Mapper.Map<Species, Plant>(item);
 
             return newPlant;
@@ -96,6 +99,9 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
                 savedSpecies = UpdateSpecies(uow, requestItem, retrievedGenus);
             }
 
+            // Save changes before we map back to Plant
+            uow.SaveChanges();
+
             Plant plant = Mapper.Map<Species, Plant>(savedSpecies);
 
             return plant;
@@ -113,8 +119,6 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             //Species requestSpecies = Mapper.Map<Plant, Species>(requestItem);
 
             uow.Repository<Species>().Delete(uow.Repository<Species>().GetItemById(id));
-
-            uow.SaveChanges();
         }
 
         protected override IList<Plant> ListItems(IUnitOfWorkAsync uow)

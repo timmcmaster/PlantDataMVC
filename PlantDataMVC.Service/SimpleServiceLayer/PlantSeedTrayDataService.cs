@@ -22,6 +22,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // map 
             SeedTray mappedItem = Mapper.Map<PlantSeedTray, SeedTray>(requestItem);
             SeedTray item = uow.Repository<SeedTray>().Add(mappedItem);
+            // Save changes before we map back
+            uow.SaveChanges();
             PlantSeedTray finalItem = Mapper.Map<SeedTray, PlantSeedTray>(item);
 
             return finalItem;
@@ -42,6 +44,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // map 
             SeedTray mappedItem = Mapper.Map<PlantSeedTray, SeedTray>(requestItem);
             SeedTray item = uow.Repository<SeedTray>().Save(mappedItem);
+            // Save changes before we map back
+            uow.SaveChanges();
             PlantSeedTray finalItem = Mapper.Map<SeedTray, PlantSeedTray>(item);
 
             return finalItem;

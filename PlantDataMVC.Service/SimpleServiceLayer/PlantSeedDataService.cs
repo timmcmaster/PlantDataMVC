@@ -20,6 +20,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // map 
             SeedBatch mappedItem = Mapper.Map<PlantSeed, SeedBatch>(requestItem);
             SeedBatch item = uow.Repository<SeedBatch>().Add(mappedItem);
+            // Save changes before we map back
+            uow.SaveChanges();
             PlantSeed finalItem = Mapper.Map<SeedBatch, PlantSeed>(item);
 
             return finalItem;
@@ -40,6 +42,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // map 
             SeedBatch mappedItem = Mapper.Map<PlantSeed, SeedBatch>(requestItem);
             SeedBatch item = uow.Repository<SeedBatch>().Save(mappedItem);
+            // Save changes before we map back
+            uow.SaveChanges();
             PlantSeed finalItem = Mapper.Map<SeedBatch, PlantSeed>(item);
 
             return finalItem;

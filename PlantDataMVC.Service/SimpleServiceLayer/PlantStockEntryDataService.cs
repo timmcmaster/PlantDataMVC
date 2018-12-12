@@ -17,22 +17,24 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override PlantStockEntry CreateItem(IUnitOfWorkAsync uow, PlantStockEntry requestItem)
         {
-                // map 
-                PlantStock mappedItem = Mapper.Map<PlantStockEntry, PlantStock>(requestItem);
-                PlantStock item = uow.Repository<PlantStock>().Add(mappedItem);
-                PlantStockEntry finalItem = Mapper.Map<PlantStock, PlantStockEntry>(item);
+            // map 
+            PlantStock mappedItem = Mapper.Map<PlantStockEntry, PlantStock>(requestItem);
+            PlantStock item = uow.Repository<PlantStock>().Add(mappedItem);
+            // Save changes before we map back
+            uow.SaveChanges();
+            PlantStockEntry finalItem = Mapper.Map<PlantStock, PlantStockEntry>(item);
 
-                return finalItem;
+            return finalItem;
         }
 
         protected override PlantStockEntry SelectItem(IUnitOfWorkAsync uow, int id)
         {
-                // map 
-                //PlantStock mappedItem = Mapper.Map<PlantStockEntry, PlantStock>(requestItem);
-                PlantStock item = uow.Repository<PlantStock>().GetItemById(id);
-                PlantStockEntry finalItem = Mapper.Map<PlantStock, PlantStockEntry>(item);
+            // map 
+            //PlantStock mappedItem = Mapper.Map<PlantStockEntry, PlantStock>(requestItem);
+            PlantStock item = uow.Repository<PlantStock>().GetItemById(id);
+            PlantStockEntry finalItem = Mapper.Map<PlantStock, PlantStockEntry>(item);
 
-                return finalItem;
+            return finalItem;
         }
 
         protected override PlantStockEntry UpdateItem(IUnitOfWorkAsync uow, PlantStockEntry requestItem)
@@ -40,6 +42,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // map 
             PlantStock mappedItem = Mapper.Map<PlantStockEntry, PlantStock>(requestItem);
             PlantStock item = uow.Repository<PlantStock>().Save(mappedItem);
+            // Save changes before we map back
+            uow.SaveChanges();
             PlantStockEntry finalItem = Mapper.Map<PlantStock, PlantStockEntry>(item);
 
             return finalItem;

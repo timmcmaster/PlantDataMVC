@@ -22,6 +22,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // map 
             JournalEntry mappedItem = Mapper.Map<PlantStockTransaction, JournalEntry>(requestItem);
             JournalEntry item = uow.Repository<JournalEntry>().Add(mappedItem);
+            // Save changes before we map back
+            uow.SaveChanges();
             PlantStockTransaction finalItem = Mapper.Map<JournalEntry, PlantStockTransaction>(item);
 
             return finalItem;
@@ -42,6 +44,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
             // map 
             JournalEntry mappedItem = Mapper.Map<PlantStockTransaction, JournalEntry>(requestItem);
             JournalEntry item = uow.Repository<JournalEntry>().Save(mappedItem);
+            // Save changes before we map back
+            uow.SaveChanges();
             PlantStockTransaction finalItem = Mapper.Map<JournalEntry, PlantStockTransaction>(item);
 
             return finalItem;
