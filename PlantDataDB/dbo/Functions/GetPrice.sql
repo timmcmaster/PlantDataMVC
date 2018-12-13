@@ -6,7 +6,7 @@
 CREATE FUNCTION [dbo].[GetPrice] 
 (
 	-- Add the parameters for the function here
-	@pricelistId int, 
+	@pricelistTypeId int, 
 	@productTypeId int, 
 	@transactionDate date
 )
@@ -19,8 +19,8 @@ BEGIN
 	-- Add the T-SQL statements to compute the return value here
 	SELECT @Result = 
 		(SELECT TOP(1) pp.Price
-		 FROM ProductPrices pp
-		 WHERE pp.PriceListId = @pricelistId
+		 FROM ProductPrice pp
+		 WHERE pp.PriceListTypeId = @pricelistTypeId
 		 AND pp.ProductTypeId = @productTypeId
 		 AND pp.DateEffective < @transactionDate
 		 ORDER BY pp.DateEffective DESC);

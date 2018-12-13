@@ -18,7 +18,7 @@ BEGIN
 	-- Add the T-SQL statements to compute the return value here
 	SELECT @Result = Id 
 	FROM dbo.Species 
-	WHERE dbo.Species.GenusID = @genusId
+	WHERE dbo.Species.GenusId = @genusId
 	AND dbo.Species.SpecificName = @speciesName; 
 
 	-- Return the result of the function
