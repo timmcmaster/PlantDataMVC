@@ -10,15 +10,15 @@ using System.Web.Mvc.Html;
 namespace PlantDataMVC.UI.Helpers
 {
     /// <summary>
-    /// Usage @Html.DropDownFor(m => m.ProductType, t => t.DisplayValue, t => t.Id)
+    /// Usage @Html.DropDownFor(() => "ProductType.Id", m => m.ProductType, p => p.DisplayValue, p => p.Id)
     /// </summary>
     public static class DropDownExtensions
     {
         public static MvcHtmlString DropDownFor<TModel,TItem>(this HtmlHelper<TModel> htmlHelper,
             Func<string> fieldName,
-            Expression<Func<TModel, TItem>> expression,       // Selects the referenced entity from the model
-            Func<TItem, string> displayValueSelector,   // Selects the display field from the entity
-            Func<TItem, object> dataValueSelector      // Selects the value field from the entity
+            Expression<Func<TModel, TItem>> expression,     // Selects the referenced entity from the model
+            Func<TItem, string> displayValueSelector,       // Selects the display field from the entity
+            Func<TItem, object> dataValueSelector           // Selects the value field from the entity
             ) where TItem : IDomainEntity
         {
             var expressionText = ExpressionHelper.GetExpressionText(expression);
@@ -28,7 +28,7 @@ namespace PlantDataMVC.UI.Helpers
             var selectedItem = (TItem)metadata.Model;
 
             // Get list of options from dataService
-            // TODO: need to fix this, as hoping to avoid registering IDataServiceBase instances 
+            // TODO: need to fix this, as IDataServiceBase instances aren't currently registered in IoC
             var dataService = DependencyResolver.Current.GetService<IDataServiceBase<TItem>>();
             var items = dataService.List(new ListRequest<TItem>()).Items;
 

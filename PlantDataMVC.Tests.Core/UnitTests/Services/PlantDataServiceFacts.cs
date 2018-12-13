@@ -14,6 +14,7 @@ using UnitTest.Utils.DAL;
 using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
+using System.Collections.Generic;
 
 namespace PlantDataMVC.Tests.Core
 {
@@ -102,7 +103,7 @@ namespace PlantDataMVC.Tests.Core
                                                                 .Including(p => p.CommonName)
                                                                 .Including(p => p.Description)
                                                                 .Including(p => p.SpecificName)
-                                                                .Including(p=> p.Native)
+                                                                .Including(p => p.Native)
                                                                 .Including(p => p.PropagationTime));
         }
 
@@ -178,102 +179,176 @@ namespace PlantDataMVC.Tests.Core
                                                                 .Including(p => p.PropagationTime));
         }
 
+        [Fact]
+        public void TestSelect()
+        {
+            // Arrange
+            int plantId = 1; // will be same as species Id
+
+            // create genus, with expected data
+            var genus = GenusBuilder.aGenus().withRandomValues().withId().Build();
+
+            // create species, with expected data
+            var species = SpeciesBuilder.aSpecies().withRandomValues().withGenus(genus).withNoId().Build();
+            species.Id = plantId;
+
+            var request = new ViewRequest<Plant>(plantId);
+
+            // create mocks
+            var repo = new MockRepository(MockBehavior.Loose);
+            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
+            var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
+
+            // setup mocks with this data
+            srMockWrapper.Setup(x => x.GetItemById(plantId)).Returns(species);
+            uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
+
+
+            // Act
+            var target = new PlantDataService(uowMockWrapper.Object);
+            var result = target.View(request);
+
+
+            // Assert
+            // Verify mocks only (i.e. those setup with .Verifiable())
+            //repo.Verify();
+
+            // Verify mocks and stubs on all (regardless of Verifiable)
+            repo.VerifyAll();
+
+            // assertions only on limited property set at this stage
+            result.Item.Should().BeEquivalentTo(species, options => options
+                                                                .Including(p => p.Id)
+                                                                .Including(p => p.CommonName)
+                                                                .Including(p => p.Description)
+                                                                .Including(p => p.SpecificName)
+                                                                .Including(p => p.Native)
+                                                                .Including(p => p.PropagationTime));
+        }
+
+        [Fact]
+        public void TestList()
+        {
+            // Arrange
+            var speciesList = new List<Species>();
+            for (int i = 0; i < 10; i++)
+            {
+                var genus = GenusBuilder.aGenus().withRandomValues().withId().Build();
+                var species = SpeciesBuilder.aSpecies().withRandomValues().withGenus(genus).withId().Build();
+
+                speciesList.Add(species);
+            }
+
+            var request = new ListRequest<Plant>();
+
+
+            // create mocks
+            var repo = new MockRepository(MockBehavior.Loose);
+            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
+            var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
+
+            // setup mocks with this data
+            srMockWrapper.Setup(x => x.GetAll()).Returns(speciesList);
+            uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
+
+            // Act
+            var target = new PlantDataService(uowMockWrapper.Object);
+            var result = target.List(request);
+
+            // Assert
+            // Verify mocks only (i.e. those setup with .Verifiable())
+            //repo.Verify();
+
+            // Verify mocks and stubs on all (regardless of Verifiable)
+            repo.VerifyAll();
+
+            // Just check count at this stage
+            result.Items.Count.Should().Be(speciesList.Count);
+            // TODO: add more stringent expectations 
+
+            // check order?
+        }
+
+        [Fact]
+        public void TestDelete()
+        {
+            // Arrange
+            // create genus, with expected data
+            var genus = GenusBuilder.aGenus().withId().Build();
+
+            // create species, with expected data
+            var species = SpeciesBuilder.aSpecies().withGenus(genus).withId().Build();
+
+            var request = new DeleteRequest<Plant>(species.Id);
+
+            // create mocks
+            var repo = new MockRepository(MockBehavior.Loose);
+            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
+            var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
+
+            // setup mocks with this data
+            srMockWrapper.Setup(x => x.GetItemById(species.Id)).Returns(species);
+            srMockWrapper.Setup(x => x.Delete(species));
+            uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
+
+            // Act
+            var target = new PlantDataService(uowMockWrapper.Object);
+            target.Delete(request);
+
+            // Assert
+            // Verify mocks only (i.e. those setup with .Verifiable())
+            //repo.Verify();
+
+            // Verify mocks and stubs on all (regardless of Verifiable)
+            repo.VerifyAll();
+        }
+
         /*
-                [Fact]
-                public void TestCreateWhereGenusLatinNameDoesNotExist()
-                {
-                    // Arrange
-                    var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-                    var uow = MockRepository.GenerateStub<IUnitOfWork>();
-                    var gdao = MockRepository.GenerateStub<IGenusRepository>();
-                    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
+        [Fact]
+        public void TestInvalidDelete()
+        {
+            // Arrange
+            int id = 0;
 
-                    var plant = DomainTestData.GenerateRandomPlant();
-                    plant.Id = 0;
-                    var request = new CreateRequest<Plant>(plant);
+            var species = new Species();
+            species.Id = id;
 
-                    var genus = new Genus()
-                    {
-                        Id = 0,
-                        LatinName = plant.GenusLatinName
-                    };
+            var request = new DeleteRequest<Plant>(species.Id);
 
-                    // create random genus, but set expected data
-                    var returnGenus = DALTestData.GenerateRandomGenus();
-                    returnGenus.LatinName = genus.LatinName;
+            // create mocks
+            var repo = new MockRepository(MockBehavior.Loose);
+            var uowMockWrapper = repo.Create<IUnitOfWorkAsync>();
+            var srMockWrapper = repo.Create<IRepositoryAsync<Species>>();
 
-                    mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-                    uow.Stub(x => x.GenusRepository).Return(gdao);
-                    uow.Stub(x => x.SpeciesRepository).Return(sdao);
-                    gdao.Stub(x => x.GetItemByLatinName(genus.LatinName)).Return(null);
-                    gdao.Stub(x => x.Add(genus)).IgnoreArguments().Return(returnGenus);
+            // setup mocks with this data
+            srMockWrapper.Setup(x => x.GetItemById(species.Id)).Returns(species);
+            srMockWrapper.Setup(x => x.Delete(species));
+            uowMockWrapper.Setup(uow => uow.Repository<Species>()).Returns(srMockWrapper.Object);
 
-                    // create random species, but set expected data
-                    var species = DALTestData.GenerateRandomSpecies();
-                    species.CommonName = plant.CommonName;
-                    species.Description = plant.Description;
-                    species.LatinName = plant.SpeciesLatinName;
-                    species.Native = plant.Native;
-                    species.PropagationTime = plant.PropagationTime;
+            // Act
+            try
+            {
+                var target = new PlantDataService(uowMockWrapper.Object);
+                target.Delete(request);
 
-                    var returnSpecies = new Species()
-                    {
-                        GenusId = genus.Id,
-                        GenusLatinName = genus.LatinName,
-                        Id = species.Id,
-                        CommonName = species.CommonName,
-                        Description = species.Description,
-                        LatinName = species.LatinName,
-                        Native = species.Native,
-                        PropagationTime = species.PropagationTime
-                    };
+                // Assert
+            }
+            catch (System.ArgumentOutOfRangeException ex)
+            {
+                Assert.NotNull(ex);
+                Assert.Equal("id", ex.ParamName);
+                //dont throw cos its expected
+            }
 
-                    sdao.Stub(x => x.Add(species)).IgnoreArguments().Return(returnSpecies);
+            // Assert
+            // Verify mocks only (i.e. those setup with .Verifiable())
+            //repo.Verify();
 
-                    // Act
-                    var target = new PlantDataService(mgr);
-                    var result = target.Create(request);
+            // Verify mocks and stubs on all (regardless of Verifiable)
+            repo.VerifyAll();
+        }
 
-                    // Assert
-                    gdao.VerifyAllExpectations();
-                    sdao.VerifyAllExpectations();
-                    Assert.Equal(plant.CommonName, result.Item.CommonName);
-                    Assert.Equal(plant.Description, result.Item.Description);
-                    Assert.Equal(plant.LatinName, result.Item.LatinName);
-                    Assert.Equal(plant.Native, result.Item.Native);
-                    Assert.Equal(plant.PropagationTime, result.Item.PropagationTime);
-                }
 
-                [Fact]
-                public void TestSelect()
-                {
-                    // Arrange
-                    int id = 1;
-                    var request = new ViewRequest<Plant>(id);
-
-                    var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-                    var uow = MockRepository.GenerateStub<IUnitOfWork>();
-                    var gdao = MockRepository.GenerateStub<IGenusRepository>();
-                    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
-
-                    var species = DALTestData.GenerateRandomSpecies();
-                    species.Id = id;
-
-                    mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-                    uow.Stub(x => x.GenusRepository).Return(gdao);
-                    uow.Stub(x => x.SpeciesRepository).Return(sdao);
-                    sdao.Stub(x => x.GetItemById(id)).Return(species);
-
-                    // Act
-                    var target = new PlantDataService(mgr);
-                    var result = target.View(request);
-
-                    // Assert
-                    sdao.VerifyAllExpectations();
-                    Assert.Equal(id, result.Item.Id);
-                    Assert.Equal(species.Description, result.Item.Description);
-                    Assert.Equal(species.CommonName, result.Item.CommonName);
-                }
 
                 [Fact]
                 public void TestUpdateWhereGenusLatinNameDoesNotExist()
@@ -402,34 +477,6 @@ namespace PlantDataMVC.Tests.Core
 
 
                 [Fact]
-                public void TestDelete()
-                {
-                    // Arrange
-                    int id = 1;
-                    var request = new DeleteRequest<Plant>(id);
-
-                    var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-                    var uow = MockRepository.GenerateStub<IUnitOfWork>();
-                    var gdao = MockRepository.GenerateStub<IGenusRepository>();
-                    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
-
-                    mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-                    uow.Stub(x => x.GenusRepository).Return(gdao);
-                    uow.Stub(x => x.SpeciesRepository).Return(sdao);
-
-                    var species = new Species();
-                    sdao.Stub(x => x.GetItemById(id)).Return(species);
-                    sdao.Stub(x => x.Delete(species));
-
-                    // Act
-                    var target = new PlantDataService(mgr);
-                    target.Delete(request);
-
-                    // Assert
-                    sdao.VerifyAllExpectations();
-                }
-
-                [Fact]
                 public void TestInvalidDelete()
                 {
                     // Arrange
@@ -461,38 +508,6 @@ namespace PlantDataMVC.Tests.Core
 
                 }
 
-                [Fact]
-                public void TestList()
-                {
-                    // Arrange
-                    var request = new ListRequest<Plant>();
-
-                    var mgr = MockRepository.GenerateStub<IUnitOfWorkManager>();
-                    var uow = MockRepository.GenerateStub<IUnitOfWork>();
-                    var gdao = MockRepository.GenerateStub<IGenusRepository>();
-                    var sdao = MockRepository.GenerateStub<ISpeciesRepository>();
-
-                    mgr.Stub(x => x.GetUnitOfWork()).Return(uow);
-                    uow.Stub(x => x.GenusRepository).Return(gdao);
-                    uow.Stub(x => x.SpeciesRepository).Return(sdao);
-
-                    var speciesList = new List<Species>();
-                    for (int i = 0; i < 10; i++)
-                    {
-                        speciesList.Add(DALTestData.GenerateRandomSpecies());
-                    }
-
-                    sdao.Stub(x => x.GetAll()).Return(speciesList);
-
-                    // Act
-                    var target = new PlantDataService(mgr);
-                    var result = target.List(request);
-
-                    // Assert
-                    sdao.VerifyAllExpectations();
-                    Assert.Equal(speciesList.Count, result.Items.Count);
-                    // check order?
-                }
             */
     }
 }
