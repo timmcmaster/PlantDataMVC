@@ -5,7 +5,7 @@ using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
 using PlantDataMVC.Entities.Context;
 
-namespace PlantDataMvc3.Tests.DAL
+namespace PlantDataMVC.Tests.DAL
 {
     public class BaseUnitOfWorkFacts: IDisposable
     {
