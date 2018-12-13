@@ -7,6 +7,7 @@ using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Domain.Mappers;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Service.SimpleServiceLayer;
+using FluentAssertions;
 using System;
 using System.Threading.Tasks;
 using UnitTest.Utils.Domain;
@@ -58,7 +59,7 @@ namespace PlantDataMVC.Tests.Core
 
                 // Assert
                 // verify that plant is created and species ID is set
-                Assert.NotEqual(0, result.Item.Id);
+                result.Item.Id.Should().NotBe(0);
             }
         }
 
@@ -92,14 +93,10 @@ namespace PlantDataMVC.Tests.Core
                 var target = new PlantDataService(uow);
                 var result = target.Create(requestTwo);
                 // NOTE: within Create call, we should have called uow.SaveChanges();
-                //// ensure we enforce ID updates after action
-                //uow.SaveChanges();
 
                 // Assert
                 // verify that plant is created and species ID is set
-                Assert.NotEqual(0, result.Item.Id);
-
-                // clean up data to restore DB state
+                result.Item.Id.Should().NotBe(0);
             }
         }
 

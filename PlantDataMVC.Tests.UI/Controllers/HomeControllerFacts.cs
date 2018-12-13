@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using FluentAssertions;
+using System.Web.Mvc;
 using Xunit;
 using PlantDataMVC.UI.Controllers;
 
@@ -18,8 +19,9 @@ namespace PlantDataMVC.Tests.UI.Controllers
                 var result = controller.Index();
 
                 // Assert
-                var viewResult = Assert.IsType<ViewResult>(result);
-                Assert.Empty(viewResult.ViewName);
+                result.Should().BeAssignableTo<ActionResult>();
+                result.Should().BeOfType<ViewResult>()
+                        .Which.ViewName.Should().BeEmpty();
             }
 
             [Fact]
@@ -32,9 +34,8 @@ namespace PlantDataMVC.Tests.UI.Controllers
                 var result = controller.Index();
 
                 // Assert
-                var viewResult = Assert.IsType<ViewResult>(result);
-                Assert.Equal("Welcome to ASP.NET MVC!", viewResult.ViewBag.Message);
-                Assert.Null(viewResult.Model);
+                result.Should().BeAssignableTo<ActionResult>();
+                result.Should().BeOfType<ViewResult>().Which.Model.Should().BeNull();
             }
         }
 
@@ -50,8 +51,9 @@ namespace PlantDataMVC.Tests.UI.Controllers
                 var result = controller.About();
 
                 // Assert
-                var viewResult = Assert.IsType<ViewResult>(result);
-                Assert.Empty(viewResult.ViewName);
+                result.Should().BeAssignableTo<ActionResult>();
+                result.Should().BeOfType<ViewResult>()
+                        .Which.ViewName.Should().BeEmpty();
             }
 
             [Fact]
@@ -64,8 +66,9 @@ namespace PlantDataMVC.Tests.UI.Controllers
                 var result = controller.About();
 
                 // Assert
-                var viewResult = Assert.IsType<ViewResult>(result);
-                Assert.Null(viewResult.Model);
+                result.Should().BeAssignableTo<ActionResult>();
+                result.Should().BeOfType<ViewResult>()
+                        .Which.Model.Should().BeNull();
             }
         }
     }

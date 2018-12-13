@@ -1,4 +1,5 @@
-﻿using Framework.DAL.EF;
+﻿using FluentAssertions;
+using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
 using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Entities.Context;
@@ -24,9 +25,9 @@ namespace PlantDataMVC.Tests.DAL
                 var addedGenus = repository.Add(genus);
 
                 // Assert
-                Assert.NotNull(addedGenus);
-                //Assert.Equal<int>(genus.Id, addedGenus.Id);    // Should ID stay the same?
-                Assert.Equal(genus.LatinName, addedGenus.LatinName);
+                addedGenus.Should().NotBeNull();
+                addedGenus.Should().BeEquivalentTo(genus, options => options
+                                                                        .Including(g => g.LatinName));
             }
         }
 
@@ -44,8 +45,9 @@ namespace PlantDataMVC.Tests.DAL
                 var addedGenus = repository.Add(genus);
 
                 // Assert
-                Assert.NotNull(addedGenus);
-                Assert.Equal(addedGenus.LatinName, genus.LatinName);
+                addedGenus.Should().NotBeNull();
+                addedGenus.Should().BeEquivalentTo(genus, options => options
+                                                                        .Including(g => g.LatinName));
             }
         }
 
@@ -68,9 +70,9 @@ namespace PlantDataMVC.Tests.DAL
                 var entity = repository.GetItemById(addedGenus.Id);
 
                 // Assert
-                Assert.NotNull(entity);
-                var returnedGenus = Assert.IsAssignableFrom<Genus>(entity);
-                Assert.Equal(addedGenus.LatinName, returnedGenus.LatinName);
+                entity.Should().NotBeNull();
+                entity.Should().BeOfType<Genus>();
+                entity.Should().BeEquivalentTo(addedGenus);
             }
         }
     }

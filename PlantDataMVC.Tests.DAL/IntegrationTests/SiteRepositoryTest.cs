@@ -4,6 +4,7 @@ using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
 using System.Data.Entity.Validation;
+using FluentAssertions;
 using UnitTest.Utils.DAL;
 using Xunit;
 using Xunit.Abstractions;
@@ -34,8 +35,8 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
                 uow.SaveChanges();
 
                 // Assert
-                Assert.NotNull(returnedSite);
-                Assert.NotEqual(0, returnedSite.Id);
+                returnedSite.Should().NotBeNull();
+                returnedSite.Id.Should().NotBe(0);
                 _output.WriteLine("returnedSite.Id: {0}", returnedSite.Id);
             }
         }
@@ -85,9 +86,10 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
                 var retrievedSite = repository.GetItemById(addedSiteId);
 
                 // Assert
-                Assert.NotNull(retrievedSite);
-                Assert.Equal(site.Latitude, retrievedSite.Latitude);
-                Assert.Equal(site.Longitude, retrievedSite.Longitude);
+                retrievedSite.Should().NotBeNull();
+                retrievedSite.Should().BeEquivalentTo(site, options => options
+                                                                        .Including(s => s.Latitude)
+                                                                        .Including(s => s.Longitude));
             }
         }
 
@@ -142,9 +144,9 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
                 var retrievedSite = repository.GetItemById(addedSiteId);
 
                 // Assert
-                Assert.NotNull(retrievedSite);
-                Assert.Equal(siteLatitude, retrievedSite.Latitude);
-                Assert.Equal(siteLongitude, retrievedSite.Longitude);
+                retrievedSite.Should().NotBeNull();
+                retrievedSite.Latitude.Should().Be(siteLatitude);
+                retrievedSite.Longitude.Should().Be(siteLongitude);
             }
         }
     }

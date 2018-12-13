@@ -1,4 +1,5 @@
-﻿using Interfaces.DAL.Entity;
+﻿using FluentAssertions;
+using Interfaces.DAL.Entity;
 using PlantDataMVC.Entities.Models;
 using Xunit;
 
@@ -6,6 +7,10 @@ namespace PlantDataMVC.Tests.DAL
 {
     public class GenusFacts
     {
+        /// <summary>
+        /// Determines whether empty object is constructed correctly.
+        /// Test is pretty redundant.
+        /// </summary>
         [Fact]
         public void CanConstructEmptyObject()
         {
@@ -13,11 +18,20 @@ namespace PlantDataMVC.Tests.DAL
             var genus = new Genus();
 
             // Assert
-            var entity = Assert.IsAssignableFrom<IEntity>(genus);
-            Assert.Null(genus.LatinName);
-            Assert.Equal<int>(0, genus.Id);
+            // can I assign species object to IEntity?
+            genus.Should().BeAssignableTo<IEntity>();
+            genus.Should().BeOfType<Genus>();
+            genus.Should().NotBeNull();
+
+            // Check default values
+            genus.Id.Should().Be(0);
+            genus.LatinName.Should().BeNull();
         }
 
+        /// <summary>
+        /// Determines whether object with properties is constructed correctly.
+        /// Test is pretty redundant.
+        /// </summary>
         [Fact]
         public void CanConstructWithProperties()
         {
@@ -29,22 +43,14 @@ namespace PlantDataMVC.Tests.DAL
                             };
 
             // Assert
-            var entity = Assert.IsAssignableFrom<IEntity>(genus);
-            Assert.Equal<int>(1, genus.Id);
-            Assert.Equal("Eremophila", genus.LatinName);
+            // can I assign species object to IEntity?
+            genus.Should().BeAssignableTo<IEntity>();
+            genus.Should().BeOfType<Genus>();
+            genus.Should().NotBeNull();
+
+            // Check default values
+            genus.Id.Should().Be(1);
+            genus.LatinName.Should().Be("Eremophila");
         }
-
-        [Fact]
-        public void AllPropertiesMatch()
-        {
-            // Act
-            var genus = new Genus();
-
-            // Assert
-            var entity = Assert.IsAssignableFrom<IEntity>(genus);
-            Assert.Null(genus.LatinName);
-            Assert.Equal<int>(0, genus.Id);
-        }
-
     }
 }

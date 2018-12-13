@@ -1,4 +1,5 @@
-﻿using Interfaces.DAL.Entity;
+﻿using FluentAssertions;
+using Interfaces.DAL.Entity;
 using PlantDataMVC.Entities.Models;
 using Xunit;
 
@@ -6,6 +7,10 @@ namespace PlantDataMVC.Tests.DAL
 {
     public class SpeciesFacts
     {
+        /// <summary>
+        /// Determines whether empty object is constructed correctly.
+        /// Test is pretty redundant.
+        /// </summary>
         [Fact]
         public void CanConstructEmptyObject()
         {
@@ -13,18 +18,25 @@ namespace PlantDataMVC.Tests.DAL
             var species = new Species();
 
             // Assert
-            var entity = Assert.IsAssignableFrom<IEntity>(species);
-            Assert.Null(species.SpecificName);
-            Assert.Equal<int>(0, species.Id);
-            Assert.Equal<int>(0, species.GenusId);
-            //Assert.Null(species.GenusLatinName);
-            Assert.Null(species.CommonName);
-            Assert.Null(species.Description);
-            Assert.False(species.Native);
-            Assert.Null(species.PropagationTime);
-            Assert.Null(species.SpecificName);
+            // can I assign species object to IEntity?
+            species.Should().BeAssignableTo<IEntity>();
+            species.Should().BeOfType<Species>();
+            species.Should().NotBeNull();
+
+            // Check default values
+            species.Id.Should().Be(0);
+            species.GenusId.Should().Be(0);
+            species.SpecificName.Should().BeNull();
+            species.Description.Should().BeNull();
+            species.CommonName.Should().BeNull();
+            species.PropagationTime.Should().BeNull();
+            species.Native.Should().BeFalse();
         }
 
+        /// <summary>
+        /// Determines whether object with properties is constructed correctly.
+        /// Test is pretty redundant.
+        /// </summary>
         [Fact]
         public void CanConstructWithProperties()
         {
@@ -42,15 +54,19 @@ namespace PlantDataMVC.Tests.DAL
                             };
 
             // Assert
-            var entity = Assert.IsAssignableFrom<IEntity>(species);
-            Assert.Equal<int>(1, species.Id);
-            Assert.Equal<int>(1, species.GenusId);
-            //Assert.Equal<string>("Eremophila", species.GenusLatinName);
-            Assert.Equal("Crimson emu bush", species.CommonName);
-            Assert.Equal("Arid zone plant", species.Description);
-            Assert.True(species.Native);
-            Assert.Equal<int?>(32, species.PropagationTime);
-            Assert.Equal("glabra", species.SpecificName);
+            // can I assign species object to IEntity?
+            species.Should().BeAssignableTo<IEntity>();
+            species.Should().BeOfType<Species>();
+            species.Should().NotBeNull();
+
+            // Check default values
+            species.Id.Should().Be(1);
+            species.GenusId.Should().Be(1);
+            species.SpecificName.Should().Be("glabra");
+            species.Description.Should().Be("Arid zone plant");
+            species.CommonName.Should().Be("Crimson emu bush");
+            species.PropagationTime.Should().Be(32);
+            species.Native.Should().BeTrue();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Interfaces.DAL.Entity;
+﻿using FluentAssertions;
+using Interfaces.DAL.Entity;
 using PlantDataMVC.Entities.Models;
 using Xunit;
 
@@ -13,12 +14,17 @@ namespace PlantDataMVC.Tests.DAL
             var site = new Site();
 
             // Assert
-            var entity = Assert.IsAssignableFrom<IEntity>(site);
-            Assert.Equal(0, site.Id);
-            Assert.Null(site.SiteName);
-            Assert.Null(site.Suburb);
-            Assert.Null(site.Latitude);
-            Assert.Null(site.Longitude);
+            // can I assign object to IEntity?
+            site.Should().BeAssignableTo<IEntity>();
+            site.Should().BeOfType<Site>();
+            site.Should().NotBeNull();
+
+            // Check default values
+            site.Id.Should().Be(0);
+            site.SiteName.Should().BeNull();
+            site.Suburb.Should().BeNull();
+            site.Latitude.Should().BeNull();
+            site.Longitude.Should().BeNull();
         }
 
         [Fact]
@@ -35,12 +41,17 @@ namespace PlantDataMVC.Tests.DAL
             };
 
             // Assert
-            var entity = Assert.IsAssignableFrom<IEntity>(site);
-            Assert.Equal(1, site.Id);
-            Assert.Equal("Home", site.SiteName);
-            Assert.Equal("Moorooka", site.Suburb);
-            Assert.Equal(0.5m, site.Latitude);
-            Assert.Equal(0.5m, site.Longitude);
+            // can I assign object to IEntity?
+            site.Should().BeAssignableTo<IEntity>();
+            site.Should().BeOfType<Site>();
+            site.Should().NotBeNull();
+
+            // Check default values
+            site.Id.Should().Be(1);
+            site.SiteName.Should().Be("Home");
+            site.Suburb.Should().Be("Moorooka");
+            site.Latitude.Should().Be(0.5m);
+            site.Longitude.Should().Be(0.5m);
         }
     }
 }

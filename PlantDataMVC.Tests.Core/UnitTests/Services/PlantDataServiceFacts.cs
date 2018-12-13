@@ -8,6 +8,7 @@ using PlantDataMVC.Domain.Mappers;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Repositories;
 using PlantDataMVC.Service.SimpleServiceLayer;
+using FluentAssertions;
 using System;
 using UnitTest.Utils.DAL;
 using UnitTest.Utils.Domain;
@@ -93,14 +94,16 @@ namespace PlantDataMVC.Tests.Core
             repo.VerifyAll();
 
             // TODO: Need to verify ID on result item, but it fails because SaveChanges callback
-            //       does not set the correct object. May need to be integration test instead.
+            //       does not set the correct object. May need to be integration test instead (or as well)
             //Assert.Equal(returnSpeciesId, result.Item.Id);
 
-            Assert.Equal(request.Item.CommonName, result.Item.CommonName);
-            Assert.Equal(request.Item.Description, result.Item.Description);
-            Assert.Equal(request.Item.SpecificName, result.Item.SpecificName);
-            Assert.Equal(request.Item.Native, result.Item.Native);
-            Assert.Equal(request.Item.PropagationTime, result.Item.PropagationTime);
+            // assertions only on limited property set at this stage
+            result.Item.Should().BeEquivalentTo(request.Item, options => options
+                                                                .Including(p => p.CommonName)
+                                                                .Including(p => p.Description)
+                                                                .Including(p => p.SpecificName)
+                                                                .Including(p=> p.Native)
+                                                                .Including(p => p.PropagationTime));
         }
 
         [Fact]
@@ -166,11 +169,13 @@ namespace PlantDataMVC.Tests.Core
             //       does not set the correct object. May need to be integration test instead.
             //Assert.Equal(returnSpeciesId, result.Item.Id);
 
-            Assert.Equal(request.Item.CommonName, result.Item.CommonName);
-            Assert.Equal(request.Item.Description, result.Item.Description);
-            Assert.Equal(request.Item.SpecificName, result.Item.SpecificName);
-            Assert.Equal(request.Item.Native, result.Item.Native);
-            Assert.Equal(request.Item.PropagationTime, result.Item.PropagationTime);
+            // assertions only on limited property set at this stage
+            result.Item.Should().BeEquivalentTo(request.Item, options => options
+                                                                .Including(p => p.CommonName)
+                                                                .Including(p => p.Description)
+                                                                .Including(p => p.SpecificName)
+                                                                .Including(p => p.Native)
+                                                                .Including(p => p.PropagationTime));
         }
 
         /*

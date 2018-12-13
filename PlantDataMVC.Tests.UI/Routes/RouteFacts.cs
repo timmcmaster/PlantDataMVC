@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using FluentAssertions; 
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Xunit;
@@ -20,10 +21,10 @@ namespace PlantDataMVC.Tests.UI.Routes
             RouteData routeData = routes.GetRouteData(context);
 
             // Assert
-            Assert.NotNull(routeData);
-            Assert.Equal("controller1", routeData.Values["controller"]);
-            Assert.Equal("Index", routeData.Values["action"]);
-            Assert.Equal(UrlParameter.Optional, routeData.Values["id"]);
+            routeData.Should().NotBeNull();
+            routeData.Values["controller"].Should().Be("controller1");
+            routeData.Values["action"].Should().Be("Index");
+            routeData.Values["id"].Should().Be(UrlParameter.Optional);
         }
 
         [Fact]
@@ -38,10 +39,10 @@ namespace PlantDataMVC.Tests.UI.Routes
             RouteData routeData = routes.GetRouteData(context);
 
             // Assert
-            Assert.NotNull(routeData);
-            Assert.Equal("controller1", routeData.Values["controller"]);
-            Assert.Equal("action2", routeData.Values["action"]);
-            Assert.Equal(UrlParameter.Optional, routeData.Values["id"]);
+            routeData.Should().NotBeNull();
+            routeData.Values["controller"].Should().Be("controller1");
+            routeData.Values["action"].Should().Be("action2");
+            routeData.Values["id"].Should().Be(UrlParameter.Optional);
         }
 
         [Fact]
@@ -56,10 +57,10 @@ namespace PlantDataMVC.Tests.UI.Routes
             RouteData routeData = routes.GetRouteData(context);
 
             // Assert
-            Assert.NotNull(routeData);
-            Assert.Equal("controller1", routeData.Values["controller"]);
-            Assert.Equal("action2", routeData.Values["action"]);
-            Assert.Equal("id3", routeData.Values["id"]);
+            routeData.Should().NotBeNull();
+            routeData.Values["controller"].Should().Be("controller1");
+            routeData.Values["action"].Should().Be("action2");
+            routeData.Values["id"].Should().Be("id3");
         }
 
         [Fact]
@@ -74,7 +75,7 @@ namespace PlantDataMVC.Tests.UI.Routes
             RouteData routeData = routes.GetRouteData(context);
 
             // Assert
-            Assert.Null(routeData);
+            routeData.Should().BeNull();
         }
 
         [Fact]
@@ -89,8 +90,8 @@ namespace PlantDataMVC.Tests.UI.Routes
             RouteData routeData = routes.GetRouteData(context);
 
             // Assert
-            Assert.NotNull(routeData);
-            Assert.IsAssignableFrom<StopRoutingHandler>(routeData.RouteHandler);
+            routeData.Should().NotBeNull();
+            routeData.RouteHandler.Should().BeAssignableTo<StopRoutingHandler>();
         }
     }
 }

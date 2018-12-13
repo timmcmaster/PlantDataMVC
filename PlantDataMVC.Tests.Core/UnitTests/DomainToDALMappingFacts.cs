@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentAssertions;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Domain.Mappers;
 using PlantDataMVC.Entities.Models;
@@ -45,7 +46,8 @@ namespace PlantDataMVC.Tests.Core
             Genus result = Mapper.Map<Plant, Genus>(plant);
 
             // Assert
-            Assert.Equal(expectedGenus.LatinName, result.LatinName);
+            result.Should().BeEquivalentTo(expectedGenus, options => options
+                                                            .Including(g => g.LatinName));
         }
 
         [Fact]
@@ -68,13 +70,13 @@ namespace PlantDataMVC.Tests.Core
             Species result = Mapper.Map<Plant, Species>(plant);
 
             // Assert
-            Assert.Equal(expectedSpecies.Id, result.Id);
-            Assert.Equal(expectedSpecies.SpecificName, result.SpecificName);
-            Assert.Equal(expectedSpecies.CommonName, result.CommonName);
-            Assert.Equal(expectedSpecies.Description, result.Description);
-            //Assert.Equal(expectedSpecies.GenusLatinName, result.GenusLatinName);
-            Assert.Equal(expectedSpecies.Native, result.Native);
-            Assert.Equal(expectedSpecies.PropagationTime, result.PropagationTime);
+            result.Should().BeEquivalentTo(expectedSpecies, options => options
+                                                            .Including(s => s.Id)
+                                                            .Including(s => s.SpecificName)
+                                                            .Including(s => s.CommonName)
+                                                            .Including(s => s.Description)
+                                                            .Including(s => s.Native)
+                                                            .Including(s => s.PropagationTime));
         }
 
     }
