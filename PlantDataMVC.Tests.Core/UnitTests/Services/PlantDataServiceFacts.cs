@@ -23,12 +23,15 @@ namespace PlantDataMVC.Tests.Core
         public PlantDataServiceFacts(ITestOutputHelper output)
         {
             this._output = output;
+            // Reset mapper before configuring
+            Mapper.Reset();
+            // Configure the mapper at start of each test
             AutoMapperCoreConfiguration.Configure();
         }
 
         public void Dispose()
         {
-            Mapper.Reset();
+            //Mapper.Reset();
         }
 
         [Fact]

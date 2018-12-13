@@ -12,6 +12,8 @@ namespace PlantDataMVC.Tests.Core
     {
         public DomainToDALMappingFacts()
         {
+            // Reset Mapper before configuring
+            Mapper.Reset();
             // Configure the mapper at start of each test
             AutoMapperCoreConfiguration.Configure();
         }
@@ -19,7 +21,7 @@ namespace PlantDataMVC.Tests.Core
         public void Dispose()
         {
             // Reset Mapper at end of each test
-            Mapper.Reset();
+            //Mapper.Reset();
         }
 
         [Fact]
