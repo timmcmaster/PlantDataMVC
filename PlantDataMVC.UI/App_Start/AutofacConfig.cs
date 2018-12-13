@@ -67,8 +67,6 @@ namespace PlantDataMVC.UI
             // WCF Service configurations
             // ****************************************************
 
-            //* TODO: Fix registration of WCF services
-
             // Register channel factory (for all service interfaces, based on Web.config definitions)
             builder.Register(c => new ChannelFactory<IPlantDataService>("BasicHttpBinding_IPlantDataService"))
                 .SingleInstance();
@@ -113,7 +111,6 @@ namespace PlantDataMVC.UI
             builder.Register(c => c.Resolve<ChannelFactory<IPlantStockTransactionTypeDataService>>().CreateChannel())
               .As<IPlantStockTransactionTypeDataService>()
               .UseWcfSafeRelease();
-            //*/
 
             // ****************************************************
             // UI configurations
