@@ -32,12 +32,11 @@ namespace PlantDataMVC.UI.Helpers
 
             // Get list of options from dataService
 
-            // TODO: this doesn't work as IDataServiceBase instances aren't currently registered in IoC
-            //var dsTest = DependencyResolver.Current.GetService<IDataServiceBase<TItem>>();
-
+            // TODO: fix to get corresponding hierarchy in a better way
             // This now works after implementing ServiceContract and OperationContract on IDataServiceBase<T> 
             Type interfaceType = GetDataServiceInterfaceFor<TItem>();
             var dataService = DependencyResolver.Current.GetService(interfaceType) as IDataServiceBase<TItem>;
+
             IList<TItem> items = new List<TItem>();
             if (dataService != null)
             {
