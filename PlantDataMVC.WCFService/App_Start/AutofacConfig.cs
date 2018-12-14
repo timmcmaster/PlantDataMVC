@@ -48,7 +48,7 @@ namespace PlantDataMVC.WCFService
             builder.RegisterType<PlantStockTransactionTypeDataService>().As<IPlantStockTransactionTypeDataService>();
 
             // Register singleton instance of ILog for Common.Logging
-            // TODO: This is a bit dodgy, as it doesn't allow use to use NLog rules based on logging class.
+            // TODO: This is a bit dodgy, as it doesn't allow us to use NLog rules based on logging class.
             //builder.RegisterInstance(LogManager.GetLogger("PlantDataMVC.WCFServices")).As<ILog>();
 
             // Set the dependency resolver. This works for both regular
