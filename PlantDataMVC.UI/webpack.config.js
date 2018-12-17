@@ -11,10 +11,11 @@ module.exports = [
     plugins: [
         new CleanWebpackPlugin(['Scripts/dist']),
 
-        //new webpack.ProvidePlugin({
-        //    $: 'jquery',
-        //    jQuery: 'jquery'
-        //})
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery' // for Angular
+        })
     ],
     output: {
         path: path.resolve(__dirname, 'Scripts/dist'),
