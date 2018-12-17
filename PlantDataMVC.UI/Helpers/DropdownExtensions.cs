@@ -33,9 +33,12 @@ namespace PlantDataMVC.UI.Helpers
             // Get list of options from dataService
 
             // TODO: fix to get corresponding hierarchy in a better way
-            // This now works after implementing ServiceContract and OperationContract on IDataServiceBase<T> 
-            Type interfaceType = GetDataServiceInterfaceFor<TItem>();
-            var dataService = DependencyResolver.Current.GetService(interfaceType) as IDataServiceBase<TItem>;
+            // This now works after implementing ServiceContract and OperationContract on IDataServiceBase<T>
+            // Can't get base service directly, as it's not registered with Autofac
+            //Type interfaceType = GetDataServiceInterfaceFor<TItem>();
+            //var dataService = DependencyResolver.Current.GetService(interfaceType) as IDataServiceBase<TItem>;
+
+            var dataService = GetServiceFor<TItem>();
 
             IList<TItem> items = new List<TItem>();
             if (dataService != null)
@@ -53,31 +56,36 @@ namespace PlantDataMVC.UI.Helpers
             return htmlHelper.DropDownList(fieldName(), selectListItems, "Select an option");
         }
 
-        // HACK: Very very hacky quick hack to return service interface for given IEntity type
-        public static Type GetDataServiceInterfaceFor<TItem>() where TItem : IDomainEntity
+        // HACK: Still very hacky quick method to return service interface for given IEntity type
+        public static IDataServiceBase<TItem> GetServiceFor<TItem>() where TItem : IDomainEntity
         {
             if (typeof(TItem) == typeof(Plant))
-                return typeof(IPlantDataService);
+                return GetServiceFor<TItem, IPlantDataService>();
             //else if (typeof(TItem) == typeof(PlantPriceListType))
             //    return typeof();
             //else if (typeof(TItem) == typeof(PlantProductPrice))
             //    return typeof();
             else if (typeof(TItem) == typeof(PlantProductType))
-                return typeof(IPlantProductTypeDataService);
+                return GetServiceFor<TItem, IPlantProductTypeDataService>();
             else if (typeof(TItem) == typeof(PlantSeed))
-                return typeof(IPlantSeedDataService);
+                return GetServiceFor<TItem, IPlantSeedDataService>();
             else if (typeof(TItem) == typeof(PlantSeedSite))
-                return typeof(IPlantSeedSiteDataService);
+                return GetServiceFor<TItem, IPlantSeedSiteDataService>();
             else if (typeof(TItem) == typeof(PlantSeedTray))
-                return typeof(IPlantSeedTrayDataService);
+                return GetServiceFor<TItem, IPlantSeedTrayDataService>();
             else if (typeof(TItem) == typeof(PlantStockEntry))
-                return typeof(IPlantStockEntryDataService);
+                return GetServiceFor<TItem, IPlantStockEntryDataService>();
             else if (typeof(TItem) == typeof(PlantStockTransaction))
-                return typeof(IPlantStockTransactionDataService);
+                return GetServiceFor<TItem, IPlantStockTransactionDataService>();
             else if (typeof(TItem) == typeof(PlantStockTransactionType))
-                return typeof(IPlantStockTransactionTypeDataService);
+                return GetServiceFor<TItem, IPlantStockTransactionTypeDataService>();
             else
                 throw new Exception("corresponding service not found");
+        }
+
+        public static IDataServiceBase<TItem> GetServiceFor<TItem, TInterface>() where TItem : IDomainEntity
+        {
+            return DependencyResolver.Current.GetService<TInterface>() as IDataServiceBase<TItem>;
         }
     }
 }
