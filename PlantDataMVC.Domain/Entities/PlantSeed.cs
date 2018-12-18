@@ -13,7 +13,14 @@ namespace PlantDataMVC.Domain.Entities
         public string Location { get; set; }
         public string Notes { get; set; }
 
-        public override string DisplayValue { get { return this.Id.ToString(); } }
+        public override string DisplayValue
+        {
+            get
+            {
+                //return this.Id.ToString(); 
+                return String.Format("{0},{1:d}", this.SpeciesBinomial, this.DateCollected);
+            }
+        }
 
         //public PlantSeedTray[] SeedTrays
         //{

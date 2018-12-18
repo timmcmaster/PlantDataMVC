@@ -8,8 +8,8 @@ namespace PlantDataMVC.UI.Models
 {
     public class TrayNewViewModel
     {
-        [Display(Name = "Seed Batch Id")]
-        public int SeedBatchId { get; set; }
+        [Display(Name = "Seed Batch")]
+        public PlantSeed SeedBatch { get; set; }
 
         [Display(Name = "Date Planted")]
         public DateTime DatePlanted { get; set; }
@@ -23,7 +23,8 @@ namespace PlantDataMVC.UI.Models
 
         public TrayNewViewModel()
         {
-            DatePlanted = new DateTime();
+            this.SeedBatch = new PlantSeed();
+            this.DatePlanted = new DateTime();
         }
     }
 }
