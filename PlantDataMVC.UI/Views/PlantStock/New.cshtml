@@ -10,46 +10,50 @@
 @using (Html.BeginForm("Create", "PlantStock"))
 {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Plant Stock</legend>
+<fieldset>
+    <legend>Plant Stock</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SpeciesId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SpeciesId)
-            @Html.ValidationMessageFor(model => model.SpeciesId)
-        </div>
+    @*@Html.HiddenFor(model => model.SpeciesId)*@
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SpeciesBinomial)
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.SpeciesBinomial)
-            @Html.ValidationMessageFor(model => model.SpeciesBinomial)
-        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ProductType)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownFor(() => "ProductType.Id", model => model.ProductType, p => p.DisplayValue, p => p.Id)
-            @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
-            @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
-        </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.PlantSpecies)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownFor(() => "SpeciesId", model => model.PlantSpecies, p => p.DisplayValue, p => p.Id)
+        @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
+        @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.QuantityInStock)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.QuantityInStock)
-            @Html.ValidationMessageFor(model => model.QuantityInStock)
-        </div>
+    @*<div class="editor-label">
+        @Html.LabelFor(model => model.SpeciesBinomial)
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => model.SpeciesBinomial)
+        @Html.ValidationMessageFor(model => model.SpeciesBinomial)
+    </div>*@
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ProductType)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownFor(() => "ProductType.Id", model => model.ProductType, p => p.DisplayValue, p => p.Id)
+        @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
+        @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.QuantityInStock)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.QuantityInStock)
+        @Html.ValidationMessageFor(model => model.QuantityInStock)
+    </div>
+
+    <p>
+        <input type="submit" value="Create" />
+    </p>
+</fieldset>
 }
 
 <div>
