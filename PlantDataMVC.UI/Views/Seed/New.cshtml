@@ -12,8 +12,6 @@
     <fieldset>
         <legend>Seed Batch</legend>
 
-        @*@Html.HiddenFor(model => model.SpeciesId)*@
-
         <div class="editor-label">
             @Html.LabelFor(model => model.PlantSpecies)
         </div>
@@ -22,13 +20,6 @@
             @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
             @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
         </div>
-
-        @*<div class="editor-label">
-            @Html.LabelFor(model => model.SpeciesBinomial)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SpeciesBinomial)
-        </div>*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.DateCollected)
