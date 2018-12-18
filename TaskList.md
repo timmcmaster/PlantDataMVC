@@ -48,6 +48,7 @@
     - http://nblumhardt.com/2011/01/an-autofac-lifetime-primer/
 - [ ] Investigate T4 code templates (remove or update?)
 - [ ] Sort out service and WCF interfaces
+- [ ] Add modernizr in for javascript, including npm build task (if possible)
 
 ## Short term dev tasks
 - [ ] Create and revise unit tests for each of the main program components
