@@ -108,4 +108,7 @@
     <None Include="Scripts\dbo.Species.data.sql" />
     <None Include="Scripts\dbo.TubeInfo.data.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment1.sql" />
+  </ItemGroup>
 </Project>
