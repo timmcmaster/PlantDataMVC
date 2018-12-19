@@ -23,7 +23,13 @@ namespace PlantDataMVC.UI.Models
         public string Location { get; private set; }
         
         public string Notes { get; private set; }
-        
+
+        [HiddenInput(DisplayValue = false)]
+        public int? SiteId { get; set; } // SiteId
+
+        [Display(Name = "Site Name")]
+        public string SiteName { get; set; }
+
         //public IList<TrayListViewModel> SeedTrays { get; private set; }
 
         //public PlantSeedShowViewModel()

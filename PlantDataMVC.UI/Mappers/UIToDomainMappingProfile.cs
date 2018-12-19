@@ -56,6 +56,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantSeedCreateEditModel, PlantSeed>()
                 //.ForMember(bo => bo.SeedTrays, opt => opt.Ignore())
                 .ForMember(bo => bo.SpeciesBinomial, opt => opt.Ignore())
+                .ForMember(bo => bo.SiteName, opt => opt.Ignore())
                 .ForMember(bo => bo.Id, opt => opt.Ignore());   // Id on create will come back from DB
 
             CreateMap<PlantSeedDestroyEditModel, PlantSeed>()
@@ -63,7 +64,8 @@ namespace PlantDataMVC.UI.Mappers
                 .ForAllOtherMembers(opt => opt.Ignore());
 
             CreateMap<PlantSeedUpdateEditModel, PlantSeed>()
-                .ForMember(bo => bo.SpeciesBinomial, opt => opt.Ignore());
+                .ForMember(bo => bo.SpeciesBinomial, opt => opt.Ignore())
+                .ForMember(bo => bo.SiteName, opt => opt.Ignore());
                 //.ForMember(bo => bo.SeedTrays, opt => opt.Ignore());
         }
 

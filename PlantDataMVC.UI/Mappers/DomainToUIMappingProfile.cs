@@ -59,7 +59,8 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantSeed, PlantSeedEditViewModel>();
             CreateMap<PlantSeed, PlantSeedListViewModel>();
             CreateMap<PlantSeed, PlantSeedNewViewModel>()
-                .ForMember(uio => uio.PlantSpecies, opt => opt.Ignore()); // don't need to map species up for new seed batch
+                .ForMember(uio => uio.PlantSpecies, opt => opt.Ignore())    // don't need to map species up for new seed batch
+                .ForMember(uio => uio.Site, opt => opt.Ignore());           // don't need to map site up for new seed batch
             CreateMap<PlantSeed, PlantSeedShowViewModel>();
                 //.ForMember(uio => uio.SeedTrays, opt => opt.Ignore());
         }
@@ -103,7 +104,8 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantSeedTray, TrayDeleteViewModel>();
             CreateMap<PlantSeedTray, TrayEditViewModel>();
             CreateMap<PlantSeedTray, TrayListViewModel>();
-            CreateMap<PlantSeedTray, TrayNewViewModel>();
+            CreateMap<PlantSeedTray, TrayNewViewModel>()
+                .ForMember(uio => uio.SeedBatch, opt => opt.Ignore()); // don't need to map seed batch up for new seed tray
             CreateMap<PlantSeedTray, TrayShowViewModel>();
                 //.ForMember(uio => uio.PlantStockTransactions, opt => opt.Ignore());
         }

@@ -26,7 +26,8 @@ namespace PlantDataMVC.Domain.Mappers
                 //.ForMember(bo => bo.Seeds, opt => opt.MapFrom<SeedBatch[]>(e => e.SeedBatches.ToArray()))
                 //.ForMember(bo => bo.Stock, opt => opt.MapFrom<PlantStock[]>(e => e.PlantStocks.ToArray()));
 
-            CreateMap<SeedBatch, PlantSeed>();
+            CreateMap<SeedBatch, PlantSeed>()
+                .ForMember(bo => bo.SiteName, opt => opt.MapFrom(e => e.Site.SiteName));
                 //.ForMember(bo => bo.SeedTrays, opt => opt.MapFrom<SeedTray[]>(e => e.SeedTrays.ToArray()));
 
             CreateMap<Site, PlantSeedSite>();

@@ -21,5 +21,11 @@ namespace PlantDataMVC.UI.Models
         public string Location { get; set; }
         
         public string Notes { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public int? SiteId { get; set; } // SiteId
+
+        [Display(Name = "Site Name")]
+        public string SiteName { get; set; }
     }
 }

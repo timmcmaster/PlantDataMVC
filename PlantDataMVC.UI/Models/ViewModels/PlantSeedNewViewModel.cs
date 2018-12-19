@@ -19,10 +19,14 @@ namespace PlantDataMVC.UI.Models
         [StringLength(200), DataType("CustomString")]
         public string Notes { get; set; }
 
+        [Display(Name = "Site Name")]
+        public PlantSeedSite Site { get; set; }
 
         public PlantSeedNewViewModel()
         {
             this.PlantSpecies = new Plant();
+            this.DateCollected = new DateTime();
+            this.Site = new PlantSeedSite();
         }
     }
 }

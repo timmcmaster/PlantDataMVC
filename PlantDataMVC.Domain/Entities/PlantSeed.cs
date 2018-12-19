@@ -12,6 +12,8 @@ namespace PlantDataMVC.Domain.Entities
         public DateTime DateCollected { get; set; }
         public string Location { get; set; }
         public string Notes { get; set; }
+        public int? SiteId { get; set; } // SiteId
+        public string SiteName { get; set; }
 
         public override string DisplayValue
         {
