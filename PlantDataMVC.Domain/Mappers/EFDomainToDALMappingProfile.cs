@@ -36,8 +36,6 @@ namespace PlantDataMVC.Domain.Mappers
                 .ForMember(e => e.ObjectState, opt => opt.Ignore());
             //.ForMember(e => e.LatinName, opt => opt.MapFrom<String>(bo => (bo.LatinName.IndexOf(' ') == -1) ? "" : bo.LatinName.Substring(bo.LatinName.IndexOf(' ') + 1)));
 
-            // TODO: Need SeedBatch to link to site definition
-            //       and map back site ID, not just location string
             CreateMap<PlantSeed, SeedBatch>()
                 //.ForMember(e => e.SiteId, opt => opt.Ignore())
                 .ForMember(e => e.Site, opt => opt.Ignore())
