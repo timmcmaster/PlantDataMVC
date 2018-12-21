@@ -44,8 +44,8 @@ USING (VALUES
 	(5, N'GIFT GIVEN', -1),
 	(6, N'PLANTED', -1),
 	(7, N'PURCHASE', 1),
-	(8, N'POTTED FROM CUTTING', 1)
-)
+	(8, N'POTTED FROM CUTTING', 1),
+    (9, N'STOCK ADJUSTMENT', 1))
 AS SOURCE(Id,Name,Effect)
 ON TARGET.Id = SOURCE.Id
 -- update matched rows 

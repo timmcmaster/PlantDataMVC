@@ -7,4 +7,5 @@ INSERT INTO [dbo].[JournalEntryType] ([Id], [Name], [Effect]) VALUES (5, N'Gift 
 INSERT INTO [dbo].[JournalEntryType] ([Id], [Name], [Effect]) VALUES (6, N'Planted', -1)
 INSERT INTO [dbo].[JournalEntryType] ([Id], [Name], [Effect]) VALUES (7, N'Purchase', 1)
 INSERT INTO [dbo].[JournalEntryType] ([Id], [Name], [Effect]) VALUES (8, N'Potted From Cutting', 1)
+INSERT INTO [dbo].[JournalEntryType] ([Id], [Name], [Effect]) VALUES (9, N'Stock Adjustment', 1)
 SET IDENTITY_INSERT [dbo].[JournalEntryType] OFF
