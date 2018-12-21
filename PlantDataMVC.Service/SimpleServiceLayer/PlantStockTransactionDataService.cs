@@ -19,9 +19,17 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override PlantStockTransaction CreateItem(IUnitOfWorkAsync uow, PlantStockTransaction requestItem)
         {
+            // TODO: When we create a transaction, create stock record for this item type (if none exists)
+
+            // TODO: When we create a transaction, recalculate stock for this item type
+            //       Best done as total of transactions, rather than adjustment to stock level
+
+
+            
             // map 
             JournalEntry mappedItem = Mapper.Map<PlantStockTransaction, JournalEntry>(requestItem);
             JournalEntry item = uow.Repository<JournalEntry>().Add(mappedItem);
+
             // Save changes before we map back
             uow.SaveChanges();
             PlantStockTransaction finalItem = Mapper.Map<JournalEntry, PlantStockTransaction>(item);
@@ -41,6 +49,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override PlantStockTransaction UpdateItem(IUnitOfWorkAsync uow, PlantStockTransaction requestItem)
         {
+            // TODO: Should transactions be updatable?
+
             // map 
             JournalEntry mappedItem = Mapper.Map<PlantStockTransaction, JournalEntry>(requestItem);
             JournalEntry item = uow.Repository<JournalEntry>().Save(mappedItem);
@@ -53,6 +63,8 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
 
         protected override void DeleteItem(IUnitOfWorkAsync uow, int id)
         {
+            // TODO: Should transactions be deletable?
+
             // map 
             //JournalEntry mappedItem = Mapper.Map<PlantStockTransaction, JournalEntry>(requestItem);
             uow.Repository<JournalEntry>().Delete(uow.Repository<JournalEntry>().GetItemById(id));
