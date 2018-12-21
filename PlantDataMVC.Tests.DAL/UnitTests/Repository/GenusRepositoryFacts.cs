@@ -4,6 +4,7 @@ using Interfaces.DAL.DataContext;
 using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Repository.Repositories;
 using UnitTest.Utils.DAL;
 using Xunit;
 
@@ -68,6 +69,33 @@ namespace PlantDataMVC.Tests.DAL
 
                 // Act
                 var entity = repository.GetItemById(addedGenus.Id);
+
+                // Assert
+                entity.Should().NotBeNull();
+                entity.Should().BeOfType<Genus>();
+                entity.Should().BeEquivalentTo(addedGenus);
+            }
+        }
+
+        [Fact]
+        public void CanGetItemByLatinName()
+        {
+            using (IDataContextAsync plantDataFakeDBContext = new FakePlantDataDbContext())
+            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
+            {
+                var latinName = "Eremophila";
+
+                // Arrange
+                var repository = uow.Repository<Genus>();
+                var genus = GenusBuilder.aGenus().withNoId().withLatinName(latinName).Build();
+
+                var addedGenus = repository.Add(genus);
+
+                // TODO: Does Id only get set if SaveChanges is called on UnitOfWork? 
+                //       Or are we calling with value of 0?
+
+                // Act
+                var entity = repository.GenusExtensions().GetItemByLatinName(latinName);
 
                 // Assert
                 entity.Should().NotBeNull();
