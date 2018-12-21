@@ -62,6 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\CommonTestData.cs" />
+    <Compile Include="DAL\JournalEntryBuilder.cs" />
+    <Compile Include="DAL\PlantStockBuilder.cs" />
+    <Compile Include="DAL\JournalEntryTypeBuilder.cs" />
+    <Compile Include="DAL\ProductTypeBuilder.cs" />
     <Compile Include="DAL\GenusBuilder.cs" />
     <Compile Include="DAL\SiteBuilder.cs" />
     <Compile Include="DAL\SpeciesBuilder.cs" />
@@ -74,6 +78,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
+      <Project>{96FD9436-DE5C-432A-94CB-CE5E63EE2405}</Project>
+      <Name>Interfaces.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
       <Project>{157d351c-8da8-4a9b-b66d-20e4f49eb201}</Project>
       <Name>PlantDataMVC.Domain</Name>
