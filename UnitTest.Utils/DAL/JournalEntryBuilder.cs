@@ -19,8 +19,6 @@ namespace UnitTest.Utils.DAL
         // private members (for object properties)
         private int _id;
         private string _notes = DEFAULT_NOTES;
-        private ProductType _productType;
-        private Species _species;
         private int _quantity = DEFAULT_QUANTITY;
         private JournalEntryType _journalEntryType;
         private PlantStock _plantStock;
