@@ -83,19 +83,22 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
                 var stockTotal = uow.Repository<JournalEntry>().GetStockCountForProduct(currentStockItem.Id);
 
                 // Set and save new stock value
-                mappedItem.QuantityInStock = stockTotal;
+                //mappedItem.QuantityInStock = stockTotal;
+                //PlantStock item = uow.Repository<PlantStock>().Save(mappedItem);
+                currentStockItem.QuantityInStock = stockTotal;
+                currentStockItem.ObjectState = Interfaces.DAL.Infrastructure.ObjectState.Modified;
 
-                PlantStock item = uow.Repository<PlantStock>().Save(mappedItem);
                 // Save changes before we map back
                 uow.SaveChanges();
 
                 uow.Commit();
 
-                PlantStockEntry finalItem = Mapper.Map<PlantStock, PlantStockEntry>(item);
+                //PlantStockEntry finalItem = Mapper.Map<PlantStock, PlantStockEntry>(item);
+                PlantStockEntry finalItem = Mapper.Map<PlantStock, PlantStockEntry>(currentStockItem);
 
                 return finalItem;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 uow.Rollback();
             }

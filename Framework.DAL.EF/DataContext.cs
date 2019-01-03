@@ -40,7 +40,10 @@ namespace Framework.DAL.EF
 
         public override int SaveChanges()
         {
-            return base.SaveChanges();
+            SyncObjectsStatePreCommit();
+            var changes = base.SaveChanges();
+            SyncObjectsStatePostCommit();
+            return changes;
         }
 
         public override async Task<int> SaveChangesAsync()

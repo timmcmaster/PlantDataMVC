@@ -54,6 +54,7 @@ namespace PlantDataMVC.Domain.Mappers
 
             CreateMap<PlantStockEntry, PlantStock>()
                 .ForMember(e => e.JournalEntries, opt => opt.Ignore())
+                .ForMember(e => e.ProductType, opt => opt.Ignore())
                 .ForMember(e => e.Species, opt => opt.Ignore())
                 .ForMember(e => e.ObjectState, opt => opt.Ignore());
 
