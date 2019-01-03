@@ -1,5 +1,6 @@
 ﻿using Interfaces.Domain;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 
 namespace Interfaces.Service
 {
@@ -7,6 +8,7 @@ namespace Interfaces.Service
     public interface IDataServiceBase<T> where T : IDomainEntity
     {
         [OperationContract]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Wrapped,Method = "GET", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, UriTemplate = "")]
         ICreateResponse<T> Create(ICreateRequest<T> request);
 
         [OperationContract]
