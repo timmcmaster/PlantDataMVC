@@ -62,7 +62,7 @@ namespace PlantDataMVC.Tests.Core
             var returnSpeciesId = species.Id;
             species.Id = 0;
 
-            var request = new CreateRequest<Plant>(plant);
+            //var request = new CreateRequest<Plant>(plant);
 
             // create mocks
             var repo = new MockRepository(MockBehavior.Loose);
@@ -84,7 +84,7 @@ namespace PlantDataMVC.Tests.Core
 
             // Act
             var target = new PlantDataService(uowMockWrapper.Object);
-            var result = target.Create(request);
+            var result = target.Create(plant);
 
 
             // Assert
@@ -99,7 +99,7 @@ namespace PlantDataMVC.Tests.Core
             //Assert.Equal(returnSpeciesId, result.Item.Id);
 
             // assertions only on limited property set at this stage
-            result.Item.Should().BeEquivalentTo(request.Item, options => options
+            result.Item.Should().BeEquivalentTo(plant, options => options
                                                                 .Including(p => p.CommonName)
                                                                 .Including(p => p.Description)
                                                                 .Including(p => p.SpecificName)
@@ -133,7 +133,7 @@ namespace PlantDataMVC.Tests.Core
             var returnSpeciesId = species.Id;
             species.Id = 0;
 
-            var request = new CreateRequest<Plant>(plant);
+            //var request = new CreateRequest<Plant>(plant);
 
             // create mocks
             var repo = new MockRepository(MockBehavior.Loose);
@@ -156,7 +156,7 @@ namespace PlantDataMVC.Tests.Core
 
             // Act
             var target = new PlantDataService(uowMockWrapper.Object);
-            var result = target.Create(request);
+            var result = target.Create(plant);
 
 
             // Assert
@@ -171,7 +171,7 @@ namespace PlantDataMVC.Tests.Core
             //Assert.Equal(returnSpeciesId, result.Item.Id);
 
             // assertions only on limited property set at this stage
-            result.Item.Should().BeEquivalentTo(request.Item, options => options
+            result.Item.Should().BeEquivalentTo(plant, options => options
                                                                 .Including(p => p.CommonName)
                                                                 .Including(p => p.Description)
                                                                 .Including(p => p.SpecificName)
@@ -192,7 +192,7 @@ namespace PlantDataMVC.Tests.Core
             var species = SpeciesBuilder.aSpecies().withRandomValues().withGenus(genus).withNoId().Build();
             species.Id = plantId;
 
-            var request = new ViewRequest<Plant>(plantId);
+            //var request = new ViewRequest<Plant>(plantId);
 
             // create mocks
             var repo = new MockRepository(MockBehavior.Loose);
@@ -206,7 +206,7 @@ namespace PlantDataMVC.Tests.Core
 
             // Act
             var target = new PlantDataService(uowMockWrapper.Object);
-            var result = target.View(request);
+            var result = target.View(plantId);
 
 
             // Assert
@@ -239,7 +239,7 @@ namespace PlantDataMVC.Tests.Core
                 speciesList.Add(species);
             }
 
-            var request = new ListRequest<Plant>();
+            //var request = new ListRequest<Plant>();
 
 
             // create mocks
@@ -253,7 +253,7 @@ namespace PlantDataMVC.Tests.Core
 
             // Act
             var target = new PlantDataService(uowMockWrapper.Object);
-            var result = target.List(request);
+            var result = target.List();
 
             // Assert
             // Verify mocks only (i.e. those setup with .Verifiable())
@@ -279,7 +279,7 @@ namespace PlantDataMVC.Tests.Core
             // create species, with expected data
             var species = SpeciesBuilder.aSpecies().withGenus(genus).withId().Build();
 
-            var request = new DeleteRequest<Plant>(species.Id);
+            //var request = new DeleteRequest<Plant>(species.Id);
 
             // create mocks
             var repo = new MockRepository(MockBehavior.Loose);
@@ -293,7 +293,7 @@ namespace PlantDataMVC.Tests.Core
 
             // Act
             var target = new PlantDataService(uowMockWrapper.Object);
-            target.Delete(request);
+            target.Delete(species.Id);
 
             // Assert
             // Verify mocks only (i.e. those setup with .Verifiable())

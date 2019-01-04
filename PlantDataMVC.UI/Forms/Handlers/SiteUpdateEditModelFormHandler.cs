@@ -21,9 +21,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
             // Map local model to business object
             PlantSeedSite item = AutoMapper.Mapper.Map<SiteUpdateEditModel, PlantSeedSite>(form);
 
-            UpdateRequest<PlantSeedSite> request = new UpdateRequest<PlantSeedSite>(item);
+            //UpdateRequest<PlantSeedSite> request = new UpdateRequest<PlantSeedSite>(item);
 
-            IUpdateResponse<PlantSeedSite> response = _dataService.Update(request);
+            IUpdateResponse<PlantSeedSite> response = _dataService.Update(item);
         }
     }
 }

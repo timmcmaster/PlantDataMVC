@@ -40,7 +40,7 @@ namespace PlantDataMVC.Tests.UI.Controllers
                 var dsMockWrapper = repo.Create<IPlantDataService>();
                 var fhfMockWrapper = repo.Create<IFormHandlerFactory>();
 
-                dsMockWrapper.Setup(x => x.List(It.IsAny<ListRequest<Plant>>())).Returns(listResponse);
+                dsMockWrapper.Setup(x => x.List()).Returns(listResponse);
 
                 var controller = new PlantController(dsMockWrapper.Object, fhfMockWrapper.Object);
 
@@ -75,7 +75,7 @@ namespace PlantDataMVC.Tests.UI.Controllers
                 var dsMockWrapper = repo.Create<IPlantDataService>();
                 var fhfMockWrapper = repo.Create<IFormHandlerFactory>();
 
-                dsMockWrapper.Setup(x => x.List(It.IsAny<ListRequest<Plant>>())).Returns(listResponse);
+                dsMockWrapper.Setup(x => x.List()).Returns(listResponse);
                 var controller = new PlantController(dsMockWrapper.Object, fhfMockWrapper.Object);
 
                 // Act

@@ -16,11 +16,11 @@ namespace PlantDataMVC.Service.ServiceContracts
             List<Type> knownTypes = new List<Type>();
 
             // Add any types to include here.
-            knownTypes.Add(typeof(CreateRequest<T>));
-            knownTypes.Add(typeof(ViewRequest<T>));
-            knownTypes.Add(typeof(UpdateRequest<T>));
-            knownTypes.Add(typeof(DeleteRequest<T>));
-            knownTypes.Add(typeof(ListRequest<T>));
+            //knownTypes.Add(typeof(CreateRequest<T>));
+            //knownTypes.Add(typeof(ViewRequest<T>));
+            //knownTypes.Add(typeof(UpdateRequest<T>));
+            //knownTypes.Add(typeof(DeleteRequest<T>));
+            //knownTypes.Add(typeof(ListRequest<T>));
 
             knownTypes.Add(typeof(CreateResponse<T>));
             knownTypes.Add(typeof(ViewResponse<T>));

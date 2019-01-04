@@ -21,9 +21,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
             // Map local model to business object
             PlantStockTransaction item = AutoMapper.Mapper.Map<PlantStockTransactionDestroyEditModel, PlantStockTransaction>(form);
 
-            DeleteRequest<PlantStockTransaction> request = new DeleteRequest<PlantStockTransaction>(item.Id);
+            //DeleteRequest<PlantStockTransaction> request = new DeleteRequest<PlantStockTransaction>(item.Id);
 
-            IDeleteResponse<PlantStockTransaction> response = _dataService.Delete(request);
+            IDeleteResponse<PlantStockTransaction> response = _dataService.Delete(item.Id);
         }
     }
 }

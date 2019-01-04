@@ -17,12 +17,12 @@ namespace Framework.Service
             this.UnitOfWork = unitOfWork;
         }
 
-        #region IDataServiceBase implementation
-        public virtual ICreateResponse<T> Create(ICreateRequest<T> request)
+        #region IRestDataServiceBase implementation
+        public virtual ICreateResponse<T> Create(T item)
         {
             using (var uow = this.UnitOfWork)
             {
-                T createdItem = CreateItem(uow, request.Item);
+                T createdItem = CreateItem(uow, item);
 
                 uow.SaveChanges();
 
@@ -30,21 +30,21 @@ namespace Framework.Service
             }
         }
 
-        public virtual IViewResponse<T> View(IViewRequest<T> request)
+        public virtual IViewResponse<T> View(int id)
         {
             using (var uow = this.UnitOfWork)
             {
-                T item = SelectItem(uow, request.Id);
+                T item = SelectItem(uow, id);
 
                 return new ViewResponse<T>(item);
             }
         }
 
-        public virtual IUpdateResponse<T> Update(IUpdateRequest<T> request)
+        public virtual IUpdateResponse<T> Update(T item)
         {
             using (var uow = this.UnitOfWork)
             {
-                T updatedItem = UpdateItem(uow, request.Item);
+                T updatedItem = UpdateItem(uow, item);
 
                 //uow.SaveChanges();
 
@@ -52,7 +52,7 @@ namespace Framework.Service
             }
         }
 
-        public virtual IDeleteResponse<T> Delete(IDeleteRequest<T> request)
+        public virtual IDeleteResponse<T> Delete(int id)
         {
             using (var uow = this.UnitOfWork)
             {
@@ -60,7 +60,7 @@ namespace Framework.Service
 
                 try
                 {
-                    DeleteItem(uow, request.Id);
+                    DeleteItem(uow, id);
 
                     uow.SaveChanges();
                 }
@@ -77,7 +77,7 @@ namespace Framework.Service
             }
         }
 
-        public virtual IListResponse<T> List(IListRequest<T> request)
+        public virtual IListResponse<T> List()
         {
             using (var uow = this.UnitOfWork)
             {

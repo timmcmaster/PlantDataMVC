@@ -43,7 +43,7 @@ namespace PlantDataMVC.UI.Helpers
             IList<TItem> items = new List<TItem>();
             if (dataService != null)
             {
-                items = dataService.List(new ListRequest<TItem>()).Items;
+                items = dataService.List().Items;
             }
 
             var selectListItems = items.Select(x => new SelectListItem

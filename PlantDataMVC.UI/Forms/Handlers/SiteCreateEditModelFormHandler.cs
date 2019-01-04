@@ -21,9 +21,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
             // Map local model to business object
             PlantSeedSite item = AutoMapper.Mapper.Map<SiteCreateEditModel, PlantSeedSite>(form);
 
-            CreateRequest<PlantSeedSite> request = new CreateRequest<PlantSeedSite>(item);
+            //CreateRequest<PlantSeedSite> request = new CreateRequest<PlantSeedSite>(item);
 
-            ICreateResponse<PlantSeedSite> response = _dataService.Create(request);
+            ICreateResponse<PlantSeedSite> response = _dataService.Create(item);
         }
     }
 }

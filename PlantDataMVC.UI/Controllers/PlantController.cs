@@ -30,7 +30,7 @@ namespace PlantDataMVC.UI.Controllers
             string localSortBy = sortBy ?? string.Empty;
             bool localAscending = ascending ?? true;
 
-            IListResponse<Plant> response = _dataService.List(new ListRequest<Plant>());
+            IListResponse<Plant> response = _dataService.List();
 
             IList<Plant> list = response.Items;
 
@@ -51,7 +51,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
+            IViewResponse<Plant> response = _dataService.View(id);
 
             Plant item = response.Item;
 
@@ -63,7 +63,7 @@ namespace PlantDataMVC.UI.Controllers
         public ActionResult ShowBasic(int id)
         {
             // return view for Model
-            IViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
+            IViewResponse<Plant> response = _dataService.View(id);
 
             Plant item = response.Item;
 
@@ -94,7 +94,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
+            IViewResponse<Plant> response = _dataService.View(id);
 
             Plant item = response.Item;
 
@@ -115,7 +115,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<Plant> response = _dataService.View(new ViewRequest<Plant>(id));
+            IViewResponse<Plant> response = _dataService.View(id);
 
             Plant item = response.Item;
 

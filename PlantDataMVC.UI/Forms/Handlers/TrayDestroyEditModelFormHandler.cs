@@ -21,9 +21,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
             // Map local model to business object
             PlantSeedTray item = AutoMapper.Mapper.Map<TrayDestroyEditModel, PlantSeedTray>(form);
 
-            DeleteRequest<PlantSeedTray> request = new DeleteRequest<PlantSeedTray>(item.Id);
+            //DeleteRequest<PlantSeedTray> request = new DeleteRequest<PlantSeedTray>(item.Id);
 
-            IDeleteResponse<PlantSeedTray> response = _dataService.Delete(request);
+            IDeleteResponse<PlantSeedTray> response = _dataService.Delete(item.Id);
         }
     }
 }

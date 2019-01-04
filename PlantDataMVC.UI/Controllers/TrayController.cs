@@ -25,7 +25,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<PlantSeedTray> response = _dataService.List(new ListRequest<PlantSeedTray>());
+            IListResponse<PlantSeedTray> response = _dataService.List();
 
             IList<PlantSeedTray> list = response.Items;
 
@@ -39,7 +39,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<PlantSeedTray> response = _dataService.View(new ViewRequest<PlantSeedTray>(id));
+            IViewResponse<PlantSeedTray> response = _dataService.View(id);
 
             PlantSeedTray item = response.Item;
 
@@ -83,7 +83,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<PlantSeedTray> response = _dataService.View(new ViewRequest<PlantSeedTray>(id));
+            IViewResponse<PlantSeedTray> response = _dataService.View(id);
 
             PlantSeedTray item = response.Item;
 
@@ -104,7 +104,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<PlantSeedTray> response = _dataService.View(new ViewRequest<PlantSeedTray>(id));
+            IViewResponse<PlantSeedTray> response = _dataService.View(id);
 
             PlantSeedTray item = response.Item;
 

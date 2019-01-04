@@ -21,9 +21,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
             // Map local model to business object
             PlantStockEntry item = AutoMapper.Mapper.Map<PlantStockEntryCreateEditModel, PlantStockEntry>(form);
 
-            CreateRequest<PlantStockEntry> request = new CreateRequest<PlantStockEntry>(item);
+            //CreateRequest<PlantStockEntry> request = new CreateRequest<PlantStockEntry>(item);
 
-            ICreateResponse<PlantStockEntry> response = _dataService.Create(request);
+            ICreateResponse<PlantStockEntry> response = _dataService.Create(item);
         }
     }
 }

@@ -51,11 +51,11 @@ namespace PlantDataMVC.Tests.Core
                 // Arrange
                 // create plant 
                 var plant = PlantBuilder.aPlant().withNoId().Build();
-                var request = new CreateRequest<Plant>(plant);
+                //var request = new CreateRequest<Plant>(plant);
 
                 // Act
                 var serviceOne = new PlantDataService(uow);
-                var result = serviceOne.Create(request);
+                var result = serviceOne.Create(plant);
 
                 // Assert
                 // verify that plant is created and species ID is set
@@ -77,9 +77,9 @@ namespace PlantDataMVC.Tests.Core
             using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
             {
                 // add first plant
-                var requestOne = new CreateRequest<Plant>(firstPlant);
+                //var requestOne = new CreateRequest<Plant>(firstPlant);
                 var serviceOne = new PlantDataService(uow);
-                var resultOne = serviceOne.Create(requestOne);
+                var resultOne = serviceOne.Create(firstPlant);
 
                 // NOTE: within Create call, we should have called uow.SaveChanges();
             }
@@ -87,11 +87,11 @@ namespace PlantDataMVC.Tests.Core
             using (IDataContextAsync dataContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
             {
-                var requestTwo = new CreateRequest<Plant>(secondPlant);
+                //var requestTwo = new CreateRequest<Plant>(secondPlant);
 
                 // Act
                 var target = new PlantDataService(uow);
-                var result = target.Create(requestTwo);
+                var result = target.Create(secondPlant);
                 // NOTE: within Create call, we should have called uow.SaveChanges();
 
                 // Assert

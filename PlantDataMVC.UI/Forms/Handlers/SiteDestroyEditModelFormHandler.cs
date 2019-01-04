@@ -21,9 +21,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
             // Map local model to business object
             PlantSeedSite item = AutoMapper.Mapper.Map<SiteDestroyEditModel, PlantSeedSite>(form);
 
-            DeleteRequest<PlantSeedSite> request = new DeleteRequest<PlantSeedSite>(item.Id);
+            //DeleteRequest<PlantSeedSite> request = new DeleteRequest<PlantSeedSite>(item.Id);
 
-            IDeleteResponse<PlantSeedSite> response = _dataService.Delete(request);
+            IDeleteResponse<PlantSeedSite> response = _dataService.Delete(item.Id);
 
             //TODO: Need behaviour triggered on non zero error-code in response
             if (response.ErrorCode == 0)
