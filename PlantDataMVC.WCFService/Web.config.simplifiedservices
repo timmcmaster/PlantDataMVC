@@ -55,11 +55,10 @@
     <compilation debug="true" targetFramework="4.7.1" />
     <httpRuntime targetFramework="4.5.2" />
   </system.web>
-  
   <system.serviceModel>
     <behaviors>
       <serviceBehaviors>
-        <behavior name="baseServiceBehavior">
+        <behavior>
           <!-- To avoid disclosing metadata information, set the values below to false before deployment -->
           <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
           <!-- To receive exception details in faults for debugging purposes, set the value below to true.  Set to false before deployment to avoid disclosing exception information -->
@@ -67,55 +66,11 @@
         </behavior>
       </serviceBehaviors>
     </behaviors>
-    <!--<bindings>
-      <basicHttpBinding>
-        <binding name="basicHttpConfig" />
-      </basicHttpBinding>
-      <webHttpBinding>
-        <binding name="webHttpConfig" />
-      </webHttpBinding>
-    </bindings>-->
-    <services>
-      <service name="PlantDataMVC.Service.SimpleServiceLayer.PlantDataService"  behaviorConfiguration="baseServiceBehavior">
-        <endpoint address="" binding="basicHttpBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantDataService"/>
-        <endpoint address="" binding="basicHttpsBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantDataService"/>
-      </service>
-      <service name="PlantDataMVC.Service.SimpleServiceLayer.PlantProductTypeDataService"  behaviorConfiguration="baseServiceBehavior">
-        <endpoint address="" binding="basicHttpBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantProductTypeDataService"/>
-        <endpoint address="" binding="basicHttpsBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantProductTypeDataService"/>
-      </service>
-      <service name="PlantDataMVC.Service.SimpleServiceLayer.PlantSeedDataService"  behaviorConfiguration="baseServiceBehavior">
-        <endpoint address="" binding="basicHttpBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantSeedDataService"/>
-        <endpoint address="" binding="basicHttpsBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantSeedDataService"/>
-      </service>
-      <service name="PlantDataMVC.Service.SimpleServiceLayer.PlantSeedSiteDataService"  behaviorConfiguration="baseServiceBehavior">
-        <endpoint address="" binding="basicHttpBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantSeedSiteDataService"/>
-        <endpoint address="" binding="basicHttpsBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantSeedSiteDataService"/>
-      </service>
-      <service name="PlantDataMVC.Service.SimpleServiceLayer.PlantSeedTrayDataService"  behaviorConfiguration="baseServiceBehavior">
-        <endpoint address="" binding="basicHttpBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantSeedTrayDataService"/>
-        <endpoint address="" binding="basicHttpsBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantSeedTrayDataService"/>
-      </service>
-      <service name="PlantDataMVC.Service.SimpleServiceLayer.PlantStockEntryDataService"  behaviorConfiguration="baseServiceBehavior">
-        <endpoint address="" binding="basicHttpBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantStockEntryDataService"/>
-        <endpoint address="" binding="basicHttpsBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantStockEntryDataService"/>
-      </service>
-      <service name="PlantDataMVC.Service.SimpleServiceLayer.PlantStockTransactionDataService"  behaviorConfiguration="baseServiceBehavior">
-        <endpoint address="" binding="basicHttpBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantStockTransactionDataService"/>
-        <endpoint address="" binding="basicHttpsBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantStockTransactionDataService"/>
-      </service>
-      <service name="PlantDataMVC.Service.SimpleServiceLayer.PlantStockTransactionTypeDataService"  behaviorConfiguration="baseServiceBehavior">
-        <endpoint address="" binding="basicHttpBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantStockTransactionTypeDataService"/>
-        <endpoint address="" binding="basicHttpsBinding" contract="PlantDataMVC.Service.ServiceContracts.IPlantStockTransactionTypeDataService"/>
-      </service>
-    </services>
-      
     <protocolMapping>
-      <add scheme="https" binding="basicHttpsBinding" /> <!-- this is needed for default provision of https endpoints -->
+      <add binding="basicHttpsBinding" scheme="https" />
     </protocolMapping>
     <serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true" />
   </system.serviceModel>
-  
   <system.webServer>
     <modules runAllManagedModulesForAllRequests="true" />
     <!--
