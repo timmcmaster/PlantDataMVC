@@ -100,7 +100,6 @@
     <Content Include="PlantStockTransactionTypeDataService.svc" />
     <Content Include="PlantSeedDataService.svc" />
     <Content Include="PlantDataService.svc" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutofacConfig.cs" />
@@ -121,6 +120,14 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Web.config.simplifiedservices" />
+    <None Include="Web.config.Debug.simplifiedservices">
+      <DependentUpon>Web.config.simplifiedservices</DependentUpon>
+    </None>
+    <None Include="Web.config.Release.simplifiedservices">
+      <DependentUpon>Web.config.simplifiedservices</DependentUpon>
+    </None>
+    <None Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
