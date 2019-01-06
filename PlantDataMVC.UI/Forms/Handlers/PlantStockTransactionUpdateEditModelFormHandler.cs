@@ -23,7 +23,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
             //UpdateRequest<PlantStockTransaction> request = new UpdateRequest<PlantStockTransaction>(item);
 
-            IUpdateResponse<PlantStockTransaction> response = _dataService.Update(item);
+            IUpdateResponse<PlantStockTransaction> response = _dataService.Update(item.Id, item);
         }
     }
 }

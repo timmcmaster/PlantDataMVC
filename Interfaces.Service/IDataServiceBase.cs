@@ -9,7 +9,7 @@ namespace Interfaces.Service
     {
         // POST: api/Plant
         [OperationContract]
-        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, UriTemplate = "Item")]
+        [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, UriTemplate = "Item")]
         ICreateResponse<T> Create(T item);
 
         // GET: api/Plant/5
@@ -19,8 +19,8 @@ namespace Interfaces.Service
 
         // PUT: api/Plant/5
         [OperationContract]
-        //[WebInvoke(Method = "PUT", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, UriTemplate = "Item?id={id}")]
-        IUpdateResponse<T> Update(T item);
+        [WebInvoke(Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, UriTemplate = "Item?id={id}")]
+        IUpdateResponse<T> Update(int id, T item);
 
         // DELETE: api/Plant/5
         [OperationContract]

@@ -17,7 +17,7 @@ namespace Framework.Service
             this.UnitOfWork = unitOfWork;
         }
 
-        #region IRestDataServiceBase implementation
+        #region IDataServiceBase implementation
         public virtual ICreateResponse<T> Create(T item)
         {
             using (var uow = this.UnitOfWork)
@@ -40,10 +40,12 @@ namespace Framework.Service
             }
         }
 
-        public virtual IUpdateResponse<T> Update(T item)
+        public virtual IUpdateResponse<T> Update(int id, T item)
         {
             using (var uow = this.UnitOfWork)
             {
+                // TODO: Add check for id matches Item.Id
+                
                 T updatedItem = UpdateItem(uow, item);
 
                 //uow.SaveChanges();
