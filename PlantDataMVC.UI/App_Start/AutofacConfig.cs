@@ -7,6 +7,7 @@ using PlantDataMVC.UI.Forms;
 using PlantDataMVC.UI.Forms.Handlers;
 using System.Reflection;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 
 namespace PlantDataMVC.UI
 {
@@ -64,7 +65,7 @@ namespace PlantDataMVC.UI
             //builder.RegisterType<PlantStockTransactionTypeDataService>().As<IPlantStockTransactionTypeDataService>();
 
             // ****************************************************
-            // WCF Service configurations
+            // WCF SOAP Service configurations
             // ****************************************************
 
             // Register channel factory (for all service interfaces, based on Web.config definitions)
@@ -111,6 +112,57 @@ namespace PlantDataMVC.UI
             builder.Register(c => c.Resolve<ChannelFactory<IPlantStockTransactionTypeDataService>>().CreateChannel())
               .As<IPlantStockTransactionTypeDataService>()
               .UseWcfSafeRelease();
+
+            /*
+            // ****************************************************
+            // WCF JSON Service configurations
+            // ****************************************************
+
+            // Register channel factory (for all service interfaces, based on Web.config definitions)
+            builder.Register(c => new WebChannelFactory<IPlantDataService>("WebHttpBinding_IPlantDataService"))
+                .SingleInstance();
+            builder.Register(c => new WebChannelFactory<IPlantProductTypeDataService>("WebHttpBinding_IPlantProductTypeDataService"))
+                .SingleInstance();
+            builder.Register(c => new WebChannelFactory<IPlantSeedDataService>("WebHttpBinding_IPlantSeedDataService"))
+                .SingleInstance();
+            builder.Register(c => new WebChannelFactory<IPlantSeedSiteDataService>("WebHttpBinding_IPlantSeedSiteDataService"))
+                .SingleInstance();
+            builder.Register(c => new WebChannelFactory<IPlantSeedTrayDataService>("WebHttpBinding_IPlantSeedTrayDataService"))
+                .SingleInstance();
+            builder.Register(c => new WebChannelFactory<IPlantStockEntryDataService>("WebHttpBinding_IPlantStockEntryDataService"))
+                .SingleInstance();
+            builder.Register(c => new WebChannelFactory<IPlantStockTransactionDataService>("WebHttpBinding_IPlantStockTransactionDataService"))
+                .SingleInstance();
+            builder.Register(c => new WebChannelFactory<IPlantStockTransactionTypeDataService>("WebHttpBinding_IPlantStockTransactionTypeDataService"))
+                .SingleInstance();
+
+            // Register the service interface using a lambda that creates a channel from the factory. 
+            // Include the UseWcfSafeRelease() helper to handle proper disposal.
+            builder.Register(c => c.Resolve<WebChannelFactory<IPlantDataService>>().CreateChannel())
+              .As<IPlantDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<WebChannelFactory<IPlantProductTypeDataService>>().CreateChannel())
+              .As<IPlantProductTypeDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<WebChannelFactory<IPlantSeedDataService>>().CreateChannel())
+              .As<IPlantSeedDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<WebChannelFactory<IPlantSeedSiteDataService>>().CreateChannel())
+              .As<IPlantSeedSiteDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<WebChannelFactory<IPlantSeedTrayDataService>>().CreateChannel())
+              .As<IPlantSeedTrayDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<WebChannelFactory<IPlantStockEntryDataService>>().CreateChannel())
+              .As<IPlantStockEntryDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<WebChannelFactory<IPlantStockTransactionDataService>>().CreateChannel())
+              .As<IPlantStockTransactionDataService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<WebChannelFactory<IPlantStockTransactionTypeDataService>>().CreateChannel())
+              .As<IPlantStockTransactionTypeDataService>()
+              .UseWcfSafeRelease();
+            */  
 
             // ****************************************************
             // UI configurations
