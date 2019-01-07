@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Integration.WebApi;
 using Common.Logging;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
@@ -10,7 +11,7 @@ using PlantDataMVC.Service.ServiceContracts;
 using PlantDataMVC.Service.SimpleServiceLayer;
 using System.Reflection;
 
-namespace PlantDataMVC.WCFService
+namespace PlantDataMVC.WebApi
 {
     public class AutofacConfig
     {
@@ -51,8 +52,13 @@ namespace PlantDataMVC.WCFService
             // TODO: This is a bit dodgy, as it doesn't allow us to use NLog rules based on logging class.
             //builder.RegisterInstance(LogManager.GetLogger("PlantDataMVC.WCFServices")).As<ILog>();
 
-            // Set the dependency resolver. This works for both regular
-            // WCF services and REST-enabled services.
+            // ****************************************************
+            // WebApi configurations
+            // ****************************************************
+            
+            // Register your Web API controllers.
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+
             return builder.Build();
         }
 

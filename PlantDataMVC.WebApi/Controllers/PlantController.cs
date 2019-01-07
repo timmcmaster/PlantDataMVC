@@ -20,15 +20,37 @@ namespace PlantDataMVC.WebApi.Controllers
             _dataService = dataService;
         }
 
+        // General codes
+        // 401 unauthorized
+        // 403 forbidden
+        // 405 unauthorized
+
         // GET: api/Plant
-        public IEnumerable<Plant> Get()
+        public IHttpActionResult Get()
         {
-            return _dataService.List().Items;
+            try
+            {
+                // TODO: want data service to return list, rather than ListResponse
+                var listResponse = _dataService.List();
+                var items = listResponse.Items;
+
+                return Ok(items);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
+
+        /*
 
         // GET: api/Plant/5
         public IHttpActionResult Get(int id)
         {
+            try
+            {
+
+            }
             Plant plant = _dataService.View(id).Item;
             // if bad request, return 400
             //return BadRequest();
@@ -106,5 +128,6 @@ namespace PlantDataMVC.WebApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
 
         }
+    */
     }
 }

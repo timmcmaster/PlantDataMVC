@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Autofac;
+using Autofac.Integration.WebApi;
+using PlantDataMVC.WebApi.Mappers;
 using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
 
 namespace PlantDataMVC.WebApi
 {
@@ -13,11 +9,17 @@ namespace PlantDataMVC.WebApi
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            var config = GlobalConfiguration.Configuration;
+
+            // Set the dependency resolver to be Autofac.
+            IContainer container = AutofacConfig.ConfigureContainer();
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+
+            // Configure mappings for all objects
+            AutoMapperBootstrapper.Initialize();
+
         }
     }
 }
