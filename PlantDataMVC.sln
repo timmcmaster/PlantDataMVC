@@ -61,7 +61,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PlantDataDB", "PlantDataDB\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.DAL", "Interfaces.DAL\Interfaces.DAL.csproj", "{96FD9436-DE5C-432A-94CB-CE5E63EE2405}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.WebApi", "PlantDataMVC.WebApiEmpty\PlantDataMVC.WebApi.csproj", "{125CA205-2B93-4091-A3C8-549E79CFA485}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.WebApi", "PlantDataMVC.WebApi\PlantDataMVC.WebApi.csproj", "{125CA205-2B93-4091-A3C8-549E79CFA485}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
