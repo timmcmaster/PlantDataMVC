@@ -9,5 +9,7 @@ namespace Interfaces.Service
     public interface IResponse
     {
         int ErrorCode { get; }
+        ServiceActionStatus Status { get; }
+
     }
 }

@@ -89,6 +89,9 @@ namespace Framework.DAL.EF
 
         public TEntity Save(TEntity item)
         {
+            // TODO: Does save need to be a detach of existing and attach of new item
+            //       in order to implement PUT method properly?
+
             // ObjectState is required here to ensure data actually gets saved
             // while also allowing non-EF implementations of generic pattern
             item.ObjectState = ObjectState.Modified;

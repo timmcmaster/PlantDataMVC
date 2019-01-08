@@ -9,9 +9,14 @@ namespace Framework.Service.Entities
         [DataMember]
         public T Item { get; set; }
 
-        public ViewResponse(T item) : base()
+        public ViewResponse(T item, ServiceActionStatus status) : base()
         {
             Item = item;
+            Status = status;
+        }
+        public ViewResponse(T item, ServiceActionStatus status, int errorCode) : this(item, status)
+        {
+            ErrorCode = errorCode;
         }
     }
 }

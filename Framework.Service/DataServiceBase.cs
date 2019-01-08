@@ -22,11 +22,26 @@ namespace Framework.Service
         {
             using (var uow = this.UnitOfWork)
             {
-                T createdItem = CreateItem(uow, item);
+                try
+                {
+                    T createdItem = CreateItem(uow, item);
 
-                uow.SaveChanges();
-
-                return new CreateResponse<T>(createdItem.Id, createdItem);
+                    var changes = uow.SaveChanges();
+                    if (changes > 0)
+                    {
+                        return new CreateResponse<T>(createdItem.Id, createdItem, ServiceActionStatus.Created);
+                    }
+                    else
+                    {
+                        return new CreateResponse<T>(createdItem.Id, createdItem, ServiceActionStatus.NothingModified);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Use default(T) instead of null
+                    // TODO: error code is erroneous
+                    return new CreateResponse<T>(0, default(T), ServiceActionStatus.Error, 1);
+                }
             }
         }
 
@@ -36,7 +51,14 @@ namespace Framework.Service
             {
                 T item = SelectItem(uow, id);
 
-                return new ViewResponse<T>(item);
+                if (item == null)
+                {
+                    return new ViewResponse<T>(item, ServiceActionStatus.NotFound);
+                }
+                else
+                {
+                    return new ViewResponse<T>(item, ServiceActionStatus.Ok);
+                }
             }
         }
 
@@ -44,13 +66,36 @@ namespace Framework.Service
         {
             using (var uow = this.UnitOfWork)
             {
-                // TODO: Add check for id matches Item.Id
-                
-                T updatedItem = UpdateItem(uow, item);
+                try
+                {
+                    // Check item exists before updating
+                    var selectedItem = SelectItem(uow, id);
 
-                //uow.SaveChanges();
+                    if (selectedItem == null)
+                    {
+                        return new UpdateResponse<T>(item, ServiceActionStatus.NotFound);
+                    }
 
-                return new UpdateResponse<T>(updatedItem);
+                    // TODO: Add check for id matches Item.Id?
+
+                    T updatedItem = UpdateItem(uow, item);
+
+                    var changes = uow.SaveChanges();
+                    if (changes > 0)
+                    {
+                        return new UpdateResponse<T>(updatedItem, ServiceActionStatus.Updated);
+                    }
+                    else
+                    {
+                        return new UpdateResponse<T>(updatedItem, ServiceActionStatus.NothingModified);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    // Use default(T) instead of null
+                    // TODO: error code is erroneous
+                    return new UpdateResponse<T>(default(T), ServiceActionStatus.Error, 1);
+                }
             }
         }
 
@@ -58,24 +103,28 @@ namespace Framework.Service
         {
             using (var uow = this.UnitOfWork)
             {
-                var response = new DeleteResponse<T>();
-
                 try
                 {
-                    DeleteItem(uow, id);
+                    // Check item exists before updating
+                    var selectedItem = SelectItem(uow, id);
 
-                    uow.SaveChanges();
-                }
-                catch (SqlException ex)
-                {
-                    response.ErrorCode = ex.Number;
-                    throw; // to ensure error is seen for now
-                }
-                finally
-                {
-                }
+                    if (selectedItem == null)
+                    {
+                        return new DeleteResponse<T>(ServiceActionStatus.NotFound);
+                    }
+                    else
+                    {
+                        DeleteItem(uow, id);
 
-                return response;
+                        //uow.SaveChanges();
+                        return new DeleteResponse<T>(ServiceActionStatus.Deleted);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // TODO: error code is erroneous
+                    return new DeleteResponse<T>(ServiceActionStatus.Error, 1);
+                }
             }
         }
 
@@ -83,9 +132,17 @@ namespace Framework.Service
         {
             using (var uow = this.UnitOfWork)
             {
-                IList<T> itemList = ListItems(uow);
+                try
+                {
+                    IList<T> itemList = ListItems(uow);
 
-                return new ListResponse<T>(itemList);
+                    return new ListResponse<T>(itemList, ServiceActionStatus.Ok);
+                }
+                catch (Exception ex)
+                {
+                    // TODO: fix setting bound type to null and error code
+                    return new ListResponse<T>(null, ServiceActionStatus.Error, 1);
+                }
             }
         }
         #endregion

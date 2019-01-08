@@ -30,6 +30,7 @@ namespace PlantDataMVC.Service.SimpleServiceLayer
         /// <returns></returns>
         protected override Plant CreateItem(IUnitOfWorkAsync uow, Plant requestItem)
         {
+            // TODO: Fix this, as service returns wrong response due to multiple SaveChanges calls.
             _log.Debug(m => m("Entering {0}", System.Reflection.MethodBase.GetCurrentMethod().Name.ToString()));
 
             // get genus

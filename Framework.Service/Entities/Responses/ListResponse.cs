@@ -10,10 +10,16 @@ namespace Framework.Service.Entities
         [DataMember]
         public IList<T> Items { get; set; }
 
-        public ListResponse(IList<T> items) : base()
+        public ListResponse(IList<T> items, ServiceActionStatus status) : base()
         {
             Items = new List<T>();
             ((List<T>)Items).AddRange(items);
+            Status = status;
+        }
+
+        public ListResponse(IList<T> items, ServiceActionStatus status, int errorCode) : this(items, status)
+        {
+            ErrorCode = errorCode;
         }
     }
 }

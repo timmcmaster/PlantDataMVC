@@ -3,9 +3,9 @@ using PlantDataMVC.Service.ServiceContracts;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
-    public class PlantController : BaseApiController<Plant>
+    public class PlantSeedController : BaseApiController<PlantSeed>
     {
-        public PlantController(IPlantDataService dataService) : base(dataService)
+        public PlantSeedController(IPlantSeedDataService dataService) : base(dataService)
         {
         }
     }

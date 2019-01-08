@@ -9,6 +9,9 @@ namespace Framework.Service.Entities
         [DataMember]
         public int ErrorCode { get; set; }
 
+        [DataMember]
+        public ServiceActionStatus Status { get; set; }
+
         public Response()
         {
         }

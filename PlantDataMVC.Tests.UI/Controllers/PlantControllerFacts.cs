@@ -2,6 +2,7 @@
 using Framework.Service.Entities;
 using Framework.Web.Forms;
 using FluentAssertions;
+using Interfaces.Service;
 using Moq;
 using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.Service.ServiceContracts;
@@ -33,7 +34,7 @@ namespace PlantDataMVC.Tests.UI.Controllers
             public void ReturnsViewResultOfCorrectType()
             {
                 // Arrange
-                var listResponse = new ListResponse<Plant>(new List<Plant>());
+                var listResponse = new ListResponse<Plant>(new List<Plant>(),ServiceActionStatus.Ok);
 
                 // create mocks
                 var repo = new MockRepository(MockBehavior.Loose);
@@ -68,7 +69,7 @@ namespace PlantDataMVC.Tests.UI.Controllers
                 {
                     plantList.Add(PlantBuilder.aPlant().withRandomValues().withId().Build());
                 }
-                var listResponse = new ListResponse<Plant>(plantList);
+                var listResponse = new ListResponse<Plant>(plantList, ServiceActionStatus.Ok);
 
                 // create mocks
                 var repo = new MockRepository(MockBehavior.Loose);
