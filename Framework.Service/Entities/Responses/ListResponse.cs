@@ -16,10 +16,5 @@ namespace Framework.Service.Entities
             ((List<T>)Items).AddRange(items);
             Status = status;
         }
-
-        public ListResponse(IList<T> items, ServiceActionStatus status, int errorCode) : this(items, status)
-        {
-            ErrorCode = errorCode;
-        }
     }
 }

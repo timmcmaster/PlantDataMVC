@@ -14,10 +14,5 @@ namespace Framework.Service.Entities
             Item = item;
             Status = status;
         }
-
-        public UpdateResponse(T item, ServiceActionStatus status, int errorCode) : this(item, status)
-        {
-            ErrorCode = errorCode;
-        }
     }
 }

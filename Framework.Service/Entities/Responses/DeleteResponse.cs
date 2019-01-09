@@ -10,9 +10,5 @@ namespace Framework.Service.Entities
         {
             Status = status;
         }
-        public DeleteResponse(ServiceActionStatus status, int errorCode) : this(status)
-        {
-            ErrorCode = errorCode;
-        }
     }
 }

@@ -39,8 +39,7 @@ namespace Framework.Service
                 catch (Exception ex)
                 {
                     // Use default(T) instead of null
-                    // TODO: error code is erroneous
-                    return new CreateResponse<T>(0, default(T), ServiceActionStatus.Error, 1);
+                    return new CreateResponse<T>(0, default(T), ServiceActionStatus.Error);
                 }
             }
         }
@@ -93,8 +92,7 @@ namespace Framework.Service
                 catch(Exception ex)
                 {
                     // Use default(T) instead of null
-                    // TODO: error code is erroneous
-                    return new UpdateResponse<T>(default(T), ServiceActionStatus.Error, 1);
+                    return new UpdateResponse<T>(default(T), ServiceActionStatus.Error);
                 }
             }
         }
@@ -122,8 +120,7 @@ namespace Framework.Service
                 }
                 catch (Exception ex)
                 {
-                    // TODO: error code is erroneous
-                    return new DeleteResponse<T>(ServiceActionStatus.Error, 1);
+                    return new DeleteResponse<T>(ServiceActionStatus.Error);
                 }
             }
         }
@@ -140,8 +137,7 @@ namespace Framework.Service
                 }
                 catch (Exception ex)
                 {
-                    // TODO: fix setting bound type to null and error code
-                    return new ListResponse<T>(null, ServiceActionStatus.Error, 1);
+                    return new ListResponse<T>(null, ServiceActionStatus.Error);
                 }
             }
         }

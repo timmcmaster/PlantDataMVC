@@ -18,10 +18,5 @@ namespace Framework.Service.Entities
             Item = item;
             Status = status;
         }
-
-        public CreateResponse(int id, T item, ServiceActionStatus status, int errorCode) : this(id, item, status)
-        {
-            ErrorCode = errorCode;
-        }
     }
 }
