@@ -1,4 +1,4 @@
-﻿namespace Interfaces.Domain
+﻿namespace Interfaces.DTO
 {
     public interface IDtoEntity
     {
