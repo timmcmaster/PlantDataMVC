@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -43,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDataServiceBase.cs" />
+    <Compile Include="IService.cs" />
     <Compile Include="Response\ICreateResponse.cs" />
     <Compile Include="Response\IDeleteResponse.cs" />
     <Compile Include="Response\IListResponse.cs" />
@@ -51,8 +52,13 @@
     <Compile Include="Response\IUpdateResponse.cs" />
     <Compile Include="Response\IViewResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceActionStatus.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
+      <Project>{96fd9436-de5c-432a-94cb-ce5e63ee2405}</Project>
+      <Name>Interfaces.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
       <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
       <Name>Interfaces.Domain</Name>

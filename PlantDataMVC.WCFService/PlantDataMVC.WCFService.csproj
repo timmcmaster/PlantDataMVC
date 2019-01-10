@@ -108,6 +108,24 @@
     </Compile>
     <Compile Include="Mappers\AutoMapperBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceContracts\Helper.cs" />
+    <Compile Include="ServiceContracts\IPlantDataService.cs" />
+    <Compile Include="ServiceContracts\IPlantProductTypeDataService.cs" />
+    <Compile Include="ServiceContracts\IPlantSeedDataService.cs" />
+    <Compile Include="ServiceContracts\IPlantSeedSiteDataService.cs" />
+    <Compile Include="ServiceContracts\IPlantSeedTrayDataService.cs" />
+    <Compile Include="ServiceContracts\IPlantStockEntryDataService.cs" />
+    <Compile Include="ServiceContracts\IPlantStockTransactionDataService.cs" />
+    <Compile Include="ServiceContracts\IPlantStockTransactionTypeDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantProductTypeDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantSeedDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantSeedSiteDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantSeedTrayDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantStockEntryDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantStockTransactionDataService.cs" />
+    <Compile Include="SimpleServiceLayer\PlantStockTransactionTypeDataService.cs" />
+    <Compile Include="WcfService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

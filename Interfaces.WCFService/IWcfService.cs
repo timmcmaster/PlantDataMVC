@@ -1,11 +1,12 @@
 ﻿using Interfaces.Domain;
+using Interfaces.Service;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 
-namespace Interfaces.Service
+namespace Interfaces.WCFService
 {
     [ServiceContract]
-    public interface IDataServiceBase<T> where T : IDomainEntity
+    public interface IWcfService<T> where T : IDtoEntity
     {
         // POST: api/Plant
         [OperationContract]

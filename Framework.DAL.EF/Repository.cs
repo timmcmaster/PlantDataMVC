@@ -50,9 +50,10 @@ namespace Framework.DAL.EF
 
         #region IRepository implementation
 
-        public IList<TEntity> GetAll()
+        // Note: This is same as Queryable() method
+        public IQueryable<TEntity> GetAll()
         {
-            return _dbSet.ToList();
+            return _dbSet;
         }
 
         public TEntity GetItemById(int id)
@@ -61,22 +62,22 @@ namespace Framework.DAL.EF
         }
 
 
-        public TEntity GetItemById(int id, params Expression<System.Func<TEntity, object>>[] includes)
-        {
-            IQueryable<TEntity> query = _dbSet.Where(s => s.Id == id);
+        //public TEntity GetItemById(int id, params Expression<System.Func<TEntity, object>>[] includes)
+        //{
+        //    IQueryable<TEntity> query = _dbSet.Where(s => s.Id == id);
 
-            // Do we want to throw an error if we find more than 1 object?
+        //    // Do we want to throw an error if we find more than 1 object?
 
-            if (includes != null)
-            {
-                foreach (var includeProperty in includes)
-                {
-                    query = query.Include(includeProperty);
-                }
-            }
+        //    if (includes != null)
+        //    {
+        //        foreach (var includeProperty in includes)
+        //        {
+        //            query = query.Include(includeProperty);
+        //        }
+        //    }
 
-            return query.FirstOrDefault();
-        }
+        //    return query.FirstOrDefault();
+        //}
 
         public TEntity Add(TEntity item)
         {

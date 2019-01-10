@@ -1,4 +1,5 @@
 ﻿using Framework.Service.Entities;
+using Interfaces.DAL.Entity;
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.Domain;
 using Interfaces.Service;
@@ -8,57 +9,57 @@ using System.Data.SqlClient;
 
 namespace Framework.Service
 {
-    public abstract class DataServiceBase<T> : IDataServiceBase<T> where T : IDomainEntity
+    public abstract class WcfService<TEntity> : IWcfService<TEntity> where TEntity : IDtoEntity
     {
         protected IUnitOfWorkAsync UnitOfWork { get; set; }
 
-        public DataServiceBase(IUnitOfWorkAsync unitOfWork)
+        public Service(IUnitOfWorkAsync unitOfWork)
         {
             this.UnitOfWork = unitOfWork;
         }
 
         #region IDataServiceBase implementation
-        public virtual ICreateResponse<T> Create(T item)
+        public virtual ICreateResponse<TEntity> Create(TEntity item)
         {
             using (var uow = this.UnitOfWork)
             {
-                T createdItem = CreateItem(uow, item);
+                TEntity createdItem = CreateItem(uow, item);
 
                 uow.SaveChanges();
 
-                return new CreateResponse<T>(createdItem.Id, createdItem);
+                return new CreateResponse<TEntity>(createdItem.Id, createdItem);
             }
         }
 
-        public virtual IViewResponse<T> View(int id)
+        public virtual IViewResponse<TEntity> View(int id)
         {
             using (var uow = this.UnitOfWork)
             {
-                T item = SelectItem(uow, id);
+                TEntity item = SelectItem(uow, id);
 
-                return new ViewResponse<T>(item);
+                return new ViewResponse<TEntity>(item);
             }
         }
 
-        public virtual IUpdateResponse<T> Update(int id, T item)
+        public virtual IUpdateResponse<TEntity> Update(int id, TEntity item)
         {
             using (var uow = this.UnitOfWork)
             {
                 // TODO: Add check for id matches Item.Id
                 
-                T updatedItem = UpdateItem(uow, item);
+                TEntity updatedItem = UpdateItem(uow, item);
 
                 //uow.SaveChanges();
 
-                return new UpdateResponse<T>(updatedItem);
+                return new UpdateResponse<TEntity>(updatedItem);
             }
         }
 
-        public virtual IDeleteResponse<T> Delete(int id)
+        public virtual IDeleteResponse<TEntity> Delete(int id)
         {
             using (var uow = this.UnitOfWork)
             {
-                var response = new DeleteResponse<T>();
+                var response = new DeleteResponse<TEntity>();
 
                 try
                 {
@@ -79,13 +80,13 @@ namespace Framework.Service
             }
         }
 
-        public virtual IListResponse<T> List()
+        public virtual IListResponse<TEntity> List()
         {
             using (var uow = this.UnitOfWork)
             {
-                IList<T> itemList = ListItems(uow);
+                IList<TEntity> itemList = ListItems(uow);
 
-                return new ListResponse<T>(itemList);
+                return new ListResponse<TEntity>(itemList);
             }
         }
         #endregion
@@ -97,7 +98,7 @@ namespace Framework.Service
         /// <param name="uow">The unit of work.</param>
         /// <param name="requestItem">The request item.</param>
         /// <returns></returns>
-        protected abstract T CreateItem(IUnitOfWorkAsync uow, T requestItem);
+        protected abstract TEntity CreateItem(IUnitOfWorkAsync uow, TEntity requestItem);
 
         /// <summary>
         /// Selects the item.
@@ -105,7 +106,7 @@ namespace Framework.Service
         /// <param name="uow">The unit of work.</param>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        protected abstract T SelectItem(IUnitOfWorkAsync uow, int id);
+        protected abstract TEntity SelectItem(IUnitOfWorkAsync uow, int id);
 
         /// <summary>
         /// Updates the item passed in against the unit of work.
@@ -114,7 +115,7 @@ namespace Framework.Service
         /// <param name="uow">The unit of work.</param>
         /// <param name="requestItem">The request item.</param>
         /// <returns></returns>
-        protected abstract T UpdateItem(IUnitOfWorkAsync uow, T requestItem);
+        protected abstract TEntity UpdateItem(IUnitOfWorkAsync uow, TEntity requestItem);
 
         /// <summary>
         /// Deletes the item with given id against the unit of work.
@@ -128,7 +129,7 @@ namespace Framework.Service
         /// Lists the items.
         /// </summary>
         /// <param name="uow">The unit of work.</param>
-        /// <returns>A list of type <typeparamref name="T"/></returns>
-        protected abstract IList<T> ListItems(IUnitOfWorkAsync uow);
+        /// <returns>A list of type <typeparamref name="TEntity"/></returns>
+        protected abstract IList<TEntity> ListItems(IUnitOfWorkAsync uow);
     }
 }

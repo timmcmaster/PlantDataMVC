@@ -18,7 +18,7 @@ namespace Interfaces.DAL.Repository
         /// Get list of items 
         /// </summary>
         /// <returns></returns>
-        IList<TEntity> GetAll();
+        IQueryable<TEntity> GetAll();
 
         /// <summary>
         /// Get single item 
@@ -32,7 +32,7 @@ namespace Interfaces.DAL.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        TEntity GetItemById(int id, params Expression<Func<TEntity, object>>[] includes);
+        //TEntity GetItemById(int id, params Expression<Func<TEntity, object>>[] includes);
 
         /// <summary>
         /// Add a single item

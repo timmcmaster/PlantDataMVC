@@ -67,24 +67,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ISeedBatchService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceContracts\Helper.cs" />
-    <Compile Include="ServiceContracts\IPlantProductTypeDataService.cs" />
-    <Compile Include="ServiceContracts\IPlantSeedTrayDataService.cs" />
-    <Compile Include="ServiceContracts\IPlantStockEntryDataService.cs" />
-    <Compile Include="ServiceContracts\IPlantSeedSiteDataService.cs" />
-    <Compile Include="ServiceContracts\IPlantStockTransactionDataService.cs" />
-    <Compile Include="ServiceContracts\IPlantStockTransactionTypeDataService.cs" />
-    <Compile Include="ServiceContracts\IPlantSeedDataService.cs" />
-    <Compile Include="ServiceContracts\IPlantDataService.cs" />
-    <Compile Include="SimpleServiceLayer\PlantDataService.cs" />
-    <Compile Include="SimpleServiceLayer\PlantProductTypeDataService.cs" />
-    <Compile Include="SimpleServiceLayer\PlantSeedDataService.cs" />
-    <Compile Include="SimpleServiceLayer\PlantSeedSiteDataService.cs" />
-    <Compile Include="SimpleServiceLayer\PlantSeedTrayDataService.cs" />
-    <Compile Include="SimpleServiceLayer\PlantStockEntryDataService.cs" />
-    <Compile Include="SimpleServiceLayer\PlantStockTransactionDataService.cs" />
-    <Compile Include="SimpleServiceLayer\PlantStockTransactionTypeDataService.cs" />
+    <Compile Include="Services\GenusService.cs" />
+    <Compile Include="Interfaces\IGenusService.cs" />
+    <Compile Include="Interfaces\ISeedTrayService.cs" />
+    <Compile Include="Interfaces\IPlantStockService.cs" />
+    <Compile Include="Interfaces\ISiteService.cs" />
+    <Compile Include="Interfaces\IJournalEntryService.cs" />
+    <Compile Include="Interfaces\IJournalEntryTypeService.cs" />
+    <Compile Include="Interfaces\ISpeciesService.cs" />
+    <Compile Include="Interfaces\IProductTypeService.cs" />
+    <Compile Include="Services\SpeciesService.cs" />
+    <Compile Include="Services\ProductTypeService.cs" />
+    <Compile Include="Services\SeedBatchService.cs" />
+    <Compile Include="Services\SiteService.cs" />
+    <Compile Include="Services\SeedTrayService.cs" />
+    <Compile Include="Services\PlantStockService.cs" />
+    <Compile Include="Services\JournalEntryService.cs" />
+    <Compile Include="Services\JournalEntryTypeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">

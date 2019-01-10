@@ -6,6 +6,7 @@ using Interfaces.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,8 +20,9 @@ namespace Framework.DAL.EF
     {
         #region Variables
 
-        private bool _disposed = false;
         private IDataContextAsync _dataContext;
+        private bool _disposed = false;
+        private ObjectContext _objectContext;
         private IDbTransaction _transaction;
         private Dictionary<string, dynamic> _repositories;
 
@@ -53,7 +55,23 @@ namespace Framework.DAL.EF
             {
                 if (disposing)
                 {
-                    _dataContext.Dispose();
+                    try
+                    {
+                        if (_objectContext != null && _objectContext.Connection.State == ConnectionState.Open)
+                        {
+                            _objectContext.Connection.Close();
+                        }
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        // do nothing, the objectContext has already been disposed
+                    }
+
+                    if (_dataContext != null)
+                    {
+                        _dataContext.Dispose();
+                        _dataContext = null;
+                    }
                 }
             }
             this._disposed = true;

@@ -6,9 +6,9 @@ namespace Framework.Service.Entities
     [DataContract(Name = "DeleteResponseUsing{0}")]
     public class DeleteResponse<T> : Response, IDeleteResponse<T>
     {
-        public DeleteResponse()
-            : base()
+        public DeleteResponse(ServiceActionStatus status) : base()
         {
+            Status = status;
         }
     }
 }
