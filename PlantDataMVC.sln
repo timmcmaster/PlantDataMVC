@@ -63,7 +63,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.DAL", "Interface
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.WCFService", "Interfaces.WCFService\Interfaces.WCFService.csproj", "{F41337B3-BC5A-4E28-9DD0-6296DF9C6203}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.DTO", "Interfaces.DTO\Interfaces.DTO.csproj", "{86043EC2-FCE3-42FE-9001-E26812B597B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces.DTO", "Interfaces.DTO\Interfaces.DTO.csproj", "{86043EC2-FCE3-42FE-9001-E26812B597B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.DTO", "PlantDataMVC.DTO\PlantDataMVC.DTO.csproj", "{21BCD4E8-47A5-4ED3-A832-C9E0659B9B86}"
 EndProject
