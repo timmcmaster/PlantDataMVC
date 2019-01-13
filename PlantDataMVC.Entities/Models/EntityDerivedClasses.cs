@@ -48,25 +48,6 @@ namespace PlantDataMVC.Entities.Models
 
     partial class Species : EntityBase
     {
-        public string GenericName
-        {
-            get { return Genus.LatinName; }
-        }
-
-        public string Binomial
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(GenericName.Trim()) && string.IsNullOrEmpty(SpecificName.Trim()))
-                    return "";
-                else if (string.IsNullOrEmpty(GenericName.Trim()))
-                    return SpecificName;
-                else if (string.IsNullOrEmpty(SpecificName.Trim()))
-                    return GenericName;
-                else
-                    return String.Format("{0} {1}", GenericName.Trim(), SpecificName.Trim());
-            }
-        }
     }
 
     partial class Genus : EntityBase

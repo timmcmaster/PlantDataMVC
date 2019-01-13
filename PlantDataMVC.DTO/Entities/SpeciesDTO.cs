@@ -1,21 +1,23 @@
-﻿namespace PlantDataMVC.DTO.Entities
+﻿using System.Collections.Generic;
+
+namespace PlantDataMVC.DTO.Entities
 {
     public class SpeciesDTO : DtoEntity
     {
-        public int GenusId { get; set; } // GenusId
-        public string SpecificName { get; set; } // SpecificName (length: 30)
-        public string CommonName { get; set; } // CommonName (length: 50)
-        public string Description { get; set; } // Description (length: 200)
-        public int? PropagationTime { get; set; } // PropagationTime
-        public bool Native { get; set; } // Native
+        public int GenusId { get; set; } 
 
-        //public string GenericName { get; set; }
-        //public string Binomial { get; set; }
+        public string SpecificName { get; set; } 
 
-        // Default constructor
-        public SpeciesDTO()
-        {
-        }
+        public string CommonName { get; set; } 
 
+        public string Description { get; set; }
+
+        public int? PropagationTime { get; set; }
+
+        public bool Native { get; set; }
+
+        ICollection<PlantStockDTO> PlantStocks { get; set; }
+         
+        ICollection<SeedBatchDTO> SeedBatches { get; set; }
     }
 }
