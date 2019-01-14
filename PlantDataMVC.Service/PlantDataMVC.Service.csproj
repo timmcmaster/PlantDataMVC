@@ -104,9 +104,9 @@
       <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>
       <Name>Interfaces.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
-      <Project>{157D351C-8DA8-4A9B-B66D-20E4F49EB201}</Project>
-      <Name>PlantDataMVC.Domain</Name>
+    <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj">
+      <Project>{21bcd4e8-47a5-4ed3-a832-c9e0659b9b86}</Project>
+      <Name>PlantDataMVC.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
       <Project>{ecc2f1e2-a2ea-4390-a75c-114d56f0bd96}</Project>

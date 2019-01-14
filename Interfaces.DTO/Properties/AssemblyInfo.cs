@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Interfaces.DTO")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("RACQGROUP")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Interfaces.DTO")]
-[assembly: AssemblyCopyright("Copyright © RACQGROUP 2019")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("432953b8-79d2-426e-91ee-006f10d7c479")]
+[assembly: Guid("70f08765-902c-4ce6-9067-cfae978f0be8")]
 
 // Version information for an assembly consists of the following four values:
 //

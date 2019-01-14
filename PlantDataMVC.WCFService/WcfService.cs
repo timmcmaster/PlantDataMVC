@@ -2,7 +2,9 @@
 using Interfaces.DAL.Entity;
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.Domain;
+using Interfaces.DTO;
 using Interfaces.Service;
+using Interfaces.WCFService;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -13,7 +15,7 @@ namespace Framework.Service
     {
         protected IUnitOfWorkAsync UnitOfWork { get; set; }
 
-        public Service(IUnitOfWorkAsync unitOfWork)
+        public WcfService(IUnitOfWorkAsync unitOfWork)
         {
             this.UnitOfWork = unitOfWork;
         }

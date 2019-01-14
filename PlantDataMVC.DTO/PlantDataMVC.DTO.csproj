@@ -75,7 +75,7 @@
       <Name>Interfaces.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.DTO\Interfaces.DTO.csproj">
-      <Project>{432953b8-79d2-426e-91ee-006f10d7c479}</Project>
+      <Project>{70f08765-902c-4ce6-9067-cfae978f0be8}</Project>
       <Name>Interfaces.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
