@@ -2,11 +2,14 @@
 using Interfaces.DAL.Entity;
 using Interfaces.DAL.Infrastructure;
 using Interfaces.DAL.Repository;
+using LinqKit;
+using System;
 //using Framework.DAL.UnitOfWork;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Framework.DAL.EF
 {
@@ -111,11 +114,56 @@ namespace Framework.DAL.EF
             return _dbSet;
         }
 
+        public IQueryFluent<TEntity> Query()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryFluent<TEntity> Query(IQueryObject<TEntity> queryObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryFluent<TEntity> Query(Expression<Func<TEntity, bool>> query)
+        {
+            throw new NotImplementedException();
+        }
+
         //public IRepository<T> GetRepository<T>() where T : class, IEntity
         //{
         //    return _unitOfWork.Repository<T>();
         //}
         #endregion IRepository implementation
+
+
+        internal IQueryable<TEntity> Select(Expression<Func<TEntity, bool>> filter = null,
+                                            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                                            List<Expression<Func<TEntity, object>>> includes = null)
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            if (includes != null)
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+            if (filter != null)
+            {
+                query = query.AsExpandable().Where(filter);
+            }
+            return query;
+        }
+
+        internal async Task<IEnumerable<TEntity>> SelectAsync(Expression<Func<TEntity, bool>> filter = null,
+                                            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                                            List<Expression<Func<TEntity, object>>> includes = null)
+        {
+            return await Select(filter, orderBy, includes).ToListAsync();
+        }
+
 
 
     }

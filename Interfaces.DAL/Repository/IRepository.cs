@@ -54,6 +54,29 @@ namespace Interfaces.DAL.Repository
         void Delete(TEntity item);
 
         /// <summary>
+        /// Return a IQueryFluent object, with no initial query 
+        /// </summary>
+        /// <returns></returns>
+        IQueryFluent<TEntity> Query();
+
+        /// <summary>
+        /// Return a IQueryFluent object that allows using fluent searches.
+        /// Uses the provided initial query
+        /// </summary>
+        /// <param name="queryObject">The query object.</param>
+        /// <returns></returns>
+        IQueryFluent<TEntity> Query(IQueryObject<TEntity> queryObject);
+
+        /// <summary>
+        /// Return a IQueryFluent object that allows using fluent searches.
+        /// Uses the provided expression as the initial query
+        /// </summary>
+        /// <param name="queryObject">The query object.</param>
+        /// <returns></returns>
+        IQueryFluent<TEntity> Query(Expression<Func<TEntity, bool>> query);
+
+        
+        /// <summary>
         /// Get the queryable object for this type, used for LINQ queries
         /// </summary>
         /// <returns></returns>

@@ -1,6 +1,7 @@
 ﻿using Common.Logging;
 using Framework.Service;
 using Interfaces.DAL.Repository;
+using PlantDataMVC.Repository.Repositories;
 using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.Service
@@ -11,10 +12,14 @@ namespace PlantDataMVC.Service
     /// </summary>
     public class GenusService : Service<Genus>, IGenusService
     {
+        #region Private variables
         private static readonly ILog _log = LogManager.GetLogger<GenusService>();
+        private readonly IRepositoryAsync<Genus> _repository;
+        #endregion
 
         public GenusService(IRepositoryAsync<Genus> repository) : base(repository)
         {
+            _repository = repository;
         }
 
         #region Service overrides
@@ -26,5 +31,12 @@ namespace PlantDataMVC.Service
         }
         #endregion
 
+        #region Repository custom methods
+        public Genus GetItemWithAllSpecies(int id)
+        {
+            return _repository.GenusExtensions().GetItemWithAllSpecies(id);
+        }
+       
+        #endregion
     }
 }

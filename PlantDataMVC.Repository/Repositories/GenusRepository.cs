@@ -18,6 +18,7 @@ namespace PlantDataMVC.Repository.Repositories
     public interface IGenusExtensions
     {
         Genus GetItemByLatinName(string latinName);
+        Genus GetItemWithAllSpecies(int id);
     }
 
     /// <summary>
@@ -35,7 +36,12 @@ namespace PlantDataMVC.Repository.Repositories
 
         public Genus GetItemByLatinName(string latinName)
         {
-            return _repository.Queryable().FirstOrDefault(p => p.LatinName == latinName);
+            return _repository.Queryable().FirstOrDefault(g => g.LatinName == latinName);
+        }
+
+        public Genus GetItemWithAllSpecies(int id)
+        {
+            return _repository.Query(g => g.Id == id).Include(g => g.Species).Select().SingleOrDefault();
         }
     }
 
