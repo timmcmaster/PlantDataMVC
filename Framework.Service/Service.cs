@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Framework.Service
 {
@@ -45,9 +46,24 @@ namespace Framework.Service
             _repository.Delete(item);
         }
 
-        public IQueryable<TEntity> Queryable()
+        public virtual IQueryable<TEntity> Queryable()
         {
             return _repository.Queryable();
+        }
+
+        public virtual IQueryFluent<TEntity> Query()
+        {
+            return _repository.Query();
+        }
+
+        public virtual IQueryFluent<TEntity> Query(IQueryObject<TEntity> queryObject)
+        {
+            return _repository.Query(queryObject);
+        }
+
+        public virtual IQueryFluent<TEntity> Query(Expression<Func<TEntity, bool>> query)
+        {
+            return _repository.Query(query);
         }
         #endregion
     }
