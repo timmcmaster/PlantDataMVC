@@ -1,8 +1,9 @@
 ﻿using Interfaces.Service;
+using Interfaces.Service.Responses;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Framework.Service.Entities
+namespace Framework.Service.Responses
 {
     [DataContract(Name = "ListResponseUsing{0}")]
     public class ListResponse<T> : Response, IListResponse<T>

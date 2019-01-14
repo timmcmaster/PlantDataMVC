@@ -45,12 +45,12 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
-    <Compile Include="Entities\Responses\CreateResponse.cs" />
-    <Compile Include="Entities\Responses\DeleteResponse.cs" />
-    <Compile Include="Entities\Responses\ListResponse.cs" />
-    <Compile Include="Entities\Responses\Response.cs" />
-    <Compile Include="Entities\Responses\UpdateResponse.cs" />
-    <Compile Include="Entities\Responses\ViewResponse.cs" />
+    <Compile Include="Responses\CreateResponse.cs" />
+    <Compile Include="Responses\DeleteResponse.cs" />
+    <Compile Include="Responses\ListResponse.cs" />
+    <Compile Include="Responses\Response.cs" />
+    <Compile Include="Responses\UpdateResponse.cs" />
+    <Compile Include="Responses\ViewResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">

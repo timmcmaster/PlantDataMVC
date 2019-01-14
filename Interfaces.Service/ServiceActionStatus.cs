@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Interfaces.Service
+﻿namespace Interfaces.Service
 {
     public enum ServiceActionStatus
     {

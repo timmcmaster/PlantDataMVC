@@ -1,5 +1,5 @@
 ﻿using Interfaces.DTO;
-using Interfaces.Service;
+using Interfaces.Service.Responses;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 

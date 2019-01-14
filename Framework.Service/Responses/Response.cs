@@ -1,7 +1,8 @@
 ﻿using Interfaces.Service;
+using Interfaces.Service.Responses;
 using System.Runtime.Serialization;
 
-namespace Framework.Service.Entities
+namespace Framework.Service.Responses
 {
     [DataContract]
     public abstract class Response : IResponse
