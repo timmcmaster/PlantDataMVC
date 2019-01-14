@@ -10,6 +10,6 @@ namespace PlantDataMVC.DTO.Entities
     public abstract class DtoEntity : IDtoEntity
     {
         public virtual int Id { get; set; }
-        public virtual string DisplayValue { get; set; }
+        //public virtual string DisplayValue { get; set; }
     }
 }

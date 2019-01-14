@@ -14,6 +14,6 @@ namespace PlantDataMVC.DTO.Entities
 
         public bool ThrownOut { get; set; }
 
-        ICollection<JournalEntryDTO> JournalEntries { get; set; }
+        public ICollection<JournalEntryDTO> JournalEntries { get; set; }
     }
 }

@@ -12,6 +12,6 @@ namespace PlantDataMVC.DTO.Entities
 
         public decimal Longitude { get; set; }
 
-        ICollection<SeedBatchDTO> SeedBatches { get; set; }
+        public ICollection<SeedBatchDTO> SeedBatches { get; set; }
     }
 }

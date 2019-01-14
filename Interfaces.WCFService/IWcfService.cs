@@ -1,4 +1,4 @@
-﻿using Interfaces.Domain;
+﻿using Interfaces.DTO;
 using Interfaces.Service;
 using System.ServiceModel;
 using System.ServiceModel.Web;

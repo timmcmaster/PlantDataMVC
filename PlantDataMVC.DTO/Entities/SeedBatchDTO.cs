@@ -1,5 +1,4 @@
-﻿using PlantDataMVC.DTO.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace PlantDataMVC.DTO.Entities
@@ -16,6 +15,6 @@ namespace PlantDataMVC.DTO.Entities
 
         public int? SiteId { get; set; }
 
-        ICollection<SeedTrayDTO> SeedTrays { get; set; }
+        public ICollection<SeedTrayDTO> SeedTrays { get; set; }
     }
 }

@@ -16,8 +16,8 @@ namespace PlantDataMVC.DTO.Entities
 
         public bool Native { get; set; }
 
-        ICollection<PlantStockDTO> PlantStocks { get; set; }
+        public ICollection<PlantStockDTO> PlantStocks { get; set; }
          
-        ICollection<SeedBatchDTO> SeedBatches { get; set; }
+        public ICollection<SeedBatchDTO> SeedBatches { get; set; }
     }
 }

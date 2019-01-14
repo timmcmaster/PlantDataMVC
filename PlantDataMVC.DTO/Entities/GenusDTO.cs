@@ -6,6 +6,6 @@ namespace PlantDataMVC.DTO.Entities
     {
         public string LatinName { get; set; }
 
-        ICollection<SpeciesDTO> Species { get; set; }
+        public ICollection<SpeciesDTO> Species { get; set; }
     }
 }
