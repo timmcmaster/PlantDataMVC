@@ -67,25 +67,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\ISeedBatchService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\GenusService.cs" />
-    <Compile Include="Interfaces\IGenusService.cs" />
-    <Compile Include="Interfaces\ISeedTrayService.cs" />
-    <Compile Include="Interfaces\IPlantStockService.cs" />
-    <Compile Include="Interfaces\ISiteService.cs" />
-    <Compile Include="Interfaces\IJournalEntryService.cs" />
-    <Compile Include="Interfaces\IJournalEntryTypeService.cs" />
-    <Compile Include="Interfaces\ISpeciesService.cs" />
-    <Compile Include="Interfaces\IProductTypeService.cs" />
-    <Compile Include="Services\SpeciesService.cs" />
-    <Compile Include="Services\ProductTypeService.cs" />
-    <Compile Include="Services\SeedBatchService.cs" />
-    <Compile Include="Services\SiteService.cs" />
-    <Compile Include="Services\SeedTrayService.cs" />
-    <Compile Include="Services\PlantStockService.cs" />
-    <Compile Include="Services\JournalEntryService.cs" />
-    <Compile Include="Services\JournalEntryTypeService.cs" />
+    <Compile Include="GenusService.cs" />
+    <Compile Include="SpeciesService.cs" />
+    <Compile Include="ProductTypeService.cs" />
+    <Compile Include="SeedBatchService.cs" />
+    <Compile Include="SiteService.cs" />
+    <Compile Include="SeedTrayService.cs" />
+    <Compile Include="PlantStockService.cs" />
+    <Compile Include="JournalEntryService.cs" />
+    <Compile Include="JournalEntryTypeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework.Service\Framework.Service.csproj">
@@ -121,5 +112,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

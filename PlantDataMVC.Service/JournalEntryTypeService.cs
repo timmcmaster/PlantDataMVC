@@ -1,19 +1,24 @@
 ﻿using Common.Logging;
 using Framework.Service;
 using Interfaces.DAL.Repository;
+using Interfaces.Service;
 using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.Service
 {
+    public interface IJournalEntryTypeService : IService<JournalEntryType>
+    {
+    }
+
     /// <summary>
     ///     All methods that are exposed from Repository in Service are overridable to add business logic,
     ///     business logic should be in the Service layer and not in repository for separation of concerns.
     /// </summary>
-    public class SpeciesService : Service<Species>, ISpeciesService
+    public class JournalEntryTypeService : Service<JournalEntryType>, IJournalEntryTypeService
     {
-        private static readonly ILog _log = LogManager.GetLogger<SpeciesService>();
+        private static readonly ILog _log = LogManager.GetLogger<JournalEntryTypeService>();
 
-        public SpeciesService(IRepositoryAsync<Species> repository) : base(repository)
+        public JournalEntryTypeService(IRepositoryAsync<JournalEntryType> repository) : base(repository)
         {
         }
     }

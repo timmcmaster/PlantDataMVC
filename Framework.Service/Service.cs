@@ -1,11 +1,7 @@
-﻿using Framework.Service.Entities;
-using Interfaces.DAL.Entity;
-using Interfaces.DAL.UnitOfWork;
+﻿using Interfaces.DAL.Entity;
 using Interfaces.DAL.Repository;
 using Interfaces.Service;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 
