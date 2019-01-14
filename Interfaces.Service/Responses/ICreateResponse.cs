@@ -1,4 +1,4 @@
-﻿namespace Interfaces.Service
+﻿namespace Interfaces.Service.Responses
 {
     public interface ICreateResponse<T>: IResponse
     {
