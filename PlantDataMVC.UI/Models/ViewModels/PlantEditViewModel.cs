@@ -25,21 +25,5 @@ namespace PlantDataMVC.UI.Models
         public int PropagationTime { get; set; }
 
         public bool Native { get; set; }
-
-        //public PlantEditViewModel()
-        //    : this(0, "", "", "", "", 0, true)
-        //{
-        //}
-
-        //public PlantEditViewModel(int id, string genus, string species, string commonName, string description, int propagationTime, bool native)
-        //{
-        //    Id = id;
-        //    Genus = genus;
-        //    Species = species;
-        //    CommonName = commonName;
-        //    Description = description;
-        //    PropagationTime = propagationTime;
-        //    Native = native;
-        //}
     }
 }

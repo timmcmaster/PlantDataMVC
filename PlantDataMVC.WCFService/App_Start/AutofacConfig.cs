@@ -4,10 +4,10 @@ using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
 //using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
-using Interfaces.Service;
+using Interfaces.WCFService;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Service.ServiceContracts;
-using PlantDataMVC.Service.SimpleServiceLayer;
+using PlantDataMVC.WCFService.ServiceContracts;
+using PlantDataMVC.WCFService.Services;
 using System.Reflection;
 
 namespace PlantDataMVC.WCFService
@@ -36,16 +36,18 @@ namespace PlantDataMVC.WCFService
             //var svcAssembly = Assembly.GetAssembly(typeof(PlantDataService));
             //builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IDataServiceBase<>));
 
-            // Required service is now IPlantDataService instead of IDataServiceBase<Plant>
+            // Required service is now I*WcfService
             // Register specific services for now
-            builder.RegisterType<PlantDataService>().As<IPlantDataService>();
-            builder.RegisterType<PlantProductTypeDataService>().As<IPlantProductTypeDataService>();
-            builder.RegisterType<PlantSeedDataService>().As<IPlantSeedDataService>();
-            builder.RegisterType<PlantSeedSiteDataService>().As<IPlantSeedSiteDataService>();
-            builder.RegisterType<PlantSeedTrayDataService>().As<IPlantSeedTrayDataService>();
-            builder.RegisterType<PlantStockEntryDataService>().As<IPlantStockEntryDataService>();
-            builder.RegisterType<PlantStockTransactionDataService>().As<IPlantStockTransactionDataService>();
-            builder.RegisterType<PlantStockTransactionTypeDataService>().As<IPlantStockTransactionTypeDataService>();
+            //builder.RegisterType<PlantDataService>().As<IPlantDataService>();
+
+            builder.RegisterType<JournalEntryWcfService>().As<IJournalEntryWcfService>();
+            builder.RegisterType<JournalEntryTypeWcfService>().As<IJournalEntryTypeWcfService>();
+            builder.RegisterType<ProductTypeWcfService>().As<IProductTypeWcfService>();
+            builder.RegisterType<SeedBatchWcfService>().As<ISeedBatchWcfService>();
+            builder.RegisterType<SiteWcfService>().As<ISiteWcfService>();
+            builder.RegisterType<SpeciesWcfService>().As<ISpeciesWcfService>();
+            builder.RegisterType<SeedTrayWcfService>().As<ISeedTrayWcfService>();
+            builder.RegisterType<PlantStockWcfService>().As<IPlantStockWcfService>();
 
             // Register singleton instance of ILog for Common.Logging
             // TODO: This is a bit dodgy, as it doesn't allow us to use NLog rules based on logging class.

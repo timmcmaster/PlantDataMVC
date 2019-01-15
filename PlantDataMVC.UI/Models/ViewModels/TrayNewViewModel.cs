@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PlantDataMVC.DTO.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-using PlantDataMVC.Domain.Entities;
 
 namespace PlantDataMVC.UI.Models
 {
     public class TrayNewViewModel
     {
         [Display(Name = "Seed Batch")]
-        public PlantSeed SeedBatch { get; set; }
+        public SeedBatchDTO SeedBatch { get; set; }
 
         [Display(Name = "Date Planted")]
         public DateTime DatePlanted { get; set; }
@@ -23,7 +21,7 @@ namespace PlantDataMVC.UI.Models
 
         public TrayNewViewModel()
         {
-            this.SeedBatch = new PlantSeed();
+            this.SeedBatch = new SeedBatchDTO();
             this.DatePlanted = new DateTime();
         }
     }

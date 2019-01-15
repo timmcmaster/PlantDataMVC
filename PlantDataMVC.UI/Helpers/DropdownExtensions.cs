@@ -1,8 +1,7 @@
-﻿using Framework.Service.Entities;
-using Interfaces.Domain;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Service.ServiceContracts;
+﻿using Interfaces.DTO;
+using Interfaces.WCFService;
+using PlantDataMVC.DTO.Entities;
+using PlantDataMVC.WCFService.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +21,7 @@ namespace PlantDataMVC.UI.Helpers
             Expression<Func<TModel, TItem>> expression,     // Selects the referenced entity from the model
             Func<TItem, string> displayValueSelector,       // Selects the display field from the entity
             Func<TItem, object> dataValueSelector           // Selects the value field from the entity
-            ) where TItem : IDomainEntity
+            ) where TItem : IDtoEntity
         {
             var expressionText = ExpressionHelper.GetExpressionText(expression);
 
@@ -57,7 +56,7 @@ namespace PlantDataMVC.UI.Helpers
         }
 
         // HACK: Still very hacky quick method to return service interface for given IEntity type
-        public static IDataServiceBase<TItem> GetServiceFor<TItem>() where TItem : IDomainEntity
+        public static IWcfService<TItem> GetServiceFor<TItem>() where TItem : IDtoEntity
         {
             if (typeof(TItem) == typeof(Plant))
                 return GetServiceFor<TItem, IPlantDataService>();
@@ -65,27 +64,27 @@ namespace PlantDataMVC.UI.Helpers
             //    return typeof();
             //else if (typeof(TItem) == typeof(PlantProductPrice))
             //    return typeof();
-            else if (typeof(TItem) == typeof(PlantProductType))
-                return GetServiceFor<TItem, IPlantProductTypeDataService>();
-            else if (typeof(TItem) == typeof(PlantSeed))
-                return GetServiceFor<TItem, IPlantSeedDataService>();
-            else if (typeof(TItem) == typeof(PlantSeedSite))
-                return GetServiceFor<TItem, IPlantSeedSiteDataService>();
-            else if (typeof(TItem) == typeof(PlantSeedTray))
-                return GetServiceFor<TItem, IPlantSeedTrayDataService>();
-            else if (typeof(TItem) == typeof(PlantStockEntry))
-                return GetServiceFor<TItem, IPlantStockEntryDataService>();
-            else if (typeof(TItem) == typeof(PlantStockTransaction))
-                return GetServiceFor<TItem, IPlantStockTransactionDataService>();
-            else if (typeof(TItem) == typeof(PlantStockTransactionType))
-                return GetServiceFor<TItem, IPlantStockTransactionTypeDataService>();
+            else if (typeof(TItem) == typeof(ProductTypeDTO))
+                return GetServiceFor<TItem, IProductTypeWcfService>();
+            else if (typeof(TItem) == typeof(SeedBatchDTO))
+                return GetServiceFor<TItem, ISeedBatchWcfService>();
+            else if (typeof(TItem) == typeof(SiteDTO))
+                return GetServiceFor<TItem, ISiteWcfService>();
+            else if (typeof(TItem) == typeof(SeedTrayDTO))
+                return GetServiceFor<TItem, ISeedTrayWcfService>();
+            else if (typeof(TItem) == typeof(PlantStockDTO))
+                return GetServiceFor<TItem, IPlantStockWcfService>();
+            else if (typeof(TItem) == typeof(JournalEntryDTO))
+                return GetServiceFor<TItem, IJournalEntryWcfService>();
+            else if (typeof(TItem) == typeof(JournalEntryTypeDTO))
+                return GetServiceFor<TItem, IJournalEntryTypeWcfService>();
             else
                 throw new Exception("corresponding service not found");
         }
 
-        public static IDataServiceBase<TItem> GetServiceFor<TItem, TInterface>() where TItem : IDomainEntity
+        public static IWcfService<TItem> GetServiceFor<TItem, TInterface>() where TItem : IDtoEntity
         {
-            return DependencyResolver.Current.GetService<TInterface>() as IDataServiceBase<TItem>;
+            return DependencyResolver.Current.GetService<TInterface>() as IWcfService<TItem>;
         }
     }
 }

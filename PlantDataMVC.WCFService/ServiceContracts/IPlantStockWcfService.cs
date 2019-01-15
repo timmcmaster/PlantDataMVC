@@ -5,20 +5,20 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.ServiceModel;
 
-namespace PlantDataMVC.WCFService.ServiceContractsWCF
+namespace PlantDataMVC.WCFService.ServiceContracts
 {
-    //[ServiceKnownType("GetKnownTypes", typeof(PlantSeedSiteDSHelper))]
+    [ServiceKnownType("GetKnownTypes", typeof(PlantStockDTODSHelper))]
     [ServiceContract]
-    public interface ISiteWcfService : IWcfService<SiteDTO>
+    public interface IPlantStockWcfService : IWcfService<PlantStockDTO>
     {
     }
 
     // This class has the method named GetKnownTypes that returns a generic IEnumerable.
-    static class SiteDTODSHelper
+    static class PlantStockDTODSHelper
     {
         public static IEnumerable<Type> GetKnownTypes(ICustomAttributeProvider provider)
         {
-            return DTOHelper.GetKnownTypes<SiteDTO>(provider);
+            return DTOHelper.GetKnownTypes<PlantStockDTO>(provider);
         }
     }
 }

@@ -74,7 +74,6 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            //Plant item = new Plant(0,"test","test","test", true, 0, new PlantSeed[]{}, new PlantStockEntry[]{});
             Plant item = new Plant();
 
             return AutoMapView<PlantNewViewModel>(View(item));

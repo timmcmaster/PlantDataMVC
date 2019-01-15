@@ -1,6 +1,6 @@
 ﻿<%@ ServiceHost 
     Language="C#" 
     Debug="true" 
-    Service="PlantDataMVC.Service.ServiceContracts.IPlantSeedTrayDataService, PlantDataMVC.Service"
+    Service="PlantDataMVC.WCFService.ServiceContracts.ISeedTrayWcfService, PlantDataMVC.WCFService"
     Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf" 
 %>

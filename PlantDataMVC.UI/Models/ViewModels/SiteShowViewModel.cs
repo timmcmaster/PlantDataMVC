@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using PlantDataMVC.Domain.Entities;
 
 namespace PlantDataMVC.UI.Models
 {
@@ -21,22 +18,5 @@ namespace PlantDataMVC.UI.Models
 
         [DisplayFormat(DataFormatString = "{0:0.00000}")]
         public decimal Longitude { get; private set; }
-        
-        //public IList<PlantSeedListViewModel> SeedBatches { get; private set; }
-
-        //public PlantSeedShowViewModel()
-        //    : this(0, 0, DateTime.Today, "", "")
-        //{
-        //    SeedTrays = new List<TrayListViewModel>();
-        //}
-
-        //public PlantSeedShowViewModel(int id, int speciesId, DateTime dateCollected, string location, string notes)
-        //{
-        //    this.Id = id;
-        //    this.SpeciesId = speciesId;
-        //    this.DateCollected = dateCollected;
-        //    this.Location = location;
-        //    this.Notes = notes;
-        //}
     }
 }

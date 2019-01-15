@@ -1,4 +1,4 @@
-﻿using PlantDataMVC.Domain.Entities;
+﻿using PlantDataMVC.DTO.Entities;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
@@ -20,13 +20,13 @@ namespace PlantDataMVC.UI.Models
         public string Notes { get; set; }
 
         [Display(Name = "Site Name")]
-        public PlantSeedSite Site { get; set; }
+        public SiteDTO Site { get; set; }
 
         public PlantSeedNewViewModel()
         {
             this.PlantSpecies = new Plant();
             this.DateCollected = new DateTime();
-            this.Site = new PlantSeedSite();
+            this.Site = new SiteDTO();
         }
     }
 }

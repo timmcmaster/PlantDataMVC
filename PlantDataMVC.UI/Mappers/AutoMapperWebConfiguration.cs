@@ -8,8 +8,8 @@ namespace PlantDataMVC.UI.Mappers
         public static Action<IMapperConfigurationExpression> ConfigAction
             = new Action<IMapperConfigurationExpression>(cfg =>
             {
-                cfg.AddProfile<UIToDomainMappingProfile>();
-                cfg.AddProfile<DomainToUIMappingProfile>();
+                cfg.AddProfile<UIToDTOMappingProfile>();
+                cfg.AddProfile<DTOToUIMappingProfile>();
             });
 
 

@@ -1,5 +1,4 @@
 ﻿using Framework.Web.Forms;
-using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.ModelBinders;
 using System;
 using System.Web.Mvc;

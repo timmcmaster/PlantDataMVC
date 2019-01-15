@@ -1,33 +1,34 @@
-﻿using Framework.Service.Entities;
-using Framework.Web.Forms;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
+﻿using Framework.Web.Forms;
+using Interfaces.Service.Responses;
+using PlantDataMVC.DTO.Entities;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
+using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using PlantDataMVC.Service.ServiceContracts;
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class SiteController : DefaultController
     {
-        private IPlantSeedSiteDataService _dataService;
+        private ISiteWcfService _wcfService;
 
-        public SiteController(IPlantSeedSiteDataService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public SiteController(ISiteWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service
-            _dataService = dataService;
+            _wcfService = dataService;
         }
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<PlantSeedSite> response = _dataService.List();
+            IListResponse<SiteDTO> response = _wcfService.List();
 
-            IList<PlantSeedSite> list = response.Items;
+            IList<SiteDTO> list = response.Items;
 
+            // TODO: check to ensure these DTOs map to view model
             AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<SiteListViewModel>>(View(list));
 
             return ListView<SiteListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
@@ -38,10 +39,11 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<PlantSeedSite> response = _dataService.View(id);
+            IViewResponse<SiteDTO> response = _wcfService.View(id);
 
-            PlantSeedSite item = response.Item;
+            SiteDTO item = response.Item;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<SiteShowViewModel>(View(item));
         }
 
@@ -49,24 +51,11 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            PlantSeedSite item = new PlantSeedSite();
+            SiteDTO item = new SiteDTO();
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<SiteNewViewModel>(View(item));
         }
-
-        ///// <summary>
-        ///// Additional action for creating a new entry for a given species.
-        ///// </summary>
-        ///// <param name="speciesId">The Id of the species.</param>
-        ///// <returns></returns>
-        //[RequireRequestValue("speciesId")]
-        //public ActionResult New(int speciesId)
-        //{
-        //    PlantSeedSite item = new PlantSeedSite();
-        //    item.SpeciesId = (int)speciesId;
-
-        //    return AutoMapView<SiteNewViewModel>(View(item));
-        //}
 
         //
         // POST: /"ControllerName"/Create
@@ -82,10 +71,11 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<PlantSeedSite> response = _dataService.View(id);
+            IViewResponse<SiteDTO> response = _wcfService.View(id);
 
-            PlantSeedSite item = response.Item;
+            SiteDTO item = response.Item;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<SiteEditViewModel>(View(item));
         }
 
@@ -103,10 +93,11 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<PlantSeedSite> response = _dataService.View(id);
+            IViewResponse<SiteDTO> response = _wcfService.View(id);
 
-            PlantSeedSite item = response.Item;
+            SiteDTO item = response.Item;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<SiteDeleteViewModel>(View(item));
         }
 

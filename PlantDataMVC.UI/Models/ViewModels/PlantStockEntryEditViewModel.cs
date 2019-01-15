@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using PlantDataMVC.Domain.Entities;
+using PlantDataMVC.DTO.Entities;
 
 namespace PlantDataMVC.UI.Models
 {
@@ -20,7 +20,7 @@ namespace PlantDataMVC.UI.Models
         public string SpeciesBinomial { get; private set; }
 
         [Display(Name = "Product Type")]
-        public PlantProductType ProductType { get; set; }
+        public ProductTypeDTO ProductType { get; set; }
 
         [Display(Name = "Quantity In Stock"),  Editable(false)]
         public int QuantityInStock { get; set; }
@@ -28,7 +28,7 @@ namespace PlantDataMVC.UI.Models
 
         public PlantStockEntryEditViewModel()
         {
-            ProductType = new PlantProductType();
+            ProductType = new ProductTypeDTO();
         }
     }
 }

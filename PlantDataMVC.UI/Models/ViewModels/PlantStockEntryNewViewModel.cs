@@ -1,4 +1,4 @@
-﻿using PlantDataMVC.Domain.Entities;
+﻿using PlantDataMVC.DTO.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.UI.Models
@@ -9,7 +9,7 @@ namespace PlantDataMVC.UI.Models
         public Plant PlantSpecies { get; set; }
 
         [Display(Name = "Product Type")]
-        public PlantProductType ProductType { get; set; }
+        public ProductTypeDTO ProductType { get; set; }
 
         [Display(Name = "Quantity In Stock"), Editable(false)]
         public int QuantityInStock { get; set; }
@@ -18,7 +18,7 @@ namespace PlantDataMVC.UI.Models
         public PlantStockEntryNewViewModel()
         {
             this.PlantSpecies = new Plant();
-            this.ProductType = new PlantProductType();
+            this.ProductType = new ProductTypeDTO();
         }
     }
 }

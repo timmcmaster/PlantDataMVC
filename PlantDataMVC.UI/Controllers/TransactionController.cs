@@ -1,34 +1,34 @@
-﻿using Framework.Service.Entities;
-using Framework.Web.Forms;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
+﻿using Framework.Web.Forms;
+using Interfaces.Service.Responses;
+using PlantDataMVC.DTO.Entities;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models;
+using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using PlantDataMVC.Service.ServiceContracts;
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class TransactionController : DefaultController
     {
-        private IPlantStockTransactionDataService _dataService;
+        private IJournalEntryWcfService _wcfService;
 
-        public TransactionController(IPlantStockTransactionDataService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public TransactionController(IJournalEntryWcfService wcfService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service
-            _dataService = dataService;
+            _wcfService = wcfService;
         }
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<PlantStockTransaction> response = _dataService.List();
+            IListResponse<JournalEntryDTO> response = _wcfService.List();
 
-            IList<PlantStockTransaction> list = response.Items;
+            IList<JournalEntryDTO> list = response.Items;
 
+            // TODO: check to ensure these DTOs map to view model
             AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantStockTransactionListViewModel>>(View(list));
 
             return ListView<PlantStockTransactionListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
@@ -39,10 +39,11 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<PlantStockTransaction> response = _dataService.View(id);
+            IViewResponse<JournalEntryDTO> response = _wcfService.View(id);
 
-            PlantStockTransaction item = response.Item;
+            JournalEntryDTO item = response.Item;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<PlantStockTransactionShowViewModel>(View(item));
         }
 
@@ -50,22 +51,24 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            PlantStockTransaction item = new PlantStockTransaction();
+            JournalEntryDTO item = new JournalEntryDTO();
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<PlantStockTransactionNewViewModel>(View(item));
         }
 
         /// <summary>
         /// Additional action for creating a new entry for a given plant stock entry.
         /// </summary>
-        /// <param name="plantStockEntryId">The Id of the plant stock entry.</param>
+        /// <param name="plantStockId">The Id of the plant stock entry.</param>
         /// <returns></returns>
         [RequireRequestValue("plantStockEntryId")]
-        public ActionResult New(int plantStockEntryId)
+        public ActionResult New(int plantStockId)
         {
-            PlantStockTransaction item = new PlantStockTransaction();
-            item.PlantStockEntryId = plantStockEntryId;
+            JournalEntryDTO item = new JournalEntryDTO();
+            item.PlantStockId = plantStockId;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<PlantStockTransactionNewViewModel>(View(item));
         }
 
@@ -83,10 +86,11 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<PlantStockTransaction> response = _dataService.View(id);
+            IViewResponse<JournalEntryDTO> response = _wcfService.View(id);
 
-            PlantStockTransaction item = response.Item;
+            JournalEntryDTO item = response.Item;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<PlantStockTransactionEditViewModel>(View(item));
         }
 
@@ -104,10 +108,11 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<PlantStockTransaction> response = _dataService.View(id);
+            IViewResponse<JournalEntryDTO> response = _wcfService.View(id);
 
-            PlantStockTransaction item = response.Item;
+            JournalEntryDTO item = response.Item;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<PlantStockTransactionDeleteViewModel>(View(item));
         }
 
@@ -131,9 +136,9 @@ namespace PlantDataMVC.UI.Controllers
         //    List<PlantStockTransactionTypeModel> transactionTypeList = AutoMapper.Mapper.Map<List<PlantStockTransactionType>, List<PlantStockTransactionTypeModel>>(listResponse.Items);
 
         //    // Get transaction item
-        //    ViewResponse<PlantStockTransaction> response = DataService.View(new ViewRequest<PlantStockTransaction>(id));
+        //    ViewResponse<JournalEntryDTO> response = DataService.View(new ViewRequest<JournalEntryDTO>(id));
 
-        //    PlantStockTransactionModel pstModel = AutoMapper.Mapper.Map<PlantStockTransaction, PlantStockTransactionModel>(response.Item);
+        //    PlantStockTransactionModel pstModel = AutoMapper.Mapper.Map<JournalEntryDTO, PlantStockTransactionModel>(response.Item);
 
         //    EditTransactionViewModel viewModel = new EditTransactionViewModel() { Transaction = pstModel, TransactionTypes = transactionTypeList };
 

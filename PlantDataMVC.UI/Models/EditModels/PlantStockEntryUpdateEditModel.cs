@@ -1,5 +1,5 @@
 ﻿using Framework.Web.Forms;
-using PlantDataMVC.Domain.Entities;
+using PlantDataMVC.DTO.Entities;
 
 namespace PlantDataMVC.UI.Models
 {
@@ -7,7 +7,7 @@ namespace PlantDataMVC.UI.Models
     {
         public int Id { get; set; }
         public int SpeciesId { get; set; }
-        public PlantProductType ProductType { get; set; }
+        public ProductTypeDTO ProductType { get; set; }
         public int QuantityInStock { get; set; }
     }
 }

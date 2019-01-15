@@ -205,8 +205,8 @@
     <Compile Include="Helpers\ViewResults\ListViewPreProcessingViewResult.cs" />
     <Compile Include="Helpers\ViewResults\PreProcessingViewResult.cs" />
     <Compile Include="Mappers\AutoMapperWebConfiguration.cs" />
-    <Compile Include="Mappers\DomainToUIMappingProfile.cs" />
-    <Compile Include="Mappers\UIToDomainMappingProfile.cs" />
+    <Compile Include="Mappers\DTOToUIMappingProfile.cs" />
+    <Compile Include="Mappers\UIToDTOMappingProfile.cs" />
     <Compile Include="ModelBinders\DebugModelBinder.cs" />
     <Compile Include="Models\EditModels\SiteCreateEditModel.cs" />
     <Compile Include="Models\EditModels\SiteDestroyEditModel.cs" />
@@ -400,17 +400,21 @@
       <Project>{2acec3d2-cb25-4b0d-a6bc-e224ecd5248e}</Project>
       <Name>Framework.Web</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
-      <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
-      <Name>Interfaces.Domain</Name>
+    <ProjectReference Include="..\Interfaces.DTO\Interfaces.DTO.csproj">
+      <Project>{70F08765-902C-4CE6-9067-CFAE978F0BE8}</Project>
+      <Name>Interfaces.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
       <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>
       <Name>Interfaces.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
-      <Project>{157D351C-8DA8-4A9B-B66D-20E4F49EB201}</Project>
-      <Name>PlantDataMVC.Domain</Name>
+    <ProjectReference Include="..\Interfaces.WCFService\Interfaces.WcfService.csproj">
+      <Project>{f41337b3-bc5a-4e28-9dd0-6296df9c6203}</Project>
+      <Name>Interfaces.WcfService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj">
+      <Project>{21BCD4E8-47A5-4ED3-A832-C9E0659B9B86}</Project>
+      <Name>PlantDataMVC.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
       <Project>{ECC2F1E2-A2EA-4390-A75C-114D56F0BD96}</Project>
@@ -419,6 +423,10 @@
     <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj">
       <Project>{FE02E501-BD2C-4E07-9D83-1FD448AE476F}</Project>
       <Name>PlantDataMVC.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.WCFService\PlantDataMVC.WCFService.csproj">
+      <Project>{550D9A0C-2D6A-46FD-9400-AA722D455F7A}</Project>
+      <Name>PlantDataMVC.WCFService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
