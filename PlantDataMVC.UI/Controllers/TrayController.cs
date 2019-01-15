@@ -12,19 +12,19 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class TrayController : DefaultController
     {
-        private ISeedTrayWcfService _wcfService;
+        private ISeedTrayWcfService _dataService;
 
-        public TrayController(ISeedTrayWcfService wcfService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public TrayController(ISeedTrayWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service
-            _wcfService = wcfService;
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<SeedTrayDTO> response = _wcfService.List();
+            IListResponse<SeedTrayDTO> response = _dataService.List();
 
             IList<SeedTrayDTO> list = response.Items;
 
@@ -39,7 +39,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<SeedTrayDTO> response = _wcfService.View(id);
+            IViewResponse<SeedTrayDTO> response = _dataService.View(id);
 
             SeedTrayDTO item = response.Item;
 
@@ -86,7 +86,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<SeedTrayDTO> response = _wcfService.View(id);
+            IViewResponse<SeedTrayDTO> response = _dataService.View(id);
 
             SeedTrayDTO item = response.Item;
 
@@ -108,7 +108,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<SeedTrayDTO> response = _wcfService.View(id);
+            IViewResponse<SeedTrayDTO> response = _dataService.View(id);
 
             SeedTrayDTO item = response.Item;
 

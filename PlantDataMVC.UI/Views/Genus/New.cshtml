@@ -1,0 +1,25 @@
+﻿@model PlantDataMVC.UI.Models.ViewModels.GenusNewViewModel
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+
+@using (Html.BeginForm("Create", "Genus")) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Genus</legend>
+
+        @Html.EditorForModel()
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to Index", "Index")
+</div>
+

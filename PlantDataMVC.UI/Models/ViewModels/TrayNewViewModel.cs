@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.ViewModels
 {
     public class TrayNewViewModel
     {

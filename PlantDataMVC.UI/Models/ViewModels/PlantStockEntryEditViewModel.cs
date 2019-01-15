@@ -6,7 +6,7 @@ using System.Text;
 using System.Web.Mvc;
 using PlantDataMVC.DTO.Entities;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.ViewModels
 {
     public class PlantStockEntryEditViewModel
     {

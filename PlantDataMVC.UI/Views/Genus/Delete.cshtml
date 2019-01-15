@@ -1,0 +1,24 @@
+﻿@model PlantDataMVC.UI.Models.ViewModels.GenusDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+@using (Html.BeginForm("Destroy", "Genus"))
+{
+    <fieldset>
+        <legend>Genus</legend>
+        @*Add hidden, as display for model doesn't show hidden input needed for submit*@
+        @Html.HiddenFor(model => model.Id)
+        @Html.DisplayForModel()
+    </fieldset>
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to Index", "Index")
+    </p>
+}
+
+

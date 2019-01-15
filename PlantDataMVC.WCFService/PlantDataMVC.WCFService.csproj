@@ -93,6 +93,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="ProductTypeWcfService.svc" />
+    <Content Include="GenusWcfService.svc" />
     <Content Include="SpeciesWcfService.svc" />
     <Content Include="SiteWcfService.svc" />
     <Content Include="SeedTrayWcfService.svc" />
@@ -100,7 +101,6 @@
     <Content Include="JournalEntryWcfService.svc" />
     <Content Include="JournalEntryTypeWcfService.svc" />
     <Content Include="SeedBatchWcfService.svc" />
-    <Content Include="PlantDataService.svc" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutofacConfig.cs" />
@@ -116,6 +116,7 @@
     <Compile Include="ServiceContracts\IJournalEntryWcfService.cs" />
     <Compile Include="ServiceContracts\IJournalEntryTypeWcfService.cs" />
     <Compile Include="ServiceContracts\IProductTypeWcfService.cs" />
+    <Compile Include="ServiceContracts\IGenusWcfService.cs" />
     <Compile Include="ServiceContracts\ISpeciesWcfService.cs" />
     <Compile Include="ServiceContracts\ISiteWcfService.cs" />
     <Compile Include="Services\SeedBatchWcfService.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Services\JournalEntryWcfService.cs" />
     <Compile Include="Services\JournalEntryTypeWcfService.cs" />
     <Compile Include="Services\ProductTypeWcfService.cs" />
+    <Compile Include="Services\GenusWcfService.cs" />
     <Compile Include="Services\SpeciesWcfService.cs" />
     <Compile Include="Services\SiteWcfService.cs" />
     <Compile Include="Services\WcfService.cs" />

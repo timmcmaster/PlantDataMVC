@@ -182,6 +182,7 @@
     <Compile Include="Areas\Security\Controllers\AccountController.cs" />
     <Compile Include="Areas\Security\Models\AccountModels.cs" />
     <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
+    <Compile Include="Controllers\GenusController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Forms\AutofacFormHandlerFactory.cs" />
     <Compile Include="Forms\Handlers\SiteCreateEditModelFormHandler.cs" />
@@ -272,6 +273,14 @@
     <Compile Include="Models\ViewModels\PlantEditViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantDeleteViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantShowViewModel.cs" />
+    <Compile Include="Models\ViewModels\GenusListViewModel.cs" />
+    <Compile Include="Models\EditModels\GenusCreateEditModel.cs" />
+    <Compile Include="Models\EditModels\GenusDestroyEditModel.cs" />
+    <Compile Include="Models\EditModels\GenusUpdateEditModel.cs" />
+    <Compile Include="Models\ViewModels\GenusDeleteViewModel.cs" />
+    <Compile Include="Models\ViewModels\GenusEditViewModel.cs" />
+    <Compile Include="Models\ViewModels\GenusNewViewModel.cs" />
+    <Compile Include="Models\ViewModels\GenusShowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +392,12 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Genus\Delete.cshtml" />
+    <Content Include="Views\Genus\Edit.cshtml" />
+    <Content Include="Views\Genus\Index.cshtml" />
+    <Content Include="Views\Genus\New.cshtml" />
+    <Content Include="Views\Genus\Show.cshtml" />
+    <Content Include="Views\Shared\GenusListTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -433,6 +448,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="PlantDataMVC\UI\Models\EditModels\" />
+    <Folder Include="PlantDataMVC\UI\Models\ViewModels\" />
     <Folder Include="Scripts\dist\" />
   </ItemGroup>
   <PropertyGroup>

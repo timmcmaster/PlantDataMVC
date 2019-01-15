@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-namespace PlantDataMVC.UI.Models
+
+namespace PlantDataMVC.UI.Models.ViewModels
 {
     public class PlantStockTransactionListViewModel
     {

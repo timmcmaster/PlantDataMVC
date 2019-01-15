@@ -69,7 +69,9 @@ namespace PlantDataMVC.UI
             // ****************************************************
 
             // Register channel factory (for all service interfaces, based on Web.config definitions)
-            builder.Register(c => new ChannelFactory<IPlantDataService>("BasicHttpBinding_IPlantDataService"))
+            builder.Register(c => new ChannelFactory<IGenusWcfService>("BasicHttpBinding_IGenusWcfService"))
+                .SingleInstance();
+            builder.Register(c => new ChannelFactory<ISpeciesWcfService>("BasicHttpBinding_ISpeciesWcfService"))
                 .SingleInstance();
             builder.Register(c => new ChannelFactory<IProductTypeWcfService>("BasicHttpBinding_IProductTypeWcfService"))
                 .SingleInstance();
@@ -88,8 +90,11 @@ namespace PlantDataMVC.UI
 
             // Register the service interface using a lambda that creates a channel from the factory. 
             // Include the UseWcfSafeRelease() helper to handle proper disposal.
-            builder.Register(c => c.Resolve<ChannelFactory<IPlantDataService>>().CreateChannel())
-              .As<IPlantDataService>()
+            builder.Register(c => c.Resolve<ChannelFactory<IGenusWcfService>>().CreateChannel())
+              .As<IGenusWcfService>()
+              .UseWcfSafeRelease();
+            builder.Register(c => c.Resolve<ChannelFactory<ISpeciesWcfService>>().CreateChannel())
+              .As<ISpeciesWcfService>()
               .UseWcfSafeRelease();
             builder.Register(c => c.Resolve<ChannelFactory<IProductTypeWcfService>>().CreateChannel())
               .As<IProductTypeWcfService>()

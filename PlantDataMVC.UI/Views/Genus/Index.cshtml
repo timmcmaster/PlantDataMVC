@@ -1,0 +1,14 @@
+﻿@model ListViewModel<GenusListViewModel>
+
+@using Framework.Web.Mvc.Paging
+@using PlantDataMVC.UI.Models.ViewModels
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Genus List</h2>
+<p>This is a list of all genuses recorded</p>
+
+@Html.Partial("GenusListTable", Model)
+@Html.PagingLinksFor(m => Model)

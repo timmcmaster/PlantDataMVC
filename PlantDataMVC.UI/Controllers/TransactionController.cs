@@ -12,19 +12,19 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class TransactionController : DefaultController
     {
-        private IJournalEntryWcfService _wcfService;
+        private IJournalEntryWcfService _dataService;
 
-        public TransactionController(IJournalEntryWcfService wcfService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public TransactionController(IJournalEntryWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service
-            _wcfService = wcfService;
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<JournalEntryDTO> response = _wcfService.List();
+            IListResponse<JournalEntryDTO> response = _dataService.List();
 
             IList<JournalEntryDTO> list = response.Items;
 
@@ -39,7 +39,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<JournalEntryDTO> response = _wcfService.View(id);
+            IViewResponse<JournalEntryDTO> response = _dataService.View(id);
 
             JournalEntryDTO item = response.Item;
 
@@ -86,7 +86,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<JournalEntryDTO> response = _wcfService.View(id);
+            IViewResponse<JournalEntryDTO> response = _dataService.View(id);
 
             JournalEntryDTO item = response.Item;
 
@@ -108,7 +108,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<JournalEntryDTO> response = _wcfService.View(id);
+            IViewResponse<JournalEntryDTO> response = _dataService.View(id);
 
             JournalEntryDTO item = response.Item;
 

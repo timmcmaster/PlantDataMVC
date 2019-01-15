@@ -2,7 +2,7 @@
 using PlantDataMVC.DTO.Entities;
 using System;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.EditModels
 {
     public class PlantStockTransactionCreateEditModel : IForm
     {

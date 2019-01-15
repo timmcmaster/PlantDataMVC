@@ -12,19 +12,19 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class SeedController : DefaultController
     {
-        private ISeedBatchWcfService _wcfService;
+        private ISeedBatchWcfService _dataService;
 
-        public SeedController(ISeedBatchWcfService wcfService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public SeedController(ISeedBatchWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service or default instance service
-            _wcfService = wcfService;
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<SeedBatchDTO> response = _wcfService.List();
+            IListResponse<SeedBatchDTO> response = _dataService.List();
 
             IList<SeedBatchDTO> list = response.Items;
 
@@ -39,7 +39,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<SeedBatchDTO> response = _wcfService.View(id);
+            IViewResponse<SeedBatchDTO> response = _dataService.View(id);
 
             SeedBatchDTO item = response.Item;
 
@@ -86,7 +86,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<SeedBatchDTO> response = _wcfService.View(id);
+            IViewResponse<SeedBatchDTO> response = _dataService.View(id);
 
             SeedBatchDTO item = response.Item;
 
@@ -108,7 +108,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<SeedBatchDTO> response = _wcfService.View(id);
+            IViewResponse<SeedBatchDTO> response = _dataService.View(id);
 
             SeedBatchDTO item = response.Item;
 

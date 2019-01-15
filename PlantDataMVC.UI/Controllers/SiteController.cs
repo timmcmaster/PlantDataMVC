@@ -12,19 +12,19 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class SiteController : DefaultController
     {
-        private ISiteWcfService _wcfService;
+        private ISiteWcfService _dataService;
 
         public SiteController(ISiteWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service
-            _wcfService = dataService;
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<SiteDTO> response = _wcfService.List();
+            IListResponse<SiteDTO> response = _dataService.List();
 
             IList<SiteDTO> list = response.Items;
 
@@ -39,7 +39,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<SiteDTO> response = _wcfService.View(id);
+            IViewResponse<SiteDTO> response = _dataService.View(id);
 
             SiteDTO item = response.Item;
 
@@ -71,7 +71,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<SiteDTO> response = _wcfService.View(id);
+            IViewResponse<SiteDTO> response = _dataService.View(id);
 
             SiteDTO item = response.Item;
 
@@ -93,7 +93,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<SiteDTO> response = _wcfService.View(id);
+            IViewResponse<SiteDTO> response = _dataService.View(id);
 
             SiteDTO item = response.Item;
 

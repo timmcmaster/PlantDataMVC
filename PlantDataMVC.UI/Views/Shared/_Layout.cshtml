@@ -49,6 +49,11 @@
             <div>
                 <ul id="menu" class="mymenu">
                     @Html.ListItem("Home", "Index", "Home")
+                    @Html.BeginListItem("Genera", "Index", "Genus")
+                    <ul class="mysub-menu">
+                        @Html.ListItem("New", "New", "Genus")
+                    </ul>
+                    @Html.EndListItem()
                     @Html.BeginListItem("Plants", "Index", "Plant")
                     <ul class="mysub-menu">
                         @Html.ListItem("New", "New", "Plant")

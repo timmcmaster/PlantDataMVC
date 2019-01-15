@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.ViewModels
 {
     public class ListViewModel<T> : List<T>, IPageable, ISortable
     {

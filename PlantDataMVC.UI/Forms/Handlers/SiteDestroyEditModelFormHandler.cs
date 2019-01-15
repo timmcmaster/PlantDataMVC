@@ -2,7 +2,7 @@
 using Interfaces.Service.Responses;
 using PlantDataMVC.DTO.Entities;
 using PlantDataMVC.UI.Models;
-using PlantDataMVC.WCFService.ServiceContracts;
+using PlantDataMVC.dataService.ServiceContracts;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {

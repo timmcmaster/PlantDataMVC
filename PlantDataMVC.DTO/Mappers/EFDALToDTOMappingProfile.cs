@@ -55,7 +55,7 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(dto => dto.Longitude, opt => opt.MapFrom(e => e.Longitude))          // explicit and unnecessary
                 .ForMember(dto => dto.SiteName, opt => opt.MapFrom(e => e.SiteName))            // explicit and unnecessary
                 .ForMember(dto => dto.Suburb, opt => opt.MapFrom(e => e.Suburb))                // explicit and unnecessary
-                .ForMember(dto => dto.SeedBatches, opt => opt.MapFrom(e => e.SeedBatches))     // ICollection, explicit and unnecessary
+                .ForMember(dto => dto.SeedBatches, opt => opt.MapFrom(e => e.SeedBatches))      // ICollection, explicit and unnecessary
                 .ForAllOtherMembers(opt => opt.Ignore());
 
              CreateMap<SeedTray, SeedTrayDTO>()

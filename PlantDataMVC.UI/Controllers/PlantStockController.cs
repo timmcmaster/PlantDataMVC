@@ -12,19 +12,19 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class PlantStockController : DefaultController
     {
-        private IPlantStockWcfService _wcfService;
+        private IPlantStockWcfService _dataService;
 
-        public PlantStockController(IPlantStockWcfService wcfService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public PlantStockController(IPlantStockWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service or default instance service
-            _wcfService = wcfService;
+            _dataService = dataService;
         }
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<PlantStockDTO> response = _wcfService.List();
+            IListResponse<PlantStockDTO> response = _dataService.List();
 
             IList<PlantStockDTO> list = response.Items;
 
@@ -39,7 +39,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<PlantStockDTO> response = _wcfService.View(id);
+            IViewResponse<PlantStockDTO> response = _dataService.View(id);
 
             PlantStockDTO item = response.Item;
 
@@ -87,7 +87,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<PlantStockDTO> response = _wcfService.View(id);
+            IViewResponse<PlantStockDTO> response = _dataService.View(id);
 
             PlantStockDTO item = response.Item;
 
@@ -110,7 +110,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<PlantStockDTO> response = _wcfService.View(id);
+            IViewResponse<PlantStockDTO> response = _dataService.View(id);
 
             PlantStockDTO item = response.Item;
 

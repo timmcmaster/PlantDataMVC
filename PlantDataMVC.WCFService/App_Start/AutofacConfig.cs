@@ -40,6 +40,7 @@ namespace PlantDataMVC.WCFService
             // Register specific services for now
             //builder.RegisterType<PlantDataService>().As<IPlantDataService>();
 
+            builder.RegisterType<GenusWcfService>().As<IGenusWcfService>();
             builder.RegisterType<JournalEntryWcfService>().As<IJournalEntryWcfService>();
             builder.RegisterType<JournalEntryTypeWcfService>().As<IJournalEntryTypeWcfService>();
             builder.RegisterType<ProductTypeWcfService>().As<IProductTypeWcfService>();
