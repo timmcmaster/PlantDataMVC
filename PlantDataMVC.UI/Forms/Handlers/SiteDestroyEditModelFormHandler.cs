@@ -1,17 +1,16 @@
-﻿using Framework.Service.Entities;
-using Framework.Web.Forms;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Service.ServiceContracts;
+﻿using Framework.Web.Forms;
+using Interfaces.Service.Responses;
+using PlantDataMVC.DTO.Entities;
 using PlantDataMVC.UI.Models;
+using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class SiteDestroyEditModelFormHandler : IFormHandler<SiteDestroyEditModel>
     {
-        private IPlantSeedSiteDataService _dataService;
+        private ISiteWcfService _dataService;
 
-        public SiteDestroyEditModelFormHandler(IPlantSeedSiteDataService dataService)
+        public SiteDestroyEditModelFormHandler(ISiteWcfService dataService)
         {
             _dataService = dataService;
         }
@@ -19,14 +18,14 @@ namespace PlantDataMVC.UI.Forms.Handlers
         public void Handle(SiteDestroyEditModel form)
         {
             // Map local model to business object
-            PlantSeedSite item = AutoMapper.Mapper.Map<SiteDestroyEditModel, PlantSeedSite>(form);
+            SiteDTO item = AutoMapper.Mapper.Map<SiteDestroyEditModel, SiteDTO>(form);
 
-            //DeleteRequest<PlantSeedSite> request = new DeleteRequest<PlantSeedSite>(item.Id);
+            //DeleteRequest<SiteDTO> request = new DeleteRequest<SiteDTO>(item.Id);
 
-            IDeleteResponse<PlantSeedSite> response = _dataService.Delete(item.Id);
+            IDeleteResponse<SiteDTO> response = _dataService.Delete(item.Id);
 
             //TODO: Need behaviour triggered on non zero error-code in response
-            if (response.ErrorCode == 0)
+            if (response.Status == Interfaces.Service.ServiceActionStatus.Deleted)
             {
                 // take good path
             }

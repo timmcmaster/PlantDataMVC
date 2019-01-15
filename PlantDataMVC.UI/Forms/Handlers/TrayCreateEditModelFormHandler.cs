@@ -1,17 +1,16 @@
-﻿using Framework.Service.Entities;
-using Framework.Web.Forms;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Service.ServiceContracts;
+﻿using Framework.Web.Forms;
+using Interfaces.Service.Responses;
+using PlantDataMVC.DTO.Entities;
 using PlantDataMVC.UI.Models;
+using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class TrayCreateEditModelFormHandler : IFormHandler<TrayCreateEditModel>
     {
-        private IPlantSeedTrayDataService _dataService;
+        private ISeedTrayWcfService _dataService;
 
-        public TrayCreateEditModelFormHandler(IPlantSeedTrayDataService dataService)
+        public TrayCreateEditModelFormHandler(ISeedTrayWcfService dataService)
         {
             _dataService = dataService;
         }
@@ -19,11 +18,11 @@ namespace PlantDataMVC.UI.Forms.Handlers
         public void Handle(TrayCreateEditModel form)
         {
             // Map local model to business object
-            PlantSeedTray item = AutoMapper.Mapper.Map<TrayCreateEditModel, PlantSeedTray>(form);
+            SeedTrayDTO item = AutoMapper.Mapper.Map<TrayCreateEditModel, SeedTrayDTO>(form);
 
-            //CreateRequest<PlantSeedTray> request = new CreateRequest<PlantSeedTray>(item);
+            //CreateRequest<SeedTrayDTO> request = new CreateRequest<SeedTrayDTO>(item);
 
-            ICreateResponse<PlantSeedTray> response = _dataService.Create(item);
+            ICreateResponse<SeedTrayDTO> response = _dataService.Create(item);
         }
     }
 }
