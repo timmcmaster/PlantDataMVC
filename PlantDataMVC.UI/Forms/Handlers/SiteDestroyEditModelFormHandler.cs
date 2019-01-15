@@ -19,6 +19,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
         public void Handle(SiteDestroyEditModel form)
         {
             // Map local model to business object
+            // TODO: Check map exists
             SiteDTO item = AutoMapper.Mapper.Map<SiteDestroyEditModel, SiteDTO>(form);
 
             //DeleteRequest<SiteDTO> request = new DeleteRequest<SiteDTO>(item.Id);

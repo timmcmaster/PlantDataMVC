@@ -1,5 +1,5 @@
 ﻿using Interfaces.DTO;
-using Interfaces.dataService;
+using Interfaces.WCFService;
 using PlantDataMVC.DTO.Entities;
 using PlantDataMVC.WCFService.ServiceContracts;
 using System;
@@ -58,12 +58,14 @@ namespace PlantDataMVC.UI.Helpers
         // HACK: Still very hacky quick method to return service interface for given IEntity type
         public static IWcfService<TItem> GetServiceFor<TItem>() where TItem : IDtoEntity
         {
-            if (typeof(TItem) == typeof(Plant))
-                return GetServiceFor<TItem, IPlantDataService>();
+            if (typeof(TItem) == typeof(GenusDTO))
+                return GetServiceFor<TItem, IGenusWcfService>();
             //else if (typeof(TItem) == typeof(PlantPriceListType))
             //    return typeof();
             //else if (typeof(TItem) == typeof(PlantProductPrice))
             //    return typeof();
+            else if (typeof(TItem) == typeof(SpeciesDTO))
+                return GetServiceFor<TItem, ISpeciesWcfService>();
             else if (typeof(TItem) == typeof(ProductTypeDTO))
                 return GetServiceFor<TItem, IProductTypeWcfService>();
             else if (typeof(TItem) == typeof(SeedBatchDTO))

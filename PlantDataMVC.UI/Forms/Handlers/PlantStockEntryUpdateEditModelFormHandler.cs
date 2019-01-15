@@ -18,6 +18,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
         public void Handle(PlantStockEntryUpdateEditModel form)
         {
             // Map local model to business object
+            // TODO: Check map exists
             PlantStockDTO item = AutoMapper.Mapper.Map<PlantStockEntryUpdateEditModel, PlantStockDTO>(form);
 
             //UpdateRequest<PlantStockDTO> request = new UpdateRequest<PlantStockDTO>(item);

@@ -6,7 +6,7 @@ namespace PlantDataMVC.UI.Models.ViewModels
     public class PlantStockEntryNewViewModel
     {
         [Display(Name = "Species Name")]
-        public Plant PlantSpecies { get; set; }
+        public SpeciesDTO PlantSpecies { get; set; }
 
         [Display(Name = "Product Type")]
         public ProductTypeDTO ProductType { get; set; }
@@ -17,7 +17,7 @@ namespace PlantDataMVC.UI.Models.ViewModels
 
         public PlantStockEntryNewViewModel()
         {
-            this.PlantSpecies = new Plant();
+            this.PlantSpecies = new SpeciesDTO();
             this.ProductType = new ProductTypeDTO();
         }
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using PlantDataMVC.UI.Models;
+using PlantDataMVC.UI.Models.ViewModels;
 
 namespace PlantDataMVC.UI.Helpers.ViewResults
 {

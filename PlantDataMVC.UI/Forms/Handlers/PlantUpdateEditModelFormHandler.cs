@@ -1,17 +1,16 @@
-﻿using Framework.Service.Entities;
-using Framework.Web.Forms;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Service.ServiceContracts;
-using PlantDataMVC.UI.Models;
+﻿using Framework.Web.Forms;
+using Interfaces.Service.Responses;
+using PlantDataMVC.DTO.Entities;
+using PlantDataMVC.UI.Models.EditModels;
+using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantUpdateEditModelFormHandler : IFormHandler<PlantUpdateEditModel>
     {
-        private IPlantDataService _dataService;
+        private ISpeciesWcfService _dataService;
 
-        public PlantUpdateEditModelFormHandler(IPlantDataService dataService)
+        public PlantUpdateEditModelFormHandler(ISpeciesWcfService dataService)
         {
             _dataService = dataService;
         }
@@ -19,11 +18,12 @@ namespace PlantDataMVC.UI.Forms.Handlers
         public void Handle(PlantUpdateEditModel form)
         {
             // Map local model to business object
-            Plant item = AutoMapper.Mapper.Map<PlantUpdateEditModel, Plant>(form);
+            // TODO: Check map exists
+            SpeciesDTO item = AutoMapper.Mapper.Map<PlantUpdateEditModel, SpeciesDTO>(form);
 
-            //UpdateRequest<Plant> request = new UpdateRequest<Plant>(item);
+            //UpdateRequest<SpeciesDTO> request = new UpdateRequest<SpeciesDTO>(item);
 
-            IUpdateResponse<Plant> response = _dataService.Update(item.Id, item);
+            IUpdateResponse<SpeciesDTO> response = _dataService.Update(item.Id, item);
         }
     }
 }

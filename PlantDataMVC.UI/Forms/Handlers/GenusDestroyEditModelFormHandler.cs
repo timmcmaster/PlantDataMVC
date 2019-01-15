@@ -18,6 +18,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
         public void Handle(GenusDestroyEditModel form)
         {
             // Map local model to business object
+            // TODO: Check map exists
             GenusDTO item = AutoMapper.Mapper.Map<GenusDestroyEditModel, GenusDTO>(form);
 
             //DeleteRequest<GenusDTO> request = new DeleteRequest<GenusDTO>(item.Id);

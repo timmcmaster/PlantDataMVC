@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PlantDataMVC.DTO.Entities;
-using PlantDataMVC.UI.Models;
+using PlantDataMVC.UI.Models.EditModels;
 
 namespace PlantDataMVC.UI.Mappers
 {
@@ -8,14 +8,15 @@ namespace PlantDataMVC.UI.Mappers
     {
         public UIToDTOMappingProfile()
         {
-            ConfigureEditModelsToDomain();
+            ConfigureEditModelsToDTO();
         }
 
         /// <summary>
         /// Configure the mappings from the UI layer edit models to the App/Business Layer objects
         /// </summary>
-        private void ConfigureEditModelsToDomain()
+        private void ConfigureEditModelsToDTO()
         {
+            ConfigureGenusEditModels();
             ConfigurePlantEditModels();
             ConfigurePlantSeedEditModels();
             ConfigurePlantSeedTrayEditModels();
@@ -27,10 +28,28 @@ namespace PlantDataMVC.UI.Mappers
 
         #region Configure Edit Models
 
+        private void ConfigureGenusEditModels()
+        {
+            // Plant
+            CreateMap<GenusCreateEditModel, GenusDTO>()
+                .ForMember(dto => dto.LatinName, opt => opt.MapFrom(uio => uio.LatinName))
+                .ForMember(dto => dto.Species, opt => opt.Ignore())     // TODO: check about mapping back collection
+                .ForMember(dto => dto.Id, opt => opt.Ignore());         // Id on create will come back from DB
+
+            CreateMap<GenusDestroyEditModel, GenusDTO>()
+                .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForAllOtherMembers(opt => opt.Ignore());
+
+            CreateMap<GenusUpdateEditModel, GenusDTO>()
+                .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dto => dto.LatinName, opt => opt.MapFrom(uio => uio.LatinName))
+                .ForMember(dto => dto.Species, opt => opt.Ignore());     // TODO: check about mapping back collection
+        }
+
         private void ConfigurePlantEditModels()
         {
             // Plant
-            CreateMap<PlantCreateEditModel, Plant>()
+            CreateMap<PlantCreateEditModel, SpeciesDTO>()
                 .ForMember(dto => dto.GenericName, opt => opt.MapFrom(uio => uio.Genus.Trim()))
                 .ForMember(dto => dto.SpecificName, opt => opt.MapFrom(uio => uio.Species.Trim()))
                 .ForMember(dto => dto.Binomial, opt => opt.Ignore())
