@@ -185,6 +185,9 @@
     <Compile Include="Controllers\GenusController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Forms\AutofacFormHandlerFactory.cs" />
+    <Compile Include="Forms\Handlers\GenusCreateEditModelFormHandler.cs" />
+    <Compile Include="Forms\Handlers\GenusDestroyEditModelFormHandler.cs" />
+    <Compile Include="Forms\Handlers\GenusUpdateEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\SiteCreateEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\SiteDestroyEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\SiteUpdateEditModelFormHandler.cs" />

@@ -1,12 +1,14 @@
-﻿using Framework.Service.Entities;
-using Framework.Web.Forms;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Service.ServiceContracts;
+﻿using Framework.Web.Forms;
+using Interfaces.Service.Responses;
+using PlantDataMVC.DTO.Entities;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
-using PlantDataMVC.UI.Models;
+using PlantDataMVC.UI.Models.ViewModels;
+using PlantDataMVC.UI.Models.EditModels;
+using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
 using System.Web.Mvc;
+
 
 namespace PlantDataMVC.UI.Controllers
 {

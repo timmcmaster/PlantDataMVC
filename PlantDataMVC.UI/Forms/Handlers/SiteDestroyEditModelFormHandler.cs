@@ -1,8 +1,9 @@
 ﻿using Framework.Web.Forms;
+using Interfaces.Service;
 using Interfaces.Service.Responses;
 using PlantDataMVC.DTO.Entities;
-using PlantDataMVC.UI.Models;
-using PlantDataMVC.dataService.ServiceContracts;
+using PlantDataMVC.UI.Models.EditModels;
+using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
@@ -25,7 +26,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
             IDeleteResponse<SiteDTO> response = _dataService.Delete(item.Id);
 
             //TODO: Need behaviour triggered on non zero error-code in response
-            if (response.Status == Interfaces.Service.ServiceActionStatus.Deleted)
+            if (response.Status == ServiceActionStatus.Deleted)
             {
                 // take good path
             }
