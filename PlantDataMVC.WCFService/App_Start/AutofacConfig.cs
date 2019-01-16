@@ -4,8 +4,10 @@ using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
 //using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
+using Interfaces.Service;
 using Interfaces.WCFService;
 using PlantDataMVC.Entities.Context;
+using PlantDataMVC.Service;
 using PlantDataMVC.WCFService.ServiceContracts;
 using PlantDataMVC.WCFService.Services;
 using System.Reflection;
@@ -32,6 +34,12 @@ namespace PlantDataMVC.WCFService
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
 
+            // Register services wrapping repositories as (for example) IGenusService and IService<Genus>
+            var svcAssembly = Assembly.GetAssembly(typeof(GenusService));
+            builder.RegisterAssemblyTypes(svcAssembly)
+                    .Where(t => t.IsClosedTypeOf(typeof(IWcfService<>)))
+                    .AsImplementedInterfaces();
+
             // Register your service implementations (for injection into WCF *.svc definitions)
             //var svcAssembly = Assembly.GetAssembly(typeof(PlantDataService));
             //builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IDataServiceBase<>));
@@ -40,6 +48,7 @@ namespace PlantDataMVC.WCFService
             // Register specific services for now
             //builder.RegisterType<PlantDataService>().As<IPlantDataService>();
 
+            // Register services for WCF
             builder.RegisterType<GenusWcfService>().As<IGenusWcfService>();
             builder.RegisterType<JournalEntryWcfService>().As<IJournalEntryWcfService>();
             builder.RegisterType<JournalEntryTypeWcfService>().As<IJournalEntryTypeWcfService>();
