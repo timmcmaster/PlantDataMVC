@@ -2,6 +2,7 @@
 using Common.Logging;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
+using Interfaces.DAL.Repository;
 //using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.Service;
@@ -27,18 +28,15 @@ namespace PlantDataMVC.WCFService
             // DAL configurations
             // ****************************************************
             builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
-            
-            // Register repository types for now (used via ServiceLocator in UoW)
-            // TODO: Make factory instead, manage lifetime scope
-            //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
+
+            // Register repository types as open generics because they are only closed at call time
+            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
 
             // Register services wrapping repositories as (for example) IGenusService and IService<Genus>
             var svcAssembly = Assembly.GetAssembly(typeof(GenusService));
-            builder.RegisterAssemblyTypes(svcAssembly)
-                    .Where(t => t.IsClosedTypeOf(typeof(IService<>)))
-                    .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IService<>)).AsImplementedInterfaces();
 
             // Register your service implementations (for injection into WCF *.svc definitions)
             //var svcAssembly = Assembly.GetAssembly(typeof(PlantDataService));
