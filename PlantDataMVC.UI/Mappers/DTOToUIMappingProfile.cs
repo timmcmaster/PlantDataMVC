@@ -22,6 +22,7 @@ namespace PlantDataMVC.UI.Mappers
         private void ConfigureDTOToViewModels()
         {
             // Maps from Domain to UI view models
+            ConfigureGenusViewModels();
             ConfigurePlantViewModels();
             ConfigurePlantSeedViewModels();
             ConfigurePlantSeedTrayViewModels();
@@ -32,28 +33,73 @@ namespace PlantDataMVC.UI.Mappers
 
         #region Configure View Models
 
+        private void ConfigureGenusViewModels()
+        {
+            // Genus
+            CreateMap<GenusDTO, GenusDeleteViewModel>()
+               .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+               .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.LatinName));
+
+            CreateMap<GenusDTO, GenusEditViewModel>()
+               .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+               .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.LatinName));
+
+            CreateMap<GenusDTO, GenusListViewModel>()
+               .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+               .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.LatinName));
+
+            CreateMap<GenusDTO, GenusNewViewModel>()
+               .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.LatinName));
+
+            CreateMap<GenusDTO, GenusShowViewModel>()
+               .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+               .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.LatinName));
+        }
+
         private void ConfigurePlantViewModels()
         {
-            // Plant
-            CreateMap<Plant, PlantDeleteViewModel>()
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(dto => dto.GenericName))
-               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(dto => dto.SpecificName));
+            // SpeciesDTO
+            CreateMap<SpeciesDTO, PlantDeleteViewModel>()
+               .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
+               .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Fix this
+               .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+               .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => "Hey, fix me!"))        // TODO: map binomial name
+               .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
+               .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
+               .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
-            CreateMap<Plant, PlantEditViewModel>()
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(dto => dto.GenericName))
-               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(dto => dto.SpecificName));
+            CreateMap<SpeciesDTO, PlantEditViewModel>()
+               .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
+               .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Fix this
+               .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+               .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
+               .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
+               .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
-            CreateMap<Plant, PlantListViewModel>();
+            CreateMap<SpeciesDTO, PlantListViewModel>()
+               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "Hey, fix me!"))           // TODO: Fix this
+               .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
+               .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id));
 
-            CreateMap<Plant, PlantNewViewModel>()
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(dto => dto.GenericName))
-               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(dto => dto.SpecificName));
+            CreateMap<SpeciesDTO, PlantNewViewModel>()
+               .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
+               .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Fix this
+               .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
+               .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
+               .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
-            CreateMap<Plant, PlantShowViewModel>()
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom<String>(dto => dto.GenericName))
-               .ForMember(uio => uio.Species, opt => opt.MapFrom<String>(dto => dto.SpecificName));
-               //.ForMember(uio => uio.Seeds, opt => opt.Ignore())
-               //.ForMember(uio => uio.Stock, opt => opt.Ignore());
+            CreateMap<SpeciesDTO, PlantShowViewModel>()
+               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "Hey, fix me!"))           // TODO: Fix this
+               .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
+               .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Fix this
+               .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+               .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
+               .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
+               .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
         }
 
         private void ConfigurePlantSeedViewModels()
