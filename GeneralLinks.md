@@ -43,3 +43,6 @@
 ## DDD on MVC
   - https://stackoverflow.com/questions/843513/asp-net-mvc-ddd-architecture-help
   - https://dotnetcodr.com/2015/08/06/domain-driven-design-with-web-api-revisited-part-1-introduction/
+  - https://stackoverflow.com/questions/12918521/where-should-the-business-logic-be-in-this-pattern
+  - https://stackoverflow.com/questions/16866102/using-dto-to-transfer-data-between-service-layer-and-ui-layer
+  - https://stackoverflow.com/questions/678217/best-practices-for-mapping-dto-to-domain-object
