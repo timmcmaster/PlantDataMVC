@@ -37,7 +37,7 @@ namespace PlantDataMVC.WCFService
             // Register services wrapping repositories as (for example) IGenusService and IService<Genus>
             var svcAssembly = Assembly.GetAssembly(typeof(GenusService));
             builder.RegisterAssemblyTypes(svcAssembly)
-                    .Where(t => t.IsClosedTypeOf(typeof(IWcfService<>)))
+                    .Where(t => t.IsClosedTypeOf(typeof(IService<>)))
                     .AsImplementedInterfaces();
 
             // Register your service implementations (for injection into WCF *.svc definitions)
