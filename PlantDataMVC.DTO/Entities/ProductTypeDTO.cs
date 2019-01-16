@@ -1,7 +1,10 @@
-﻿namespace PlantDataMVC.DTO.Entities
+﻿using Interfaces.DTO;
+
+namespace PlantDataMVC.DTO.Entities
 {
-    public class ProductTypeDTO: DtoEntity
+    public class ProductTypeDTO: IDtoEntity
     {
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

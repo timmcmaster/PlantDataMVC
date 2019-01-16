@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\DtoEntity.cs" />
     <Compile Include="Entities\GenusDTO.cs" />
     <Compile Include="Entities\SpeciesDTO.cs" />
     <Compile Include="Entities\PriceListTypeDTO.cs" />
