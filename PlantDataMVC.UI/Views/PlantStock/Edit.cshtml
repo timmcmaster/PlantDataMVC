@@ -28,7 +28,7 @@
             @Html.LabelFor(m => m.ProductType)
         </div>
         <div class="editor-field">
-            @Html.DropDownFor(() => "ProductType.Id", m => m.ProductType, p => p.DisplayValue, p => p.Id)
+            @Html.DropDownFor(() => "ProductType.Id", m => m.ProductType, p => p.Name, p => p.Id)
             @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
             @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
         </div>

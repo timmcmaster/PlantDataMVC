@@ -40,3 +40,6 @@
   - https://lostechies.com/derekgreer/2015/11/01/survey-of-entity-framework-unit-of-work-patterns/
 ## AutoMapper
   - http://docs.automapper.org/en/stable/Getting-started.html
+## DDD on MVC
+  - https://stackoverflow.com/questions/843513/asp-net-mvc-ddd-architecture-help
+  - https://dotnetcodr.com/2015/08/06/domain-driven-design-with-web-api-revisited-part-1-introduction/

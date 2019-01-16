@@ -25,7 +25,7 @@
             @Html.LabelFor(m=>m.TransactionType)
         </div>
         <div class="editor-field">
-            @Html.DropDownFor(() => "TransactionType.Id", model => model.TransactionType, p => p.DisplayValue, p => p.Id)
+            @Html.DropDownFor(() => "TransactionType.Id", model => model.TransactionType, p => p.Name, p => p.Id)
             @*@Html.DropDownListFor(m => m.TransactionTypeId, new SelectList(Model.TransactionTypes, "Id", "Name", Model.TransactionTypeId), "Select an option")*@
             @*@Html.ValidationMessageFor(model => model.TransactionTypeId)*@
         </div>

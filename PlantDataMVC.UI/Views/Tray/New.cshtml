@@ -17,7 +17,8 @@
         @Html.LabelFor(model => model.SeedBatch)
     </div>
     <div class="editor-field">
-        @Html.DropDownFor(() => "SeedBatchId", model => model.SeedBatch, p => p.DisplayValue, p => p.Id)
+        @*TODO: Want better representation for display value*@
+        @Html.DropDownFor(() => "SeedBatchId", model => model.SeedBatch, p => String.Concat(p.SpeciesId, p.Location, p.DateCollected), p => p.Id)
     </div>
 
     <div class="editor-label">
