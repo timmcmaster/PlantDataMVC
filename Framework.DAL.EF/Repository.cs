@@ -116,17 +116,17 @@ namespace Framework.DAL.EF
 
         public IQueryFluent<TEntity> Query()
         {
-            throw new NotImplementedException();
+            return new QueryFluent<TEntity>(this);
         }
 
         public IQueryFluent<TEntity> Query(IQueryObject<TEntity> queryObject)
         {
-            throw new NotImplementedException();
+            return new QueryFluent<TEntity>(this, queryObject);
         }
 
         public IQueryFluent<TEntity> Query(Expression<Func<TEntity, bool>> query)
         {
-            throw new NotImplementedException();
+            return new QueryFluent<TEntity>(this, query);
         }
 
         //public IRepository<T> GetRepository<T>() where T : class, IEntity
