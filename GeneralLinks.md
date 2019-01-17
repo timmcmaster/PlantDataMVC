@@ -46,3 +46,9 @@
   - https://stackoverflow.com/questions/12918521/where-should-the-business-logic-be-in-this-pattern
   - https://stackoverflow.com/questions/16866102/using-dto-to-transfer-data-between-service-layer-and-ui-layer
   - https://stackoverflow.com/questions/678217/best-practices-for-mapping-dto-to-domain-object
+  - https://enterprisecraftsmanship.com/2014/11/29/entity-framework-6-7-vs-nhibernate-4-ddd-perspective/
+  - And newer version:
+  - https://enterprisecraftsmanship.com/2018/06/13/ef-core-vs-nhibernate-ddd-perspective/
+    - Particularly this:
+    > *For those of you who might wonder why bother with this at all and not just separate the domain model into domain and persistence models and keep the domain model encapsulated this way: it doesn’t work out well. In complex applications, the amount of effort required to build a separate persistence model doesn’t justify the improvements in terms of purity. The effort is too large, the benefits are too small.*
+     
