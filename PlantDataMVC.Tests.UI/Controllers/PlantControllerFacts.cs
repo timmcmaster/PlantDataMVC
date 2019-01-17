@@ -1,19 +1,18 @@
 ﻿using AutoMapper;
-using Framework.Service.Entities;
-using Framework.Web.Forms;
 using FluentAssertions;
+using Framework.Service.Responses;
+using Framework.Web.Forms;
+using Interfaces.Service;
 using Moq;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Service.ServiceContracts;
+using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Controllers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Mappers;
-using PlantDataMVC.UI.Models;
-using System;
+using PlantDataMVC.UI.Models.ViewModels;
+using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Xunit;
-using UnitTest.Utils.Domain;
 
 namespace PlantDataMVC.Tests.UI.Controllers
 {
@@ -33,11 +32,11 @@ namespace PlantDataMVC.Tests.UI.Controllers
             public void ReturnsViewResultOfCorrectType()
             {
                 // Arrange
-                var listResponse = new ListResponse<Plant>(new List<Plant>());
+                var listResponse = new ListResponse<SpeciesDto>(new List<SpeciesDto>(),ServiceActionStatus.Ok);
 
                 // create mocks
                 var repo = new MockRepository(MockBehavior.Loose);
-                var dsMockWrapper = repo.Create<IPlantDataService>();
+                var dsMockWrapper = repo.Create<ISpeciesWcfService>();
                 var fhfMockWrapper = repo.Create<IFormHandlerFactory>();
 
                 dsMockWrapper.Setup(x => x.List()).Returns(listResponse);
@@ -63,19 +62,20 @@ namespace PlantDataMVC.Tests.UI.Controllers
             {
                 // Arrange
                 int listCount = 17;
-                var plantList = new List<Plant>();
+                var speciesList = new List<SpeciesDto>();
                 for (int i = 0; i < listCount; i++)
                 {
-                    plantList.Add(PlantBuilder.aPlant().withRandomValues().withId().Build());
+                    speciesList.Add(new SpeciesDto() { Id = i, GenusId = i, SpecificName = "species" + i });
                 }
-                var listResponse = new ListResponse<Plant>(plantList);
-
+                var listResponse = new ListResponse<SpeciesDto>(speciesList, ServiceActionStatus.Ok);
+                
                 // create mocks
                 var repo = new MockRepository(MockBehavior.Loose);
-                var dsMockWrapper = repo.Create<IPlantDataService>();
+                var dsMockWrapper = repo.Create<ISpeciesWcfService>();
                 var fhfMockWrapper = repo.Create<IFormHandlerFactory>();
 
                 dsMockWrapper.Setup(x => x.List()).Returns(listResponse);
+
                 var controller = new PlantController(dsMockWrapper.Object, fhfMockWrapper.Object);
 
                 // Act

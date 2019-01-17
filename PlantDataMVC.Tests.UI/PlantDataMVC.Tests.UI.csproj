@@ -197,6 +197,10 @@
       <Project>{157d351c-8da8-4a9b-b66d-20e4f49eb201}</Project>
       <Name>PlantDataMVC.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj">
+      <Project>{21BCD4E8-47A5-4ED3-A832-C9E0659B9B86}</Project>
+      <Name>PlantDataMVC.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj">
       <Project>{fe02e501-bd2c-4e07-9d83-1fd448ae476f}</Project>
       <Name>PlantDataMVC.Service</Name>
@@ -204,6 +208,10 @@
     <ProjectReference Include="..\PlantDataMVC.UI\PlantDataMVC.UI.csproj">
       <Project>{be083dac-46de-46b3-bbb1-81381f94f40c}</Project>
       <Name>PlantDataMVC.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.WCFService\PlantDataMVC.WCFService.csproj">
+      <Project>{550D9A0C-2D6A-46FD-9400-AA722D455F7A}</Project>
+      <Name>PlantDataMVC.WCFService</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitTest.Utils\UnitTest.Utils.csproj">
       <Project>{1A3A2975-AB2E-468B-914C-27D87A9E3804}</Project>
