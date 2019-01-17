@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.DTO.Entities
 {
-    public class JournalEntryTypeDTO: IDtoEntity
+    public class JournalEntryTypeDto: IDtoEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

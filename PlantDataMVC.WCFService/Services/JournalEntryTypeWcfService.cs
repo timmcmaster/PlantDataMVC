@@ -6,7 +6,7 @@ using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.WCFService.Services
 {
-    public class JournalEntryTypeWcfService : WcfService<JournalEntryTypeDTO, JournalEntryType>,IJournalEntryTypeWcfService
+    public class JournalEntryTypeWcfService : WcfService<JournalEntryType>,IJournalEntryTypeWcfService
     {
         public JournalEntryTypeWcfService(IUnitOfWorkAsync uow, IJournalEntryTypeService service): base (uow,service)
         {

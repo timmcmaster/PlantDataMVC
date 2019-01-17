@@ -13,9 +13,8 @@ namespace Framework.Service.Responses
         [DataMember]
         public T Item { get; set; }
 
-        public CreateResponse(int id, T item, ServiceActionStatus status) : base()
+        public CreateResponse(T item, ServiceActionStatus status) : base()
         {
-            Id = id;
             Item = item;
             Status = status;
         }

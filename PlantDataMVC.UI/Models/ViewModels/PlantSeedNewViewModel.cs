@@ -8,7 +8,7 @@ namespace PlantDataMVC.UI.Models.ViewModels
     public class PlantSeedNewViewModel
     {
         [Display(Name = "Species Name")]
-        public SpeciesDTO PlantSpecies { get; set; }
+        public SpeciesDto PlantSpecies { get; set; }
 
         [Display(Name = "Date Collected")]
         public DateTime DateCollected { get; set; }
@@ -20,13 +20,13 @@ namespace PlantDataMVC.UI.Models.ViewModels
         public string Notes { get; set; }
 
         [Display(Name = "Site Name")]
-        public SiteDTO Site { get; set; }
+        public SiteDto Site { get; set; }
 
         public PlantSeedNewViewModel()
         {
-            this.PlantSpecies = new SpeciesDTO();
+            this.PlantSpecies = new SpeciesDto();
             this.DateCollected = new DateTime();
-            this.Site = new SiteDTO();
+            this.Site = new SiteDto();
         }
     }
 }

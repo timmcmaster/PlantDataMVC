@@ -12,8 +12,13 @@ using System.Linq;
 
 namespace PlantDataMVC.WCFService.Services
 {
-    public abstract class WcfService<TDto, TEntity> : IWcfService<TDto> where TDto : IDtoEntity 
-                                                                        where TEntity : IEntity
+    /// <summary>
+    /// Note: Under the current model, this makes it the caller's responsibility to ensure
+    /// that mappings exist between DTO types supplied to method and entity type defined by service 
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <seealso cref="Interfaces.WCFService.IWcfService" />
+    public abstract class WcfService<TEntity> : IWcfService where TEntity : IEntity
     {
         protected IService<TEntity> Service { get; set; }
         protected IUnitOfWorkAsync UnitOfWork { get; set; }
@@ -25,12 +30,14 @@ namespace PlantDataMVC.WCFService.Services
         }
 
         #region IWcfService implementation
-        public virtual ICreateResponse<TDto> Create(TDto dtoItem)
+        public virtual ICreateResponse<TDtoOut> Create<TDtoIn, TDtoOut>(TDtoIn dtoItem)
+            where TDtoIn : IDtoEntity
+            where TDtoOut : IDtoEntity
         {
             using (var uow = this.UnitOfWork)
             {
                 // map 
-                TEntity mappedItem = Mapper.Map<TDto, TEntity>(dtoItem);
+                TEntity mappedItem = Mapper.Map<TDtoIn, TEntity>(dtoItem);
 
                 TEntity item = Service.Add(mappedItem);
 
@@ -39,13 +46,13 @@ namespace PlantDataMVC.WCFService.Services
 
                 ServiceActionStatus status = changes > 0 ? ServiceActionStatus.Created : ServiceActionStatus.NothingModified;
 
-                TDto createdItem = Mapper.Map<TEntity, TDto>(item);
+                TDtoOut createdItem = Mapper.Map<TEntity, TDtoOut>(item);
 
-                return new CreateResponse<TDto>(createdItem.Id, createdItem, status);
+                return new CreateResponse<TDtoOut>(createdItem, status);
             }
         }
 
-        public virtual IViewResponse<TDto> View(int id)
+        public virtual IViewResponse<TDtoOut> View<TDtoOut>(int id) where TDtoOut : IDtoEntity
         {
             using (var uow = this.UnitOfWork)
             {
@@ -53,24 +60,28 @@ namespace PlantDataMVC.WCFService.Services
 
                 ServiceActionStatus status = item == null ? ServiceActionStatus.NotFound : ServiceActionStatus.Ok;
 
-                TDto finalItem = Mapper.Map<TEntity, TDto>(item);
+                TDtoOut finalItem = Mapper.Map<TEntity, TDtoOut>(item);
 
-                return new ViewResponse<TDto>(finalItem, status);
+                return new ViewResponse<TDtoOut>(finalItem, status);
             }
         }
 
-        public virtual IUpdateResponse<TDto> Update(int id, TDto item)
+        public virtual IUpdateResponse<TDtoOut> Update<TDtoIn, TDtoOut>(int id, TDtoIn item)
+            where TDtoIn : IDtoEntity
+            where TDtoOut : IDtoEntity
         {
             using (var uow = this.UnitOfWork)
             {
-                // Check for id matches Item.Id
-                if (id != item.Id)
-                {
-                    return new UpdateResponse<TDto>(item, ServiceActionStatus.Error);
-                }
+                //// Check for id matches Item.Id
+                //if (id != item.Id)
+                //{
+                //    // TODO: Map input item to output item?
+
+                //    return new UpdateResponse<TDtoOut>(item, ServiceActionStatus.Error);
+                //}
 
                 // map 
-                TEntity mappedItem = Mapper.Map<TDto, TEntity>(item);
+                TEntity mappedItem = Mapper.Map<TDtoIn, TEntity>(item);
 
                 TEntity updateditem = Service.Save(mappedItem);
 
@@ -79,13 +90,13 @@ namespace PlantDataMVC.WCFService.Services
 
                 ServiceActionStatus status = changes > 0 ? ServiceActionStatus.Updated : ServiceActionStatus.NothingModified;
 
-                TDto finalItem = Mapper.Map<TEntity, TDto>(updateditem);
+                TDtoOut finalItem = Mapper.Map<TEntity, TDtoOut>(updateditem);
 
-                return new UpdateResponse<TDto>(finalItem, status);
+                return new UpdateResponse<TDtoOut>(finalItem, status);
             }
         }
 
-        public virtual IDeleteResponse<TDto> Delete(int id)
+        public virtual IDeleteResponse<TDtoOut> Delete<TDtoOut>(int id) where TDtoOut : IDtoEntity
         {
             using (var uow = this.UnitOfWork)
             {
@@ -95,24 +106,25 @@ namespace PlantDataMVC.WCFService.Services
                     Service.Delete(foundItem);
 
                     uow.SaveChanges();
-                    return new DeleteResponse<TDto>(ServiceActionStatus.Deleted);
+                    return new DeleteResponse<TDtoOut>(ServiceActionStatus.Deleted);
 
                 }
-                return new DeleteResponse<TDto>(ServiceActionStatus.NotFound);
+                return new DeleteResponse<TDtoOut>(ServiceActionStatus.NotFound);
             }
         }
 
-        public virtual IListResponse<TDto> List()
+        public virtual IListResponse<TDtoOut> List<TDtoOut>() where TDtoOut : IDtoEntity
         {
             using (var uow = this.UnitOfWork)
             {
                 var context = Service.Queryable();
 
-                IList<TDto> itemList = context.ProjectTo<TDto>().ToList();
+                IList<TDtoOut> itemList = context.ProjectTo<TDtoOut>().ToList();
 
-                return new ListResponse<TDto>(itemList, ServiceActionStatus.Ok);
+                return new ListResponse<TDtoOut>(itemList, ServiceActionStatus.Ok);
             }
         }
+
         #endregion
     }
 }

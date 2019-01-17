@@ -7,8 +7,8 @@
     <ProjectGuid>{21BCD4E8-47A5-4ED3-A832-C9E0659B9B86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlantDataMVC.Domain</RootNamespace>
-    <AssemblyName>PlantDataMVC.Domain</AssemblyName>
+    <RootNamespace>PlantDataMVC.DTO</RootNamespace>
+    <AssemblyName>PlantDataMVC.DTO</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -48,17 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\GenusDTO.cs" />
-    <Compile Include="Entities\SpeciesDTO.cs" />
-    <Compile Include="Entities\PriceListTypeDTO.cs" />
-    <Compile Include="Entities\ProductPriceDTO.cs" />
-    <Compile Include="Entities\ProductTypeDTO.cs" />
-    <Compile Include="Entities\SeedBatchDTO.cs" />
-    <Compile Include="Entities\SiteDTO.cs" />
-    <Compile Include="Entities\SeedTrayDTO.cs" />
-    <Compile Include="Entities\PlantStockDTO.cs" />
-    <Compile Include="Entities\JournalEntryDTO.cs" />
-    <Compile Include="Entities\JournalEntryTypeDTO.cs" />
+    <Compile Include="Entities\GenusDto.cs" />
+    <Compile Include="Entities\SpeciesDto.cs" />
+    <Compile Include="Entities\PriceListTypeDto.cs" />
+    <Compile Include="Entities\ProductPriceDto.cs" />
+    <Compile Include="Entities\ProductTypeDto.cs" />
+    <Compile Include="Entities\SeedBatchDto.cs" />
+    <Compile Include="Entities\SiteDto.cs" />
+    <Compile Include="Entities\SeedTrayDto.cs" />
+    <Compile Include="Entities\PlantStockDto.cs" />
+    <Compile Include="Entities\JournalEntryDto.cs" />
+    <Compile Include="Entities\JournalEntryTypeDto.cs" />
     <Compile Include="Mappers\AutoMapperCoreConfiguration.cs" />
     <Compile Include="Mappers\EFDALToDTOMappingProfile.cs" />
     <Compile Include="Mappers\EFDTOToDALMappingProfile.cs" />

@@ -8,7 +8,7 @@ namespace PlantDataMVC.UI.Models.EditModels
     {
         public int Id { get; set; }
         public int PlantStockEntryId { get; set; }
-        public JournalEntryTypeDTO TransactionType { get; set; }
+        public JournalEntryTypeDto TransactionType { get; set; }
         public DateTime TransactionDate { get; set; }
         public int Quantity { get; set; }
         public int SeedTrayId { get; set; }

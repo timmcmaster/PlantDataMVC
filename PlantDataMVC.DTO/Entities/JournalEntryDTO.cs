@@ -3,7 +3,7 @@ using System;
 
 namespace PlantDataMVC.DTO.Entities
 {
-    public class JournalEntryDTO: IDtoEntity
+    public class JournalEntryDto: IDtoEntity
     {
         public int Id { get; set; }
         public int PlantStockId { get; set; }

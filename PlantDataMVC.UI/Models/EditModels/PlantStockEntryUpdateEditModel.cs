@@ -7,7 +7,7 @@ namespace PlantDataMVC.UI.Models.EditModels
     {
         public int Id { get; set; }
         public int SpeciesId { get; set; }
-        public ProductTypeDTO ProductType { get; set; }
+        public ProductTypeDto ProductType { get; set; }
         public int QuantityInStock { get; set; }
     }
 }

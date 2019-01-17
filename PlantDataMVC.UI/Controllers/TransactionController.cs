@@ -25,9 +25,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<JournalEntryDTO> response = _dataService.List();
+            var response = _dataService.List<JournalEntryDto>();
 
-            IList<JournalEntryDTO> list = response.Items;
+            var list = response.Items;
 
             // TODO: check to ensure these DTOs map to view model
             AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantStockTransactionListViewModel>>(View(list));
@@ -40,9 +40,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<JournalEntryDTO> response = _dataService.View(id);
+            var response = _dataService.View<JournalEntryDto>(id);
 
-            JournalEntryDTO item = response.Item;
+            var item = response.Item;
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<PlantStockTransactionShowViewModel>(View(item));
@@ -52,7 +52,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            JournalEntryDTO item = new JournalEntryDTO();
+            var item = new JournalEntryDto();
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<PlantStockTransactionNewViewModel>(View(item));
@@ -66,7 +66,7 @@ namespace PlantDataMVC.UI.Controllers
         [RequireRequestValue("plantStockEntryId")]
         public ActionResult New(int plantStockId)
         {
-            JournalEntryDTO item = new JournalEntryDTO();
+            var item = new JournalEntryDto();
             item.PlantStockId = plantStockId;
 
             // TODO: check to ensure these DTOs map to view model
@@ -87,9 +87,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<JournalEntryDTO> response = _dataService.View(id);
+            var response = _dataService.View<JournalEntryDto>(id);
 
-            JournalEntryDTO item = response.Item;
+            var item = response.Item;
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<PlantStockTransactionEditViewModel>(View(item));
@@ -109,9 +109,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<JournalEntryDTO> response = _dataService.View(id);
+            var response = _dataService.View<JournalEntryDto>(id);
 
-            JournalEntryDTO item = response.Item;
+            var item = response.Item;
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<PlantStockTransactionDeleteViewModel>(View(item));

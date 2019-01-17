@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.DTO.Entities
 {
-    public class SeedBatchDTO: IDtoEntity
+    public class SeedBatchDto: IDtoEntity
     {
         public int Id { get; set; }
         public int SpeciesId { get; set; }
@@ -12,6 +12,6 @@ namespace PlantDataMVC.DTO.Entities
         public string Location { get; set; }
         public string Notes { get; set; }
         public int? SiteId { get; set; }
-        public ICollection<SeedTrayDTO> SeedTrays { get; set; }
+        public ICollection<SeedTrayDto> SeedTrays { get; set; }
     }
 }

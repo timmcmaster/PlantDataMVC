@@ -31,9 +31,9 @@ namespace PlantDataMVC.UI.Controllers
             string localSortBy = sortBy ?? string.Empty;
             bool localAscending = ascending ?? true;
 
-            IListResponse<GenusDTO> response = _dataService.List();
+            var response = _dataService.List<GenusDto>();
 
-            IList<GenusDTO> list = response.Items;
+            var list = response.Items;
 
             // TODO: check to ensure these DTOs map to view model
             AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<GenusListViewModel>>(View(list));
@@ -46,10 +46,11 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<GenusDTO> response = _dataService.View(id);
+            var response = _dataService.View<GenusDto>(id);
 
-            GenusDTO item = response.Item;
+            var item = response.Item;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<GenusShowViewModel>(View(item));
         }
 
@@ -58,9 +59,9 @@ namespace PlantDataMVC.UI.Controllers
         public ActionResult ShowBasic(int id)
         {
             // return view for Model
-            IViewResponse<GenusDTO> response = _dataService.View(id);
+            var response = _dataService.View<GenusDto>(id);
 
-            GenusDTO item = response.Item;
+            var item = response.Item;
 
             return View(item);
         }
@@ -69,7 +70,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            GenusDTO item = new GenusDTO();
+            var item = new GenusDto();
 
             return AutoMapView<GenusNewViewModel>(View(item));
         }
@@ -88,9 +89,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<GenusDTO> response = _dataService.View(id);
+            var response = _dataService.View<GenusDto>(id);
 
-            GenusDTO item = response.Item;
+            var item = response.Item;
 
             return AutoMapView<GenusEditViewModel>(View(item));
         }
@@ -109,9 +110,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<GenusDTO> response = _dataService.View(id);
+            var response = _dataService.View<GenusDto>(id);
 
-            GenusDTO item = response.Item;
+            var item = response.Item;
 
             return AutoMapView<GenusDeleteViewModel>(View(item));
         }

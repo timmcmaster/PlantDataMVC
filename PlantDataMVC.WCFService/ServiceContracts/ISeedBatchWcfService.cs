@@ -9,7 +9,7 @@ namespace PlantDataMVC.WCFService.ServiceContracts
 {
     [ServiceKnownType("GetKnownTypes", typeof(SeedBatchDTODSHelper))]
     [ServiceContract]
-    public interface ISeedBatchWcfService : IWcfService<SeedBatchDTO>
+    public interface ISeedBatchWcfService : IWcfService
     {
     }
 
@@ -18,7 +18,7 @@ namespace PlantDataMVC.WCFService.ServiceContracts
     {
         public static IEnumerable<Type> GetKnownTypes(ICustomAttributeProvider provider)
         {
-            return DTOHelper.GetKnownTypes<SeedBatchDTO>(provider);
+            return DTOHelper.GetKnownTypes<SeedBatchDto>(provider);
         }
     }
 }

@@ -25,9 +25,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<SiteDTO> response = _dataService.List();
+            var response = _dataService.List<SiteDto>();
 
-            IList<SiteDTO> list = response.Items;
+            var list = response.Items;
 
             // TODO: check to ensure these DTOs map to view model
             AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<SiteListViewModel>>(View(list));
@@ -40,9 +40,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<SiteDTO> response = _dataService.View(id);
+            var response = _dataService.View<SiteDto>(id);
 
-            SiteDTO item = response.Item;
+            var item = response.Item;
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<SiteShowViewModel>(View(item));
@@ -52,7 +52,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            SiteDTO item = new SiteDTO();
+            var item = new SiteDto();
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<SiteNewViewModel>(View(item));
@@ -72,9 +72,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<SiteDTO> response = _dataService.View(id);
+            var response = _dataService.View<SiteDto>(id);
 
-            SiteDTO item = response.Item;
+            var item = response.Item;
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<SiteEditViewModel>(View(item));
@@ -94,9 +94,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<SiteDTO> response = _dataService.View(id);
+            var response = _dataService.View<SiteDto>(id);
 
-            SiteDTO item = response.Item;
+            var item = response.Item;
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<SiteDeleteViewModel>(View(item));

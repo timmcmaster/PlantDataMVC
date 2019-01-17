@@ -6,9 +6,9 @@ using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.WCFService.Services
 {
-    public class SiteWcfService : WcfService<SiteDTO, Site>,ISiteWcfService
+    public class SiteWcfService : WcfService<Site>, ISiteWcfService
     {
-        public SiteWcfService(IUnitOfWorkAsync uow, ISiteService service): base (uow,service)
+        public SiteWcfService(IUnitOfWorkAsync uow, ISiteService service) : base(uow, service)
         {
         }
 

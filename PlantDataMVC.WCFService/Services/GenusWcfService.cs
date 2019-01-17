@@ -6,7 +6,7 @@ using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.WCFService.Services
 {
-    public class GenusWcfService : WcfService<GenusDTO, Genus>, IGenusWcfService
+    public class GenusWcfService : WcfService<Genus>, IGenusWcfService
     {
         public GenusWcfService(IUnitOfWorkAsync uow, IGenusService service) : base(uow, service)
         {

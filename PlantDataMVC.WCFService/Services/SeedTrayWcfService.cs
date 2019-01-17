@@ -6,7 +6,7 @@ using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.WCFService.Services
 {
-    public class SeedTrayWcfService : WcfService<SeedTrayDTO, SeedTray>,ISeedTrayWcfService
+    public class SeedTrayWcfService : WcfService<SeedTray>,ISeedTrayWcfService
     {
         public SeedTrayWcfService(IUnitOfWorkAsync uow, ISeedTrayService service): base (uow,service)
         {

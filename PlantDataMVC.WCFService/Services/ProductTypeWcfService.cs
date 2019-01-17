@@ -6,7 +6,7 @@ using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.WCFService.Services
 {
-    public class ProductTypeWcfService : WcfService<ProductTypeDTO, ProductType>,IProductTypeWcfService
+    public class ProductTypeWcfService : WcfService<ProductType>,IProductTypeWcfService
     {
         public ProductTypeWcfService(IUnitOfWorkAsync uow, IProductTypeService service): base (uow,service)
         {

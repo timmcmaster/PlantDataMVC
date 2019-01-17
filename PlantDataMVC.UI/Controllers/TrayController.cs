@@ -25,9 +25,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<SeedTrayDTO> response = _dataService.List();
+            var response = _dataService.List<SeedTrayDto>();
 
-            IList<SeedTrayDTO> list = response.Items;
+            var list = response.Items;
 
             // TODO: check to ensure these DTOs map to view model
             AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<TrayListViewModel>>(View(list));
@@ -40,9 +40,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<SeedTrayDTO> response = _dataService.View(id);
+            var response = _dataService.View<SeedTrayDto>(id);
 
-            SeedTrayDTO item = response.Item;
+            var item = response.Item;
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<TrayShowViewModel>(View(item));
@@ -52,7 +52,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            SeedTrayDTO item = new SeedTrayDTO();
+            var item = new SeedTrayDto();
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<TrayNewViewModel>(View(item));
@@ -66,7 +66,7 @@ namespace PlantDataMVC.UI.Controllers
         [RequireRequestValue("seedBatchId")]
         public ActionResult New(int seedBatchId)
         {
-            SeedTrayDTO item = new SeedTrayDTO();
+            var item = new SeedTrayDto();
             item.SeedBatchId = (int)seedBatchId;
 
             // TODO: check to ensure these DTOs map to view model
@@ -87,9 +87,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<SeedTrayDTO> response = _dataService.View(id);
+            var response = _dataService.View<SeedTrayDto>(id);
 
-            SeedTrayDTO item = response.Item;
+            var item = response.Item;
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<TrayEditViewModel>(View(item));
@@ -109,9 +109,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<SeedTrayDTO> response = _dataService.View(id);
+            var response = _dataService.View<SeedTrayDto>(id);
 
-            SeedTrayDTO item = response.Item;
+            var item = response.Item;
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<TrayDeleteViewModel>(View(item));

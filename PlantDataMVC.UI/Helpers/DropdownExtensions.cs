@@ -16,18 +16,18 @@ namespace PlantDataMVC.UI.Helpers
     /// </summary>
     public static class DropDownExtensions
     {
-        public static MvcHtmlString DropDownFor<TModel, TItem>(this HtmlHelper<TModel> htmlHelper,
+        public static MvcHtmlString DropDownFor<TModel, TDtoItem>(this HtmlHelper<TModel> htmlHelper,
             Func<string> fieldName,
-            Expression<Func<TModel, TItem>> expression,     // Selects the referenced entity from the model
-            Func<TItem, string> displayValueSelector,       // Selects the display field from the entity
-            Func<TItem, object> dataValueSelector           // Selects the value field from the entity
-            ) where TItem : IDtoEntity
+            Expression<Func<TModel, TDtoItem>> expression,     // Selects the referenced entity from the model
+            Func<TDtoItem, string> displayValueSelector,       // Selects the display field from the entity
+            Func<TDtoItem, object> dataValueSelector           // Selects the value field from the entity
+            ) where TDtoItem : IDtoEntity
         {
             var expressionText = ExpressionHelper.GetExpressionText(expression);
 
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
 
-            var selectedItem = (TItem)metadata.Model;
+            var selectedItem = (TDtoItem)metadata.Model;
 
             // Get list of options from dataService
 
@@ -37,12 +37,12 @@ namespace PlantDataMVC.UI.Helpers
             //Type interfaceType = GetDataServiceInterfaceFor<TItem>();
             //var dataService = DependencyResolver.Current.GetService(interfaceType) as IDataServiceBase<TItem>;
 
-            var dataService = GetServiceFor<TItem>();
+            var dataService = GetServiceForDto<TDtoItem>();
 
-            IList<TItem> items = new List<TItem>();
+            IList<TDtoItem> items = new List<TDtoItem>();
             if (dataService != null)
             {
-                items = dataService.List().Items;
+                items = dataService.List<TDtoItem>().Items;
             }
 
             var selectListItems = items.Select(x => new SelectListItem
@@ -56,37 +56,38 @@ namespace PlantDataMVC.UI.Helpers
         }
 
         // HACK: Still very hacky quick method to return service interface for given IEntity type
-        public static IWcfService<TItem> GetServiceFor<TItem>() where TItem : IDtoEntity
+        public static IWcfService GetServiceForDto<TDtoItem>() where TDtoItem : IDtoEntity
         {
-            if (typeof(TItem) == typeof(GenusDTO))
-                return GetServiceFor<TItem, IGenusWcfService>();
+            // TODO: Add all DTO types used by dropdown in here
+            if (typeof(TDtoItem) == typeof(GenusDto))
+                return GetServiceFor<IGenusWcfService>();
             //else if (typeof(TItem) == typeof(PlantPriceListType))
             //    return typeof();
             //else if (typeof(TItem) == typeof(PlantProductPrice))
             //    return typeof();
-            else if (typeof(TItem) == typeof(SpeciesDTO))
-                return GetServiceFor<TItem, ISpeciesWcfService>();
-            else if (typeof(TItem) == typeof(ProductTypeDTO))
-                return GetServiceFor<TItem, IProductTypeWcfService>();
-            else if (typeof(TItem) == typeof(SeedBatchDTO))
-                return GetServiceFor<TItem, ISeedBatchWcfService>();
-            else if (typeof(TItem) == typeof(SiteDTO))
-                return GetServiceFor<TItem, ISiteWcfService>();
-            else if (typeof(TItem) == typeof(SeedTrayDTO))
-                return GetServiceFor<TItem, ISeedTrayWcfService>();
-            else if (typeof(TItem) == typeof(PlantStockDTO))
-                return GetServiceFor<TItem, IPlantStockWcfService>();
-            else if (typeof(TItem) == typeof(JournalEntryDTO))
-                return GetServiceFor<TItem, IJournalEntryWcfService>();
-            else if (typeof(TItem) == typeof(JournalEntryTypeDTO))
-                return GetServiceFor<TItem, IJournalEntryTypeWcfService>();
+            else if (typeof(TDtoItem) == typeof(SpeciesDto))
+                return GetServiceFor<ISpeciesWcfService>();
+            else if (typeof(TDtoItem) == typeof(ProductTypeDto))
+                return GetServiceFor<IProductTypeWcfService>();
+            else if (typeof(TDtoItem) == typeof(SeedBatchDto))
+                return GetServiceFor<ISeedBatchWcfService>();
+            else if (typeof(TDtoItem) == typeof(SiteDto))
+                return GetServiceFor<ISiteWcfService>();
+            else if (typeof(TDtoItem) == typeof(SeedTrayDto))
+                return GetServiceFor<ISeedTrayWcfService>();
+            else if (typeof(TDtoItem) == typeof(PlantStockDto))
+                return GetServiceFor<IPlantStockWcfService>();
+            else if (typeof(TDtoItem) == typeof(JournalEntryDto))
+                return GetServiceFor<IJournalEntryWcfService>();
+            else if (typeof(TDtoItem) == typeof(JournalEntryTypeDto))
+                return GetServiceFor<IJournalEntryTypeWcfService>();
             else
                 throw new Exception("corresponding service not found");
         }
 
-        public static IWcfService<TItem> GetServiceFor<TItem, TInterface>() where TItem : IDtoEntity
+        public static IWcfService GetServiceFor<TInterface>()
         {
-            return DependencyResolver.Current.GetService<TInterface>() as IWcfService<TItem>;
+            return DependencyResolver.Current.GetService<TInterface>() as IWcfService;
         }
     }
 }

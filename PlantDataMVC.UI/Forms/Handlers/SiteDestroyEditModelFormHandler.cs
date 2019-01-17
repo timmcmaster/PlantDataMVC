@@ -18,15 +18,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
         public void Handle(SiteDestroyEditModel form)
         {
-            // Map local model to business object
-            // TODO: Check map exists
-            SiteDTO item = AutoMapper.Mapper.Map<SiteDestroyEditModel, SiteDTO>(form);
+            var response = _dataService.Delete<SiteDto>(form.Id);
 
-            //DeleteRequest<SiteDTO> request = new DeleteRequest<SiteDTO>(item.Id);
-
-            IDeleteResponse<SiteDTO> response = _dataService.Delete(item.Id);
-
-            //TODO: Need behaviour triggered on non zero error-code in response
+            //TODO: Need behaviour triggered on bad response
             if (response.Status == ServiceActionStatus.Deleted)
             {
                 // take good path

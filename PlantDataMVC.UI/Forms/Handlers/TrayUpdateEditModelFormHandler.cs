@@ -17,12 +17,10 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
         public void Handle(TrayUpdateEditModel form)
         {
-            // Map local model to business object
-            SeedTrayDTO item = AutoMapper.Mapper.Map<TrayUpdateEditModel, SeedTrayDTO>(form);
+            // Map local model to DTO
+            var item = AutoMapper.Mapper.Map<TrayUpdateEditModel, SeedTrayDto>(form);
 
-            //UpdateRequest<SeedTrayDTO> request = new UpdateRequest<SeedTrayDTO>(item);
-
-            IUpdateResponse<SeedTrayDTO> response = _dataService.Update(item.Id, item);
+            var response = _dataService.Update<SeedTrayDto,SeedTrayDto>(item.Id, item);
         }
     }
 }

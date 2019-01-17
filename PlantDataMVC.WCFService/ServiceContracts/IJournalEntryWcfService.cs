@@ -9,7 +9,7 @@ namespace PlantDataMVC.WCFService.ServiceContracts
 {
     [ServiceKnownType("GetKnownTypes", typeof(JournalEntryDTODSHelper))]
     [ServiceContract]
-    public interface IJournalEntryWcfService : IWcfService<JournalEntryDTO>
+    public interface IJournalEntryWcfService : IWcfService
     {
     }
 
@@ -18,7 +18,7 @@ namespace PlantDataMVC.WCFService.ServiceContracts
     {
         public static IEnumerable<Type> GetKnownTypes(ICustomAttributeProvider provider)
         {
-            return DTOHelper.GetKnownTypes<JournalEntryDTO>(provider);
+            return DTOHelper.GetKnownTypes<JournalEntryDto>(provider);
         }
     }
 }

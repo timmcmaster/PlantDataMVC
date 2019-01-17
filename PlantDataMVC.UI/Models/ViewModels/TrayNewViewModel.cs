@@ -7,7 +7,7 @@ namespace PlantDataMVC.UI.Models.ViewModels
     public class TrayNewViewModel
     {
         [Display(Name = "Seed Batch")]
-        public SeedBatchDTO SeedBatch { get; set; }
+        public SeedBatchDto SeedBatch { get; set; }
 
         [Display(Name = "Date Planted")]
         public DateTime DatePlanted { get; set; }
@@ -21,7 +21,7 @@ namespace PlantDataMVC.UI.Models.ViewModels
 
         public TrayNewViewModel()
         {
-            this.SeedBatch = new SeedBatchDTO();
+            this.SeedBatch = new SeedBatchDto();
             this.DatePlanted = new DateTime();
         }
     }
