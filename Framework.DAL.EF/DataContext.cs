@@ -18,6 +18,7 @@ namespace Framework.DAL.EF
         {
             _instanceId = Guid.NewGuid();
             Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
 
         public DataContext(string nameOrConnectionString, System.Data.Entity.Infrastructure.DbCompiledModel model)
@@ -25,6 +26,7 @@ namespace Framework.DAL.EF
         {
             _instanceId = Guid.NewGuid();
             Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
 
         public DataContext(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection)
@@ -32,6 +34,7 @@ namespace Framework.DAL.EF
         {
             _instanceId = Guid.NewGuid();
             Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
 
         public DataContext(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection)
@@ -39,6 +42,7 @@ namespace Framework.DAL.EF
         {
             _instanceId = Guid.NewGuid();
             Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
         #endregion
 
