@@ -22,7 +22,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
             // TODO: Check map exists
             var item = AutoMapper.Mapper.Map<PlantStockTransactionUpdateEditModel, JournalEntryDto>(form);
 
-            var response = _dataService.Update<JournalEntryDto,JournalEntryDto>(item.Id, item);
+            var response = _dataService.Update(item.Id, item);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
             // TODO: Check map exists
             var item = AutoMapper.Mapper.Map<PlantSeedUpdateEditModel, SeedBatchDto>(form);
 
-            var response = _dataService.Update<SeedBatchDto,SeedBatchDto>(item.Id,item);
+            var response = _dataService.Update(item.Id,item);
         }
     }
 }

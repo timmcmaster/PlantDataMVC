@@ -21,7 +21,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
             // TODO: Check map exists
             var item = AutoMapper.Mapper.Map<PlantStockEntryUpdateEditModel, PlantStockDto>(form);
 
-            var response = _dataService.Update<PlantStockDto,PlantStockDto> (item.Id, item);
+            var response = _dataService.Update(item.Id, item);
         }
     }
 }

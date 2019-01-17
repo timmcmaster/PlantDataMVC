@@ -18,7 +18,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
         public void Handle(SiteDestroyEditModel form)
         {
-            var response = _dataService.Delete<SiteDto>(form.Id);
+            var response = _dataService.Delete(form.Id);
 
             //TODO: Need behaviour triggered on bad response
             if (response.Status == ServiceActionStatus.Deleted)

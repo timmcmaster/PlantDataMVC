@@ -20,7 +20,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
             // Map local model to DTO
             var item = AutoMapper.Mapper.Map<TrayUpdateEditModel, SeedTrayDto>(form);
 
-            var response = _dataService.Update<SeedTrayDto,SeedTrayDto>(item.Id, item);
+            var response = _dataService.Update(item.Id, item);
         }
     }
 }

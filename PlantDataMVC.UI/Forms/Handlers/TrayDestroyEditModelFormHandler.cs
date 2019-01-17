@@ -17,7 +17,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
         public void Handle(TrayDestroyEditModel form)
         {
-            IDeleteResponse<SeedTrayDto> response = _dataService.Delete<SeedTrayDto>(form.Id);
+            IDeleteResponse<SeedTrayDto> response = _dataService.Delete(form.Id);
         }
     }
 }

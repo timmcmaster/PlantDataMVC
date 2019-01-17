@@ -17,7 +17,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
         public void Handle(PlantStockEntryDestroyEditModel form)
         {
-            var response = _dataService.Delete<PlantStockDto>(form.Id);
+            var response = _dataService.Delete(form.Id);
         }
     }
 }

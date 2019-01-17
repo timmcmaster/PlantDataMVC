@@ -1,4 +1,5 @@
 ﻿using Interfaces.DAL.UnitOfWork;
+using Interfaces.Service.Responses;
 using PlantDataMVC.DTO.Entities;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
@@ -12,5 +13,29 @@ namespace PlantDataMVC.WCFService.Services
         {
         }
 
+        public ICreateResponse<SiteDto> Create(SiteDto item)
+        {
+            return base.Create<SiteDto, SiteDto>(item);
+        }
+
+        public IDeleteResponse<SiteDto> Delete(int id)
+        {
+            return base.Delete<SiteDto>(id);
+        }
+
+        public IListResponse<SiteDto> List()
+        {
+            return base.List<SiteDto>();
+        }
+
+        public IUpdateResponse<SiteDto> Update(int id, SiteDto item)
+        {
+            return base.Update<SiteDto, SiteDto>(id, item);
+        }
+
+        public IViewResponse<SiteDto> View(int id)
+        {
+            return base.View<SiteDto>(id);
+        }
     }
 }

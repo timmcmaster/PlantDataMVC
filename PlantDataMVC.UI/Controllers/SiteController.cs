@@ -25,7 +25,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            var response = _dataService.List<SiteDto>();
+            var response = _dataService.List();
 
             var list = response.Items;
 
@@ -40,7 +40,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            var response = _dataService.View<SiteDto>(id);
+            var response = _dataService.View(id);
 
             var item = response.Item;
 
@@ -72,7 +72,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            var response = _dataService.View<SiteDto>(id);
+            var response = _dataService.View(id);
 
             var item = response.Item;
 
@@ -94,7 +94,7 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            var response = _dataService.View<SiteDto>(id);
+            var response = _dataService.View(id);
 
             var item = response.Item;
 
