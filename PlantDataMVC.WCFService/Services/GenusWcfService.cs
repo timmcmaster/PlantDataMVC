@@ -1,7 +1,7 @@
 ﻿using Framework.Service.Responses;
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.Service.Responses;
-using PlantDataMVC.DTO.Entities;
+using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WCFService.ServiceContracts;

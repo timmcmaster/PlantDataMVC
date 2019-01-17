@@ -1,9 +1,9 @@
-﻿using Interfaces.DTO;
-using System;
+﻿using System;
+using Interfaces.DTO;
 
-namespace PlantDataMVC.DTO.Entities
+namespace PlantDataMVC.DTO.Dtos
 {
-    public class JournalEntryDto: IDtoEntity
+    public class JournalEntryDto: IDto
     {
         public int Id { get; set; }
         public int PlantStockId { get; set; }

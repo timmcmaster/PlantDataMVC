@@ -1,6 +1,5 @@
 ﻿using Interfaces.DTO;
 using Interfaces.WCFService;
-using PlantDataMVC.DTO.Entities;
 using PlantDataMVC.WCFService.ServiceContracts;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Helpers
 {
@@ -21,7 +21,7 @@ namespace PlantDataMVC.UI.Helpers
             Expression<Func<TModel, TDtoItem>> expression,     // Selects the referenced entity from the model
             Func<TDtoItem, string> displayValueSelector,       // Selects the display field from the entity
             Func<TDtoItem, object> dataValueSelector           // Selects the value field from the entity
-            ) where TDtoItem : IDtoEntity
+            ) where TDtoItem : IDto
         {
             var expressionText = ExpressionHelper.GetExpressionText(expression);
 
@@ -56,7 +56,7 @@ namespace PlantDataMVC.UI.Helpers
         }
 
         // HACK: Still very hacky quick method to return service interface for given IEntity type
-        public static IWcfService GetServiceForDto<TDtoItem>() where TDtoItem : IDtoEntity
+        public static IWcfService GetServiceForDto<TDtoItem>() where TDtoItem : IDto
         {
             // TODO: Add all DTO types used by dropdown in here
             if (typeof(TDtoItem) == typeof(GenusDto))

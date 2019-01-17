@@ -8,8 +8,8 @@ namespace PlantDataMVC.DTO.Mappers
         public static Action<IMapperConfigurationExpression> ConfigAction 
             = new Action<IMapperConfigurationExpression>(cfg =>
         {
-            cfg.AddProfile<EFDALToDTOMappingProfile>();
-            cfg.AddProfile<EFDTOToDALMappingProfile>();
+            cfg.AddProfile<EfDalToDtoMappingProfile>();
+            cfg.AddProfile<EfDtoToDalMappingProfile>();
         });
 
 

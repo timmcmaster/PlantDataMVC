@@ -1,6 +1,6 @@
 ﻿using Framework.Web.Forms;
-using PlantDataMVC.DTO.Entities;
 using System;
+using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.EditModels
 {

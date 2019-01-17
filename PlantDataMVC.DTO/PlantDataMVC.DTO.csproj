@@ -48,20 +48,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\GenusDto.cs" />
-    <Compile Include="Entities\SpeciesDto.cs" />
-    <Compile Include="Entities\PriceListTypeDto.cs" />
-    <Compile Include="Entities\ProductPriceDto.cs" />
-    <Compile Include="Entities\ProductTypeDto.cs" />
-    <Compile Include="Entities\SeedBatchDto.cs" />
-    <Compile Include="Entities\SiteDto.cs" />
-    <Compile Include="Entities\SeedTrayDto.cs" />
-    <Compile Include="Entities\PlantStockDto.cs" />
-    <Compile Include="Entities\JournalEntryDto.cs" />
-    <Compile Include="Entities\JournalEntryTypeDto.cs" />
+    <Compile Include="Dtos\GenusDto.cs" />
+    <Compile Include="Dtos\SpeciesDto.cs" />
+    <Compile Include="Dtos\PriceListTypeDto.cs" />
+    <Compile Include="Dtos\ProductPriceDto.cs" />
+    <Compile Include="Dtos\ProductTypeDto.cs" />
+    <Compile Include="Dtos\SeedBatchDto.cs" />
+    <Compile Include="Dtos\SiteDto.cs" />
+    <Compile Include="Dtos\SeedTrayDto.cs" />
+    <Compile Include="Dtos\PlantStockDto.cs" />
+    <Compile Include="Dtos\JournalEntryDto.cs" />
+    <Compile Include="Dtos\JournalEntryTypeDto.cs" />
     <Compile Include="Mappers\AutoMapperCoreConfiguration.cs" />
-    <Compile Include="Mappers\EFDALToDTOMappingProfile.cs" />
-    <Compile Include="Mappers\EFDTOToDALMappingProfile.cs" />
+    <Compile Include="Mappers\EfDalToDtoMappingProfile.cs" />
+    <Compile Include="Mappers\EfDtoToDalMappingProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

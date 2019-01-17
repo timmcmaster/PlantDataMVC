@@ -1,6 +1,5 @@
 ﻿using Framework.Web.Forms;
 using Interfaces.Service.Responses;
-using PlantDataMVC.DTO.Entities;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.ViewModels;
@@ -8,6 +7,7 @@ using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Controllers
 {

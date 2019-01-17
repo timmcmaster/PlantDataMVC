@@ -1,9 +1,9 @@
-﻿using Interfaces.DTO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Interfaces.DTO;
 
-namespace PlantDataMVC.DTO.Entities
+namespace PlantDataMVC.DTO.Dtos
 {
-    public class PriceListTypeDto: IDtoEntity
+    public class PriceListTypeDto: IDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -1,5 +1,4 @@
 ﻿using Interfaces.WCFService;
-using PlantDataMVC.DTO.Entities;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -7,6 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using Interfaces.DTO;
 using Interfaces.Service.Responses;
+using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.WCFService.ServiceContracts
 {

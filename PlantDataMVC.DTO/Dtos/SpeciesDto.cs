@@ -1,9 +1,9 @@
-﻿using Interfaces.DTO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Interfaces.DTO;
 
-namespace PlantDataMVC.DTO.Entities
+namespace PlantDataMVC.DTO.Dtos
 {
-    public class SpeciesDto : IDtoEntity
+    public class SpeciesDto : IDto
     {
         public int Id { get; set; }
         public int GenusId { get; set; } 

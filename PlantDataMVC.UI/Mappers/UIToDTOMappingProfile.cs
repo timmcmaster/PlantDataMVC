@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PlantDataMVC.DTO.Entities;
+using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Models.EditModels;
 
 namespace PlantDataMVC.UI.Mappers

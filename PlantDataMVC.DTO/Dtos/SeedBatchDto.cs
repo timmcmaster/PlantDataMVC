@@ -1,10 +1,10 @@
-﻿using Interfaces.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Interfaces.DTO;
 
-namespace PlantDataMVC.DTO.Entities
+namespace PlantDataMVC.DTO.Dtos
 {
-    public class SeedBatchDto: IDtoEntity
+    public class SeedBatchDto: IDto
     {
         public int Id { get; set; }
         public int SpeciesId { get; set; }

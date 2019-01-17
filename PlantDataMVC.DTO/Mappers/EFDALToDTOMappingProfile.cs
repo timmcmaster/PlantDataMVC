@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using PlantDataMVC.DTO.Entities;
 using PlantDataMVC.Entities.Models;
 using System;
+using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.DTO.Mappers
 {
-    public class EFDALToDTOMappingProfile : Profile
+    public class EfDalToDtoMappingProfile : Profile
     {
-        public EFDALToDTOMappingProfile()
+        public EfDalToDtoMappingProfile()
         {
             ConfigureDALToDTO();
         }

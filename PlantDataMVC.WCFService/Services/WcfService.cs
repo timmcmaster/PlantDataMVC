@@ -31,8 +31,8 @@ namespace PlantDataMVC.WCFService.Services
 
         #region IWcfService implementation
         public virtual ICreateResponse<TDtoOut> Create<TDtoIn, TDtoOut>(TDtoIn dtoItem)
-            where TDtoIn : IDtoEntity
-            where TDtoOut : IDtoEntity
+            where TDtoIn : IDto
+            where TDtoOut : IDto
         {
             using (var uow = this.UnitOfWork)
             {
@@ -52,7 +52,7 @@ namespace PlantDataMVC.WCFService.Services
             }
         }
 
-        public virtual IViewResponse<TDtoOut> View<TDtoOut>(int id) where TDtoOut : IDtoEntity
+        public virtual IViewResponse<TDtoOut> View<TDtoOut>(int id) where TDtoOut : IDto
         {
             using (var uow = this.UnitOfWork)
             {
@@ -67,8 +67,8 @@ namespace PlantDataMVC.WCFService.Services
         }
 
         public virtual IUpdateResponse<TDtoOut> Update<TDtoIn, TDtoOut>(int id, TDtoIn item)
-            where TDtoIn : IDtoEntity
-            where TDtoOut : IDtoEntity
+            where TDtoIn : IDto
+            where TDtoOut : IDto
         {
             using (var uow = this.UnitOfWork)
             {
@@ -96,7 +96,7 @@ namespace PlantDataMVC.WCFService.Services
             }
         }
 
-        public virtual IDeleteResponse<TDtoOut> Delete<TDtoOut>(int id) where TDtoOut : IDtoEntity
+        public virtual IDeleteResponse<TDtoOut> Delete<TDtoOut>(int id) where TDtoOut : IDto
         {
             using (var uow = this.UnitOfWork)
             {
@@ -113,7 +113,7 @@ namespace PlantDataMVC.WCFService.Services
             }
         }
 
-        public virtual IListResponse<TDtoOut> List<TDtoOut>() where TDtoOut : IDtoEntity
+        public virtual IListResponse<TDtoOut> List<TDtoOut>() where TDtoOut : IDto
         {
             using (var uow = this.UnitOfWork)
             {

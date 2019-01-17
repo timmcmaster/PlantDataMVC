@@ -9,7 +9,7 @@ namespace PlantDataMVC.WCFService.ServiceContracts
     // This class has the method named GetKnownTypes that returns a generic IEnumerable.
     static class DTOHelper
     {
-        public static IEnumerable<Type> GetKnownTypes<T>(ICustomAttributeProvider provider) where T: IDtoEntity 
+        public static IEnumerable<Type> GetKnownTypes<T>(ICustomAttributeProvider provider) where T: IDto 
         {
             List<Type> knownTypes = new List<Type>();
 

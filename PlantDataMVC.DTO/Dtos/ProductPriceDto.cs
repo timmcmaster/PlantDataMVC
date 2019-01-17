@@ -1,9 +1,9 @@
-﻿using Interfaces.DTO;
-using System;
+﻿using System;
+using Interfaces.DTO;
 
-namespace PlantDataMVC.DTO.Entities
+namespace PlantDataMVC.DTO.Dtos
 {
-    public class ProductPriceDto: IDtoEntity
+    public class ProductPriceDto: IDto
     {
         public int Id { get; set; }
         public int ProductTypeId { get; set; }
