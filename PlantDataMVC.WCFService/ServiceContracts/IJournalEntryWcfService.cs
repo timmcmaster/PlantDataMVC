@@ -46,7 +46,7 @@ namespace PlantDataMVC.WCFService.ServiceContracts
     {
         public static IEnumerable<Type> GetKnownTypes(ICustomAttributeProvider provider)
         {
-            return DTOHelper.GetKnownTypes<JournalEntryDto>(provider);
+            return DtoHelper.GetKnownTypes<JournalEntryDto>(provider);
         }
     }
 }

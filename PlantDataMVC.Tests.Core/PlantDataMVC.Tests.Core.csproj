@@ -167,10 +167,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IntegrationTests\DBFixture.cs" />
+    <Compile Include="IntegrationTests\DbFixture.cs" />
     <Compile Include="IntegrationTests\IntegrationTestBase.cs" />
     <Compile Include="IntegrationTests\PlantDataServiceIntegrationTests.cs" />
-    <Compile Include="UnitTests\DomainToDALMappingFacts.cs" />
+    <Compile Include="UnitTests\DtoToDalMappingFacts.cs" />
     <Compile Include="UnitTests\Services\PlantDataServiceFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -187,17 +187,13 @@
       <Project>{96FD9436-DE5C-432A-94CB-CE5E63EE2405}</Project>
       <Name>Interfaces.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
-      <Project>{12D00995-55F2-4219-9DE4-A377E22174E5}</Project>
-      <Name>Interfaces.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
       <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>
       <Name>Interfaces.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
-      <Project>{157d351c-8da8-4a9b-b66d-20e4f49eb201}</Project>
-      <Name>PlantDataMVC.Domain</Name>
+    <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj">
+      <Project>{21BCD4E8-47A5-4ED3-A832-C9E0659B9B86}</Project>
+      <Name>PlantDataMVC.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
       <Project>{ecc2f1e2-a2ea-4390-a75c-114d56f0bd96}</Project>

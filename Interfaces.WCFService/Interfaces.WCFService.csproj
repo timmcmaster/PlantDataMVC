@@ -51,10 +51,6 @@
       <Project>{96fd9436-de5c-432a-94cb-ce5e63ee2405}</Project>
       <Name>Interfaces.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
-      <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
-      <Name>Interfaces.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Interfaces.DTO\Interfaces.DTO.csproj">
       <Project>{70f08765-902c-4ce6-9067-cfae978f0be8}</Project>
       <Name>Interfaces.DTO</Name>

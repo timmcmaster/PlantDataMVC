@@ -59,10 +59,6 @@
       <Project>{96fd9436-de5c-432a-94cb-ce5e63ee2405}</Project>
       <Name>Interfaces.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
-      <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
-      <Name>Interfaces.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,7 +7,7 @@ using System.Reflection;
 namespace PlantDataMVC.WCFService.ServiceContracts
 {
     // This class has the method named GetKnownTypes that returns a generic IEnumerable.
-    static class DTOHelper
+    static class DtoHelper
     {
         public static IEnumerable<Type> GetKnownTypes<T>(ICustomAttributeProvider provider) where T: IDto 
         {

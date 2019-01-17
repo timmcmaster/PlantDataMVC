@@ -1,21 +1,15 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading.Tasks;
+using AutoMapper;
 using Framework.DAL.EF;
-using Framework.Service.Entities;
 using Interfaces.DAL.DataContext;
 using Interfaces.DAL.UnitOfWork;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Domain.Mappers;
+using PlantDataMVC.DTO.Mappers;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Service.SimpleServiceLayer;
-using FluentAssertions;
-using System;
-using System.Threading.Tasks;
-using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
 
-
-namespace PlantDataMVC.Tests.Core
+namespace PlantDataMVC.Tests.Core.IntegrationTests
 {
     public class PlantDataServiceIntegrationTests : IntegrationTestBase, IDisposable
     {
@@ -37,68 +31,68 @@ namespace PlantDataMVC.Tests.Core
         }
 
         [Fact]
-        public async Task TestClearDB()
+        public async Task TestClearDb()
         {
             _output.WriteLine("test");
         }
 
-        [Fact]
-        public async Task TestCreatePlantWhereGenusLatinNameDoesNotExist()
-        {
-            using (IDataContextAsync dataContext = new PlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
-            {
-                // Arrange
-                // create plant 
-                var plant = PlantBuilder.aPlant().withNoId().Build();
-                //var request = new CreateRequest<Plant>(plant);
+        //[Fact]
+        //public async Task TestCreatePlantWhereGenusLatinNameDoesNotExist()
+        //{
+        //    using (IDataContextAsync dataContext = new PlantDataDbContext())
+        //    using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
+        //    {
+        //        // Arrange
+        //        // create plant 
+        //        var plant = PlantBuilder.aPlant().withNoId().Build();
+        //        //var request = new CreateRequest<Plant>(plant);
 
-                // Act
-                var serviceOne = new PlantDataService(uow);
-                var result = serviceOne.Create(plant);
+        //        // Act
+        //        var serviceOne = new PlantDataService(uow);
+        //        var result = serviceOne.Create(plant);
 
-                // Assert
-                // verify that plant is created and species ID is set
-                result.Item.Id.Should().NotBe(0);
-            }
-        }
+        //        // Assert
+        //        // verify that plant is created and species ID is set
+        //        result.Item.Id.Should().NotBe(0);
+        //    }
+        //}
 
-        [Fact]
-        public async Task TestCreatePlantWhereGenusLatinNameExists()
-        {
-            // Arrange
-            // create first plant 
-            var firstPlant = PlantBuilder.aPlant().withNoId().Build();
+        //[Fact]
+        //public async Task TestCreatePlantWhereGenusLatinNameExists()
+        //{
+        //    // Arrange
+        //    // create first plant 
+        //    var firstPlant = PlantBuilder.aPlant().withNoId().Build();
 
-            // create another plant with same genus
-            var secondPlant = PlantBuilder.aPlant().withSpecificName("curtisii").withNoId().Build();
+        //    // create another plant with same genus
+        //    var secondPlant = PlantBuilder.aPlant().withSpecificName("curtisii").withNoId().Build();
 
-            using (IDataContextAsync dataContext = new PlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
-            {
-                // add first plant
-                //var requestOne = new CreateRequest<Plant>(firstPlant);
-                var serviceOne = new PlantDataService(uow);
-                var resultOne = serviceOne.Create(firstPlant);
+        //    using (IDataContextAsync dataContext = new PlantDataDbContext())
+        //    using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
+        //    {
+        //        // add first plant
+        //        //var requestOne = new CreateRequest<Plant>(firstPlant);
+        //        var serviceOne = new PlantDataService(uow);
+        //        var resultOne = serviceOne.Create(firstPlant);
 
-                // NOTE: within Create call, we should have called uow.SaveChanges();
-            }
+        //        // NOTE: within Create call, we should have called uow.SaveChanges();
+        //    }
 
-            using (IDataContextAsync dataContext = new PlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
-            {
-                //var requestTwo = new CreateRequest<Plant>(secondPlant);
+        //    using (IDataContextAsync dataContext = new PlantDataDbContext())
+        //    using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
+        //    {
+        //        //var requestTwo = new CreateRequest<Plant>(secondPlant);
 
-                // Act
-                var target = new PlantDataService(uow);
-                var result = target.Create(secondPlant);
-                // NOTE: within Create call, we should have called uow.SaveChanges();
+        //        // Act
+        //        var target = new PlantDataService(uow);
+        //        var result = target.Create(secondPlant);
+        //        // NOTE: within Create call, we should have called uow.SaveChanges();
 
-                // Assert
-                // verify that plant is created and species ID is set
-                result.Item.Id.Should().NotBe(0);
-            }
-        }
+        //        // Assert
+        //        // verify that plant is created and species ID is set
+        //        result.Item.Id.Should().NotBe(0);
+        //    }
+        //}
 
         //[Fact]
         //public void TestCreatePlantWhereGenusLatinNameExists()

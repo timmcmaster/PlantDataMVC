@@ -109,7 +109,7 @@
     </Compile>
     <Compile Include="Mappers\AutoMapperBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceContracts\DTOHelper.cs" />
+    <Compile Include="ServiceContracts\DtoHelper.cs" />
     <Compile Include="ServiceContracts\ISeedBatchWcfService.cs" />
     <Compile Include="ServiceContracts\ISeedTrayWcfService.cs" />
     <Compile Include="ServiceContracts\IPlantStockWcfService.cs" />
