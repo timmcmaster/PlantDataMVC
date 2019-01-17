@@ -102,11 +102,13 @@ namespace PlantDataMVC.UI.Mappers
         {
             // SiteDTO
             CreateMap<SiteCreateEditModel, SiteDto>()
-                .ForMember(dto => dto.Id, opt => opt.Ignore())          // Id on create will come back from DB
+                .ForMember(dto => dto.Id, opt => opt.Ignore()) // Id on create will come back from DB
                 .ForMember(dto => dto.Latitude, opt => opt.MapFrom(uio => uio.Latitude))
                 .ForMember(dto => dto.Longitude, opt => opt.MapFrom(uio => uio.Longitude))
+                .ForMember(dto => dto.SeedBatches, opt => opt.Ignore()) // TODO: check about mapping back collection
                 .ForMember(dto => dto.SiteName, opt => opt.MapFrom(uio => uio.SiteName))
                 .ForMember(dto => dto.Suburb, opt => opt.MapFrom(uio => uio.Suburb));
+                
 
             CreateMap<SiteDestroyEditModel, SiteDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
