@@ -8,13 +8,6 @@ namespace Framework.Service.Responses
     public abstract class Response : IResponse
     {
         [DataMember]
-        public int ErrorCode { get; set; }
-
-        [DataMember]
         public ServiceActionStatus Status { get; set; }
-
-        public Response()
-        {
-        }
     }
 }

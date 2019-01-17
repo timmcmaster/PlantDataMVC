@@ -17,7 +17,7 @@ namespace PlantDataMVC.WCFService.ServiceContracts
         [OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json, UriTemplate = "Item")]
-        ICreateResponse<GenusDto> Create(GenusDto item);
+        ICreateResponse<GenusDto> Create(CreateUpdateGenusDto item);
 
         // GET: api/Plant/5
         [OperationContract]
@@ -27,7 +27,7 @@ namespace PlantDataMVC.WCFService.ServiceContracts
         // PUT: api/Plant/5
         [OperationContract]
         [WebInvoke(Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, UriTemplate = "Item?id={id}")]
-        IUpdateResponse<GenusDto> Update(int id, GenusDto item);
+        IUpdateResponse<GenusDto> Update(int id, CreateUpdateGenusDto item);
 
         // DELETE: api/Plant/5
         [OperationContract]

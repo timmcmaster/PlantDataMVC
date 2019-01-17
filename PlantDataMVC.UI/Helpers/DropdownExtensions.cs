@@ -21,7 +21,7 @@ namespace PlantDataMVC.UI.Helpers
             Expression<Func<TModel, TDtoItem>> expression,     // Selects the referenced entity from the model
             Func<TDtoItem, string> displayValueSelector,       // Selects the display field from the entity
             Func<TDtoItem, object> dataValueSelector           // Selects the value field from the entity
-            ) where TDtoItem : IDto
+            ) where TDtoItem : class, IDto
         {
             var expressionText = ExpressionHelper.GetExpressionText(expression);
 
@@ -55,7 +55,7 @@ namespace PlantDataMVC.UI.Helpers
             return htmlHelper.DropDownList(fieldName(), selectListItems, "Select an option");
         }
 
-        // HACK: Still very hacky quick method to return service interface for given IEntity type
+        // HACK: Still very hacky quick method to return service interface for given IDto type
         public static IWcfService GetServiceForDto<TDtoItem>() where TDtoItem : IDto
         {
             // TODO: Add all DTO types used by dropdown in here

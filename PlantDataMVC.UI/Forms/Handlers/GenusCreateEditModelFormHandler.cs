@@ -19,7 +19,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
         {
             // Map local model to DTO
             // TODO: Check map exists
-            var item = AutoMapper.Mapper.Map<GenusCreateEditModel, GenusDto>(form);
+            var item = AutoMapper.Mapper.Map<GenusCreateEditModel, CreateUpdateGenusDto>(form);
 
             var response = _dataService.Create(item);
         }

@@ -14,9 +14,9 @@ namespace PlantDataMVC.WCFService.Services
         {
         }
 
-        public ICreateResponse<GenusDto> Create(GenusDto item)
+        public ICreateResponse<GenusDto> Create(CreateUpdateGenusDto item)
         {
-            return base.Create<GenusDto,GenusDto>(item);
+            return base.Create<CreateUpdateGenusDto,GenusDto>(item);
         }
 
         public IDeleteResponse<GenusDto> Delete(int id)
@@ -29,9 +29,9 @@ namespace PlantDataMVC.WCFService.Services
             return base.List<GenusDto>();
         }
 
-        public IUpdateResponse<GenusDto> Update(int id, GenusDto item)
+        public IUpdateResponse<GenusDto> Update(int id, CreateUpdateGenusDto item)
         {
-            return base.Update<GenusDto, GenusDto>(id, item);
+            return base.Update<CreateUpdateGenusDto, GenusDto>(id, item);
         }
 
         public IViewResponse<GenusDto> View(int id)

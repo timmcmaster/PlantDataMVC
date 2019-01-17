@@ -21,6 +21,10 @@ namespace PlantDataMVC.DTO.Mappers
 
             // Note - default behavior for collections is to map null object to empty collection
 
+            CreateMap<CreateUpdateGenusDto, Genus>()
+                .ForMember(e => e.LatinName, opt => opt.MapFrom(dto => dto.LatinName))      // explicit and unnecessary
+                .ForAllOtherMembers(opt => opt.Ignore());
+
             CreateMap<GenusDto, Genus>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id))                    // explicit and unnecessary
                 .ForMember(e => e.LatinName, opt => opt.MapFrom(dto => dto.LatinName))      // explicit and unnecessary

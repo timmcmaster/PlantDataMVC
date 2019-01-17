@@ -30,9 +30,9 @@ namespace PlantDataMVC.WCFService.Services
         }
 
         #region IWcfService implementation
-        public virtual ICreateResponse<TDtoOut> Create<TDtoIn, TDtoOut>(TDtoIn dtoItem)
-            where TDtoIn : IDto
-            where TDtoOut : IDto
+        public virtual ICreateResponse<TDtoOut> Create<TDtoIn, TDtoOut>(TDtoIn dtoItem) 
+            where TDtoIn : class, IDto 
+            where TDtoOut : class, IDto
         {
             using (var uow = this.UnitOfWork)
             {
@@ -52,7 +52,7 @@ namespace PlantDataMVC.WCFService.Services
             }
         }
 
-        public virtual IViewResponse<TDtoOut> View<TDtoOut>(int id) where TDtoOut : IDto
+        public virtual IViewResponse<TDtoOut> View<TDtoOut>(int id) where TDtoOut : class, IDto
         {
             using (var uow = this.UnitOfWork)
             {
@@ -67,11 +67,16 @@ namespace PlantDataMVC.WCFService.Services
         }
 
         public virtual IUpdateResponse<TDtoOut> Update<TDtoIn, TDtoOut>(int id, TDtoIn item)
-            where TDtoIn : IDto
-            where TDtoOut : IDto
+            where TDtoIn : class, IDto
+            where TDtoOut : class, IDto
         {
             using (var uow = this.UnitOfWork)
             {
+                var retrievedItem = Service.GetItemById(id);
+                if (retrievedItem == null)
+                {
+                    return new UpdateResponse<TDtoOut>(null,ServiceActionStatus.Error);
+                }
                 //// Check for id matches Item.Id
                 //if (id != item.Id)
                 //{
@@ -96,7 +101,7 @@ namespace PlantDataMVC.WCFService.Services
             }
         }
 
-        public virtual IDeleteResponse<TDtoOut> Delete<TDtoOut>(int id) where TDtoOut : IDto
+        public virtual IDeleteResponse<TDtoOut> Delete<TDtoOut>(int id) where TDtoOut : class, IDto
         {
             using (var uow = this.UnitOfWork)
             {
@@ -113,7 +118,7 @@ namespace PlantDataMVC.WCFService.Services
             }
         }
 
-        public virtual IListResponse<TDtoOut> List<TDtoOut>() where TDtoOut : IDto
+        public virtual IListResponse<TDtoOut> List<TDtoOut>() where TDtoOut : class, IDto
         {
             using (var uow = this.UnitOfWork)
             {

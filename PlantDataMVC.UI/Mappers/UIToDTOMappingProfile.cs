@@ -31,10 +31,8 @@ namespace PlantDataMVC.UI.Mappers
         private void ConfigureGenusEditModels()
         {
             // Plant
-            CreateMap<GenusCreateEditModel, GenusDto>()
-                .ForMember(dto => dto.LatinName, opt => opt.MapFrom(uio => uio.LatinName))
-                .ForMember(dto => dto.Species, opt => opt.Ignore())     // TODO: check about mapping back collection
-                .ForMember(dto => dto.Id, opt => opt.Ignore());         // Id on create will come back from DB
+            CreateMap<GenusCreateEditModel, CreateUpdateGenusDto>()
+                .ForMember(dto => dto.LatinName, opt => opt.MapFrom(uio => uio.LatinName));
 
             CreateMap<GenusDestroyEditModel, GenusDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))

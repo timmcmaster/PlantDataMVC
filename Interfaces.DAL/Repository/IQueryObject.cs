@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-
 namespace Interfaces.DAL.Repository
 {
     public interface IQueryObject<TEntity>
