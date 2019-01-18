@@ -26,6 +26,11 @@ namespace PlantDataMVC.WCFService
             builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
 
             //*****************************************
+            // Register unit of work
+            // This is passed to WcfService constructors (and Repository constructors)
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
+
+            //*****************************************
             // Register repository types as open generics because they are only closed at call time
             // These are passed to Service constructors
             //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
@@ -39,11 +44,6 @@ namespace PlantDataMVC.WCFService
             builder.RegisterType<Repository<Species>>().As<IRepositoryAsync<Species>>();
             builder.RegisterType<Repository<SeedTray>>().As<IRepositoryAsync<SeedTray>>();
             builder.RegisterType<Repository<PlantStock>>().As<IRepositoryAsync<PlantStock>>();
-
-            //*****************************************
-            // Register unit of work
-            // This is passed to WcfService constructors
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
 
             //*****************************************
             // Register services wrapping repositories
