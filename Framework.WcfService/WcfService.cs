@@ -10,7 +10,7 @@ using Interfaces.WcfService.Responses;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PlantDataMVC.WCFService.Services
+namespace Framework.WcfService
 {
     /// <summary>
     /// Note: Under the current model, this makes it the caller's responsibility to ensure

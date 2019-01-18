@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using Framework.Service.Responses;
+using Framework.WcfService.Responses;
 using Framework.Web.Forms;
-using Interfaces.Service;
+using Interfaces.WcfService;
 using Moq;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Controllers;

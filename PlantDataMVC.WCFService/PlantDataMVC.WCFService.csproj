@@ -128,7 +128,6 @@
     <Compile Include="Services\GenusWcfService.cs" />
     <Compile Include="Services\SpeciesWcfService.cs" />
     <Compile Include="Services\SiteWcfService.cs" />
-    <Compile Include="Services\WcfService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,5 @@
-﻿using Interfaces.DAL.UnitOfWork;
+﻿using Framework.WcfService;
+using Interfaces.DAL.UnitOfWork;
 using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
