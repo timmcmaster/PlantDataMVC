@@ -170,6 +170,7 @@
   <ItemGroup>
     <Compile Include="IntegrationTests\DbFixture.cs" />
     <Compile Include="IntegrationTests\IntegrationTestBase.cs" />
+    <Compile Include="IntegrationTests\GenusRepositoryTests.cs" />
     <Compile Include="UnitTests\Entity\GenusFacts.cs" />
     <Compile Include="UnitTests\Entity\SiteFacts.cs" />
     <Compile Include="UnitTests\Entity\SpeciesFacts.cs" />

@@ -168,8 +168,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IntegrationTests\DbFixture.cs" />
+    <Compile Include="IntegrationTests\DbIntegrationTests.cs" />
     <Compile Include="IntegrationTests\IntegrationTestBase.cs" />
-    <Compile Include="IntegrationTests\PlantDataServiceIntegrationTests.cs" />
+    <Compile Include="IntegrationTests\GenusServiceTests.cs" />
     <Compile Include="UnitTests\DtoToDalMappingFacts.cs" />
     <Compile Include="UnitTests\Services\PlantDataServiceFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

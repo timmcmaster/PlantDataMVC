@@ -1,21 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentAssertions;
 using Framework.DAL.EF;
+using Framework.Service;
 using Interfaces.DAL.DataContext;
+using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.DTO.Mappers;
 using PlantDataMVC.Entities.Context;
+using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Service;
+using UnitTest.Utils.DAL;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace PlantDataMVC.Tests.Core.IntegrationTests
 {
-    public class PlantDataServiceIntegrationTests : IntegrationTestBase, IDisposable
+    public class GenusServiceTests : IntegrationTestBase, IDisposable
     {
         private readonly ITestOutputHelper _output;
 
-        public PlantDataServiceIntegrationTests(ITestOutputHelper output)
+        public GenusServiceTests(ITestOutputHelper output)
         {
             this._output = output;
             // Reset Mapper at end of each test
@@ -31,9 +37,51 @@ namespace PlantDataMVC.Tests.Core.IntegrationTests
         }
 
         [Fact]
-        public async Task TestClearDb()
+        public void Add_UsingUnitOfWorkRepository_ReturnsIdAfterSaveChanges()
         {
-            _output.WriteLine("test");
+            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
+            {
+                // Arrange
+                IRepositoryAsync<Genus> repository = unitOfWork.RepositoryAsync<Genus>();
+                IGenusService service = new GenusService(repository);
+
+                var requestGenus = GenusBuilder.aGenus().withNoId().Build();
+
+                // Act
+                var returnedGenus = service.Add(requestGenus);
+                int changes = unitOfWork.SaveChanges();
+
+                // Assert
+                changes.Should().BeGreaterThan(0);
+                returnedGenus.Should().NotBeNull();
+                returnedGenus.Id.Should().NotBe(0);
+                _output.WriteLine("returnedGenus.Id: {0}", returnedGenus.Id);
+            }
+        }
+
+        [Fact]
+        public void Add_UsingCreatedRepository_ReturnsIdAfterSaveChanges()
+        {
+            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
+            {
+                // Arrange
+                IRepositoryAsync<Genus> repository = new Repository<Genus>(plantDataDbContext, unitOfWork);
+                IGenusService service = new GenusService(repository);
+
+                var requestGenus = GenusBuilder.aGenus().withNoId().Build();
+
+                // Act
+                var returnedGenus = service.Add(requestGenus);
+                int changes = unitOfWork.SaveChanges();
+
+                // Assert
+                changes.Should().BeGreaterThan(0);
+                returnedGenus.Should().NotBeNull();
+                returnedGenus.Id.Should().NotBe(0);
+                _output.WriteLine("returnedGenus.Id: {0}", returnedGenus.Id);
+            }
         }
 
         //[Fact]
