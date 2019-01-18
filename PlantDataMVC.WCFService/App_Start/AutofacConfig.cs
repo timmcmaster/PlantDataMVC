@@ -1,17 +1,13 @@
 ﻿using Autofac;
-using Common.Logging;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
 using Interfaces.DAL.Repository;
-//using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
-using Interfaces.Service;
-using Interfaces.WcfService;
 using PlantDataMVC.Entities.Context;
+using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WCFService.ServiceContracts;
 using PlantDataMVC.WCFService.Services;
-using System.Reflection;
 
 namespace PlantDataMVC.WCFService
 {
@@ -24,29 +20,52 @@ namespace PlantDataMVC.WCFService
         {
             var builder = new ContainerBuilder();
 
-            // ****************************************************
-            // DAL configurations
-            // ****************************************************
+            //*****************************************
+            // Register data context
+            // This is passed to UnitOfWork constructor
             builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
 
+            //*****************************************
             // Register repository types as open generics because they are only closed at call time
-            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
+            // These are passed to Service constructors
+            //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
 
+            builder.RegisterType<Repository<Genus>>().As<IRepositoryAsync<Genus>>();
+            builder.RegisterType<Repository<JournalEntry>>().As<IRepositoryAsync<JournalEntry>>();
+            builder.RegisterType<Repository<JournalEntryType>>().As<IRepositoryAsync<JournalEntryType>>();
+            builder.RegisterType<Repository<ProductType>>().As<IRepositoryAsync<ProductType>>();
+            builder.RegisterType< Repository<SeedBatch>>().As<IRepositoryAsync<SeedBatch>>();
+            builder.RegisterType<Repository<Site>>().As<IRepositoryAsync<Site>>();
+            builder.RegisterType<Repository<Species>>().As<IRepositoryAsync<Species>>();
+            builder.RegisterType<Repository<SeedTray>>().As<IRepositoryAsync<SeedTray>>();
+            builder.RegisterType<Repository<PlantStock>>().As<IRepositoryAsync<PlantStock>>();
+
+            //*****************************************
+            // Register unit of work
+            // This is passed to WcfService constructors
             builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
 
-            // Register services wrapping repositories as (for example) IGenusService and IService<Genus>
-            var svcAssembly = Assembly.GetAssembly(typeof(GenusService));
-            builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IService<>)).AsImplementedInterfaces();
+            //*****************************************
+            // Register services wrapping repositories
+            // These are passed to WcfService constructors (though may not be necessary)
 
-            // Register your service implementations (for injection into WCF *.svc definitions)
-            //var svcAssembly = Assembly.GetAssembly(typeof(PlantDataService));
-            //builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IDataServiceBase<>));
+            //var svcAssembly = Assembly.GetAssembly(typeof(GenusService));
+            //builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IService<>)).AsImplementedInterfaces();
 
-            // Required service is now I*WcfService
-            // Register specific services for now
-            //builder.RegisterType<PlantDataService>().As<IPlantDataService>();
+            builder.RegisterType<GenusService>().As<IGenusService>();
+            builder.RegisterType<JournalEntryService>().As<IJournalEntryService>();
+            builder.RegisterType<JournalEntryTypeService>().As<IJournalEntryTypeService>();
+            builder.RegisterType<ProductTypeService>().As<IProductTypeService>();
+            builder.RegisterType<SeedBatchService>().As<ISeedBatchService>();
+            builder.RegisterType<SiteService>().As<ISiteService>();
+            builder.RegisterType<SpeciesService>().As<ISpeciesService>();
+            builder.RegisterType<SeedTrayService>().As<ISeedTrayService>();
+            builder.RegisterType<PlantStockService>().As<IPlantStockService>();
 
+
+            //*****************************************
             // Register services for WCF
+            // These are "passed" to WCF .svc files via WCF injection
             builder.RegisterType<GenusWcfService>().As<IGenusWcfService>();
             builder.RegisterType<JournalEntryWcfService>().As<IJournalEntryWcfService>();
             builder.RegisterType<JournalEntryTypeWcfService>().As<IJournalEntryTypeWcfService>();
@@ -57,12 +76,6 @@ namespace PlantDataMVC.WCFService
             builder.RegisterType<SeedTrayWcfService>().As<ISeedTrayWcfService>();
             builder.RegisterType<PlantStockWcfService>().As<IPlantStockWcfService>();
 
-            // Register singleton instance of ILog for Common.Logging
-            // TODO: This is a bit dodgy, as it doesn't allow us to use NLog rules based on logging class.
-            //builder.RegisterInstance(LogManager.GetLogger("PlantDataMVC.WCFServices")).As<ILog>();
-
-            // Set the dependency resolver. This works for both regular
-            // WCF services and REST-enabled services.
             return builder.Build();
         }
 

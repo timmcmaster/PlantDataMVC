@@ -17,6 +17,9 @@ namespace PlantDataMVC.UI
         {
             var builder = new ContainerBuilder();
 
+            // ****************************************************
+            // MVC configurations
+            // ****************************************************
             // Register your MVC controllers. (MvcApplication is the name of
             // the class in Global.asax.)
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
@@ -36,33 +39,6 @@ namespace PlantDataMVC.UI
 
             // OPTIONAL: Enable action method parameter injection (RARE).
             //builder.InjectActionInvoker();
-
-            // ****************************************************
-            // DAL configurations
-            // ****************************************************
-            //builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
-
-            //builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
-
-            // ****************************************************
-            // Core configurations
-            // ****************************************************
-
-            // Register services from PlantDataMVC.Service assembly.
-            // i.e. when running assembly in same application
-            //var svcAssembly = typeof(PlantDataService).Assembly;
-            //builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IDataServiceBase<>));
-
-            // Required service is now IPlantDataService instead of IDataServiceBase<Plant>
-            // Register specific services for now
-            //builder.RegisterType<PlantDataService>().As<IPlantDataService>();
-            //builder.RegisterType<PlantProductTypeDataService>().As<IPlantProductTypeDataService>();
-            //builder.RegisterType<PlantSeedDataService>().As<IPlantSeedDataService>();
-            //builder.RegisterType<PlantSeedSiteDataService>().As<IPlantSeedSiteDataService>();
-            //builder.RegisterType<PlantSeedTrayDataService>().As<IPlantSeedTrayDataService>();
-            //builder.RegisterType<PlantStockEntryDataService>().As<IPlantStockEntryDataService>();
-            //builder.RegisterType<PlantStockTransactionDataService>().As<IPlantStockTransactionDataService>();
-            //builder.RegisterType<PlantStockTransactionTypeDataService>().As<IPlantStockTransactionTypeDataService>();
 
             // ****************************************************
             // WCF SOAP Service configurations
