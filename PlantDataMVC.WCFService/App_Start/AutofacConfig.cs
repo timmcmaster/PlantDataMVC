@@ -34,7 +34,7 @@ namespace PlantDataMVC.WCFService
             builder.RegisterType<Repository<JournalEntry>>().As<IRepositoryAsync<JournalEntry>>();
             builder.RegisterType<Repository<JournalEntryType>>().As<IRepositoryAsync<JournalEntryType>>();
             builder.RegisterType<Repository<ProductType>>().As<IRepositoryAsync<ProductType>>();
-            builder.RegisterType< Repository<SeedBatch>>().As<IRepositoryAsync<SeedBatch>>();
+            builder.RegisterType<Repository<SeedBatch>>().As<IRepositoryAsync<SeedBatch>>();
             builder.RegisterType<Repository<Site>>().As<IRepositoryAsync<Site>>();
             builder.RegisterType<Repository<Species>>().As<IRepositoryAsync<Species>>();
             builder.RegisterType<Repository<SeedTray>>().As<IRepositoryAsync<SeedTray>>();
