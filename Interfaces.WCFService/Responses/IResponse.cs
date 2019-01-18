@@ -1,4 +1,4 @@
-﻿namespace Interfaces.Service.Responses
+﻿namespace Interfaces.WcfService.Responses
 {
     public interface IResponse
     {

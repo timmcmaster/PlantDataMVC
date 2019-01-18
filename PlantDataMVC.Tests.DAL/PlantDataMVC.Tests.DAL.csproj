@@ -168,7 +168,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IntegrationTests\DBFixture.cs" />
+    <Compile Include="IntegrationTests\DbFixture.cs" />
     <Compile Include="IntegrationTests\IntegrationTestBase.cs" />
     <Compile Include="UnitTests\Entity\GenusFacts.cs" />
     <Compile Include="UnitTests\Entity\SiteFacts.cs" />

@@ -1,5 +1,5 @@
 ﻿using Interfaces.DAL.UnitOfWork;
-using Interfaces.Service.Responses;
+using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
@@ -9,7 +9,7 @@ namespace PlantDataMVC.WCFService.Services
 {
     public class ProductTypeWcfService : WcfService<ProductType>,IProductTypeWcfService
     {
-        public ProductTypeWcfService(IUnitOfWorkAsync uow, IProductTypeService service): base (uow,service)
+        public ProductTypeWcfService(IUnitOfWorkAsync unitOfWork, IProductTypeService service): base (unitOfWork,service)
         {
         }
         public ICreateResponse<ProductTypeDto> Create(ProductTypeDto item)

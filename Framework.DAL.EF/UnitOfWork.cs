@@ -145,6 +145,7 @@ namespace Framework.DAL.EF
         public void Rollback()
         {
             _transaction.Rollback();
+            _dataContext.SyncObjectsStatePostCommit();
         }
     }
 }

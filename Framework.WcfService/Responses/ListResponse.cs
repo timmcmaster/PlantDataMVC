@@ -1,9 +1,9 @@
-﻿using Interfaces.Service;
-using Interfaces.Service.Responses;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Interfaces.WcfService;
+using Interfaces.WcfService.Responses;
 
-namespace Framework.Service.Responses
+namespace Framework.WcfService.Responses
 {
     [DataContract(Name = "ListResponseUsing{0}")]
     public class ListResponse<T> : Response, IListResponse<T>

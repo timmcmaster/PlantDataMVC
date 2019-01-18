@@ -1,5 +1,5 @@
 ﻿using Interfaces.DAL.UnitOfWork;
-using Interfaces.Service.Responses;
+using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
@@ -9,7 +9,7 @@ namespace PlantDataMVC.WCFService.Services
 {
     public class SeedBatchWcfService : WcfService<SeedBatch>,ISeedBatchWcfService
     {
-        public SeedBatchWcfService(IUnitOfWorkAsync uow, ISeedBatchService service): base (uow,service)
+        public SeedBatchWcfService(IUnitOfWorkAsync unitOfWork, ISeedBatchService service): base (unitOfWork,service)
         {
         }
 

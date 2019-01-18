@@ -1,10 +1,10 @@
-﻿using Interfaces.WCFService;
+﻿using Interfaces.WcfService;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using Interfaces.Service.Responses;
+using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.WCFService.ServiceContracts

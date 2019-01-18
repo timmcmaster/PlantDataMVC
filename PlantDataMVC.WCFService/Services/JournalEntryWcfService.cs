@@ -1,5 +1,5 @@
 ﻿using Interfaces.DAL.UnitOfWork;
-using Interfaces.Service.Responses;
+using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
@@ -9,7 +9,7 @@ namespace PlantDataMVC.WCFService.Services
 {
     public class JournalEntryWcfService : WcfService<JournalEntry>, IJournalEntryWcfService
     {
-        public JournalEntryWcfService(IUnitOfWorkAsync uow, IJournalEntryService service): base (uow,service)
+        public JournalEntryWcfService(IUnitOfWorkAsync unitOfWork, IJournalEntryService service): base (unitOfWork,service)
         {
         }
 

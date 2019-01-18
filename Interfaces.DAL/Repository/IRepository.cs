@@ -1,6 +1,5 @@
 ﻿using Interfaces.DAL.Entity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -26,13 +25,6 @@ namespace Interfaces.DAL.Repository
         /// <param name="id"></param>
         /// <returns></returns>
         TEntity GetItemById(int id);
-
-        /// <summary>
-        /// Get single item 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        //TEntity GetItemById(int id, params Expression<Func<TEntity, object>>[] includes);
 
         /// <summary>
         /// Add a single item
@@ -71,7 +63,7 @@ namespace Interfaces.DAL.Repository
         /// Return a IQueryFluent object that allows using fluent searches.
         /// Uses the provided expression as the initial query
         /// </summary>
-        /// <param name="queryObject">The query object.</param>
+        /// <param name="query">The query as a linq expression.</param>
         /// <returns></returns>
         IQueryFluent<TEntity> Query(Expression<Func<TEntity, bool>> query);
 
@@ -82,8 +74,13 @@ namespace Interfaces.DAL.Repository
         /// <returns></returns>
         IQueryable<TEntity> Queryable();
 
-        // Function to get repositories for other entity types via unitofwork
-        //IRepository<T> GetRepository<T>() where T : class, IEntity;
+        
+        /// <summary>
+        /// Function to get repositories for other entity types via UnitOfWork
+        /// </summary>
+        /// <typeparam name="TOtherEntity">The type of the other entity.</typeparam>
+        /// <returns></returns>
+        IRepository<TOtherEntity> GetRepository<TOtherEntity>() where TOtherEntity : class, IEntity;
 
     }
 }

@@ -1,8 +1,8 @@
-﻿using Interfaces.Service;
-using Interfaces.Service.Responses;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using Interfaces.WcfService;
+using Interfaces.WcfService.Responses;
 
-namespace Framework.Service.Responses
+namespace Framework.WcfService.Responses
 {
     [DataContract]
     public abstract class Response : IResponse

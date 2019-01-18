@@ -1,4 +1,4 @@
-﻿namespace Interfaces.Service
+﻿namespace Interfaces.WcfService
 {
     public enum ServiceActionStatus
     {

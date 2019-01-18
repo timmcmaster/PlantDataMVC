@@ -1,8 +1,8 @@
-﻿using Framework.Service.Responses;
-using Interfaces.DTO;
+﻿using Interfaces.DTO;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Framework.WcfService.Responses;
 
 namespace PlantDataMVC.WCFService.ServiceContracts
 {

@@ -1,7 +1,7 @@
 ﻿using Interfaces.DTO;
-using Interfaces.Service.Responses;
+using Interfaces.WcfService.Responses;
 
-namespace Interfaces.WCFService
+namespace Interfaces.WcfService
 {
     public interface IWcfService
     {

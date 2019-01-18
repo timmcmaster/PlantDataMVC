@@ -1,5 +1,5 @@
 ﻿using Interfaces.DTO;
-using Interfaces.WCFService;
+using Interfaces.WcfService;
 using PlantDataMVC.WCFService.ServiceContracts;
 using System;
 using System.Collections.Generic;

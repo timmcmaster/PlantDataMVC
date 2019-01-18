@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Framework.Service.Responses;
+using Framework.WcfService.Responses;
 using Interfaces.DAL.Entity;
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.DTO;
 using Interfaces.Service;
-using Interfaces.Service.Responses;
-using Interfaces.WCFService;
+using Interfaces.WcfService;
+using Interfaces.WcfService.Responses;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,15 +17,15 @@ namespace PlantDataMVC.WCFService.Services
     /// that mappings exist between DTO types supplied to method and entity type defined by service 
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <seealso cref="Interfaces.WCFService.IWcfService" />
+    /// <seealso cref="Interfaces.WcfService.IWcfService" />
     public abstract class WcfService<TEntity> : IWcfService where TEntity : IEntity
     {
         protected IService<TEntity> Service { get; set; }
         protected IUnitOfWorkAsync UnitOfWork { get; set; }
 
-        public WcfService(IUnitOfWorkAsync uow, IService<TEntity> service)
+        public WcfService(IUnitOfWorkAsync unitOfWork, IService<TEntity> service)
         {
-            this.UnitOfWork = uow;
+            this.UnitOfWork = unitOfWork;
             this.Service = service;
         }
 
@@ -34,7 +34,7 @@ namespace PlantDataMVC.WCFService.Services
             where TDtoIn : class, IDto 
             where TDtoOut : class, IDto
         {
-            using (var uow = this.UnitOfWork)
+            using (var unitOfWork = this.UnitOfWork)
             {
                 // map 
                 TEntity mappedItem = Mapper.Map<TDtoIn, TEntity>(dtoItem);
@@ -42,7 +42,7 @@ namespace PlantDataMVC.WCFService.Services
                 TEntity item = Service.Add(mappedItem);
 
                 // Save changes before we map back
-                var changes = uow.SaveChanges();
+                var changes = unitOfWork.SaveChanges();
 
                 ServiceActionStatus status = changes > 0 ? ServiceActionStatus.Created : ServiceActionStatus.NothingModified;
 
@@ -54,7 +54,7 @@ namespace PlantDataMVC.WCFService.Services
 
         public virtual IViewResponse<TDtoOut> View<TDtoOut>(int id) where TDtoOut : class, IDto
         {
-            using (var uow = this.UnitOfWork)
+            using (var unitOfWork = this.UnitOfWork)
             {
                 TEntity item = Service.GetItemById(id);
 
@@ -70,7 +70,7 @@ namespace PlantDataMVC.WCFService.Services
             where TDtoIn : class, IDto
             where TDtoOut : class, IDto
         {
-            using (var uow = this.UnitOfWork)
+            using (var unitOfWork = this.UnitOfWork)
             {
                 var retrievedItem = Service.GetItemById(id);
                 if (retrievedItem == null)
@@ -91,7 +91,7 @@ namespace PlantDataMVC.WCFService.Services
                 TEntity updateditem = Service.Save(mappedItem);
 
                 // Save changes before we map back
-                var changes = uow.SaveChanges();
+                var changes = unitOfWork.SaveChanges();
 
                 ServiceActionStatus status = changes > 0 ? ServiceActionStatus.Updated : ServiceActionStatus.NothingModified;
 
@@ -103,14 +103,14 @@ namespace PlantDataMVC.WCFService.Services
 
         public virtual IDeleteResponse<TDtoOut> Delete<TDtoOut>(int id) where TDtoOut : class, IDto
         {
-            using (var uow = this.UnitOfWork)
+            using (var unitOfWork = this.UnitOfWork)
             {
                 var foundItem = Service.GetItemById(id);
                 if (foundItem != null)
                 {
                     Service.Delete(foundItem);
 
-                    uow.SaveChanges();
+                    unitOfWork.SaveChanges();
                     return new DeleteResponse<TDtoOut>(ServiceActionStatus.Deleted);
 
                 }
@@ -120,7 +120,7 @@ namespace PlantDataMVC.WCFService.Services
 
         public virtual IListResponse<TDtoOut> List<TDtoOut>() where TDtoOut : class, IDto
         {
-            using (var uow = this.UnitOfWork)
+            using (var unitOfWork = this.UnitOfWork)
             {
                 var context = Service.Queryable();
 

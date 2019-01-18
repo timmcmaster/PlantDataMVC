@@ -1,6 +1,6 @@
 ﻿using Framework.Web.Forms;
-using Interfaces.Service;
-using Interfaces.Service.Responses;
+using Interfaces.WcfService;
+using Interfaces.WcfService.Responses;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.WCFService.ServiceContracts;
 

@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Tests.DAL.IntegrationTests
 {
-    public class DBFixture
+    public class DbFixture
     {
         private static readonly string _connectionString;
         private static readonly Checkpoint _checkpoint;
 
-        static DBFixture()
+        static DbFixture()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["PlantDataDbContext"].ConnectionString;
             _checkpoint = new Checkpoint()

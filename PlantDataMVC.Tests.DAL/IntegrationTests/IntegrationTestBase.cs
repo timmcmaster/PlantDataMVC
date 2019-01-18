@@ -28,7 +28,7 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
                 if (_initialized)
                     return;
 
-                await DBFixture.ResetCheckpoint();
+                await DbFixture.ResetCheckpoint();
 
                 _initialized = true;
             }

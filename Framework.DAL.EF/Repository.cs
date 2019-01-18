@@ -10,6 +10,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Interfaces.DAL.UnitOfWork;
 
 namespace Framework.DAL.EF
 {
@@ -23,14 +24,12 @@ namespace Framework.DAL.EF
     {
         private IDataContextAsync _context;
         private IDbSet<TEntity> _dbSet;
-        //private IUnitOfWorkAsync _unitOfWork;
+        private IUnitOfWorkAsync _unitOfWork;
 
-        //public Repository(IDataContextAsync context, IUnitOfWorkAsync unitOfWork)
-        public Repository(IDataContextAsync context)
-            : base()
+        public Repository(IDataContextAsync context, IUnitOfWorkAsync unitOfWork)
         {
             _context = context;
-            //_unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
 
             // HACK: Feels dodgy to need to know which context type it is here
             // I suspect it is here because Set is an EF concept, not generic, hence not in interface 
@@ -112,6 +111,11 @@ namespace Framework.DAL.EF
         public IQueryable<TEntity> Queryable()
         {
             return _dbSet;
+        }
+
+        public IRepository<TOtherEntity> GetRepository<TOtherEntity>() where TOtherEntity : class, IEntity
+        {
+            return _unitOfWork.Repository<TOtherEntity>();
         }
 
         public IQueryFluent<TEntity> Query()

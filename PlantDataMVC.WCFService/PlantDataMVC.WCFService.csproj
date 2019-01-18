@@ -165,6 +165,10 @@
       <Project>{FB582D72-F66A-4153-BB91-A4F339ED1795}</Project>
       <Name>Framework.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Framework.WcfService\Framework.WcfService.csproj">
+      <Project>{8654CD37-2183-4CDA-AE73-6D3415EB6D55}</Project>
+      <Name>Framework.WcfService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
       <Project>{96FD9436-DE5C-432A-94CB-CE5E63EE2405}</Project>
       <Name>Interfaces.DAL</Name>

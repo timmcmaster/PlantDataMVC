@@ -6,7 +6,7 @@ using Interfaces.DAL.Repository;
 //using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.Service;
-using Interfaces.WCFService;
+using Interfaces.WcfService;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Service;
 using PlantDataMVC.WCFService.ServiceContracts;

@@ -1,5 +1,5 @@
 ﻿using Framework.Web.Forms;
-using Interfaces.Service.Responses;
+using Interfaces.WcfService.Responses;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.ViewModels;
