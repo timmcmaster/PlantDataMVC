@@ -1,18 +1,16 @@
-﻿using Interfaces.WcfService;
+﻿using Interfaces.WcfService.Responses;
+using PlantDataMVC.DTO.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using Interfaces.DTO;
-using Interfaces.WcfService.Responses;
-using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.WCFService.ServiceContracts
 {
-    [ServiceKnownType("GetKnownTypes", typeof(ProductTypeDTODSHelper))]
+    [ServiceKnownType("GetKnownTypes", typeof(ProductTypeDtoDsHelper))]
     [ServiceContract]
-    public interface IProductTypeWcfService //: IWcfService
+    public interface IProductTypeWcfService
     {
         // POST: api/Plant
         [OperationContract]
@@ -42,7 +40,7 @@ namespace PlantDataMVC.WCFService.ServiceContracts
     }
 
     // This class has the method named GetKnownTypes that returns a generic IEnumerable.
-    static class ProductTypeDTODSHelper
+    static class ProductTypeDtoDsHelper
     {
         public static IEnumerable<Type> GetKnownTypes(ICustomAttributeProvider provider)
         {

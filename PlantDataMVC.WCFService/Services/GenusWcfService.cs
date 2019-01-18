@@ -3,14 +3,14 @@ using Interfaces.DAL.UnitOfWork;
 using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
-using PlantDataMVC.Service;
 using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.WCFService.Services
 {
     public class GenusWcfService : WcfService<Genus>, IGenusWcfService
     {
-        public GenusWcfService(IUnitOfWorkAsync unitOfWork, IGenusService service) : base(unitOfWork, service)
+        ///public GenusWcfService(IUnitOfWorkAsync unitOfWork, IGenusService service) : base(unitOfWork, service)
+        public GenusWcfService(IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
         {
         }
 

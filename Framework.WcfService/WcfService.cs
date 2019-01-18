@@ -4,7 +4,6 @@ using Framework.WcfService.Responses;
 using Interfaces.DAL.Entity;
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.DTO;
-using Interfaces.Service;
 using Interfaces.WcfService;
 using Interfaces.WcfService.Responses;
 using System.Collections.Generic;
@@ -18,15 +17,13 @@ namespace Framework.WcfService
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <seealso cref="Interfaces.WcfService.IWcfService" />
-    public abstract class WcfService<TEntity> : IWcfService where TEntity : IEntity
+    public abstract class WcfService<TEntity> : IWcfService where TEntity : class, IEntity
     {
-        protected IService<TEntity> Service { get; set; }
         protected IUnitOfWorkAsync UnitOfWork { get; set; }
 
-        public WcfService(IUnitOfWorkAsync unitOfWork, IService<TEntity> service)
+        public WcfService(IUnitOfWorkAsync unitOfWork)
         {
             this.UnitOfWork = unitOfWork;
-            this.Service = service;
         }
 
         #region IWcfService implementation
@@ -39,7 +36,8 @@ namespace Framework.WcfService
                 // map 
                 TEntity mappedItem = Mapper.Map<TDtoIn, TEntity>(dtoItem);
 
-                TEntity item = Service.Add(mappedItem);
+                var repository = unitOfWork.RepositoryAsync<TEntity>();
+                TEntity item = repository.Add(mappedItem);
 
                 // Save changes before we map back
                 var changes = unitOfWork.SaveChanges();
@@ -56,7 +54,8 @@ namespace Framework.WcfService
         {
             using (var unitOfWork = this.UnitOfWork)
             {
-                TEntity item = Service.GetItemById(id);
+                var repository = unitOfWork.RepositoryAsync<TEntity>();
+                TEntity item = repository.GetItemById(id);
 
                 ServiceActionStatus status = item == null ? ServiceActionStatus.NotFound : ServiceActionStatus.Ok;
 
@@ -72,7 +71,9 @@ namespace Framework.WcfService
         {
             using (var unitOfWork = this.UnitOfWork)
             {
-                var retrievedItem = Service.GetItemById(id);
+                var repository = unitOfWork.RepositoryAsync<TEntity>();
+                TEntity retrievedItem = repository.GetItemById(id);
+
                 if (retrievedItem == null)
                 {
                     return new UpdateResponse<TDtoOut>(null,ServiceActionStatus.Error);
@@ -88,14 +89,14 @@ namespace Framework.WcfService
                 // map 
                 TEntity mappedItem = Mapper.Map<TDtoIn, TEntity>(item);
 
-                TEntity updateditem = Service.Save(mappedItem);
+                TEntity updatedItem = repository.Save(mappedItem);
 
                 // Save changes before we map back
                 var changes = unitOfWork.SaveChanges();
 
                 ServiceActionStatus status = changes > 0 ? ServiceActionStatus.Updated : ServiceActionStatus.NothingModified;
 
-                TDtoOut finalItem = Mapper.Map<TEntity, TDtoOut>(updateditem);
+                TDtoOut finalItem = Mapper.Map<TEntity, TDtoOut>(updatedItem);
 
                 return new UpdateResponse<TDtoOut>(finalItem, status);
             }
@@ -105,14 +106,15 @@ namespace Framework.WcfService
         {
             using (var unitOfWork = this.UnitOfWork)
             {
-                var foundItem = Service.GetItemById(id);
+                var repository = unitOfWork.RepositoryAsync<TEntity>();
+
+                var foundItem = repository.GetItemById(id);
                 if (foundItem != null)
                 {
-                    Service.Delete(foundItem);
-
+                    repository.Delete(foundItem);
                     unitOfWork.SaveChanges();
-                    return new DeleteResponse<TDtoOut>(ServiceActionStatus.Deleted);
 
+                    return new DeleteResponse<TDtoOut>(ServiceActionStatus.Deleted);
                 }
                 return new DeleteResponse<TDtoOut>(ServiceActionStatus.NotFound);
             }
@@ -122,7 +124,8 @@ namespace Framework.WcfService
         {
             using (var unitOfWork = this.UnitOfWork)
             {
-                var context = Service.Queryable();
+                var repository = unitOfWork.RepositoryAsync<TEntity>();
+                var context = repository.Queryable();
 
                 IList<TDtoOut> itemList = context.ProjectTo<TDtoOut>().ToList();
 

@@ -44,10 +44,7 @@ namespace PlantDataMVC.WCFService.Tests.IntegrationTests
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
-                IRepositoryAsync<Genus> genusRepository = unitOfWork.RepositoryAsync<Genus>();
-                IGenusService service = new GenusService(genusRepository);
-
-                IGenusWcfService wcfService = new GenusWcfService(unitOfWork, service);
+                IGenusWcfService wcfService = new GenusWcfService(unitOfWork);
 
                 var requestDto = new CreateUpdateGenusDto() {LatinName = "Aaaaaaaaaaa"};
 
@@ -72,10 +69,7 @@ namespace PlantDataMVC.WCFService.Tests.IntegrationTests
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
-                IRepositoryAsync<Genus> genusRepository = new Repository<Genus>(plantDataDbContext, unitOfWork);
-                IGenusService service = new GenusService(genusRepository);
-
-                IGenusWcfService wcfService = new GenusWcfService(unitOfWork, service);
+                IGenusWcfService wcfService = new GenusWcfService(unitOfWork);
 
                 var requestDto = new CreateUpdateGenusDto() { LatinName = "Aaaaaaaaaaa" };
 

@@ -1,18 +1,16 @@
-﻿using Interfaces.WcfService;
+﻿using Interfaces.WcfService.Responses;
+using PlantDataMVC.DTO.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using Interfaces.DTO;
-using Interfaces.WcfService.Responses;
-using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.WCFService.ServiceContracts
 {
     [ServiceKnownType("GetKnownTypes", typeof(SeedBatchDtoDsHelper))]
     [ServiceContract]
-    public interface ISeedBatchWcfService //: IWcfService
+    public interface ISeedBatchWcfService
     {
         // POST: api/Plant
         [OperationContract]
