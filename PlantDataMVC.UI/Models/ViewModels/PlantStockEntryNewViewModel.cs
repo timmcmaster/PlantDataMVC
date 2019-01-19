@@ -1,15 +1,15 @@
-﻿using PlantDataMVC.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using PlantDataMVC.DTO.Dtos;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.ViewModels
 {
     public class PlantStockEntryNewViewModel
     {
         [Display(Name = "Species Name")]
-        public Plant PlantSpecies { get; set; }
+        public SpeciesDto PlantSpecies { get; set; }
 
         [Display(Name = "Product Type")]
-        public PlantProductType ProductType { get; set; }
+        public ProductTypeDto ProductType { get; set; }
 
         [Display(Name = "Quantity In Stock"), Editable(false)]
         public int QuantityInStock { get; set; }
@@ -17,8 +17,8 @@ namespace PlantDataMVC.UI.Models
 
         public PlantStockEntryNewViewModel()
         {
-            this.PlantSpecies = new Plant();
-            this.ProductType = new PlantProductType();
+            this.PlantSpecies = new SpeciesDto();
+            this.ProductType = new ProductTypeDto();
         }
     }
 }

@@ -13,5 +13,10 @@ namespace PlantDataMVC.Repository.Repositories
         {
             return repository.Queryable().FirstOrDefault(p => p.LatinName == latinName);
         }
+
+        public static Genus GetItemWithAllSpecies(this IRepository<Genus> repository, int id)
+        {
+            return repository.Query(g => g.Id == id).Include(g => g.Species).Select().SingleOrDefault();
+        }
     }
 }

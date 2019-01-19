@@ -1,29 +1,22 @@
-﻿using Framework.Service.Entities;
-using Framework.Web.Forms;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Service.ServiceContracts;
-using PlantDataMVC.UI.Models;
+﻿using Framework.Web.Forms;
+using Interfaces.WcfService.Responses;
+using PlantDataMVC.UI.Models.EditModels;
+using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantSeedDestroyEditModelFormHandler : IFormHandler<PlantSeedDestroyEditModel>
     {
-        private IPlantSeedDataService _dataService;
+        private ISeedBatchWcfService _dataService;
 
-        public PlantSeedDestroyEditModelFormHandler(IPlantSeedDataService dataService)
+        public PlantSeedDestroyEditModelFormHandler(ISeedBatchWcfService dataService)
         {
             _dataService = dataService;
         }
 
         public void Handle(PlantSeedDestroyEditModel form)
         {
-            // Map local model to business object
-            PlantSeed item = AutoMapper.Mapper.Map<PlantSeedDestroyEditModel, PlantSeed>(form);
-
-            //DeleteRequest<PlantSeed> request = new DeleteRequest<PlantSeed>(item.Id);
-
-            IDeleteResponse<PlantSeed> response = _dataService.Delete(item.Id);
+            var response = _dataService.Delete(form.Id);
         }
     }
 }

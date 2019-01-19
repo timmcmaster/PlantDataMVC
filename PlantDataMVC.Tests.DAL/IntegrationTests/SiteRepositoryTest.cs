@@ -21,18 +21,18 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
         }
 
         [Fact]
-        public void CanCreateSiteAndReturnIdentity_withsavechanges()
+        public void CanCreateSiteAndReturnIdentityWithSaveChanges()
         {
-            using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
                 var requestSite = SiteBuilder.aSite().withNoId().Build();
-                var repository = uow.Repository<Site>();
+                var repository = unitOfWork.Repository<Site>();
 
                 // Act
                 var returnedSite = repository.Add(requestSite);
-                uow.SaveChanges();
+                unitOfWork.SaveChanges();
 
                 // Assert
                 returnedSite.Should().NotBeNull();
@@ -49,24 +49,24 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
             var siteLongitude = 1.12345m;
 
             // Add a site so that we can update it
-            using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 var requestSite = SiteBuilder.aSite().withNoId().Build();
-                var repository = uow.Repository<Site>();
+                var repository = unitOfWork.Repository<Site>();
 
                 // Act
                 var returnedSite = repository.Add(requestSite);
-                uow.SaveChanges();
+                unitOfWork.SaveChanges();
 
                 addedSiteId = returnedSite.Id;
             }
 
-            using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
-                var repository = uow.Repository<Site>();
+                var repository = unitOfWork.Repository<Site>();
                 var site = repository.GetItemById(addedSiteId);
 
                 // Act
@@ -76,7 +76,7 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
                 try
                 {
                     var updatedSite = repository.Save(site);
-                    uow.SaveChanges();
+                    unitOfWork.SaveChanges();
                 }
                 catch (DbEntityValidationException ex)
                 {
@@ -101,25 +101,25 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
             var siteLongitude = 1.12345m;
 
             // Add a site so that we can update it
-            using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 var requestSite = SiteBuilder.aSite().withNoId().Build();
-                var repository = uow.Repository<Site>();
+                var repository = unitOfWork.Repository<Site>();
 
                 // Act
                 var returnedSite = repository.Add(requestSite);
-                uow.SaveChanges();
+                unitOfWork.SaveChanges();
 
                 addedSiteId = returnedSite.Id;
             }
 
             // Update with one context
-            using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
-                var repository = uow.Repository<Site>();
+                var repository = unitOfWork.Repository<Site>();
                 var site = repository.GetItemById(addedSiteId);
 
                 // Act
@@ -129,7 +129,7 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
                 try
                 {
                     var updatedSite = repository.Save(site);
-                    uow.SaveChanges();
+                    unitOfWork.SaveChanges();
                 }
                 catch (DbEntityValidationException ex)
                 {
@@ -137,10 +137,10 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
             }
 
             // Retrieve with another
-            using (IDataContextAsync plantDataDBContext = new PlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataDBContext))
+            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
-                var repository = uow.Repository<Site>();
+                var repository = unitOfWork.Repository<Site>();
                 var retrievedSite = repository.GetItemById(addedSiteId);
 
                 // Assert

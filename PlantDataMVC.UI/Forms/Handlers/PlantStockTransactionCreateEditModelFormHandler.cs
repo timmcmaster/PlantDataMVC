@@ -1,29 +1,27 @@
-﻿using Framework.Service.Entities;
-using Framework.Web.Forms;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Service.ServiceContracts;
-using PlantDataMVC.UI.Models;
+﻿using Framework.Web.Forms;
+using Interfaces.WcfService.Responses;
+using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Models.EditModels;
+using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantStockTransactionCreateEditModelFormHandler : IFormHandler<PlantStockTransactionCreateEditModel>
     {
-        private IPlantStockTransactionDataService _dataService;
+        private IJournalEntryWcfService _dataService;
 
-        public PlantStockTransactionCreateEditModelFormHandler(IPlantStockTransactionDataService dataService)
+        public PlantStockTransactionCreateEditModelFormHandler(IJournalEntryWcfService dataService)
         {
             _dataService = dataService;
         }
 
         public void Handle(PlantStockTransactionCreateEditModel form)
         {
-            // Map local model to business object
-            PlantStockTransaction item = AutoMapper.Mapper.Map<PlantStockTransactionCreateEditModel, PlantStockTransaction>(form);
+            // Map local model to DTO
+            // TODO: Check map exists
+            var item = AutoMapper.Mapper.Map<PlantStockTransactionCreateEditModel, JournalEntryDto>(form);
 
-            //CreateRequest<PlantStockTransaction> request = new CreateRequest<PlantStockTransaction>(item);
-
-            ICreateResponse<PlantStockTransaction> response = _dataService.Create(item);
+            var response = _dataService.Create(item);
         }
     }
 }

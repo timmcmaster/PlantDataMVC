@@ -17,26 +17,26 @@ namespace PlantDataMVC.Tests.DAL
         public void CanGetTransactionTotalForStockId()
         {
             using (IDataContextAsync plantDataFakeDBContext = new FakePlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDBContext))
             {
                 // Arrange
                 // Add genus and species
                 var genus = GenusBuilder.aGenus().withLatinName("Acacia").withId().Build();
-                var addedGenus = uow.Repository<Genus>().Add(genus);
+                var addedGenus = unitOfWork.Repository<Genus>().Add(genus);
                 var species = SpeciesBuilder
                                 .aSpecies()
                                 .withGenus(genus)
                                 .withSpecificName("macradenia")
                                 .withId()
                                 .Build();
-                var addedSpecies = uow.Repository<Species>().Add(species);
+                var addedSpecies = unitOfWork.Repository<Species>().Add(species);
 
                 // Add product type and stock record
                 var productType = ProductTypeBuilder
                                     .aProductType()
                                     .withId()
                                     .Build();
-                var addedProductType = uow.Repository<ProductType>().Add(productType);
+                var addedProductType = unitOfWork.Repository<ProductType>().Add(productType);
                 var plantStock = PlantStockBuilder
                                     .aStockItem()
                                     .withId()
@@ -44,7 +44,7 @@ namespace PlantDataMVC.Tests.DAL
                                     .withSpecies(addedSpecies)
                                     .withQuantity(0)
                                     .Build();
-                var addedStock = uow.Repository<PlantStock>().Add(plantStock);
+                var addedStock = unitOfWork.Repository<PlantStock>().Add(plantStock);
 
                 // Add transaction types
                 var jeTypeAdd = JournalEntryTypeBuilder
@@ -53,14 +53,14 @@ namespace PlantDataMVC.Tests.DAL
                                 .withName("Gift received")
                                 .withEffect(1)
                                 .Build();
-                var addedTypeAdd = uow.Repository<JournalEntryType>().Add(jeTypeAdd);
+                var addedTypeAdd = unitOfWork.Repository<JournalEntryType>().Add(jeTypeAdd);
                 var jeTypeSale = JournalEntryTypeBuilder
                                 .aJournalEntryType()
                                 .withId()
                                 .withName("Plant sold")
                                 .withEffect(-1)
                                 .Build();
-                var addedTypeSale = uow.Repository<JournalEntryType>().Add(jeTypeSale);
+                var addedTypeSale = unitOfWork.Repository<JournalEntryType>().Add(jeTypeSale);
 
                 // Add transactions
                 var add27Plants5DaysAgo = JournalEntryBuilder
@@ -88,7 +88,7 @@ namespace PlantDataMVC.Tests.DAL
                                     .withQuantity(7)
                                     .Build();
 
-                var jnlEntryRepository = uow.Repository<JournalEntry>();
+                var jnlEntryRepository = unitOfWork.Repository<JournalEntry>();
                 jnlEntryRepository.Add(add27Plants5DaysAgo);
                 jnlEntryRepository.Add(sell12Plants2DaysAgo);
                 jnlEntryRepository.Add(sell7PlantsToday);

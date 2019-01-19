@@ -1,5 +1,4 @@
-﻿using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Entities.Models;
+﻿using PlantDataMVC.Entities.Models;
 using UnitTest.Utils.Common;
 
 namespace UnitTest.Utils.DAL

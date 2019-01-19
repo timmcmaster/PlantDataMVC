@@ -6,6 +6,7 @@ using Interfaces.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,8 +20,9 @@ namespace Framework.DAL.EF
     {
         #region Variables
 
-        private bool _disposed = false;
         private IDataContextAsync _dataContext;
+        private bool _disposed = false;
+        private ObjectContext _objectContext;
         private IDbTransaction _transaction;
         private Dictionary<string, dynamic> _repositories;
 
@@ -53,7 +55,23 @@ namespace Framework.DAL.EF
             {
                 if (disposing)
                 {
-                    _dataContext.Dispose();
+                    try
+                    {
+                        if (_objectContext != null && _objectContext.Connection.State == ConnectionState.Open)
+                        {
+                            _objectContext.Connection.Close();
+                        }
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        // do nothing, the objectContext has already been disposed
+                    }
+
+                    if (_dataContext != null)
+                    {
+                        _dataContext.Dispose();
+                        _dataContext = null;
+                    }
                 }
             }
             this._disposed = true;
@@ -102,9 +120,8 @@ namespace Framework.DAL.EF
             // 3. Create new one, add to dictionary and return instance
             var repositoryType = typeof(Repository<>);
 
-            //_repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext, this));
-            _repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext));
-
+            _repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext, this));
+            
             return _repositories[type];
         }
 
@@ -127,6 +144,7 @@ namespace Framework.DAL.EF
         public void Rollback()
         {
             _transaction.Rollback();
+            _dataContext.SyncObjectsStatePostCommit();
         }
     }
 }

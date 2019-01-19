@@ -44,26 +44,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataServiceBase.cs" />
-    <Compile Include="Entities\Responses\CreateResponse.cs" />
-    <Compile Include="Entities\Responses\DeleteResponse.cs" />
-    <Compile Include="Entities\Responses\ListResponse.cs" />
-    <Compile Include="Entities\Responses\Response.cs" />
-    <Compile Include="Entities\Responses\UpdateResponse.cs" />
-    <Compile Include="Entities\Responses\ViewResponse.cs" />
+    <Compile Include="Service.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
       <Project>{96fd9436-de5c-432a-94cb-ce5e63ee2405}</Project>
       <Name>Interfaces.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
-      <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
-      <Name>Interfaces.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
       <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>
       <Name>Interfaces.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces.WCFService\Interfaces.WcfService.csproj">
+      <Project>{F41337B3-BC5A-4E28-9DD0-6296DF9C6203}</Project>
+      <Name>Interfaces.WcfService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

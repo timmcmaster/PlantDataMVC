@@ -1,0 +1,27 @@
+﻿@model PlantDataMVC.UI.Models.ViewModels.GenusShowViewModel
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+<fieldset>
+    <legend>Genus</legend>
+
+    @Html.DisplayForModel()
+
+    @*<div class="display-label">@Html.LabelFor(model => model.Seeds)</div>
+    <div class="child-table">@Html.Partial("SeedListTable", Model.Seeds)</div>
+    <div class="button">@Html.ActionLink("New", "New", "Seed", new { speciesId = Model.Id }, null)</div>*@
+    @*<p></p>*@
+    @*<div class="display-label">@Html.LabelFor(model => model.Stock)</div>
+    <div class="child-table">@Html.Partial("PlantStockListTable", Model.Stock)</div>
+    <div class="button">@Html.ActionLink("New", "New", "PlantStock", new { speciesId = Model.Id }, null)</div>*@
+</fieldset>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to Index", "Index")
+</p>
+

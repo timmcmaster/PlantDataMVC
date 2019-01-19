@@ -2,7 +2,7 @@
 using PlantDataMVC.UI.Forms;
 using System;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.EditModels
 {
     public class TrayCreateEditModel : IForm
     {

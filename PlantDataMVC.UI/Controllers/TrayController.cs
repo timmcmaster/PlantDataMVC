@@ -1,21 +1,21 @@
-﻿using Framework.Service.Entities;
-using Framework.Web.Forms;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
+﻿using Framework.Web.Forms;
+using Interfaces.WcfService.Responses;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
-using PlantDataMVC.UI.Models;
+using PlantDataMVC.UI.Models.ViewModels;
+using PlantDataMVC.UI.Models.EditModels;
+using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using PlantDataMVC.Service.ServiceContracts;
+using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class TrayController : DefaultController
     {
-        private IPlantSeedTrayDataService _dataService;
+        private ISeedTrayWcfService _dataService;
 
-        public TrayController(IPlantSeedTrayDataService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public TrayController(ISeedTrayWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service
             _dataService = dataService;
@@ -25,10 +25,11 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            IListResponse<PlantSeedTray> response = _dataService.List();
+            var response = _dataService.List();
 
-            IList<PlantSeedTray> list = response.Items;
+            var list = response.Items;
 
+            // TODO: check to ensure these DTOs map to view model
             AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<TrayListViewModel>>(View(list));
 
             return ListView<TrayListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
@@ -39,10 +40,11 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            IViewResponse<PlantSeedTray> response = _dataService.View(id);
+            var response = _dataService.View(id);
 
-            PlantSeedTray item = response.Item;
+            var item = response.Item;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<TrayShowViewModel>(View(item));
         }
 
@@ -50,8 +52,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            PlantSeedTray item = new PlantSeedTray();
+            var item = new SeedTrayDto();
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<TrayNewViewModel>(View(item));
         }
 
@@ -63,9 +66,10 @@ namespace PlantDataMVC.UI.Controllers
         [RequireRequestValue("seedBatchId")]
         public ActionResult New(int seedBatchId)
         {
-            PlantSeedTray item = new PlantSeedTray();
+            var item = new SeedTrayDto();
             item.SeedBatchId = (int)seedBatchId;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<TrayNewViewModel>(View(item));
         }
 
@@ -83,10 +87,11 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            IViewResponse<PlantSeedTray> response = _dataService.View(id);
+            var response = _dataService.View(id);
 
-            PlantSeedTray item = response.Item;
+            var item = response.Item;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<TrayEditViewModel>(View(item));
         }
 
@@ -104,15 +109,16 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            IViewResponse<PlantSeedTray> response = _dataService.View(id);
+            var response = _dataService.View(id);
 
-            PlantSeedTray item = response.Item;
+            var item = response.Item;
 
+            // TODO: check to ensure these DTOs map to view model
             return AutoMapView<TrayDeleteViewModel>(View(item));
         }
 
         //
-        // POST: /PlantSeedTray/Delete/5
+        // POST: /SeedTrayDTO/Delete/5
         public ActionResult Destroy(TrayDestroyEditModel form)
         {
             var success = this.RedirectToAction("Index");

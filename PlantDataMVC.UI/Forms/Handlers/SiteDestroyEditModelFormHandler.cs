@@ -1,30 +1,25 @@
-﻿using Framework.Service.Entities;
-using Framework.Web.Forms;
-using Interfaces.Service;
-using PlantDataMVC.Domain.Entities;
-using PlantDataMVC.Service.ServiceContracts;
-using PlantDataMVC.UI.Models;
+﻿using Framework.Web.Forms;
+using Interfaces.WcfService;
+using Interfaces.WcfService.Responses;
+using PlantDataMVC.UI.Models.EditModels;
+using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class SiteDestroyEditModelFormHandler : IFormHandler<SiteDestroyEditModel>
     {
-        private IPlantSeedSiteDataService _dataService;
+        private ISiteWcfService _dataService;
 
-        public SiteDestroyEditModelFormHandler(IPlantSeedSiteDataService dataService)
+        public SiteDestroyEditModelFormHandler(ISiteWcfService dataService)
         {
             _dataService = dataService;
         }
 
         public void Handle(SiteDestroyEditModel form)
         {
-            // Map local model to business object
-            PlantSeedSite item = AutoMapper.Mapper.Map<SiteDestroyEditModel, PlantSeedSite>(form);
+            var response = _dataService.Delete(form.Id);
 
-            //DeleteRequest<PlantSeedSite> request = new DeleteRequest<PlantSeedSite>(item.Id);
-
-            IDeleteResponse<PlantSeedSite> response = _dataService.Delete(item.Id);
-
+            //TODO: Need behaviour triggered on bad response
             if (response.Status == ServiceActionStatus.Deleted)
             {
                 // take good path

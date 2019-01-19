@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using PlantDataMVC.Domain.Entities;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.ViewModels
 {
     public class PlantSeedShowViewModel
     {
@@ -29,22 +27,5 @@ namespace PlantDataMVC.UI.Models
 
         [Display(Name = "Site Name")]
         public string SiteName { get; set; }
-
-        //public IList<TrayListViewModel> SeedTrays { get; private set; }
-
-        //public PlantSeedShowViewModel()
-        //    : this(0, 0, DateTime.Today, "", "")
-        //{
-        //    SeedTrays = new List<TrayListViewModel>();
-        //}
-
-        //public PlantSeedShowViewModel(int id, int speciesId, DateTime dateCollected, string location, string notes)
-        //{
-        //    this.Id = id;
-        //    this.SpeciesId = speciesId;
-        //    this.DateCollected = dateCollected;
-        //    this.Location = location;
-        //    this.Notes = notes;
-        //}
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.ViewModels
 {
     public class PlantNewViewModel
     {
@@ -22,20 +20,5 @@ namespace PlantDataMVC.UI.Models
         public int PropagationTime { get; set; }
 
         public bool Native { get; set; }
-
-        //public PlantNewViewModel()
-        //    : this("", "", "", "", 0, true)
-        //{
-        //}
-
-        //public PlantNewViewModel(string genus, string species, string commonName, string description, int propagationTime, bool native)
-        //{
-        //    Genus = genus;
-        //    Species = species;
-        //    CommonName = commonName;
-        //    Description = description;
-        //    PropagationTime = propagationTime;
-        //    Native = native;
-        //}
     }
 }

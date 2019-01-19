@@ -1,8 +1,8 @@
-﻿using Nito.AsyncEx;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Nito.AsyncEx;
 using Xunit;
 
-namespace PlantDataMVC.Tests.Core
+namespace PlantDataMVC.Tests.Core.IntegrationTests
 {
     /// <summary>
     ///   <P>Base class for integration tests in this namespace</P>
@@ -40,7 +40,7 @@ namespace PlantDataMVC.Tests.Core
         {
             using (await _mutex.LockAsync())
             {
-                await DBFixture.ResetCheckpoint();
+                await DbFixture.ResetCheckpoint();
             }
         }
         /// <summary>

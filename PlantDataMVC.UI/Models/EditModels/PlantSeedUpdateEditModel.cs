@@ -1,7 +1,7 @@
 ﻿using Framework.Web.Forms;
 using System;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.EditModels
 {
     public class PlantSeedUpdateEditModel : IForm
     {

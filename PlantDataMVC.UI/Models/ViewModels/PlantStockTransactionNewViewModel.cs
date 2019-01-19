@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PlantDataMVC.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
+using PlantDataMVC.DTO.Dtos;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.ViewModels
 {
     public class PlantStockTransactionNewViewModel
     {
@@ -13,7 +10,7 @@ namespace PlantDataMVC.UI.Models
         public int PlantStockEntryId { get; set; }
 
         [Display(Name = "Transaction Type")]
-        public PlantStockTransactionType TransactionType { get; set; }
+        public JournalEntryTypeDto TransactionType { get; set; }
 
         [Display(Name = "Transaction Date")]
         public DateTime TransactionDate { get; set; }

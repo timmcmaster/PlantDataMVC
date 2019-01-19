@@ -40,3 +40,15 @@
   - https://lostechies.com/derekgreer/2015/11/01/survey-of-entity-framework-unit-of-work-patterns/
 ## AutoMapper
   - http://docs.automapper.org/en/stable/Getting-started.html
+## DDD on MVC
+  - https://stackoverflow.com/questions/843513/asp-net-mvc-ddd-architecture-help
+  - https://dotnetcodr.com/2015/08/06/domain-driven-design-with-web-api-revisited-part-1-introduction/
+  - https://stackoverflow.com/questions/12918521/where-should-the-business-logic-be-in-this-pattern
+  - https://stackoverflow.com/questions/16866102/using-dto-to-transfer-data-between-service-layer-and-ui-layer
+  - https://stackoverflow.com/questions/678217/best-practices-for-mapping-dto-to-domain-object
+  - https://enterprisecraftsmanship.com/2014/11/29/entity-framework-6-7-vs-nhibernate-4-ddd-perspective/
+  - And newer version:
+  - https://enterprisecraftsmanship.com/2018/06/13/ef-core-vs-nhibernate-ddd-perspective/
+    - Particularly this:
+    > *For those of you who might wonder why bother with this at all and not just separate the domain model into domain and persistence models and keep the domain model encapsulated this way: it doesn’t work out well. In complex applications, the amount of effort required to build a separate persistence model doesn’t justify the improvements in terms of purity. The effort is too large, the benefits are too small.*
+     

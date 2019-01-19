@@ -105,10 +105,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EntityDerivedClasses.cs" />
+    <Compile Include="Models\Handcoded\Genus.cs" />
     <Compile Include="Models\Genus.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Handcoded\JournalEntry.cs" />
+    <Compile Include="Models\Handcoded\JournalEntryType.cs" />
+    <Compile Include="Models\Handcoded\PlantStock.cs" />
+    <Compile Include="Models\Handcoded\PriceListType.cs" />
+    <Compile Include="Models\Handcoded\ProductPrice.cs" />
+    <Compile Include="Models\Handcoded\ProductType.cs" />
+    <Compile Include="Models\Handcoded\SeedBatch.cs" />
+    <Compile Include="Models\Handcoded\SeedTray.cs" />
+    <Compile Include="Models\Handcoded\Site.cs" />
+    <Compile Include="Models\Handcoded\Species.cs" />
     <Compile Include="Models\JournalEntry.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>

@@ -1,6 +1,6 @@
 ﻿using Framework.Web.Forms;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.EditModels
 {
     public class PlantStockEntryDestroyEditModel : IForm
     {

@@ -51,8 +51,8 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="FluentAssertions, Version=5.5.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.5.5.3\lib\net47\FluentAssertions.dll</HintPath>
+    <Reference Include="FluentAssertions, Version=5.6.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.5.6.0\lib\net47\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -117,7 +117,7 @@
       <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
@@ -181,21 +181,25 @@
       <Project>{fb582d72-f66a-4153-bb91-a4f339ed1795}</Project>
       <Name>Framework.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Framework.WcfService\Framework.WcfService.csproj">
+      <Project>{8654CD37-2183-4CDA-AE73-6D3415EB6D55}</Project>
+      <Name>Framework.WcfService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework.Web\Framework.Web.csproj">
       <Project>{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}</Project>
       <Name>Framework.Web</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
-      <Project>{12d00995-55f2-4219-9de4-a377e22174e5}</Project>
-      <Name>Interfaces.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
       <Project>{F826FC20-06CE-4415-BFF1-7A0C44EB0E07}</Project>
       <Name>Interfaces.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
-      <Project>{157d351c-8da8-4a9b-b66d-20e4f49eb201}</Project>
-      <Name>PlantDataMVC.Domain</Name>
+    <ProjectReference Include="..\Interfaces.WCFService\Interfaces.WcfService.csproj">
+      <Project>{F41337B3-BC5A-4E28-9DD0-6296DF9C6203}</Project>
+      <Name>Interfaces.WcfService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj">
+      <Project>{21BCD4E8-47A5-4ED3-A832-C9E0659B9B86}</Project>
+      <Name>PlantDataMVC.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj">
       <Project>{fe02e501-bd2c-4e07-9d83-1fd448ae476f}</Project>
@@ -204,6 +208,10 @@
     <ProjectReference Include="..\PlantDataMVC.UI\PlantDataMVC.UI.csproj">
       <Project>{be083dac-46de-46b3-bbb1-81381f94f40c}</Project>
       <Name>PlantDataMVC.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.WCFService\PlantDataMVC.WCFService.csproj">
+      <Project>{550D9A0C-2D6A-46FD-9400-AA722D455F7A}</Project>
+      <Name>PlantDataMVC.WCFService</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitTest.Utils\UnitTest.Utils.csproj">
       <Project>{1A3A2975-AB2E-468B-914C-27D87A9E3804}</Project>

@@ -1,0 +1,6 @@
+﻿<%@ ServiceHost 
+    Language="C#" 
+    Debug="true" 
+    Service="PlantDataMVC.WCFService.ServiceContracts.IJournalEntryTypeWcfService, PlantDataMVC.WCFService"
+    Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf" 
+%>

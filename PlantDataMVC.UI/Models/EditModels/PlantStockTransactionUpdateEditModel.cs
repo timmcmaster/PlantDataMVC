@@ -1,14 +1,14 @@
-﻿using PlantDataMVC.Domain.Entities;
-using Framework.Web.Forms;
+﻿using Framework.Web.Forms;
 using System;
+using PlantDataMVC.DTO.Dtos;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.EditModels
 {
     public class PlantStockTransactionUpdateEditModel : IForm
     {
         public int Id { get; set; }
         public int PlantStockEntryId { get; set; }
-        public PlantStockTransactionType TransactionType { get; set; }
+        public JournalEntryTypeDto TransactionType { get; set; }
         public DateTime TransactionDate { get; set; }
         public int Quantity { get; set; }
         public int SeedTrayId { get; set; }

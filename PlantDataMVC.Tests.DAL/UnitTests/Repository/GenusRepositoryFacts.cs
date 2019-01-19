@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
+using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
@@ -8,22 +9,25 @@ using PlantDataMVC.Repository.Repositories;
 using UnitTest.Utils.DAL;
 using Xunit;
 
-namespace PlantDataMVC.Tests.DAL
+namespace PlantDataMVC.Tests.DAL.UnitTests.Repository
 {
     public class GenusRepositoryFacts
     {
         [Fact]
         public void CanAddItemWithId()
         {
-            using (IDataContextAsync plantDataFakeDBContext = new FakePlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
+            using (IDataContextAsync plantDataFakeDbContext = new FakePlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange
-                var repository = uow.Repository<Genus>();
+                IRepositoryAsync<Genus> genusRepository = new Repository<Genus>(plantDataFakeDbContext,unitOfWork);
+
                 var genus = GenusBuilder.aGenus().withId().withLatinName("Eremophila").Build();
 
                 // Act
-                var addedGenus = repository.Add(genus);
+                var addedGenus = genusRepository.Add(genus);
+
+                unitOfWork.SaveChanges();
 
                 // Assert
                 addedGenus.Should().NotBeNull();
@@ -35,11 +39,11 @@ namespace PlantDataMVC.Tests.DAL
         [Fact]
         public void CanAddItemWithoutId()
         {
-            using (IDataContextAsync plantDataFakeDBContext = new FakePlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
+            using (IDataContextAsync plantDataFakeDbContext = new FakePlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange
-                var repository = uow.Repository<Genus>();
+                var repository = unitOfWork.Repository<Genus>();
                 var genus = GenusBuilder.aGenus().withNoId().withLatinName("Eremophila").Build();
 
                 // Act
@@ -55,11 +59,11 @@ namespace PlantDataMVC.Tests.DAL
         [Fact]
         public void CanGetItemById()
         {
-            using (IDataContextAsync plantDataFakeDBContext = new FakePlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
+            using (IDataContextAsync plantDataFakeDbContext = new FakePlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange
-                var repository = uow.Repository<Genus>();
+                var repository = unitOfWork.Repository<Genus>();
                 var genus = GenusBuilder.aGenus().withNoId().withLatinName("Eremophila").Build();
 
                 var addedGenus = repository.Add(genus);
@@ -80,13 +84,13 @@ namespace PlantDataMVC.Tests.DAL
         [Fact]
         public void CanGetItemByLatinName()
         {
-            using (IDataContextAsync plantDataFakeDBContext = new FakePlantDataDbContext())
-            using (IUnitOfWorkAsync uow = new UnitOfWork(plantDataFakeDBContext))
+            using (IDataContextAsync plantDataFakeDbContext = new FakePlantDataDbContext())
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 var latinName = "Eremophila";
 
                 // Arrange
-                var repository = uow.Repository<Genus>();
+                var repository = unitOfWork.Repository<Genus>();
                 var genus = GenusBuilder.aGenus().withNoId().withLatinName(latinName).Build();
 
                 var addedGenus = repository.Add(genus);

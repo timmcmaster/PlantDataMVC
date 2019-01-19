@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using PlantDataMVC.Domain.Entities;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.ViewModels
 {
     public class TrayShowViewModel
     {
@@ -21,9 +19,6 @@ namespace PlantDataMVC.UI.Models
 
         [Display(Name = "Thrown Out")]
         public bool ThrownOut { get; set; }
-
-        //public IList<PlantStockTransactionListViewModel> PlantStockTransactions { get; set; }
-
 
         public TrayShowViewModel()
         {

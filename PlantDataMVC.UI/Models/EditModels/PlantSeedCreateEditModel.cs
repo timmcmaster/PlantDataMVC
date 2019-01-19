@@ -1,10 +1,9 @@
 ﻿using Framework.Web.Forms;
-using PlantDataMVC.Domain.Entities;
 using PlantDataMVC.UI.ModelBinders;
 using System;
 using System.Web.Mvc;
 
-namespace PlantDataMVC.UI.Models
+namespace PlantDataMVC.UI.Models.EditModels
 {
     // HACK: So that we can debug binding for this model
     [ModelBinder(typeof(DebugModelBinder))]
