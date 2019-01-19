@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PlantDataMVC.Domain.Mappers;
+using PlantDataMVC.DTO.Mappers;
 
 namespace PlantDataMVC.WebApi.Mappers
 {

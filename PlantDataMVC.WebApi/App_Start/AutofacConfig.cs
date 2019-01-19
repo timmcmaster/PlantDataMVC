@@ -1,14 +1,12 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
-using Common.Logging;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
-//using Interfaces.DAL.Repository;
+using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
-using Interfaces.Service;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Service.ServiceContracts;
-using PlantDataMVC.Service.SimpleServiceLayer;
+using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Service;
 using System.Reflection;
 
 namespace PlantDataMVC.WebApi
@@ -22,40 +20,50 @@ namespace PlantDataMVC.WebApi
         {
             var builder = new ContainerBuilder();
 
-            // ****************************************************
-            // DAL configurations
-            // ****************************************************
-            builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>();
-            
-            // Register repository types for now (used via ServiceLocator in UoW)
-            // TODO: Make factory instead, manage lifetime scope
+            //*****************************************
+            // Register data context
+            // This is passed to UnitOfWork constructor
+            builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>().InstancePerRequest();
+
+            //*****************************************
+            // Register unit of work
+            // This is passed to Api controller constructors (and Repository constructors)
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>().InstancePerRequest();
+
+            //*****************************************
+            // Register repository types as open generics because they are only closed at call time
+            // These are passed to Service constructors
             //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
 
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWorkAsync>();
+            builder.RegisterType<Repository<Genus>>().As<IRepositoryAsync<Genus>>();
+            //builder.RegisterType<Repository<JournalEntry>>().As<IRepositoryAsync<JournalEntry>>();
+            //builder.RegisterType<Repository<JournalEntryType>>().As<IRepositoryAsync<JournalEntryType>>();
+            //builder.RegisterType<Repository<ProductType>>().As<IRepositoryAsync<ProductType>>();
+            //builder.RegisterType<Repository<SeedBatch>>().As<IRepositoryAsync<SeedBatch>>();
+            //builder.RegisterType<Repository<Site>>().As<IRepositoryAsync<Site>>();
+            //builder.RegisterType<Repository<Species>>().As<IRepositoryAsync<Species>>();
+            //builder.RegisterType<Repository<SeedTray>>().As<IRepositoryAsync<SeedTray>>();
+            //builder.RegisterType<Repository<PlantStock>>().As<IRepositoryAsync<PlantStock>>();
 
-            // Register your service implementations (for injection into WCF *.svc definitions)
-            //var svcAssembly = Assembly.GetAssembly(typeof(PlantDataService));
-            //builder.RegisterAssemblyTypes(svcAssembly).AsClosedTypesOf(typeof(IDataServiceBase<>));
+            //*****************************************
+            // Register services wrapping repositories
+            // These are passed to API controllers
 
-            // Required service is now IPlantDataService instead of IDataServiceBase<Plant>
-            // Register specific services for now
-            builder.RegisterType<PlantDataService>().As<IPlantDataService>();
-            builder.RegisterType<PlantProductTypeDataService>().As<IPlantProductTypeDataService>();
-            builder.RegisterType<PlantSeedDataService>().As<IPlantSeedDataService>();
-            builder.RegisterType<PlantSeedSiteDataService>().As<IPlantSeedSiteDataService>();
-            builder.RegisterType<PlantSeedTrayDataService>().As<IPlantSeedTrayDataService>();
-            builder.RegisterType<PlantStockEntryDataService>().As<IPlantStockEntryDataService>();
-            builder.RegisterType<PlantStockTransactionDataService>().As<IPlantStockTransactionDataService>();
-            builder.RegisterType<PlantStockTransactionTypeDataService>().As<IPlantStockTransactionTypeDataService>();
+            builder.RegisterType<GenusService>().As<IGenusService>();
+            //builder.RegisterType<JournalEntryService>().As<IJournalEntryService>();
+            //builder.RegisterType<JournalEntryTypeService>().As<IJournalEntryTypeService>();
+            //builder.RegisterType<ProductTypeService>().As<IProductTypeService>();
+            //builder.RegisterType<SeedBatchService>().As<ISeedBatchService>();
+            //builder.RegisterType<SiteService>().As<ISiteService>();
+            //builder.RegisterType<SpeciesService>().As<ISpeciesService>();
+            //builder.RegisterType<SeedTrayService>().As<ISeedTrayService>();
+            //builder.RegisterType<PlantStockService>().As<IPlantStockService>();
 
-            // Register singleton instance of ILog for Common.Logging
-            // TODO: This is a bit dodgy, as it doesn't allow us to use NLog rules based on logging class.
-            //builder.RegisterInstance(LogManager.GetLogger("PlantDataMVC.WCFServices")).As<ILog>();
 
             // ****************************************************
             // WebApi configurations
             // ****************************************************
-            
+
             // Register your Web API controllers.
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 

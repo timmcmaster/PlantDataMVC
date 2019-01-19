@@ -121,14 +121,7 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
-    <Compile Include="Controllers\PlantSeedSiteController.cs" />
-    <Compile Include="Controllers\PlantSeedTrayController.cs" />
-    <Compile Include="Controllers\PlantProductTypeController.cs" />
-    <Compile Include="Controllers\PlantStockTransactionController.cs" />
-    <Compile Include="Controllers\PlantStockTransactionTypeController.cs" />
-    <Compile Include="Controllers\PlantStockEntryController.cs" />
-    <Compile Include="Controllers\PlantSeedController.cs" />
-    <Compile Include="Controllers\PlantController.cs" />
+    <Compile Include="Controllers\GenusController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -160,10 +153,6 @@
       <Project>{96fd9436-de5c-432a-94cb-ce5e63ee2405}</Project>
       <Name>Interfaces.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
-      <Project>{12D00995-55F2-4219-9DE4-A377E22174E5}</Project>
-      <Name>Interfaces.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
       <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>
       <Name>Interfaces.Service</Name>
@@ -171,6 +160,10 @@
     <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
       <Project>{157D351C-8DA8-4A9B-B66D-20E4F49EB201}</Project>
       <Name>PlantDataMVC.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj">
+      <Project>{21BCD4E8-47A5-4ED3-A832-C9E0659B9B86}</Project>
+      <Name>PlantDataMVC.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
       <Project>{ecc2f1e2-a2ea-4390-a75c-114d56f0bd96}</Project>
