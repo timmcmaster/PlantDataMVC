@@ -330,3 +330,5 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+PlantDataMVC.UI/Scripts/lib/maplib.bundle.js
+PlantDataMVC.UI/Scripts/dist/app.bundle.js
