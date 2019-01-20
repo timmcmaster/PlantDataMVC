@@ -8,9 +8,11 @@ using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using Interfaces.DAL.Infrastructure;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
@@ -27,6 +29,7 @@ namespace PlantDataMVC.WebApi.Controllers
         }
 
         // GET: api/Genus
+        [HttpGet]
         public IHttpActionResult Get()
         {
             try
@@ -43,6 +46,7 @@ namespace PlantDataMVC.WebApi.Controllers
         }
 
         // GET: api/Plant/5
+        [HttpGet]
         public IHttpActionResult Get(int id)
         {
             try
@@ -106,15 +110,15 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // PUT: api/Plant/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
+        [HttpPut]
         public IHttpActionResult Put(int id, [FromBody]CreateUpdateGenusDto dtoIn)
         {
-            // TODO: Handle mapping failure - where dto is not in right format
             try
             {
+                // Handle mapping failure - where dto is not in right format
                 if (!ModelState.IsValid)
                 {
                     return BadRequest();
-
                 }
 
                 if (dtoIn == null) 
@@ -122,7 +126,8 @@ namespace PlantDataMVC.WebApi.Controllers
                     return BadRequest();
                 }
 
-                var entityFound = _genusService.GetItemById(id);
+                // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
+                var entityFound = _genusService.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
                 if (entityFound == null)
                 {
                     return NotFound();
@@ -133,7 +138,6 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var returnEntity = _genusService.Save(entity);
 
-                // TODO: Update is failing with exception conflict around attaching modified object
                 // Save changes before we map back
                 var changes = _unitOfWorkAsync.SaveChanges();
 
@@ -156,7 +160,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PATCH: api/Plant/5
         // Partial update
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<GenusDto> itemPatchDoc)
+        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<CreateUpdateGenusDto> itemPatchDoc)
         {
             try
             {
@@ -166,8 +170,8 @@ namespace PlantDataMVC.WebApi.Controllers
                 }
 
                 // Get domain entity
-                var entityFound = _genusService.GetItemById(id);
-
+                // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
+                var entityFound = _genusService.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
                 // Check for errors from service
                 if (entityFound == null)
                 {
@@ -175,12 +179,13 @@ namespace PlantDataMVC.WebApi.Controllers
                 }
 
                 // Map to dto
-                GenusDto dtoFound = Mapper.Map<Genus, GenusDto>(entityFound);
+                CreateUpdateGenusDto dtoFound = Mapper.Map<Genus, CreateUpdateGenusDto>(entityFound);
 
                 // Apply changes to dto
                 itemPatchDoc.ApplyTo(dtoFound);
 
-                Genus updatedEntity = Mapper.Map<GenusDto, Genus>(dtoFound);
+                Genus updatedEntity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoFound);
+                updatedEntity.Id = id;
 
                 var returnEntity = _genusService.Save(updatedEntity);
 
@@ -204,6 +209,7 @@ namespace PlantDataMVC.WebApi.Controllers
         }
 
         // DELETE: api/Plant/5
+        [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
             try
