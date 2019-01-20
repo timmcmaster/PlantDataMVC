@@ -72,6 +72,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpPost]
         public IHttpActionResult Post([FromBody]CreateUpdateGenusDto dtoIn)
         {
+            // TODO: Add check for unique genus
             try
             {
                 if (dtoIn == null)
@@ -107,8 +108,15 @@ namespace PlantDataMVC.WebApi.Controllers
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         public IHttpActionResult Put(int id, [FromBody]CreateUpdateGenusDto dtoIn)
         {
+            // TODO: Handle mapping failure - where dto is not in right format
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+
+                }
+
                 if (dtoIn == null) 
                 {
                     return BadRequest();
@@ -125,6 +133,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var returnEntity = _genusService.Save(entity);
 
+                // TODO: Update is failing with exception conflict around attaching modified object
                 // Save changes before we map back
                 var changes = _unitOfWorkAsync.SaveChanges();
 
@@ -138,7 +147,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 return BadRequest();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return InternalServerError();
             }
