@@ -31,6 +31,15 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(e => e.Species, opt => opt.MapFrom(dto => dto.Species))          // ICollection, explicit and unnecessary 
                 .ForAllOtherMembers(opt => opt.Ignore());
 
+            CreateMap<CreateUpdateSpeciesDto, Species>()
+                .ForMember(e => e.GenusId, opt => opt.MapFrom(dto => dto.GenusId))                  // explicit and unnecessary
+                .ForMember(e => e.CommonName, opt => opt.MapFrom(dto => dto.CommonName))            // explicit and unnecessary
+                .ForMember(e => e.Description, opt => opt.MapFrom(dto => dto.Description))          // explicit and unnecessary
+                .ForMember(e => e.Native, opt => opt.MapFrom(dto => dto.Native))                    // explicit and unnecessary
+                .ForMember(e => e.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))  // explicit and unnecessary
+                .ForMember(e => e.SpecificName, opt => opt.MapFrom(dto => dto.SpecificName))        // explicit and unnecessary
+                .ForAllOtherMembers(opt => opt.Ignore());
+
             CreateMap<SpeciesDto, Species>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id))                            // explicit and unnecessary
                 .ForMember(e => e.GenusId, opt => opt.MapFrom(dto => dto.GenusId))                  // explicit and unnecessary

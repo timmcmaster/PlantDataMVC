@@ -14,26 +14,26 @@ using System.Web.Http;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
-    public class GenusController : ApiController
+    public class SpeciesController : ApiController
     {
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
-        private readonly IGenusService _service;
+        private readonly ISpeciesService _service;
 
-        public GenusController(IUnitOfWorkAsync unitOfWorkAsync,
-            IGenusService service)
+        public SpeciesController(IUnitOfWorkAsync unitOfWorkAsync,
+            ISpeciesService service)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
         }
 
-        // GET: api/Genus
+        // GET: api/Species
         [HttpGet]
         public IHttpActionResult Get()
         {
             try
             {
                 var context = _service.Queryable();
-                IList<GenusInListDto> itemList = context.ProjectTo<GenusInListDto>().ToList();
+                IList<SpeciesInListDto> itemList = context.ProjectTo<SpeciesInListDto>().ToList();
 
                 return Ok(itemList);
             }
@@ -57,7 +57,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 }
                 else
                 {
-                    GenusDto finalItem = Mapper.Map<Genus, GenusDto>(item);
+                    SpeciesDto finalItem = Mapper.Map<Species, SpeciesDto>(item);
                     return Ok(finalItem);
                 }
             }
@@ -72,9 +72,9 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // POST: api/Plant
         [HttpPost]
-        public IHttpActionResult Post([FromBody]CreateUpdateGenusDto dtoIn)
+        public IHttpActionResult Post([FromBody]CreateUpdateSpeciesDto dtoIn)
         {
-            // TODO: Add check for unique genus
+            // TODO: Add validation checks (e.g. uniqueness)
             try
             {
                 if (dtoIn == null)
@@ -82,7 +82,7 @@ namespace PlantDataMVC.WebApi.Controllers
                     return BadRequest();
                 }
 
-                var entity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoIn);
+                var entity = Mapper.Map<CreateUpdateSpeciesDto, Species>(dtoIn);
 
                 var returnEntity =_service.Add(entity);
 
@@ -92,7 +92,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    GenusDto dtoOut = Mapper.Map<Genus, GenusDto>(entity);
+                    SpeciesDto dtoOut = Mapper.Map<Species, SpeciesDto>(entity);
 
                     var location = Request.RequestUri + "/" + dtoOut.Id.ToString();
                     return Created(location, dtoOut);
@@ -100,7 +100,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 return BadRequest();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return InternalServerError();
             }
@@ -109,7 +109,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PUT: api/Plant/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]CreateUpdateGenusDto dtoIn)
+        public IHttpActionResult Put(int id, [FromBody]CreateUpdateSpeciesDto dtoIn)
         {
             try
             {
@@ -131,7 +131,7 @@ namespace PlantDataMVC.WebApi.Controllers
                     return NotFound();
                 }
 
-                var entity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoIn);
+                var entity = Mapper.Map<CreateUpdateSpeciesDto, Species>(dtoIn);
                 entity.Id = entityFound.Id;
 
                 var returnEntity = _service.Save(entity);
@@ -142,7 +142,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    GenusDto dtoOut = Mapper.Map<Genus, GenusDto>(entity);
+                    SpeciesDto dtoOut = Mapper.Map<Species, SpeciesDto>(entity);
 
                     return Ok(dtoOut);
                 }
@@ -158,7 +158,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PATCH: api/Plant/5
         // Partial update
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<CreateUpdateGenusDto> itemPatchDoc)
+        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<CreateUpdateSpeciesDto> itemPatchDoc)
         {
             try
             {
@@ -177,12 +177,12 @@ namespace PlantDataMVC.WebApi.Controllers
                 }
 
                 // Map to dto
-                CreateUpdateGenusDto dtoFound = Mapper.Map<Genus, CreateUpdateGenusDto>(entityFound);
+                CreateUpdateSpeciesDto dtoFound = Mapper.Map<Species, CreateUpdateSpeciesDto>(entityFound);
 
                 // Apply changes to dto
                 itemPatchDoc.ApplyTo(dtoFound);
 
-                Genus updatedEntity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoFound);
+                Species updatedEntity = Mapper.Map<CreateUpdateSpeciesDto, Species>(dtoFound);
                 updatedEntity.Id = id;
 
                 var returnEntity = _service.Save(updatedEntity);
@@ -193,7 +193,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    GenusDto dtoOut = Mapper.Map<Genus, GenusDto>(updatedEntity);
+                    SpeciesDto dtoOut = Mapper.Map<Species, SpeciesDto>(updatedEntity);
 
                     return Ok(dtoOut);
                 }

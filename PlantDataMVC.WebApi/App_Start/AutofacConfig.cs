@@ -41,7 +41,7 @@ namespace PlantDataMVC.WebApi
             //builder.RegisterType<Repository<ProductType>>().As<IRepositoryAsync<ProductType>>();
             //builder.RegisterType<Repository<SeedBatch>>().As<IRepositoryAsync<SeedBatch>>();
             //builder.RegisterType<Repository<Site>>().As<IRepositoryAsync<Site>>();
-            //builder.RegisterType<Repository<Species>>().As<IRepositoryAsync<Species>>();
+            builder.RegisterType<Repository<Species>>().As<IRepositoryAsync<Species>>();
             //builder.RegisterType<Repository<SeedTray>>().As<IRepositoryAsync<SeedTray>>();
             //builder.RegisterType<Repository<PlantStock>>().As<IRepositoryAsync<PlantStock>>();
 
@@ -55,7 +55,7 @@ namespace PlantDataMVC.WebApi
             //builder.RegisterType<ProductTypeService>().As<IProductTypeService>();
             //builder.RegisterType<SeedBatchService>().As<ISeedBatchService>();
             //builder.RegisterType<SiteService>().As<ISiteService>();
-            //builder.RegisterType<SpeciesService>().As<ISpeciesService>();
+            builder.RegisterType<SpeciesService>().As<ISpeciesService>();
             //builder.RegisterType<SeedTrayService>().As<ISeedTrayService>();
             //builder.RegisterType<PlantStockService>().As<IPlantStockService>();
 

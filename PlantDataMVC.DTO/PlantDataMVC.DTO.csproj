@@ -50,7 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dtos\CreateUpdateGenusDto.cs" />
+    <Compile Include="Dtos\GenusInListDto.cs" />
     <Compile Include="Dtos\GenusDto.cs" />
+    <Compile Include="Dtos\CreateUpdateSpeciesDto.cs" />
+    <Compile Include="Dtos\SpeciesInListDto.cs" />
     <Compile Include="Dtos\SpeciesDto.cs" />
     <Compile Include="Dtos\PriceListTypeDto.cs" />
     <Compile Include="Dtos\ProductPriceDto.cs" />
