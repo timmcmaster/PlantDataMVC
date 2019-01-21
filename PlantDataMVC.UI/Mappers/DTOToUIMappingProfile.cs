@@ -44,7 +44,7 @@ namespace PlantDataMVC.UI.Mappers
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.LatinName));
 
-            CreateMap<GenusDto, GenusListViewModel>()
+            CreateMap<GenusInListDto, GenusListViewModel>()
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.LatinName));
 
@@ -78,8 +78,8 @@ namespace PlantDataMVC.UI.Mappers
                .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
-            CreateMap<SpeciesDto, PlantListViewModel>()
-               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "Hey, fix me!"))           // TODO: Fix this
+            CreateMap<SpeciesInListDto, PlantListViewModel>()
+               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "(Fix me!) " + dto.SpecificName))           // TODO: Fix this
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id));
 
@@ -92,7 +92,7 @@ namespace PlantDataMVC.UI.Mappers
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
             CreateMap<SpeciesDto, PlantShowViewModel>()
-               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "Hey, fix me!"))           // TODO: Fix this
+               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "(Fix me!) " + dto.SpecificName))           // TODO: Fix this
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
                .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Fix this

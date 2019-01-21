@@ -11,6 +11,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using PlantDataMVC.WebApi.Helpers;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
@@ -28,12 +29,20 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // GET: api/Species
         [HttpGet]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(string sort = "id", bool? native = null)
         {
             try
             {
                 var context = _service.Queryable();
-                IList<SpeciesInListDto> itemList = context.ProjectTo<SpeciesInListDto>().ToList();
+                //IList<SpeciesInListDto> itemList = context
+                //    .ProjectTo<SpeciesInListDto>()
+                //    .ApplySort(sort)
+                //    .ToList();
+                IList<SpeciesDto> itemList = context
+                    .ProjectTo<SpeciesDto>()
+                    .ApplySort(sort)
+                    .Where(s => (native == null || s.Native == native))
+                    .ToList();
 
                 return Ok(itemList);
             }

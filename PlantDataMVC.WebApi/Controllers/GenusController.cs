@@ -11,6 +11,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using PlantDataMVC.WebApi.Helpers;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
@@ -28,12 +29,12 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // GET: api/Genus
         [HttpGet]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(string sort="id")
         {
             try
             {
                 var context = _service.Queryable();
-                IList<GenusInListDto> itemList = context.ProjectTo<GenusInListDto>().ToList();
+                IList<GenusInListDto> itemList = context.ProjectTo<GenusInListDto>().ApplySort(sort).ToList();
 
                 return Ok(itemList);
             }

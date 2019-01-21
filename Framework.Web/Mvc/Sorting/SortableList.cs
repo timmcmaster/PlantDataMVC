@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Dynamic;
 
 namespace Framework.Web.Mvc.Sorting
-
 {
     public class SortableList<T> : List<T>, ISortable
     {

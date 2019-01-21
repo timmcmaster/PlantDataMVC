@@ -36,7 +36,7 @@ namespace PlantDataMVC.WCFService.ServiceContracts
         // GET: api/Plant
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "Item")]
-        IListResponse<SpeciesDto> List();
+        IListResponse<SpeciesInListDto> List();
     }
 
     // This class has the method named GetKnownTypes that returns a generic IEnumerable.

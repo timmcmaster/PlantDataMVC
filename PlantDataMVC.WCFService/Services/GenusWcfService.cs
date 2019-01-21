@@ -24,9 +24,9 @@ namespace PlantDataMVC.WCFService.Services
             return base.Delete<GenusDto>(id);
         }
 
-        public IListResponse<GenusDto> List()
+        public IListResponse<GenusInListDto> List()
         {
-            return base.List<GenusDto>();
+            return base.List<GenusInListDto>();
         }
 
         public IUpdateResponse<GenusDto> Update(int id, CreateUpdateGenusDto item)

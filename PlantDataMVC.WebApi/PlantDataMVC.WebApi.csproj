@@ -68,8 +68,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Marvin.JsonPatch, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Marvin.JsonPatch.1.1.0\lib\portable40-net40+win8\Marvin.JsonPatch.dll</HintPath>
+    <Reference Include="Marvin.JsonPatch, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Marvin.JsonPatch.2.1.0\lib\portable40-net40+win8\Marvin.JsonPatch.dll</HintPath>
     </Reference>
     <Reference Include="Marvin.JsonPatch.Dynamic, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Marvin.JsonPatch.Dynamic.1.1.0\lib\net45\Marvin.JsonPatch.Dynamic.dll</HintPath>
@@ -88,6 +88,9 @@
       <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -147,6 +150,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\QueryableExtensions.cs" />
     <Compile Include="Mappers\AutoMapperBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -178,10 +182,6 @@
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
       <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>
       <Name>Interfaces.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.Domain\PlantDataMVC.Domain.csproj">
-      <Project>{157D351C-8DA8-4A9B-B66D-20E4F49EB201}</Project>
-      <Name>PlantDataMVC.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj">
       <Project>{21BCD4E8-47A5-4ED3-A832-C9E0659B9B86}</Project>

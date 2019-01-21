@@ -32,7 +32,7 @@ namespace PlantDataMVC.Tests.UI.Controllers
             public void ReturnsViewResultOfCorrectType()
             {
                 // Arrange
-                var listResponse = new ListResponse<SpeciesDto>(new List<SpeciesDto>(),ServiceActionStatus.Ok);
+                var listResponse = new ListResponse<SpeciesInListDto>(new List<SpeciesInListDto>(),ServiceActionStatus.Ok);
 
                 // create mocks
                 var repo = new MockRepository(MockBehavior.Loose);
@@ -62,12 +62,12 @@ namespace PlantDataMVC.Tests.UI.Controllers
             {
                 // Arrange
                 int listCount = 17;
-                var speciesList = new List<SpeciesDto>();
+                var speciesList = new List<SpeciesInListDto>();
                 for (int i = 0; i < listCount; i++)
                 {
-                    speciesList.Add(new SpeciesDto() { Id = i, GenusId = i, SpecificName = "species" + i });
+                    speciesList.Add(new SpeciesInListDto() { Id = i, GenusId = i, SpecificName = "species" + i, CommonName = "Common name of species" + i});
                 }
-                var listResponse = new ListResponse<SpeciesDto>(speciesList, ServiceActionStatus.Ok);
+                var listResponse = new ListResponse<SpeciesInListDto>(speciesList, ServiceActionStatus.Ok);
                 
                 // create mocks
                 var repo = new MockRepository(MockBehavior.Loose);
