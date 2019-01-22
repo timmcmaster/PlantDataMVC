@@ -61,5 +61,21 @@ namespace PlantDataMVC.WebApi.Helpers
 
             return source.OrderBy(sortExpression);
         }
+
+        public static IQueryable<T> Paginate<T>(this IQueryable<T> source, int page, int pageSize)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (page < 1)
+            {
+                // TODO: Do we need to throw arg out of range exception instead?
+                page = 1;
+            }
+
+            return source.Skip((page - 1) * pageSize).Take(pageSize);
+        }
     }
 }

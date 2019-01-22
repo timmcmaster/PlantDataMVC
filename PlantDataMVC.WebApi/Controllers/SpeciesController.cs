@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Http;
 using PlantDataMVC.WebApi.Helpers;
 
@@ -17,6 +18,8 @@ namespace PlantDataMVC.WebApi.Controllers
 {
     public class SpeciesController : ApiController
     {
+        private const int MaxPageSize = 20;
+
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly ISpeciesService _service;
 
@@ -29,20 +32,43 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // GET: api/Species
         [HttpGet]
-        public IHttpActionResult Get(string sort = "id", bool? native = null)
+        [Route("api/species", Name = "SpeciesList")]
+        public IHttpActionResult Get(string sort = "id", bool? native = null, string specificName = null,
+            int page = 1, int pageSize = MaxPageSize)
         {
             try
             {
+                if (pageSize > MaxPageSize)
+                {
+                    pageSize = MaxPageSize;
+                }
+
                 var context = _service.Queryable();
                 //IList<SpeciesInListDto> itemList = context
                 //    .ProjectTo<SpeciesInListDto>()
                 //    .ApplySort(sort)
                 //    .ToList();
-                IList<SpeciesDto> itemList = context
+                IQueryable<SpeciesDto> speciesDtos = context
                     .ProjectTo<SpeciesDto>()
                     .ApplySort(sort)
                     .Where(s => (native == null || s.Native == native))
-                    .ToList();
+                    .Where(s => (specificName == null || s.SpecificName == specificName));
+
+                var paginationHeaders = PagingHelper.GetPaginationHeaders(
+                    speciesDtos,
+                    "SpeciesList",
+                    new
+                    {
+                        sort = sort,
+                        native = native,
+                        specificName = specificName
+                    },
+                    page,
+                    pageSize);
+
+                HttpContext.Current.Response.Headers.Add(paginationHeaders);
+
+                IList<SpeciesDto> itemList = speciesDtos.Paginate(page,pageSize).ToList();
 
                 return Ok(itemList);
             }
