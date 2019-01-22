@@ -55,6 +55,7 @@ namespace PlantDataMVC.WebApi.Controllers
                     .Where(s => (specificName == null || s.SpecificName == specificName));
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
+                    Url,
                     speciesDtos,
                     "SpeciesList",
                     new
