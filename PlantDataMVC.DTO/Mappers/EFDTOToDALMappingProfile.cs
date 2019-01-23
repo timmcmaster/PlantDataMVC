@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using PlantDataMVC.Entities.Models;
-using System;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.DTO.Mappers
 {
@@ -9,13 +8,13 @@ namespace PlantDataMVC.DTO.Mappers
     {
         public EfDtoToDalMappingProfile()
         {
-            ConfigureDTOToDAL();
+            ConfigureDtoToDal();
         }
 
         /// <summary>
         /// Configure the mappings from the App/Business Layer objects to the DAL objects
         /// </summary>
-        private void ConfigureDTOToDAL()
+        private void ConfigureDtoToDal()
         {
             // TODO: Suggestions from web that it is not good practice to map downwards - read why, then fix
 

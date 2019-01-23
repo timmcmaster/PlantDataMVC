@@ -151,7 +151,7 @@
 //                    return NotFound();
 //                }
 
-//                // TODO: Fix needed, as uow is disposed of afer View operation, causing errors below
+//                // TODO: Fix needed, as uow is disposed of after View operation, causing errors below
                 
 //                // Apply changes to domain entity
 //                var viewItem = viewResponse.Item;

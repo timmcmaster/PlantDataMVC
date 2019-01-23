@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Interfaces.DTO;
+﻿using Interfaces.DTO;
 
 namespace PlantDataMVC.DTO.Dtos
 {

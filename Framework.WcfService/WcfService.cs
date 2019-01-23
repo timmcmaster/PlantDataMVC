@@ -21,9 +21,9 @@ namespace Framework.WcfService
     {
         protected IUnitOfWorkAsync UnitOfWork { get; set; }
 
-        public WcfService(IUnitOfWorkAsync unitOfWork)
+        protected WcfService(IUnitOfWorkAsync unitOfWork)
         {
-            this.UnitOfWork = unitOfWork;
+            UnitOfWork = unitOfWork;
         }
 
         #region IWcfService implementation
@@ -31,7 +31,7 @@ namespace Framework.WcfService
             where TDtoIn : class, IDto 
             where TDtoOut : class, IDto
         {
-            using (var unitOfWork = this.UnitOfWork)
+            using (var unitOfWork = UnitOfWork)
             {
                 // map 
                 TEntity mappedItem = Mapper.Map<TDtoIn, TEntity>(dtoItem);
@@ -52,7 +52,7 @@ namespace Framework.WcfService
 
         public virtual IViewResponse<TDtoOut> View<TDtoOut>(int id) where TDtoOut : class, IDto
         {
-            using (var unitOfWork = this.UnitOfWork)
+            using (var unitOfWork = UnitOfWork)
             {
                 var repository = unitOfWork.RepositoryAsync<TEntity>();
                 TEntity item = repository.GetItemById(id);
@@ -69,7 +69,7 @@ namespace Framework.WcfService
             where TDtoIn : class, IDto
             where TDtoOut : class, IDto
         {
-            using (var unitOfWork = this.UnitOfWork)
+            using (var unitOfWork = UnitOfWork)
             {
                 var repository = unitOfWork.RepositoryAsync<TEntity>();
                 TEntity retrievedItem = repository.GetItemById(id);
@@ -104,7 +104,7 @@ namespace Framework.WcfService
 
         public virtual IDeleteResponse<TDtoOut> Delete<TDtoOut>(int id) where TDtoOut : class, IDto
         {
-            using (var unitOfWork = this.UnitOfWork)
+            using (var unitOfWork = UnitOfWork)
             {
                 var repository = unitOfWork.RepositoryAsync<TEntity>();
 
@@ -122,7 +122,7 @@ namespace Framework.WcfService
 
         public virtual IListResponse<TDtoOut> List<TDtoOut>() where TDtoOut : class, IDto
         {
-            using (var unitOfWork = this.UnitOfWork)
+            using (var unitOfWork = UnitOfWork)
             {
                 var repository = unitOfWork.RepositoryAsync<TEntity>();
                 var context = repository.Queryable();

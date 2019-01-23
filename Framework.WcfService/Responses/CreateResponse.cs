@@ -13,7 +13,7 @@ namespace Framework.WcfService.Responses
         [DataMember]
         public T Item { get; set; }
 
-        public CreateResponse(T item, ServiceActionStatus status) : base()
+        public CreateResponse(T item, ServiceActionStatus status)
         {
             Item = item;
             Status = status;

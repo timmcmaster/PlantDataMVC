@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using PlantDataMVC.Entities.Models;
-using System;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.DTO.Mappers
 {

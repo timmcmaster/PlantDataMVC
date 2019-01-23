@@ -29,7 +29,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // GET: api/Genus
         [HttpGet]
-        public IHttpActionResult Get(string sort="id")
+        public IHttpActionResult Get(string sort = "id")
         {
             try
             {
@@ -56,11 +56,9 @@ namespace PlantDataMVC.WebApi.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    GenusDto finalItem = Mapper.Map<Genus, GenusDto>(item);
-                    return Ok(finalItem);
-                }
+
+                var finalItem = Mapper.Map<Genus, GenusDto>(item);
+                return Ok(finalItem);
             }
             catch (Exception)
             {
@@ -85,7 +83,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var entity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoIn);
 
-                var returnEntity =_service.Add(entity);
+                var returnEntity = _service.Add(entity);
 
                 // Save changes before we map back
                 var changes = _unitOfWorkAsync.SaveChanges();
@@ -93,9 +91,9 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    GenusDto dtoOut = Mapper.Map<Genus, GenusDto>(entity);
+                    var dtoOut = Mapper.Map<Genus, GenusDto>(entity);
 
-                    var location = Request.RequestUri + "/" + dtoOut.Id.ToString();
+                    var location = Request.RequestUri + "/" + dtoOut.Id;
                     return Created(location, dtoOut);
                 }
 
@@ -120,7 +118,7 @@ namespace PlantDataMVC.WebApi.Controllers
                     return BadRequest();
                 }
 
-                if (dtoIn == null) 
+                if (dtoIn == null)
                 {
                     return BadRequest();
                 }
@@ -143,7 +141,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    GenusDto dtoOut = Mapper.Map<Genus, GenusDto>(entity);
+                    var dtoOut = Mapper.Map<Genus, GenusDto>(entity);
 
                     return Ok(dtoOut);
                 }
@@ -178,12 +176,12 @@ namespace PlantDataMVC.WebApi.Controllers
                 }
 
                 // Map to dto
-                CreateUpdateGenusDto dtoFound = Mapper.Map<Genus, CreateUpdateGenusDto>(entityFound);
+                var dtoFound = Mapper.Map<Genus, CreateUpdateGenusDto>(entityFound);
 
                 // Apply changes to dto
                 itemPatchDoc.ApplyTo(dtoFound);
 
-                Genus updatedEntity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoFound);
+                var updatedEntity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoFound);
                 updatedEntity.Id = id;
 
                 var returnEntity = _service.Save(updatedEntity);
@@ -194,7 +192,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    GenusDto dtoOut = Mapper.Map<Genus, GenusDto>(updatedEntity);
+                    var dtoOut = Mapper.Map<Genus, GenusDto>(updatedEntity);
 
                     return Ok(dtoOut);
                 }
@@ -224,11 +222,11 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 _service.Delete(entityFound);
                 _unitOfWorkAsync.SaveChanges();
-                
+
                 // return 204 (also via void return type)
                 return StatusCode(HttpStatusCode.NoContent);
-                
-                
+
+
                 //return BadRequest();
             }
             catch (Exception)

@@ -7,7 +7,7 @@ namespace Framework.WcfService.Responses
     [DataContract(Name = "DeleteResponseUsing{0}")]
     public class DeleteResponse<T> : Response, IDeleteResponse<T>
     {
-        public DeleteResponse(ServiceActionStatus status) : base()
+        public DeleteResponse(ServiceActionStatus status)
         {
             Status = status;
         }

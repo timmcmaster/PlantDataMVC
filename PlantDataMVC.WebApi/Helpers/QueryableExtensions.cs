@@ -33,9 +33,9 @@ namespace PlantDataMVC.WebApi.Helpers
             var sortFields = sort.Split(',');
 
             // Apply ascending or descending order
-            for (int i=0; i<sortFields.Length; i++)
+            for (var i=0; i<sortFields.Length; i++)
             {
-                bool sortDescending = false;
+                var sortDescending = false;
 
                 if (sortFields[i].StartsWith("-"))
                 {

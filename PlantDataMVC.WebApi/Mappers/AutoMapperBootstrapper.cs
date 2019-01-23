@@ -5,7 +5,7 @@ namespace PlantDataMVC.WebApi.Mappers
 {
     public static class AutoMapperBootstrapper
     {
-        private static bool _configured = false;
+        private static bool _configured;
 
         public static void Initialize()
         {

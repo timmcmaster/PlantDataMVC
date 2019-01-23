@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Net.Http;
-using System.Web;
 using System.Web.Http.Routing;
 
 namespace PlantDataMVC.WebApi.Helpers
@@ -83,7 +81,7 @@ namespace PlantDataMVC.WebApi.Helpers
 
             var headers = new NameValueCollection
             {
-                {"Link", String.Join(",", links)},
+                {"Link", string.Join(",", links)},
                 { "X-Pagination", Newtonsoft.Json.JsonConvert.SerializeObject(paginationHeaderContent)}
             };
 

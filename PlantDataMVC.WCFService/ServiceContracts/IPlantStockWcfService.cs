@@ -40,7 +40,7 @@ namespace PlantDataMVC.WCFService.ServiceContracts
     }
 
     // This class has the method named GetKnownTypes that returns a generic IEnumerable.
-    static class PlantStockDtoDsHelper
+    internal static class PlantStockDtoDsHelper
     {
         public static IEnumerable<Type> GetKnownTypes(ICustomAttributeProvider provider)
         {

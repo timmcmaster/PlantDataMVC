@@ -11,7 +11,7 @@ namespace Framework.WcfService.Responses
         [DataMember]
         public IList<T> Items { get; set; }
 
-        public ListResponse(IList<T> items, ServiceActionStatus status) : base()
+        public ListResponse(IList<T> items, ServiceActionStatus status)
         {
             Items = new List<T>();
             ((List<T>)Items).AddRange(items);

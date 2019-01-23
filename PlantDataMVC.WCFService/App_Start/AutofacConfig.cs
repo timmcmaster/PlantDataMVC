@@ -1,11 +1,11 @@
 ﻿using Autofac;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
-using Interfaces.DAL.Repository;
+//using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Entities.Models;
-using PlantDataMVC.Service;
+//using PlantDataMVC.Entities.Models;
+//using PlantDataMVC.Service;
 using PlantDataMVC.WCFService.ServiceContracts;
 using PlantDataMVC.WCFService.Services;
 
