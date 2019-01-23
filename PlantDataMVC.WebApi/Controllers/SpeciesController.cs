@@ -33,21 +33,34 @@ namespace PlantDataMVC.WebApi.Controllers
         // GET: api/Species
         [HttpGet]
         [Route("api/species", Name = "SpeciesList")]
-        public IHttpActionResult Get(string sort = "id", bool? native = null, string specificName = null,
-            int page = 1, int pageSize = MaxPageSize)
+        public IHttpActionResult Get(
+            string sort = "id", 
+            bool? native = null, string specificName = null,
+            int page = 1, int pageSize = MaxPageSize,
+            string fields = null)
         {
             try
             {
+                // Convert fields to list of fields
+                List<string> lstOfFields = new List<string>();
+
+                if (fields != null)
+                {
+                    lstOfFields = fields.Split(',').ToList();
+                }
+
                 if (pageSize > MaxPageSize)
                 {
                     pageSize = MaxPageSize;
                 }
 
                 var context = _service.Queryable();
+
                 //IList<SpeciesInListDto> itemList = context
                 //    .ProjectTo<SpeciesInListDto>()
                 //    .ApplySort(sort)
                 //    .ToList();
+
                 IQueryable<SpeciesDto> speciesDtos = context
                     .ProjectTo<SpeciesDto>()
                     .ApplySort(sort)
@@ -62,15 +75,19 @@ namespace PlantDataMVC.WebApi.Controllers
                     {
                         sort = sort,
                         native = native,
-                        specificName = specificName
+                        specificName = specificName,
+                        fields = fields
                     },
                     page,
                     pageSize);
 
                 HttpContext.Current.Response.Headers.Add(paginationHeaders);
 
-                IList<SpeciesDto> itemList = speciesDtos.Paginate(page,pageSize).ToList();
-
+                var itemList = speciesDtos
+                    .Paginate(page, pageSize)
+                    .ToList()
+                    .Select(species => DataShaping.CreateDataShapedObject(species, lstOfFields));
+                
                 return Ok(itemList);
             }
             catch (Exception)

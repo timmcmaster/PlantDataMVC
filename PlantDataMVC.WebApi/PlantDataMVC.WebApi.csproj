@@ -153,6 +153,7 @@
     <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="Helpers\QueryableExtensions.cs" />
     <Compile Include="Mappers\AutoMapperBootstrapper.cs" />
+    <Compile Include="Helpers\DataShaping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +180,10 @@
     <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
       <Project>{96fd9436-de5c-432a-94cb-ce5e63ee2405}</Project>
       <Name>Interfaces.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces.DTO\Interfaces.DTO.csproj">
+      <Project>{70F08765-902C-4CE6-9067-CFAE978F0BE8}</Project>
+      <Name>Interfaces.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
       <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>
