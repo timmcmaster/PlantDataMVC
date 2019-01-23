@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using PlantDataMVC.UI.Models.ViewModels;
-using System;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Models.ViewModels;
 
 namespace PlantDataMVC.UI.Mappers
 {
@@ -9,17 +8,17 @@ namespace PlantDataMVC.UI.Mappers
     /// HACK: Temporarily mapping every field explicitly to see what maps through
     /// </summary>
     /// <seealso cref="AutoMapper.Profile" />
-    public class DTOToUIMappingProfile : Profile
+    public class DtoToUiMappingProfile : Profile
     {
-        public DTOToUIMappingProfile()
+        public DtoToUiMappingProfile()
         {
-            ConfigureDTOToViewModels();
+            ConfigureDtoToViewModels();
         }
 
         /// <summary>
         /// Configure the mappings from the App/Business Layer objects to the UI layer view models
         /// </summary>
-        private void ConfigureDTOToViewModels()
+        private void ConfigureDtoToViewModels()
         {
             // Maps from Domain to UI view models
             ConfigureGenusViewModels();

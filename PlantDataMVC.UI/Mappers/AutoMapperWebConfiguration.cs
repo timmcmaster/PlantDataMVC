@@ -9,7 +9,7 @@ namespace PlantDataMVC.UI.Mappers
             = new Action<IMapperConfigurationExpression>(cfg =>
             {
                 cfg.AddProfile<UIToDTOMappingProfile>();
-                cfg.AddProfile<DTOToUIMappingProfile>();
+                cfg.AddProfile<DtoToUiMappingProfile>();
             });
 
 

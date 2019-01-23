@@ -1,12 +1,10 @@
 ﻿using Interfaces.DAL.Entity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
 using System.Linq.Expressions;
 
 namespace Framework.DAL.EF
@@ -28,17 +26,17 @@ namespace Framework.DAL.EF
         IEnumerator IEnumerable.GetEnumerator() { return _items.GetEnumerator(); }
         public IEnumerator<TEntity> GetEnumerator() { return _items.GetEnumerator(); }
 
-        public override ObservableCollection<TEntity> Local { get { return _items; } }
+        public override ObservableCollection<TEntity> Local { get => _items; }
 
-        public Expression Expression { get { return _query.Expression; } }
+        public Expression Expression { get => _query.Expression; }
 
-        public Type ElementType { get { return _query.ElementType; } }
+        public Type ElementType { get => _query.ElementType; }
 
-        public IQueryProvider Provider { get { return _query.Provider; } }
+        public IQueryProvider Provider { get => _query.Provider; }
 
         public override TEntity Add(TEntity entity)
         {
-            if (entity == null) throw new System.ArgumentNullException("entity");
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
             _items.Add(entity);
             return entity;
         }
@@ -46,7 +44,7 @@ namespace Framework.DAL.EF
         public override TEntity Attach(TEntity entity)
         {
             // just doing add
-            if (entity == null) throw new System.ArgumentNullException("entity");
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
             _items.Add(entity);
             return entity;
         }
@@ -58,7 +56,7 @@ namespace Framework.DAL.EF
 
         public override TEntity Remove(TEntity entity)
         {
-            if (entity == null) throw new System.ArgumentNullException("entity");
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
             _items.Remove(entity);
             return entity;
         }

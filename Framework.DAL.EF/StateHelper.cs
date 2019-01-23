@@ -5,7 +5,7 @@ using System.Data.Entity;
 namespace Framework.DAL.EF
 {
     /// <summary>
-    /// Provides conversions between generic ObjectState values and EF-specific EntityStaet values 
+    /// Provides conversions between generic ObjectState values and EF-specific EntityState values 
     /// </summary>
     public class StateHelper
     {
@@ -57,7 +57,7 @@ namespace Framework.DAL.EF
                     return ObjectState.Modified;
 
                 default:
-                    throw new ArgumentOutOfRangeException("state");
+                    throw new ArgumentOutOfRangeException(nameof(state));
             }
         }
     }

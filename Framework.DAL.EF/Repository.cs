@@ -22,9 +22,9 @@ namespace Framework.DAL.EF
     public class Repository<TEntity> : IRepositoryAsync<TEntity>
         where TEntity : class, IEntity 
     {
-        private IDataContextAsync _context;
-        private IDbSet<TEntity> _dbSet;
-        private IUnitOfWorkAsync _unitOfWork;
+        private readonly IDataContextAsync _context;
+        private readonly IDbSet<TEntity> _dbSet;
+        private readonly IUnitOfWorkAsync _unitOfWork;
 
         public Repository(IDataContextAsync context, IUnitOfWorkAsync unitOfWork)
         {
@@ -33,20 +33,15 @@ namespace Framework.DAL.EF
 
             // HACK: Feels dodgy to need to know which context type it is here
             // I suspect it is here because Set is an EF concept, not generic, hence not in interface 
-            var dbContext = context as DbContext;
 
-            if (dbContext != null)
+            switch (context)
             {
-                _dbSet = dbContext.Set<TEntity>();
-            }
-            else
-            {
-                var fakeContext = context as FakeDbContext;
-
-                if (fakeContext != null)
-                {
+                case DbContext dbContext:
+                    _dbSet = dbContext.Set<TEntity>();
+                    break;
+                case FakeDbContext fakeContext:
                     _dbSet = fakeContext.Set<TEntity>();
-                }
+                    break;
             }
         }
 

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Framework.DAL.EF
 {
+    /// <inheritdoc />
     /// <summary>
     /// Implements the UnitOfWork pattern 
     /// </summary>
@@ -21,7 +22,7 @@ namespace Framework.DAL.EF
         #region Variables
 
         private IDataContextAsync _dataContext;
-        private bool _disposed = false;
+        private bool _disposed;
         private ObjectContext _objectContext;
         private IDbTransaction _transaction;
         private Dictionary<string, dynamic> _repositories;
@@ -74,7 +75,7 @@ namespace Framework.DAL.EF
                     }
                 }
             }
-            this._disposed = true;
+            _disposed = true;
         }
 
         public void Dispose()
@@ -127,12 +128,12 @@ namespace Framework.DAL.EF
 
         public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified)
         {
-            var objectContext = ((IObjectContextAdapter) _dataContext).ObjectContext;
-            if (objectContext.Connection.State != ConnectionState.Open)
+            _objectContext = ((IObjectContextAdapter) _dataContext).ObjectContext;
+            if (_objectContext.Connection.State != ConnectionState.Open)
             {
-                objectContext.Connection.Open();
+                _objectContext.Connection.Open();
             }
-            _transaction = objectContext.Connection.BeginTransaction(isolationLevel);
+            _transaction = _objectContext.Connection.BeginTransaction(isolationLevel);
         }
 
         public bool Commit()

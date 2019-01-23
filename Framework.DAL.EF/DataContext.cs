@@ -9,14 +9,13 @@ namespace Framework.DAL.EF
 {
     public class DataContext: DbContext, IDataContextAsync
     {
-        private readonly Guid _instanceId;
-        bool _disposed;
+        private bool _disposed;
 
         #region Implement all public constructors needed by PlantDataDbContext
 
         public DataContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
-            _instanceId = Guid.NewGuid();
+            InstanceId = Guid.NewGuid();
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
         }
@@ -24,7 +23,7 @@ namespace Framework.DAL.EF
         public DataContext(string nameOrConnectionString, System.Data.Entity.Infrastructure.DbCompiledModel model)
             : base(nameOrConnectionString, model)
         {
-            _instanceId = Guid.NewGuid();
+            InstanceId = Guid.NewGuid();
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
         }
@@ -32,7 +31,7 @@ namespace Framework.DAL.EF
         public DataContext(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection)
             : base(existingConnection, contextOwnsConnection)
         {
-            _instanceId = Guid.NewGuid();
+            InstanceId = Guid.NewGuid();
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
         }
@@ -40,11 +39,13 @@ namespace Framework.DAL.EF
         public DataContext(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection)
             : base(existingConnection, model, contextOwnsConnection)
         {
-            _instanceId = Guid.NewGuid();
+            InstanceId = Guid.NewGuid();
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
         }
         #endregion
+
+        public Guid InstanceId { get; }
 
         public override int SaveChanges()
         {
@@ -56,7 +57,7 @@ namespace Framework.DAL.EF
 
         public override async Task<int> SaveChangesAsync()
         {
-            return await this.SaveChangesAsync(CancellationToken.None);
+            return await SaveChangesAsync(CancellationToken.None);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)

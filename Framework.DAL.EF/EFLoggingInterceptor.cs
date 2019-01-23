@@ -4,13 +4,14 @@ using System.Data.Entity.Infrastructure.Interception;
 
 namespace Framework.DAL.EF
 {
+    /// <inheritdoc />
     /// <summary>
     ///   <P>This class implements EF database logging via the Entity Framework database command interceptor. </P>
     ///   <P>The interceptor is currently initialized via the web.config for the WCFService application. </P>
     /// </summary>
-    public class EFLoggingInterceptor : IDbCommandInterceptor
+    public class EfLoggingInterceptor : IDbCommandInterceptor
     {
-        private static readonly ILog _log = LogManager.GetLogger<EFLoggingInterceptor>();
+        private static readonly ILog _log = LogManager.GetLogger<EfLoggingInterceptor>();
 
         private void WriteLog(string format, params object[] args)
         {
@@ -23,11 +24,12 @@ namespace Framework.DAL.EF
         /// <param name="cmd">The command object</param>
         private void WriteParameters(DbCommand cmd)
         {
-            for (int i=0; i< cmd.Parameters.Count; i++)
+            for (var i=0; i< cmd.Parameters.Count; i++)
             {
                 if (cmd.Parameters[i].Value != null)
                 {
-                    _log.Debug(m => m("Query param {0}: {1}", i, cmd.Parameters[i].Value));
+                    var i1 = i;
+                    _log.Debug(m => m("Query param {0}: {1}", i1, cmd.Parameters[i1].Value));
                 }
             }
         }

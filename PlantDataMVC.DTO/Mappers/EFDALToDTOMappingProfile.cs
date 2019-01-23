@@ -9,13 +9,13 @@ namespace PlantDataMVC.DTO.Mappers
     {
         public EfDalToDtoMappingProfile()
         {
-            ConfigureDALToDTO();
+            ConfigureDalToDto();
         }
 
         /// <summary>
         /// Configure the mappings from the DAL objects to the DTOs
         /// </summary>
-        private void ConfigureDALToDTO()
+        private void ConfigureDalToDto()
         {
             // Maps from Data Layer entities to DTO
             // Do this explicitly for now to show what is mapped
@@ -39,8 +39,17 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(dto => dto.Native, opt => opt.MapFrom(e => e.Native))                    // explicit and unnecessary
                 .ForMember(dto => dto.PropagationTime, opt => opt.MapFrom(e => e.PropagationTime))  // explicit and unnecessary
                 .ForMember(dto => dto.SpecificName, opt => opt.MapFrom(e => e.SpecificName))        // explicit and unnecessary
-                .ForMember(dto => dto.SeedBatches, opt => opt.MapFrom(e => e.SeedBatches))          // ICollection, explicit and unnecessary
-                .ForMember(dto => dto.PlantStocks, opt => opt.MapFrom(e => e.PlantStocks))          // ICollection, explicit and unnecessary
+                .ForMember(dto => dto.SeedBatches, opt =>
+                {
+                     opt.MapFrom(e => e.SeedBatches);
+                     opt.ExplicitExpansion();  // For projections only expand collection if requested
+                })          // ICollection, explicit and unnecessary
+                .ForMember(dto => dto.PlantStocks, opt =>
+                {
+                    opt.MapFrom(e => e.PlantStocks);
+                    opt.ExplicitExpansion();  // For projections only expand collection if requested
+
+                })          // ICollection, explicit and unnecessary
                 .ForAllOtherMembers(opt => opt.Ignore());
 
             CreateMap<Species, SpeciesInListDto>()
