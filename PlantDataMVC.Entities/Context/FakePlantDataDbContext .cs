@@ -39,30 +39,30 @@ namespace PlantDataMVC.Entities.Context
         public DbSet<Species> Species { get => Set<Species>(); set => throw new NotImplementedException(); }
 
         public DbChangeTracker _changeTracker;
-        public DbChangeTracker ChangeTracker { get { return _changeTracker; } }
+        public DbChangeTracker ChangeTracker { get => _changeTracker; }
         public DbContextConfiguration _configuration;
-        public DbContextConfiguration Configuration { get { return _configuration; } }
+        public DbContextConfiguration Configuration { get => _configuration; }
         public Database _database;
-        public Database Database { get { return _database; } }
+        public Database Database { get => _database; }
         public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
         public DbEntityEntry Entry(object entity)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
         public IEnumerable<DbEntityValidationResult> GetValidationErrors()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
-        public DbSet Set(System.Type entityType)
+        public DbSet Set(Type entityType)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
         public override string ToString()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

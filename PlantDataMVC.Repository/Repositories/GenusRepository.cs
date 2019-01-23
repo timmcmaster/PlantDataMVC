@@ -4,11 +4,9 @@ using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-/// <summary>
-/// This file provides classes & interfaces to allow extension methods 
-/// for <code>IRepository<Genus></code> to be mocked via a mocking framework.
-/// <see href="http://blogs.clariusconsulting.net/kzu/making-extension-methods-amenable-to-mocking/"/>
-/// </summary>
+// This file provides classes & interfaces to allow extension methods 
+// for <code>IRepository<Genus></code> to be mocked via a mocking framework.
+// <see href="http://blogs.clariusconsulting.net/kzu/making-extension-methods-amenable-to-mocking/"/>
 
 // Allow test assembly to be friend assembly for unit testing
 [assembly: InternalsVisibleTo("PlantDataMVC.Tests.Core")]
@@ -27,7 +25,7 @@ namespace PlantDataMVC.Repository.Repositories
     /// <seealso cref="PlantDataMVC.Repository.Repositories.IGenusExtensions" />
     internal class GenusExtensions : IGenusExtensions
     {
-        private IRepository<Genus> _repository;
+        private readonly IRepository<Genus> _repository;
 
         public GenusExtensions(IRepository<Genus> genusRepository)
         {
