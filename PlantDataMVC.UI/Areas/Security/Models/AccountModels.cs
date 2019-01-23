@@ -228,8 +228,7 @@ namespace PlantDataMVC.UI.Areas.Security.Models
 
         public override bool IsValid(object value)
         {
-            string valueAsString = value as string;
-            return (valueAsString != null && valueAsString.Length >= _minCharacters);
+            return (value is string valueAsString && valueAsString.Length >= _minCharacters);
         }
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)

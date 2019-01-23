@@ -20,35 +20,43 @@ else
     // get the memberInfo for this property from it's container type   
     MemberInfo memberInfo = ViewData.ModelMetadata.ContainerType.GetMembers().FirstOrDefault(mi => mi.Name == ViewData.ModelMetadata.PropertyName);
 
-    var stringLengthAttribute = memberInfo.GetCustomAttributes(typeof(StringLengthAttribute), false).FirstOrDefault() as StringLengthAttribute;
-    if (stringLengthAttribute != null)
+    if (memberInfo != null)
     {
-        var maxLength = stringLengthAttribute.MaximumLength;
+        var stringLengthAttribute = memberInfo.GetCustomAttributes(typeof(StringLengthAttribute), false).FirstOrDefault() as StringLengthAttribute;
+        if (stringLengthAttribute != null)
+        {
+            var maxLength = stringLengthAttribute.MaximumLength;
 
-        if (maxLength <= narrowLength)
-        {
-            // use narrow style
-                @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new { @class = "text-box single-line narrow" })
-        }
-        else if (maxLength <= wideLength)
-        {
-            // use default style
-            @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new { @class = "text-box single-line" })
-        }
-        else if (maxLength <= multilineLength)
-        {
-            // use wide style
-            @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new { @class = "text-box single-line wide" })
+            if (maxLength <= narrowLength)
+            {
+                // use narrow style
+                @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new {@class = "text-box single-line narrow"})
+            }
+            else if (maxLength <= wideLength)
+            {
+                // use default style
+                @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new {@class = "text-box single-line"})
+            }
+            else if (maxLength <= multilineLength)
+            {
+                // use wide style
+                @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new {@class = "text-box single-line wide"})
+            }
+            else
+            {
+                // use multiline text
+                @Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue.ToString(), new {@class = "text-box multi-line"})
+            }
         }
         else
         {
-            // use multiline text
-            @Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue.ToString(), new { @class = "text-box multi-line" })
+            // use default style
+            @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new {@class = "text-box single-line"})
         }
     }
     else
     {
         // use default style
-        @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new { @class = "text-box single-line" })
+        @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new {@class = "text-box single-line"})
     }
 }

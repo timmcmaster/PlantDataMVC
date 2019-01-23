@@ -17,8 +17,8 @@ namespace PlantDataMVC.UI.Models.ViewModels
 
         public PlantStockEntryNewViewModel()
         {
-            this.PlantSpecies = new SpeciesDto();
-            this.ProductType = new ProductTypeDto();
+            PlantSpecies = new SpeciesDto();
+            ProductType = new ProductTypeDto();
         }
     }
 }

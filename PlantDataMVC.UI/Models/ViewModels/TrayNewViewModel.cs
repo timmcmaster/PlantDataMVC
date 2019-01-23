@@ -21,8 +21,8 @@ namespace PlantDataMVC.UI.Models.ViewModels
 
         public TrayNewViewModel()
         {
-            this.SeedBatch = new SeedBatchDto();
-            this.DatePlanted = new DateTime();
+            SeedBatch = new SeedBatchDto();
+            DatePlanted = new DateTime();
         }
     }
 }

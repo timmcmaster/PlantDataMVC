@@ -2,7 +2,6 @@
 @using Framework.Web.Mvc
 @using PlantDataMVC.UI.Areas.Security.Controllers
 @using StackExchange.Profiling
-@using System.Web.Optimization
 @{
     var profiler = MiniProfiler.Current;
     
@@ -109,9 +108,9 @@
 
     <script type="text/javascript" src="~/Scripts/dist/app.bundle.js"></script>
 
-    @RenderSection("scripts", false)
+    @RenderSection("scripts", required: false)
 
-    @MiniProfiler.Current.RenderIncludes(RenderPosition.Left, false, false, startHidden: startHidden)
+    @MiniProfiler.Current.RenderIncludes(position: RenderPosition.Left, showTrivial: false, showTimeWithChildren: false, startHidden: startHidden)
 
 </body>
 </html>

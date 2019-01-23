@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.ViewModels
@@ -24,9 +23,9 @@ namespace PlantDataMVC.UI.Models.ViewModels
 
         public PlantSeedNewViewModel()
         {
-            this.PlantSpecies = new SpeciesDto();
-            this.DateCollected = new DateTime();
-            this.Site = new SiteDto();
+            PlantSpecies = new SpeciesDto();
+            DateCollected = new DateTime();
+            Site = new SiteDto();
         }
     }
 }
