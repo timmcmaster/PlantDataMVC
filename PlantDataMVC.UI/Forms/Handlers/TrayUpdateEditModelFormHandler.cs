@@ -8,7 +8,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class TrayUpdateEditModelFormHandler : IFormHandler<TrayUpdateEditModel>
     {
-        private ISeedTrayWcfService _dataService;
+        private readonly ISeedTrayWcfService _dataService;
 
         public TrayUpdateEditModelFormHandler(ISeedTrayWcfService dataService)
         {
@@ -18,9 +18,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
         public void Handle(TrayUpdateEditModel form)
         {
             // Map local model to DTO
-            var item = AutoMapper.Mapper.Map<TrayUpdateEditModel, SeedTrayDto>(form);
+            SeedTrayDto item = AutoMapper.Mapper.Map<TrayUpdateEditModel, SeedTrayDto>(form);
 
-            var response = _dataService.Update(item.Id, item);
+            IUpdateResponse<SeedTrayDto> response = _dataService.Update(item.Id, item);
         }
     }
 }

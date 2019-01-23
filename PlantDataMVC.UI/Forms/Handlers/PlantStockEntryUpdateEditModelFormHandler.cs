@@ -8,7 +8,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantStockEntryUpdateEditModelFormHandler : IFormHandler<PlantStockEntryUpdateEditModel>
     {
-        private IPlantStockWcfService _dataService;
+        private readonly IPlantStockWcfService _dataService;
 
         public PlantStockEntryUpdateEditModelFormHandler(IPlantStockWcfService dataService)
         {
@@ -19,9 +19,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
         {
             // Map local model to DTO
             // TODO: Check map exists
-            var item = AutoMapper.Mapper.Map<PlantStockEntryUpdateEditModel, PlantStockDto>(form);
+            PlantStockDto item = AutoMapper.Mapper.Map<PlantStockEntryUpdateEditModel, PlantStockDto>(form);
 
-            var response = _dataService.Update(item.Id, item);
+            IUpdateResponse<PlantStockDto> response = _dataService.Update(item.Id, item);
         }
     }
 }

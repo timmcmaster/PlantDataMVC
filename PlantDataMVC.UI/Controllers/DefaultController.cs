@@ -1,23 +1,20 @@
-﻿using Framework.Web.Forms;
-using PlantDataMVC.UI.Forms;
+﻿using System;
+using Framework.Web.Forms;
 using PlantDataMVC.UI.Helpers.ViewResults;
-using System;
 using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     /// An MVC controller that implements all of the basic CRUD methods (Create, Read, Update, Delete)
     /// as well as an index method.
     /// This should be the base class for most controllers in the system.
-    /// The underlying data is provided through a Request/Response data service which uses the business object.
-    /// The business object is mapped to the local model type and back as necessary.
+    /// The underlying data is provided through a Request/Response data service which uses DTOs.
     /// </summary>
-    /// <typeparam name="T">The type of the business object being used.</typeparam>
-    /// <typeparam name="U">The type of the local model for viewing the business object.</typeparam>
     public abstract class DefaultController : FormControllerBase
     {
-        public DefaultController(IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        protected DefaultController(IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
         }
 
@@ -63,10 +60,10 @@ namespace PlantDataMVC.UI.Controllers
         protected ListViewPreProcessingViewResult<TElement> ListView<TElement>(ViewResult viewResult, int? page, int? pageSize, string sortBy, bool? ascending)
         {
             // resolve parameters
-            int localPage = page ?? 0;
-            int localPageSize = pageSize ?? 40;
-            string localSortBy = sortBy ?? string.Empty;
-            bool localAscending = ascending ?? true;
+            var localPage = page ?? 0;
+            var localPageSize = pageSize ?? 40;
+            var localSortBy = sortBy ?? string.Empty;
+            var localAscending = ascending ?? true;
 
             if (!(viewResult is PreProcessingViewResult))
             {

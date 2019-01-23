@@ -16,10 +16,7 @@ namespace PlantDataMVC.UI.Models.ViewModels
         [Display(Name = "Latin Name")]
         public string LatinName
         {
-            get
-            {
-                return String.Format("{0} {1}", this.Genus, this.Species);
-            }
+            get => string.Format("{0} {1}", Genus, Species);
         }
 
         [Display(Name = "Common Name")]

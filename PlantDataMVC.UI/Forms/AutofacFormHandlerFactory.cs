@@ -19,8 +19,8 @@ namespace PlantDataMVC.UI.Forms
         public IFormHandler<TForm> Create<TForm>() where TForm : IForm
         {
             // Create handler by resolving it from context
-            // Data service parameter for formhandler will also be resolved from IoC (I think?)
-            IFormHandler<TForm> formHandler = _c.Resolve<IFormHandler<TForm>>();
+            // Data service parameter for formHandler will also be resolved from IoC (I think?)
+            var formHandler = _c.Resolve<IFormHandler<TForm>>();
             return formHandler;
         }
     }

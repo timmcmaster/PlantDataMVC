@@ -1,6 +1,7 @@
 ﻿using Framework.Web.Forms;
 using Interfaces.WcfService;
 using Interfaces.WcfService.Responses;
+using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.WCFService.ServiceContracts;
 
@@ -8,7 +9,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class SiteDestroyEditModelFormHandler : IFormHandler<SiteDestroyEditModel>
     {
-        private ISiteWcfService _dataService;
+        private readonly ISiteWcfService _dataService;
 
         public SiteDestroyEditModelFormHandler(ISiteWcfService dataService)
         {
@@ -17,7 +18,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
         public void Handle(SiteDestroyEditModel form)
         {
-            var response = _dataService.Delete(form.Id);
+            IDeleteResponse<SiteDto> response = _dataService.Delete(form.Id);
 
             //TODO: Need behaviour triggered on bad response
             if (response.Status == ServiceActionStatus.Deleted)

@@ -109,9 +109,9 @@
 
     <script type="text/javascript" src="~/Scripts/dist/app.bundle.js"></script>
 
-    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", false)
 
-    @MiniProfiler.Current.RenderIncludes(position: RenderPosition.Left, showTrivial: false, showTimeWithChildren: false, startHidden: startHidden)
+    @MiniProfiler.Current.RenderIncludes(RenderPosition.Left, false, false, startHidden: startHidden)
 
 </body>
 </html>

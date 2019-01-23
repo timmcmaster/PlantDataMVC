@@ -1,5 +1,6 @@
 ﻿using Framework.Web.Forms;
 using Interfaces.WcfService.Responses;
+using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.WCFService.ServiceContracts;
 
@@ -7,7 +8,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantSeedDestroyEditModelFormHandler : IFormHandler<PlantSeedDestroyEditModel>
     {
-        private ISeedBatchWcfService _dataService;
+        private readonly ISeedBatchWcfService _dataService;
 
         public PlantSeedDestroyEditModelFormHandler(ISeedBatchWcfService dataService)
         {
@@ -16,7 +17,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
         public void Handle(PlantSeedDestroyEditModel form)
         {
-            var response = _dataService.Delete(form.Id);
+            IDeleteResponse<SeedBatchDto> response = _dataService.Delete(form.Id);
         }
     }
 }

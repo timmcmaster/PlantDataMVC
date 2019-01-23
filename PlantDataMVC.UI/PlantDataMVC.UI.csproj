@@ -213,7 +213,7 @@
     <Compile Include="Helpers\ViewResults\PreProcessingViewResult.cs" />
     <Compile Include="Mappers\AutoMapperWebConfiguration.cs" />
     <Compile Include="Mappers\DtoToUiMappingProfile.cs" />
-    <Compile Include="Mappers\UIToDTOMappingProfile.cs" />
+    <Compile Include="Mappers\UiToDtoMappingProfile.cs" />
     <Compile Include="ModelBinders\DebugModelBinder.cs" />
     <Compile Include="Models\EditModels\SiteCreateEditModel.cs" />
     <Compile Include="Models\EditModels\SiteDestroyEditModel.cs" />

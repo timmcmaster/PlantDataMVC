@@ -18,7 +18,7 @@
     </div>
     <div class="editor-field">
         @*TODO: Want better representation for display value*@
-        @Html.DropDownFor(() => "SeedBatchId", model => model.SeedBatch, p => String.Concat(p.SpeciesId, p.Location, p.DateCollected), p => p.Id)
+        @Html.DropDownFor(() => "SeedBatchId", model => model.SeedBatch, p => string.Concat(p.SpeciesId, p.Location, p.DateCollected), p => p.Id)
     </div>
 
     <div class="editor-label">

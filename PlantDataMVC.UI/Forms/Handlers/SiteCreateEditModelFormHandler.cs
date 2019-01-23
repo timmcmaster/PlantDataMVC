@@ -1,4 +1,5 @@
 ﻿using Framework.Web.Forms;
+using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.WCFService.ServiceContracts;
@@ -7,7 +8,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class SiteCreateEditModelFormHandler : IFormHandler<SiteCreateEditModel>
     {
-        private ISiteWcfService _dataService;
+        private readonly ISiteWcfService _dataService;
 
         public SiteCreateEditModelFormHandler(ISiteWcfService dataService)
         {
@@ -18,9 +19,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
         {
             // Map local model to DTO
             // TODO: Check map exists
-            var item = AutoMapper.Mapper.Map<SiteCreateEditModel, SiteDto>(form);
+            SiteDto item = AutoMapper.Mapper.Map<SiteCreateEditModel, SiteDto>(form);
 
-            var response = _dataService.Create(item);
+            ICreateResponse<SiteDto> response = _dataService.Create(item);
         }
     }
 }

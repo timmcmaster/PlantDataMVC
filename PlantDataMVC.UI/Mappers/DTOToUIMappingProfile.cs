@@ -4,10 +4,11 @@ using PlantDataMVC.UI.Models.ViewModels;
 
 namespace PlantDataMVC.UI.Mappers
 {
+    /// <inheritdoc />
     /// <summary>
     /// HACK: Temporarily mapping every field explicitly to see what maps through
     /// </summary>
-    /// <seealso cref="AutoMapper.Profile" />
+    /// <seealso cref="T:AutoMapper.Profile" />
     public class DtoToUiMappingProfile : Profile
     {
         public DtoToUiMappingProfile()

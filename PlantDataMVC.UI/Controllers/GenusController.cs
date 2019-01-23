@@ -1,19 +1,18 @@
 ﻿using Framework.Web.Forms;
-using Interfaces.WcfService.Responses;
-using PlantDataMVC.UI.Helpers;
+using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Helpers.ViewResults;
-using PlantDataMVC.UI.Models.ViewModels;
 using PlantDataMVC.UI.Models.EditModels;
+using PlantDataMVC.UI.Models.ViewModels;
 using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using PlantDataMVC.DTO.Dtos;
+using Interfaces.WcfService.Responses;
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class GenusController : DefaultController
     {
-        private IGenusWcfService _dataService;
+        private readonly IGenusWcfService _dataService;
 
         public GenusController(IGenusWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
@@ -26,14 +25,14 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
             // resolve parameters
-            int localPage = page ?? 0;
-            int localPageSize = pageSize ?? 40;
-            string localSortBy = sortBy ?? string.Empty;
-            bool localAscending = ascending ?? true;
+            var localPage = page ?? 0;
+            var localPageSize = pageSize ?? 40;
+            var localSortBy = sortBy ?? string.Empty;
+            var localAscending = ascending ?? true;
 
-            var response = _dataService.List();
+            IListResponse<GenusInListDto> response = _dataService.List();
 
-            var list = response.Items;
+            IList<GenusInListDto> list = response.Items;
 
             // TODO: check to ensure these DTOs map to view model
             AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<GenusListViewModel>>(View(list));
@@ -46,9 +45,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Show(int id)
         {
             // return view for Model
-            var response = _dataService.View(id);
+            IViewResponse<GenusDto> response = _dataService.View(id);
 
-            var item = response.Item;
+            GenusDto item = response.Item;
 
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<GenusShowViewModel>(View(item));
@@ -59,9 +58,9 @@ namespace PlantDataMVC.UI.Controllers
         public ActionResult ShowBasic(int id)
         {
             // return view for Model
-            var response = _dataService.View(id);
+            IViewResponse<GenusDto> response = _dataService.View(id);
 
-            var item = response.Item;
+            GenusDto item = response.Item;
 
             return View(item);
         }
@@ -79,7 +78,7 @@ namespace PlantDataMVC.UI.Controllers
         // POST: /"ControllerName"/Create
         public ActionResult Create(GenusCreateEditModel form)
         {
-            var success = this.RedirectToAction("Index");
+            RedirectToRouteResult success = RedirectToAction("Index");
 
             return Form(form, success);
         }
@@ -89,9 +88,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Edit(int id)
         {
             // return view for Model
-            var response = _dataService.View(id);
+            IViewResponse<GenusDto> response = _dataService.View(id);
 
-            var item = response.Item;
+            GenusDto item = response.Item;
 
             return AutoMapView<GenusEditViewModel>(View(item));
         }
@@ -100,7 +99,7 @@ namespace PlantDataMVC.UI.Controllers
         // POST: /"ControllerName"/Update/5
         public ActionResult Update(GenusUpdateEditModel form)
         {
-            var success = this.RedirectToAction("Show", new { id = form.Id });
+            RedirectToRouteResult success = RedirectToAction("Show", new { id = form.Id });
 
             return Form(form, success);
         }
@@ -110,9 +109,9 @@ namespace PlantDataMVC.UI.Controllers
         public override ActionResult Delete(int id)
         {
             // return view for Model
-            var response = _dataService.View(id);
+            IViewResponse<GenusDto> response = _dataService.View(id);
 
-            var item = response.Item;
+            GenusDto item = response.Item;
 
             return AutoMapView<GenusDeleteViewModel>(View(item));
         }
@@ -121,7 +120,7 @@ namespace PlantDataMVC.UI.Controllers
         // POST: /"ControllerName"/Delete/5
         public ActionResult Destroy(GenusDestroyEditModel form)
         {
-            var success = this.RedirectToAction("Index");
+            RedirectToRouteResult success = RedirectToAction("Index");
 
             return Form(form, success);
         }

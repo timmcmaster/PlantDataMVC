@@ -1,10 +1,7 @@
-﻿using System;
+﻿using PlantDataMVC.UI.Models.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using PlantDataMVC.UI.Models.ViewModels;
 
 namespace PlantDataMVC.UI.Helpers.ViewResults
 {
@@ -13,10 +10,10 @@ namespace PlantDataMVC.UI.Helpers.ViewResults
     /// </summary>
     public class ListViewPreProcessingViewResult<T> : PreProcessingViewResult
     {
-        public int Page { get; private set; }
-        public int PageSize { get; private set; }
-        public string SortBy { get; private set; }
-        public bool Ascending { get; private set; }
+        public int Page { get; }
+        public int PageSize { get; }
+        public string SortBy { get; }
+        public bool Ascending { get; }
 
         public ListViewPreProcessingViewResult(PreProcessingViewResult child, int page, int pageSize, string sortBy, bool ascending)
             : base(child)
@@ -31,10 +28,8 @@ namespace PlantDataMVC.UI.Helpers.ViewResults
         {
             ViewResult viewResult = GetRootViewResult();
 
-            // Convert the enumerable model in the base view to a listviewmodel
-            IList<T> list = (viewResult.ViewData.Model as IList<T>);
-
-            if (list != null)
+            // Convert the enumerable model in the base view to a ListViewModel
+            if (viewResult.ViewData.Model is IList<T> list)
             {
                 viewResult.ViewData.Model = new  ListViewModel<T>(list.AsQueryable(), Page, PageSize, SortBy, Ascending);
             }

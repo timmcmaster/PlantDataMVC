@@ -2,12 +2,11 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.Wcf;
 using Framework.Web.Forms;
-using PlantDataMVC.WCFService.ServiceContracts;
 using PlantDataMVC.UI.Forms;
 using PlantDataMVC.UI.Forms.Handlers;
+using PlantDataMVC.WCFService.ServiceContracts;
 using System.Reflection;
 using System.ServiceModel;
-using System.ServiceModel.Web;
 
 namespace PlantDataMVC.UI
 {
@@ -149,7 +148,7 @@ namespace PlantDataMVC.UI
             // UI configurations
             // ****************************************************
             // Register all types that implement IFormHandler<T> from given assembly
-            var formAssembly = Assembly.GetAssembly(typeof(PlantCreateEditModelFormHandler));
+            Assembly formAssembly = Assembly.GetAssembly(typeof(PlantCreateEditModelFormHandler));
             builder.RegisterAssemblyTypes(formAssembly).AsClosedTypesOf(typeof(IFormHandler<>));
 
             // TEMP: Want to build factory via IoC itself

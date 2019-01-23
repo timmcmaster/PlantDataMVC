@@ -11,8 +11,8 @@ namespace PlantDataMVC.UI.Helpers
         }
         public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)
         {
-            return (controllerContext.HttpContext.Request[ValueName] != null);
+            return controllerContext.HttpContext.Request[ValueName] != null;
         }
-        public string ValueName { get; private set; }
+        public string ValueName { get; }
     }
 }

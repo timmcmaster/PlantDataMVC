@@ -8,7 +8,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class SiteUpdateEditModelFormHandler : IFormHandler<SiteUpdateEditModel>
     {
-        private ISiteWcfService _dataService;
+        private readonly ISiteWcfService _dataService;
 
         public SiteUpdateEditModelFormHandler(ISiteWcfService dataService)
         {
@@ -19,9 +19,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
         {
             // Map local model to DTO
             // TODO: Check map exists
-            var item = AutoMapper.Mapper.Map<SiteUpdateEditModel, SiteDto>(form);
+            SiteDto item = AutoMapper.Mapper.Map<SiteUpdateEditModel, SiteDto>(form);
 
-            var response = _dataService.Update(item.Id, item);
+            IUpdateResponse<SiteDto> response = _dataService.Update(item.Id, item);
         }
     }
 }

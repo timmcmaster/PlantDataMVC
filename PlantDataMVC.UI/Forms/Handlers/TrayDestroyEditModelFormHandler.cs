@@ -8,7 +8,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class TrayDestroyEditModelFormHandler : IFormHandler<TrayDestroyEditModel>
     {
-        private ISeedTrayWcfService _dataService;
+        private readonly ISeedTrayWcfService _dataService;
 
         public TrayDestroyEditModelFormHandler(ISeedTrayWcfService dataService)
         {

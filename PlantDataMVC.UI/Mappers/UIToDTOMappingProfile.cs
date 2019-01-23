@@ -4,17 +4,17 @@ using PlantDataMVC.UI.Models.EditModels;
 
 namespace PlantDataMVC.UI.Mappers
 {
-    public class UIToDTOMappingProfile : Profile
+    public class UiToDtoMappingProfile : Profile
     {
-        public UIToDTOMappingProfile()
+        public UiToDtoMappingProfile()
         {
-            ConfigureEditModelsToDTO();
+            ConfigureEditModelsToDto();
         }
 
         /// <summary>
         /// Configure the mappings from the UI layer edit models to the App/Business Layer objects
         /// </summary>
-        private void ConfigureEditModelsToDTO()
+        private void ConfigureEditModelsToDto()
         {
             ConfigureGenusEditModels();
             ConfigurePlantEditModels();

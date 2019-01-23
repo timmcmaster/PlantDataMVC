@@ -8,7 +8,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class GenusUpdateEditModelFormHandler : IFormHandler<GenusUpdateEditModel>
     {
-        private IGenusWcfService _dataService;
+        private readonly IGenusWcfService _dataService;
 
         public GenusUpdateEditModelFormHandler(IGenusWcfService dataService)
         {
@@ -19,9 +19,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
         {
             // Map local model to DTO
             // TODO: Check map exists
-            var item = AutoMapper.Mapper.Map<GenusUpdateEditModel, CreateUpdateGenusDto>(form);
+            CreateUpdateGenusDto item = AutoMapper.Mapper.Map<GenusUpdateEditModel, CreateUpdateGenusDto>(form);
 
-            var response = _dataService.Update(form.Id, item);
+            IUpdateResponse<GenusDto> response = _dataService.Update(form.Id, item);
         }
     }
 }

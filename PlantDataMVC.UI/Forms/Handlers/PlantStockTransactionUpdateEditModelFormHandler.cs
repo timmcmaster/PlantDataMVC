@@ -9,7 +9,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantStockTransactionUpdateEditModelFormHandler : IFormHandler<PlantStockTransactionUpdateEditModel>
     {
-        private IJournalEntryWcfService _dataService;
+        private readonly IJournalEntryWcfService _dataService;
 
         public PlantStockTransactionUpdateEditModelFormHandler(IJournalEntryWcfService dataService)
         {
@@ -20,9 +20,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
         {
             // Map local model to DTO
             // TODO: Check map exists
-            var item = AutoMapper.Mapper.Map<PlantStockTransactionUpdateEditModel, JournalEntryDto>(form);
+            JournalEntryDto item = AutoMapper.Mapper.Map<PlantStockTransactionUpdateEditModel, JournalEntryDto>(form);
 
-            var response = _dataService.Update(item.Id, item);
+            IUpdateResponse<JournalEntryDto> response = _dataService.Update(item.Id, item);
         }
     }
 }

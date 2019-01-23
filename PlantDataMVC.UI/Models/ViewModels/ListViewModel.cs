@@ -11,49 +11,45 @@ namespace PlantDataMVC.UI.Models.ViewModels
     {
         public ListViewModel(IQueryable<T> source, int pageIndex, int pageSize, string sortBy, bool sortAscending)
         {
-            this.PageIndex = pageIndex;
-            this.PageSize = pageSize;
-            this.TotalCount = source.Count();
-            this.TotalPages = (int)Math.Ceiling(TotalCount / (double)PageSize);
+            PageIndex = pageIndex;
+            PageSize = pageSize;
+            TotalCount = source.Count();
+            TotalPages = (int) Math.Ceiling(TotalCount / (double) PageSize);
 
-            this.SortBy = sortBy;
-            this.SortAscending = sortAscending;
+            SortBy = sortBy;
+            SortAscending = sortAscending;
 
-            var sortedList = String.IsNullOrEmpty(this.SortBy) ? source : source.OrderBy(this.SortExpression);
+            IQueryable<T> sortedList = string.IsNullOrEmpty(SortBy) ? source : source.OrderBy(SortExpression);
 
-            var pagedList = sortedList.Skip(PageIndex * PageSize).Take(PageSize);
-            
-            this.AddRange(pagedList);
+            IQueryable<T> pagedList = sortedList.Skip(PageIndex * PageSize).Take(PageSize);
+
+            AddRange(pagedList);
         }
 
         // IPageable implementation
-        public int PageIndex { get; private set; }
-        public int PageSize   { get; private set; }
-        public int TotalCount { get; private set; }
-        public int TotalPages { get; private set; }
+        public int PageIndex { get; }
+        public int PageSize { get; }
+        public int TotalCount { get; }
+        public int TotalPages { get; }
 
-        public bool HasPreviousPage {
-            get {
-                return (PageIndex > 0);
-            }
+        public bool HasPreviousPage
+        {
+            get => (PageIndex > 0);
         }
 
-        public bool HasNextPage {
-            get {
-                return (PageIndex+1 < TotalPages);
-            }
+        public bool HasNextPage
+        {
+            get => (PageIndex + 1 < TotalPages);
         }
 
 
         // ISortable implementation
         public string SortBy { get; set; }
         public bool SortAscending { get; set; }
+
         public string SortExpression
         {
-            get
-            {
-                return this.SortAscending ? this.SortBy + " asc" : this.SortBy + " desc";
-            }
+            get => SortAscending ? SortBy + " asc" : SortBy + " desc";
         }
     }
 }

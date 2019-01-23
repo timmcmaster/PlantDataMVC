@@ -6,11 +6,11 @@ namespace PlantDataMVC.UI.Mappers
     public static class AutoMapperWebConfiguration
     {
         public static Action<IMapperConfigurationExpression> ConfigAction
-            = new Action<IMapperConfigurationExpression>(cfg =>
+            = cfg =>
             {
-                cfg.AddProfile<UIToDTOMappingProfile>();
+                cfg.AddProfile<UiToDtoMappingProfile>();
                 cfg.AddProfile<DtoToUiMappingProfile>();
-            });
+            };
 
 
         /// <summary>

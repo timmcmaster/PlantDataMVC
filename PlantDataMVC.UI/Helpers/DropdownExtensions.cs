@@ -37,7 +37,7 @@ namespace PlantDataMVC.UI.Helpers
             //Type interfaceType = GetDataServiceInterfaceFor<TItem>();
             //var dataService = DependencyResolver.Current.GetService(interfaceType) as IDataServiceBase<TItem>;
 
-            var dataService = GetServiceForDto<TDtoItem>();
+            IWcfService dataService = GetServiceForDto<TDtoItem>();
 
             IList<TDtoItem> items = new List<TDtoItem>();
             if (dataService != null)
@@ -45,11 +45,11 @@ namespace PlantDataMVC.UI.Helpers
                 items = dataService.List<TDtoItem>().Items;
             }
 
-            var selectListItems = items.Select(x => new SelectListItem
+            IEnumerable<SelectListItem> selectListItems = items.Select(x => new SelectListItem
             {
                 Text = displayValueSelector(x),
                 Value = dataValueSelector(x).ToString(),
-                Selected = (dataValueSelector(x).Equals(dataValueSelector(selectedItem)))
+                Selected = dataValueSelector(x).Equals(dataValueSelector(selectedItem))
             });
 
             return htmlHelper.DropDownList(fieldName(), selectListItems, "Select an option");

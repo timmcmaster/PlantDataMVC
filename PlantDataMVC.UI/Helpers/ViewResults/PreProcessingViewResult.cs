@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Helpers.ViewResults
 {
+    /// <inheritdoc />
     /// <summary>
     /// A class for post-processing a View to map it's model from the current type to the defined type.
     /// </summary>
@@ -15,13 +11,14 @@ namespace PlantDataMVC.UI.Helpers.ViewResults
         /// <summary>
         /// The child ViewResult which we actually want to execute.
         /// </summary>
-        public ViewResult Child { get; private set; }
+        public ViewResult Child { get; }
 
         public PreProcessingViewResult(ViewResult child)
         {
             Child = child;
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// The main method for any ViewResult.
         /// This method runs the process task, then calls the lowest level ExecuteResult
@@ -42,9 +39,9 @@ namespace PlantDataMVC.UI.Helpers.ViewResults
         /// <returns></returns>
         public virtual ViewResult GetRootViewResult()
         {
-            if (Child is PreProcessingViewResult)
+            if (Child is PreProcessingViewResult result)
             {
-                return ((PreProcessingViewResult)Child).GetRootViewResult();
+                return result.GetRootViewResult();
             }
             else
             {
@@ -58,9 +55,9 @@ namespace PlantDataMVC.UI.Helpers.ViewResults
         public virtual void RunPreProcessing()
         {
             // Run the child's preprocessing
-            if (Child is PreProcessingViewResult)
+            if (Child is PreProcessingViewResult result)
             {
-                ((PreProcessingViewResult)Child).RunPreProcessing();
+                result.RunPreProcessing();
             }
 
             // then run our task
