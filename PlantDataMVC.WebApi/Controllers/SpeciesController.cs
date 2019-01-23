@@ -41,12 +41,19 @@ namespace PlantDataMVC.WebApi.Controllers
         {
             try
             {
+                var childDtos = new List<string>() { "plantStocks", "seedBatches" };
+                var childDtosToInclude = new List<string>();
+
                 // Convert fields to list of fields
-                List<string> lstOfFields = new List<string>();
+                var lstOfFields = new List<string>();
 
                 if (fields != null)
                 {
                     lstOfFields = fields.Split(',').ToList();
+
+                    childDtosToInclude = DataShaping.GetChildObjectsToInclude(childDtos, lstOfFields);
+
+                    // If field name equals 
                 }
 
                 if (pageSize > MaxPageSize)
@@ -62,7 +69,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 //    .ToList();
 
                 IQueryable<SpeciesDto> speciesDtos = context
-                    .ProjectTo<SpeciesDto>()
+                    .ProjectTo<SpeciesDto>(null, childDtosToInclude.ToArray())
                     .ApplySort(sort)
                     .Where(s => (native == null || s.Native == native))
                     .Where(s => (specificName == null || s.SpecificName == specificName));
