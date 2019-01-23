@@ -25,13 +25,13 @@ namespace Framework.Web.Mvc.Paging
             {
                 if (model.HasPreviousPage)
                 {
-                    RouteValueDictionary routeDataPrev = new RouteValueDictionary { { "page", (model.PageIndex - 1) }, { "pageSize", model.PageSize } };
+                    RouteValueDictionary routeDataPrev = new RouteValueDictionary { { "page", model.PageIndex - 1 }, { "pageSize", model.PageSize } };
                     routeDataPrev.AddQueryStringParameters();
 
                     prevLink = helper.ActionLink("< Previous Page", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataPrev);
                 }
 
-                if ((model.HasPreviousPage) && (model.HasNextPage))
+                if (model.HasPreviousPage && model.HasNextPage)
                 {
                     TagBuilder builder = new TagBuilder("text");
                     builder.InnerHtml = "&nbsp;|&nbsp;";
@@ -41,7 +41,7 @@ namespace Framework.Web.Mvc.Paging
 
                 if (model.HasNextPage)
                 {
-                    RouteValueDictionary routeDataNext = new RouteValueDictionary { { "page", (model.PageIndex + 1) }, { "pageSize", model.PageSize } };
+                    RouteValueDictionary routeDataNext = new RouteValueDictionary { { "page", model.PageIndex + 1 }, { "pageSize", model.PageSize } };
                     routeDataNext.AddQueryStringParameters();
 
                     nextLink = helper.ActionLink("Next Page >", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataNext);

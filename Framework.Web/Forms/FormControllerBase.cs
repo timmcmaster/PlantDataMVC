@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 namespace Framework.Web.Forms
 {
+    /// <inheritdoc />
     /// <summary>
     /// An MVC controller that implements all of the basic CRUD methods (Create, Read, Update, Delete)
     /// as well as an index method.
@@ -10,15 +11,14 @@ namespace Framework.Web.Forms
     /// The underlying data is provided through a Request/Response data service which uses the business object.
     /// The business object is mapped to the local model type and back as necessary.
     /// </summary>
-    /// <typeparam name="T">The type of the business object being used.</typeparam>
-    /// <typeparam name="U">The type of the local model for viewing the business object.</typeparam>
+    /// <seealso cref="T:System.Web.Mvc.Controller" />
     public class FormControllerBase : Controller
     {
         private readonly IFormHandlerFactory _formHandlerFactory;
 
         protected FormControllerBase(IFormHandlerFactory formHandlerFactory)
         {
-            this._formHandlerFactory = formHandlerFactory;
+            _formHandlerFactory = formHandlerFactory;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Framework.Web.Forms
         /// </summary>
         /// <typeparam name="TForm">The form type.</typeparam>
         /// <param name="form">The form instance.</param>
-        /// <param name="success">The view to display on success.</param>
+        /// <param name="successResult">The view to display on success.</param>
         /// <returns></returns>
         protected ActionResult Form<TForm>(TForm form, ActionResult successResult) where TForm : IForm
         {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic;
 
@@ -9,12 +8,12 @@ namespace Framework.Web.Mvc.Sorting
     {
         public SortableList(IQueryable<T> source, string sortBy, bool sortAscending)
         {
-            this.SortBy = sortBy;
-            this.SortAscending = sortAscending;
+            SortBy = sortBy;
+            SortAscending = sortAscending;
 
-            var sortedList = String.IsNullOrEmpty(this.SortBy) ? source : source.OrderBy(this.SortExpression);
+            var sortedList = string.IsNullOrEmpty(SortBy) ? source : source.OrderBy(SortExpression);
 
-            this.AddRange(sortedList);
+            AddRange(sortedList);
         }
 
         // ISortable implementation
@@ -22,10 +21,7 @@ namespace Framework.Web.Mvc.Sorting
         public bool SortAscending { get; set; }
         public string SortExpression
         {
-            get
-            {
-                return this.SortAscending ? this.SortBy + " asc" : this.SortBy + " desc";
-            }
+            get => SortAscending ? SortBy + " asc" : SortBy + " desc";
         }
     }
 }

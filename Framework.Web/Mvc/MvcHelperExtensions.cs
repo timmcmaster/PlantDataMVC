@@ -40,17 +40,15 @@ namespace Framework.Web.Mvc
             if (body.NodeType == ExpressionType.Convert)
                 body = ((UnaryExpression)body).Operand;
 
-            var memberExpr = body as MemberExpression;
-
-            if (memberExpr != null)
-                return memberExpr.Member;
-
-            var callExpr = body as MethodCallExpression;
-
-            if (callExpr != null)
-                return callExpr.Method;
-
-            return null;
+            switch (body)
+            {
+                case MemberExpression memberExpr:
+                    return memberExpr.Member;
+                case MethodCallExpression callExpr:
+                    return callExpr.Method;
+                default:
+                    return null;
+            }
         }
 
         /// <summary>
@@ -68,18 +66,13 @@ namespace Framework.Web.Mvc
         /// Extension method for a Type.
         /// Gets the area name from the Type by returning the namespace component following "Areas".
         /// </summary>
-        /// <param name="controllerType"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
         public static string GetAreaName(this Type type)
         {
-            string[] namespaces = type.Namespace.ToLowerInvariant().Split('.');
-            int areaIndex = GetAreaIndex(namespaces);
-            if (areaIndex < 0)
-            {
-                return null;
-            }
-
-            return namespaces[areaIndex + 1];
+            var namespaces = type.Namespace.ToLowerInvariant().Split('.');
+            var areaIndex = GetAreaIndex(namespaces);
+            return areaIndex < 0 ? null : namespaces[areaIndex + 1];
         }
 
         /// <summary>
@@ -89,7 +82,7 @@ namespace Framework.Web.Mvc
         /// <returns></returns>
         private static int GetAreaIndex(string[] namespaces)
         {
-            for (int i = 0; i < namespaces.Length; i++)
+            for (var i = 0; i < namespaces.Length; i++)
             {
                 if (namespaces[i] == "areas")
                 {

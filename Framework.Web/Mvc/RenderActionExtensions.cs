@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using System.Linq.Expressions;
 using System.Web.Routing;
 
 namespace Framework.Web.Mvc
@@ -24,7 +21,7 @@ namespace Framework.Web.Mvc
         public static void RenderAction<TController>(this HtmlHelper helper, Expression<Action<TController>> action)
             where TController : Controller
         {
-            helper.RenderAction<TController>(action, null);
+            helper.RenderAction(action, null);
         }
 
         /// <summary>
@@ -44,9 +41,9 @@ namespace Framework.Web.Mvc
             values = values ?? new RouteValueDictionary();
 
             // get the controller name and action name
-            Type type = typeof(TController);
-            string controllerName = type.GetControllerName();
-            string actionName = action.GetActionName();
+            var type = typeof(TController);
+            var controllerName = type.GetControllerName();
+            var actionName = action.GetActionName();
 
             // add the area to the route value dictionary
             values.ProcessArea(type);

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Routing;
 
@@ -16,11 +14,15 @@ namespace Framework.Web.Mvc
         /// </summary>
         public static RouteValueDictionary AddQueryStringParameters(this RouteValueDictionary routeValues)
         {
-            var querystring = HttpContext.Current.Request.QueryString;
+            var queryString = HttpContext.Current.Request.QueryString;
 
-            foreach (var key in querystring.AllKeys)
+            foreach (var key in queryString.AllKeys)
+            {
                 if (!routeValues.ContainsKey(key))
-                    routeValues.Add(key, querystring.GetValues(key)[0]);
+                {
+                    routeValues.Add(key, queryString.GetValues(key)[0]);
+                }
+            }
 
             return routeValues;
         }
@@ -31,8 +33,12 @@ namespace Framework.Web.Mvc
         public static RouteValueDictionary ExceptFor(this RouteValueDictionary routeValues, params string[] keysToRemove)
         {
             foreach (var key in keysToRemove)
+            {
                 if (routeValues.ContainsKey(key))
+                {
                     routeValues.Remove(key);
+                }
+            }
 
             return routeValues;
         }
