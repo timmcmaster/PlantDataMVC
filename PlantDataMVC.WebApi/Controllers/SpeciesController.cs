@@ -41,7 +41,9 @@ namespace PlantDataMVC.WebApi.Controllers
         {
             try
             {
-                var childDtos = new List<string>() { "plantStocks", "seedBatches" };
+                // TODO: Current state doesn't return children by default, can only get with "fields" option
+                // need to determine expected behaviour
+
                 var childDtosToInclude = new List<string>();
 
                 // Convert fields to list of fields
@@ -51,7 +53,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 {
                     lstOfFields = fields.Split(',').ToList();
 
-                    childDtosToInclude = DataShaping.GetChildObjectsToInclude(childDtos, lstOfFields);
+                    childDtosToInclude = DataShaping.GetIncludedObjectNames<SpeciesDto>(lstOfFields);
 
                     // If field name equals 
                 }
@@ -97,7 +99,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 
                 return Ok(itemList);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return InternalServerError();
             }
