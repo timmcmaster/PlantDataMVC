@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Http;
+using CacheCow.Server.WebApi;
 using PlantDataMVC.WebApi.Helpers;
 
 namespace PlantDataMVC.WebApi.Controllers
@@ -31,6 +32,7 @@ namespace PlantDataMVC.WebApi.Controllers
         }
 
         // GET: api/Species
+        [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
         [Route("api/species", Name = "SpeciesList")]
         public IHttpActionResult Get(
@@ -106,6 +108,7 @@ namespace PlantDataMVC.WebApi.Controllers
         }
 
         // GET: api/Plant/5
+        [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
         public IHttpActionResult Get(int id)
         {

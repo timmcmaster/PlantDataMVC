@@ -12,7 +12,7 @@ namespace PlantDataMVC.WebApi.Tests.UnitTests
         [Fact]
         public void TestGetRelatedObjects()
         {
-            var relatedObjs = DataShaping.GetRelatedDtoPropInfos(new SpeciesDto());
+            var relatedObjs = DataShaping.GetRelatedDtoPropInfos<SpeciesDto>();
         }
 
         [Fact]
