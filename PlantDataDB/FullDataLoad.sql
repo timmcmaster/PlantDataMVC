@@ -356,7 +356,7 @@ INSERT INTO [dbo].[SeedBatch] ([Id], [SpeciesId], [DateCollected], [Location], [
 INSERT INTO [dbo].[SeedBatch] ([Id], [SpeciesId], [DateCollected], [Location], [Notes], [SiteId]) VALUES (31, 167, N'2010-01-01', N'(Dad)                         ', NULL, 1)
 INSERT INTO [dbo].[SeedBatch] ([Id], [SpeciesId], [DateCollected], [Location], [Notes], [SiteId]) VALUES (32, 168, N'2010-01-01', N'(Dad)                         ', NULL, 1)
 INSERT INTO [dbo].[SeedBatch] ([Id], [SpeciesId], [DateCollected], [Location], [Notes], [SiteId]) VALUES (33, 169, N'2010-01-01', N'Unknown                       ', NULL, 39)
-INSERT INTO [dbo].[SeedBatch] ([Id], [SpeciesId], [DateCollected], [Location], [Notes], [SiteId]) VALUES (34, 172, N'2010-07-29', N'Home                          ', NULL, 15)
+INSERT INTO [dbo].[SeedBatch] ([Id], [SpeciesId], [DateCollected], [Location], [Notes], [SiteId]) VALUES (34, 119, N'2010-07-29', N'Home                          ', NULL, 15)
 INSERT INTO [dbo].[SeedBatch] ([Id], [SpeciesId], [DateCollected], [Location], [Notes], [SiteId]) VALUES (35, 173, N'2010-08-29', N'Home                          ', NULL, 15)
 INSERT INTO [dbo].[SeedBatch] ([Id], [SpeciesId], [DateCollected], [Location], [Notes], [SiteId]) VALUES (36, 174, N'2010-10-30', N'Home                          ', NULL, 15)
 INSERT INTO [dbo].[SeedBatch] ([Id], [SpeciesId], [DateCollected], [Location], [Notes], [SiteId]) VALUES (37, 175, N'2011-01-20', N'Toohey Forest                 ', NULL, 38)
