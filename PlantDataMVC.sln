@@ -18,6 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.Tests.UI", "Pl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Solution Items", "0.Solution Items", "{33ADC7C0-A99E-42C6-BB34-E6E255E85B6A}"
 	ProjectSection(SolutionItems) = preProject
+		ConnectionStrings.config = ConnectionStrings.config
 		DomainThoughts.md = DomainThoughts.md
 		GeneralLinks.md = GeneralLinks.md
 		README.md = README.md
