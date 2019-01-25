@@ -96,10 +96,10 @@
     <Compile Include="UnitTests\Services\GenusWcfServiceFacts.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\ConnectionStrings.config">
+    <Content Include="..\ConnectionStrings.config">
       <Link>ConnectionStrings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>

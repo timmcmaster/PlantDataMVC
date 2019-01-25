@@ -214,10 +214,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\ConnectionStrings.config">
+    <Content Include="..\ConnectionStrings.config">
       <Link>ConnectionStrings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
