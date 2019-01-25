@@ -195,6 +195,7 @@
     <Compile Include="Forms\Handlers\SiteDestroyEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\SiteUpdateEditModelFormHandler.cs" />
     <Compile Include="Helpers\DropDownExtensions.cs" />
+    <Compile Include="Helpers\MyHttpClient.cs" />
     <Compile Include="Helpers\MenuExtensions.cs" />
     <Compile Include="Forms\Handlers\PlantStockTransactionCreateEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\PlantStockTransactionDestroyEditModelFormHandler.cs" />

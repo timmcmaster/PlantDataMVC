@@ -5,6 +5,7 @@ using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
 using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Interfaces.WcfService.Responses;
 
@@ -22,7 +23,7 @@ namespace PlantDataMVC.UI.Controllers
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
-        public override ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending)
+        public override async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
             IListResponse<SiteDto> response = _dataService.List();
 

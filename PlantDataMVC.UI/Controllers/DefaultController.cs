@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Framework.Web.Forms;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using System.Web.Mvc;
@@ -75,7 +76,7 @@ namespace PlantDataMVC.UI.Controllers
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
-        public abstract ActionResult Index(int? page, int? pageSize, string sortBy, bool? ascending);
+        public abstract Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending);
 
         //
         // GET: /"ControllerName"/Show/5
