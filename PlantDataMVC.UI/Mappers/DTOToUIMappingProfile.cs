@@ -78,7 +78,7 @@ namespace PlantDataMVC.UI.Mappers
                .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
-            CreateMap<SpeciesInListDto, PlantListViewModel>()
+            CreateMap<SpeciesDto, PlantListViewModel>()
                .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "(Fix me!) " + dto.SpecificName))           // TODO: Fix this
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id));
