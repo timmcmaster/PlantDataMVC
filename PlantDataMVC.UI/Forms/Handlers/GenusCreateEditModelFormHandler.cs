@@ -1,27 +1,42 @@
 ﻿using Framework.Web.Forms;
-using Interfaces.WcfService.Responses;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using PlantDataMVC.WCFService.ServiceContracts;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class GenusCreateEditModelFormHandler : IFormHandler<GenusCreateEditModel>
     {
-        private readonly IGenusWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public GenusCreateEditModelFormHandler(IGenusWcfService dataService)
+        public GenusCreateEditModelFormHandler()
         {
-            _dataService = dataService;
+            _httpClient = MyHttpClient.GetClient();
         }
 
-        public void Handle(GenusCreateEditModel form)
+        // TODO: Look into how we might mock HttpClient for unit tests 
+        public async Task<bool> HandleAsync(GenusCreateEditModel form)
         {
-            // Map local model to DTO
-            // TODO: Check map exists
-            CreateUpdateGenusDto item = AutoMapper.Mapper.Map<GenusCreateEditModel, CreateUpdateGenusDto>(form);
+            try
+            {
+                // Map local model to DTO
+                // TODO: Check map exists
+                CreateUpdateGenusDto item = AutoMapper.Mapper.Map<GenusCreateEditModel, CreateUpdateGenusDto>(form);
+                var serializedItem = JsonConvert.SerializeObject(item);
+                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
-            ICreateResponse<GenusDto> response = _dataService.Create(item);
+                var httpResponse = await _httpClient.PostAsync("api/Genus/", content);
+
+                return httpResponse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

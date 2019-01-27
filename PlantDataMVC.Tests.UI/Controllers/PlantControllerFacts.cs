@@ -36,12 +36,9 @@ namespace PlantDataMVC.Tests.UI.Controllers
 
                 // create mocks
                 var repo = new MockRepository(MockBehavior.Loose);
-                var dsMockWrapper = repo.Create<ISpeciesWcfService>();
                 var fhfMockWrapper = repo.Create<IFormHandlerFactory>();
 
-                dsMockWrapper.Setup(x => x.List()).Returns(listResponse);
-
-                var controller = new PlantController(dsMockWrapper.Object, fhfMockWrapper.Object);
+                var controller = new PlantController(fhfMockWrapper.Object);
 
                 // Act
                 var result = controller.Index(null, null, null, null);
@@ -76,7 +73,7 @@ namespace PlantDataMVC.Tests.UI.Controllers
 
                 dsMockWrapper.Setup(x => x.List()).Returns(listResponse);
 
-                var controller = new PlantController(dsMockWrapper.Object, fhfMockWrapper.Object);
+                var controller = new PlantController(fhfMockWrapper.Object);
 
                 // Act
                 var result = controller.Index(null, null, null, null);

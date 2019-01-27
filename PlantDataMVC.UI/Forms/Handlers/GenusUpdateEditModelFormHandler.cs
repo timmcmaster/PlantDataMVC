@@ -1,27 +1,43 @@
 ﻿using Framework.Web.Forms;
-using Interfaces.WcfService.Responses;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using PlantDataMVC.WCFService.ServiceContracts;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class GenusUpdateEditModelFormHandler : IFormHandler<GenusUpdateEditModel>
     {
-        private readonly IGenusWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public GenusUpdateEditModelFormHandler(IGenusWcfService dataService)
+        public GenusUpdateEditModelFormHandler()
         {
-            _dataService = dataService;
+            _httpClient = MyHttpClient.GetClient();
         }
 
-        public void Handle(GenusUpdateEditModel form)
+        public async Task<bool> HandleAsync(GenusUpdateEditModel form)
         {
-            // Map local model to DTO
-            // TODO: Check map exists
-            CreateUpdateGenusDto item = AutoMapper.Mapper.Map<GenusUpdateEditModel, CreateUpdateGenusDto>(form);
+            try
+            {
+                // Map local model to DTO
+                // TODO: Check map exists
+                CreateUpdateGenusDto item = AutoMapper.Mapper.Map<GenusUpdateEditModel, CreateUpdateGenusDto>(form);
 
-            IUpdateResponse<GenusDto> response = _dataService.Update(form.Id, item);
+                // Update with PUT
+                var serializedItem = JsonConvert.SerializeObject(item);
+                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
+
+                var httpResponse = await _httpClient.PutAsync("api/Genus/" + form.Id, content);
+
+                return httpResponse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

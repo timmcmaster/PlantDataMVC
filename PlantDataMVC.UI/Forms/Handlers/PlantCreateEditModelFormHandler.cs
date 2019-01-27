@@ -1,27 +1,41 @@
 ﻿using Framework.Web.Forms;
-using Interfaces.WcfService.Responses;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using PlantDataMVC.WCFService.ServiceContracts;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantCreateEditModelFormHandler : IFormHandler<PlantCreateEditModel>
     {
-        private readonly ISpeciesWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public PlantCreateEditModelFormHandler(ISpeciesWcfService dataService)
+        public PlantCreateEditModelFormHandler()
         {
-            _dataService = dataService;
+            _httpClient = MyHttpClient.GetClient();
         }
 
-        public void Handle(PlantCreateEditModel form)
+        public async Task<bool> HandleAsync(PlantCreateEditModel form)
         {
-            // Map local model to DTO
-            // TODO: Check map exists
-            SpeciesDto item = AutoMapper.Mapper.Map<PlantCreateEditModel, SpeciesDto>(form);
+            try
+            {
+                // Map local model to DTO
+                // TODO: Check map exists
+                SpeciesDto item = AutoMapper.Mapper.Map<PlantCreateEditModel, SpeciesDto>(form);
+                var serializedItem = JsonConvert.SerializeObject(item);
+                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
-            ICreateResponse<SpeciesDto> response = _dataService.Create(item);
+                var httpResponse = await _httpClient.PostAsync("api/Species/", content);
+
+                return httpResponse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

@@ -38,7 +38,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Show/5
-        public override ActionResult Show(int id)
+        public override async Task<ActionResult> Show(int id)
         {
             // return view for Model
             IViewResponse<PlantStockDto> response = _dataService.View(id);
@@ -76,16 +76,16 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // POST: /"ControllerName"/Create
-        public ActionResult Create(PlantStockEntryCreateEditModel form)
+        public async Task<ActionResult> Create(PlantStockEntryCreateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");
 
-            return Form(form, success);
+            return await Form(form, success);
         }
 
         //
         // GET: /"ControllerName"/Edit/5
-        public override ActionResult Edit(int id)
+        public async override Task<ActionResult> Edit(int id)
         {
             // return view for Model
             IViewResponse<PlantStockDto> response = _dataService.View(id);
@@ -98,17 +98,17 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // POST: /"ControllerName"/Update/5
-        public ActionResult Update(PlantStockEntryUpdateEditModel form)
+        public async Task<ActionResult> Update(PlantStockEntryUpdateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Show", new { id = form.Id });
 
             // TODO: check to ensure these DTOs map to view model
-            return Form(form, success);
+            return await Form(form, success);
         }
 
         //
         // GET: /"ControllerName"/Delete/5
-        public override ActionResult Delete(int id)
+        public async override Task<ActionResult> Delete(int id)
         {
             // return view for Model
             IViewResponse<PlantStockDto> response = _dataService.View(id);
@@ -121,11 +121,11 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // POST: /Plant/Delete/5
-        public ActionResult Destroy(PlantStockEntryDestroyEditModel form)
+        public async Task<ActionResult> Destroy(PlantStockEntryDestroyEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");
 
-            return Form(form, success);
+            return await Form(form, success);
         }
     }
 }

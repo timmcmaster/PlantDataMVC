@@ -1,4 +1,5 @@
-﻿using Framework.Web.Forms;
+﻿using System.Threading.Tasks;
+using Framework.Web.Forms;
 using Interfaces.WcfService;
 using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
@@ -16,20 +17,11 @@ namespace PlantDataMVC.UI.Forms.Handlers
             _dataService = dataService;
         }
 
-        public void Handle(SiteDestroyEditModel form)
+        public async Task<bool> HandleAsync(SiteDestroyEditModel form)
         {
             IDeleteResponse<SiteDto> response = _dataService.Delete(form.Id);
 
-            //TODO: Need behaviour triggered on bad response
-            if (response.Status == ServiceActionStatus.Deleted)
-            {
-                // take good path
-            }
-            else
-            {
-                // take error path
-                // either rethrow exception or display error message of sorts
-            }
+            return (response.Status == ServiceActionStatus.Deleted);
         }
     }
 }

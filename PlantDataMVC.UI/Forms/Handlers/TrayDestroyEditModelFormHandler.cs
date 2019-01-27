@@ -1,4 +1,6 @@
-﻿using Framework.Web.Forms;
+﻿using System.Threading.Tasks;
+using Framework.Web.Forms;
+using Interfaces.WcfService;
 using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Models.EditModels;
@@ -15,9 +17,11 @@ namespace PlantDataMVC.UI.Forms.Handlers
             _dataService = dataService;
         }
 
-        public void Handle(TrayDestroyEditModel form)
+        public async Task<bool> HandleAsync(TrayDestroyEditModel form)
         {
+            //TODO: convert to http api methods
             IDeleteResponse<SeedTrayDto> response = _dataService.Delete(form.Id);
+            return (response.Status == ServiceActionStatus.Deleted);
         }
     }
 }

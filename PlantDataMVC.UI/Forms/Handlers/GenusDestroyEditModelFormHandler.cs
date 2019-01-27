@@ -1,23 +1,32 @@
-﻿using Framework.Web.Forms;
-using Interfaces.WcfService.Responses;
-using PlantDataMVC.DTO.Dtos;
+﻿using System.Net.Http;
+using Framework.Web.Forms;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using PlantDataMVC.WCFService.ServiceContracts;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class GenusDestroyEditModelFormHandler : IFormHandler<GenusDestroyEditModel>
     {
-        private readonly IGenusWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public GenusDestroyEditModelFormHandler(IGenusWcfService dataService)
+        public GenusDestroyEditModelFormHandler()
         {
-            _dataService = dataService;
+            _httpClient = MyHttpClient.GetClient();
         }
 
-        public void Handle(GenusDestroyEditModel form)
+        public async Task<bool> HandleAsync(GenusDestroyEditModel form)
         {
-            IDeleteResponse<GenusDto> response = _dataService.Delete(form.Id);
+            try
+            {
+                var httpResponse = await _httpClient.DeleteAsync("api/Genus/" + form.Id);
+
+                return httpResponse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

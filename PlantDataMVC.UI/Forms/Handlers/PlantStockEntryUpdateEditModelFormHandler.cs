@@ -1,4 +1,6 @@
-﻿using Framework.Web.Forms;
+﻿using System.Threading.Tasks;
+using Framework.Web.Forms;
+using Interfaces.WcfService;
 using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Models.EditModels;
@@ -15,13 +17,14 @@ namespace PlantDataMVC.UI.Forms.Handlers
             _dataService = dataService;
         }
 
-        public void Handle(PlantStockEntryUpdateEditModel form)
+        public async Task<bool> HandleAsync(PlantStockEntryUpdateEditModel form)
         {
             // Map local model to DTO
             // TODO: Check map exists
             PlantStockDto item = AutoMapper.Mapper.Map<PlantStockEntryUpdateEditModel, PlantStockDto>(form);
 
             IUpdateResponse<PlantStockDto> response = _dataService.Update(item.Id, item);
+            return (response.Status == ServiceActionStatus.Updated);
         }
     }
 }

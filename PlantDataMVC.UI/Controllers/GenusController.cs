@@ -5,20 +5,27 @@ using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
 using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Interfaces.WcfService.Responses;
+using Newtonsoft.Json;
+using PlantDataMVC.UI.Helpers;
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class GenusController : DefaultController
     {
-        private readonly IGenusWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public GenusController(IGenusWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public GenusController(IFormHandlerFactory formHandlerFactory) : this(MyHttpClient.GetClient(),formHandlerFactory)
         {
-            // use passed in service
-            _dataService = dataService;
+        }
+
+        // Allow passing in HttpClient for unit tests
+        public GenusController(HttpClient httpClient, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        {
+            _httpClient = httpClient;
         }
 
         // GET: /"ControllerName"/Index
@@ -31,99 +38,117 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            IListResponse<GenusInListDto> response = _dataService.List();
+            var httpResponse = await _httpClient.GetAsync("api/Genus");
 
-            IList<GenusInListDto> list = response.Items;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<IEnumerable<GenusInListDto>>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<GenusListViewModel>>(View(list));
+                // TODO: check to ensure these DTOs map to view model
+                AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<GenusListViewModel>>(View(model));
 
-            return ListView<GenusListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
+                return ListView<GenusListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
         // GET: /"ControllerName"/Show/5
-        public override ActionResult Show(int id)
+        public override async Task<ActionResult> Show(int id)
         {
-            // return view for Model
-            IViewResponse<GenusDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/Genus/" + id);
 
-            GenusDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<GenusDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<GenusShowViewModel>(View(item));
-        }
-
-        //
-        // GET: /"ControllerName"/Show/5
-        public ActionResult ShowBasic(int id)
-        {
-            // return view for Model
-            IViewResponse<GenusDto> response = _dataService.View(id);
-
-            GenusDto item = response.Item;
-
-            return View(item);
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<List<GenusShowViewModel>>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            var item = new GenusDto();
-
-            return AutoMapView<GenusNewViewModel>(View(item));
+            var item = new GenusNewViewModel();
+            return View(item);
         }
 
         //
         // POST: /"ControllerName"/Create
-        public ActionResult Create(GenusCreateEditModel form)
+        public async Task<ActionResult> Create(GenusCreateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");
 
-            return Form(form, success);
+            return await Form(form, success);
         }
 
         //
-        // GET: /"ControllerName"/Edit/5
-        public override ActionResult Edit(int id)
+        // Display prior to POST via Update 
+        public override async Task<ActionResult> Edit(int id)
         {
-            // return view for Model
-            IViewResponse<GenusDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/Genus/" + id);
 
-            GenusDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<GenusDto>(content);
 
-            return AutoMapView<GenusEditViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<GenusEditViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
         // POST: /"ControllerName"/Update/5
-        public ActionResult Update(GenusUpdateEditModel form)
+        public async Task<ActionResult> Update(GenusUpdateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Show", new { id = form.Id });
 
-            return Form(form, success);
+            return await Form(form, success);
         }
 
         //
         // GET: /"ControllerName"/Delete/5
-        public override ActionResult Delete(int id)
+        public override async Task<ActionResult> Delete(int id)
         {
-            // return view for Model
-            IViewResponse<GenusDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/Genus/" + id);
 
-            GenusDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<GenusDto>(content);
 
-            return AutoMapView<GenusDeleteViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<GenusDeleteViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
         // POST: /"ControllerName"/Delete/5
-        public ActionResult Destroy(GenusDestroyEditModel form)
+        public async Task<ActionResult> Destroy(GenusDestroyEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");
 
-            return Form(form, success);
+            return await Form(form, success);
         }
     }
 }

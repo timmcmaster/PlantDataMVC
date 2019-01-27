@@ -1,7 +1,9 @@
-﻿namespace Framework.Web.Forms
+﻿using System.Threading.Tasks;
+
+namespace Framework.Web.Forms
 {
     public interface IFormHandler<TForm> where TForm : IForm
     {
-        void Handle(TForm form);
+        Task<bool> HandleAsync(TForm form);
     }
 }

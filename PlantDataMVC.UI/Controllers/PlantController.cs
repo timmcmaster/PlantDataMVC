@@ -1,47 +1,48 @@
-﻿using System;
-using Framework.Web.Forms;
+﻿using Framework.Web.Forms;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
-using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Interfaces.WcfService;
-using Interfaces.WcfService.Responses;
-using Newtonsoft.Json;
-using PlantDataMVC.UI.Helpers;
 
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class PlantController : DefaultController
     {
-        private readonly ISpeciesWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public PlantController(ISpeciesWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public PlantController(IFormHandlerFactory formHandlerFactory) : this(MyHttpClient.GetClient(), formHandlerFactory)
         {
-            // use passed in service
-            _dataService = dataService;
+        }
+
+        // Allow passing in HttpClient for unit tests
+        public PlantController(HttpClient httpClient, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        {
+            _httpClient = httpClient;
         }
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            // TODO: Change how paging works - retrieving paged data means that paging the returned list does not work
-            // as it used to
+            // TODO: Change how paging works
+            // retrieving paged data means that paging the returned list does not work as it used to
+            // want to get total count from returned response header
+            // convert to local 
 
             // resolve parameters
             var localPage = page ?? 0;
-            var localPageSize = pageSize ?? 20;
+            var localPageSize = pageSize ?? 40;
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var client = MyHttpClient.GetClient();
-            HttpResponseMessage httpResponse = await client.GetAsync("api/Species");
+            var httpResponse = await _httpClient.GetAsync("api/Species");
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -57,113 +58,101 @@ namespace PlantDataMVC.UI.Controllers
             {
                 return Content("An error occurred");
             }
+        }
 
-            /*
-            IListResponse<SpeciesInListDto> response = _dataService.List();
+        //
+        // GET: /"ControllerName"/Show/5
+        public override async Task<ActionResult> Show(int id)
+        {
+            var httpResponse = await _httpClient.GetAsync("api/Species/" + id );
 
-            if (response.Status == ServiceActionStatus.Ok)
+            if (httpResponse.IsSuccessStatusCode)
             {
-                IList<SpeciesInListDto> list = response.Items;
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<SpeciesDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantListViewModel>>(View(list));
-
-            return ListView<PlantListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<List<PlantShowViewModel>>(View(model));
             }
             else
             {
-                return Content("An error occurred (WCF)");
+                return Content("An error occurred");
             }
-            */
-
         }
 
         //
-        // GET: /"ControllerName"/Show/5
-        public override ActionResult Show(int id)
+        // Display prior to POST via Create 
+        public override ActionResult New()
         {
-            // return view for Model
-            IViewResponse<SpeciesDto> response = _dataService.View(id);
-
-            SpeciesDto item = response.Item;
-
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantShowViewModel>(View(item));
-        }
-
-        //
-        // GET: /"ControllerName"/Show/5
-        public ActionResult ShowBasic(int id)
-        {
-            // return view for Model
-            IViewResponse<SpeciesDto> response = _dataService.View(id);
-
-            SpeciesDto item = response.Item;
-
+            var item = new PlantNewViewModel();
             return View(item);
         }
 
         //
-        // GET: /"ControllerName"/New
-        public override ActionResult New()
-        {
-            var item = new SpeciesDto();
-
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantNewViewModel>(View(item));
-        }
-
-        //
         // POST: /"ControllerName"/Create
-        public ActionResult Create(PlantCreateEditModel form)
+        public async Task<ActionResult> Create(PlantCreateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");
 
-            return Form(form, success);
+            return await Form(form, success);
         }
 
         //
-        // GET: /"ControllerName"/Edit/5
-        public override ActionResult Edit(int id)
+        // Display prior to POST via Update 
+        public override async Task<ActionResult> Edit(int id)
         {
-            // return view for Model
-            IViewResponse<SpeciesDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/Species/" + id);
 
-            SpeciesDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<SpeciesDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantEditViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<PlantEditViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
         // POST: /"ControllerName"/Update/5
-        public ActionResult Update(PlantUpdateEditModel form)
+        public async Task<ActionResult> Update(PlantUpdateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Show", new { id = form.Id });
 
-            return Form(form, success);
+            return await Form(form, success);
         }
 
         //
-        // GET: /"ControllerName"/Delete/5
-        public override ActionResult Delete(int id)
+        // Display prior to DELETE via Destroy method 
+        public override async Task<ActionResult> Delete(int id)
         {
-            // return view for Model
-            IViewResponse<SpeciesDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/Species/" + id);
 
-            SpeciesDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<SpeciesDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantDeleteViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<PlantDeleteViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
-        // POST: /Plant/Delete/5
-        public ActionResult Destroy(PlantDestroyEditModel form)
+        // DELETE: /Plant/Delete/5
+        public async Task<ActionResult> Destroy(PlantDestroyEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");
 
-            return Form(form, success);
+            return await Form(form, success);
         }
     }
 }

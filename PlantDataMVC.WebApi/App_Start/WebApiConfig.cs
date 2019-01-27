@@ -28,8 +28,8 @@ namespace PlantDataMVC.WebApi
 
             // Enable Cross-origin resource sharing if browser client on different domain to API and using AJAX calls
             // This can be set here or at controller or method level
-            //var cors = new EnableCorsAttribute("*", "*", "*");
-            //config.EnableCors(cors);
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
         }
     }

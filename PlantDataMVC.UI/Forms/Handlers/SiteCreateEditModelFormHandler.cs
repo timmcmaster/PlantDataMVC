@@ -1,4 +1,6 @@
-﻿using Framework.Web.Forms;
+﻿using System.Threading.Tasks;
+using Framework.Web.Forms;
+using Interfaces.WcfService;
 using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Models.EditModels;
@@ -15,13 +17,14 @@ namespace PlantDataMVC.UI.Forms.Handlers
             _dataService = dataService;
         }
 
-        public void Handle(SiteCreateEditModel form)
+        public async Task<bool> HandleAsync(SiteCreateEditModel form)
         {
             // Map local model to DTO
             // TODO: Check map exists
             SiteDto item = AutoMapper.Mapper.Map<SiteCreateEditModel, SiteDto>(form);
 
             ICreateResponse<SiteDto> response = _dataService.Create(item);
+            return (response.Status == ServiceActionStatus.Created);
         }
     }
 }

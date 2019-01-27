@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Framework.Web.Forms
@@ -29,35 +30,33 @@ namespace Framework.Web.Forms
         /// <param name="form">The form instance.</param>
         /// <param name="successResult">The view to display on success.</param>
         /// <returns></returns>
-        protected ActionResult Form<TForm>(TForm form, ActionResult successResult) where TForm : IForm
+        protected async Task<ActionResult> Form<TForm>(TForm form, ActionResult successResult) where TForm : IForm
         {
-            return Form(form, () => successResult);
+            return await Form(form, () => successResult);
         }
 
-        protected ActionResult Form<TForm>(TForm form, ActionResult successResult, ActionResult failureResult) where TForm : IForm
+        protected async Task<ActionResult> Form<TForm>(TForm form, ActionResult successResult, ActionResult failureResult) where TForm : IForm
         {
-            return Form(form, () => successResult, () => failureResult);
+            return await Form(form, () => successResult, () => failureResult);
         }
 
-        protected ActionResult Form<TForm>(TForm form, Func<ActionResult> successResult) where TForm : IForm
+        protected async Task<ActionResult> Form<TForm>(TForm form, Func<ActionResult> successResult) where TForm : IForm
         {
-            return Form(form, successResult, () => Redirect(Request.UrlReferrer.AbsoluteUri));
+            return await Form(form, successResult, () => Redirect(Request.UrlReferrer.AbsoluteUri));
         }
 
         // The generic form of the method
-        protected ActionResult Form<TForm>(TForm form, Func<ActionResult> successResult, Func<ActionResult> failureResult) where TForm : IForm
+        protected async Task<ActionResult> Form<TForm>(TForm form, Func<ActionResult> successResult, Func<ActionResult> failureResult) where TForm : IForm
         {
             if (!ModelState.IsValid)
             {
                 return failureResult();
             }
 
-            
-            _formHandlerFactory.Create<TForm>().Handle(form);
+            var response = await _formHandlerFactory.Create<TForm>().HandleAsync(form);
 
-            // TODO: Need behaviour triggered on failure to handle form (with appropriate service method)
-
-            return successResult();
+            // TODO: May need to differentiate submit failure from return failure?
+            return response ? successResult() : failureResult();
         }
 
 

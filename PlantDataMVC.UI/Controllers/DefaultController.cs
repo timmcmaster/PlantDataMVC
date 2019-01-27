@@ -80,30 +80,30 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Show/5
-        public abstract ActionResult Show(int id);
+        public abstract Task<ActionResult> Show(int id);
 
         //
-        // GET: /"ControllerName"/New
+        // Display new model prior to POST
         public abstract ActionResult New();
 
         //
         // POST: /"ControllerName"/Create
-        //public abstract ActionResult Create(U model);
+        //public abstract Task<ActionResult> Create<TForm>(TForm form) where TForm : IForm;
 
         //
         // GET: /"ControllerName"/Edit/5
-        public abstract ActionResult Edit(int id);
+        public abstract Task<ActionResult> Edit(int id);
 
         //
         // POST: /"ControllerName"/Update/5
-        //public abstract ActionResult Update(int id);
+        //public abstract Task<ActionResult> Update<TForm>(TForm form) where TForm : IForm;
 
         //
         // GET: /"ControllerName"/Delete/5
-        public abstract ActionResult Delete(int id);
+        public abstract Task<ActionResult> Delete(int id);
 
         //
         // POST: /Plant/Delete/5
-        //public abstract ActionResult Destroy(int id);
+        //public abstract ActionResult Destroy<TForm>(TForm form) where TForm : IForm;
     }
 }

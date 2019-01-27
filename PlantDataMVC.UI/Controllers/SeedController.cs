@@ -38,7 +38,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Show/5
-        public override ActionResult Show(int id)
+        public async override Task<ActionResult> Show(int id)
         {
             // return view for Model
             IViewResponse<SeedBatchDto> response = _dataService.View(id);
@@ -75,16 +75,16 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // POST: /"ControllerName"/Create
-        public ActionResult Create(PlantSeedCreateEditModel form)
+        public async Task<ActionResult> Create(PlantSeedCreateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");
 
-            return Form(form, success);
+            return await Form(form, success);
         }
 
         //
         // GET: /"ControllerName"/Edit/5
-        public override ActionResult Edit(int id)
+        public async override Task<ActionResult> Edit(int id)
         {
             // return view for Model
             IViewResponse<SeedBatchDto> response = _dataService.View(id);
@@ -97,16 +97,16 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // POST: /"ControllerName"/Update/5
-        public ActionResult Update(PlantSeedUpdateEditModel form)
+        public async Task<ActionResult> Update(PlantSeedUpdateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Show", new { id = form.Id });
 
-            return Form(form, success);
+            return await Form(form, success);
         }
 
         //
         // GET: /"ControllerName"/Delete/5
-        public override ActionResult Delete(int id)
+        public async override Task<ActionResult> Delete(int id)
         {
             // return view for Model
             IViewResponse<SeedBatchDto> response = _dataService.View(id);
@@ -119,11 +119,11 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // POST: /Seed/Delete/5
-        public ActionResult Destroy(PlantSeedDestroyEditModel form)
+        public async Task<ActionResult> Destroy(PlantSeedDestroyEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");
 
-            return Form(form, success);
+            return await Form(form, success);
         }
     }
 }
