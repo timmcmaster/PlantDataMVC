@@ -15,7 +15,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
         public GenusCreateEditModelFormHandler()
         {
-            _httpClient = MyHttpClient.GetClient();
+            _httpClient = PlantDataApiHttpClient.GetClient();
         }
 
         // TODO: Look into how we might mock HttpClient for unit tests 

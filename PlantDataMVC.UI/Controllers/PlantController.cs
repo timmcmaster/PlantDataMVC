@@ -17,7 +17,7 @@ namespace PlantDataMVC.UI.Controllers
     {
         private readonly HttpClient _httpClient;
 
-        public PlantController(IFormHandlerFactory formHandlerFactory) : this(MyHttpClient.GetClient(), formHandlerFactory)
+        public PlantController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
         {
         }
 
@@ -42,14 +42,21 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var httpResponse = await _httpClient.GetAsync("api/Species");
+            // Initialise with default sort
+            // TODO: really want to sort by genus name and species name (if showing details by plant)
+            var httpResponse = await _httpClient.GetAsync("api/Species?sort=genusId,specificName");
 
             if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync();
+
+                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
+                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
+
+
+
                 var model = JsonConvert.DeserializeObject<IEnumerable<SpeciesDto>>(content);
 
-                // TODO: check to ensure these DTOs map to view model
                 AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantListViewModel>>(View(model));
 
                 return ListView<PlantListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);

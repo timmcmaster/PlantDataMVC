@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace PlantDataMVC.UI.Helpers
 {
-    public static class MyHttpClient
+    public static class PlantDataApiHttpClient
     {
-        public static HttpClient GetClient()
+        private static Func<HttpClient> ValueFactory = () =>
         {
-            HttpClient client = new HttpClient();
+            var client = new HttpClient();
 
             client.BaseAddress = new Uri("http://localhost:53274/");
 
@@ -20,6 +17,14 @@ namespace PlantDataMVC.UI.Helpers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             return client;
+        };
+
+        private static readonly Lazy<HttpClient> _client = new Lazy<HttpClient>(ValueFactory);
+
+        public static HttpClient GetClient()
+        {
+            return _client.Value;
         }
+
     }
 }

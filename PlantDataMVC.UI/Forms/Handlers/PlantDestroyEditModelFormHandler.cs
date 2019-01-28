@@ -12,7 +12,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
         public PlantDestroyEditModelFormHandler()
         {
-            _httpClient = MyHttpClient.GetClient();
+            _httpClient = PlantDataApiHttpClient.GetClient();
         }
 
         public async Task<bool> HandleAsync(PlantDestroyEditModel form)

@@ -18,7 +18,7 @@ namespace PlantDataMVC.UI.Controllers
     {
         private readonly HttpClient _httpClient;
 
-        public GenusController(IFormHandlerFactory formHandlerFactory) : this(MyHttpClient.GetClient(),formHandlerFactory)
+        public GenusController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(),formHandlerFactory)
         {
         }
 

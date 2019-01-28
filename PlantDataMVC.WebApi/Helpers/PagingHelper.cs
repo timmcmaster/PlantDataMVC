@@ -81,6 +81,7 @@ namespace PlantDataMVC.WebApi.Helpers
 
             var headers = new NameValueCollection
             {
+                // TODO: Implement as (proposed) RFC8288 https://httpwg.org/specs/rfc8288.html
                 {"Link", string.Join(",", links)},
                 { "X-Pagination", Newtonsoft.Json.JsonConvert.SerializeObject(paginationHeaderContent)}
             };

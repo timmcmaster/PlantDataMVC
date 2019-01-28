@@ -15,7 +15,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
 
         public PlantUpdateEditModelFormHandler()
         {
-            _httpClient = MyHttpClient.GetClient();
+            _httpClient = PlantDataApiHttpClient.GetClient();
         }
 
         public async Task<bool> HandleAsync(PlantUpdateEditModel form)

@@ -194,8 +194,11 @@
     <Compile Include="Forms\Handlers\SiteCreateEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\SiteDestroyEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\SiteUpdateEditModelFormHandler.cs" />
+    <Compile Include="Helpers\ApiPagingInfo.cs" />
     <Compile Include="Helpers\DropDownExtensions.cs" />
-    <Compile Include="Helpers\MyHttpClient.cs" />
+    <Compile Include="Helpers\HeaderParser.cs" />
+    <Compile Include="Helpers\LinkHeader.cs" />
+    <Compile Include="Helpers\PlantDataApiHttpClient.cs" />
     <Compile Include="Helpers\MenuExtensions.cs" />
     <Compile Include="Forms\Handlers\PlantStockTransactionCreateEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\PlantStockTransactionDestroyEditModelFormHandler.cs" />
