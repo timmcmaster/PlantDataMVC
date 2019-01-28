@@ -72,7 +72,7 @@ namespace PlantDataMVC.UI.Controllers
                 var model = JsonConvert.DeserializeObject<SpeciesDto>(content);
 
                 // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<List<PlantShowViewModel>>(View(model));
+                return AutoMapView<PlantShowViewModel>(View(model));
             }
             else
             {
