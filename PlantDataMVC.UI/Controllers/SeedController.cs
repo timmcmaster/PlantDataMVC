@@ -53,10 +53,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            var item = new SeedBatchDto();
-
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantSeedNewViewModel>(View(item));
+            var item = new PlantSeedNewViewModel();
+            return View(item);
         }
 
         /// <summary>

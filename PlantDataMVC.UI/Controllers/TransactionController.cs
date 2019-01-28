@@ -53,10 +53,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            var item = new JournalEntryDto();
-
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantStockTransactionNewViewModel>(View(item));
+            var item = new PlantStockTransactionNewViewModel();
+            return View(item);
         }
 
         /// <summary>

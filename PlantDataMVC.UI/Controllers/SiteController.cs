@@ -52,10 +52,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public override ActionResult New()
         {
-            var item = new SiteDto();
-
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<SiteNewViewModel>(View(item));
+            var item = new SiteNewViewModel();
+            return View(item);
         }
 
         //
