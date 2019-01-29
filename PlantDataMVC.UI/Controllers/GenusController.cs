@@ -34,7 +34,7 @@ namespace PlantDataMVC.UI.Controllers
         {
             // resolve parameters
             var localPage = page ?? 1;
-            var localPageSize = pageSize ?? 40;
+            var localPageSize = pageSize ?? 20;
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 

@@ -19,7 +19,7 @@ namespace PlantDataMVC.WebApi.Helpers
             // create anonymous pagination header object
             var paginationHeaderContent = new
             {
-                currentPage = page,
+                page = page,
                 pageSize = pageSize,
                 totalCount = totalCount,
                 totalPages = totalPages

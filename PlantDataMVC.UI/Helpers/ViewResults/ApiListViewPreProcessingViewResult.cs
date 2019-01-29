@@ -29,7 +29,7 @@ namespace PlantDataMVC.UI.Helpers.ViewResults
             // Convert the enumerable model in the base view to a ListViewModel
             if (viewResult.ViewData.Model is IList<T> list)
             {
-                viewResult.ViewData.Model = new  ListViewModel2Static<T>(list, PagingInfo.page, PagingInfo.pageSize, PagingInfo.totalCount);
+                viewResult.ViewData.Model = new  ListViewModelStatic<T>(list, PagingInfo.page, PagingInfo.pageSize, PagingInfo.totalCount);
             }
             else
             {
