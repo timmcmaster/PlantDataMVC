@@ -37,14 +37,14 @@ namespace PlantDataMVC.UI.Controllers
             // convert to local 
 
             // resolve parameters
-            var localPage = page ?? 0;
+            var localPage = page ?? 1;
             var localPageSize = pageSize ?? 40;
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
             // Initialise with default sort
             // TODO: really want to sort by genus name and species name (if showing details by plant)
-            var httpResponse = await _httpClient.GetAsync("api/Species?sort=genusId,specificName");
+            var httpResponse = await _httpClient.GetAsync("api/Species?sort=genusId,specificName&page=" + localPage + "&pageSize=" + localPageSize);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -53,13 +53,11 @@ namespace PlantDataMVC.UI.Controllers
                 var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                 var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-
-
                 var model = JsonConvert.DeserializeObject<IEnumerable<SpeciesDto>>(content);
 
                 AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantListViewModel>>(View(model));
 
-                return ListView<PlantListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
+                return ListView<PlantListViewModel>(autoMapResult, apiPagingInfo, localSortBy, localAscending);
             }
             else
             {

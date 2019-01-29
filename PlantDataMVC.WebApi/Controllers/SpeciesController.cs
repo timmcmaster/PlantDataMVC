@@ -19,7 +19,7 @@ namespace PlantDataMVC.WebApi.Controllers
 {
     public class SpeciesController : ApiController
     {
-        private const int MaxPageSize = 20;
+        private const int MaxPageSize = 100;
 
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly ISpeciesService _service;

@@ -33,7 +33,7 @@ namespace PlantDataMVC.UI.Controllers
         public override async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
             // resolve parameters
-            var localPage = page ?? 0;
+            var localPage = page ?? 1;
             var localPageSize = pageSize ?? 40;
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
@@ -48,7 +48,7 @@ namespace PlantDataMVC.UI.Controllers
                 // TODO: check to ensure these DTOs map to view model
                 AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<GenusListViewModel>>(View(model));
 
-                return ListView<GenusListViewModel>(autoMapResult, page, pageSize, sortBy, ascending);
+                return ListView<GenusListViewModel>(autoMapResult, localPage, localPageSize, localSortBy, localAscending);
             }
             else
             {

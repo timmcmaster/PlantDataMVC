@@ -113,6 +113,12 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="RouteDebugger, Version=2.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\routedebugger.2.1.5\lib\net40\RouteDebugger.dll</HintPath>
     </Reference>
@@ -213,6 +219,7 @@
     <Compile Include="Forms\Handlers\PlantSeedDestroyEditModelFormHandler.cs" />
     <Compile Include="Forms\Handlers\PlantSeedUpdateEditModelFormHandler.cs" />
     <Compile Include="Helpers\ViewResults\AutoMapPreProcessingViewResult.cs" />
+    <Compile Include="Helpers\ViewResults\ApiListViewPreProcessingViewResult.cs" />
     <Compile Include="Helpers\ViewResults\ListViewPreProcessingViewResult.cs" />
     <Compile Include="Helpers\ViewResults\PreProcessingViewResult.cs" />
     <Compile Include="Mappers\AutoMapperWebConfiguration.cs" />
@@ -223,6 +230,8 @@
     <Compile Include="Models\EditModels\SiteDestroyEditModel.cs" />
     <Compile Include="Models\EditModels\SiteUpdateEditModel.cs" />
     <Compile Include="Models\EditModels\PlantSeedCreateEditModel.cs" />
+    <Compile Include="Models\ViewModels\ListViewModelStatic.cs" />
+    <Compile Include="Models\ViewModels\ListViewModel.cs" />
     <Compile Include="Models\ViewModels\SiteDeleteViewModel.cs" />
     <Compile Include="Models\ViewModels\SiteEditViewModel.cs" />
     <Compile Include="Models\ViewModels\SiteListViewModel.cs" />
@@ -277,7 +286,6 @@
     <Compile Include="Models\EditModels\PlantDestroyEditModel.cs" />
     <Compile Include="Models\EditModels\PlantCreateEditModel.cs" />
     <Compile Include="Models\EditModels\PlantUpdateEditModel.cs" />
-    <Compile Include="Models\ViewModels\ListViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantNewViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantStockTransactionEditViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantEditViewModel.cs" />
@@ -311,6 +319,7 @@
     <Content Include="Content\Images\place-marker.png" />
     <Content Include="Content\menu-style.css" />
     <Content Include="Content\OldSite.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\sinorcaish-screen.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />

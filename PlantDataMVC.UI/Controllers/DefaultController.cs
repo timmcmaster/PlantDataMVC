@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Framework.Web.Forms;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using System.Web.Mvc;
+using PlantDataMVC.UI.Helpers;
 
 namespace PlantDataMVC.UI.Controllers
 {
@@ -46,32 +47,25 @@ namespace PlantDataMVC.UI.Controllers
             return new AutoMapPreProcessingViewResult(modelType, typeof(TDestination), (PreProcessingViewResult)viewResult);
         }
 
-        //protected ListViewResult<TElement> ListView<TElement>(ViewResult viewResult, int? page, int? pageSize, string sortBy, bool? ascending)
-        //{
-        //    // resolve parameters
-        //    int localPage = page ?? 0;
-        //    int localPageSize = pageSize ?? 40;
-        //    string localSortBy = sortBy ?? string.Empty;
-        //    bool localAscending = ascending ?? true;
-
-
-        //    return new ListViewResult<TElement>(viewResult, localPage, localPageSize, localSortBy, localAscending);
-        //}
-
-        protected ListViewPreProcessingViewResult<TElement> ListView<TElement>(ViewResult viewResult, int? page, int? pageSize, string sortBy, bool? ascending)
+        protected ListViewPreProcessingViewResult<TElement> ListView<TElement>(ViewResult viewResult, int page, int pageSize, string sortBy, bool ascending)
         {
-            // resolve parameters
-            var localPage = page ?? 0;
-            var localPageSize = pageSize ?? 40;
-            var localSortBy = sortBy ?? string.Empty;
-            var localAscending = ascending ?? true;
-
             if (!(viewResult is PreProcessingViewResult))
             {
                 viewResult = new PreProcessingViewResult(viewResult);
             }
 
-            return new ListViewPreProcessingViewResult<TElement>((PreProcessingViewResult)viewResult, localPage, localPageSize, localSortBy, localAscending);
+            return new ListViewPreProcessingViewResult<TElement>((PreProcessingViewResult)viewResult, page, pageSize, sortBy, ascending);
+        }
+
+        protected ApiListViewPreProcessingViewResult<TElement> ListView<TElement>(ViewResult viewResult, ApiPagingInfo pagingInfo, string sortBy, bool ascending)
+        {
+            if (!(viewResult is PreProcessingViewResult))
+            {
+                viewResult = new PreProcessingViewResult(viewResult);
+            }
+
+            return new ApiListViewPreProcessingViewResult<TElement>((PreProcessingViewResult) viewResult, pagingInfo,
+                sortBy, ascending);
         }
 
         // GET: /"ControllerName"/Index

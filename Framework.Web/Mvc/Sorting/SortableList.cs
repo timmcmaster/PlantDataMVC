@@ -19,6 +19,7 @@ namespace Framework.Web.Mvc.Sorting
         // ISortable implementation
         public string SortBy { get; set; }
         public bool SortAscending { get; set; }
+
         public string SortExpression
         {
             get => SortAscending ? SortBy + " asc" : SortBy + " desc";

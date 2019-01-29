@@ -8,18 +8,16 @@ namespace PlantDataMVC.UI.Helpers.ViewResults
     /// <summary>
     /// A class for post-processing a View to display in a list view.
     /// </summary>
-    public class ListViewPreProcessingViewResult<T> : PreProcessingViewResult
+    public class ApiListViewPreProcessingViewResult<T> : PreProcessingViewResult
     {
-        public int Page { get; }
-        public int PageSize { get; }
+        public ApiPagingInfo PagingInfo { get; }
         public string SortBy { get; }
         public bool Ascending { get; }
 
-        public ListViewPreProcessingViewResult(PreProcessingViewResult child, int page, int pageSize, string sortBy, bool ascending)
+        public ApiListViewPreProcessingViewResult(PreProcessingViewResult child, ApiPagingInfo pagingInfo, string sortBy, bool ascending)
             : base(child)
         {
-            Page = page;
-            PageSize = pageSize;
+            PagingInfo = pagingInfo;
             SortBy = sortBy;
             Ascending = ascending;
         }
@@ -31,7 +29,7 @@ namespace PlantDataMVC.UI.Helpers.ViewResults
             // Convert the enumerable model in the base view to a ListViewModel
             if (viewResult.ViewData.Model is IList<T> list)
             {
-                viewResult.ViewData.Model = new ListViewModel<T>(list.AsQueryable(), Page, PageSize, SortBy, Ascending);
+                viewResult.ViewData.Model = new  ListViewModel2Static<T>(list, PagingInfo.page, PagingInfo.pageSize, PagingInfo.totalCount);
             }
             else
             {

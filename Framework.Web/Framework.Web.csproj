@@ -76,12 +76,15 @@
     <Compile Include="Forms\IFormHandler.cs" />
     <Compile Include="Forms\IFormHandlerFactory.cs" />
     <Compile Include="Mvc\MvcHelperExtensions.cs" />
+    <Compile Include="Mvc\Paging\BasePageableList.cs" />
     <Compile Include="Mvc\Paging\IPageable.cs" />
+    <Compile Include="Mvc\Paging\StaticPageableList.cs" />
     <Compile Include="Mvc\Paging\PageableList.cs" />
     <Compile Include="Mvc\Paging\PagingExtensions.cs" />
     <Compile Include="Mvc\RenderActionExtensions.cs" />
     <Compile Include="Mvc\RouteValueDictionaryExtensions.cs" />
     <Compile Include="Mvc\Sorting\ISortable.cs" />
+    <Compile Include="Mvc\Sorting\SortableExtensions.cs" />
     <Compile Include="Mvc\Sorting\SortableList.cs" />
     <Compile Include="Mvc\Sorting\SortingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,20 +1,19 @@
 ﻿using Framework.Web.Mvc.Paging;
 using Framework.Web.Mvc.Sorting;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class ListViewModel<T> : PageableList<T>, ISortable
+    public class ListViewModelStatic<T> : StaticPageableList<T>, ISortable
     {
-        public ListViewModel(IQueryable<T> superset, int pageNumber, int pageSize, string sortBy, bool sortAscending)
-            : this(superset.SortQueryable(sortBy, sortAscending), pageNumber, pageSize)
+        public ListViewModelStatic(IEnumerable<T> subset, int pageNumber, int pageSize, int totalCount, string sortBy, bool sortAscending)
+            : this(subset, pageNumber, pageSize, totalCount)
         {
             SortBy = sortBy;
             SortAscending = sortAscending;
         }
 
-        public ListViewModel(IQueryable<T> superset, int pageNumber, int pageSize) : base(superset, pageNumber,
-            pageSize)
+        public ListViewModelStatic(IEnumerable<T> subset, int pageNumber, int pageSize, int totalCount) : base(subset, pageNumber, pageSize, totalCount)
         {
         }
 
