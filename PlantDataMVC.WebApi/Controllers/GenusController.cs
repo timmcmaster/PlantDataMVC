@@ -17,6 +17,7 @@ using PlantDataMVC.WebApi.Helpers;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
+    [RoutePrefix("api")]
     public class GenusController : ApiController
     {
         private const int MaxPageSize = 100;
@@ -34,7 +35,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // GET: api/Genus
         [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
-        [Route("api/genus", Name = "GenusList")]
+        [Route("Genus", Name = "GenusList")]
         public IHttpActionResult Get(
             string sort = "id",
             string latinName = null,

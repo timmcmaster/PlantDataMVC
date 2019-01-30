@@ -17,6 +17,7 @@ using System.Web.Http;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
+    [RoutePrefix("api")]
     public class SpeciesController : ApiController
     {
         private const int MaxPageSize = 100;
@@ -34,8 +35,10 @@ namespace PlantDataMVC.WebApi.Controllers
         // GET: api/Species
         [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
-        [Route("api/species", Name = "SpeciesList")]
+        [Route("Species", Name = "SpeciesList")]
+        [Route("Genus/{genusId}/Species", Name = "SpeciesByGenus")]
         public IHttpActionResult Get(
+            int? genusId = null,
             string sort = "id", 
             bool? native = null, string specificName = null,
             int page = 1, int pageSize = MaxPageSize,
@@ -71,17 +74,26 @@ namespace PlantDataMVC.WebApi.Controllers
                     .ProjectTo<SpeciesDto>(null, childDtosToInclude.ToArray())
                     .ApplySort(sort)
                     .Where(s => (native == null || s.Native == native))
-                    .Where(s => (specificName == null || s.SpecificName == specificName));
+                    .Where(s => (specificName == null || s.SpecificName == specificName))
+                    .Where(s => (genusId == null || s.GenusId == genusId));
 
+                // HACK: use URL content to determine route used to get here
+                // better solution is to add name to data tokens, as per following links
+                // https://stackoverflow.com/questions/363211/how-can-i-get-the-route-name-in-controller-in-asp-net-mvc
+                // https://rimdev.io/get-current-route-name-from-aspnet-web-api-request/
+
+                var onSpeciesByGenus = Request.RequestUri.AbsolutePath.Contains("/Genus/");
+                
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
                     speciesDtos,
-                    "SpeciesList",
+                    onSpeciesByGenus ? "SpeciesByGenus" : "SpeciesList",
                     new
                     {
                         sort = sort,
                         native = native,
                         specificName = specificName,
+                        genusId = genusId,
                         fields = fields
                     },
                     page,
