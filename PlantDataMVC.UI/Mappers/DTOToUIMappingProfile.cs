@@ -44,9 +44,10 @@ namespace PlantDataMVC.UI.Mappers
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.LatinName));
 
-            CreateMap<GenusInListDto, GenusListViewModel>()
+            CreateMap<GenusDto, GenusListViewModel>()
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.LatinName));
+
 
             CreateMap<GenusDto, GenusNewViewModel>()
                .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.LatinName));

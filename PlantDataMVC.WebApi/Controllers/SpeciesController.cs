@@ -47,17 +47,12 @@ namespace PlantDataMVC.WebApi.Controllers
                 // need to determine expected behaviour
 
                 var childDtosToInclude = new List<string>();
-
-                // Convert fields to list of fields
                 var lstOfFields = new List<string>();
 
                 if (fields != null)
                 {
                     lstOfFields = fields.Split(',').ToList();
-
                     childDtosToInclude = DataShaping.GetIncludedObjectNames<SpeciesDto>(lstOfFields);
-
-                    // If field name equals 
                 }
 
                 if (pageSize > MaxPageSize)
@@ -110,10 +105,19 @@ namespace PlantDataMVC.WebApi.Controllers
         // GET: api/Plant/5
         [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(int id, string fields = null)
         {
             try
             {
+                //var childDtosToInclude = new List<string>();
+                var lstOfFields = new List<string>();
+
+                if (fields != null)
+                {
+                    lstOfFields = fields.Split(',').ToList();
+                    //childDtosToInclude = DataShaping.GetIncludedObjectNames<SpeciesDto>(lstOfFields);
+                }
+
                 var item = _service.GetItemById(id);
 
                 if (item == null)
@@ -121,8 +125,9 @@ namespace PlantDataMVC.WebApi.Controllers
                     return NotFound();
                 }
 
-                var finalItem = Mapper.Map<Species, SpeciesDto>(item);
-                return Ok(finalItem);
+                var speciesDto = Mapper.Map<Species, SpeciesDto>(item);
+
+                return Ok(DataShaping.CreateDataShapedObject(speciesDto, lstOfFields));
             }
             catch (Exception)
             {

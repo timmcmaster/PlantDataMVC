@@ -10,13 +10,17 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Http;
+using CacheCow.Server.WebApi;
 using PlantDataMVC.WebApi.Helpers;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
     public class GenusController : ApiController
     {
+        private const int MaxPageSize = 100;
+
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly IGenusService _service;
 
@@ -28,13 +32,63 @@ namespace PlantDataMVC.WebApi.Controllers
         }
 
         // GET: api/Genus
+        [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
-        public IHttpActionResult Get(string sort = "id")
+        [Route("api/genus", Name = "GenusList")]
+        public IHttpActionResult Get(
+            string sort = "id",
+            string latinName = null,
+            int page = 1, int pageSize = MaxPageSize,
+            string fields = null)
         {
             try
             {
+                var childDtosToInclude = new List<string>();
+
+                // Convert fields to list of fields
+                var lstOfFields = new List<string>();
+
+                if (fields != null)
+                {
+                    lstOfFields = fields.Split(',').ToList();
+
+                    childDtosToInclude = DataShaping.GetIncludedObjectNames<GenusDto>(lstOfFields);
+                }
+
+                if (pageSize > MaxPageSize)
+                {
+                    pageSize = MaxPageSize;
+                }
+
                 var context = _service.Queryable();
-                IList<GenusInListDto> itemList = context.ProjectTo<GenusInListDto>().ApplySort(sort).ToList();
+
+                //IList<GenusDto> itemList = context
+                //    .ProjectTo<GenusDto>()
+                //    .ApplySort(sort)
+                //    .ToList();
+
+                IQueryable<GenusDto> genusDtos = context
+                    .ProjectTo<GenusDto>(null, childDtosToInclude.ToArray())
+                    .ApplySort(sort)
+                    .Where(s => (latinName == null || s.LatinName == latinName));
+
+                var paginationHeaders = PagingHelper.GetPaginationHeaders(
+                    Url,
+                    genusDtos,
+                    "GenusList",
+                    new
+                    {
+                        sort = sort
+                    },
+                    page,
+                    pageSize);
+
+                HttpContext.Current.Response.Headers.Add(paginationHeaders);
+
+                var itemList = genusDtos
+                    .Paginate(page, pageSize)
+                    .ToList()
+                    .Select(genus => DataShaping.CreateDataShapedObject(genus, lstOfFields));
 
                 return Ok(itemList);
             }
@@ -46,10 +100,19 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // GET: api/Plant/5
         [HttpGet]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(int id, string fields = null)
         {
             try
             {
+                //var childDtosToInclude = new List<string>();
+                var lstOfFields = new List<string>();
+
+                if (fields != null)
+                {
+                    lstOfFields = fields.Split(',').ToList();
+                    //childDtosToInclude = DataShaping.GetIncludedObjectNames<SpeciesDto>(lstOfFields);
+                }
+
                 var item = _service.GetItemById(id);
 
                 if (item == null)
@@ -57,8 +120,9 @@ namespace PlantDataMVC.WebApi.Controllers
                     return NotFound();
                 }
 
-                var finalItem = Mapper.Map<Genus, GenusDto>(item);
-                return Ok(finalItem);
+                var genusDto = Mapper.Map<Genus, GenusDto>(item);
+
+                return Ok(DataShaping.CreateDataShapedObject(genusDto, lstOfFields));
             }
             catch (Exception)
             {
@@ -169,7 +233,6 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Get domain entity
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
-                // Check for errors from service
                 if (entityFound == null)
                 {
                     return NotFound();
