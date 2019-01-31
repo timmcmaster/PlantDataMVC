@@ -160,6 +160,7 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\JournalEntriesController.cs" />
     <Compile Include="Controllers\PlantStockController.cs" />
     <Compile Include="Controllers\SeedBatchController.cs" />
     <Compile Include="Controllers\SeedTrayController.cs" />
