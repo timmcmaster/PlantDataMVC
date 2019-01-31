@@ -9,6 +9,8 @@
 
 @using (Html.BeginForm("Create", "Transaction"))
 {
+    @Html.AntiForgeryToken()
+
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Transaction</legend>

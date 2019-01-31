@@ -9,6 +9,8 @@
 
 @using (Html.BeginForm("Update", "PlantStock"))
 {
+    @Html.AntiForgeryToken()
+
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Plant Stock</legend>

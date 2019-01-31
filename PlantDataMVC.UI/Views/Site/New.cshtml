@@ -6,7 +6,10 @@
 
 <h2>New</h2>
 
-@using (Html.BeginForm("Create","Site")) {
+@using (Html.BeginForm("Create", "Site"))
+{
+    @Html.AntiForgeryToken()
+
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Site</legend>
@@ -14,7 +17,7 @@
         @Html.EditorForModel()
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Create"/>
         </p>
     </fieldset>
 }

@@ -9,6 +9,8 @@
 <h3>Are you sure you want to delete this?</h3>
 @using (Html.BeginForm("Destroy", "Seed"))
 {
+    @Html.AntiForgeryToken()
+
     <fieldset>
         <legend>Seed Batch</legend>
         @*Add hidden, as display for model doesn't show hidden input needed for submit*@

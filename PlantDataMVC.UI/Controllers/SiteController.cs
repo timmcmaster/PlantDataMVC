@@ -64,6 +64,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // POST: /"ControllerName"/Create
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(SiteCreateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");
@@ -86,6 +87,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // POST: /"ControllerName"/Update/5
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(SiteUpdateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Show", new { id = form.Id });
@@ -108,6 +110,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // POST: /Seed/Delete/5
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Destroy(SiteDestroyEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");

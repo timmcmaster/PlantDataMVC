@@ -9,6 +9,8 @@
 <h3>Are you sure you want to delete this?</h3>
 @using (Html.BeginForm("Destroy", "Genus"))
 {
+    @Html.AntiForgeryToken()
+
     <fieldset>
         <legend>Genus</legend>
         @*Add hidden, as display for model doesn't show hidden input needed for submit*@

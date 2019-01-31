@@ -8,6 +8,8 @@
 
 @using (Html.BeginForm("Update", "Genus"))
 {
+    @Html.AntiForgeryToken()
+
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Genus</legend>
@@ -15,7 +17,7 @@
         @Html.EditorForModel()
 
         <p>
-            <input type="submit" value="Update" />
+            <input type="submit" value="Update"/>
         </p>
     </fieldset>
 }

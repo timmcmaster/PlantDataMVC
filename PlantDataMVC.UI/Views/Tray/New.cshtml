@@ -9,46 +9,48 @@
 
 @using (Html.BeginForm("Create", "Tray"))
 {
+    @Html.AntiForgeryToken()
+
     @Html.ValidationSummary(true)
-<fieldset>
-    <legend>Seed Tray</legend>
+    <fieldset>
+        <legend>Seed Tray</legend>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.SeedBatch)
-    </div>
-    <div class="editor-field">
-        @*TODO: Want better representation for display value*@
-        @Html.DropDownFor(() => "SeedBatchId", model => model.SeedBatch, p => string.Concat(p.SpeciesId, p.Location, p.DateCollected), p => p.Id)
-    </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SeedBatch)
+        </div>
+        <div class="editor-field">
+            @*TODO: Want better representation for display value*@
+            @Html.DropDownFor(() => "SeedBatchId", model => model.SeedBatch, p => string.Concat(p.SpeciesId, p.Location, p.DateCollected), p => p.Id)
+        </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.DatePlanted)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.DatePlanted)
-        @Html.ValidationMessageFor(model => model.DatePlanted)
-    </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DatePlanted)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DatePlanted)
+            @Html.ValidationMessageFor(model => model.DatePlanted)
+        </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Treatment)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Treatment)
-        @Html.ValidationMessageFor(model => model.Treatment)
-    </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Treatment)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Treatment)
+            @Html.ValidationMessageFor(model => model.Treatment)
+        </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.ThrownOut)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.ThrownOut)
-        @Html.ValidationMessageFor(model => model.ThrownOut)
-    </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ThrownOut)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ThrownOut)
+            @Html.ValidationMessageFor(model => model.ThrownOut)
+        </div>
 
-    <p>
-        <input type="submit" value="Create" />
-    </p>
-</fieldset>
+        <p>
+            <input type="submit" value="Create"/>
+        </p>
+    </fieldset>
 }
 
 <div>

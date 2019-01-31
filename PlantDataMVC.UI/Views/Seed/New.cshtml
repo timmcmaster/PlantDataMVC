@@ -7,58 +7,61 @@
 
 <h2>New</h2>
 
-@using (Html.BeginForm("Create","Seed")) {
+@using (Html.BeginForm("Create", "Seed"))
+{
+    @Html.AntiForgeryToken()
+
     @Html.ValidationSummary(true)
-<fieldset>
-    <legend>Seed Batch</legend>
+    <fieldset>
+        <legend>Seed Batch</legend>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.PlantSpecies)
-    </div>
-    <div class="editor-field">
-        @*TODO: Should be using genus and species for display value*@
-        @Html.DropDownFor(() => "SpeciesId", model => model.PlantSpecies, p => p.SpecificName, p => p.Id)
-        @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
-        @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
-    </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PlantSpecies)
+        </div>
+        <div class="editor-field">
+            @*TODO: Should be using genus and species for display value*@
+            @Html.DropDownFor(() => "SpeciesId", model => model.PlantSpecies, p => p.SpecificName, p => p.Id)
+            @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
+            @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
+        </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Site)
-    </div>
-    <div class="editor-field">
-        @Html.DropDownFor(() => "SiteId", model => model.Site, p => p.SiteName, p => p.Id)
-        @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
-        @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
-    </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Site)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownFor(() => "SiteId", model => model.Site, p => p.SiteName, p => p.Id)
+            @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
+            @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
+        </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.DateCollected)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.DateCollected)
-        @Html.ValidationMessageFor(model => model.DateCollected)
-    </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateCollected)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateCollected)
+            @Html.ValidationMessageFor(model => model.DateCollected)
+        </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Location)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Location)
-        @Html.ValidationMessageFor(model => model.Location)
-    </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Location)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
+        </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Notes)
-    </div>
-    <div class="editor-field">
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Notes)
+        </div>
+        <div class="editor-field">
 
-        @Html.EditorFor(model => model.Notes)
-        @Html.ValidationMessageFor(model => model.Notes)
-    </div>
-    <p>
-        <input type="submit" value="Create" />
-    </p>
-</fieldset>
+            @Html.EditorFor(model => model.Notes)
+            @Html.ValidationMessageFor(model => model.Notes)
+        </div>
+        <p>
+            <input type="submit" value="Create"/>
+        </p>
+    </fieldset>
 }
 
 <div>
