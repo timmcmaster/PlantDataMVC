@@ -41,12 +41,16 @@ namespace PlantDataMVC.UI.Controllers
             if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync();
+
+                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
+                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
+
                 var model = JsonConvert.DeserializeObject<IEnumerable<GenusInListDto>>(content);
 
                 // TODO: check to ensure these DTOs map to view model
                 AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<GenusListViewModel>>(View(model));
 
-                return ListView<GenusListViewModel>(autoMapResult, localPage, localPageSize, localSortBy, localAscending);
+                return ListView<GenusListViewModel>(autoMapResult, apiPagingInfo, localSortBy, localAscending);
             }
             else
             {
