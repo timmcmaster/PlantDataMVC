@@ -1,16 +1,14 @@
 ﻿using Framework.Web.Forms;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
-using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Interfaces.WcfService.Responses;
-using Newtonsoft.Json;
-using PlantDataMVC.UI.Helpers;
 
 namespace PlantDataMVC.UI.Controllers
 {

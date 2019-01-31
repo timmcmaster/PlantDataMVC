@@ -50,6 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dtos\CreateUpdateGenusDto.cs" />
+    <Compile Include="Dtos\CreateUpdatePlantStockDto.cs" />
+    <Compile Include="Dtos\CreateUpdateSeedBatchDto.cs" />
+    <Compile Include="Dtos\CreateUpdateSeedTrayDto.cs" />
+    <Compile Include="Dtos\CreateUpdateSiteDto.cs" />
     <Compile Include="Dtos\GenusInListDto.cs" />
     <Compile Include="Dtos\GenusDto.cs" />
     <Compile Include="Dtos\CreateUpdateSpeciesDto.cs" />

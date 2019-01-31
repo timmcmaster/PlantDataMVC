@@ -1,25 +1,29 @@
 ﻿using Framework.Web.Forms;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
-using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Interfaces.WcfService.Responses;
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class TrayController : DefaultController
     {
-        private readonly ISeedTrayWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public TrayController(ISeedTrayWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public TrayController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
+        {
+        }
+
+        public TrayController(HttpClient httpClient, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
             // use passed in service
-            _dataService = dataService;
+            _httpClient = httpClient;
         }
 
         // GET: /"ControllerName"/Index
@@ -32,27 +36,45 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            IListResponse<SeedTrayDto> response = _dataService.List();
+            var httpResponse = await _httpClient.GetAsync("api/SeedTray?page=" + localPage + "&pageSize=" + localPageSize);
 
-            IList<SeedTrayDto> list = response.Items;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
 
-            // TODO: check to ensure these DTOs map to view model
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<TrayListViewModel>>(View(list));
+                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
+                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-            return ListView<TrayListViewModel>(autoMapResult, localPage, localPageSize, localSortBy, localAscending);
+                var model = JsonConvert.DeserializeObject<IEnumerable<SeedTrayDto>>(content);
+
+                AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<TrayListViewModel>>(View(model));
+
+                return ListView<TrayListViewModel>(autoMapResult, apiPagingInfo, localSortBy, localAscending);
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
         // GET: /"ControllerName"/Show/5
-        public async override Task<ActionResult> Show(int id)
+        public override async Task<ActionResult> Show(int id)
         {
-            // return view for Model
-            IViewResponse<SeedTrayDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/SeedTray/" + id);
 
-            SeedTrayDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<SeedTrayDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<TrayShowViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<TrayShowViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
@@ -89,15 +111,22 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Edit/5
-        public async override Task<ActionResult> Edit(int id)
+        public override async Task<ActionResult> Edit(int id)
         {
-            // return view for Model
-            IViewResponse<SeedTrayDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/SeedTray/" + id);
 
-            SeedTrayDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<SeedTrayDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<TrayEditViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<TrayEditViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
@@ -112,15 +141,22 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Delete/5
-        public async override Task<ActionResult> Delete(int id)
+        public override async Task<ActionResult> Delete(int id)
         {
-            // return view for Model
-            IViewResponse<SeedTrayDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/SeedTray/" + id);
 
-            SeedTrayDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<SeedTrayDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<TrayDeleteViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<TrayDeleteViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //

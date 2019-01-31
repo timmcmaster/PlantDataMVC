@@ -1,25 +1,29 @@
 ﻿using Framework.Web.Forms;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
-using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Interfaces.WcfService.Responses;
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class SeedController : DefaultController
     {
-        private readonly ISeedBatchWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public SeedController(ISeedBatchWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public SeedController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
         {
-            // use passed in service or default instance service
-            _dataService = dataService;
+        }
+
+        // Allow passing in HttpClient for unit tests
+        public SeedController(HttpClient httpClient, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        {
+            _httpClient = httpClient;
         }
 
         // GET: /"ControllerName"/Index
@@ -32,27 +36,45 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            IListResponse<SeedBatchDto> response = _dataService.List();
+            var httpResponse = await _httpClient.GetAsync("api/SeedBatch?page=" + localPage + "&pageSize=" + localPageSize);
 
-            IList<SeedBatchDto> list = response.Items;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
 
-            // TODO: check to ensure these DTOs map to view model
-            AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantSeedListViewModel>>(View(list));
+                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
+                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-            return ListView<PlantSeedListViewModel>(autoMapResult, localPage, localPageSize, localSortBy, localAscending);
+                var model = JsonConvert.DeserializeObject<IEnumerable<SeedBatchDto>>(content);
+
+                AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantSeedListViewModel>>(View(model));
+
+                return ListView<PlantSeedListViewModel>(autoMapResult, apiPagingInfo, localSortBy, localAscending);
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
         // GET: /"ControllerName"/Show/5
-        public async override Task<ActionResult> Show(int id)
+        public override async Task<ActionResult> Show(int id)
         {
-            // return view for Model
-            IViewResponse<SeedBatchDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/SeedBatch/" + id);
 
-            SeedBatchDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<SeedBatchDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantSeedShowViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<PlantSeedShowViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
@@ -89,15 +111,22 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Edit/5
-        public async override Task<ActionResult> Edit(int id)
+        public override async Task<ActionResult> Edit(int id)
         {
-            // return view for Model
-            IViewResponse<SeedBatchDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/SeedBatch/" + id);
 
-            SeedBatchDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<SeedBatchDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantSeedEditViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<PlantSeedEditViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
@@ -112,15 +141,22 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Delete/5
-        public async override Task<ActionResult> Delete(int id)
+        public override async Task<ActionResult> Delete(int id)
         {
-            // return view for Model
-            IViewResponse<SeedBatchDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/SeedBatch/" + id);
 
-            SeedBatchDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<SeedBatchDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantSeedDeleteViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<PlantSeedDeleteViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //

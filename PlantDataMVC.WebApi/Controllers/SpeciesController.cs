@@ -70,7 +70,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 //    .ApplySort(sort)
                 //    .ToList();
 
-                IQueryable<SpeciesDto> speciesDtos = context
+                IQueryable<SpeciesDto> dtos = context
                     .ProjectTo<SpeciesDto>(null, childDtosToInclude.ToArray())
                     .ApplySort(sort)
                     .Where(s => (native == null || s.Native == native))
@@ -86,7 +86,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
-                    speciesDtos,
+                    dtos,
                     onSpeciesByGenus ? "SpeciesByGenus" : "SpeciesList",
                     new
                     {
@@ -101,10 +101,10 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 HttpContext.Current.Response.Headers.Add(paginationHeaders);
 
-                var itemList = speciesDtos
+                var itemList = dtos
                     .Paginate(page, pageSize)
                     .ToList()
-                    .Select(species => DataShaping.CreateDataShapedObject(species, lstOfFields));
+                    .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
                 
                 return Ok(itemList);
             }
@@ -137,9 +137,9 @@ namespace PlantDataMVC.WebApi.Controllers
                     return NotFound();
                 }
 
-                var speciesDto = Mapper.Map<Species, SpeciesDto>(item);
+                var itemDto = Mapper.Map<Species, SpeciesDto>(item);
 
-                return Ok(DataShaping.CreateDataShapedObject(speciesDto, lstOfFields));
+                return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
             catch (Exception)
             {
