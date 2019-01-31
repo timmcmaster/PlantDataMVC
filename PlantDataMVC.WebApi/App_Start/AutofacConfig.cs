@@ -36,7 +36,7 @@ namespace PlantDataMVC.WebApi
             //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
 
             builder.RegisterType<Repository<Genus>>().As<IRepositoryAsync<Genus>>();
-            //builder.RegisterType<Repository<JournalEntry>>().As<IRepositoryAsync<JournalEntry>>();
+            builder.RegisterType<Repository<JournalEntry>>().As<IRepositoryAsync<JournalEntry>>();
             //builder.RegisterType<Repository<JournalEntryType>>().As<IRepositoryAsync<JournalEntryType>>();
             //builder.RegisterType<Repository<ProductType>>().As<IRepositoryAsync<ProductType>>();
             builder.RegisterType<Repository<SeedBatch>>().As<IRepositoryAsync<SeedBatch>>();
@@ -50,7 +50,7 @@ namespace PlantDataMVC.WebApi
             // These are passed to API controllers
 
             builder.RegisterType<GenusService>().As<IGenusService>();
-            //builder.RegisterType<JournalEntryService>().As<IJournalEntryService>();
+            builder.RegisterType<JournalEntryService>().As<IJournalEntryService>();
             //builder.RegisterType<JournalEntryTypeService>().As<IJournalEntryTypeService>();
             //builder.RegisterType<ProductTypeService>().As<IProductTypeService>();
             builder.RegisterType<SeedBatchService>().As<ISeedBatchService>();
