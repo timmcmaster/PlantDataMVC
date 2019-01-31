@@ -111,6 +111,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // GET: api/Plant/5
         [HttpCache(DefaultExpirySeconds = 300)]
+        [Route("SeedTray/{id}")]
         [HttpGet]
         public IHttpActionResult Get(int id, string fields = null)
         {
@@ -146,6 +147,7 @@ namespace PlantDataMVC.WebApi.Controllers
         }
 
         // POST: api/Plant
+        [Route("SeedTray")]
         [HttpPost]
         public IHttpActionResult Post([FromBody]CreateUpdateSeedTrayDto dtoIn)
         {
@@ -183,6 +185,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // PUT: api/Plant/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
+        [Route("SeedTray/{id}")]
         [HttpPut]
         public IHttpActionResult Put(int id, [FromBody]CreateUpdateSeedTrayDto dtoIn)
         {
@@ -232,6 +235,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // PATCH: api/Plant/5
         // Partial update
+        [Route("SeedTray/{id}")]
         [HttpPatch]
         public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<CreateUpdateSeedTrayDto> itemPatchDoc)
         {
@@ -282,6 +286,7 @@ namespace PlantDataMVC.WebApi.Controllers
         }
 
         // DELETE: api/Plant/5
+        [Route("SeedTray/{id}")]
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
