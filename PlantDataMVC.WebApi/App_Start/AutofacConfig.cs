@@ -39,11 +39,11 @@ namespace PlantDataMVC.WebApi
             //builder.RegisterType<Repository<JournalEntry>>().As<IRepositoryAsync<JournalEntry>>();
             //builder.RegisterType<Repository<JournalEntryType>>().As<IRepositoryAsync<JournalEntryType>>();
             //builder.RegisterType<Repository<ProductType>>().As<IRepositoryAsync<ProductType>>();
-            //builder.RegisterType<Repository<SeedBatch>>().As<IRepositoryAsync<SeedBatch>>();
-            //builder.RegisterType<Repository<Site>>().As<IRepositoryAsync<Site>>();
+            builder.RegisterType<Repository<SeedBatch>>().As<IRepositoryAsync<SeedBatch>>();
+            builder.RegisterType<Repository<Site>>().As<IRepositoryAsync<Site>>();
             builder.RegisterType<Repository<Species>>().As<IRepositoryAsync<Species>>();
-            //builder.RegisterType<Repository<SeedTray>>().As<IRepositoryAsync<SeedTray>>();
-            //builder.RegisterType<Repository<PlantStock>>().As<IRepositoryAsync<PlantStock>>();
+            builder.RegisterType<Repository<SeedTray>>().As<IRepositoryAsync<SeedTray>>();
+            builder.RegisterType<Repository<PlantStock>>().As<IRepositoryAsync<PlantStock>>();
 
             //*****************************************
             // Register services wrapping repositories
@@ -53,11 +53,11 @@ namespace PlantDataMVC.WebApi
             //builder.RegisterType<JournalEntryService>().As<IJournalEntryService>();
             //builder.RegisterType<JournalEntryTypeService>().As<IJournalEntryTypeService>();
             //builder.RegisterType<ProductTypeService>().As<IProductTypeService>();
-            //builder.RegisterType<SeedBatchService>().As<ISeedBatchService>();
-            //builder.RegisterType<SiteService>().As<ISiteService>();
+            builder.RegisterType<SeedBatchService>().As<ISeedBatchService>();
+            builder.RegisterType<SiteService>().As<ISiteService>();
             builder.RegisterType<SpeciesService>().As<ISpeciesService>();
-            //builder.RegisterType<SeedTrayService>().As<ISeedTrayService>();
-            //builder.RegisterType<PlantStockService>().As<IPlantStockService>();
+            builder.RegisterType<SeedTrayService>().As<ISeedTrayService>();
+            builder.RegisterType<PlantStockService>().As<IPlantStockService>();
 
 
             // ****************************************************
