@@ -29,7 +29,7 @@ namespace PlantDataMVC.UI.Controllers
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
-        public override async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
+        public async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
             // TODO: Change how paging works
             // retrieving paged data means that paging the returned list does not work as it used to
@@ -67,7 +67,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Show/5
-        public override async Task<ActionResult> Show(int id)
+        public async Task<ActionResult> Show(int id)
         {
             var httpResponse = await _httpClient.GetAsync("api/Species/" + id );
 
@@ -87,7 +87,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // Display prior to POST via Create 
-        public override ActionResult New()
+        public ActionResult New()
         {
             var item = new PlantNewViewModel();
             return View(item);
@@ -105,7 +105,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // Display prior to POST via Update 
-        public override async Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             var httpResponse = await _httpClient.GetAsync("api/Species/" + id);
 
@@ -135,7 +135,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // Display prior to DELETE via Destroy method 
-        public override async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             var httpResponse = await _httpClient.GetAsync("api/Species/" + id);
 

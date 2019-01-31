@@ -70,15 +70,15 @@ namespace PlantDataMVC.UI.Controllers
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
-        public abstract Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending);
+        //public abstract Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending);
 
         //
         // GET: /"ControllerName"/Show/5
-        public abstract Task<ActionResult> Show(int id);
+        //public abstract Task<ActionResult> Show(int id);
 
         //
         // Display new model prior to POST
-        public abstract ActionResult New();
+        //public abstract ActionResult New();
 
         //
         // POST: /"ControllerName"/Create
@@ -86,7 +86,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Edit/5
-        public abstract Task<ActionResult> Edit(int id);
+        //public abstract Task<ActionResult> Edit(int id);
 
         //
         // POST: /"ControllerName"/Update/5
@@ -94,7 +94,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Delete/5
-        public abstract Task<ActionResult> Delete(int id);
+        //public abstract Task<ActionResult> Delete(int id);
 
         //
         // POST: /Plant/Delete/5

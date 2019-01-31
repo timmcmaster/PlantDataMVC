@@ -6,22 +6,29 @@ using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
 using PlantDataMVC.WCFService.ServiceContracts;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Interfaces.WcfService.Responses;
+using Newtonsoft.Json;
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class TransactionController : DefaultController
     {
-        private readonly IJournalEntryWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public TransactionController(IJournalEntryWcfService dataService, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public TransactionController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
         {
-            // use passed in service
-            _dataService = dataService;
         }
 
+        // Allow passing in HttpClient for unit tests
+        public TransactionController(HttpClient httpClient, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        {
+            _httpClient = httpClient;
+        }
+
+/*
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public override async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
@@ -54,7 +61,8 @@ namespace PlantDataMVC.UI.Controllers
             // TODO: check to ensure these DTOs map to view model
             return AutoMapView<PlantStockTransactionShowViewModel>(View(item));
         }
-
+*/
+/*
         //
         // GET: /"ControllerName"/New
         public override ActionResult New()
@@ -62,13 +70,13 @@ namespace PlantDataMVC.UI.Controllers
             var item = new PlantStockTransactionNewViewModel();
             return View(item);
         }
-
+*/
         /// <summary>
         /// Additional action for creating a new entry for a given plant stock entry.
         /// </summary>
         /// <param name="plantStockId">The Id of the plant stock entry.</param>
         /// <returns></returns>
-        [RequireRequestValue("plantStockEntryId")]
+        //[RequireRequestValue("plantStockId")]
         public ActionResult New(int plantStockId)
         {
             var item = new JournalEntryDto {PlantStockId = plantStockId};
@@ -89,15 +97,22 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Edit/5
-        public async override Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            // return view for Model
-            IViewResponse<JournalEntryDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/JournalEntries/" + id);
 
-            JournalEntryDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<JournalEntryDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantStockTransactionEditViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<PlantStockTransactionEditViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
@@ -112,15 +127,22 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Delete/5
-        public async override Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            // return view for Model
-            IViewResponse<JournalEntryDto> response = _dataService.View(id);
+            var httpResponse = await _httpClient.GetAsync("api/JournalEntries/" + id);
 
-            JournalEntryDto item = response.Item;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<JournalEntryDto>(content);
 
-            // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantStockTransactionDeleteViewModel>(View(item));
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<PlantStockTransactionDeleteViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
         }
 
         //
@@ -132,25 +154,5 @@ namespace PlantDataMVC.UI.Controllers
 
             return await Form(form, success);
         }
-
-        //public override ActionResult Edit(int id)
-        //{
-        //    // Get service for transaction types
-        //    IGenericDataService<PlantStockTransactionType> transactionTypeService = ServiceFactoryManager.Instance().GetServiceFactory().GetTransactionTypeService();
-
-        //    // Get list of transaction types
-        //    ListResponse<PlantStockTransactionType> listResponse = transactionTypeService.List(new ListRequest<PlantStockTransactionType>());
-
-        //    List<PlantStockTransactionTypeModel> transactionTypeList = AutoMapper.Mapper.Map<List<PlantStockTransactionType>, List<PlantStockTransactionTypeModel>>(listResponse.Items);
-
-        //    // Get transaction item
-        //    ViewResponse<JournalEntryDTO> response = DataService.View(new ViewRequest<JournalEntryDTO>(id));
-
-        //    PlantStockTransactionModel pstModel = AutoMapper.Mapper.Map<JournalEntryDTO, PlantStockTransactionModel>(response.Item);
-
-        //    EditTransactionViewModel viewModel = new EditTransactionViewModel() { Transaction = pstModel, TransactionTypes = transactionTypeList };
-
-        //    return View(viewModel);
-        //}
     }
 }

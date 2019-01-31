@@ -27,7 +27,7 @@ namespace PlantDataMVC.UI.Controllers
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
-        public override async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
+        public async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
             // resolve parameters
             var localPage = page ?? 1;
@@ -58,7 +58,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Show/5
-        public override async Task<ActionResult> Show(int id)
+        public async Task<ActionResult> Show(int id)
         {
             var httpResponse = await _httpClient.GetAsync("api/Site/" + id);
 
@@ -78,7 +78,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/New
-        public override ActionResult New()
+        public ActionResult New()
         {
             var item = new SiteNewViewModel();
             return View(item);
@@ -96,7 +96,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Edit/5
-        public override async Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             var httpResponse = await _httpClient.GetAsync("api/Site/" + id);
 
@@ -126,7 +126,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Delete/5
-        public override async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             var httpResponse = await _httpClient.GetAsync("api/Site/" + id);
 
