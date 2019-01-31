@@ -160,6 +160,18 @@ namespace PlantDataMVC.DTO.Mappers
 
         private void ConfigureJournalEntryMappings()
         {
+            CreateMap<CreateUpdateJournalEntryDto, JournalEntry>()
+                .ForMember(e => e.JournalEntryTypeId,
+                    opt => opt.MapFrom(dto => dto.JournalEntryTypeId)) // explicit and unnecessary
+                .ForMember(e => e.Notes, opt => opt.MapFrom(dto => dto.Notes)) // explicit and unnecessary
+                .ForMember(e => e.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId)) // explicit and unnecessary
+                .ForMember(e => e.Quantity, opt => opt.MapFrom(dto => dto.Quantity)) // explicit and unnecessary
+                .ForMember(e => e.SeedTrayId, opt => opt.MapFrom(dto => dto.SeedTrayId)) // explicit and unnecessary
+                .ForMember(e => e.Source, opt => opt.MapFrom(dto => dto.Source)) // explicit and unnecessary
+                .ForMember(e => e.TransactionDate,
+                    opt => opt.MapFrom(dto => dto.TransactionDate)) // explicit and unnecessary
+                .ForAllOtherMembers(opt => opt.Ignore());
+
             CreateMap<JournalEntryDto, JournalEntry>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id)) // explicit and unnecessary
                 .ForMember(e => e.JournalEntryTypeId,

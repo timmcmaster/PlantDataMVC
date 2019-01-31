@@ -19,7 +19,7 @@ namespace PlantDataMVC.DTO.Mappers
             // Maps from Data Layer entities to DTO
             ConfigureGenusMappings();
             ConfigureSpeciesMappings();
-            ConfigureJournalEntrykMappings();
+            ConfigureJournalEntryMappings();
             ConfigurePlantStockMappings();
             ConfigureSeedBatchMappings();
             ConfigureSeedTrayMappings();
@@ -124,7 +124,7 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForAllOtherMembers(opt => opt.Ignore());
         }
 
-        private void ConfigureJournalEntrykMappings()
+        private void ConfigureJournalEntryMappings()
         {
             CreateMap<JournalEntry, JournalEntryDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(e => e.Id))                                    // explicit and unnecessary
