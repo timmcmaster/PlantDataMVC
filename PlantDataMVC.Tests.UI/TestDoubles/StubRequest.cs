@@ -1,24 +1,19 @@
 ﻿using System.Web;
 
-namespace PlantDataMVC.Tests.UI
+namespace PlantDataMVC.Tests.UI.TestDoubles
 {
     public class StubRequest : HttpRequestBase
     {
-        string relativeUrl;
-
         public StubRequest(string relativeUrl)
         {
-            this.relativeUrl = relativeUrl;
+            AppRelativeCurrentExecutionFilePath = relativeUrl;
         }
 
-        public override string AppRelativeCurrentExecutionFilePath
-        {
-            get { return relativeUrl; }
-        }
+        public override string AppRelativeCurrentExecutionFilePath { get; }
 
         public override string PathInfo
         {
-            get { return ""; }
+            get => "";
         }
     }
 }

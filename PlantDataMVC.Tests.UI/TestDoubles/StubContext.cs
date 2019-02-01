@@ -1,10 +1,10 @@
 ﻿using System.Web;
 
-namespace PlantDataMVC.Tests.UI
+namespace PlantDataMVC.Tests.UI.TestDoubles
 {
-    class StubContext : HttpContextBase
+    internal class StubContext : HttpContextBase
     {
-        StubRequest request;
+        private readonly StubRequest request;
 
         public StubContext(string relativeUrl)
         {
@@ -13,7 +13,7 @@ namespace PlantDataMVC.Tests.UI
 
         public override HttpRequestBase Request
         {
-            get { return request; }
+            get => request;
         }
     }
 }

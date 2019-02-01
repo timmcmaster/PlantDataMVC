@@ -7,13 +7,13 @@ using System.Web.Routing;
 namespace Framework.Web.Mvc
 {
     /// <summary>
-    /// Contains Extension methods for HtmlHelper that implement wrappers for RenderAction method
+    ///     Contains Extension methods for HtmlHelper that implement wrappers for RenderAction method
     /// </summary>
     public static class RenderActionExtensions
     {
         /// <summary>
-        /// Extension method for HtmlHelper.
-        /// Renders an action on a controller given a lambda expression representing a controller action method.
+        ///     Extension method for HtmlHelper.
+        ///     Renders an action on a controller given a lambda expression representing a controller action method.
         /// </summary>
         /// <typeparam name="TController"></typeparam>
         /// <param name="helper"></param>
@@ -25,9 +25,9 @@ namespace Framework.Web.Mvc
         }
 
         /// <summary>
-        /// Extension method for HtmlHelper.
-        /// Renders an action on a controller given a lambda expression representing a controller action method
-        /// and a dictionary of route values.
+        ///     Extension method for HtmlHelper.
+        ///     Renders an action on a controller given a lambda expression representing a controller action method
+        ///     and a dictionary of route values.
         /// </summary>
         /// <typeparam name="TController"></typeparam>
         /// <param name="helper"></param>

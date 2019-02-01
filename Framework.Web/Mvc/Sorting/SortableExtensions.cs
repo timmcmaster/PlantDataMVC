@@ -10,7 +10,6 @@ namespace Framework.Web.Mvc.Sorting
             return string.IsNullOrEmpty(sortBy)
                 ? source
                 : source.OrderBy(sortAscending ? sortBy + " asc" : sortBy + " desc");
-
         }
     }
 }

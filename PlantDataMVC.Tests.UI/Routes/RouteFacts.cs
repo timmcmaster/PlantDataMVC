@@ -1,24 +1,40 @@
-﻿using FluentAssertions; 
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
-using Xunit;
+using FluentAssertions;
+using PlantDataMVC.Tests.UI.TestDoubles;
 using PlantDataMVC.UI;
+using Xunit;
 
 namespace PlantDataMVC.Tests.UI.Routes
 {
     public class RouteFacts
     {
         [Fact]
-        public void RouteWithControllerNoActionNoId()
+        public void RouteForEmbeddedResource()
         {
             // Arrange
-            StubContext context = new StubContext("~/controller1");
-            RouteCollection routes = new RouteCollection();
+            var context = new StubContext("~/foo.axd/bar/baz/biff");
+            var routes = new RouteCollection();
             RouteConfig.RegisterRoutes(routes);
 
             // Act
-            RouteData routeData = routes.GetRouteData(context);
+            var routeData = routes.GetRouteData(context);
+
+            // Assert
+            routeData.Should().NotBeNull();
+            routeData.RouteHandler.Should().BeAssignableTo<StopRoutingHandler>();
+        }
+
+        [Fact]
+        public void RouteWithControllerNoActionNoId()
+        {
+            // Arrange
+            var context = new StubContext("~/controller1");
+            var routes = new RouteCollection();
+            RouteConfig.RegisterRoutes(routes);
+
+            // Act
+            var routeData = routes.GetRouteData(context);
 
             // Assert
             routeData.Should().NotBeNull();
@@ -31,12 +47,12 @@ namespace PlantDataMVC.Tests.UI.Routes
         public void RouteWithControllerWithActionNoId()
         {
             // Arrange
-            StubContext context = new StubContext("~/controller1/action2");
-            RouteCollection routes = new RouteCollection();
+            var context = new StubContext("~/controller1/action2");
+            var routes = new RouteCollection();
             RouteConfig.RegisterRoutes(routes);
 
             // Act
-            RouteData routeData = routes.GetRouteData(context);
+            var routeData = routes.GetRouteData(context);
 
             // Assert
             routeData.Should().NotBeNull();
@@ -49,12 +65,12 @@ namespace PlantDataMVC.Tests.UI.Routes
         public void RouteWithControllerWithActionWithId()
         {
             // Arrange
-            StubContext context = new StubContext("~/controller1/action2/id3");
-            RouteCollection routes = new RouteCollection();
+            var context = new StubContext("~/controller1/action2/id3");
+            var routes = new RouteCollection();
             RouteConfig.RegisterRoutes(routes);
 
             // Act
-            RouteData routeData = routes.GetRouteData(context);
+            var routeData = routes.GetRouteData(context);
 
             // Assert
             routeData.Should().NotBeNull();
@@ -67,31 +83,15 @@ namespace PlantDataMVC.Tests.UI.Routes
         public void RouteWithTooManySegments()
         {
             // Arrange
-            StubContext context = new StubContext("~/a/b/c/d");
-            RouteCollection routes = new RouteCollection();
+            var context = new StubContext("~/a/b/c/d");
+            var routes = new RouteCollection();
             RouteConfig.RegisterRoutes(routes);
 
             // Act
-            RouteData routeData = routes.GetRouteData(context);
+            var routeData = routes.GetRouteData(context);
 
             // Assert
             routeData.Should().BeNull();
-        }
-
-        [Fact]
-        public void RouteForEmbeddedResource()
-        {
-            // Arrange
-            StubContext context = new StubContext("~/foo.axd/bar/baz/biff");
-            RouteCollection routes = new RouteCollection();
-            RouteConfig.RegisterRoutes(routes);
-
-            // Act
-            RouteData routeData = routes.GetRouteData(context);
-
-            // Assert
-            routeData.Should().NotBeNull();
-            routeData.RouteHandler.Should().BeAssignableTo<StopRoutingHandler>();
         }
     }
 }

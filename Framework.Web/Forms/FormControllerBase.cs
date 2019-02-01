@@ -6,11 +6,11 @@ namespace Framework.Web.Forms
 {
     /// <inheritdoc />
     /// <summary>
-    /// An MVC controller that implements all of the basic CRUD methods (Create, Read, Update, Delete)
-    /// as well as an index method.
-    /// This should be the base class for most controllers in the system.
-    /// The underlying data is provided through a Request/Response data service which uses the business object.
-    /// The business object is mapped to the local model type and back as necessary.
+    ///     An MVC controller that implements all of the basic CRUD methods (Create, Read, Update, Delete)
+    ///     as well as an index method.
+    ///     This should be the base class for most controllers in the system.
+    ///     The underlying data is provided through a Request/Response data service which uses the business object.
+    ///     The business object is mapped to the local model type and back as necessary.
     /// </summary>
     /// <seealso cref="T:System.Web.Mvc.Controller" />
     public class FormControllerBase : Controller
@@ -23,8 +23,8 @@ namespace Framework.Web.Forms
         }
 
         /// <summary>
-        /// An action to handle posts from a form, defining the view to display on successful completion.
-        /// If the action is unsuccessful the form will be redisplayed.
+        ///     An action to handle posts from a form, defining the view to display on successful completion.
+        ///     If the action is unsuccessful the form will be redisplayed.
         /// </summary>
         /// <typeparam name="TForm">The form type.</typeparam>
         /// <param name="form">The form instance.</param>
@@ -35,7 +35,8 @@ namespace Framework.Web.Forms
             return await Form(form, () => successResult);
         }
 
-        protected async Task<ActionResult> Form<TForm>(TForm form, ActionResult successResult, ActionResult failureResult) where TForm : IForm
+        protected async Task<ActionResult> Form<TForm>(TForm form, ActionResult successResult,
+                                                       ActionResult failureResult) where TForm : IForm
         {
             return await Form(form, () => successResult, () => failureResult);
         }
@@ -46,7 +47,8 @@ namespace Framework.Web.Forms
         }
 
         // The generic form of the method
-        protected async Task<ActionResult> Form<TForm>(TForm form, Func<ActionResult> successResult, Func<ActionResult> failureResult) where TForm : IForm
+        protected async Task<ActionResult> Form<TForm>(TForm form, Func<ActionResult> successResult,
+                                                       Func<ActionResult> failureResult) where TForm : IForm
         {
             if (!ModelState.IsValid)
             {
@@ -58,7 +60,5 @@ namespace Framework.Web.Forms
             // TODO: May need to differentiate submit failure from return failure?
             return response ? successResult() : failureResult();
         }
-
-
     }
 }

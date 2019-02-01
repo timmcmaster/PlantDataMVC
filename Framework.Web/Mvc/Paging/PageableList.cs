@@ -10,7 +10,7 @@ namespace Framework.Web.Mvc.Paging
             PageNumber = pageNumber;
             PageSize = pageSize;
             TotalCount = source.Count();
-            TotalPages = TotalCount > 0 ? (int)Math.Ceiling(TotalCount / (double)PageSize) : 0;
+            TotalPages = TotalCount > 0 ? (int) Math.Ceiling(TotalCount / (double) PageSize) : 0;
             HasPreviousPage = PageNumber > 1;
             HasNextPage = PageNumber < TotalPages;
 

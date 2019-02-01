@@ -1,13 +1,14 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using PlantDataMVC.UI.Mappers;
-using System;
 using Xunit;
 
-namespace PlantDataMVC.Tests.UI
+namespace PlantDataMVC.Tests.UI.Automapper
 {
-    public class UIToDomainMappingFacts : IDisposable
+    public class UiToDomainMappingFacts : IDisposable
     {
-        public UIToDomainMappingFacts()
+        #region Setup/Teardown
+        public UiToDomainMappingFacts()
         {
             // Reset Mapper before configuring
             Mapper.Reset();
@@ -22,12 +23,12 @@ namespace PlantDataMVC.Tests.UI
         {
             //Mapper.Reset();
         }
+        #endregion
 
         [Fact]
         public void TestMappingConfiguration()
         {
             Mapper.AssertConfigurationIsValid();
         }
-
     }
 }

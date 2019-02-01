@@ -1,19 +1,18 @@
-﻿using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
+﻿using PlantDataMVC.UI;
 using Xunit;
-using PlantDataMVC.UI;
 
 namespace PlantDataMVC.Tests.UI.IoC
 {
-    public class ServiceFacts: IClassFixture<IocFixture>
+    public class ServiceFacts : IClassFixture<IocFixture>
     {
-        IocFixture _fixture = null;
-
+        #region Setup/Teardown
         public ServiceFacts(IocFixture fixture)
         {
             _fixture = fixture;
         }
+        #endregion
+
+        private IocFixture _fixture;
 
         [Fact]
         public void IdentifyRegisteredServices()

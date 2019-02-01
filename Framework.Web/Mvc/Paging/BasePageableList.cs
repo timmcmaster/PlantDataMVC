@@ -14,16 +14,18 @@ namespace Framework.Web.Mvc.Paging
             PageNumber = pageNumber;
             PageSize = pageSize;
             TotalCount = totalCount;
-            TotalPages = TotalCount > 0 ? (int)Math.Ceiling(TotalCount / (double)PageSize) : 0;
+            TotalPages = TotalCount > 0 ? (int) Math.Ceiling(TotalCount / (double) PageSize) : 0;
             HasPreviousPage = PageNumber > 1;
             HasNextPage = PageNumber < TotalPages;
         }
 
+        #region IPageable Members
         public int PageNumber { get; protected set; }
         public int PageSize { get; protected set; }
         public int TotalCount { get; protected set; }
         public int TotalPages { get; protected set; }
         public bool HasPreviousPage { get; protected set; }
         public bool HasNextPage { get; protected set; }
+        #endregion
     }
 }

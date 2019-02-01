@@ -1,20 +1,20 @@
 ﻿using Autofac;
 using PlantDataMVC.UI;
 
-namespace PlantDataMVC.Tests.UI
+namespace PlantDataMVC.Tests.UI.IoC
 {
     public class IocFixture
     {
-        public IContainer Container { get; set; }
-
         public IocFixture()
         {
-            this.Configure();
+            Configure();
         }
+
+        public IContainer Container { get; set; }
 
         public void Configure()
         {
-            this.Container = AutofacConfig.ConfigureContainer();
+            Container = AutofacConfig.ConfigureContainer();
         }
     }
 }

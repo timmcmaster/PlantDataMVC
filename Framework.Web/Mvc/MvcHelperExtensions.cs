@@ -7,8 +7,8 @@ namespace Framework.Web.Mvc
     public static class MvcHelperExtensions
     {
         /// <summary>
-        /// Extension method for a Type.
-        /// Gets the controller name from the Type by removing the "Controller" suffix from the type name.
+        ///     Extension method for a Type.
+        ///     Gets the controller name from the Type by removing the "Controller" suffix from the type name.
         /// </summary>
         /// <param name="controllerType"></param>
         /// <returns></returns>
@@ -18,27 +18,30 @@ namespace Framework.Web.Mvc
         }
 
         /// <summary>
-        /// Extension method for a LambdaExpression.
-        /// Get the action name from a lambda expression that returns an action method.
+        ///     Extension method for a LambdaExpression.
+        ///     Get the action name from a lambda expression that returns an action method.
         /// </summary>
         /// <param name="actionExpression"></param>
         /// <returns></returns>
         public static string GetActionName(this LambdaExpression actionExpression)
         {
-            return ((MethodCallExpression)actionExpression.Body).Method.Name;
+            return ((MethodCallExpression) actionExpression.Body).Method.Name;
         }
 
         /// <summary>
-        /// Extension method for a LambdaExpression.
-        /// Get the member info (field/property/method) from a lambda expression that returns ???.
+        ///     Extension method for a LambdaExpression.
+        ///     Get the member info (field/property/method) from a lambda expression that returns ???.
         /// </summary>
         /// <param name="actionExpression"></param>
         /// <returns></returns>
         public static MemberInfo GetMember(this LambdaExpression actionExpression)
         {
             var body = actionExpression.Body;
+
             if (body.NodeType == ExpressionType.Convert)
-                body = ((UnaryExpression)body).Operand;
+            {
+                body = ((UnaryExpression) body).Operand;
+            }
 
             switch (body)
             {
@@ -52,19 +55,19 @@ namespace Framework.Web.Mvc
         }
 
         /// <summary>
-        /// Extension method for a LambdaExpression.
-        /// Get the controller type from a lambda expression that returns ???.
+        ///     Extension method for a LambdaExpression.
+        ///     Get the controller type from a lambda expression that returns ???.
         /// </summary>
         /// <param name="actionExpression"></param>
         /// <returns></returns>
         public static Type GetControllerType(this LambdaExpression actionExpression)
         {
-            return ((MethodCallExpression)actionExpression.Body).Object.Type;
+            return ((MethodCallExpression) actionExpression.Body).Object.Type;
         }
 
         /// <summary>
-        /// Extension method for a Type.
-        /// Gets the area name from the Type by returning the namespace component following "Areas".
+        ///     Extension method for a Type.
+        ///     Gets the area name from the Type by returning the namespace component following "Areas".
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -76,7 +79,7 @@ namespace Framework.Web.Mvc
         }
 
         /// <summary>
-        /// Get the index of the "Areas" namespace section in an array of sections.
+        ///     Get the index of the "Areas" namespace section in an array of sections.
         /// </summary>
         /// <param name="namespaces"></param>
         /// <returns></returns>

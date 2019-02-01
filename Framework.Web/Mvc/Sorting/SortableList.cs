@@ -16,6 +16,7 @@ namespace Framework.Web.Mvc.Sorting
             AddRange(sortedList);
         }
 
+        #region ISortable Members
         // ISortable implementation
         public string SortBy { get; set; }
         public bool SortAscending { get; set; }
@@ -24,5 +25,6 @@ namespace Framework.Web.Mvc.Sorting
         {
             get => SortAscending ? SortBy + " asc" : SortBy + " desc";
         }
+        #endregion
     }
 }

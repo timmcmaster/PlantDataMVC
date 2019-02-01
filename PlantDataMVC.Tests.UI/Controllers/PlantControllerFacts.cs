@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using AutoMapper;
 using FluentAssertions;
 using Framework.WcfService.Responses;
 using Framework.Web.Forms;
@@ -10,8 +12,6 @@ using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Mappers;
 using PlantDataMVC.UI.Models.ViewModels;
 using PlantDataMVC.WCFService.ServiceContracts;
-using System.Collections.Generic;
-using System.Web.Mvc;
 using Xunit;
 
 namespace PlantDataMVC.Tests.UI.Controllers
@@ -26,46 +26,26 @@ namespace PlantDataMVC.Tests.UI.Controllers
             AutoMapperBootstrapper.Initialize();
         }
 
+        #region Nested type: Index
         public class Index
         {
-            [Fact]
-            public void ReturnsViewResultOfCorrectType()
-            {
-                // Arrange
-                var listResponse = new ListResponse<SpeciesInListDto>(new List<SpeciesInListDto>(),ServiceActionStatus.Ok);
-
-                // create mocks
-                var repo = new MockRepository(MockBehavior.Loose);
-                var fhfMockWrapper = repo.Create<IFormHandlerFactory>();
-
-                var controller = new PlantController(fhfMockWrapper.Object);
-
-                // Act
-                var result = controller.Index(null, null, null, null);
-
-                // Assert
-                // Verify mocks only (i.e. those setup with .Verifiable())
-                //repo.Verify();
-
-                // Verify mocks and stubs on all (regardless of Verifiable)
-                repo.VerifyAll();
-
-                result.Should().BeAssignableTo<ViewResult>()
-                    .Which.Should().BeOfType<ListViewPreProcessingViewResult<PlantListViewModel>>();
-            }
-
             [Fact]
             public void ReturnsPlantListViewModelToTheView()
             {
                 // Arrange
-                int listCount = 17;
+                var listCount = 17;
                 var speciesList = new List<SpeciesInListDto>();
-                for (int i = 0; i < listCount; i++)
+
+                for (var i = 0; i < listCount; i++)
                 {
-                    speciesList.Add(new SpeciesInListDto() { Id = i, GenusId = i, SpecificName = "species" + i, CommonName = "Common name of species" + i});
+                    speciesList.Add(new SpeciesInListDto
+                    {
+                        Id = i, GenusId = i, SpecificName = "species" + i, CommonName = "Common name of species" + i
+                    });
                 }
+
                 var listResponse = new ListResponse<SpeciesInListDto>(speciesList, ServiceActionStatus.Ok);
-                
+
                 // create mocks
                 var repo = new MockRepository(MockBehavior.Loose);
                 var dsMockWrapper = repo.Create<ISpeciesWcfService>();
@@ -86,14 +66,71 @@ namespace PlantDataMVC.Tests.UI.Controllers
                 repo.VerifyAll();
 
                 result.Should().BeAssignableTo<ViewResult>()
-                    .Which.Should().BeOfType<ListViewPreProcessingViewResult<PlantListViewModel>>();
+                      .Which.Should().BeOfType<ListViewPreProcessingViewResult<PlantListViewModel>>();
 
                 // TODO: need to set up form handler factory mock to get view model correctly
                 //result.Should().BeAssignableTo<ViewResult>()
                 //    .Which.ViewData.Model.Should().BeOfType<ListViewModel<PlantListViewModel>>();
             }
-        }
 
+            [Fact]
+            public void ReturnsViewResultOfCorrectType()
+            {
+                // Arrange
+                //var listResponse = new ListResponse<SpeciesInListDto>(new List<SpeciesInListDto>(),ServiceActionStatus.Ok);
+
+                // create mocks
+                var repo = new MockRepository(MockBehavior.Loose);
+                var fhfMockWrapper = repo.Create<IFormHandlerFactory>();
+
+                var controller = new PlantController(fhfMockWrapper.Object);
+
+                // Act
+                var result = controller.Index(null, null, null, null);
+
+                // Assert
+                // Verify mocks only (i.e. those setup with .Verifiable())
+                //repo.Verify();
+
+                // Verify mocks and stubs on all (regardless of Verifiable)
+                repo.VerifyAll();
+
+                result.Should().BeAssignableTo<ViewResult>()
+                      .Which.Should().BeOfType<ListViewPreProcessingViewResult<PlantListViewModel>>();
+            }
+        }
+        #endregion
+
+        #region Nested type: NewPlant
+        public class NewPlant
+        {
+            //[Fact]
+            //public void ReturnsPlantNewViewModelToTheView()
+            //{
+            //    // Arrange
+            //    var plantDS = MockRepository.GenerateStub<IBasicDataService<Plant>>();
+            //    var controller = new PlantController(plantDS);
+
+            //    // Act
+            //    var result = controller.New();
+
+            //    // Assert
+            //    plantDS.VerifyAllExpectations();
+            //    Assert.NotNull(result);
+            //    var viewResult = result as ViewResult;
+            //    Assert.NotNull(viewResult);
+            //    Assert.IsType<AutoMapPreProcessingViewResult>(viewResult);
+            //    Assert.NotNull(viewResult.ViewData);
+            //    Console.WriteLine("ViewData is not null");
+            //    UnitTest.Utils.Print.PrintTypeAndProperties(viewResult.ViewData);
+            //    Assert.NotNull(viewResult.ViewData.Model);
+            //    Console.WriteLine("Model is not null");
+            //    Assert.IsType<PlantNewViewModel>(viewResult.ViewData.Model);
+            //}
+        }
+        #endregion
+
+        #region Nested type: Show
         public class Show
         {
             //[Fact]
@@ -203,32 +240,6 @@ namespace PlantDataMVC.Tests.UI.Controllers
             //    Assert.IsType<PlantShowViewModel>(viewResult.ViewData.Model);
             //}
         }
-
-        public class NewPlant
-        {
-            //[Fact]
-            //public void ReturnsPlantNewViewModelToTheView()
-            //{
-            //    // Arrange
-            //    var plantDS = MockRepository.GenerateStub<IBasicDataService<Plant>>();
-            //    var controller = new PlantController(plantDS);
-
-            //    // Act
-            //    var result = controller.New();
-
-            //    // Assert
-            //    plantDS.VerifyAllExpectations();
-            //    Assert.NotNull(result);
-            //    var viewResult = result as ViewResult;
-            //    Assert.NotNull(viewResult);
-            //    Assert.IsType<AutoMapPreProcessingViewResult>(viewResult);
-            //    Assert.NotNull(viewResult.ViewData);
-            //    Console.WriteLine("ViewData is not null");
-            //    UnitTest.Utils.Print.PrintTypeAndProperties(viewResult.ViewData);
-            //    Assert.NotNull(viewResult.ViewData.Model);
-            //    Console.WriteLine("Model is not null");
-            //    Assert.IsType<PlantNewViewModel>(viewResult.ViewData.Model);
-            //}
-        }
+        #endregion
     }
 }
