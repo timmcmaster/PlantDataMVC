@@ -7,6 +7,7 @@ namespace PlantDataMVC.WCFService.Tests.UnitTests
 {
     public class DtoToDalMappingFacts : IDisposable
     {
+        #region Setup/Teardown
         public DtoToDalMappingFacts()
         {
             // Reset Mapper before configuring
@@ -20,6 +21,7 @@ namespace PlantDataMVC.WCFService.Tests.UnitTests
             // Reset Mapper at end of each test
             //Mapper.Reset();
         }
+        #endregion
 
         [Fact]
         public void TestMappingConfiguration()
@@ -74,6 +76,5 @@ namespace PlantDataMVC.WCFService.Tests.UnitTests
         //                                                    .Including(s => s.Native)
         //                                                    .Including(s => s.PropagationTime));
         //}
-
     }
 }

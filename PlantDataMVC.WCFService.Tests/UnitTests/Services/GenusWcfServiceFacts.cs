@@ -11,17 +11,19 @@ namespace PlantDataMVC.WCFService.Tests.UnitTests.Services
 
         public GenusWcfServiceFacts(ITestOutputHelper output)
         {
-            this._output = output;
+            _output = output;
             // Reset mapper before configuring
             Mapper.Reset();
             // Configure the mapper at start of each test
             AutoMapperCoreConfiguration.Configure();
         }
 
+        #region IDisposable Members
         public void Dispose()
         {
             //Mapper.Reset();
         }
+        #endregion
 
         //[Fact]
         //public void TestCreatePlantWhereGenusLatinNameExists()

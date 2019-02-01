@@ -3,14 +3,11 @@ using AutoMapper;
 using FluentAssertions;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
-using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
 using Interfaces.WcfService;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.DTO.Mappers;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Entities.Models;
-using PlantDataMVC.Service;
 using PlantDataMVC.WCFService.ServiceContracts;
 using PlantDataMVC.WCFService.Services;
 using Xunit;
@@ -20,11 +17,10 @@ namespace PlantDataMVC.WCFService.Tests.IntegrationTests
 {
     public class GenusWcfServiceTests : IntegrationTestBase, IDisposable
     {
-        private readonly ITestOutputHelper _output;
-
+        #region Setup/Teardown
         public GenusWcfServiceTests(ITestOutputHelper output)
         {
-            this._output = output;
+            _output = output;
             // Reset Mapper at end of each test
             Mapper.Reset();
             // Configure the mapper at start of each test
@@ -36,9 +32,12 @@ namespace PlantDataMVC.WCFService.Tests.IntegrationTests
             // Reset Mapper at end of each test
             //Mapper.Reset();
         }
+        #endregion
+
+        private readonly ITestOutputHelper _output;
 
         [Fact]
-        public void Create_UsingUnitOfWorkRepository_ReturnsIdAfterSaveChanges()
+        public void Create_UsingCreatedRepository_ReturnsIdAfterSaveChanges()
         {
             using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
@@ -46,7 +45,7 @@ namespace PlantDataMVC.WCFService.Tests.IntegrationTests
                 // Arrange
                 IGenusWcfService wcfService = new GenusWcfService(unitOfWork);
 
-                var requestDto = new CreateUpdateGenusDto() {LatinName = "Aaaaaaaaaaa"};
+                var requestDto = new CreateUpdateGenusDto {LatinName = "Aaaaaaaaaaa"};
 
                 // Act
                 var createResponse = wcfService.Create(requestDto);
@@ -63,7 +62,7 @@ namespace PlantDataMVC.WCFService.Tests.IntegrationTests
         }
 
         [Fact]
-        public void Create_UsingCreatedRepository_ReturnsIdAfterSaveChanges()
+        public void Create_UsingUnitOfWorkRepository_ReturnsIdAfterSaveChanges()
         {
             using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
@@ -71,7 +70,7 @@ namespace PlantDataMVC.WCFService.Tests.IntegrationTests
                 // Arrange
                 IGenusWcfService wcfService = new GenusWcfService(unitOfWork);
 
-                var requestDto = new CreateUpdateGenusDto() { LatinName = "Aaaaaaaaaaa" };
+                var requestDto = new CreateUpdateGenusDto {LatinName = "Aaaaaaaaaaa"};
 
                 // Act
                 var createResponse = wcfService.Create(requestDto);

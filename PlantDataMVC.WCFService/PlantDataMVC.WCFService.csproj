@@ -144,13 +144,6 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Web.config.simplifiedservices" />
-    <None Include="Web.config.Debug.simplifiedservices">
-      <DependentUpon>Web.config.simplifiedservices</DependentUpon>
-    </None>
-    <None Include="Web.config.Release.simplifiedservices">
-      <DependentUpon>Web.config.simplifiedservices</DependentUpon>
-    </None>
     <None Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
