@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Http;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CacheCow.Server.WebApi;
 using Interfaces.DAL.UnitOfWork;
@@ -7,13 +14,6 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApi.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Http;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
@@ -21,12 +21,12 @@ namespace PlantDataMVC.WebApi.Controllers
     public class SpeciesController : ApiController
     {
         private const int MaxPageSize = 100;
-
-        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly ISpeciesService _service;
 
+        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+
         public SpeciesController(IUnitOfWorkAsync unitOfWorkAsync,
-            ISpeciesService service)
+                                 ISpeciesService service)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
@@ -39,7 +39,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [Route("Genus/{genusId}/Species", Name = "SpeciesByGenus")]
         public IHttpActionResult Get(
             int? genusId = null,
-            string sort = "id", 
+            string sort = "id",
             bool? native = null, string specificName = null,
             int page = 1, int pageSize = MaxPageSize,
             string fields = null)
@@ -70,12 +70,12 @@ namespace PlantDataMVC.WebApi.Controllers
                 //    .ApplySort(sort)
                 //    .ToList();
 
-                IQueryable<SpeciesDto> dtos = context
-                    .ProjectTo<SpeciesDto>(null, childDtosToInclude.ToArray())
-                    .ApplySort(sort)
-                    .Where(s => (native == null || s.Native == native))
-                    .Where(s => (specificName == null || s.SpecificName == specificName))
-                    .Where(s => (genusId == null || s.GenusId == genusId));
+                var dtos = context
+                           .ProjectTo<SpeciesDto>(null, childDtosToInclude.ToArray())
+                           .ApplySort(sort)
+                           .Where(s => native == null || s.Native == native)
+                           .Where(s => specificName == null || s.SpecificName == specificName)
+                           .Where(s => genusId == null || s.GenusId == genusId);
 
                 // HACK: use URL content to determine route used to get here
                 // better solution is to add name to data tokens, as per following links
@@ -83,18 +83,18 @@ namespace PlantDataMVC.WebApi.Controllers
                 // https://rimdev.io/get-current-route-name-from-aspnet-web-api-request/
 
                 var onSpeciesByGenus = Request.RequestUri.AbsolutePath.Contains("/Genus/");
-                
+
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
                     dtos,
                     onSpeciesByGenus ? "SpeciesByGenus" : "SpeciesList",
                     new
                     {
-                        sort = sort,
-                        native = native,
-                        specificName = specificName,
-                        genusId = genusId,
-                        fields = fields
+                        sort,
+                        native,
+                        specificName,
+                        genusId,
+                        fields
                     },
                     page,
                     pageSize);
@@ -102,10 +102,10 @@ namespace PlantDataMVC.WebApi.Controllers
                 HttpContext.Current.Response.Headers.Add(paginationHeaders);
 
                 var itemList = dtos
-                    .Paginate(page, pageSize)
-                    .ToList()
-                    .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
-                
+                               .Paginate(page, pageSize)
+                               .ToList()
+                               .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
+
                 return Ok(itemList);
             }
             catch (Exception)
@@ -152,7 +152,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // POST: api/Plant
         [HttpPost]
-        public IHttpActionResult Post([FromBody]CreateUpdateSpeciesDto dtoIn)
+        public IHttpActionResult Post([FromBody] CreateUpdateSpeciesDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
             try
@@ -188,7 +188,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PUT: api/Plant/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]CreateUpdateSpeciesDto dtoIn)
+        public IHttpActionResult Put(int id, [FromBody] CreateUpdateSpeciesDto dtoIn)
         {
             try
             {
@@ -198,13 +198,14 @@ namespace PlantDataMVC.WebApi.Controllers
                     return BadRequest();
                 }
 
-                if (dtoIn == null) 
+                if (dtoIn == null)
                 {
                     return BadRequest();
                 }
 
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 if (entityFound == null)
                 {
                     return NotFound();
@@ -236,7 +237,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PATCH: api/Plant/5
         // Partial update
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<CreateUpdateSpeciesDto> itemPatchDoc)
+        public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateSpeciesDto> itemPatchDoc)
         {
             try
             {
@@ -248,6 +249,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Get domain entity
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 // Check for errors from service
                 if (entityFound == null)
                 {
@@ -300,11 +302,11 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 _service.Delete(entityFound);
                 _unitOfWorkAsync.SaveChanges();
-                
+
                 // return 204 (also via void return type)
                 return StatusCode(HttpStatusCode.NoContent);
-                
-                
+
+
                 //return BadRequest();
             }
             catch (Exception)

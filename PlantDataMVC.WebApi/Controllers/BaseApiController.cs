@@ -79,7 +79,7 @@
 //                }
 
 //                var response = _dataService.Create(item);
-                
+
 //                // Check for errors from service
 //                if (response.Status == ServiceActionStatus.Created)
 //                {
@@ -152,7 +152,7 @@
 //                }
 
 //                // TODO: Fix needed, as uow is disposed of after View operation, causing errors below
-                
+
 //                // Apply changes to domain entity
 //                var viewItem = viewResponse.Item;
 //                itemPatchDoc.ApplyTo(viewItem);
@@ -200,3 +200,4 @@
 //        }
 //    }
 //}
+

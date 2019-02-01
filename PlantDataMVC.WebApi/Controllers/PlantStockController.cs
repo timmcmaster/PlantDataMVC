@@ -21,12 +21,12 @@ namespace PlantDataMVC.WebApi.Controllers
     public class PlantStockController : ApiController
     {
         private const int MaxPageSize = 100;
-
-        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly IPlantStockService _service;
 
+        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+
         public PlantStockController(IUnitOfWorkAsync unitOfWorkAsync,
-            IPlantStockService service)
+                                    IPlantStockService service)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
@@ -39,7 +39,7 @@ namespace PlantDataMVC.WebApi.Controllers
         public IHttpActionResult Get(
             int? speciesId = null,
             int? productTypeId = null,
-            string sort = "id", 
+            string sort = "id",
             int page = 1, int pageSize = MaxPageSize,
             string fields = null)
         {
@@ -64,11 +64,11 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var context = _service.Queryable();
 
-                IQueryable<PlantStockDto> dtos = context
-                    .ProjectTo<PlantStockDto>(null, childDtosToInclude.ToArray())
-                    .ApplySort(sort)
-                    .Where(s => (speciesId == null || s.SpeciesId == speciesId))
-                    .Where(s => (productTypeId == null || s.ProductTypeId == productTypeId));
+                var dtos = context
+                           .ProjectTo<PlantStockDto>(null, childDtosToInclude.ToArray())
+                           .ApplySort(sort)
+                           .Where(s => speciesId == null || s.SpeciesId == speciesId)
+                           .Where(s => productTypeId == null || s.ProductTypeId == productTypeId);
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
@@ -76,10 +76,10 @@ namespace PlantDataMVC.WebApi.Controllers
                     "PlantStockList",
                     new
                     {
-                        sort = sort,
-                        speciesId = speciesId,
-                        productTypeId = productTypeId,
-                        fields = fields
+                        sort,
+                        speciesId,
+                        productTypeId,
+                        fields
                     },
                     page,
                     pageSize);
@@ -87,10 +87,10 @@ namespace PlantDataMVC.WebApi.Controllers
                 HttpContext.Current.Response.Headers.Add(paginationHeaders);
 
                 var itemList = dtos
-                    .Paginate(page, pageSize)
-                    .ToList()
-                    .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
-                
+                               .Paginate(page, pageSize)
+                               .ToList()
+                               .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
+
                 return Ok(itemList);
             }
             catch (Exception)
@@ -107,30 +107,34 @@ namespace PlantDataMVC.WebApi.Controllers
         {
             try
             {
-                bool includeJournalEntries = false;
+                var includeJournalEntries = false;
                 //var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
                 if (fields != null)
                 {
                     lstOfFields = fields.Split(',').ToList();
-                    var childDtosToInclude = DataShaping.GetIncludedObjectNames<PlantStockDto>(lstOfFields); // needed if using projectTo
+
+                    var childDtosToInclude =
+                        DataShaping.GetIncludedObjectNames<PlantStockDto>(lstOfFields); // needed if using projectTo
+
                     includeJournalEntries = childDtosToInclude.Contains("JournalEntries");
                 }
 
                 PlantStock item;
+
                 if (includeJournalEntries)
                 {
                     try
                     {
                         item = _service.Query(s => s.Id == id).Include(p => p.JournalEntries).Select().Single();
                     }
-                    catch (InvalidOperationException) // thrown by single if more than one element, no elements, or empty list
+                    catch (InvalidOperationException
+                    ) // thrown by single if more than one element, no elements, or empty list
                     {
                         // treat as a not found result
                         item = null;
                     }
-
                 }
                 else
                 {
@@ -158,7 +162,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // POST: api/Plant
         [Route("PlantStock")]
         [HttpPost]
-        public IHttpActionResult Post([FromBody]CreateUpdatePlantStockDto dtoIn)
+        public IHttpActionResult Post([FromBody] CreateUpdatePlantStockDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
             try
@@ -195,7 +199,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [Route("PlantStock/{id}")]
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]CreateUpdatePlantStockDto dtoIn)
+        public IHttpActionResult Put(int id, [FromBody] CreateUpdatePlantStockDto dtoIn)
         {
             try
             {
@@ -205,13 +209,14 @@ namespace PlantDataMVC.WebApi.Controllers
                     return BadRequest();
                 }
 
-                if (dtoIn == null) 
+                if (dtoIn == null)
                 {
                     return BadRequest();
                 }
 
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 if (entityFound == null)
                 {
                     return NotFound();
@@ -244,7 +249,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // Partial update
         [Route("PlantStock/{id}")]
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<CreateUpdatePlantStockDto> itemPatchDoc)
+        public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdatePlantStockDto> itemPatchDoc)
         {
             try
             {
@@ -256,6 +261,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Get domain entity
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 // Check for errors from service
                 if (entityFound == null)
                 {
@@ -309,11 +315,11 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 _service.Delete(entityFound);
                 _unitOfWorkAsync.SaveChanges();
-                
+
                 // return 204 (also via void return type)
                 return StatusCode(HttpStatusCode.NoContent);
-                
-                
+
+
                 //return BadRequest();
             }
             catch (Exception)

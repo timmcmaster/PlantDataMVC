@@ -5,12 +5,8 @@ namespace PlantDataMVC.WebApi.Helpers
 {
     public class PageLinkBuilder
     {
-        public Uri FirstPage { get; }
-        public Uri LastPage { get; }
-        public Uri PreviousPage { get; }
-        public Uri NextPage { get; }
-
-        public PageLinkBuilder(UrlHelper urlHelper, string routeName, object routeValues, int page, int pageSize, int totalPages)
+        public PageLinkBuilder(UrlHelper urlHelper, string routeName, object routeValues, int page, int pageSize,
+                               int totalPages)
         {
             // Get next and previous pages, with some routeValues passed in from current request
             FirstPage = new Uri(urlHelper.Link(routeName, new HttpRouteValueDictionary(routeValues)
@@ -43,5 +39,10 @@ namespace PlantDataMVC.WebApi.Helpers
                 }));
             }
         }
+
+        public Uri FirstPage { get; }
+        public Uri LastPage { get; }
+        public Uri PreviousPage { get; }
+        public Uri NextPage { get; }
     }
 }

@@ -21,12 +21,12 @@ namespace PlantDataMVC.WebApi.Controllers
     public class SeedBatchController : ApiController
     {
         private const int MaxPageSize = 100;
-
-        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly ISeedBatchService _service;
 
+        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+
         public SeedBatchController(IUnitOfWorkAsync unitOfWorkAsync,
-            ISeedBatchService service)
+                                   ISeedBatchService service)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
@@ -38,7 +38,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [Route("SeedBatch", Name = "SeedBatchList")]
         public IHttpActionResult Get(
             int? speciesId = null,
-            string sort = "id", 
+            string sort = "id",
             int page = 1, int pageSize = MaxPageSize,
             string fields = null)
         {
@@ -68,10 +68,10 @@ namespace PlantDataMVC.WebApi.Controllers
                 //    .ApplySort(sort)
                 //    .ToList();
 
-                IQueryable<SeedBatchDto> dtos = context
-                    .ProjectTo<SeedBatchDto>(null, childDtosToInclude.ToArray())
-                    .ApplySort(sort)
-                    .Where(s => (speciesId == null || s.SpeciesId == speciesId));
+                var dtos = context
+                           .ProjectTo<SeedBatchDto>(null, childDtosToInclude.ToArray())
+                           .ApplySort(sort)
+                           .Where(s => speciesId == null || s.SpeciesId == speciesId);
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
@@ -79,9 +79,9 @@ namespace PlantDataMVC.WebApi.Controllers
                     "SeedBatchList",
                     new
                     {
-                        sort = sort,
-                        speciesId = speciesId,
-                        fields = fields
+                        sort,
+                        speciesId,
+                        fields
                     },
                     page,
                     pageSize);
@@ -89,10 +89,10 @@ namespace PlantDataMVC.WebApi.Controllers
                 HttpContext.Current.Response.Headers.Add(paginationHeaders);
 
                 var itemList = dtos
-                    .Paginate(page, pageSize)
-                    .ToList()
-                    .Select(seedBatch => DataShaping.CreateDataShapedObject(seedBatch, lstOfFields));
-                
+                               .Paginate(page, pageSize)
+                               .ToList()
+                               .Select(seedBatch => DataShaping.CreateDataShapedObject(seedBatch, lstOfFields));
+
                 return Ok(itemList);
             }
             catch (Exception)
@@ -141,7 +141,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // POST: api/Plant
         [Route("SeedBatch")]
         [HttpPost]
-        public IHttpActionResult Post([FromBody]CreateUpdateSeedBatchDto dtoIn)
+        public IHttpActionResult Post([FromBody] CreateUpdateSeedBatchDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
             try
@@ -178,7 +178,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [Route("SeedBatch/{id}")]
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]CreateUpdateSeedBatchDto dtoIn)
+        public IHttpActionResult Put(int id, [FromBody] CreateUpdateSeedBatchDto dtoIn)
         {
             try
             {
@@ -188,13 +188,14 @@ namespace PlantDataMVC.WebApi.Controllers
                     return BadRequest();
                 }
 
-                if (dtoIn == null) 
+                if (dtoIn == null)
                 {
                     return BadRequest();
                 }
 
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 if (entityFound == null)
                 {
                     return NotFound();
@@ -227,7 +228,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // Partial update
         [Route("SeedBatch/{id}")]
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<CreateUpdateSeedBatchDto> itemPatchDoc)
+        public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateSeedBatchDto> itemPatchDoc)
         {
             try
             {
@@ -239,6 +240,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Get domain entity
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 // Check for errors from service
                 if (entityFound == null)
                 {
@@ -292,11 +294,11 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 _service.Delete(entityFound);
                 _unitOfWorkAsync.SaveChanges();
-                
+
                 // return 204 (also via void return type)
                 return StatusCode(HttpStatusCode.NoContent);
-                
-                
+
+
                 //return BadRequest();
             }
             catch (Exception)

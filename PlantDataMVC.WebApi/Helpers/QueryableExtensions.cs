@@ -8,8 +8,8 @@ namespace PlantDataMVC.WebApi.Helpers
     public static class QueryableExtensions
     {
         /// <summary>
-        /// Implements sort on IQueryable with string in format (-)field1,(-))field2, etc.
-        /// e.g. "-name,count"
+        ///     Implements sort on IQueryable with string in format (-)field1,(-))field2, etc.
+        ///     e.g. "-name,count"
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source">The source.</param>
@@ -33,19 +33,20 @@ namespace PlantDataMVC.WebApi.Helpers
             var sortFields = sort.Split(',');
 
             // Apply ascending or descending order
-            for (var i=0; i<sortFields.Length; i++)
+            for (var i = 0; i < sortFields.Length; i++)
             {
                 var sortDescending = false;
 
                 if (sortFields[i].StartsWith("-"))
                 {
                     // remove '-'
-                    sortFields[i] = sortFields[i].Remove(0,1);
+                    sortFields[i] = sortFields[i].Remove(0, 1);
                     sortDescending = true;
                 }
 
                 // Expect field string to match property name in source object
-                PropertyDescriptor prop = TypeDescriptor.GetProperties(typeof(T)).Find(sortFields[i],true);
+                var prop = TypeDescriptor.GetProperties(typeof(T)).Find(sortFields[i], true);
+
                 if (prop == null)
                 {
                     throw new ArgumentException("sort");

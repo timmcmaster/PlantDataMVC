@@ -21,12 +21,12 @@ namespace PlantDataMVC.WebApi.Controllers
     public class SiteController : ApiController
     {
         private const int MaxPageSize = 100;
-
-        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly ISiteService _service;
 
+        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+
         public SiteController(IUnitOfWorkAsync unitOfWorkAsync,
-            ISiteService service)
+                              ISiteService service)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
@@ -37,7 +37,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpGet]
         [Route("Site", Name = "SiteList")]
         public IHttpActionResult Get(
-            string sort = "id", 
+            string sort = "id",
             string suburb = null,
             int page = 1, int pageSize = MaxPageSize,
             string fields = null)
@@ -63,10 +63,10 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var context = _service.Queryable();
 
-                IQueryable<SiteDto> dtos = context
-                    .ProjectTo<SiteDto>(null, childDtosToInclude.ToArray())
-                    .ApplySort(sort)
-                    .Where(s => (suburb == null || s.Suburb == suburb));
+                var dtos = context
+                           .ProjectTo<SiteDto>(null, childDtosToInclude.ToArray())
+                           .ApplySort(sort)
+                           .Where(s => suburb == null || s.Suburb == suburb);
 
                 // HACK: use URL content to determine route used to get here
                 // better solution is to add name to data tokens, as per following links
@@ -79,9 +79,9 @@ namespace PlantDataMVC.WebApi.Controllers
                     "SiteList",
                     new
                     {
-                        sort = sort,
-                        suburb = suburb,
-                        fields = fields
+                        sort,
+                        suburb,
+                        fields
                     },
                     page,
                     pageSize);
@@ -89,10 +89,10 @@ namespace PlantDataMVC.WebApi.Controllers
                 HttpContext.Current.Response.Headers.Add(paginationHeaders);
 
                 var itemList = dtos
-                    .Paginate(page, pageSize)
-                    .ToList()
-                    .Select(species => DataShaping.CreateDataShapedObject(species, lstOfFields));
-                
+                               .Paginate(page, pageSize)
+                               .ToList()
+                               .Select(species => DataShaping.CreateDataShapedObject(species, lstOfFields));
+
                 return Ok(itemList);
             }
             catch (Exception)
@@ -139,7 +139,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // POST: api/Plant
         [HttpPost]
-        public IHttpActionResult Post([FromBody]CreateUpdateSiteDto dtoIn)
+        public IHttpActionResult Post([FromBody] CreateUpdateSiteDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
             try
@@ -175,7 +175,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PUT: api/Plant/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]CreateUpdateSiteDto dtoIn)
+        public IHttpActionResult Put(int id, [FromBody] CreateUpdateSiteDto dtoIn)
         {
             try
             {
@@ -185,13 +185,14 @@ namespace PlantDataMVC.WebApi.Controllers
                     return BadRequest();
                 }
 
-                if (dtoIn == null) 
+                if (dtoIn == null)
                 {
                     return BadRequest();
                 }
 
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 if (entityFound == null)
                 {
                     return NotFound();
@@ -223,7 +224,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PATCH: api/Plant/5
         // Partial update
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<CreateUpdateSiteDto> itemPatchDoc)
+        public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateSiteDto> itemPatchDoc)
         {
             try
             {
@@ -235,6 +236,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Get domain entity
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 // Check for errors from service
                 if (entityFound == null)
                 {
@@ -287,11 +289,11 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 _service.Delete(entityFound);
                 _unitOfWorkAsync.SaveChanges();
-                
+
                 // return 204 (also via void return type)
                 return StatusCode(HttpStatusCode.NoContent);
-                
-                
+
+
                 //return BadRequest();
             }
             catch (Exception)

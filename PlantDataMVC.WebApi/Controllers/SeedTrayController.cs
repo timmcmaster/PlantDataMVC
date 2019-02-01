@@ -21,12 +21,12 @@ namespace PlantDataMVC.WebApi.Controllers
     public class SeedTrayController : ApiController
     {
         private const int MaxPageSize = 100;
-
-        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly ISeedTrayService _service;
 
+        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+
         public SeedTrayController(IUnitOfWorkAsync unitOfWorkAsync,
-            ISeedTrayService service)
+                                  ISeedTrayService service)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
@@ -38,7 +38,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [Route("SeedTray", Name = "SeedTrayList")]
         public IHttpActionResult Get(
             int? seedBatchId = null,
-            string sort = "id", 
+            string sort = "id",
             bool? thrownOut = null,
             int page = 1, int pageSize = MaxPageSize,
             string fields = null)
@@ -69,11 +69,11 @@ namespace PlantDataMVC.WebApi.Controllers
                 //    .ApplySort(sort)
                 //    .ToList();
 
-                IQueryable<SeedTrayDto> dtos = context
-                    .ProjectTo<SeedTrayDto>(null, childDtosToInclude.ToArray())
-                    .ApplySort(sort)
-                    .Where(s => (thrownOut == null || s.ThrownOut == thrownOut))
-                    .Where(s => (seedBatchId == null || s.SeedBatchId == seedBatchId));
+                var dtos = context
+                           .ProjectTo<SeedTrayDto>(null, childDtosToInclude.ToArray())
+                           .ApplySort(sort)
+                           .Where(s => thrownOut == null || s.ThrownOut == thrownOut)
+                           .Where(s => seedBatchId == null || s.SeedBatchId == seedBatchId);
 
                 // HACK: use URL content to determine route used to get here
                 // better solution is to add name to data tokens, as per following links
@@ -86,10 +86,10 @@ namespace PlantDataMVC.WebApi.Controllers
                     "SeedTrayList",
                     new
                     {
-                        sort = sort,
-                        thrownOut = thrownOut,
-                        seedBatchId = seedBatchId,
-                        fields = fields
+                        sort,
+                        thrownOut,
+                        seedBatchId,
+                        fields
                     },
                     page,
                     pageSize);
@@ -97,10 +97,10 @@ namespace PlantDataMVC.WebApi.Controllers
                 HttpContext.Current.Response.Headers.Add(paginationHeaders);
 
                 var itemList = dtos
-                    .Paginate(page, pageSize)
-                    .ToList()
-                    .Select(species => DataShaping.CreateDataShapedObject(species, lstOfFields));
-                
+                               .Paginate(page, pageSize)
+                               .ToList()
+                               .Select(species => DataShaping.CreateDataShapedObject(species, lstOfFields));
+
                 return Ok(itemList);
             }
             catch (Exception)
@@ -149,7 +149,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // POST: api/Plant
         [Route("SeedTray")]
         [HttpPost]
-        public IHttpActionResult Post([FromBody]CreateUpdateSeedTrayDto dtoIn)
+        public IHttpActionResult Post([FromBody] CreateUpdateSeedTrayDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
             try
@@ -186,7 +186,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [Route("SeedTray/{id}")]
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]CreateUpdateSeedTrayDto dtoIn)
+        public IHttpActionResult Put(int id, [FromBody] CreateUpdateSeedTrayDto dtoIn)
         {
             try
             {
@@ -196,13 +196,14 @@ namespace PlantDataMVC.WebApi.Controllers
                     return BadRequest();
                 }
 
-                if (dtoIn == null) 
+                if (dtoIn == null)
                 {
                     return BadRequest();
                 }
 
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 if (entityFound == null)
                 {
                     return NotFound();
@@ -235,7 +236,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // Partial update
         [Route("SeedTray/{id}")]
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<CreateUpdateSeedTrayDto> itemPatchDoc)
+        public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateSeedTrayDto> itemPatchDoc)
         {
             try
             {
@@ -247,6 +248,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Get domain entity
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 // Check for errors from service
                 if (entityFound == null)
                 {
@@ -300,11 +302,11 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 _service.Delete(entityFound);
                 _unitOfWorkAsync.SaveChanges();
-                
+
                 // return 204 (also via void return type)
                 return StatusCode(HttpStatusCode.NoContent);
-                
-                
+
+
                 //return BadRequest();
             }
             catch (Exception)

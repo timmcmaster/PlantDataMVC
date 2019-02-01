@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
@@ -8,10 +7,9 @@ using System.Web.Http.Routing;
 namespace PlantDataMVC.WebApi.Helpers
 {
     /// <summary>
-    /// 
     /// </summary>
     /// <seealso cref="System.Web.Http.Routing.IHttpRouteConstraint" />
-    internal class VersionConstraint: IHttpRouteConstraint
+    internal class VersionConstraint : IHttpRouteConstraint
     {
         private const int DefaultVersion = 1;
 
@@ -20,21 +18,21 @@ namespace PlantDataMVC.WebApi.Helpers
             AllowedVersion = allowedVersion;
         }
 
-        public int AllowedVersion
-        {
-            get;
-        }
+        public int AllowedVersion { get; }
 
-        public bool Match(HttpRequestMessage request, IHttpRoute route, string parameterName, IDictionary<string, object> values,
-            HttpRouteDirection routeDirection)
+        #region IHttpRouteConstraint Members
+        public bool Match(HttpRequestMessage request, IHttpRoute route, string parameterName,
+                          IDictionary<string, object> values,
+                          HttpRouteDirection routeDirection)
         {
             // Try custom content type in accept header
 
-            int? version = GetVersionFromCustomContentType(request);
+            var version = GetVersionFromCustomContentType(request);
 
 
-            return ((version ?? DefaultVersion) == AllowedVersion);
+            return (version ?? DefaultVersion) == AllowedVersion;
         }
+        #endregion
 
         private int? GetVersionFromCustomContentType(HttpRequestMessage request)
         {
@@ -45,7 +43,7 @@ namespace PlantDataMVC.WebApi.Helpers
             var mediaTypes = request.Headers.Accept.Select(h => h.MediaType);
             string matchingMediaType = null;
             // find the one with the version number - match through regex
-            Regex regEx = new Regex(@"application\/vnd\.plantdataapi\.v([\d]+)\+json");
+            var regEx = new Regex(@"application\/vnd\.plantdataapi\.v([\d]+)\+json");
 
             foreach (var mediaType in mediaTypes)
             {
@@ -62,12 +60,13 @@ namespace PlantDataMVC.WebApi.Helpers
             }
 
             // extract the version number
-            Match m = regEx.Match(matchingMediaType);
+            var m = regEx.Match(matchingMediaType);
             versionAsString = m.Groups[1].Value;
 
             // ... and return
             int version;
-            if (versionAsString != null && Int32.TryParse(versionAsString, out version))
+
+            if (versionAsString != null && int.TryParse(versionAsString, out version))
             {
                 return version;
             }
