@@ -282,16 +282,6 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
                 .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dto => dto.Source))
                 .ForMember(uio => uio.TransactionType, opt => opt.Ignore());   // TODO: Fix this
-
-            CreateMap<JournalEntryDto, PlantStockTransactionShowViewModel>()
-                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
-                .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
-                .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId))
-                .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dto => dto.Quantity))
-                .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dto => dto.SeedTrayId))
-                .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
-                .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dto => dto.Source))
-                .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"));   // TODO: Fix this
         }
 
         private void ConfigurePlantSeedTrayViewModels()

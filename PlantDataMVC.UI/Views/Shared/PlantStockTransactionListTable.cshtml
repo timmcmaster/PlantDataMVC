@@ -21,7 +21,7 @@
 int count = 0;
 foreach (var model in Model) {
     <tr>
-        <td>@Html.ActionLink(model.Id.ToString(), "Show", "Transaction", new { id = model.Id }, null)</td>
+        <td>@Html.DisplayFor(m => m.ElementAt(count).Id)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).PlantStockId)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).TransactionTypeName)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).TransactionDate)</td>

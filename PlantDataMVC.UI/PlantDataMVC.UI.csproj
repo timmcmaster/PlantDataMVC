@@ -391,9 +391,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Transaction\Delete.cshtml" />
     <Content Include="Views\Transaction\Edit.cshtml" />
-    <Content Include="Views\Transaction\Index.cshtml" />
     <Content Include="Views\Transaction\New.cshtml" />
-    <Content Include="Views\Transaction\Show.cshtml" />
     <Content Include="Views\Tray\Delete.cshtml" />
     <Content Include="Views\Tray\Edit.cshtml" />
     <Content Include="Views\Tray\Index.cshtml" />

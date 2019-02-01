@@ -45,7 +45,8 @@ namespace PlantDataMVC.UI.Controllers
             return ListView<PlantStockTransactionListViewModel>(autoMapResult, localPage, localPageSize, localSortBy, localAscending);
         }
         */
-
+        
+        /*
         //
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
@@ -65,7 +66,8 @@ namespace PlantDataMVC.UI.Controllers
                 return Content("An error occurred");
             }
         }
-        
+        */
+
         /*
         //
         // GET: /"ControllerName"/New
