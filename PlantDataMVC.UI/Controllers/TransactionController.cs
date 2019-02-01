@@ -1,16 +1,12 @@
 ﻿using Framework.Web.Forms;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Helpers;
-using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
-using PlantDataMVC.WCFService.ServiceContracts;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Interfaces.WcfService.Responses;
-using Newtonsoft.Json;
 
 namespace PlantDataMVC.UI.Controllers
 {
@@ -97,9 +93,9 @@ namespace PlantDataMVC.UI.Controllers
         //
         // POST: /"ControllerName"/Create
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(PlantStockTransactionCreateEditModel form)
+        public async Task<ActionResult> Create(int plantStockId, PlantStockTransactionCreateEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Index");
+            RedirectToRouteResult success = RedirectToAction("Details","PlantStock",new {id = plantStockId});
 
             return await Form(form, success);
         }
@@ -127,9 +123,9 @@ namespace PlantDataMVC.UI.Controllers
         //
         // POST: /"ControllerName"/Update/5
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Update(PlantStockTransactionUpdateEditModel form)
+        public async Task<ActionResult> Update(int plantStockId, PlantStockTransactionUpdateEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Show", new { id = form.Id });
+            RedirectToRouteResult success = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
 
             return await Form(form, success);
         }
@@ -157,9 +153,9 @@ namespace PlantDataMVC.UI.Controllers
         //
         // POST: /"ControllerName"/Delete/5
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Destroy(PlantStockTransactionDestroyEditModel form)
+        public async Task<ActionResult> Destroy(int plantStockId, PlantStockTransactionDestroyEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Index");
+            RedirectToRouteResult success = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
 
             return await Form(form, success);
         }
