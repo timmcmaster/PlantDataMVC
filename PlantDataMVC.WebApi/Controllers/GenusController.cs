@@ -1,18 +1,18 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Interfaces.DAL.UnitOfWork;
-using Marvin.JsonPatch;
-using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.Entities.Models;
-using PlantDataMVC.Service;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Http;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CacheCow.Server.WebApi;
+using Interfaces.DAL.UnitOfWork;
+using Marvin.JsonPatch;
+using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Service;
 using PlantDataMVC.WebApi.Helpers;
 
 namespace PlantDataMVC.WebApi.Controllers
@@ -21,12 +21,10 @@ namespace PlantDataMVC.WebApi.Controllers
     public class GenusController : ApiController
     {
         private const int MaxPageSize = 100;
-
-        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly IGenusService _service;
+        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
 
-        public GenusController(IUnitOfWorkAsync unitOfWorkAsync,
-            IGenusService service)
+        public GenusController(IUnitOfWorkAsync unitOfWorkAsync, IGenusService service)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
@@ -52,7 +50,6 @@ namespace PlantDataMVC.WebApi.Controllers
                 if (fields != null)
                 {
                     lstOfFields = fields.Split(',').ToList();
-
                     childDtosToInclude = DataShaping.GetIncludedObjectNames<GenusDto>(lstOfFields);
                 }
 
@@ -68,10 +65,10 @@ namespace PlantDataMVC.WebApi.Controllers
                 //    .ApplySort(sort)
                 //    .ToList();
 
-                IQueryable<GenusDto> dtos = context
-                    .ProjectTo<GenusDto>(null, childDtosToInclude.ToArray())
-                    .ApplySort(sort)
-                    .Where(s => (latinName == null || s.LatinName == latinName));
+                var dtos = context
+                           .ProjectTo<GenusDto>(null, childDtosToInclude.ToArray())
+                           .ApplySort(sort)
+                           .Where(s => latinName == null || s.LatinName == latinName);
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
@@ -79,7 +76,7 @@ namespace PlantDataMVC.WebApi.Controllers
                     "GenusList",
                     new
                     {
-                        sort = sort
+                        sort
                     },
                     page,
                     pageSize);
@@ -87,9 +84,9 @@ namespace PlantDataMVC.WebApi.Controllers
                 HttpContext.Current.Response.Headers.Add(paginationHeaders);
 
                 var itemList = dtos
-                    .Paginate(page, pageSize)
-                    .ToList()
-                    .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
+                               .Paginate(page, pageSize)
+                               .ToList()
+                               .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
 
                 return Ok(itemList);
             }
@@ -136,7 +133,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // POST: api/Plant
         [HttpPost]
-        public IHttpActionResult Post([FromBody]CreateUpdateGenusDto dtoIn)
+        public IHttpActionResult Post([FromBody] CreateUpdateGenusDto dtoIn)
         {
             // TODO: Add check for unique genus
             try
@@ -172,7 +169,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PUT: api/Plant/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]CreateUpdateGenusDto dtoIn)
+        public IHttpActionResult Put(int id, [FromBody] CreateUpdateGenusDto dtoIn)
         {
             try
             {
@@ -189,6 +186,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 if (entityFound == null)
                 {
                     return NotFound();
@@ -196,7 +194,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var entity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoIn);
                 entity.Id = entityFound.Id;
-                var returnEntity = _service.Save(entity);
+                _service.Save(entity);
 
                 // Save changes before we map back
                 var changes = _unitOfWorkAsync.SaveChanges();
@@ -220,7 +218,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PATCH: api/Plant/5
         // Partial update
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<CreateUpdateGenusDto> itemPatchDoc)
+        public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateGenusDto> itemPatchDoc)
         {
             try
             {
@@ -232,6 +230,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Get domain entity
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
                 var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+
                 if (entityFound == null)
                 {
                     return NotFound();
@@ -245,7 +244,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var updatedEntity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoFound);
                 updatedEntity.Id = id;
-                var returnEntity = _service.Save(updatedEntity);
+                _service.Save(updatedEntity);
 
                 // Save changes before we map back
                 var changes = _unitOfWorkAsync.SaveChanges();

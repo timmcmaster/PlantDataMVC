@@ -163,7 +163,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 }
 
                 var entity = Mapper.Map<CreateUpdateSpeciesDto, Species>(dtoIn);
-                var returnEntity =_service.Add(entity);
+                _service.Add(entity);
 
                 // Save changes before we map back
                 var changes = _unitOfWorkAsync.SaveChanges();
@@ -212,7 +212,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var entity = Mapper.Map<CreateUpdateSpeciesDto, Species>(dtoIn);
                 entity.Id = entityFound.Id;
-                var returnEntity = _service.Save(entity);
+                _service.Save(entity);
 
                 // Save changes before we map back
                 var changes = _unitOfWorkAsync.SaveChanges();
@@ -262,8 +262,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var updatedEntity = Mapper.Map<CreateUpdateSpeciesDto, Species>(dtoFound);
                 updatedEntity.Id = id;
-
-                var returnEntity = _service.Save(updatedEntity);
+                _service.Save(updatedEntity);
 
                 // Save changes before we map back
                 var changes = _unitOfWorkAsync.SaveChanges();

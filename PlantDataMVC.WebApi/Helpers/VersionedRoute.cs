@@ -16,8 +16,7 @@ namespace PlantDataMVC.WebApi.Helpers
         {
             get
             {
-                var constraints = new HttpRouteValueDictionary();
-                constraints.Add("version", new VersionConstraint(AllowedVersion));
+                var constraints = new HttpRouteValueDictionary {{"version", new VersionConstraint(AllowedVersion)}};
                 return constraints;
             }
         }
