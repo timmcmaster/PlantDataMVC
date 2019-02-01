@@ -108,7 +108,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 
                 return Ok(itemList);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return InternalServerError();
             }
@@ -163,7 +163,6 @@ namespace PlantDataMVC.WebApi.Controllers
                 }
 
                 var entity = Mapper.Map<CreateUpdateSpeciesDto, Species>(dtoIn);
-
                 var returnEntity =_service.Add(entity);
 
                 // Save changes before we map back
@@ -180,7 +179,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 return BadRequest();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return InternalServerError();
             }
@@ -213,7 +212,6 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var entity = Mapper.Map<CreateUpdateSpeciesDto, Species>(dtoIn);
                 entity.Id = entityFound.Id;
-
                 var returnEntity = _service.Save(entity);
 
                 // Save changes before we map back
@@ -229,7 +227,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 return BadRequest();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return InternalServerError();
             }

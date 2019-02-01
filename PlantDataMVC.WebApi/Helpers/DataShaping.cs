@@ -90,10 +90,13 @@ namespace PlantDataMVC.WebApi.Helpers
                     var fieldPropInfo = mainDto.GetType().GetProperty(field,
                         BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
-                    var fieldValue = fieldPropInfo.GetValue(mainDto, null);
+                    if (fieldPropInfo != null)
+                    {
+                        var fieldValue = fieldPropInfo.GetValue(mainDto, null);
 
-                    // add the field to the ExpandoObject with the actual property name from the object
-                    ((IDictionary<string, object>)objectToReturn).Add(fieldPropInfo.Name, fieldValue);
+                        // add the field to the ExpandoObject with the actual property name from the object
+                        ((IDictionary<string, object>)objectToReturn).Add(fieldPropInfo.Name, fieldValue);
+                    }
                 }
 
                 return objectToReturn;

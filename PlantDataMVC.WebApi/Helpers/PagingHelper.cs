@@ -25,58 +25,28 @@ namespace PlantDataMVC.WebApi.Helpers
                 totalPages = totalPages
             };
 
-            // Get next and previous pages, with some routeValues passed in from current request
-            Uri firstLink = null;
-            Uri lastLink = null;
-            Uri prevLink = null;
-            Uri nextLink = null;
-
-            firstLink = new Uri(urlHelper.Link(routeName, new HttpRouteValueDictionary(routeValues)
-            {
-                {"page", 1},
-                {"pageSize", pageSize}
-            }));
-            lastLink = new Uri(urlHelper.Link(routeName, new HttpRouteValueDictionary(routeValues)
-            {
-                {"page", totalPages},
-                {"pageSize", pageSize}
-            }));
-            if (page > 1)
-            {
-                prevLink = new Uri(urlHelper.Link(routeName, new HttpRouteValueDictionary(routeValues)
-                {
-                    {"page", page - 1},
-                    {"pageSize", pageSize}
-                }));
-            }
-
-            if (page < totalPages)
-            {
-                nextLink = new Uri(urlHelper.Link(routeName, new HttpRouteValueDictionary(routeValues)
-                {
-                    {"page", page + 1},
-                    {"pageSize", pageSize}
-                }));
-            }
-
+            var linkBuilder = new PageLinkBuilder(urlHelper,routeName,routeValues,page,pageSize,totalPages);
 
             List<string> links = new List<string>();
-            if (firstLink != null)
+
+            if (linkBuilder.FirstPage != null)
             {
-                links.Add(string.Format(linkHeaderTemplate, firstLink, "first"));
-            }
-            if (prevLink != null)
-            {
-                links.Add(string.Format(linkHeaderTemplate, prevLink, "prev"));
+                links.Add(string.Format(linkHeaderTemplate, linkBuilder.FirstPage, "first"));
             }
 
-            if (nextLink != null)
+            if (linkBuilder.PreviousPage != null)
             {
-                links.Add(string.Format(linkHeaderTemplate, nextLink, "next"));
+                links.Add(string.Format(linkHeaderTemplate, linkBuilder.PreviousPage, "prev"));
             }
-            if (lastLink != null)
+
+            if (linkBuilder.NextPage != null)
             {
-                links.Add(string.Format(linkHeaderTemplate, lastLink, "last"));
+                links.Add(string.Format(linkHeaderTemplate, linkBuilder.NextPage, "next"));
+            }
+
+            if (linkBuilder.LastPage != null)
+            {
+                links.Add(string.Format(linkHeaderTemplate, linkBuilder.LastPage, "last"));
             }
 
             var headers = new NameValueCollection

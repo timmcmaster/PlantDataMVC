@@ -73,8 +73,6 @@ namespace PlantDataMVC.WebApi.Controllers
                 // https://stackoverflow.com/questions/363211/how-can-i-get-the-route-name-in-controller-in-asp-net-mvc
                 // https://rimdev.io/get-current-route-name-from-aspnet-web-api-request/
 
-                var onSpeciesByGenus = Request.RequestUri.AbsolutePath.Contains("/Genus/");
-                
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
                     dtos,
@@ -97,7 +95,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 
                 return Ok(itemList);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return InternalServerError();
             }
@@ -152,8 +150,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 }
 
                 var entity = Mapper.Map<CreateUpdateSiteDto, Site>(dtoIn);
-
-                var returnEntity =_service.Add(entity);
+                _service.Add(entity);
 
                 // Save changes before we map back
                 var changes = _unitOfWorkAsync.SaveChanges();
@@ -169,7 +166,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 return BadRequest();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return InternalServerError();
             }
@@ -218,7 +215,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 return BadRequest();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return InternalServerError();
             }
@@ -253,7 +250,6 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var updatedEntity = Mapper.Map<CreateUpdateSiteDto, Site>(dtoFound);
                 updatedEntity.Id = id;
-
                 var returnEntity = _service.Save(updatedEntity);
 
                 // Save changes before we map back

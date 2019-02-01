@@ -184,6 +184,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ListExtensions.cs" />
+    <Compile Include="Helpers\PageLinkBuilder.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="Helpers\QueryableExtensions.cs" />
     <Compile Include="Helpers\VersionConstraint.cs" />
