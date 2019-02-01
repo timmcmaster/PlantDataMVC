@@ -31,11 +31,6 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         public async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
-            // TODO: Change how paging works
-            // retrieving paged data means that paging the returned list does not work as it used to
-            // want to get total count from returned response header
-            // convert to local 
-
             // resolve parameters
             var localPage = page ?? 1;
             var localPageSize = pageSize ?? 20;
