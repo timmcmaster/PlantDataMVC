@@ -1,26 +1,25 @@
-﻿using Interfaces.DAL.DataContext;
-using Interfaces.DAL.Entity;
-using Interfaces.DAL.Infrastructure;
-using Interfaces.DAL.Repository;
-using LinqKit;
-using System;
-//using Framework.DAL.UnitOfWork;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Interfaces.DAL.DataContext;
+using Interfaces.DAL.Entity;
+using Interfaces.DAL.Infrastructure;
+using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
+using LinqKit;
 
 namespace Framework.DAL.EF
 {
     /// <summary>
-    /// The base class for a repository.
-    /// All public methods are implemented in terms of Entity-derived classes (i.e. non-framework specific).
+    ///     The base class for a repository.
+    ///     All public methods are implemented in terms of Entity-derived classes (i.e. non-framework specific).
     /// </summary>
     /// <typeparam name="TEntity">The external Entity-derived type.</typeparam>
     public class Repository<TEntity> : IRepositoryAsync<TEntity>
-        where TEntity : class, IEntity 
+        where TEntity : class, IEntity
     {
         private readonly IDataContextAsync _context;
         private readonly IDbSet<TEntity> _dbSet;
@@ -45,8 +44,7 @@ namespace Framework.DAL.EF
             }
         }
 
-        #region IRepository implementation
-
+        #region IRepositoryAsync<TEntity> Members
         // Note: This is same as Queryable() method
         public IQueryable<TEntity> GetAll()
         {
@@ -130,12 +128,7 @@ namespace Framework.DAL.EF
         {
             return new QueryFluent<TEntity>(this, query);
         }
-
-        //public IRepository<T> GetRepository<T>() where T : class, IEntity
-        //{
-        //    return _unitOfWork.Repository<T>();
-        //}
-        #endregion IRepository implementation
+        #endregion
 
 
         internal IQueryable<TEntity> Select(Expression<Func<TEntity, bool>> filter = null,
@@ -148,25 +141,26 @@ namespace Framework.DAL.EF
             {
                 query = includes.Aggregate(query, (current, include) => current.Include(include));
             }
+
             if (orderBy != null)
             {
                 query = orderBy(query);
             }
+
             if (filter != null)
             {
                 query = query.AsExpandable().Where(filter);
             }
+
             return query;
         }
 
         internal async Task<IEnumerable<TEntity>> SelectAsync(Expression<Func<TEntity, bool>> filter = null,
-                                            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                            List<Expression<Func<TEntity, object>>> includes = null)
+                                                              Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>
+                                                                  orderBy = null,
+                                                              List<Expression<Func<TEntity, object>>> includes = null)
         {
             return await Select(filter, orderBy, includes).ToListAsync();
         }
-
-
-
     }
 }

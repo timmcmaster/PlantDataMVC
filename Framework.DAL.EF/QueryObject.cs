@@ -1,11 +1,7 @@
-﻿using Interfaces.DAL.Repository;
-using LinqKit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using Interfaces.DAL.Repository;
+using LinqKit;
 
 namespace Framework.DAL.EF
 {
@@ -13,6 +9,7 @@ namespace Framework.DAL.EF
     {
         private Expression<Func<TEntity, bool>> _query;
 
+        #region IQueryObject<TEntity> Members
         public Expression<Func<TEntity, bool>> Query()
         {
             return _query;
@@ -37,5 +34,6 @@ namespace Framework.DAL.EF
         {
             return Or(queryObject.Query());
         }
+        #endregion
     }
 }

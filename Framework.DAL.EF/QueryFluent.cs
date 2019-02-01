@@ -1,23 +1,20 @@
-﻿using Interfaces.DAL.Entity;
-using Interfaces.DAL.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Interfaces.DAL.Entity;
+using Interfaces.DAL.Repository;
 
 namespace Framework.DAL.EF
 {
-    public sealed class QueryFluent<TEntity> : IQueryFluent<TEntity> where TEntity: class, IEntity
+    public sealed class QueryFluent<TEntity> : IQueryFluent<TEntity> where TEntity : class, IEntity
     {
-        #region Private Fields
         private readonly Expression<Func<TEntity, bool>> _expression;
         private readonly List<Expression<Func<TEntity, object>>> _includes;
         private readonly Repository<TEntity> _repository;
         private Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> _orderBy;
-        #endregion Private Fields
 
-        #region Constructors
         public QueryFluent(Repository<TEntity> repository)
         {
             _repository = repository;
@@ -29,12 +26,13 @@ namespace Framework.DAL.EF
             _expression = queryObject.Query();
         }
 
-        public QueryFluent(Repository<TEntity> repository, Expression<Func<TEntity, bool>> expression) : this(repository)
+        public QueryFluent(Repository<TEntity> repository, Expression<Func<TEntity, bool>> expression) : this(
+            repository)
         {
             _expression = expression;
         }
-        #endregion Constructors
 
+        #region IQueryFluent<TEntity> Members
         public IQueryFluent<TEntity> Include(Expression<Func<TEntity, object>> expression)
         {
             _includes.Add(expression);
@@ -61,5 +59,6 @@ namespace Framework.DAL.EF
         {
             return await _repository.SelectAsync(_expression, _orderBy, _includes);
         }
+        #endregion
     }
 }

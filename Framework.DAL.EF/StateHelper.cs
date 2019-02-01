@@ -1,16 +1,16 @@
-﻿using Interfaces.DAL.Infrastructure;
-using System;
+﻿using System;
 using System.Data.Entity;
+using Interfaces.DAL.Infrastructure;
 
 namespace Framework.DAL.EF
 {
     /// <summary>
-    /// Provides conversions between generic ObjectState values and EF-specific EntityState values 
+    ///     Provides conversions between generic ObjectState values and EF-specific EntityState values
     /// </summary>
     public class StateHelper
     {
         /// <summary>
-        /// Map generic object states to EF specific states
+        ///     Map generic object states to EF specific states
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
@@ -33,7 +33,7 @@ namespace Framework.DAL.EF
         }
 
         /// <summary>
-        /// Map EF specific states to generic object states
+        ///     Map EF specific states to generic object states
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>

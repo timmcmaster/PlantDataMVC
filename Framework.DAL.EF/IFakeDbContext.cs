@@ -1,6 +1,6 @@
-﻿using Interfaces.DAL.DataContext;
+﻿using System.Data.Entity;
+using Interfaces.DAL.DataContext;
 using Interfaces.DAL.Entity;
-using System.Data.Entity;
 
 namespace Framework.DAL.EF
 {

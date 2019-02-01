@@ -1,28 +1,27 @@
-﻿using Interfaces.DAL.Entity;
-using Interfaces.DAL.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading;
 using System.Threading.Tasks;
+using Interfaces.DAL.Entity;
+using Interfaces.DAL.Infrastructure;
 
 namespace Framework.DAL.EF
 {
     /// <summary>
-    /// This class contains the generic EF stuff for a fake context.
-    /// It should be usable by any given database with its own entities.
+    ///     This class contains the generic EF stuff for a fake context.
+    ///     It should be usable by any given database with its own entities.
     /// </summary>
-    public abstract class FakeDbContext: IFakeDbContext
+    public abstract class FakeDbContext : IFakeDbContext
     {
-        #region Private Fields  
         private readonly Dictionary<Type, object> _fakeDbSets;
-        #endregion Private Fields
 
         protected FakeDbContext()
         {
             _fakeDbSets = new Dictionary<Type, object>();
         }
 
+        #region IFakeDbContext Members
         public void Dispose()
         {
         }
@@ -44,10 +43,10 @@ namespace Framework.DAL.EF
 
         public DbSet<T> Set<T>() where T : class
         {
-            return (DbSet<T>)_fakeDbSets[typeof(T)];
+            return (DbSet<T>) _fakeDbSets[typeof(T)];
         }
 
-        public void AddFakeDbSet<TEntity, TFakeDbSet>() 
+        public void AddFakeDbSet<TEntity, TFakeDbSet>()
             where TEntity : class, IEntity, new()
             where TFakeDbSet : FakeDbSet<TEntity>, IDbSet<TEntity>, new()
         {
@@ -62,5 +61,6 @@ namespace Framework.DAL.EF
         public void SyncObjectsStatePostCommit()
         {
         }
+        #endregion
     }
 }

@@ -1,8 +1,8 @@
-﻿using Interfaces.DAL.Entity;
-using Interfaces.DAL.Repository;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using Interfaces.DAL.Entity;
+using Interfaces.DAL.Repository;
 
 namespace Interfaces.Service
 {
