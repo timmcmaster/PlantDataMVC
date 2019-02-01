@@ -4,7 +4,7 @@ namespace PlantDataMVC.UI
 {
     public class BundleConfig
     {
-        // TODO: change to minified files after debugging is done
+        // Removed most bundles, as packages are downloaded with npm, and bundling is being done via Webpack
 
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
