@@ -1,14 +1,11 @@
-﻿using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Framework.Web.Forms;
-using Interfaces.WcfService;
-using Interfaces.WcfService.Responses;
+﻿using Framework.Web.Forms;
 using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using PlantDataMVC.WCFService.ServiceContracts;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {

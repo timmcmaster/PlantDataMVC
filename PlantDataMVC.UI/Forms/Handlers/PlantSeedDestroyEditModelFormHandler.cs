@@ -1,7 +1,6 @@
 ﻿using Framework.Web.Forms;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using PlantDataMVC.WCFService.ServiceContracts;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -11,7 +10,7 @@ namespace PlantDataMVC.UI.Forms.Handlers
     {
         private readonly HttpClient _httpClient;
 
-        public PlantSeedDestroyEditModelFormHandler(ISeedBatchWcfService dataService)
+        public PlantSeedDestroyEditModelFormHandler()
         {
             _httpClient = PlantDataApiHttpClient.GetClient();
         }
