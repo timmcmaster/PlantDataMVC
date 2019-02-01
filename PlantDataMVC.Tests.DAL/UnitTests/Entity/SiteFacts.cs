@@ -3,7 +3,7 @@ using Interfaces.DAL.Entity;
 using PlantDataMVC.Entities.Models;
 using Xunit;
 
-namespace PlantDataMVC.Tests.DAL
+namespace PlantDataMVC.Tests.DAL.UnitTests.Entity
 {
     public class SiteFacts
     {
@@ -31,7 +31,7 @@ namespace PlantDataMVC.Tests.DAL
         public void CanConstructWithProperties()
         {
             // Act
-            var site = new Site()
+            var site = new Site
             {
                 Id = 1,
                 SiteName = "Home",

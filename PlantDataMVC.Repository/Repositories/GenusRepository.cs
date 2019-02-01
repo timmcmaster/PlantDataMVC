@@ -1,8 +1,8 @@
-﻿using Interfaces.DAL.Repository;
-using PlantDataMVC.Entities.Models;
-using System;
+﻿using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Interfaces.DAL.Repository;
+using PlantDataMVC.Entities.Models;
 
 // This file provides classes & interfaces to allow extension methods 
 // for <code>IRepository<Genus></code> to be mocked via a mocking framework.
@@ -20,7 +20,7 @@ namespace PlantDataMVC.Repository.Repositories
     }
 
     /// <summary>
-    /// Grouping of extension methods specific to repository of Genus
+    ///     Grouping of extension methods specific to repository of Genus
     /// </summary>
     /// <seealso cref="PlantDataMVC.Repository.Repositories.IGenusExtensions" />
     internal class GenusExtensions : IGenusExtensions
@@ -32,6 +32,7 @@ namespace PlantDataMVC.Repository.Repositories
             _repository = genusRepository;
         }
 
+        #region IGenusExtensions Members
         public Genus GetItemByLatinName(string latinName)
         {
             return _repository.Queryable().FirstOrDefault(g => g.LatinName == latinName);
@@ -41,15 +42,11 @@ namespace PlantDataMVC.Repository.Repositories
         {
             return _repository.Query(g => g.Id == id).Include(g => g.Species).Select().SingleOrDefault();
         }
+        #endregion
     }
 
     public static class GenusRepository
     {
-        public static IGenusExtensions GenusExtensions(this IRepository<Genus> target)
-        {
-            return GenusExtensionsFactory(target);
-        }
-
         static GenusRepository()
         {
             GenusExtensionsFactory = gr => new GenusExtensions(gr);
@@ -57,5 +54,10 @@ namespace PlantDataMVC.Repository.Repositories
 
         // use a friend class when testing to set this
         internal static Func<IRepository<Genus>, IGenusExtensions> GenusExtensionsFactory { get; set; }
+
+        public static IGenusExtensions GenusExtensions(this IRepository<Genus> target)
+        {
+            return GenusExtensionsFactory(target);
+        }
     }
 }

@@ -3,13 +3,13 @@ using Interfaces.DAL.Entity;
 using PlantDataMVC.Entities.Models;
 using Xunit;
 
-namespace PlantDataMVC.Tests.DAL
+namespace PlantDataMVC.Tests.DAL.UnitTests.Entity
 {
     public class GenusFacts
     {
         /// <summary>
-        /// Determines whether empty object is constructed correctly.
-        /// Test is pretty redundant.
+        ///     Determines whether empty object is constructed correctly.
+        ///     Test is pretty redundant.
         /// </summary>
         [Fact]
         public void CanConstructEmptyObject()
@@ -29,18 +29,18 @@ namespace PlantDataMVC.Tests.DAL
         }
 
         /// <summary>
-        /// Determines whether object with properties is constructed correctly.
-        /// Test is pretty redundant.
+        ///     Determines whether object with properties is constructed correctly.
+        ///     Test is pretty redundant.
         /// </summary>
         [Fact]
         public void CanConstructWithProperties()
         {
             // Act
-            var genus = new Genus()
-                            {
-                                Id = 1,
-                                LatinName = "Eremophila"
-                            };
+            var genus = new Genus
+            {
+                Id = 1,
+                LatinName = "Eremophila"
+            };
 
             // Assert
             // can I assign species object to IEntity?

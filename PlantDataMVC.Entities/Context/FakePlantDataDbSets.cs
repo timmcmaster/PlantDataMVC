@@ -1,8 +1,8 @@
-﻿using Framework.DAL.EF;
-using PlantDataMVC.Entities.Models;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Framework.DAL.EF;
+using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.Entities.Context
 {
@@ -12,7 +12,7 @@ namespace PlantDataMVC.Entities.Context
     {
         public override Genus Find(params object[] keyValues)
         {
-            var id = (int)keyValues.Single();
+            var id = (int) keyValues.Single();
             return this.SingleOrDefault(g => g.Id == id);
         }
 

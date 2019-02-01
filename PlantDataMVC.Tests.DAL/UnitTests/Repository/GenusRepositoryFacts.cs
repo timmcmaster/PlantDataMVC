@@ -20,7 +20,7 @@ namespace PlantDataMVC.Tests.DAL.UnitTests.Repository
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange
-                IRepositoryAsync<Genus> genusRepository = new Repository<Genus>(plantDataFakeDbContext,unitOfWork);
+                IRepositoryAsync<Genus> genusRepository = new Repository<Genus>(plantDataFakeDbContext, unitOfWork);
 
                 var genus = GenusBuilder.aGenus().withId().withLatinName("Eremophila").Build();
 
@@ -31,8 +31,9 @@ namespace PlantDataMVC.Tests.DAL.UnitTests.Repository
 
                 // Assert
                 addedGenus.Should().NotBeNull();
+
                 addedGenus.Should().BeEquivalentTo(genus, options => options
-                                                                        .Including(g => g.LatinName));
+                                                       .Including(g => g.LatinName));
             }
         }
 
@@ -51,8 +52,9 @@ namespace PlantDataMVC.Tests.DAL.UnitTests.Repository
 
                 // Assert
                 addedGenus.Should().NotBeNull();
+
                 addedGenus.Should().BeEquivalentTo(genus, options => options
-                                                                        .Including(g => g.LatinName));
+                                                       .Including(g => g.LatinName));
             }
         }
 

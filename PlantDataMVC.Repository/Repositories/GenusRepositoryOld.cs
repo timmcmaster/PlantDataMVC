@@ -1,11 +1,11 @@
-﻿using Interfaces.DAL.Repository;
+﻿using System.Linq;
+using Interfaces.DAL.Repository;
 using PlantDataMVC.Entities.Models;
-using System.Linq;
 
 namespace PlantDataMVC.Repository.Repositories
 {
     /// <summary>
-    /// Use extension methods to provide specific queries per entity type
+    ///     Use extension methods to provide specific queries per entity type
     /// </summary>
     public static class GenusRepositoryOld
     {

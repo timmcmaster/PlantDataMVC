@@ -1,10 +1,9 @@
-﻿using Framework.DAL.EF;
+﻿using FluentAssertions;
+using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
 using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
-using System.Data.Entity.Validation;
-using FluentAssertions;
 using UnitTest.Utils.DAL;
 using Xunit;
 using Xunit.Abstractions;
@@ -13,22 +12,24 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
 {
     public class GenusRepositoryTests : IntegrationTestBase
     {
-        private readonly ITestOutputHelper _output;
-
+        #region Setup/Teardown
         public GenusRepositoryTests(ITestOutputHelper output)
         {
-            this._output = output;
+            _output = output;
         }
+        #endregion
+
+        private readonly ITestOutputHelper _output;
 
         [Fact]
-        public void Add_UsingUnitOfWorkRepository_ReturnsIdAfterSaveChanges()
+        public void Add_UsingCreatedRepository_ReturnsIdAfterSaveChanges()
         {
             using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
                 var requestGenus = GenusBuilder.aGenus().withNoId().Build();
-                var repository = unitOfWork.Repository<Genus>();
+                var repository = new Repository<Genus>(plantDataDbContext, unitOfWork);
 
                 // Act
                 var returnedGenus = repository.Add(requestGenus);
@@ -42,14 +43,14 @@ namespace PlantDataMVC.Tests.DAL.IntegrationTests
         }
 
         [Fact]
-        public void Add_UsingCreatedRepository_ReturnsIdAfterSaveChanges()
+        public void Add_UsingUnitOfWorkRepository_ReturnsIdAfterSaveChanges()
         {
             using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
                 var requestGenus = GenusBuilder.aGenus().withNoId().Build();
-                var repository = new Repository<Genus>(plantDataDbContext,unitOfWork);
+                var repository = unitOfWork.Repository<Genus>();
 
                 // Act
                 var returnedGenus = repository.Add(requestGenus);
