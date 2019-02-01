@@ -1,15 +1,13 @@
 ﻿using System;
 using AutoMapper;
-using FluentAssertions;
 using PlantDataMVC.DTO.Mappers;
-using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.Entities.Models;
 using Xunit;
 
 namespace PlantDataMVC.Tests.Core.UnitTests
 {
     public class DtoToDalMappingFacts : IDisposable
     {
+        #region Setup/Teardown
         public DtoToDalMappingFacts()
         {
             // Reset Mapper before configuring
@@ -23,6 +21,7 @@ namespace PlantDataMVC.Tests.Core.UnitTests
             // Reset Mapper at end of each test
             //Mapper.Reset();
         }
+        #endregion
 
         [Fact]
         public void TestMappingConfiguration()
@@ -77,6 +76,5 @@ namespace PlantDataMVC.Tests.Core.UnitTests
         //                                                    .Including(s => s.Native)
         //                                                    .Including(s => s.PropagationTime));
         //}
-
     }
 }

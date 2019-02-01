@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using AutoMapper;
-using Interfaces.DAL.Repository;
-using Interfaces.DAL.UnitOfWork;
-using Moq;
 using PlantDataMVC.DTO.Mappers;
-using PlantDataMVC.Entities.Models;
-using PlantDataMVC.Repository.Repositories;
-using UnitTest.Utils.DAL;
-using Xunit;
 using Xunit.Abstractions;
 
 namespace PlantDataMVC.Tests.Core.UnitTests.Services
@@ -19,17 +11,19 @@ namespace PlantDataMVC.Tests.Core.UnitTests.Services
 
         public PlantDataServiceFacts(ITestOutputHelper output)
         {
-            this._output = output;
+            _output = output;
             // Reset mapper before configuring
             Mapper.Reset();
             // Configure the mapper at start of each test
             AutoMapperCoreConfiguration.Configure();
         }
 
+        #region IDisposable Members
         public void Dispose()
         {
             //Mapper.Reset();
         }
+        #endregion
 
         //[Fact]
         //public void TestCreatePlantWhereGenusLatinNameExists()

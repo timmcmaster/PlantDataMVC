@@ -12,14 +12,18 @@ namespace PlantDataMVC.Tests.Core.IntegrationTests
         static DbFixture()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["PlantDataDbContext"].ConnectionString;
-            _checkpoint = new Checkpoint()
+
+            _checkpoint = new Checkpoint
             {
-                SchemasToExclude = new[] { "sys" },
-                SchemasToInclude = new[] { "dbo" },
+                SchemasToExclude = new[] {"sys"},
+                SchemasToInclude = new[] {"dbo"},
                 WithReseed = true
             };
         }
 
-        public static Task ResetCheckpoint() => _checkpoint.Reset(_connectionString);
+        public static Task ResetCheckpoint()
+        {
+            return _checkpoint.Reset(_connectionString);
+        }
     }
 }
