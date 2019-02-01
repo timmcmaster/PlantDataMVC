@@ -7,7 +7,8 @@ namespace Framework.WcfService.Responses
     [DataContract]
     public abstract class Response : IResponse
     {
-        [DataMember]
-        public ServiceActionStatus Status { get; set; }
+        #region IResponse Members
+        [DataMember] public ServiceActionStatus Status { get; set; }
+        #endregion
     }
 }
