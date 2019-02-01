@@ -263,7 +263,6 @@
     <Compile Include="Models\ViewModels\PlantStockTransactionDeleteViewModel.cs" />
     <Compile Include="Models\EditModels\PlantStockTransactionDestroyEditModel.cs" />
     <Compile Include="Models\ViewModels\PlantStockTransactionNewViewModel.cs" />
-    <Compile Include="Models\ViewModels\PlantStockTransactionShowViewModel.cs" />
     <Compile Include="Models\EditModels\PlantStockTransactionUpdateEditModel.cs" />
     <Compile Include="Models\EditModels\TrayCreateEditModel.cs" />
     <Compile Include="Models\ViewModels\TrayDeleteViewModel.cs" />
