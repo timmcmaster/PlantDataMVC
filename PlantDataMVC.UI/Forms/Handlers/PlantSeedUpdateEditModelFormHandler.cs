@@ -1,8 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Framework.Web.Forms;
 using Interfaces.WcfService;
 using Interfaces.WcfService.Responses;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.WCFService.ServiceContracts;
 
@@ -10,21 +14,33 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantSeedUpdateEditModelFormHandler : IFormHandler<PlantSeedUpdateEditModel>
     {
-        private readonly ISeedBatchWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public PlantSeedUpdateEditModelFormHandler(ISeedBatchWcfService dataService)
+        public PlantSeedUpdateEditModelFormHandler()
         {
-            _dataService = dataService;
+            _httpClient = PlantDataApiHttpClient.GetClient();
         }
 
         public async Task<bool> HandleAsync(PlantSeedUpdateEditModel form)
         {
-            // Map local model to DTO
-            // TODO: Check map exists
-            SeedBatchDto item = AutoMapper.Mapper.Map<PlantSeedUpdateEditModel, SeedBatchDto>(form);
+            try
+            {
+                // Map local model to DTO
+                // TODO: Check map exists
+                SeedBatchDto item = AutoMapper.Mapper.Map<PlantSeedUpdateEditModel, SeedBatchDto>(form);
 
-            IUpdateResponse<SeedBatchDto> response = _dataService.Update(item.Id,item);
-            return (response.Status == ServiceActionStatus.Updated);
+                // Update with PUT
+                var serializedItem = JsonConvert.SerializeObject(item);
+                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
+
+                var httpResponse = await _httpClient.PutAsync("api/SeedBatch/" + form.Id, content);
+
+                return httpResponse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

@@ -1,30 +1,41 @@
-﻿using System.Threading.Tasks;
-using Framework.Web.Forms;
-using Interfaces.WcfService;
-using Interfaces.WcfService.Responses;
+﻿using Framework.Web.Forms;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using PlantDataMVC.WCFService.ServiceContracts;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantSeedCreateEditModelFormHandler : IFormHandler<PlantSeedCreateEditModel>
     {
-        private readonly ISeedBatchWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public PlantSeedCreateEditModelFormHandler(ISeedBatchWcfService dataService)
+        public PlantSeedCreateEditModelFormHandler()
         {
-            _dataService = dataService;
+            _httpClient = PlantDataApiHttpClient.GetClient();
         }
 
         public async Task<bool> HandleAsync(PlantSeedCreateEditModel form)
         {
-            // Map local model to DTO
-            // TODO: Check map exists
-            SeedBatchDto item = AutoMapper.Mapper.Map<PlantSeedCreateEditModel, SeedBatchDto>(form);
+            try
+            {
+                // Map local model to DTO
+                // TODO: Check map exists
+                SeedBatchDto item = AutoMapper.Mapper.Map<PlantSeedCreateEditModel, SeedBatchDto>(form);
+                var serializedItem = JsonConvert.SerializeObject(item);
+                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
-            ICreateResponse<SeedBatchDto> response = _dataService.Create(item);
-            return (response.Status == ServiceActionStatus.Created);
+                var httpResponse = await _httpClient.PostAsync("api/SeedBatch/", content);
+
+                return httpResponse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

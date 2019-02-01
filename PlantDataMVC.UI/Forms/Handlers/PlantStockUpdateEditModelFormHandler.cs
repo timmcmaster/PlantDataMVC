@@ -1,30 +1,43 @@
-﻿using System.Threading.Tasks;
-using Framework.Web.Forms;
-using Interfaces.WcfService;
-using Interfaces.WcfService.Responses;
+﻿using Framework.Web.Forms;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using PlantDataMVC.WCFService.ServiceContracts;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantStockUpdateEditModelFormHandler : IFormHandler<PlantStockUpdateEditModel>
     {
-        private readonly IPlantStockWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public PlantStockUpdateEditModelFormHandler(IPlantStockWcfService dataService)
+        public PlantStockUpdateEditModelFormHandler()
         {
-            _dataService = dataService;
+            _httpClient = PlantDataApiHttpClient.GetClient();
         }
 
         public async Task<bool> HandleAsync(PlantStockUpdateEditModel form)
         {
-            // Map local model to DTO
-            // TODO: Check map exists
-            PlantStockDto item = AutoMapper.Mapper.Map<PlantStockUpdateEditModel, PlantStockDto>(form);
+            try
+            {
+                // Map local model to DTO
+                // TODO: Check map exists
+                PlantStockDto item = AutoMapper.Mapper.Map<PlantStockUpdateEditModel, PlantStockDto>(form);
 
-            IUpdateResponse<PlantStockDto> response = _dataService.Update(item.Id, item);
-            return (response.Status == ServiceActionStatus.Updated);
+                // Update with PUT
+                var serializedItem = JsonConvert.SerializeObject(item);
+                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
+
+                var httpResponse = await _httpClient.PutAsync("api/PlantStock/" + form.Id, content);
+
+                return httpResponse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

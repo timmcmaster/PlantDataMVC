@@ -1,8 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Framework.Web.Forms;
 using Interfaces.WcfService;
 using Interfaces.WcfService.Responses;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.WCFService.ServiceContracts;
 
@@ -10,21 +14,31 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantStockCreateEditModelFormHandler : IFormHandler<PlantStockCreateEditModel>
     {
-        private readonly IPlantStockWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public PlantStockCreateEditModelFormHandler(IPlantStockWcfService dataService)
+        public PlantStockCreateEditModelFormHandler()
         {
-            _dataService = dataService;
+            _httpClient = PlantDataApiHttpClient.GetClient();
         }
 
         public async Task<bool> HandleAsync(PlantStockCreateEditModel form)
         {
-            // Map local model to DTO
-            // TODO: Check map exists
-            PlantStockDto item = AutoMapper.Mapper.Map<PlantStockCreateEditModel, PlantStockDto>(form);
+            try
+            {
+                // Map local model to DTO
+                // TODO: Check map exists
+                PlantStockDto item = AutoMapper.Mapper.Map<PlantStockCreateEditModel, PlantStockDto>(form);
+                var serializedItem = JsonConvert.SerializeObject(item);
+                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
-            ICreateResponse<PlantStockDto> response = _dataService.Create(item);
-            return (response.Status == ServiceActionStatus.Created);
+                var httpResponse = await _httpClient.PostAsync("api/PlantStock/", content);
+
+                return httpResponse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

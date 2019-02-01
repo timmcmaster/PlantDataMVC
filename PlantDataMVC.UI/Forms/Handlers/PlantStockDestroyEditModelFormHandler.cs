@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Framework.Web.Forms;
 using Interfaces.WcfService;
 using Interfaces.WcfService.Responses;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.WCFService.ServiceContracts;
 
@@ -10,17 +12,25 @@ namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class PlantStockDestroyEditModelFormHandler : IFormHandler<PlantStockDestroyEditModel>
     {
-        private readonly IPlantStockWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public PlantStockDestroyEditModelFormHandler(IPlantStockWcfService dataService)
+        public PlantStockDestroyEditModelFormHandler()
         {
-            _dataService = dataService;
+            _httpClient = PlantDataApiHttpClient.GetClient();
         }
 
         public async Task<bool> HandleAsync(PlantStockDestroyEditModel form)
         {
-            IDeleteResponse<PlantStockDto> response = _dataService.Delete(form.Id);
-            return (response.Status == ServiceActionStatus.Deleted);
+            try
+            {
+                var httpResponse = await _httpClient.DeleteAsync("api/PlantStock/" + form.Id);
+
+                return httpResponse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

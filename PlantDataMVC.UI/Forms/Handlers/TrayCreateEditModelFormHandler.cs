@@ -1,30 +1,41 @@
-﻿using System.Threading.Tasks;
-using Framework.Web.Forms;
-using Interfaces.WcfService;
-using Interfaces.WcfService.Responses;
+﻿using Framework.Web.Forms;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using PlantDataMVC.WCFService.ServiceContracts;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
     public class TrayCreateEditModelFormHandler : IFormHandler<TrayCreateEditModel>
     {
-        private readonly ISeedTrayWcfService _dataService;
+        private readonly HttpClient _httpClient;
 
-        public TrayCreateEditModelFormHandler(ISeedTrayWcfService dataService)
+        public TrayCreateEditModelFormHandler()
         {
-            _dataService = dataService;
+            _httpClient = PlantDataApiHttpClient.GetClient();
         }
 
         public async Task<bool> HandleAsync(TrayCreateEditModel form)
         {
-            // Map local model to DTO
-            // TODO: Check map exists
-            SeedTrayDto item = AutoMapper.Mapper.Map<TrayCreateEditModel, SeedTrayDto>(form);
+            try
+            {
+                // Map local model to DTO
+                // TODO: Check map exists
+                SeedTrayDto item = AutoMapper.Mapper.Map<TrayCreateEditModel, SeedTrayDto>(form);
+                var serializedItem = JsonConvert.SerializeObject(item);
+                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
-            ICreateResponse<SeedTrayDto> response = _dataService.Create(item);
-            return (response.Status == ServiceActionStatus.Created);
+                var httpResponse = await _httpClient.PostAsync("api/SeedTray/", content);
+
+                return httpResponse.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
