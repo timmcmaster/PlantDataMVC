@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
-using System.Web;
-using Newtonsoft.Json;
 
 namespace PlantDataMVC.UI.Helpers
 {
