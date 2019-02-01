@@ -9,6 +9,7 @@ POST-DEPLOYMENT SCRIPT TEMPLATE
                SELECT * FROM [$(TABLENAME)]					
 --------------------------------------------------------------------------------------
 */
+/* insert/merge basic product admin data */ 
 SET IDENTITY_INSERT [dbo].[ProductType] ON
 GO
 MERGE INTO [dbo].[ProductType] AS TARGET
