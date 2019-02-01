@@ -3,7 +3,7 @@ using Interfaces.DTO;
 
 namespace PlantDataMVC.DTO.Dtos
 {
-    public class CreateUpdateJournalEntryDto: IDto
+    public class CreateUpdateJournalEntryDto : IDto
     {
         public int PlantStockId { get; set; }
         public int JournalEntryTypeId { get; set; }

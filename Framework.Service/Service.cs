@@ -1,9 +1,9 @@
-﻿using Interfaces.DAL.Entity;
-using Interfaces.DAL.Repository;
-using Interfaces.Service;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using Interfaces.DAL.Entity;
+using Interfaces.DAL.Repository;
+using Interfaces.Service;
 
 namespace Framework.Service
 {
@@ -16,7 +16,7 @@ namespace Framework.Service
             _repository = repository;
         }
 
-        #region IService implementation
+        #region IService<TEntity> Members
         public virtual IQueryable<TEntity> GetAll()
         {
             return _repository.GetAll();

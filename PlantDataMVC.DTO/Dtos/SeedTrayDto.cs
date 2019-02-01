@@ -4,7 +4,7 @@ using Interfaces.DTO;
 
 namespace PlantDataMVC.DTO.Dtos
 {
-    public class SeedTrayDto: IDto
+    public class SeedTrayDto : IDto
     {
         public int Id { get; set; }
         public int SeedBatchId { get; set; }

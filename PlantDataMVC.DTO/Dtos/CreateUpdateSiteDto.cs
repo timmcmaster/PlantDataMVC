@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Interfaces.DTO;
+﻿using Interfaces.DTO;
 
 namespace PlantDataMVC.DTO.Dtos
 {
-    public class CreateUpdateSiteDto: IDto
+    public class CreateUpdateSiteDto : IDto
     {
         public string SiteName { get; set; }
         public string Suburb { get; set; }

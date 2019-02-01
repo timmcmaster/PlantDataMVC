@@ -3,7 +3,7 @@ using Interfaces.DTO;
 
 namespace PlantDataMVC.DTO.Dtos
 {
-    public class SiteDto: IDto
+    public class SiteDto : IDto
     {
         public int Id { get; set; }
         public string SiteName { get; set; }
