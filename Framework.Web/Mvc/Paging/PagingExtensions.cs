@@ -15,7 +15,7 @@ namespace Framework.Web.Mvc.Paging
         {
             IPageable model = helper.ViewData.Model as IPageable;
 
-            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
+            //ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
 
             MvcHtmlString prevLink = new MvcHtmlString("");
             MvcHtmlString separator = new MvcHtmlString("");

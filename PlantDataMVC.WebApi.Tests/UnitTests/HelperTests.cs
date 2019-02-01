@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.WebApi.Helpers;
 using Xunit;
@@ -10,16 +11,10 @@ namespace PlantDataMVC.WebApi.Tests.UnitTests
     public class HelperTests
     {
         [Fact]
-        public void TestGetRelatedObjects()
-        {
-            var relatedObjs = DataShaping.GetRelatedDtoPropInfos<SpeciesDto>();
-        }
-
-        [Fact]
         public void TestDataShapedObject()
         {
             // Arrange
-            SpeciesDto species = new SpeciesDto()
+            var species = new SpeciesDto
             {
                 CommonName = "Brisbane wattle",
                 Description = "Small tree to 10m",
@@ -28,46 +23,54 @@ namespace PlantDataMVC.WebApi.Tests.UnitTests
                 Native = true,
                 PropagationTime = 17,
                 SpecificName = "fimbriata",
-                PlantStocks = new List<PlantStockDto>()
+                PlantStocks = new List<PlantStockDto>
                 {
-                    new PlantStockDto()
+                    new PlantStockDto
                     {
                         Id = 2, ProductTypeId = 1, SpeciesId = 1, QuantityInStock = 10
                     },
-                    new PlantStockDto()
+                    new PlantStockDto
                     {
                         Id = 3, ProductTypeId = 2, SpeciesId = 1, QuantityInStock = 5
                     }
                 },
-                SeedBatches = new List<SeedBatchDto>()
+                SeedBatches = new List<SeedBatchDto>
                 {
-                    new SeedBatchDto()
+                    new SeedBatchDto
                     {
-                        Id = 6, DateCollected = new DateTime(2016,1,30), SpeciesId = 1, Location = "Home", Notes = "Notes 1"
+                        Id = 6, DateCollected = new DateTime(2016, 1, 30), SpeciesId = 1, Location = "Home",
+                        Notes = "Notes 1"
                     },
-                    new SeedBatchDto()
+                    new SeedBatchDto
                     {
-                        Id = 3, DateCollected = new DateTime(2018,11,3), SpeciesId = 1, Location = "Grandchester", Notes = "Notes 2"
+                        Id = 3, DateCollected = new DateTime(2018, 11, 3), SpeciesId = 1, Location = "Grandchester",
+                        Notes = "Notes 2"
                     },
-                    new SeedBatchDto()
+                    new SeedBatchDto
                     {
-                        Id = 11, DateCollected = new DateTime(2017,7,23), SpeciesId = 1, Location = "Tingalpa", Notes = "Notes 3"
+                        Id = 11, DateCollected = new DateTime(2017, 7, 23), SpeciesId = 1, Location = "Tingalpa",
+                        Notes = "Notes 3"
                     }
                 }
-
             };
 
             var fields =
                 "commonName,plantStocks,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location";
+
             var fieldList = fields.Split(',').ToList();
-            
+
             // Act
             var dataShapedObject = DataShaping.CreateDataShapedObject(species, fieldList);
 
-            var x = Newtonsoft.Json.JsonConvert.SerializeObject(dataShapedObject);
+            var x = JsonConvert.SerializeObject(dataShapedObject);
 
             // Assert
+        }
 
+        [Fact]
+        public void TestGetRelatedObjects()
+        {
+            var relatedObjs = DataShaping.GetRelatedDtoPropInfos<SpeciesDto>();
         }
     }
 }

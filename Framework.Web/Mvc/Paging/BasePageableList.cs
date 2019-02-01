@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Framework.Web.Mvc.Paging
 {
@@ -20,15 +19,11 @@ namespace Framework.Web.Mvc.Paging
             HasNextPage = PageNumber < TotalPages;
         }
 
-        #region IPageable implementation
-
         public int PageNumber { get; protected set; }
         public int PageSize { get; protected set; }
         public int TotalCount { get; protected set; }
         public int TotalPages { get; protected set; }
         public bool HasPreviousPage { get; protected set; }
         public bool HasNextPage { get; protected set; }
-
-        #endregion
     }
 }

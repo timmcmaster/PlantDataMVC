@@ -18,8 +18,6 @@ namespace PlantDataMVC.UI.Models.ViewModels
         {
         }
 
-        #region ISortable implementation
-
         public string SortBy { get; set; }
         public bool SortAscending { get; set; }
 
@@ -27,7 +25,5 @@ namespace PlantDataMVC.UI.Models.ViewModels
         {
             get => SortAscending ? SortBy + " asc" : SortBy + " desc";
         }
-
-        #endregion
     }
 }
