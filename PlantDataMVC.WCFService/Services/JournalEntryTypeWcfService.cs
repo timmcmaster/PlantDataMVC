@@ -7,13 +7,14 @@ using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.WCFService.Services
 {
-    public class JournalEntryTypeWcfService : WcfService<JournalEntryType>,IJournalEntryTypeWcfService
+    public class JournalEntryTypeWcfService : WcfService<JournalEntryType>, IJournalEntryTypeWcfService
     {
         //public JournalEntryTypeWcfService(IUnitOfWorkAsync unitOfWork, IJournalEntryTypeService service): base (unitOfWork,service)
         public JournalEntryTypeWcfService(IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
         {
         }
 
+        #region IJournalEntryTypeWcfService Members
         public ICreateResponse<JournalEntryTypeDto> Create(JournalEntryTypeDto item)
         {
             return base.Create<JournalEntryTypeDto, JournalEntryTypeDto>(item);
@@ -38,5 +39,6 @@ namespace PlantDataMVC.WCFService.Services
         {
             return base.View<JournalEntryTypeDto>(id);
         }
+        #endregion
     }
 }

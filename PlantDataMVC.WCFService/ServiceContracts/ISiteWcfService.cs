@@ -1,10 +1,10 @@
-﻿using Interfaces.WcfService.Responses;
-using PlantDataMVC.DTO.Dtos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.ServiceModel;
 using System.ServiceModel.Web;
+using Interfaces.WcfService.Responses;
+using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.WCFService.ServiceContracts
 {
@@ -25,7 +25,8 @@ namespace PlantDataMVC.WCFService.ServiceContracts
 
         // PUT: api/Plant/5
         [OperationContract]
-        [WebInvoke(Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, UriTemplate = "Item?id={id}")]
+        [WebInvoke(Method = "PUT", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json, UriTemplate = "Item?id={id}")]
         IUpdateResponse<SiteDto> Update(int id, SiteDto item);
 
         // DELETE: api/Plant/5

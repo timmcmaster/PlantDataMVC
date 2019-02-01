@@ -7,13 +7,14 @@ using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.WCFService.Services
 {
-    public class SeedBatchWcfService : WcfService<SeedBatch>,ISeedBatchWcfService
+    public class SeedBatchWcfService : WcfService<SeedBatch>, ISeedBatchWcfService
     {
         //public SeedBatchWcfService(IUnitOfWorkAsync unitOfWork, ISeedBatchService service): base (unitOfWork,service)
         public SeedBatchWcfService(IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
         {
         }
 
+        #region ISeedBatchWcfService Members
         public ICreateResponse<SeedBatchDto> Create(SeedBatchDto item)
         {
             return base.Create<SeedBatchDto, SeedBatchDto>(item);
@@ -38,5 +39,6 @@ namespace PlantDataMVC.WCFService.Services
         {
             return base.View<SeedBatchDto>(id);
         }
+        #endregion
     }
 }

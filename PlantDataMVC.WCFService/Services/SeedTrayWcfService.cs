@@ -14,6 +14,7 @@ namespace PlantDataMVC.WCFService.Services
         {
         }
 
+        #region ISeedTrayWcfService Members
         public ICreateResponse<SeedTrayDto> Create(SeedTrayDto item)
         {
             return base.Create<SeedTrayDto, SeedTrayDto>(item);
@@ -38,5 +39,6 @@ namespace PlantDataMVC.WCFService.Services
         {
             return base.View<SeedTrayDto>(id);
         }
+        #endregion
     }
 }

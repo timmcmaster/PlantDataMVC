@@ -14,6 +14,7 @@ namespace PlantDataMVC.WCFService.Services
         {
         }
 
+        #region IJournalEntryWcfService Members
         public ICreateResponse<JournalEntryDto> Create(JournalEntryDto item)
         {
             return base.Create<JournalEntryDto, JournalEntryDto>(item);
@@ -38,5 +39,6 @@ namespace PlantDataMVC.WCFService.Services
         {
             return base.View<JournalEntryDto>(id);
         }
+        #endregion
     }
 }

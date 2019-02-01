@@ -13,10 +13,7 @@ namespace PlantDataMVC.WCFService.Mappers
             {
                 _configured = true;
 
-                Mapper.Initialize(x =>
-                {
-                    AutoMapperCoreConfiguration.ConfigAction.Invoke(x);
-                });
+                Mapper.Initialize(x => { AutoMapperCoreConfiguration.ConfigAction.Invoke(x); });
             }
         }
     }

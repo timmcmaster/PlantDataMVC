@@ -14,9 +14,10 @@ namespace PlantDataMVC.WCFService.Services
         {
         }
 
+        #region IGenusWcfService Members
         public ICreateResponse<GenusDto> Create(CreateUpdateGenusDto item)
         {
-            return base.Create<CreateUpdateGenusDto,GenusDto>(item);
+            return base.Create<CreateUpdateGenusDto, GenusDto>(item);
         }
 
         public IDeleteResponse<GenusDto> Delete(int id)
@@ -38,5 +39,6 @@ namespace PlantDataMVC.WCFService.Services
         {
             return base.View<GenusDto>(id);
         }
+        #endregion
     }
 }

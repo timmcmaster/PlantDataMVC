@@ -14,6 +14,7 @@ namespace PlantDataMVC.WCFService.Services
         {
         }
 
+        #region ISpeciesWcfService Members
         public ICreateResponse<SpeciesDto> Create(SpeciesDto item)
         {
             return base.Create<SpeciesDto, SpeciesDto>(item);
@@ -38,5 +39,6 @@ namespace PlantDataMVC.WCFService.Services
         {
             return base.View<SpeciesDto>(id);
         }
+        #endregion
     }
 }

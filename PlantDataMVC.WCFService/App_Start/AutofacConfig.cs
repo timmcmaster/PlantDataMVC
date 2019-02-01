@@ -1,20 +1,20 @@
 ﻿using Autofac;
 using Framework.DAL.EF;
 using Interfaces.DAL.DataContext;
-//using Interfaces.DAL.Repository;
 using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Entities.Context;
-//using PlantDataMVC.Entities.Models;
-//using PlantDataMVC.Service;
 using PlantDataMVC.WCFService.ServiceContracts;
 using PlantDataMVC.WCFService.Services;
+//using Interfaces.DAL.Repository;
+//using PlantDataMVC.Entities.Models;
+//using PlantDataMVC.Service;
 
 namespace PlantDataMVC.WCFService
 {
     public class AutofacConfig
     {
         /// <summary>
-        /// Configures and builds Autofac IOC container.
+        ///     Configures and builds Autofac IOC container.
         /// </summary>
         public static IContainer ConfigureContainer()
         {
@@ -78,6 +78,5 @@ namespace PlantDataMVC.WCFService
 
             return builder.Build();
         }
-
     }
 }

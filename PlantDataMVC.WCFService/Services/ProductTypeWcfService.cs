@@ -7,12 +7,14 @@ using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.WCFService.Services
 {
-    public class ProductTypeWcfService : WcfService<ProductType>,IProductTypeWcfService
+    public class ProductTypeWcfService : WcfService<ProductType>, IProductTypeWcfService
     {
         //public ProductTypeWcfService(IUnitOfWorkAsync unitOfWork, IProductTypeService service): base (unitOfWork,service)
         public ProductTypeWcfService(IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
         {
         }
+
+        #region IProductTypeWcfService Members
         public ICreateResponse<ProductTypeDto> Create(ProductTypeDto item)
         {
             return base.Create<ProductTypeDto, ProductTypeDto>(item);
@@ -37,6 +39,6 @@ namespace PlantDataMVC.WCFService.Services
         {
             return base.View<ProductTypeDto>(id);
         }
-
+        #endregion
     }
 }
