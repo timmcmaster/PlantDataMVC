@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Framework.Web.Forms;
-using PlantDataMVC.UI.Helpers.ViewResults;
-using System.Web.Mvc;
+﻿using Framework.Web.Forms;
 using PlantDataMVC.UI.Helpers;
+using PlantDataMVC.UI.Helpers.ViewResults;
+using System;
+using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
@@ -67,37 +66,5 @@ namespace PlantDataMVC.UI.Controllers
             return new ApiListViewPreProcessingViewResult<TElement>((PreProcessingViewResult) viewResult, pagingInfo,
                 sortBy, ascending);
         }
-
-        // GET: /"ControllerName"/Index
-        // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
-        //public abstract Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending);
-
-        //
-        // GET: /"ControllerName"/Show/5
-        //public abstract Task<ActionResult> Show(int id);
-
-        //
-        // Display new model prior to POST
-        //public abstract ActionResult New();
-
-        //
-        // POST: /"ControllerName"/Create
-        //public abstract Task<ActionResult> Create<TForm>(TForm form) where TForm : IForm;
-
-        //
-        // GET: /"ControllerName"/Edit/5
-        //public abstract Task<ActionResult> Edit(int id);
-
-        //
-        // POST: /"ControllerName"/Update/5
-        //public abstract Task<ActionResult> Update<TForm>(TForm form) where TForm : IForm;
-
-        //
-        // GET: /"ControllerName"/Delete/5
-        //public abstract Task<ActionResult> Delete(int id);
-
-        //
-        // POST: /Plant/Delete/5
-        //public abstract ActionResult Destroy<TForm>(TForm form) where TForm : IForm;
     }
 }
