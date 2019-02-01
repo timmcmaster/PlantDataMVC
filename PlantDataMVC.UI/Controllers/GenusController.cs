@@ -36,7 +36,7 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var httpResponse = await _httpClient.GetAsync("api/Genus");
+            var httpResponse = await _httpClient.GetAsync("api/Genus?page = " + localPage + " & pageSize = " + localPageSize);
 
             if (httpResponse.IsSuccessStatusCode)
             {
