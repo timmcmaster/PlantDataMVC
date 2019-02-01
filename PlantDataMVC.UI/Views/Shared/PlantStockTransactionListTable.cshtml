@@ -8,7 +8,7 @@
 }
 <table class="grid">
     <tr>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.PlantStockEntryId)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.PlantStockId)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.TransactionTypeName)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.TransactionDate)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.Quantity)</th>
@@ -20,7 +20,7 @@
 int count = 0;
 foreach (var model in Model) {
     <tr>
-        <td>@Html.ActionLink(model.PlantStockEntryId.ToString(), "Show", "Transaction", new { id = model.Id }, null)</td>
+        <td>@Html.ActionLink(model.Id.ToString(), "Show", "Transaction", new { id = model.Id }, null)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).TransactionTypeName)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).TransactionDate)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).Quantity)</td>

@@ -36,7 +36,7 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var httpResponse = await _httpClient.GetAsync("api/PlantStock&page=" + localPage + "&pageSize=" + localPageSize);
+            var httpResponse = await _httpClient.GetAsync("api/PlantStock?page=" + localPage + "&pageSize=" + localPageSize);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -47,9 +47,9 @@ namespace PlantDataMVC.UI.Controllers
 
                 var model = JsonConvert.DeserializeObject<IEnumerable<PlantStockDto>>(content);
 
-                AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantStockEntryListViewModel>>(View(model));
+                AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantStockListViewModel>>(View(model));
 
-                return ListView<PlantStockEntryListViewModel>(autoMapResult, apiPagingInfo, localSortBy, localAscending);
+                return ListView<PlantStockListViewModel>(autoMapResult, apiPagingInfo, localSortBy, localAscending);
             }
             else
             {
@@ -69,7 +69,27 @@ namespace PlantDataMVC.UI.Controllers
                 var model = JsonConvert.DeserializeObject<PlantStockDto>(content);
 
                 // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<PlantStockEntryShowViewModel>(View(model));
+                return AutoMapView<PlantStockShowViewModel>(View(model));
+            }
+            else
+            {
+                return Content("An error occurred");
+            }
+        }
+
+        //
+        // GET: /"ControllerName"/Details/5
+        public async Task<ActionResult> Details(int id)
+        {
+            var httpResponse = await _httpClient.GetAsync("api/PlantStock/" + id + "?fields=id,speciesId,productTypeId,quantityInStock,journalEntries");
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<PlantStockDto>(content);
+
+                // TODO: check to ensure these DTOs map to view model
+                return AutoMapView<PlantStockDetailsViewModel>(View(model));
             }
             else
             {
@@ -81,7 +101,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/New
         public ActionResult New()
         {
-            var item = new PlantStockEntryNewViewModel();
+            var item = new PlantStockNewViewModel();
             return View(item);
         }
 
@@ -96,13 +116,13 @@ namespace PlantDataMVC.UI.Controllers
             var item = new PlantStockDto {SpeciesId = speciesId};
 
             // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantStockEntryNewViewModel>(View(item));
+            return AutoMapView<PlantStockNewViewModel>(View(item));
         }
 
         //
         // POST: /"ControllerName"/Create
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(PlantStockEntryCreateEditModel form)
+        public async Task<ActionResult> Create(PlantStockCreateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");
 
@@ -121,7 +141,7 @@ namespace PlantDataMVC.UI.Controllers
                 var model = JsonConvert.DeserializeObject<PlantStockDto>(content);
 
                 // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<PlantStockEntryEditViewModel>(View(model));
+                return AutoMapView<PlantStockEditViewModel>(View(model));
             }
             else
             {
@@ -132,7 +152,7 @@ namespace PlantDataMVC.UI.Controllers
         //
         // POST: /"ControllerName"/Update/5
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Update(PlantStockEntryUpdateEditModel form)
+        public async Task<ActionResult> Update(PlantStockUpdateEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Show", new { id = form.Id });
 
@@ -152,7 +172,7 @@ namespace PlantDataMVC.UI.Controllers
                 var model = JsonConvert.DeserializeObject<PlantStockDto>(content);
 
                 // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<PlantStockEntryDeleteViewModel>(View(model));
+                return AutoMapView<PlantStockDeleteViewModel>(View(model));
             }
             else
             {
@@ -163,7 +183,7 @@ namespace PlantDataMVC.UI.Controllers
         //
         // POST: /Plant/Delete/5
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Destroy(PlantStockEntryDestroyEditModel form)
+        public async Task<ActionResult> Destroy(PlantStockDestroyEditModel form)
         {
             RedirectToRouteResult success = RedirectToAction("Index");
 

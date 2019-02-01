@@ -107,16 +107,35 @@ namespace PlantDataMVC.WebApi.Controllers
         {
             try
             {
+                bool includeJournalEntries = false;
                 //var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
                 if (fields != null)
                 {
                     lstOfFields = fields.Split(',').ToList();
-                    //childDtosToInclude = DataShaping.GetIncludedObjectNames<PlantStockDto>(lstOfFields);
+                    var childDtosToInclude = DataShaping.GetIncludedObjectNames<PlantStockDto>(lstOfFields); // needed if using projectTo
+                    includeJournalEntries = childDtosToInclude.Contains("JournalEntries");
                 }
 
-                var item = _service.GetItemById(id);
+                PlantStock item = null;
+                if (includeJournalEntries)
+                {
+                    try
+                    {
+                        item = _service.Query(s => s.Id == id).Include(p => p.JournalEntries).Select().Single();
+                    }
+                    catch (InvalidOperationException) // thrown by single if more than one element, no elements, or empty list
+                    {
+                        // treat as a not found result
+                        item = null;
+                    }
+
+                }
+                else
+                {
+                    item = _service.GetItemById(id);
+                }
 
                 if (item == null)
                 {
@@ -127,7 +146,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return InternalServerError();
             }

@@ -26,7 +26,7 @@ namespace PlantDataMVC.UI.Mappers
             ConfigurePlantViewModels();
             ConfigurePlantSeedViewModels();
             ConfigurePlantSeedTrayViewModels();
-            ConfigurePlantStockEntryViewModels();
+            ConfigurePlantStockViewModels();
             ConfigurePlantStockTransactionViewModels();
             ConfigurePlantSeedSiteViewModels();
         }
@@ -190,10 +190,10 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.Suburb, opt => opt.MapFrom(dto => dto.Suburb));
         }
 
-        private void ConfigurePlantStockEntryViewModels()
+        private void ConfigurePlantStockViewModels()
         {
             // PlantStockDTO
-            CreateMap<PlantStockDto, PlantStockEntryDeleteViewModel>()
+            CreateMap<PlantStockDto, PlantStockDeleteViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
@@ -201,7 +201,7 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
                 // TODO: What about ProductTypeId from dto?
 
-            CreateMap<PlantStockDto, PlantStockEntryEditViewModel>()
+            CreateMap<PlantStockDto, PlantStockEditViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.ProductType, opt => opt.Ignore())         // TODO: Fix this
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
@@ -209,7 +209,7 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
                 // TODO: What about ProductTypeId from dto?
 
-            CreateMap<PlantStockDto, PlantStockEntryListViewModel>()
+            CreateMap<PlantStockDto, PlantStockListViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
@@ -217,20 +217,31 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
             // TODO: What about ProductTypeId from dto?
 
-            CreateMap<PlantStockDto, PlantStockEntryNewViewModel>()
+            CreateMap<PlantStockDto, PlantStockNewViewModel>()
                 .ForMember(uio => uio.PlantSpecies, opt => opt.Ignore())    // don't need to map species up for new stock (TODO: Confirm)
                 .ForMember(uio => uio.ProductType, opt => opt.Ignore())   // TODO: Fix this
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock));
                 // TODO: What about SpeciesId from dto?
                 // TODO: What about ProductTypeId from dto?
 
-            CreateMap<PlantStockDto, PlantStockEntryShowViewModel>()
+            CreateMap<PlantStockDto, PlantStockShowViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
                 .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
-                // TODO: What about ProductTypeId from dto?
+            // TODO: What about ProductTypeId from dto?
+
+            // PlantStockDetailsViewModel
+            CreateMap<PlantStockDto, PlantStockDetailsViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
+                .ForMember(uio => uio.Transactions, opt => opt.MapFrom(dto => dto.JournalEntries))
+                ;
+
         }
 
         private void ConfigurePlantStockTransactionViewModels()
@@ -239,7 +250,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<JournalEntryDto, PlantStockTransactionDeleteViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
-                .ForMember(uio => uio.PlantStockEntryId, opt => opt.MapFrom(dto => dto.PlantStockId))
+                .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dto => dto.Quantity))
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dto => dto.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
@@ -249,7 +260,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<JournalEntryDto, PlantStockTransactionEditViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
-                .ForMember(uio => uio.PlantStockEntryId, opt => opt.MapFrom(dto => dto.PlantStockId))
+                .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dto => dto.Quantity))
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dto => dto.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
@@ -258,14 +269,14 @@ namespace PlantDataMVC.UI.Mappers
 
             CreateMap<JournalEntryDto, PlantStockTransactionListViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
-                .ForMember(uio => uio.PlantStockEntryId, opt => opt.MapFrom(dto => dto.PlantStockId))
+                .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dto => dto.Quantity))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
                 .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"));   // TODO: Fix this
 
             CreateMap<JournalEntryDto, PlantStockTransactionNewViewModel>()
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
-                .ForMember(uio => uio.PlantStockEntryId, opt => opt.MapFrom(dto => dto.PlantStockId))
+                .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dto => dto.Quantity))
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dto => dto.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
@@ -275,7 +286,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<JournalEntryDto, PlantStockTransactionShowViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
-                .ForMember(uio => uio.PlantStockEntryId, opt => opt.MapFrom(dto => dto.PlantStockId))
+                .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dto => dto.Quantity))
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dto => dto.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))

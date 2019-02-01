@@ -7,7 +7,7 @@ namespace PlantDataMVC.UI.Models.EditModels
     public class PlantStockTransactionUpdateEditModel : IForm
     {
         public int Id { get; set; }
-        public int PlantStockEntryId { get; set; }
+        public int PlantStockId { get; set; }
         public JournalEntryTypeDto TransactionType { get; set; }
         public DateTime TransactionDate { get; set; }
         public int Quantity { get; set; }

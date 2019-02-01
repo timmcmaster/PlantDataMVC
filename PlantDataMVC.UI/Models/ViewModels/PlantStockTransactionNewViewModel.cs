@@ -6,8 +6,8 @@ namespace PlantDataMVC.UI.Models.ViewModels
 {
     public class PlantStockTransactionNewViewModel
     {
-        [Display(Name = "Plant Stock Entry Id")]
-        public int PlantStockEntryId { get; set; }
+        [Display(Name = "Plant Stock Id")]
+        public int PlantStockId { get; set; }
 
         [Display(Name = "Transaction Type")]
         public JournalEntryTypeDto TransactionType { get; set; }

@@ -1,4 +1,4 @@
-﻿@model PlantDataMVC.UI.Models.ViewModels.PlantStockEntryShowViewModel
+﻿@model PlantDataMVC.UI.Models.ViewModels.PlantStockShowViewModel
 
 @{
     ViewBag.Title = "Show";
@@ -9,11 +9,11 @@
 <fieldset>
     <legend>Plant Stock</legend>
 
-    @Html.DisplayForModel()
+    @Html.DisplayForModel()S
 
     @*<div class="display-label">@Html.LabelFor(model => model.Transactions)</div>*@
     @*<div class="child-table">@Html.Partial("PlantStockTransactionListTable", Model.Transactions)</div>*@
-    @*<div class="button">@Html.ActionLink("New", "New", "Transaction", new { plantStockEntryId = Model.Id }, null)</div>*@
+    @*<div class="button">@Html.ActionLink("New", "New", "Transaction", new { plantStockId = Model.Id }, null)</div>*@
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |

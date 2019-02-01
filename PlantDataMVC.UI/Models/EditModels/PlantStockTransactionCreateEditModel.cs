@@ -6,7 +6,7 @@ namespace PlantDataMVC.UI.Models.EditModels
 {
     public class PlantStockTransactionCreateEditModel : IForm
     {
-        public int PlantStockEntryId { get; set; }
+        public int PlantStockId { get; set; }
         public JournalEntryTypeDto TransactionType { get; set; }
         public DateTime TransactionDate { get; set; }
         public int Quantity { get; set; }

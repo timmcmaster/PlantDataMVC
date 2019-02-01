@@ -8,20 +8,20 @@ using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
-    public class PlantStockEntryCreateEditModelFormHandler : IFormHandler<PlantStockEntryCreateEditModel>
+    public class PlantStockCreateEditModelFormHandler : IFormHandler<PlantStockCreateEditModel>
     {
         private readonly IPlantStockWcfService _dataService;
 
-        public PlantStockEntryCreateEditModelFormHandler(IPlantStockWcfService dataService)
+        public PlantStockCreateEditModelFormHandler(IPlantStockWcfService dataService)
         {
             _dataService = dataService;
         }
 
-        public async Task<bool> HandleAsync(PlantStockEntryCreateEditModel form)
+        public async Task<bool> HandleAsync(PlantStockCreateEditModel form)
         {
             // Map local model to DTO
             // TODO: Check map exists
-            PlantStockDto item = AutoMapper.Mapper.Map<PlantStockEntryCreateEditModel, PlantStockDto>(form);
+            PlantStockDto item = AutoMapper.Mapper.Map<PlantStockCreateEditModel, PlantStockDto>(form);
 
             ICreateResponse<PlantStockDto> response = _dataService.Create(item);
             return (response.Status == ServiceActionStatus.Created);

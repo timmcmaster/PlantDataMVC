@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class PlantStockEntryDeleteViewModel
+    public class PlantStockDeleteViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }

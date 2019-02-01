@@ -8,16 +8,16 @@ using PlantDataMVC.WCFService.ServiceContracts;
 
 namespace PlantDataMVC.UI.Forms.Handlers
 {
-    public class PlantStockEntryDestroyEditModelFormHandler : IFormHandler<PlantStockEntryDestroyEditModel>
+    public class PlantStockDestroyEditModelFormHandler : IFormHandler<PlantStockDestroyEditModel>
     {
         private readonly IPlantStockWcfService _dataService;
 
-        public PlantStockEntryDestroyEditModelFormHandler(IPlantStockWcfService dataService)
+        public PlantStockDestroyEditModelFormHandler(IPlantStockWcfService dataService)
         {
             _dataService = dataService;
         }
 
-        public async Task<bool> HandleAsync(PlantStockEntryDestroyEditModel form)
+        public async Task<bool> HandleAsync(PlantStockDestroyEditModel form)
         {
             IDeleteResponse<PlantStockDto> response = _dataService.Delete(form.Id);
             return (response.Status == ServiceActionStatus.Deleted);

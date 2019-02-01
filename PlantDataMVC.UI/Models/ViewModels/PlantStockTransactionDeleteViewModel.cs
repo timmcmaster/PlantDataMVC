@@ -10,7 +10,7 @@ namespace PlantDataMVC.UI.Models.ViewModels
         public int Id { get; set; }
 
         [Display(Name = "Plant Stock Entry Id")]
-        public int PlantStockEntryId { get; set; }
+        public int PlantStockId { get; set; }
 
         [Display(Name = "Transaction Type")]
         public string TransactionTypeName { get; set; }

@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class PlantStockEntryEditViewModel
+    public class PlantStockDetailsViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
@@ -16,15 +16,12 @@ namespace PlantDataMVC.UI.Models.ViewModels
         public string SpeciesBinomial { get; private set; }
 
         [Display(Name = "Product Type")]
-        public ProductTypeDto ProductType { get; set; }
+        public string ProductTypeName { get; set; }
 
-        [Display(Name = "Quantity In Stock"),  Editable(false)]
+        [Display(Name = "Quantity In Stock")]
         public int QuantityInStock { get; set; }
 
-
-        public PlantStockEntryEditViewModel()
-        {
-            ProductType = new ProductTypeDto();
-        }
+        [Display(Name = "Transactions")]
+        public IList<PlantStockTransactionListViewModel> Transactions { get; set; }
     }
 }
