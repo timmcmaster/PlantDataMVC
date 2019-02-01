@@ -92,6 +92,8 @@
     <Build Include="dbo\Stored Procedures\InsertSpecies.sql" />
     <Build Include="dbo\Stored Procedures\InsertTubeInfo.sql" />
     <Build Include="dbo\Stored Procedures\UpdateSpecies.sql" />
+    <None Include="AdminOnlyDataLoad.sql" />
+    <None Include="DbDelete.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FullDataLoad.sql" />
