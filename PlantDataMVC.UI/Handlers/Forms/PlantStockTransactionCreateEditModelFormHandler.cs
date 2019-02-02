@@ -1,21 +1,21 @@
-﻿using Framework.Web.Forms;
+﻿using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Framework.Web.Forms;
 using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PlantDataMVC.UI.Forms.Handlers
+namespace PlantDataMVC.UI.Handlers.Forms
 {
     public class PlantStockTransactionCreateEditModelFormHandler : IFormHandler<PlantStockTransactionCreateEditModel>
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public PlantStockTransactionCreateEditModelFormHandler()
+        public PlantStockTransactionCreateEditModelFormHandler(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = PlantDataApiHttpClient.GetClient();
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<bool> HandleAsync(PlantStockTransactionCreateEditModel form)
@@ -28,7 +28,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
-                var httpResponse = await _httpClient.PostAsync("api/JournalEntries/", content);
+                var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+                // todo: if not null client
+                var httpResponse = await httpClient.PostAsync("api/JournalEntries/", content);
 
                 return httpResponse.IsSuccessStatusCode;
             }

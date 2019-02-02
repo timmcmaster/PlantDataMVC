@@ -1,25 +1,27 @@
 ﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Framework.Web.Forms;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using System.Threading.Tasks;
 
-namespace PlantDataMVC.UI.Forms.Handlers
+namespace PlantDataMVC.UI.Handlers.Forms
 {
     public class PlantDestroyEditModelFormHandler : IFormHandler<PlantDestroyEditModel>
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public PlantDestroyEditModelFormHandler()
+        public PlantDestroyEditModelFormHandler(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = PlantDataApiHttpClient.GetClient();
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<bool> HandleAsync(PlantDestroyEditModel form)
         {
             try
             {
-                var httpResponse = await _httpClient.DeleteAsync("api/Species/" + form.Id);
+                var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+                // todo: if not null client
+                var httpResponse = await httpClient.DeleteAsync("api/Species/" + form.Id);
 
                 return httpResponse.IsSuccessStatusCode;
             }

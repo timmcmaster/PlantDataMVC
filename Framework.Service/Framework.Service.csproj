@@ -55,10 +55,6 @@
       <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>
       <Name>Interfaces.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.WCFService\Interfaces.WcfService.csproj">
-      <Project>{F41337B3-BC5A-4E28-9DD0-6296DF9C6203}</Project>
-      <Name>Interfaces.WcfService</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,16 +14,16 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class PlantStockController : DefaultController
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public PlantStockController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
-        {
-        }
+        //public PlantStockController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
+        //{
+        //}
 
         // Allow passing in HttpClient for unit tests
-        public PlantStockController(HttpClient httpClient, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public PlantStockController(IHttpClientFactory httpClientFactory, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
         // GET: /"ControllerName"/Index
@@ -36,7 +36,9 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var httpResponse = await _httpClient.GetAsync("api/PlantStock?page=" + localPage + "&pageSize=" + localPageSize);
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            // todo: if not null client
+            var httpResponse = await httpClient.GetAsync("api/PlantStock?page=" + localPage + "&pageSize=" + localPageSize);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -61,7 +63,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var httpResponse = await _httpClient.GetAsync("api/PlantStock/" + id);
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            // todo: if not null client
+            var httpResponse = await httpClient.GetAsync("api/PlantStock/" + id);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -81,7 +85,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var httpResponse = await _httpClient.GetAsync("api/PlantStock/" + id + "?fields=id,speciesId,productTypeId,quantityInStock,journalEntries");
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            // todo: if not null client
+            var httpResponse = await httpClient.GetAsync("api/PlantStock/" + id + "?fields=id,speciesId,productTypeId,quantityInStock,journalEntries");
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -133,7 +139,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var httpResponse = await _httpClient.GetAsync("api/PlantStock/" + id);
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            // todo: if not null client
+            var httpResponse = await httpClient.GetAsync("api/PlantStock/" + id);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -164,7 +172,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var httpResponse = await _httpClient.GetAsync("api/PlantStock/" + id);
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            // todo: if not null client
+            var httpResponse = await httpClient.GetAsync("api/PlantStock/" + id);
 
             if (httpResponse.IsSuccessStatusCode)
             {

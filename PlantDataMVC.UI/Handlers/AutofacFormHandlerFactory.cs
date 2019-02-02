@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Framework.Web.Forms;
 
-namespace PlantDataMVC.UI.Forms
+namespace PlantDataMVC.UI.Handlers
 {
     /// <summary>
     /// TODO: I don't think this class is actually necessary.

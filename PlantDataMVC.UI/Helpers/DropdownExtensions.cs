@@ -1,6 +1,4 @@
 ﻿using Interfaces.DTO;
-using Interfaces.WcfService;
-using PlantDataMVC.WCFService.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

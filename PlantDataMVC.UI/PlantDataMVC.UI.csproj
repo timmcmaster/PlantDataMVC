@@ -202,32 +202,32 @@
     <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
     <Compile Include="Controllers\GenusController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
-    <Compile Include="Forms\AutofacFormHandlerFactory.cs" />
-    <Compile Include="Forms\Handlers\GenusCreateEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\GenusDestroyEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\GenusUpdateEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\SiteCreateEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\SiteDestroyEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\SiteUpdateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\AutofacFormHandlerFactory.cs" />
+    <Compile Include="Handlers\Forms\GenusCreateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\GenusDestroyEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\GenusUpdateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\SiteCreateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\SiteDestroyEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\SiteUpdateEditModelFormHandler.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\ApiPagingInfo.cs" />
     <Compile Include="Helpers\DropDownExtensions.cs" />
     <Compile Include="Helpers\HeaderParser.cs" />
+    <Compile Include="Helpers\HttpClientFactory.cs" />
     <Compile Include="Helpers\LinkHeader.cs" />
-    <Compile Include="Helpers\PlantDataApiHttpClient.cs" />
     <Compile Include="Helpers\MenuExtensions.cs" />
-    <Compile Include="Forms\Handlers\PlantStockTransactionCreateEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\PlantStockTransactionDestroyEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\PlantStockTransactionUpdateEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\TrayCreateEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\TrayDestroyEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\TrayUpdateEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\PlantStockCreateEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\PlantStockDestroyEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\PlantStockUpdateEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\PlantSeedCreateEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\PlantSeedDestroyEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\PlantSeedUpdateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantStockTransactionCreateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantStockTransactionDestroyEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantStockTransactionUpdateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\TrayCreateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\TrayDestroyEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\TrayUpdateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantStockCreateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantStockDestroyEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantStockUpdateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantSeedCreateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantSeedDestroyEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantSeedUpdateEditModelFormHandler.cs" />
     <Compile Include="Helpers\ViewResults\AutoMapPreProcessingViewResult.cs" />
     <Compile Include="Helpers\ViewResults\ApiListViewPreProcessingViewResult.cs" />
     <Compile Include="Helpers\ViewResults\ListViewPreProcessingViewResult.cs" />
@@ -289,9 +289,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Handlers\PlantDestroyEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\PlantUpdateEditModelFormHandler.cs" />
-    <Compile Include="Forms\Handlers\PlantCreateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantDestroyEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantUpdateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\PlantCreateEditModelFormHandler.cs" />
     <Compile Include="Mappers\AutoMapperBootstrapper.cs" />
     <Compile Include="Models\EditModels\PlantDestroyEditModel.cs" />
     <Compile Include="Models\EditModels\PlantCreateEditModel.cs" />
@@ -451,10 +451,6 @@
       <Project>{f826fc20-06ce-4415-bff1-7a0c44eb0e07}</Project>
       <Name>Interfaces.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.WCFService\Interfaces.WcfService.csproj">
-      <Project>{f41337b3-bc5a-4e28-9dd0-6296df9c6203}</Project>
-      <Name>Interfaces.WcfService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj">
       <Project>{21BCD4E8-47A5-4ED3-A832-C9E0659B9B86}</Project>
       <Name>PlantDataMVC.DTO</Name>
@@ -466,10 +462,6 @@
     <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj">
       <Project>{FE02E501-BD2C-4E07-9D83-1FD448AE476F}</Project>
       <Name>PlantDataMVC.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.WCFService\PlantDataMVC.WCFService.csproj">
-      <Project>{550D9A0C-2D6A-46FD-9400-AA722D455F7A}</Project>
-      <Name>PlantDataMVC.WCFService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

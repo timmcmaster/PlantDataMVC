@@ -1,21 +1,21 @@
-﻿using Framework.Web.Forms;
+﻿using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Framework.Web.Forms;
 using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PlantDataMVC.UI.Forms.Handlers
+namespace PlantDataMVC.UI.Handlers.Forms
 {
     public class GenusCreateEditModelFormHandler : IFormHandler<GenusCreateEditModel>
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public GenusCreateEditModelFormHandler()
+        public GenusCreateEditModelFormHandler(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = PlantDataApiHttpClient.GetClient();
+            _httpClientFactory = httpClientFactory;
         }
 
         // TODO: Look into how we might mock HttpClient for unit tests 
@@ -29,7 +29,9 @@ namespace PlantDataMVC.UI.Forms.Handlers
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
-                var httpResponse = await _httpClient.PostAsync("api/Genus/", content);
+                var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+                // todo: if not null client
+                var httpResponse = await httpClient.PostAsync("api/Genus/", content);
 
                 return httpResponse.IsSuccessStatusCode;
             }

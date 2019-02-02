@@ -15,16 +15,16 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class PlantController : DefaultController
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public PlantController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
-        {
-        }
+        //public PlantController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
+        //{
+        //}
 
         // Allow passing in HttpClient for unit tests
-        public PlantController(HttpClient httpClient, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public PlantController(IHttpClientFactory httpClientFactory, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
         // GET: /"ControllerName"/Index
@@ -37,9 +37,11 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            // todo: if not null client
             // Initialise with default sort
             // TODO: really want to sort by genus name and species name (if showing details by plant)
-            var httpResponse = await _httpClient.GetAsync("api/Species?sort=genusId,specificName&page=" + localPage + "&pageSize=" + localPageSize);
+            var httpResponse = await httpClient.GetAsync("api/Species?sort=genusId,specificName&page=" + localPage + "&pageSize=" + localPageSize);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -64,7 +66,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var httpResponse = await _httpClient.GetAsync("api/Species/" + id );
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            // todo: if not null client
+            var httpResponse = await httpClient.GetAsync("api/Species/" + id );
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -102,7 +106,9 @@ namespace PlantDataMVC.UI.Controllers
         // Display prior to POST via Update 
         public async Task<ActionResult> Edit(int id)
         {
-            var httpResponse = await _httpClient.GetAsync("api/Species/" + id);
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            // todo: if not null client
+            var httpResponse = await httpClient.GetAsync("api/Species/" + id);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -132,7 +138,9 @@ namespace PlantDataMVC.UI.Controllers
         // Display prior to DELETE via Destroy method 
         public async Task<ActionResult> Delete(int id)
         {
-            var httpResponse = await _httpClient.GetAsync("api/Species/" + id);
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            // todo: if not null client
+            var httpResponse = await httpClient.GetAsync("api/Species/" + id);
 
             if (httpResponse.IsSuccessStatusCode)
             {

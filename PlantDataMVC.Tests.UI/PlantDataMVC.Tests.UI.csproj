@@ -181,10 +181,6 @@
       <Project>{fb582d72-f66a-4153-bb91-a4f339ed1795}</Project>
       <Name>Framework.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework.WcfService\Framework.WcfService.csproj">
-      <Project>{8654CD37-2183-4CDA-AE73-6D3415EB6D55}</Project>
-      <Name>Framework.WcfService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Framework.Web\Framework.Web.csproj">
       <Project>{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}</Project>
       <Name>Framework.Web</Name>
@@ -192,10 +188,6 @@
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
       <Project>{F826FC20-06CE-4415-BFF1-7A0C44EB0E07}</Project>
       <Name>Interfaces.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Interfaces.WCFService\Interfaces.WcfService.csproj">
-      <Project>{F41337B3-BC5A-4E28-9DD0-6296DF9C6203}</Project>
-      <Name>Interfaces.WcfService</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj">
       <Project>{21BCD4E8-47A5-4ED3-A832-C9E0659B9B86}</Project>
@@ -208,10 +200,6 @@
     <ProjectReference Include="..\PlantDataMVC.UI\PlantDataMVC.UI.csproj">
       <Project>{be083dac-46de-46b3-bbb1-81381f94f40c}</Project>
       <Name>PlantDataMVC.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlantDataMVC.WCFService\PlantDataMVC.WCFService.csproj">
-      <Project>{550D9A0C-2D6A-46FD-9400-AA722D455F7A}</Project>
-      <Name>PlantDataMVC.WCFService</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitTest.Utils\UnitTest.Utils.csproj">
       <Project>{1A3A2975-AB2E-468B-914C-27D87A9E3804}</Project>

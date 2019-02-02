@@ -12,16 +12,16 @@ namespace PlantDataMVC.UI.Controllers
 {
     public class TransactionController : DefaultController
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public TransactionController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
-        {
-        }
+        //public TransactionController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
+        //{
+        //}
 
         // Allow passing in HttpClient for unit tests
-        public TransactionController(HttpClient httpClient, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public TransactionController(IHttpClientFactory httpClientFactory, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
         /*
@@ -106,7 +106,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var httpResponse = await _httpClient.GetAsync("api/JournalEntries/" + id);
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            // todo: if not null client
+            var httpResponse = await httpClient.GetAsync("api/JournalEntries/" + id);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -136,7 +138,9 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var httpResponse = await _httpClient.GetAsync("api/JournalEntries/" + id);
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            // todo: if not null client
+            var httpResponse = await httpClient.GetAsync("api/JournalEntries/" + id);
 
             if (httpResponse.IsSuccessStatusCode)
             {
