@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using Framework.Web.Views;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class TrayShowViewModel
+    public class TrayShowViewModel : IViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }

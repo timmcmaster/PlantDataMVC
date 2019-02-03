@@ -1,29 +1,21 @@
 ﻿using Framework.Web.Forms;
-using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Helpers;
-using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using AutoMapper;
+using Framework.Web;
+using Framework.Web.Views;
+using PlantDataMVC.UI.Controllers.Queries;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class PlantStockController : DefaultController
+    public class PlantStockController : ViewFormControllerBase
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        //public PlantStockController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
-        //{
-        //}
-
-        // Allow passing in HttpClient for unit tests
-        public PlantStockController(IHttpClientFactory httpClientFactory, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public PlantStockController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(viewHandlerFactory,formHandlerFactory)
         {
-            _httpClientFactory = httpClientFactory;
         }
 
         // GET: /"ControllerName"/Index
@@ -36,26 +28,17 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/PlantStock?page=" + localPage + "&pageSize=" + localPageSize);
+            var query = new IndexQuery(localPage, localPageSize);
+            var handler = _viewHandlerFactory.Create<ListViewModelStatic<PlantStockListViewModel>, IndexQuery>();
+            var model = await handler.HandleAsync(query);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-
-                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
-
-                var model = JsonConvert.DeserializeObject<IEnumerable<PlantStockDto>>(content);
-
-                AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantStockListViewModel>>(View(model));
-
-                return ListView<PlantStockListViewModel>(autoMapResult, apiPagingInfo, localSortBy, localAscending);
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -63,21 +46,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/PlantStock/" + id);
+            var handler = _viewHandlerFactory.Create<PlantStockShowViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<PlantStockDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<PlantStockShowViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -85,21 +63,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/PlantStock/" + id + "?fields=id,speciesId,productTypeId,quantityInStock,journalEntries");
+            var handler = _viewHandlerFactory.Create<PlantStockDetailsViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<PlantStockDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<PlantStockDetailsViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -122,7 +95,8 @@ namespace PlantDataMVC.UI.Controllers
             var item = new PlantStockDto {SpeciesId = speciesId};
 
             // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantStockNewViewModel>(View(item));
+            var model = Mapper.Map<PlantStockDto, PlantStockNewViewModel>(item);
+            return View(model);
         }
 
         //
@@ -139,21 +113,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/PlantStock/" + id);
+            var handler = _viewHandlerFactory.Create<PlantStockEditViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<PlantStockDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<PlantStockEditViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -172,21 +141,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/PlantStock/" + id);
+            var handler = _viewHandlerFactory.Create<PlantStockDeleteViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<PlantStockDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<PlantStockDeleteViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 

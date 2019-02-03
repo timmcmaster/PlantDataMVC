@@ -1,29 +1,21 @@
 ﻿using Framework.Web.Forms;
-using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Helpers;
-using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using AutoMapper;
+using Framework.Web;
+using Framework.Web.Views;
+using PlantDataMVC.UI.Controllers.Queries;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class SeedController : DefaultController
+    public class SeedController : ViewFormControllerBase
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        //public SeedController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
-        //{
-        //}
-
-        // Allow passing in HttpClient for unit tests
-        public SeedController(IHttpClientFactory httpClientFactory, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public SeedController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(viewHandlerFactory, formHandlerFactory)
         {
-            _httpClientFactory = httpClientFactory;
         }
 
         // GET: /"ControllerName"/Index
@@ -36,26 +28,17 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/SeedBatch?page=" + localPage + "&pageSize=" + localPageSize);
+            var query = new IndexQuery(localPage, localPageSize);
+            var handler = _viewHandlerFactory.Create<ListViewModelStatic<PlantSeedListViewModel>, IndexQuery>();
+            var model = await handler.HandleAsync(query);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-
-                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
-
-                var model = JsonConvert.DeserializeObject<IEnumerable<SeedBatchDto>>(content);
-
-                AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<PlantSeedListViewModel>>(View(model));
-
-                return ListView<PlantSeedListViewModel>(autoMapResult, apiPagingInfo, localSortBy, localAscending);
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -63,21 +46,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/SeedBatch/" + id);
+            var handler = _viewHandlerFactory.Create<PlantSeedShowViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<SeedBatchDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<PlantSeedShowViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -100,7 +78,8 @@ namespace PlantDataMVC.UI.Controllers
             var item = new SeedBatchDto {SpeciesId = speciesId};
 
             // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<PlantSeedNewViewModel>(View(item));
+            var model = Mapper.Map<SeedBatchDto, PlantSeedNewViewModel>(item);
+            return View(model);
         }
 
         //
@@ -117,21 +96,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/SeedBatch/" + id);
+            var handler = _viewHandlerFactory.Create<PlantSeedEditViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<SeedBatchDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<PlantSeedEditViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -149,21 +123,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/SeedBatch/" + id);
+            var handler = _viewHandlerFactory.Create<PlantSeedDeleteViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<SeedBatchDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<PlantSeedDeleteViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 

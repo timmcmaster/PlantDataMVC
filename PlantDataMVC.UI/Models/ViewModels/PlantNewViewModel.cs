@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Framework.Web.Views;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class PlantNewViewModel
+    public class PlantNewViewModel : IViewModel
     {
         [Required, StringLength(30), DataType("CustomString")]
         public string Genus { get; set; }

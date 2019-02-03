@@ -71,6 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\IViewQuery.cs" />
+    <Compile Include="ViewFormControllerBase.cs" />
     <Compile Include="Forms\FormControllerBase.cs" />
     <Compile Include="Forms\IForm.cs" />
     <Compile Include="Forms\IFormHandler.cs" />
@@ -88,6 +90,9 @@
     <Compile Include="Mvc\Sorting\SortableList.cs" />
     <Compile Include="Mvc\Sorting\SortingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\IViewHandlerFactory.cs" />
+    <Compile Include="Views\IViewHandler.cs" />
+    <Compile Include="Views\IViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

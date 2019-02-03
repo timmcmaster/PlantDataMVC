@@ -104,17 +104,8 @@
       <HintPath>..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="MiniProfiler, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
-      <HintPath>..\packages\MiniProfiler.4.0.138\lib\net461\MiniProfiler.dll</HintPath>
-    </Reference>
-    <Reference Include="MiniProfiler.Shared, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
-      <HintPath>..\packages\MiniProfiler.Shared.4.0.138\lib\net461\MiniProfiler.Shared.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -144,6 +135,7 @@
     <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
@@ -201,7 +193,11 @@
     <Compile Include="Areas\Security\Models\AccountModels.cs" />
     <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
     <Compile Include="Controllers\GenusController.cs" />
+    <Compile Include="Controllers\Queries\IndexQuery.cs" />
+    <Compile Include="Controllers\Queries\ShowQuery.cs" />
+    <Compile Include="Handlers\Views\GenusEditViewModelHandler.cs" />
     <Compile Include="Controllers\SiteController.cs" />
+    <Compile Include="Handlers\AutofacViewHandlerFactory.cs" />
     <Compile Include="Handlers\AutofacFormHandlerFactory.cs" />
     <Compile Include="Handlers\Forms\GenusCreateEditModelFormHandler.cs" />
     <Compile Include="Handlers\Forms\GenusDestroyEditModelFormHandler.cs" />
@@ -210,6 +206,33 @@
     <Compile Include="Handlers\Forms\SiteDestroyEditModelFormHandler.cs" />
     <Compile Include="Handlers\Forms\SiteUpdateEditModelFormHandler.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
+    <Compile Include="Handlers\Views\GenusDeleteViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\GenusListViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\GenusShowViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantDeleteViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantEditViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantListViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantSeedEditViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantSeedListViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantSeedShowViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantShowViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantStockDeleteViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantStockDetailsViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantStockEditViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantStockListViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantStockShowViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantSeedDeleteViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantStockTransactionDeleteViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantStockTransactionEditViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantStockTransactionListViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\SiteDeleteViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\SiteEditViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\SiteListViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\SiteShowViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\TrayDeleteViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\TrayEditViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\TrayListViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\TrayShowViewModelHandler.cs" />
     <Compile Include="Helpers\ApiPagingInfo.cs" />
     <Compile Include="Helpers\DropDownExtensions.cs" />
     <Compile Include="Helpers\HeaderParser.cs" />
@@ -228,10 +251,6 @@
     <Compile Include="Handlers\Forms\PlantSeedCreateEditModelFormHandler.cs" />
     <Compile Include="Handlers\Forms\PlantSeedDestroyEditModelFormHandler.cs" />
     <Compile Include="Handlers\Forms\PlantSeedUpdateEditModelFormHandler.cs" />
-    <Compile Include="Helpers\ViewResults\AutoMapPreProcessingViewResult.cs" />
-    <Compile Include="Helpers\ViewResults\ApiListViewPreProcessingViewResult.cs" />
-    <Compile Include="Helpers\ViewResults\ListViewPreProcessingViewResult.cs" />
-    <Compile Include="Helpers\ViewResults\PreProcessingViewResult.cs" />
     <Compile Include="Mappers\AutoMapperWebConfiguration.cs" />
     <Compile Include="Mappers\DtoToUiMappingProfile.cs" />
     <Compile Include="Mappers\UiToDtoMappingProfile.cs" />
@@ -277,7 +296,6 @@
     <Compile Include="Models\EditModels\PlantStockUpdateEditModel.cs" />
     <Compile Include="Models\ViewModels\PlantStockNewViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantStockShowViewModel.cs" />
-    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Models\ViewModels\TrayEditViewModel.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\PlantStockController.cs" />

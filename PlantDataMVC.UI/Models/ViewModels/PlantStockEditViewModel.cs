@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using Framework.Web.Views;
 using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class PlantStockEditViewModel
+    public class PlantStockEditViewModel : IViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }

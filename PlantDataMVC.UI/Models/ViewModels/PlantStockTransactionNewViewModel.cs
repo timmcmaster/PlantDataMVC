@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Framework.Web.Views;
 using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class PlantStockTransactionNewViewModel
+    public class PlantStockTransactionNewViewModel : IViewModel
     {
         [Display(Name = "Plant Stock Id")]
         public int PlantStockId { get; set; }

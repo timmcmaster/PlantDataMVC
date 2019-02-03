@@ -18,7 +18,6 @@ namespace PlantDataMVC.UI.Handlers.Forms
             _httpClientFactory = httpClientFactory;
         }
 
-        // TODO: Look into how we might mock HttpClient for unit tests 
         public async Task<bool> HandleAsync(GenusCreateEditModel form)
         {
             try

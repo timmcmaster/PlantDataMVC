@@ -1,9 +1,10 @@
 ﻿using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using Framework.Web.Views;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class GenusListViewModel
+    public class GenusListViewModel : IViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }

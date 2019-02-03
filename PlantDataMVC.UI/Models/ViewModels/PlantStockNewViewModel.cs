@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Framework.Web.Views;
 using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class PlantStockNewViewModel
+    public class PlantStockNewViewModel : IViewModel
     {
         [Display(Name = "Species Name")]
         public SpeciesDto PlantSpecies { get; set; }

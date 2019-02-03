@@ -1,29 +1,18 @@
 ﻿using Framework.Web.Forms;
-using Newtonsoft.Json;
-using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.UI.Helpers;
-using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Framework.Web;
+using Framework.Web.Views;
+using PlantDataMVC.UI.Controllers.Queries;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class SiteController : DefaultController
+    public class SiteController : ViewFormControllerBase
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        //public SiteController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
-        //{
-        //}
-
-        public SiteController(IHttpClientFactory httpClientFactory, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public SiteController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(viewHandlerFactory, formHandlerFactory)
         {
-            // use passed in service
-            _httpClientFactory = httpClientFactory;
         }
 
         // GET: /"ControllerName"/Index
@@ -36,26 +25,17 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/Site?page=" + localPage + "&pageSize=" + localPageSize);
+            var query = new IndexQuery(localPage, localPageSize);
+            var handler = _viewHandlerFactory.Create<ListViewModelStatic<SiteListViewModel>, IndexQuery>();
+            var model = await handler.HandleAsync(query);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-
-                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
-
-                var model = JsonConvert.DeserializeObject<IEnumerable<SiteDto>>(content);
-
-                AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<SiteListViewModel>>(View(model));
-
-                return ListView<SiteListViewModel>(autoMapResult, apiPagingInfo, localSortBy, localAscending);
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -63,21 +43,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/Site/" + id);
+            var handler = _viewHandlerFactory.Create<SiteShowViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<SiteDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<SiteShowViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -103,21 +78,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/Site/" + id);
+            var handler = _viewHandlerFactory.Create<SiteEditViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<SiteDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<SiteEditViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -135,21 +105,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/Site/" + id);
+            var handler = _viewHandlerFactory.Create<SiteDeleteViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<SiteDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<SiteDeleteViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 

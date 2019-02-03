@@ -1,10 +1,11 @@
 ﻿using Framework.Web.Mvc.Paging;
 using Framework.Web.Mvc.Sorting;
 using System.Collections.Generic;
+using Framework.Web.Views;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class ListViewModelStatic<T> : StaticPageableList<T>, ISortable
+    public class ListViewModelStatic<T> : StaticPageableList<T>, ISortable, IViewModel
     {
         public ListViewModelStatic(IEnumerable<T> subset, int pageNumber, int pageSize, int totalCount, string sortBy, bool sortAscending)
             : this(subset, pageNumber, pageSize, totalCount)

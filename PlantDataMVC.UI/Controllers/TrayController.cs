@@ -1,29 +1,22 @@
-﻿using Framework.Web.Forms;
-using Newtonsoft.Json;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
+using AutoMapper;
+using Framework.Web;
+using Framework.Web.Forms;
+using Framework.Web.Views;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Controllers.Queries;
 using PlantDataMVC.UI.Helpers;
-using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class TrayController : DefaultController
+    public class TrayController : ViewFormControllerBase
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        //public TrayController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(), formHandlerFactory)
-        //{
-        //}
-
-        public TrayController(IHttpClientFactory httpClientFactory, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public TrayController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(
+            viewHandlerFactory, formHandlerFactory)
         {
-            // use passed in service
-            _httpClientFactory = httpClientFactory;
         }
 
         // GET: /"ControllerName"/Index
@@ -36,49 +29,31 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/SeedTray?page=" + localPage + "&pageSize=" + localPageSize);
+            var query = new IndexQuery(localPage, localPageSize);
+            var handler = _viewHandlerFactory.Create<ListViewModelStatic<TrayListViewModel>, IndexQuery>();
+            var model = await handler.HandleAsync(query);
 
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-
-                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
-
-                var model = JsonConvert.DeserializeObject<IEnumerable<SeedTrayDto>>(content);
-
-                AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<TrayListViewModel>>(View(model));
-
-                return ListView<TrayListViewModel>(autoMapResult, apiPagingInfo, localSortBy, localAscending);
-            }
-            else
+            if (model == null)
             {
                 return Content("An error occurred");
             }
+
+            return View(model);
         }
 
         //
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/SeedTray/" + id);
+            var handler = _viewHandlerFactory.Create<TrayShowViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<SeedTrayDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<TrayShowViewModel>(View(model));
-            }
-            else
+            if (model == null)
             {
                 return Content("An error occurred");
             }
+
+            return View(model);
         }
 
         //
@@ -90,7 +65,7 @@ namespace PlantDataMVC.UI.Controllers
         }
 
         /// <summary>
-        /// Additional action for creating a new seed tray entry for a given seed batch.
+        ///     Additional action for creating a new seed tray entry for a given seed batch.
         /// </summary>
         /// <param name="seedBatchId">The Id of the seed batch.</param>
         /// <returns></returns>
@@ -100,7 +75,8 @@ namespace PlantDataMVC.UI.Controllers
             var item = new SeedTrayDto {SeedBatchId = seedBatchId};
 
             // TODO: check to ensure these DTOs map to view model
-            return AutoMapView<TrayNewViewModel>(View(item));
+            var model = Mapper.Map<SeedTrayDto, TrayNewViewModel>(item);
+            return View(model);
         }
 
         //
@@ -108,7 +84,7 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TrayCreateEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Index");
+            var success = RedirectToAction("Index");
 
             return await Form(form, success);
         }
@@ -117,22 +93,15 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/SeedTray/" + id);
+            var handler = _viewHandlerFactory.Create<TrayEditViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<SeedTrayDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<TrayEditViewModel>(View(model));
-            }
-            else
+            if (model == null)
             {
                 return Content("An error occurred");
             }
+
+            return View(model);
         }
 
         //
@@ -140,7 +109,7 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(TrayUpdateEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Show", new { id = form.Id });
+            var success = RedirectToAction("Show", new {id = form.Id});
 
             return await Form(form, success);
         }
@@ -149,22 +118,15 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/SeedTray/" + id);
+            var handler = _viewHandlerFactory.Create<TrayDeleteViewModel, ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<SeedTrayDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<TrayDeleteViewModel>(View(model));
-            }
-            else
+            if (model == null)
             {
                 return Content("An error occurred");
             }
+
+            return View(model);
         }
 
         //
@@ -172,7 +134,7 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Destroy(TrayDestroyEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Index");
+            var success = RedirectToAction("Index");
 
             return await Form(form, success);
         }

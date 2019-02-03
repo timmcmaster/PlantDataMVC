@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using Framework.Web.Views;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class PlantStockDetailsViewModel
+    public class PlantStockDetailsViewModel : IViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }

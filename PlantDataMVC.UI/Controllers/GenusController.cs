@@ -1,29 +1,19 @@
 ﻿using Framework.Web.Forms;
-using Newtonsoft.Json;
-using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Helpers;
-using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Models.EditModels;
 using PlantDataMVC.UI.Models.ViewModels;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Framework.Web;
+using Framework.Web.Views;
+using PlantDataMVC.UI.Controllers.Queries;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class GenusController : DefaultController
+    public class GenusController : ViewFormControllerBase
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        //public GenusController(IFormHandlerFactory formHandlerFactory) : this(PlantDataApiHttpClient.GetClient(),formHandlerFactory)
-        //{
-        //}
-
-        // Allow passing in HttpClient for unit tests, currently handled by IoC injection of HttpClient
-        public GenusController(IHttpClientFactory httpClientFactory, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public GenusController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(viewHandlerFactory,formHandlerFactory)
         {
-            _httpClientFactory = httpClientFactory;
         }
 
         // GET: /"ControllerName"/Index
@@ -36,27 +26,17 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/Genus?page=" + localPage + "&pageSize=" + localPageSize);
+            var query = new IndexQuery(localPage,localPageSize);
+            var handler = _viewHandlerFactory.Create<ListViewModelStatic<GenusListViewModel>,IndexQuery>();
+            var model = await handler.HandleAsync(query);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-
-                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
-
-                var model = JsonConvert.DeserializeObject<IEnumerable<GenusInListDto>>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                AutoMapPreProcessingViewResult autoMapResult = AutoMapView<List<GenusListViewModel>>(View(model));
-
-                return ListView<GenusListViewModel>(autoMapResult, apiPagingInfo, localSortBy, localAscending);
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -64,21 +44,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/Genus/" + id);
+            var handler = _viewHandlerFactory.Create<GenusShowViewModel,ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<GenusDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<GenusShowViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -104,21 +79,16 @@ namespace PlantDataMVC.UI.Controllers
         // Display prior to POST via Update 
         public async Task<ActionResult> Edit(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/Genus/" + id);
+            var handler = _viewHandlerFactory.Create<GenusEditViewModel,ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<GenusDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<GenusEditViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 
@@ -136,21 +106,16 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/Genus/" + id);
+            var handler = _viewHandlerFactory.Create<GenusDeleteViewModel,ShowQuery>();
+            var model = await handler.HandleAsync(new ShowQuery(id));
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (model == null)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<GenusDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
-                return AutoMapView<GenusDeleteViewModel>(View(model));
+                return Content("An error occurred");
             }
             else
             {
-                return Content("An error occurred");
+                return View(model);
             }
         }
 

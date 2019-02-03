@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Framework.Web.Views;
 using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class TrayNewViewModel
+    public class TrayNewViewModel : IViewModel
     {
         [Display(Name = "Seed Batch")]
         public SeedBatchDto SeedBatch { get; set; }

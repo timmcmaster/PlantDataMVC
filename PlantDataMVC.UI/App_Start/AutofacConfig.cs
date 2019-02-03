@@ -3,8 +3,10 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Framework.Web.Forms;
 using System.Reflection;
+using Framework.Web.Views;
 using PlantDataMVC.UI.Handlers;
 using PlantDataMVC.UI.Handlers.Forms;
+using PlantDataMVC.UI.Handlers.Views;
 using PlantDataMVC.UI.Helpers;
 
 namespace PlantDataMVC.UI
@@ -48,6 +50,13 @@ namespace PlantDataMVC.UI
 
             // TEMP: Want to build factory via IoC itself
             builder.RegisterType<AutofacFormHandlerFactory>().As<IFormHandlerFactory>();
+
+            // Register all types that implement IFormHandler<T> from given assembly
+            Assembly viewAssembly = Assembly.GetAssembly(typeof(GenusShowViewModelHandler));
+            builder.RegisterAssemblyTypes(formAssembly).AsClosedTypesOf(typeof(IViewHandler<>));
+
+            // TEMP: Want to build factory via IoC itself
+            builder.RegisterType<AutofacViewHandlerFactory>().As<IViewHandlerFactory>();
 
             // Register HttpClient as a service to be injected
             builder.RegisterType<HttpClientFactory>().As<IHttpClientFactory>().SingleInstance();
