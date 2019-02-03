@@ -56,8 +56,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantStockTransactionEditViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<PlantStockTransactionEditQuery, PlantStockTransactionEditViewModel>();
+            var model = await handler.HandleAsync(new PlantStockTransactionEditQuery(id));
 
             if (model == null)
             {
@@ -83,8 +83,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantStockTransactionDeleteViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<PlantStockTransactionDeleteQuery, PlantStockTransactionDeleteViewModel>();
+            var model = await handler.HandleAsync(new PlantStockTransactionDeleteQuery(id));
 
             if (model == null)
             {

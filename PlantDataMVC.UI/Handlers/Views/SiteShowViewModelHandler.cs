@@ -9,7 +9,7 @@ using PlantDataMVC.UI.Models.ViewModels;
 
 namespace PlantDataMVC.UI.Handlers.Views
 {
-    public class SiteShowViewModelHandler : IViewHandler<SiteShowViewModel,ShowQuery>
+    public class SiteShowViewModelHandler : IViewHandler<SiteShowQuery, SiteShowViewModel>
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
@@ -18,7 +18,7 @@ namespace PlantDataMVC.UI.Handlers.Views
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<SiteShowViewModel> HandleAsync(ShowQuery query)
+        public async Task<SiteShowViewModel> HandleAsync(SiteShowQuery query)
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client

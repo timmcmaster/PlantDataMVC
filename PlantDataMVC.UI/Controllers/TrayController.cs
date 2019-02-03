@@ -29,8 +29,8 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var query = new IndexQuery(localPage, localPageSize);
-            var handler = _viewHandlerFactory.Create<ListViewModelStatic<TrayListViewModel>, IndexQuery>();
+            var query = new TrayIndexQuery(localPage, localPageSize);
+            var handler = _viewHandlerFactory.Create<TrayIndexQuery, ListViewModelStatic<TrayListViewModel>>();
             var model = await handler.HandleAsync(query);
 
             if (model == null)
@@ -45,8 +45,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var handler = _viewHandlerFactory.Create<TrayShowViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<TrayShowQuery, TrayShowViewModel>();
+            var model = await handler.HandleAsync(new TrayShowQuery(id));
 
             if (model == null)
             {
@@ -72,7 +72,7 @@ namespace PlantDataMVC.UI.Controllers
         [RequireRequestValue("seedBatchId")]
         public ActionResult New(int seedBatchId)
         {
-            var item = new SeedTrayDto {SeedBatchId = seedBatchId};
+            var item = new SeedTrayDto { SeedBatchId = seedBatchId };
 
             // TODO: check to ensure these DTOs map to view model
             var model = Mapper.Map<SeedTrayDto, TrayNewViewModel>(item);
@@ -93,8 +93,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var handler = _viewHandlerFactory.Create<TrayEditViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<TrayEditQuery, TrayEditViewModel>();
+            var model = await handler.HandleAsync(new TrayEditQuery(id));
 
             if (model == null)
             {
@@ -109,7 +109,7 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(TrayUpdateEditModel form)
         {
-            var success = RedirectToAction("Show", new {id = form.Id});
+            var success = RedirectToAction("Show", new { id = form.Id });
 
             return await Form(form, success);
         }
@@ -118,8 +118,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var handler = _viewHandlerFactory.Create<TrayDeleteViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<TrayDeleteQuery, TrayDeleteViewModel>();
+            var model = await handler.HandleAsync(new TrayDeleteQuery(id));
 
             if (model == null)
             {

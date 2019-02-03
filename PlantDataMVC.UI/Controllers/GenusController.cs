@@ -26,8 +26,8 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var query = new IndexQuery(localPage,localPageSize);
-            var handler = _viewHandlerFactory.Create<ListViewModelStatic<GenusListViewModel>,IndexQuery>();
+            var query = new GenusIndexQuery(localPage,localPageSize);
+            var handler = _viewHandlerFactory.Create<GenusIndexQuery,ListViewModelStatic<GenusListViewModel>>();
             var model = await handler.HandleAsync(query);
 
             if (model == null)
@@ -44,8 +44,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var handler = _viewHandlerFactory.Create<GenusShowViewModel,ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<GenusShowQuery, GenusShowViewModel>();
+            var model = await handler.HandleAsync(new GenusShowQuery(id));
 
             if (model == null)
             {
@@ -79,8 +79,8 @@ namespace PlantDataMVC.UI.Controllers
         // Display prior to POST via Update 
         public async Task<ActionResult> Edit(int id)
         {
-            var handler = _viewHandlerFactory.Create<GenusEditViewModel,ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<GenusEditQuery, GenusEditViewModel>();
+            var model = await handler.HandleAsync(new GenusEditQuery(id));
 
             if (model == null)
             {
@@ -106,8 +106,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var handler = _viewHandlerFactory.Create<GenusDeleteViewModel,ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<GenusDeleteQuery, GenusDeleteViewModel>();
+            var model = await handler.HandleAsync(new GenusDeleteQuery(id));
 
             if (model == null)
             {

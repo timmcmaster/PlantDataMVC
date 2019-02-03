@@ -11,7 +11,7 @@ using PlantDataMVC.UI.Models.ViewModels;
 
 namespace PlantDataMVC.UI.Handlers.Views
 {
-    public class GenusListViewModelHandler : IViewHandler<ListViewModelStatic<GenusListViewModel>,IndexQuery>
+    public class GenusListViewModelHandler : IViewHandler<GenusIndexQuery,ListViewModelStatic<GenusListViewModel>>
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
@@ -20,7 +20,7 @@ namespace PlantDataMVC.UI.Handlers.Views
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<ListViewModelStatic<GenusListViewModel>> HandleAsync(IndexQuery query)
+        public async Task<ListViewModelStatic<GenusListViewModel>> HandleAsync(GenusIndexQuery query)
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
 

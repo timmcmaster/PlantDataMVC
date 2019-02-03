@@ -16,12 +16,12 @@ namespace PlantDataMVC.UI.Handlers
             _c = c;
         }
 
-        public IViewHandler<TViewModel, TQuery> Create<TViewModel, TQuery>() where TViewModel : IViewModel
+        public IViewHandler<TQuery, TViewModel> Create<TQuery, TViewModel>() where TViewModel : IViewModel
                                                                              where TQuery : IViewQuery
         {
             // Create handler by resolving it from context
             // Data service parameter for formHandler will also be resolved from IoC (I think?)
-            var viewHandler = _c.Resolve<IViewHandler<TViewModel, TQuery>>();
+            var viewHandler = _c.Resolve<IViewHandler<TQuery, TViewModel>>();
             return viewHandler;
         }
     }

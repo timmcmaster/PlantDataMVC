@@ -28,8 +28,8 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var query = new IndexQuery(localPage, localPageSize);
-            var handler = _viewHandlerFactory.Create<ListViewModelStatic<PlantSeedListViewModel>, IndexQuery>();
+            var query = new PlantSeedIndexQuery(localPage, localPageSize);
+            var handler = _viewHandlerFactory.Create<PlantSeedIndexQuery, ListViewModelStatic<PlantSeedListViewModel>>();
             var model = await handler.HandleAsync(query);
 
             if (model == null)
@@ -46,8 +46,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantSeedShowViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<PlantSeedShowQuery, PlantSeedShowViewModel>();
+            var model = await handler.HandleAsync(new PlantSeedShowQuery(id));
 
             if (model == null)
             {
@@ -75,7 +75,7 @@ namespace PlantDataMVC.UI.Controllers
         [RequireRequestValue("speciesId")]
         public ActionResult New(int speciesId)
         {
-            var item = new SeedBatchDto {SpeciesId = speciesId};
+            var item = new SeedBatchDto { SpeciesId = speciesId };
 
             // TODO: check to ensure these DTOs map to view model
             var model = Mapper.Map<SeedBatchDto, PlantSeedNewViewModel>(item);
@@ -96,8 +96,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantSeedEditViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<PlantSeedEditQuery, PlantSeedEditViewModel>();
+            var model = await handler.HandleAsync(new PlantSeedEditQuery(id));
 
             if (model == null)
             {
@@ -123,8 +123,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantSeedDeleteViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<PlantSeedDeleteQuery, PlantSeedDeleteViewModel>();
+            var model = await handler.HandleAsync(new PlantSeedDeleteQuery(id));
 
             if (model == null)
             {

@@ -25,8 +25,8 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var query = new IndexQuery(localPage, localPageSize);
-            var handler = _viewHandlerFactory.Create<ListViewModelStatic<SiteListViewModel>, IndexQuery>();
+            var query = new SiteIndexQuery(localPage, localPageSize);
+            var handler = _viewHandlerFactory.Create<SiteIndexQuery, ListViewModelStatic<SiteListViewModel>>();
             var model = await handler.HandleAsync(query);
 
             if (model == null)
@@ -43,8 +43,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var handler = _viewHandlerFactory.Create<SiteShowViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<SiteShowQuery,SiteShowViewModel>();
+            var model = await handler.HandleAsync(new SiteShowQuery(id));
 
             if (model == null)
             {
@@ -78,8 +78,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var handler = _viewHandlerFactory.Create<SiteEditViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<SiteEditQuery, SiteEditViewModel>();
+            var model = await handler.HandleAsync(new SiteEditQuery(id));
 
             if (model == null)
             {
@@ -105,8 +105,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var handler = _viewHandlerFactory.Create<SiteDeleteViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<SiteDeleteQuery, SiteDeleteViewModel>();
+            var model = await handler.HandleAsync(new SiteDeleteQuery(id));
 
             if (model == null)
             {

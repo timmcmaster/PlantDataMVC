@@ -53,7 +53,7 @@ namespace PlantDataMVC.UI
 
             // Register all types that implement IFormHandler<T> from given assembly
             Assembly viewAssembly = Assembly.GetAssembly(typeof(GenusShowViewModelHandler));
-            builder.RegisterAssemblyTypes(formAssembly).AsClosedTypesOf(typeof(IViewHandler<>));
+            builder.RegisterAssemblyTypes(formAssembly).AsClosedTypesOf(typeof(IViewHandler<,>));
 
             // TEMP: Want to build factory via IoC itself
             builder.RegisterType<AutofacViewHandlerFactory>().As<IViewHandlerFactory>();

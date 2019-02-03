@@ -193,8 +193,13 @@
     <Compile Include="Areas\Security\Models\AccountModels.cs" />
     <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
     <Compile Include="Controllers\GenusController.cs" />
-    <Compile Include="Controllers\Queries\IndexQuery.cs" />
-    <Compile Include="Controllers\Queries\ShowQuery.cs" />
+    <Compile Include="Controllers\Queries\GenusQueries.cs" />
+    <Compile Include="Controllers\Queries\PlantQueries.cs" />
+    <Compile Include="Controllers\Queries\PlantSeedQueries.cs" />
+    <Compile Include="Controllers\Queries\PlantStockQueries.cs" />
+    <Compile Include="Controllers\Queries\PlantStockTransactionQueries.cs" />
+    <Compile Include="Controllers\Queries\SiteQueries.cs" />
+    <Compile Include="Controllers\Queries\TrayQueries.cs" />
     <Compile Include="Handlers\Views\GenusEditViewModelHandler.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Handlers\AutofacViewHandlerFactory.cs" />
@@ -224,7 +229,6 @@
     <Compile Include="Handlers\Views\PlantSeedDeleteViewModelHandler.cs" />
     <Compile Include="Handlers\Views\PlantStockTransactionDeleteViewModelHandler.cs" />
     <Compile Include="Handlers\Views\PlantStockTransactionEditViewModelHandler.cs" />
-    <Compile Include="Handlers\Views\PlantStockTransactionListViewModelHandler.cs" />
     <Compile Include="Handlers\Views\SiteDeleteViewModelHandler.cs" />
     <Compile Include="Handlers\Views\SiteEditViewModelHandler.cs" />
     <Compile Include="Handlers\Views\SiteListViewModelHandler.cs" />

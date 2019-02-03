@@ -9,7 +9,7 @@ using PlantDataMVC.UI.Models.ViewModels;
 
 namespace PlantDataMVC.UI.Handlers.Views
 {
-    public class PlantSeedDeleteViewModelHandler : IViewHandler<PlantSeedDeleteViewModel,ShowQuery>
+    public class PlantSeedDeleteViewModelHandler : IViewHandler<PlantSeedDeleteQuery, PlantSeedDeleteViewModel>
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
@@ -18,7 +18,7 @@ namespace PlantDataMVC.UI.Handlers.Views
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<PlantSeedDeleteViewModel> HandleAsync(ShowQuery query)
+        public async Task<PlantSeedDeleteViewModel> HandleAsync(PlantSeedDeleteQuery query)
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client

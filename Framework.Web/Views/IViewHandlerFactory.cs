@@ -2,7 +2,7 @@
 {
     public interface IViewHandlerFactory
     {
-        IViewHandler<TView, TQuery> Create<TView, TQuery>() where TView : IViewModel
-                                                            where TQuery : IViewQuery;
+        IViewHandler<TQuery, TViewModel> Create<TQuery, TViewModel>() where TViewModel : IViewModel
+                                                            where TQuery : IViewQuery<TViewModel>;
     }
 }

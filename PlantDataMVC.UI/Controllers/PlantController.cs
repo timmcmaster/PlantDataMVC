@@ -1,18 +1,18 @@
-﻿using Framework.Web.Forms;
-using PlantDataMVC.UI.Models.EditModels;
-using PlantDataMVC.UI.Models.ViewModels;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Framework.Web;
+using Framework.Web.Forms;
 using Framework.Web.Views;
 using PlantDataMVC.UI.Controllers.Queries;
-
+using PlantDataMVC.UI.Models.EditModels;
+using PlantDataMVC.UI.Models.ViewModels;
 
 namespace PlantDataMVC.UI.Controllers
 {
     public class PlantController : ViewFormControllerBase
     {
-        public PlantController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(viewHandlerFactory,formHandlerFactory)
+        public PlantController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(
+            viewHandlerFactory, formHandlerFactory)
         {
         }
 
@@ -26,35 +26,31 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var query = new IndexQuery(localPage, localPageSize);
-            var handler = _viewHandlerFactory.Create<ListViewModelStatic<PlantListViewModel>, IndexQuery>();
+            var query = new PlantIndexQuery(localPage, localPageSize);
+            var handler = _viewHandlerFactory.Create<PlantIndexQuery, ListViewModelStatic<PlantListViewModel>>();
             var model = await handler.HandleAsync(query);
 
             if (model == null)
             {
                 return Content("An error occurred");
             }
-            else
-            {
-                return View(model);
-            }
+
+            return View(model);
         }
 
         //
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantShowViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<PlantShowQuery, PlantShowViewModel>();
+            var model = await handler.HandleAsync(new PlantShowQuery(id));
 
             if (model == null)
             {
                 return Content("An error occurred");
             }
-            else
-            {
-                return View(model);
-            }
+
+            return View(model);
         }
 
         //
@@ -70,7 +66,7 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(PlantCreateEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Index");
+            var success = RedirectToAction("Index");
 
             return await Form(form, success);
         }
@@ -79,17 +75,15 @@ namespace PlantDataMVC.UI.Controllers
         // Display prior to POST via Update 
         public async Task<ActionResult> Edit(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantEditViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<PlantEditQuery, PlantEditViewModel>();
+            var model = await handler.HandleAsync(new PlantEditQuery(id));
 
             if (model == null)
             {
                 return Content("An error occurred");
             }
-            else
-            {
-                return View(model);
-            }
+
+            return View(model);
         }
 
         //
@@ -97,7 +91,7 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(PlantUpdateEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Show", new { id = form.Id });
+            var success = RedirectToAction("Show", new { id = form.Id });
 
             return await Form(form, success);
         }
@@ -106,17 +100,15 @@ namespace PlantDataMVC.UI.Controllers
         // Display prior to DELETE via Destroy method 
         public async Task<ActionResult> Delete(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantDeleteViewModel, ShowQuery>();
-            var model = await handler.HandleAsync(new ShowQuery(id));
+            var handler = _viewHandlerFactory.Create<PlantDeleteQuery, PlantDeleteViewModel>();
+            var model = await handler.HandleAsync(new PlantDeleteQuery(id));
 
             if (model == null)
             {
                 return Content("An error occurred");
             }
-            else
-            {
-                return View(model);
-            }
+
+            return View(model);
         }
 
         //
@@ -124,7 +116,7 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Destroy(PlantDestroyEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Index");
+            var success = RedirectToAction("Index");
 
             return await Form(form, success);
         }
