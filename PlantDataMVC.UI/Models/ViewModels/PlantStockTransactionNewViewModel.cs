@@ -5,7 +5,7 @@ using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class PlantStockTransactionNewViewModel : IViewModel
+    public class PlantStockTransactionNewViewModel
     {
         [Display(Name = "Plant Stock Id")]
         public int PlantStockId { get; set; }

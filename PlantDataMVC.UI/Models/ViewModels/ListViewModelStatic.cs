@@ -5,7 +5,7 @@ using Framework.Web.Views;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class ListViewModelStatic<T> : StaticPageableList<T>, ISortable, IViewModel
+    public class ListViewModelStatic<T> : StaticPageableList<T>, ISortable
     {
         public ListViewModelStatic(IEnumerable<T> subset, int pageNumber, int pageSize, int totalCount, string sortBy, bool sortAscending)
             : this(subset, pageNumber, pageSize, totalCount)

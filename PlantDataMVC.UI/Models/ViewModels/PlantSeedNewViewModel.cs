@@ -5,7 +5,7 @@ using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class PlantSeedNewViewModel : IViewModel
+    public class PlantSeedNewViewModel
     {
         [Display(Name = "Species Name")]
         public SpeciesDto PlantSpecies { get; set; }

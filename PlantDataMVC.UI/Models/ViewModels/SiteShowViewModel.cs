@@ -4,7 +4,7 @@ using Framework.Web.Views;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class SiteShowViewModel : IViewModel
+    public class SiteShowViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; private set; }

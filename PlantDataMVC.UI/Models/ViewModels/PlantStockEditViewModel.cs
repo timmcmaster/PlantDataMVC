@@ -5,7 +5,7 @@ using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class PlantStockEditViewModel : IViewModel
+    public class PlantStockEditViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Framework.Web.Forms;
+using Framework.Web.Mediator;
 using Framework.Web.Views;
 
 namespace Framework.Web.Mediator
@@ -16,7 +17,7 @@ namespace Framework.Web.Mediator
             _formHandlerFactory = formHandlerFactory;
         }
 
-        public async Task<TViewModel> Request<TViewModel>(IViewQuery<TViewModel> query) where TViewModel : IViewModel
+        public async Task<TViewModel> Request<TViewModel>(IViewQuery<TViewModel> query)
         {
             // resolve the handler for this query type and viewmodel type
             // the actual definitions are not as IViewQuery<TViewModel> but as a type that implements that (e.g. GenusIndexQuery)
@@ -52,14 +53,14 @@ namespace Framework.Web.Mediator
         }
     }
 
-    internal abstract class ViewHandlerWrapper<TViewModel> where TViewModel : IViewModel
-    {
+    internal abstract class ViewHandlerWrapper<TViewModel>
+    { 
         public abstract Task<TViewModel> HandleAsync(IViewQuery<TViewModel> query,
                                                      IViewHandlerFactory viewHandlerFactory);
     }
 
     internal class ViewHandlerWrapperImpl<TQuery, TViewModel> : ViewHandlerWrapper<TViewModel>
-        where TQuery : IViewQuery<TViewModel> where TViewModel : IViewModel
+        where TQuery : IViewQuery<TViewModel> 
     {
         public override async Task<TViewModel> HandleAsync(IViewQuery<TViewModel> query,
                                                            IViewHandlerFactory viewHandlerFactory)

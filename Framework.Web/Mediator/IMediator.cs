@@ -6,7 +6,7 @@ namespace Framework.Web.Mediator
 {
     public interface IMediator
     {
-        Task<TViewModel> Request<TViewModel>(IViewQuery<TViewModel> query) where TViewModel : IViewModel;
+        Task<TViewModel> Request<TViewModel>(IViewQuery<TViewModel> query);
         Task<TResult> Send<TResult>(IForm<TResult> form);
     }
 }

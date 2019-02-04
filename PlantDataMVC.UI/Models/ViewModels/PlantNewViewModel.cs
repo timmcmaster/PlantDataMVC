@@ -3,7 +3,7 @@ using Framework.Web.Views;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {
-    public class PlantNewViewModel : IViewModel
+    public class PlantNewViewModel
     {
         [Required, StringLength(30), DataType("CustomString")]
         public string Genus { get; set; }
