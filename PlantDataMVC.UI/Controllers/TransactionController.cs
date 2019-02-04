@@ -16,7 +16,7 @@ namespace PlantDataMVC.UI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public TransactionController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public TransactionController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(mediator, formHandlerFactory)
         {
             _mediator = mediator;
         }
@@ -51,7 +51,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var query = new PlantStockTransactionEditQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {
@@ -78,7 +78,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var query = new PlantStockTransactionDeleteQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {

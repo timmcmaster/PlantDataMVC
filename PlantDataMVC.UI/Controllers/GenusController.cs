@@ -15,7 +15,7 @@ namespace PlantDataMVC.UI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public GenusController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public GenusController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(mediator, formHandlerFactory)
         {
             _mediator = mediator;
         }
@@ -31,7 +31,7 @@ namespace PlantDataMVC.UI.Controllers
             var localAscending = ascending ?? true;
 
             var query = new GenusIndexQuery(localPage,localPageSize);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             //var handler = _viewHandlerFactory.Create<GenusIndexQuery,ListViewModelStatic<GenusListViewModel>>();
             //var model = await handler.HandleAsync(query);
@@ -51,7 +51,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Show(int id)
         {
             var query = new GenusShowQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {
@@ -86,7 +86,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var query = new GenusEditQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {
@@ -113,7 +113,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var query = new GenusDeleteQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {

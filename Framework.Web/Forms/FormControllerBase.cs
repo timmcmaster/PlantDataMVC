@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Framework.Web.Mediator;
 
 namespace Framework.Web.Forms
 {
@@ -15,10 +16,12 @@ namespace Framework.Web.Forms
     /// <seealso cref="T:System.Web.Mvc.Controller" />
     public class FormControllerBase : Controller
     {
+        private readonly IMediator _mediator;
         private readonly IFormHandlerFactory _formHandlerFactory;
 
-        protected FormControllerBase(IFormHandlerFactory formHandlerFactory)
+        protected FormControllerBase(IMediator mediator, IFormHandlerFactory formHandlerFactory)
         {
+            _mediator = mediator;
             _formHandlerFactory = formHandlerFactory;
         }
 
@@ -54,6 +57,8 @@ namespace Framework.Web.Forms
             {
                 return failureResult();
             }
+
+            var response = _mediator.Send(form);
 
             var response = await _formHandlerFactory.Create<TForm>().HandleAsync(form);
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Framework.Web.Forms;
 using Framework.Web.Views;
 
 namespace Framework.Web.Mediator
@@ -7,13 +8,15 @@ namespace Framework.Web.Mediator
     public class Mediator: IMediator
     {
         private readonly IViewHandlerFactory _viewHandlerFactory;
+        private readonly IFormHandlerFactory _formHandlerFactory;
 
-        public Mediator(IViewHandlerFactory viewHandlerFactory)
+        public Mediator(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory)
         {
             _viewHandlerFactory = viewHandlerFactory;
+            _formHandlerFactory = formHandlerFactory;
         }
 
-        public async Task<TViewModel> Send<TViewModel>(IViewQuery<TViewModel> query) where TViewModel : IViewModel
+        public async Task<TViewModel> Request<TViewModel>(IViewQuery<TViewModel> query) where TViewModel : IViewModel
         {
             // resolve the handler for this query type and viewmodel type
             // problem that the actual definitions are not as IViewQuery<TViewModel> but as a type that implements that (e.g. GenusIndexQuery)
@@ -28,6 +31,11 @@ namespace Framework.Web.Mediator
 
             // return the model type
             return viewmodel;
+        }
+
+        public Task<TViewModel> Send<TViewModel>(IViewQuery<TViewModel> query) where TViewModel : IViewModel
+        {
+            throw new NotImplementedException();
         }
     }
 

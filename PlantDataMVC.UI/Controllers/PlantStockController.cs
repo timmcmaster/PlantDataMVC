@@ -17,7 +17,7 @@ namespace PlantDataMVC.UI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public PlantStockController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public PlantStockController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(mediator, formHandlerFactory)
         {
             _mediator = mediator;
         }
@@ -33,7 +33,7 @@ namespace PlantDataMVC.UI.Controllers
             var localAscending = ascending ?? true;
 
             var query = new PlantStockIndexQuery(localPage, localPageSize);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {
@@ -50,7 +50,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Show(int id)
         {
             var query = new PlantStockShowQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {
@@ -67,7 +67,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Details(int id)
         {
             var query = new PlantStockDetailsQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {
@@ -117,7 +117,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var query = new PlantStockEditQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {
@@ -145,7 +145,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var query = new PlantStockDeleteQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {

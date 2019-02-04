@@ -14,7 +14,7 @@ namespace PlantDataMVC.UI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public SiteController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
+        public SiteController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(mediator, formHandlerFactory)
         {
             _mediator = mediator;
         }
@@ -30,7 +30,7 @@ namespace PlantDataMVC.UI.Controllers
             var localAscending = ascending ?? true;
 
             var query = new SiteIndexQuery(localPage, localPageSize);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {
@@ -47,7 +47,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Show(int id)
         {
             var query = new SiteShowQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {
@@ -82,7 +82,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var query = new SiteEditQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {
@@ -109,7 +109,7 @@ namespace PlantDataMVC.UI.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var query = new SiteDeleteQuery(id);
-            var model = await _mediator.Send(query);
+            var model = await _mediator.Request(query);
 
             if (model == null)
             {
