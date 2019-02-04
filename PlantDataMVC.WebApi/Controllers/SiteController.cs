@@ -138,6 +138,7 @@ namespace PlantDataMVC.WebApi.Controllers
         }
 
         // POST: api/Plant
+        [Route("Site")]
         [HttpPost]
         public IHttpActionResult Post([FromBody] CreateUpdateSiteDto dtoIn)
         {

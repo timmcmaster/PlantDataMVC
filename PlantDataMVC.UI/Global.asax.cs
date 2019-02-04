@@ -5,8 +5,6 @@ using System.Web.Routing;
 using Autofac.Integration.Mvc;
 using PlantDataMVC.UI.Mappers;
 
-//using StackExchange.Profiling.MVCHelpers;
-
 namespace PlantDataMVC.UI
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -27,8 +25,6 @@ namespace PlantDataMVC.UI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            //RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
 
             // Configure mappings for all objects
             AutoMapperBootstrapper.Initialize();

@@ -131,7 +131,8 @@ namespace PlantDataMVC.WebApi.Controllers
             //return BadRequest();
         }
 
-        // POST: api/Plant
+        // POST: api/Genus
+        [Route("Genus")]
         [HttpPost]
         public IHttpActionResult Post([FromBody] CreateUpdateGenusDto dtoIn)
         {
