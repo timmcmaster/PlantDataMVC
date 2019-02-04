@@ -11,9 +11,9 @@ namespace PlantDataMVC.UI.Handlers.Views
 {
     public class SiteDeleteViewModelHandler : IViewHandler<SiteDeleteQuery, SiteDeleteViewModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public SiteDeleteViewModelHandler(IHttpClientFactory httpClientFactory)
+        public SiteDeleteViewModelHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

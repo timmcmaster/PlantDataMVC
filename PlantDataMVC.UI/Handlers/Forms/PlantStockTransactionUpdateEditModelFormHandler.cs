@@ -11,9 +11,9 @@ namespace PlantDataMVC.UI.Handlers.Forms
 {
     public class PlantStockTransactionUpdateEditModelFormHandler : IFormHandler<PlantStockTransactionUpdateEditModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public PlantStockTransactionUpdateEditModelFormHandler(IHttpClientFactory httpClientFactory)
+        public PlantStockTransactionUpdateEditModelFormHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

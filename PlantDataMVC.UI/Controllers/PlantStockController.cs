@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
 using Framework.Web;
+using Framework.Web.Mediator;
 using Framework.Web.Views;
 using PlantDataMVC.UI.Controllers.Queries;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class PlantStockController : ViewFormControllerBase
+    public class PlantStockController : FormControllerBase
     {
-        public PlantStockController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(viewHandlerFactory,formHandlerFactory)
+        private readonly IMediator _mediator;
+
+        public PlantStockController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
+            _mediator = mediator;
         }
 
         // GET: /"ControllerName"/Index
@@ -29,8 +33,7 @@ namespace PlantDataMVC.UI.Controllers
             var localAscending = ascending ?? true;
 
             var query = new PlantStockIndexQuery(localPage, localPageSize);
-            var handler = _viewHandlerFactory.Create<PlantStockIndexQuery, ListViewModelStatic<PlantStockListViewModel>>();
-            var model = await handler.HandleAsync(query);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -46,8 +49,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantStockShowQuery, PlantStockShowViewModel>();
-            var model = await handler.HandleAsync(new PlantStockShowQuery(id));
+            var query = new PlantStockShowQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -63,8 +66,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantStockDetailsQuery, PlantStockDetailsViewModel>();
-            var model = await handler.HandleAsync(new PlantStockDetailsQuery(id));
+            var query = new PlantStockDetailsQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -113,8 +116,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantStockEditQuery, PlantStockEditViewModel>();
-            var model = await handler.HandleAsync(new PlantStockEditQuery(id));
+            var query = new PlantStockEditQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -141,8 +144,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantStockDeleteQuery, PlantStockDeleteViewModel>();
-            var model = await handler.HandleAsync(new PlantStockDeleteQuery(id));
+            var query = new PlantStockDeleteQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {

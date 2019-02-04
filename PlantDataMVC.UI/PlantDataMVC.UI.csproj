@@ -130,7 +130,6 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
@@ -238,9 +237,8 @@
     <Compile Include="Handlers\Views\TrayListViewModelHandler.cs" />
     <Compile Include="Handlers\Views\TrayShowViewModelHandler.cs" />
     <Compile Include="Helpers\ApiPagingInfo.cs" />
-    <Compile Include="Helpers\DropDownExtensions.cs" />
     <Compile Include="Helpers\HeaderParser.cs" />
-    <Compile Include="Helpers\HttpClientFactory.cs" />
+    <Compile Include="Helpers\MyHttpClientFactory.cs" />
     <Compile Include="Helpers\LinkHeader.cs" />
     <Compile Include="Helpers\MenuExtensions.cs" />
     <Compile Include="Handlers\Forms\PlantStockTransactionCreateEditModelFormHandler.cs" />

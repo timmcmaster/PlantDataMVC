@@ -7,9 +7,9 @@ namespace PlantDataMVC.UI.Handlers.Forms
 {
     public class SiteDestroyEditModelFormHandler : IFormHandler<SiteDestroyEditModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public SiteDestroyEditModelFormHandler(IHttpClientFactory httpClientFactory)
+        public SiteDestroyEditModelFormHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

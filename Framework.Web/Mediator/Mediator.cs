@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Framework.Web.Views;
 
@@ -16,15 +13,42 @@ namespace Framework.Web.Mediator
             _viewHandlerFactory = viewHandlerFactory;
         }
 
-        public TViewModel Request<TViewModel>(IViewQuery query)
+        public async Task<TViewModel> Send<TViewModel>(IViewQuery<TViewModel> query) where TViewModel : IViewModel
         {
             // resolve the handler for this query type and viewmodel type
-            var handler =_viewHandlerFactory.Create<typeof(IViewQuery),TViewModel>()
+            // problem that the actual definitions are not as IViewQuery<TViewModel> but as a type that implements that (e.g. GenusIndexQuery)
+            var queryType = query.GetType();
+
+            var handler =
+                (HandlerWrapper<TViewModel>) Activator.CreateInstance(typeof(HandlerWrapperImpl<,>).MakeGenericType(queryType, typeof(TViewModel)));
             
+
             // call the handler to handle the request
+            var viewmodel = await handler.HandleAsync(query,_viewHandlerFactory);
 
             // return the model type
-            
+            return viewmodel;
+        }
+    }
+
+    internal abstract class HandlerWrapper<TViewModel> where TViewModel : IViewModel
+    {
+        public abstract Task<TViewModel> HandleAsync(IViewQuery<TViewModel> query,
+                                                           IViewHandlerFactory viewHandlerFactory);
+    }
+
+        internal class HandlerWrapperImpl<TQuery,TViewModel> : HandlerWrapper<TViewModel> where TQuery : IViewQuery<TViewModel> where TViewModel : IViewModel
+    {
+        public override async Task<TViewModel> HandleAsync(IViewQuery<TViewModel> query, IViewHandlerFactory viewHandlerFactory)
+        {
+            var handler = viewHandlerFactory.Create<TQuery, TViewModel>();
+
+            // call the handler to handle the request
+            var viewModel = await handler.HandleAsync((TQuery)query);
+
+            // return the model type
+            return viewModel;
+
         }
     }
 }

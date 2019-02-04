@@ -11,9 +11,9 @@ namespace PlantDataMVC.UI.Handlers.Forms
 {
     public class PlantSeedCreateEditModelFormHandler : IFormHandler<PlantSeedCreateEditModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public PlantSeedCreateEditModelFormHandler(IHttpClientFactory httpClientFactory)
+        public PlantSeedCreateEditModelFormHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

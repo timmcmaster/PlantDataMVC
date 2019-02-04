@@ -2569,7 +2569,7 @@
         </xs:attribute>
         <xs:attribute name="preAuthenticate" type="xs:boolean">
           <xs:annotation>
-            <xs:documentation>Indicates whether to pre-authenticate the HttpWebRequest (Requires 'Authorization' in  parameters)</xs:documentation>
+            <xs:documentation>Indicates whether to pre-authenticate the HttpWebSend (Requires 'Authorization' in  parameters)</xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="protocol" type="NLog.Targets.WebServiceProtocol">

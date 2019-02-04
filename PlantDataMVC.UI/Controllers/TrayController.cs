@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Framework.Web;
 using Framework.Web.Forms;
+using Framework.Web.Mediator;
 using Framework.Web.Views;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Controllers.Queries;
@@ -12,11 +13,13 @@ using PlantDataMVC.UI.Models.ViewModels;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class TrayController : ViewFormControllerBase
+    public class TrayController : FormControllerBase
     {
-        public TrayController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(
-            viewHandlerFactory, formHandlerFactory)
+        private readonly IMediator _mediator;
+
+        public TrayController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
+            _mediator = mediator;
         }
 
         // GET: /"ControllerName"/Index
@@ -30,8 +33,7 @@ namespace PlantDataMVC.UI.Controllers
             var localAscending = ascending ?? true;
 
             var query = new TrayIndexQuery(localPage, localPageSize);
-            var handler = _viewHandlerFactory.Create<TrayIndexQuery, ListViewModelStatic<TrayListViewModel>>();
-            var model = await handler.HandleAsync(query);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -45,8 +47,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var handler = _viewHandlerFactory.Create<TrayShowQuery, TrayShowViewModel>();
-            var model = await handler.HandleAsync(new TrayShowQuery(id));
+            var query = new TrayShowQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -93,8 +95,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var handler = _viewHandlerFactory.Create<TrayEditQuery, TrayEditViewModel>();
-            var model = await handler.HandleAsync(new TrayEditQuery(id));
+            var query = new TrayEditQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -118,8 +120,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var handler = _viewHandlerFactory.Create<TrayDeleteQuery, TrayDeleteViewModel>();
-            var model = await handler.HandleAsync(new TrayDeleteQuery(id));
+            var query = new TrayDeleteQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {

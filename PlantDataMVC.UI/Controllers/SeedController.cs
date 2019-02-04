@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
 using Framework.Web;
+using Framework.Web.Mediator;
 using Framework.Web.Views;
 using PlantDataMVC.UI.Controllers.Queries;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class SeedController : ViewFormControllerBase
+    public class SeedController : FormControllerBase
     {
-        public SeedController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(viewHandlerFactory, formHandlerFactory)
+        private readonly IMediator _mediator;
+
+        public SeedController(IMediator mediator,IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
+            _mediator = mediator;
         }
 
         // GET: /"ControllerName"/Index
@@ -29,8 +33,7 @@ namespace PlantDataMVC.UI.Controllers
             var localAscending = ascending ?? true;
 
             var query = new PlantSeedIndexQuery(localPage, localPageSize);
-            var handler = _viewHandlerFactory.Create<PlantSeedIndexQuery, ListViewModelStatic<PlantSeedListViewModel>>();
-            var model = await handler.HandleAsync(query);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -46,8 +49,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantSeedShowQuery, PlantSeedShowViewModel>();
-            var model = await handler.HandleAsync(new PlantSeedShowQuery(id));
+            var query = new PlantSeedShowQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -96,8 +99,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantSeedEditQuery, PlantSeedEditViewModel>();
-            var model = await handler.HandleAsync(new PlantSeedEditQuery(id));
+            var query = new PlantSeedEditQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -123,8 +126,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var handler = _viewHandlerFactory.Create<PlantSeedDeleteQuery, PlantSeedDeleteViewModel>();
-            var model = await handler.HandleAsync(new PlantSeedDeleteQuery(id));
+            var query = new PlantSeedDeleteQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {

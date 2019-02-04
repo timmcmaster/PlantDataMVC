@@ -20,7 +20,7 @@
         </div>
         <div class="editor-field">
             @*TODO: Should be using genus and species for display value*@
-            @Html.DropDownFor(() => "SpeciesId", model => model.PlantSpecies, p => p.SpecificName, p => p.Id)
+            @*@Html.DropDownFor(() => "SpeciesId", model => model.PlantSpecies, p => p.SpecificName, p => p.Id)*@
             @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
             @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
         </div>
@@ -29,7 +29,7 @@
             @Html.LabelFor(model => model.Site)
         </div>
         <div class="editor-field">
-            @Html.DropDownFor(() => "SiteId", model => model.Site, p => p.SiteName, p => p.Id)
+            @*@Html.DropDownFor(() => "SiteId", model => model.Site, p => p.SiteName, p => p.Id)*@
             @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
             @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
         </div>

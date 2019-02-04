@@ -11,9 +11,9 @@ namespace PlantDataMVC.UI.Handlers.Views
 {
     public class TrayShowViewModelHandler : IViewHandler<TrayShowQuery, TrayShowViewModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public TrayShowViewModelHandler(IHttpClientFactory httpClientFactory)
+        public TrayShowViewModelHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

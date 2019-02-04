@@ -1,10 +1,10 @@
-﻿using Framework.Web.Views;
+﻿using System.Threading.Tasks;
+using Framework.Web.Views;
 
 namespace Framework.Web.Mediator
 {
     public interface IMediator
     {
-        //TViewModel Request<TViewModel>(IViewQuery query);
-        TViewModel Request<TViewModel>(IViewQuery<TViewModel> query);
+        Task<TViewModel> Send<TViewModel>(IViewQuery<TViewModel> query) where TViewModel : IViewModel;
     }
 }

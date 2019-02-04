@@ -6,7 +6,6 @@ using Framework.Web.Forms;
 using Moq;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Controllers;
-using PlantDataMVC.UI.Helpers.ViewResults;
 using PlantDataMVC.UI.Mappers;
 using PlantDataMVC.UI.Models.ViewModels;
 using Xunit;

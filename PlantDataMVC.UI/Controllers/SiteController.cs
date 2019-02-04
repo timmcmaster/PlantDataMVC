@@ -4,15 +4,19 @@ using PlantDataMVC.UI.Models.ViewModels;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Framework.Web;
+using Framework.Web.Mediator;
 using Framework.Web.Views;
 using PlantDataMVC.UI.Controllers.Queries;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class SiteController : ViewFormControllerBase
+    public class SiteController : FormControllerBase
     {
-        public SiteController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(viewHandlerFactory, formHandlerFactory)
+        private readonly IMediator _mediator;
+
+        public SiteController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
+            _mediator = mediator;
         }
 
         // GET: /"ControllerName"/Index
@@ -26,8 +30,7 @@ namespace PlantDataMVC.UI.Controllers
             var localAscending = ascending ?? true;
 
             var query = new SiteIndexQuery(localPage, localPageSize);
-            var handler = _viewHandlerFactory.Create<SiteIndexQuery, ListViewModelStatic<SiteListViewModel>>();
-            var model = await handler.HandleAsync(query);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -43,8 +46,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var handler = _viewHandlerFactory.Create<SiteShowQuery,SiteShowViewModel>();
-            var model = await handler.HandleAsync(new SiteShowQuery(id));
+            var query = new SiteShowQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -78,8 +81,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var handler = _viewHandlerFactory.Create<SiteEditQuery, SiteEditViewModel>();
-            var model = await handler.HandleAsync(new SiteEditQuery(id));
+            var query = new SiteEditQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -105,8 +108,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var handler = _viewHandlerFactory.Create<SiteDeleteQuery, SiteDeleteViewModel>();
-            var model = await handler.HandleAsync(new SiteDeleteQuery(id));
+            var query = new SiteDeleteQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {

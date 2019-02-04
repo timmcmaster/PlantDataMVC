@@ -12,9 +12,9 @@ namespace PlantDataMVC.UI.Handlers.Views
 {
     public class PlantListViewModelHandler : IViewHandler<PlantIndexQuery, ListViewModelStatic<PlantListViewModel>>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public PlantListViewModelHandler(IHttpClientFactory httpClientFactory)
+        public PlantListViewModelHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

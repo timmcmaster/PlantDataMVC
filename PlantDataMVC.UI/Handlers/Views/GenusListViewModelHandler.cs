@@ -13,9 +13,9 @@ namespace PlantDataMVC.UI.Handlers.Views
 {
     public class GenusListViewModelHandler : IViewHandler<GenusIndexQuery,ListViewModelStatic<GenusListViewModel>>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public GenusListViewModelHandler(IHttpClientFactory httpClientFactory)
+        public GenusListViewModelHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

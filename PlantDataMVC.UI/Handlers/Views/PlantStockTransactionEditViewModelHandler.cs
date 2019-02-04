@@ -11,9 +11,9 @@ namespace PlantDataMVC.UI.Handlers.Views
 {
     public class PlantStockTransactionEditViewModelHandler : IViewHandler<PlantStockTransactionEditQuery,PlantStockTransactionEditViewModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public PlantStockTransactionEditViewModelHandler(IHttpClientFactory httpClientFactory)
+        public PlantStockTransactionEditViewModelHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

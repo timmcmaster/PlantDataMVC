@@ -1,99 +1,89 @@
 ﻿@using PlantDataMVC.UI.Helpers
 @using Framework.Web.Mvc
 @using PlantDataMVC.UI.Areas.Security.Controllers
-@using StackExchange.Profiling
-@{
-    var profiler = MiniProfiler.Current;
-    
-    // allows us to test out starting a profiler hidden - use ALT + P to toggle display of results
-    var startHidden = !string.IsNullOrEmpty(Request.QueryString["startHidden"]);
-}
 
 <!DOCTYPE html>
 <html>
 <head>
-    @using (profiler.Step("<head> rendering"))
-    {
-        <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title</title>
 
-        @Styles.Render("~/Content/css") // local css
+    @Styles.Render("~/Content/css") <!-- local css -->
 
-        <!-- TEST: Use CDN versions for external css as well -->
-        //jquery UI (base theme)
-        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
-        //bootstrap
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
-        //open layers mapping
-        <link href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/css/ol.css" rel="stylesheet" type="text/css">
-    }
+    <!-- TEST: Use CDN versions for external css as well -->
+    <!-- jquery UI (base theme) -->
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    <!--bootstrap-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
+    <!--open layers mapping-->
+    <link href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/css/ol.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div id="header">
-        <div class="left">
-            <div id="title">
-                MVC Plant Data Application
-            </div>
+<div id="header">
+    <div class="left">
+        <div id="title">
+            MVC Plant Data Application
         </div>
-        <div class="right">
-            <div id="logindisplay">
-                @{ Html.RenderAction<AccountController>(c => c.RenderLogonControl()); }
-            </div>
+    </div>
+    <div class="right">
+        <div id="logindisplay">
+            @{ Html.RenderAction<AccountController>(c => c.RenderLogonControl()); }
         </div>
-        <div class="subheader">
-            <em>Displaying plant info for today's world... :)</em>
-        </div>
+    </div>
+    <div class="subheader">
+        <em>Displaying plant info for today's world... :)</em>
+    </div>
 
 
-        <div id="sidebar">
-            <div>
-                <ul id="menu" class="mymenu">
-                    @Html.ListItem("Home", "Index", "Home")
-                    @Html.BeginListItem("Genera", "Index", "Genus")
-                    <ul class="mysub-menu">
-                        @Html.ListItem("New", "New", "Genus")
-                    </ul>
-                    @Html.EndListItem()
-                    @Html.BeginListItem("Plants", "Index", "Plant")
-                    <ul class="mysub-menu">
-                        @Html.ListItem("New", "New", "Plant")
-                    </ul>
-                    @Html.EndListItem()
-                    @Html.BeginListItem("Plant Seeds", "Index", "Seed")
-                    <ul class="mysub-menu">
-                        @Html.ListItem("New", "New", "Seed")
-                    </ul>
-                    @Html.EndListItem()
-                    @Html.BeginListItem("Sites", "Index", "Site")
-                    <ul class="mysub-menu">
-                        @Html.ListItem("New", "New", "Site")
-                    </ul>
-                    @Html.EndListItem()
-                    @Html.BeginListItem("Plant Stock", "Index", "PlantStock")
-                    <ul class="mysub-menu">
-                        @Html.ListItem("New", "New", "PlantStock")
-                    </ul>
-                    @Html.EndListItem()
-                    @Html.BeginListItem("Seed Trays", "Index", "Tray")
-                    <ul class="mysub-menu">
-                        @Html.ListItem("New", "New", "Tray")
-                    </ul>
-                    @Html.EndListItem()
-                    @Html.ListItem("About", "About", "Home")
+    <div id="sidebar">
+        <div>
+            <ul id="menu" class="mymenu">
+                @Html.ListItem("Home", "Index", "Home")
+                @Html.BeginListItem("Genera", "Index", "Genus")
+                <ul class="mysub-menu">
+                    @Html.ListItem("New", "New", "Genus")
                 </ul>
-                <hr />
-            </div>
+                @Html.EndListItem()
+                @Html.BeginListItem("Plants", "Index", "Plant")
+                <ul class="mysub-menu">
+                    @Html.ListItem("New", "New", "Plant")
+                </ul>
+                @Html.EndListItem()
+                @Html.BeginListItem("Plant Seeds", "Index", "Seed")
+                <ul class="mysub-menu">
+                    @Html.ListItem("New", "New", "Seed")
+                </ul>
+                @Html.EndListItem()
+                @Html.BeginListItem("Sites", "Index", "Site")
+                <ul class="mysub-menu">
+                    @Html.ListItem("New", "New", "Site")
+                </ul>
+                @Html.EndListItem()
+                @Html.BeginListItem("Plant Stock", "Index", "PlantStock")
+                <ul class="mysub-menu">
+                    @Html.ListItem("New", "New", "PlantStock")
+                </ul>
+                @Html.EndListItem()
+                @Html.BeginListItem("Seed Trays", "Index", "Tray")
+                <ul class="mysub-menu">
+                    @Html.ListItem("New", "New", "Tray")
+                </ul>
+                @Html.EndListItem()
+                @Html.ListItem("About", "About", "Home")
+            </ul>
+            <hr/>
         </div>
     </div>
+</div>
 
-    <div id="main">
-        @RenderBody()
-    </div>
+<div id="main">
+    @RenderBody()
+</div>
 
-    <div id="footer">
-        A web page by Tim McMaster.
-    </div>
+<div id="footer">
+    A web page by Tim McMaster.
+</div>
 
-    @*<!-- TEST: Use CDN versions to check that JS is working -->
+@*<!-- TEST: Use CDN versions to check that JS is working -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
@@ -101,11 +91,9 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/build/ol.js"></script>*@
 
-    <script type="text/javascript" src="~/Scripts/dist/app.bundle.js"></script>
+<script type="text/javascript" src="~/Scripts/dist/app.bundle.js"></script>
 
-    @RenderSection("scripts", required: false)
-
-    @MiniProfiler.Current.RenderIncludes(position: RenderPosition.Left, showTrivial: false, showTimeWithChildren: false, startHidden: startHidden)
+@RenderSection("scripts", false)
 
 </body>
 </html>

@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using PlantDataMVC.UI.Helpers;
 
 namespace PlantDataMVC.UI.Helpers
 {
@@ -11,27 +10,29 @@ namespace PlantDataMVC.UI.Helpers
         public const string PlantDataApi = "PlantDataApi";
     }
 
-    public interface IHttpClientFactory
+    public interface IMyHttpClientFactory
     {
         HttpClient CreateClient(string client);
     }
 
     /// <summary>
-    /// 
     /// </summary>
-    public class HttpClientFactory : IHttpClientFactory
+    public class MyHttpClientFactory : IMyHttpClientFactory
     {
-        private static ConcurrentDictionary<string, HttpClient> _clients = new ConcurrentDictionary<string, HttpClient>();
-        private static ConcurrentDictionary<string, Action<HttpClient>> _clientConfigActions = new ConcurrentDictionary<string, Action<HttpClient>>();
+        private static readonly ConcurrentDictionary<string, HttpClient> _clients =
+            new ConcurrentDictionary<string, HttpClient>();
 
-        public HttpClientFactory()
+        private static readonly ConcurrentDictionary<string, Action<HttpClient>> _clientConfigActions =
+            new ConcurrentDictionary<string, Action<HttpClient>>();
+
+        public MyHttpClientFactory()
         {
             AddHttpClient(NamedHttpClients.PlantDataApi, client =>
                 {
                     client.BaseAddress = new Uri("http://localhost:53274/");
 
-                // clear the accept headers and set those we require for ALL client requests
-                client.DefaultRequestHeaders.Accept.Clear();
+                    // clear the accept headers and set those we require for ALL client requests
+                    client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 }
             );
@@ -51,7 +52,7 @@ namespace PlantDataMVC.UI.Helpers
                 return client;
             }
 
-            if (_clientConfigActions.TryGetValue(clientName, out var configureClient))
+            if (_clientConfigActions.TryGetValue(clientName, out Action<HttpClient> configureClient))
             {
                 client = new HttpClient();
                 configureClient(client);

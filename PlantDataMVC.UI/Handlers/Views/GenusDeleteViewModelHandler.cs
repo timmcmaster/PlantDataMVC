@@ -11,9 +11,9 @@ namespace PlantDataMVC.UI.Handlers.Views
 {
     public class GenusDeleteViewModelHandler : IViewHandler<GenusDeleteQuery, GenusDeleteViewModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public GenusDeleteViewModelHandler(IHttpClientFactory httpClientFactory)
+        public GenusDeleteViewModelHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

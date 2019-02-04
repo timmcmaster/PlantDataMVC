@@ -5,15 +5,19 @@ using PlantDataMVC.UI.Models.ViewModels;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Framework.Web;
+using Framework.Web.Mediator;
 using Framework.Web.Views;
 using PlantDataMVC.UI.Controllers.Queries;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class GenusController : ViewFormControllerBase
+    public class GenusController : FormControllerBase
     {
-        public GenusController(IViewHandlerFactory viewHandlerFactory, IFormHandlerFactory formHandlerFactory) : base(viewHandlerFactory,formHandlerFactory)
+        private readonly IMediator _mediator;
+
+        public GenusController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(formHandlerFactory)
         {
+            _mediator = mediator;
         }
 
         // GET: /"ControllerName"/Index
@@ -27,8 +31,10 @@ namespace PlantDataMVC.UI.Controllers
             var localAscending = ascending ?? true;
 
             var query = new GenusIndexQuery(localPage,localPageSize);
-            var handler = _viewHandlerFactory.Create<GenusIndexQuery,ListViewModelStatic<GenusListViewModel>>();
-            var model = await handler.HandleAsync(query);
+            var model = await _mediator.Send(query);
+
+            //var handler = _viewHandlerFactory.Create<GenusIndexQuery,ListViewModelStatic<GenusListViewModel>>();
+            //var model = await handler.HandleAsync(query);
 
             if (model == null)
             {
@@ -44,8 +50,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var handler = _viewHandlerFactory.Create<GenusShowQuery, GenusShowViewModel>();
-            var model = await handler.HandleAsync(new GenusShowQuery(id));
+            var query = new GenusShowQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -79,8 +85,8 @@ namespace PlantDataMVC.UI.Controllers
         // Display prior to POST via Update 
         public async Task<ActionResult> Edit(int id)
         {
-            var handler = _viewHandlerFactory.Create<GenusEditQuery, GenusEditViewModel>();
-            var model = await handler.HandleAsync(new GenusEditQuery(id));
+            var query = new GenusEditQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -106,8 +112,8 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var handler = _viewHandlerFactory.Create<GenusDeleteQuery, GenusDeleteViewModel>();
-            var model = await handler.HandleAsync(new GenusDeleteQuery(id));
+            var query = new GenusDeleteQuery(id);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {

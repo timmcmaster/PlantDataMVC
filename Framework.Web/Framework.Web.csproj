@@ -71,8 +71,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mediator\IMediator.cs" />
+    <Compile Include="Mediator\Mediator.cs" />
     <Compile Include="Views\IViewQuery.cs" />
-    <Compile Include="ViewFormControllerBase.cs" />
     <Compile Include="Forms\FormControllerBase.cs" />
     <Compile Include="Forms\IForm.cs" />
     <Compile Include="Forms\IFormHandler.cs" />
@@ -97,8 +98,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mediator\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

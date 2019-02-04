@@ -9,7 +9,7 @@ namespace Framework.Web.Forms
     ///     An MVC controller that implements all of the basic CRUD methods (Create, Read, Update, Delete)
     ///     as well as an index method.
     ///     This should be the base class for most controllers in the system.
-    ///     The underlying data is provided through a Request/Response data service which uses the business object.
+    ///     The underlying data is provided through a Send/Response data service which uses the business object.
     ///     The business object is mapped to the local model type and back as necessary.
     /// </summary>
     /// <seealso cref="T:System.Web.Mvc.Controller" />

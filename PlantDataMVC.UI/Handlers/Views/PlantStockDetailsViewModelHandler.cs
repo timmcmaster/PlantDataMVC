@@ -11,9 +11,9 @@ namespace PlantDataMVC.UI.Handlers.Views
 {
     public class PlantStockDetailsViewModelHandler : IViewHandler<PlantStockDetailsQuery, PlantStockDetailsViewModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public PlantStockDetailsViewModelHandler(IHttpClientFactory httpClientFactory)
+        public PlantStockDetailsViewModelHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
