@@ -7,7 +7,7 @@ namespace PlantDataMVC.UI.Models.EditModels
 {
     // HACK: So that we can debug binding for this model
     [ModelBinder(typeof(DebugModelBinder))]
-    public class PlantSeedCreateEditModel : IForm
+    public class PlantSeedCreateEditModel : IForm<bool>
     {
         public int SpeciesId { get; set; }
         public DateTime DateCollected { get; set; }

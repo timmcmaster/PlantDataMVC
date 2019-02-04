@@ -13,11 +13,11 @@ using PlantDataMVC.UI.Models.ViewModels;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class TrayController : FormControllerBase
+    public class TrayController : DefaultController
     {
         private readonly IMediator _mediator;
 
-        public TrayController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(mediator, formHandlerFactory)
+        public TrayController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -86,9 +86,16 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TrayCreateEditModel form)
         {
-            var success = RedirectToAction("Index");
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Index");
 
-            return await Form(form, success);
+            if (!ModelState.IsValid)
+            {
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
         }
 
         //
@@ -111,9 +118,16 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(TrayUpdateEditModel form)
         {
-            var success = RedirectToAction("Show", new { id = form.Id });
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Show", new { id = form.Id });
 
-            return await Form(form, success);
+            if (!ModelState.IsValid)
+            {
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
         }
 
         //
@@ -136,9 +150,16 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Destroy(TrayDestroyEditModel form)
         {
-            var success = RedirectToAction("Index");
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Index");
 
-            return await Form(form, success);
+            if (!ModelState.IsValid)
+            {
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
         }
     }
 }

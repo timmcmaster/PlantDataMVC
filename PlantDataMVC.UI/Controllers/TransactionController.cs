@@ -12,11 +12,11 @@ using PlantDataMVC.UI.Controllers.Queries;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class TransactionController : FormControllerBase
+    public class TransactionController : DefaultController
     {
         private readonly IMediator _mediator;
 
-        public TransactionController(IMediator mediator, IFormHandlerFactory formHandlerFactory) : base(mediator, formHandlerFactory)
+        public TransactionController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -41,9 +41,16 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(int plantStockId, PlantStockTransactionCreateEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Details","PlantStock",new {id = plantStockId});
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
 
-            return await Form(form, success);
+            if (!ModelState.IsValid)
+            {
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
         }
 
         //
@@ -68,9 +75,16 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(int plantStockId, PlantStockTransactionUpdateEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
 
-            return await Form(form, success);
+            if (!ModelState.IsValid)
+            {
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
         }
 
         //
@@ -95,9 +109,16 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Destroy(int plantStockId, PlantStockTransactionDestroyEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
 
-            return await Form(form, success);
+            if (!ModelState.IsValid)
+            {
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
         }
     }
 }

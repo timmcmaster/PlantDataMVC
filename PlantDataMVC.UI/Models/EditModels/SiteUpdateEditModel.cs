@@ -2,7 +2,7 @@
 
 namespace PlantDataMVC.UI.Models.EditModels
 {
-    public class SiteUpdateEditModel : IForm
+    public class SiteUpdateEditModel : IForm<bool>
     {
         public int Id { get; set; }
         public string SiteName { get; set; }

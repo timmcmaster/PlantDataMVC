@@ -13,11 +13,11 @@ using PlantDataMVC.UI.Controllers.Queries;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    public class SeedController : FormControllerBase
+    public class SeedController : DefaultController
     {
         private readonly IMediator _mediator;
 
-        public SeedController(IMediator mediator,IFormHandlerFactory formHandlerFactory) : base(mediator, formHandlerFactory)
+        public SeedController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -90,9 +90,16 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(PlantSeedCreateEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Index");
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Index");
 
-            return await Form(form, success);
+            if (!ModelState.IsValid)
+            {
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
         }
 
         //
@@ -117,9 +124,16 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(PlantSeedUpdateEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Show", new { id = form.Id });
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Show", new { id = form.Id });
 
-            return await Form(form, success);
+            if (!ModelState.IsValid)
+            {
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
         }
 
         //
@@ -144,9 +158,16 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Destroy(PlantSeedDestroyEditModel form)
         {
-            RedirectToRouteResult success = RedirectToAction("Index");
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Index");
 
-            return await Form(form, success);
+            if (!ModelState.IsValid)
+            {
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
         }
     }
 }

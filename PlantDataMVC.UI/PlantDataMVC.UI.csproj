@@ -191,6 +191,7 @@
     <Compile Include="Areas\Security\Controllers\AccountController.cs" />
     <Compile Include="Areas\Security\Models\AccountModels.cs" />
     <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\GenusController.cs" />
     <Compile Include="Controllers\Queries\GenusQueries.cs" />
     <Compile Include="Controllers\Queries\PlantQueries.cs" />

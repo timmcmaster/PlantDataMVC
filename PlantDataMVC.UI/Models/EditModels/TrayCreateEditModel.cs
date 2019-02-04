@@ -3,7 +3,7 @@ using System;
 
 namespace PlantDataMVC.UI.Models.EditModels
 {
-    public class TrayCreateEditModel : IForm
+    public class TrayCreateEditModel : IForm<bool>
     {
         public int SeedBatchId { get; set; }
         public DateTime DatePlanted { get; set; }

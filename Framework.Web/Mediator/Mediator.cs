@@ -5,7 +5,7 @@ using Framework.Web.Views;
 
 namespace Framework.Web.Mediator
 {
-    public class Mediator: IMediator
+    public class Mediator : IMediator
     {
         private readonly IViewHandlerFactory _viewHandlerFactory;
         private readonly IFormHandlerFactory _formHandlerFactory;
@@ -19,44 +19,81 @@ namespace Framework.Web.Mediator
         public async Task<TViewModel> Request<TViewModel>(IViewQuery<TViewModel> query) where TViewModel : IViewModel
         {
             // resolve the handler for this query type and viewmodel type
-            // problem that the actual definitions are not as IViewQuery<TViewModel> but as a type that implements that (e.g. GenusIndexQuery)
+            // the actual definitions are not as IViewQuery<TViewModel> but as a type that implements that (e.g. GenusIndexQuery)
             var queryType = query.GetType();
 
             var handler =
-                (HandlerWrapper<TViewModel>) Activator.CreateInstance(typeof(HandlerWrapperImpl<,>).MakeGenericType(queryType, typeof(TViewModel)));
-            
+                (ViewHandlerWrapper<TViewModel>) Activator.CreateInstance(
+                    typeof(ViewHandlerWrapperImpl<,>).MakeGenericType(queryType, typeof(TViewModel)));
+
 
             // call the handler to handle the request
-            var viewmodel = await handler.HandleAsync(query,_viewHandlerFactory);
+            var viewModel = await handler.HandleAsync(query, _viewHandlerFactory);
 
             // return the model type
-            return viewmodel;
+            return viewModel;
         }
 
-        public Task<TViewModel> Send<TViewModel>(IViewQuery<TViewModel> query) where TViewModel : IViewModel
+        public async Task<TResult> Send<TResult>(IForm<TResult> form)
         {
-            throw new NotImplementedException();
+            // the actual definitions are not as IForm<TResult> but as a type that implements that (e.g. GenusCreateEditModel)
+            var formType = form.GetType();
+
+            var handler =
+                (FormHandlerWrapper<TResult>)Activator.CreateInstance(
+                    typeof(FormHandlerWrapperImpl<,>).MakeGenericType(formType, typeof(TResult)));
+
+
+            // call the handler to handle the request
+            var result = await handler.HandleAsync(form, _formHandlerFactory);
+
+            // return the model type
+            return result;
         }
     }
 
-    internal abstract class HandlerWrapper<TViewModel> where TViewModel : IViewModel
+    internal abstract class ViewHandlerWrapper<TViewModel> where TViewModel : IViewModel
     {
         public abstract Task<TViewModel> HandleAsync(IViewQuery<TViewModel> query,
-                                                           IViewHandlerFactory viewHandlerFactory);
+                                                     IViewHandlerFactory viewHandlerFactory);
     }
 
-        internal class HandlerWrapperImpl<TQuery,TViewModel> : HandlerWrapper<TViewModel> where TQuery : IViewQuery<TViewModel> where TViewModel : IViewModel
+    internal class ViewHandlerWrapperImpl<TQuery, TViewModel> : ViewHandlerWrapper<TViewModel>
+        where TQuery : IViewQuery<TViewModel> where TViewModel : IViewModel
     {
-        public override async Task<TViewModel> HandleAsync(IViewQuery<TViewModel> query, IViewHandlerFactory viewHandlerFactory)
+        public override async Task<TViewModel> HandleAsync(IViewQuery<TViewModel> query,
+                                                           IViewHandlerFactory viewHandlerFactory)
         {
             var handler = viewHandlerFactory.Create<TQuery, TViewModel>();
 
             // call the handler to handle the request
-            var viewModel = await handler.HandleAsync((TQuery)query);
+            var viewModel = await handler.HandleAsync((TQuery) query);
 
             // return the model type
             return viewModel;
-
         }
     }
+
+    internal abstract class FormHandlerWrapper<TResult>
+    {
+        public abstract Task<TResult> HandleAsync(IForm<TResult> form,
+                                                     IFormHandlerFactory formHandlerFactory);
+    }
+
+    internal class FormHandlerWrapperImpl<TForm, TResult> : FormHandlerWrapper<TResult>
+        where TForm : IForm<TResult>
+    {
+        public override async Task<TResult> HandleAsync(IForm<TResult> form,
+                                                           IFormHandlerFactory formHandlerFactory)
+        {
+            var handler = formHandlerFactory.Create<TForm, TResult>();
+
+            // call the handler to handle the request
+            var result = await handler.HandleAsync((TForm)form);
+
+            // return the model type
+            return result;
+        }
+    }
+
 }

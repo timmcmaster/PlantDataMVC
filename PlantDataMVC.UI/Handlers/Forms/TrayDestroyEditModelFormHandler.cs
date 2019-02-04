@@ -5,7 +5,7 @@ using PlantDataMVC.UI.Models.EditModels;
 
 namespace PlantDataMVC.UI.Handlers.Forms
 {
-    public class TrayDestroyEditModelFormHandler : IFormHandler<TrayDestroyEditModel>
+    public class TrayDestroyEditModelFormHandler : IFormHandler<TrayDestroyEditModel, bool>
     {
         private readonly IMyHttpClientFactory _httpClientFactory;
 

@@ -3,7 +3,7 @@ using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.EditModels
 {
-    public class PlantStockCreateEditModel : IForm
+    public class PlantStockCreateEditModel : IForm<bool>
     {
         public int SpeciesId { get; set; }
         public ProductTypeDto ProductType { get; set; }

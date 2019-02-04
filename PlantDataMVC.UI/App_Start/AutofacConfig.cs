@@ -50,7 +50,7 @@ namespace PlantDataMVC.UI
 
             // Register all types that implement IFormHandler<T> from given assembly
             Assembly formAssembly = Assembly.GetAssembly(typeof(PlantCreateEditModelFormHandler));
-            builder.RegisterAssemblyTypes(formAssembly).AsClosedTypesOf(typeof(IFormHandler<>));
+            builder.RegisterAssemblyTypes(formAssembly).AsClosedTypesOf(typeof(IFormHandler<,>)).AsImplementedInterfaces();
 
             // TEMP: Want to build factory via IoC itself
             builder.RegisterType<AutofacFormHandlerFactory>().As<IFormHandlerFactory>();

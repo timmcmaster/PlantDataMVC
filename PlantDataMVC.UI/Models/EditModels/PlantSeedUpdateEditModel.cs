@@ -3,7 +3,7 @@ using System;
 
 namespace PlantDataMVC.UI.Models.EditModels
 {
-    public class PlantSeedUpdateEditModel : IForm
+    public class PlantSeedUpdateEditModel : IForm<bool>
     {
         public int Id { get; set; }
         public int SpeciesId { get; set; }

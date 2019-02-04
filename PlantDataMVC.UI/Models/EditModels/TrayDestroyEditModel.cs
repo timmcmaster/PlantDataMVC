@@ -2,7 +2,7 @@
 
 namespace PlantDataMVC.UI.Models.EditModels
 {
-    public class TrayDestroyEditModel : IForm
+    public class TrayDestroyEditModel : IForm<bool>
     {
         public int Id { get; set; }
     }

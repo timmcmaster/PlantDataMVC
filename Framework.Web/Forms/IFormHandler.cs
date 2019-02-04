@@ -2,8 +2,8 @@
 
 namespace Framework.Web.Forms
 {
-    public interface IFormHandler<TForm> where TForm : IForm
+    public interface IFormHandler<in TForm, TResult> where TForm : IForm<TResult>
     {
-        Task<bool> HandleAsync(TForm form);
+        Task<TResult> HandleAsync(TForm form);
     }
 }

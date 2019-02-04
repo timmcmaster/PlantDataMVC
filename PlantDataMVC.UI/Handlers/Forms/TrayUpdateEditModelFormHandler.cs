@@ -9,7 +9,7 @@ using PlantDataMVC.UI.Models.EditModels;
 
 namespace PlantDataMVC.UI.Handlers.Forms
 {
-    public class TrayUpdateEditModelFormHandler : IFormHandler<TrayUpdateEditModel>
+    public class TrayUpdateEditModelFormHandler : IFormHandler<TrayUpdateEditModel, bool>
     {
         private readonly IMyHttpClientFactory _httpClientFactory;
 

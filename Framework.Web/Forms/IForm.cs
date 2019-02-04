@@ -3,7 +3,11 @@
     /// <summary>
     ///     Marker interface for forms
     /// </summary>
-    public interface IForm
+    public interface IFormBase
+    {
+    }
+
+    public interface IForm<TResult>: IFormBase
     {
     }
 }
