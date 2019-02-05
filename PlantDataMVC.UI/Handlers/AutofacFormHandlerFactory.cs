@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
+using Autofac.Core.Registration;
 using Framework.Web.Forms;
 
 namespace PlantDataMVC.UI.Handlers
@@ -18,9 +20,25 @@ namespace PlantDataMVC.UI.Handlers
 
         public IFormHandler<TForm,TResult> Create<TForm,TResult>() where TForm : IForm<TResult>
         {
-            // Create handler by resolving it from context
-            // Data service parameter for formHandler will also be resolved from IoC (I think?)
-            var formHandler = _c.Resolve<IFormHandler<TForm,TResult>>();
+            IFormHandler<TForm, TResult> formHandler;
+
+            try
+            {
+                // Create handler by resolving it from context
+                // Data service parameter for formHandler will also be resolved from IoC (I think?)
+                formHandler = _c.Resolve<IFormHandler<TForm, TResult>>();
+            }
+            catch (ComponentNotRegisteredException)
+            {
+                throw new InvalidOperationException(
+                    $"Handler was not found for request of type {typeof(IFormHandler<TForm, TResult>)}. Ensure it is registered with the container.");
+            }
+            catch (Exception)
+            {
+                throw new InvalidOperationException(
+                    $"Error constructing form handler for request of type {typeof(IFormHandler<TForm, TResult>)}. Ensure it and any dependencies are registered with the container.");
+            }
+
             return formHandler;
         }
     }

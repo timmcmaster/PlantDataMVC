@@ -1,4 +1,8 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
+using Autofac.Core;
+using Autofac.Core.Registration;
+using Framework.Web.Forms;
 using Framework.Web.Views;
 
 namespace PlantDataMVC.UI.Handlers
@@ -18,10 +22,26 @@ namespace PlantDataMVC.UI.Handlers
 
         public IViewHandler<TQuery, TViewModel> Create<TQuery, TViewModel>() where TQuery : IViewQuery<TViewModel>
         {
-            // Create handler by resolving it from context
-            // Data service parameter for formHandler will also be resolved from IoC (I think?)
-            var viewHandler = _c.Resolve<IViewHandler<TQuery, TViewModel>>();
+            IViewHandler<TQuery, TViewModel> viewHandler;
+
+            try
+            {
+                // Create handler by resolving it from context
+                viewHandler = _c.Resolve<IViewHandler<TQuery, TViewModel>>();
+            }
+            catch (ComponentNotRegisteredException)
+            {
+                throw new InvalidOperationException(
+                    $"Handler was not found for request of type {typeof(IViewHandler<TQuery, TViewModel>)}. Ensure it is registered with the container.");
+            }
+            catch (Exception)
+            {
+                throw new InvalidOperationException(
+                    $"Error constructing form handler for request of type {typeof(IViewHandler<TQuery, TViewModel>)}. Ensure it and any dependencies are registered with the container.");
+            }
+
             return viewHandler;
+
         }
     }
 }
