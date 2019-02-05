@@ -1,8 +1,11 @@
-﻿@using PlantDataMVC.UI.Helpers
+﻿@using PlantDataMVC.UI.Controllers.Queries
+@using PlantDataMVC.UI.Helpers
+@using PlantDataMVC.UI.Models.ViewModels
 @model PlantDataMVC.UI.Models.ViewModels.PlantSeedNewViewModel
 
 @{
     ViewBag.Title = "New";
+    Type siteListItemType = typeof(SiteListViewModel);
 }
 
 <h2>New</h2>
@@ -29,7 +32,11 @@
             @Html.LabelFor(model => model.Site)
         </div>
         <div class="editor-field">
-            @*@Html.DropDownFor(() => "SiteId", model => model.Site, p => p.SiteName, p => p.Id)*@
+            @* TODO: Need a get ALL items option for dropdown *@
+            @{
+                var x = 1; 
+            }
+            @Html.QueryDropDown2For(new SiteListViewModel(), () => "SiteId", model => model.Site.Id, new SiteIndexQuery(1, 100), p => p.SiteName, p => p.Id)
             @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
             @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
         </div>
