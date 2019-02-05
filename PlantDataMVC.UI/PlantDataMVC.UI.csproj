@@ -238,6 +238,7 @@
     <Compile Include="Handlers\Views\TrayListViewModelHandler.cs" />
     <Compile Include="Handlers\Views\TrayShowViewModelHandler.cs" />
     <Compile Include="Helpers\ApiPagingInfo.cs" />
+    <Compile Include="Helpers\DropDownExtensions.cs" />
     <Compile Include="Helpers\HeaderParser.cs" />
     <Compile Include="Helpers\MyHttpClientFactory.cs" />
     <Compile Include="Helpers\LinkHeader.cs" />
