@@ -55,3 +55,9 @@
   - https://www.jerriepelser.com/blog/paging-in-aspnet-webapi-pagination-links/
 ## HTTP Caching
   - https://github.com/aliostad/CacheCow/#getting-started---aspnet-web-api
+## Async/Await in C#
+  - http://blog.stephencleary.com/2012/02/async-and-await.html
+  - https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
+  - https://docs.microsoft.com/en-us/dotnet/csharp/async
+  - https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
+  - http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
