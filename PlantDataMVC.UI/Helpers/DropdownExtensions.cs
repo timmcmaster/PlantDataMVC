@@ -85,10 +85,12 @@ namespace PlantDataMVC.UI.Helpers
 
             var selectedItem = (TDtoItem)metadata.Model;
 
-            // Get list of options via query
+            // Get list of options via query,
             var mediator = DependencyResolver.Current.GetService<IMediator>();
             var requestTask = mediator.Request(query);
-            requestTask.Wait();
+
+            requestTask.Wait(); // TODO: Potential deadlock problem
+
             var dtoItems = requestTask.Result;
 
             IEnumerable<SelectListItem> selectListItems = dtoItems.Select(x => new SelectListItem
