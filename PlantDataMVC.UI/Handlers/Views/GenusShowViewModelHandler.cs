@@ -22,11 +22,11 @@ namespace PlantDataMVC.UI.Handlers.Views
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/Genus/" + query.Id);
+            var httpResponse = await httpClient.GetAsync("api/Genus/" + query.Id).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
+                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<GenusDto>(content);
 
                 var model = Mapper.Map<GenusDto,GenusShowViewModel>(dto);

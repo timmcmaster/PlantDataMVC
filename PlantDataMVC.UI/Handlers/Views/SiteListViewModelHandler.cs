@@ -24,11 +24,11 @@ namespace PlantDataMVC.UI.Handlers.Views
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
 
             // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/Site?page=" + query.Page + "&pageSize=" + query.PageSize);
+            var httpResponse = await httpClient.GetAsync("api/Site?page=" + query.Page + "&pageSize=" + query.PageSize).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
+                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                 var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                 var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);

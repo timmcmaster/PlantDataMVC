@@ -29,7 +29,7 @@ namespace PlantDataMVC.UI.Handlers.Views
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
+                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                 var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                 var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);

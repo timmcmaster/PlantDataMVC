@@ -79,6 +79,7 @@ namespace Framework.Web.Mediator
             var handler = viewHandlerFactory.Create<TQuery, TViewModel>();
 
             // return the task to handle the request
+            // If the handle method allows cancellation, pass it in here
             return handler.HandleAsync((TQuery) query);
         }
     }
@@ -100,6 +101,7 @@ namespace Framework.Web.Mediator
             var handler = formHandlerFactory.Create<TForm, TResult>();
 
             // return the task to handle the request
+            // If the handle method allows cancellation, pass it in here
             return handler.HandleAsync((TForm) form);
         }
     }

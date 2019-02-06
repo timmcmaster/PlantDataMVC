@@ -32,7 +32,7 @@ namespace PlantDataMVC.UI.Handlers.Forms
 
                 var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
                 // todo: if not null client
-                var httpResponse = await httpClient.PutAsync("api/Genus/" + form.Id, content);
+                var httpResponse = await httpClient.PutAsync("api/Genus/" + form.Id, content).ConfigureAwait(false);
 
                 return httpResponse.IsSuccessStatusCode;
             }

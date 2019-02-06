@@ -21,11 +21,11 @@ namespace PlantDataMVC.UI.Handlers.Views
         public async Task<PlantEditViewModel> HandleAsync(PlantEditQuery query)
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            var httpResponse = await httpClient.GetAsync("api/Species/" + query.Id);
+            var httpResponse = await httpClient.GetAsync("api/Species/" + query.Id).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync();
+                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<SpeciesDto>(content);
 
                 var model = Mapper.Map<SpeciesDto, PlantEditViewModel>(dto);
