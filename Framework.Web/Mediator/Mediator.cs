@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Framework.Web.Forms;
@@ -20,14 +21,13 @@ namespace Framework.Web.Mediator
         public async Task<TViewModel> Request<TViewModel>(IViewQuery<TViewModel> query,
                                                           CancellationToken cancellationToken = default)
         {
-            // resolve the handler for this query type and viewmodel type
             // the actual definitions are not as IViewQuery<TViewModel> but as a type that implements that (e.g. GenusIndexQuery)
+            // and the handlers retrieved from the factory are defined against actual query and view model types
             var queryType = query.GetType();
 
             var handler =
-                (ViewHandlerWrapper<TViewModel>) Activator.CreateInstance(
+                (ViewHandlerWrapper<TViewModel>)Activator.CreateInstance(
                     typeof(ViewHandlerWrapperImpl<,>).MakeGenericType(queryType, typeof(TViewModel)));
-
 
             // call the handler to handle the request (ConfigureAwait(false) means that resumed task does not run on main context)
             var viewModel = await handler.HandleAsync(query, cancellationToken, _viewHandlerFactory)
@@ -40,20 +40,14 @@ namespace Framework.Web.Mediator
         public async Task<TResult> Send<TResult>(IForm<TResult> form, CancellationToken cancellationToken = default)
         {
             // the actual form definitions are not as IForm<TResult> but as a type that implements that (e.g. GenusCreateEditModel)
+            // and the handlers retrieved from the factory are defined against actual form and result types
             var formType = form.GetType();
 
             var handler =
                 (FormHandlerWrapper<TResult>) Activator.CreateInstance(
                     typeof(FormHandlerWrapperImpl<,>).MakeGenericType(formType, typeof(TResult)));
 
-
             // call the handler to handle the request (ConfigureAwait(false) means that resumed task does not run on main context)
-            /*
-             var resultTask = handler.HandleAsync(form, _formHandlerFactory);
-
-             var result = await resultTask.ConfigureAwait(false);
-
-            */
             var result = await handler.HandleAsync(form, cancellationToken, _formHandlerFactory)
                                           .ConfigureAwait(false);
 
