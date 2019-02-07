@@ -23,11 +23,9 @@ namespace Framework.Web.Mediator
         {
             // the actual definitions are not as IViewQuery<TViewModel> but as a type that implements that (e.g. GenusIndexQuery)
             // and the handlers retrieved from the factory are defined against actual query and view model types
-            var queryType = query.GetType();
-
             var handler =
                 (ViewHandlerWrapper<TViewModel>)Activator.CreateInstance(
-                    typeof(ViewHandlerWrapperImpl<,>).MakeGenericType(queryType, typeof(TViewModel)));
+                    typeof(ViewHandlerWrapperImpl<,>).MakeGenericType(query.GetType(), typeof(TViewModel)));
 
             // call the handler to handle the request (ConfigureAwait(false) means that resumed task does not run on main context)
             var viewModel = await handler.HandleAsync(query, cancellationToken, _viewHandlerFactory)
@@ -41,11 +39,9 @@ namespace Framework.Web.Mediator
         {
             // the actual form definitions are not as IForm<TResult> but as a type that implements that (e.g. GenusCreateEditModel)
             // and the handlers retrieved from the factory are defined against actual form and result types
-            var formType = form.GetType();
-
             var handler =
                 (FormHandlerWrapper<TResult>) Activator.CreateInstance(
-                    typeof(FormHandlerWrapperImpl<,>).MakeGenericType(formType, typeof(TResult)));
+                    typeof(FormHandlerWrapperImpl<,>).MakeGenericType(form.GetType(), typeof(TResult)));
 
             // call the handler to handle the request (ConfigureAwait(false) means that resumed task does not run on main context)
             var result = await handler.HandleAsync(form, cancellationToken, _formHandlerFactory)

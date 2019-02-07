@@ -17,7 +17,7 @@ namespace PlantDataMVC.UI.Helpers
         ///// Usage @Html.DropDownFor(() => "ProductType.Id", m => m.ProductType, p => p.DisplayValue, p => p.Id)
         ///// </summary>
         //public static MvcHtmlString DropDownFor<TModel, TDtoItem>(this HtmlHelper<TModel> htmlHelper,
-        //    Func<string> fieldName,
+        //    Func<string> saveFieldNameFunc,
         //    Expression<Func<TModel, TDtoItem>> selectedItemExpression,     // Selects the referenced entity from the model
         //    Func<TDtoItem, string> displayValueSelector,       // Selects the display field from the entity
         //    Func<TDtoItem, object> dataValueSelector           // Selects the value field from the entity
@@ -52,7 +52,7 @@ namespace PlantDataMVC.UI.Helpers
         //        Selected = dataValueSelector(x).Equals(dataValueSelector(selectedItem))
         //    });
 
-        //    return htmlHelper.DropDownList(fieldName(), selectListItems, "Select an option");
+        //    return htmlHelper.DropDownList(saveFieldNameFunc(), selectListItems, "Select an option");
         //}
 
         /// <summary>
@@ -100,21 +100,24 @@ namespace PlantDataMVC.UI.Helpers
 
         /// <summary>
         /// Query drop down for the model.
-        /// Usage @Html.DropDownFor(() => "ProductType.Id", new ProductListQuery(),m => m.ProductType, p => p.DisplayValue, p => p.Id)
+        /// <![CDATA[
+        /// @(Html.QueryDropDown2For<PlantSeedNewViewModel, SiteListViewModel, SiteIndexQuery, ListViewModelStatic<SiteListViewModel>>(
+        ///    () => "SiteId", model => model.Site.Id, new SiteIndexQuery(1, 100), p => p.SiteName, p => p.Id))
+        /// ]]>
         /// </summary>
         /// <typeparam name="TModel">The type of the viewmodel for the view.</typeparam>
         /// <typeparam name="TListItem">The type of the dto item.</typeparam>
         /// <typeparam name="TQuery">The type of the query.</typeparam>
         /// <typeparam name="TViewModel"></typeparam>
         /// <param name="htmlHelper">The HTML helper for the page viewmodel (TModel).</param>
-        /// <param name="fieldName">Name of the form field to be used.</param>
+        /// <param name="saveFieldNameFunc">Func giving the name of the field to save list value to.</param>
         /// <param name="selectedDataValue"></param>
         /// <param name="query">The query that returns an enumerable of the dropdown entity type.</param>
         /// <param name="displayValueSelector">Selects the display field from the dropdown entity.</param>
         /// <param name="dataValueSelector">Selects the value field from the dropdown entity</param>
         /// <returns></returns>
         public static MvcHtmlString QueryDropDown2For<TModel, TListItem, TQuery, TViewModel>(this HtmlHelper<TModel> htmlHelper,
-                                                                               Func<string> fieldName,
+                                                                               Func<string> saveFieldNameFunc,
                                                                                Expression<Func<TModel, object>> selectedDataValue,
                                                                                TQuery query,
                                                                                Func<TListItem, string> displayValueSelector,
@@ -137,8 +140,12 @@ namespace PlantDataMVC.UI.Helpers
                 Selected = dataValueSelector(x).Equals(selectedDataValue)
             });
 
-            return htmlHelper.DropDownList(fieldName(), selectListItems, "Select an option");
+            return htmlHelper.DropDownList(saveFieldNameFunc(), selectListItems, "Select an option");
         }
+
+        // Preferred call structure for the above would be:
+        // @(Html.QueryDropDown2For(() => "SiteId", model => model.Site.Id, new SiteIndexQuery(1, 100), p => p.SiteName, p => p.Id))
+        // - requires TViewModel to be inferred somehow (preferably from query type)
 
     }
 }
