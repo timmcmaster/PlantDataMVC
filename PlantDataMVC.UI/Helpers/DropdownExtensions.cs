@@ -57,49 +57,6 @@ namespace PlantDataMVC.UI.Helpers
 
         /// <summary>
         /// Query drop down for the model.
-        /// Usage @Html.QueryDropDownFor(() => "ProductType.Id", new ProductListQuery(),m => m.ProductType, p => p.DisplayValue, p => p.Id)
-        /// </summary>
-        /// <typeparam name="TModel">The type of the viewmodel for the view.</typeparam>
-        /// <typeparam name="TDtoItem">The type of the dto item.</typeparam>
-        /// <typeparam name="TQuery">The type of the query.</typeparam>
-        /// <param name="htmlHelper">The HTML helper for the page viewmodel (TModel).</param>
-        /// <param name="saveFieldNameFunc">Func giving the name of the field to save list value to.</param>
-        /// <param name="selectedItemExpression">Selects the referenced item related to this dropdown entity from the model.</param>
-        /// <param name="query">The query that returns an enumerable of the dropdown entity type.</param>
-        /// <param name="displayValueSelector">Selects the display field from the dropdown entity.</param>
-        /// <param name="dataValueSelector">Selects the value field from the dropdown entity</param>
-        /// <returns></returns>
-        public static MvcHtmlString QueryDropDownFor<TModel, TDtoItem, TQuery>(this HtmlHelper<TModel> htmlHelper,
-                                                                               Func<string> saveFieldNameFunc,
-                                                                               Expression<Func<TModel, TDtoItem>> selectedItemExpression,
-                                                                               TQuery query,
-                                                                               Func<TDtoItem, string> displayValueSelector,
-                                                                               Func<TDtoItem, object> dataValueSelector
-        ) where TDtoItem : class, IDto
-          where TQuery : IViewQuery<IEnumerable<TDtoItem>>
-        {
-            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(selectedItemExpression, htmlHelper.ViewData);
-            var selectedItem = (TDtoItem)metadata.Model;
-
-            // Get list of options via query,
-            var mediator = DependencyResolver.Current.GetService<IMediator>();
-            var requestTask = mediator.Request(query);
-
-            // NOTE: Potential deadlock problem
-            var dtoItems = requestTask.Result;
-
-            IEnumerable<SelectListItem> selectListItems = dtoItems.Select(x => new SelectListItem
-            {
-                Text = displayValueSelector(x),
-                Value = dataValueSelector(x).ToString(),
-                Selected = dataValueSelector(x).Equals(dataValueSelector(selectedItem))
-            });
-
-            return htmlHelper.DropDownList(saveFieldNameFunc(), selectListItems, "Select an option");
-        }
-
-        /// <summary>
-        /// Query drop down for the model.
         /// <![CDATA[
         /// @(Html.QueryDropDown2For<PlantSeedNewViewModel, SiteListViewModel, SiteIndexQuery, ListViewModelStatic<SiteListViewModel>>(
         ///    () => "SiteId", model => model.Site.Id, new SiteIndexQuery(1, 100), p => p.SiteName, p => p.Id))
@@ -116,14 +73,13 @@ namespace PlantDataMVC.UI.Helpers
         /// <param name="displayValueSelector">Selects the display field from the dropdown entity.</param>
         /// <param name="dataValueSelector">Selects the value field from the dropdown entity</param>
         /// <returns></returns>
-        public static MvcHtmlString QueryDropDown2For<TModel, TListItem, TQuery, TViewModel>(this HtmlHelper<TModel> htmlHelper,
+        public static MvcHtmlString QueryDropDownFor<TModel, TListItem, TViewModel>(this HtmlHelper<TModel> htmlHelper,
                                                                                Func<string> saveFieldNameFunc,
                                                                                Expression<Func<TModel, object>> selectedDataValue,
-                                                                               TQuery query,
+                                                                               IViewQuery<TViewModel> query,
                                                                                Func<TListItem, string> displayValueSelector,
                                                                                Func<TListItem, object> dataValueSelector
         ) where TListItem : class
-          where TQuery : IViewQuery<TViewModel>
           where TViewModel : IEnumerable<TListItem>
         {
             // Get list of options via query
@@ -146,6 +102,79 @@ namespace PlantDataMVC.UI.Helpers
         // Preferred call structure for the above would be:
         // @(Html.QueryDropDown2For(() => "SiteId", model => model.Site.Id, new SiteIndexQuery(1, 100), p => p.SiteName, p => p.Id))
         // - requires TViewModel to be inferred somehow (preferably from query type)
+        public static MvcHtmlString TestQueryDropDown<TModel, TListItem, TViewModel>(this HtmlHelper<TModel> htmlHelper,
+                                                                                             Func<string> saveFieldNameFunc,
+                                                                                             Expression<Func<TModel, object>> selectedDataValue,
+                                                                                             IViewQuery<TViewModel> query,
+                                                                                             Func<TListItem, string> displayValueSelector,
+                                                                                             Func<TListItem, object> dataValueSelector
+        ) where TListItem : class
+          where TViewModel : IEnumerable<TListItem>
+        {
+            // Get list of options via query
+            var mediator = DependencyResolver.Current.GetService<IMediator>();
+            var requestTask = mediator.Request(query);
+            // NOTE: Need to be careful with this, as waiting on async can cause deadlocks.
+            // ALSO, lose any exception type management, as it returns AggregateException
+            var dtoItems = requestTask.Result;
 
+            IEnumerable<SelectListItem> selectListItems = dtoItems.Select(x => new SelectListItem
+            {
+                Text = displayValueSelector(x),
+                Value = dataValueSelector(x).ToString(),
+                Selected = dataValueSelector(x).Equals(selectedDataValue)
+            });
+
+            return htmlHelper.DropDownList(saveFieldNameFunc(), selectListItems, "Select an option");
+        }
+
+        
+        public static IEnumerable<SelectListItem> CreateSelectList<TListItem>(
+            IEnumerable<TListItem> viewModel,
+            Func<TListItem, string> displayValueSelector,
+            Func<TListItem, object> dataValueSelector,
+            object selectedDataValue)
+        {
+            var selectListItems = viewModel.Select(x => new SelectListItem
+            {
+                Text = displayValueSelector(x),
+                Value = dataValueSelector(x).ToString(),
+                Selected = dataValueSelector(x).Equals(selectedDataValue)
+            });
+
+            return selectListItems;
+        }
+
+        public static void TestMethod<TViewModel>(IViewQuery<TViewModel> query)
+        {
+            var qdbType = typeof(QueryDropdownBuilderImpl<,>).MakeGenericType(query.GetType(), typeof(TViewModel));
+            var builder = (QueryDropdownBuilder<TViewModel>) Activator.CreateInstance(qdbType);
+        }
+    }}
+
+    public abstract class QueryDropdownBuilder<TViewModel>
+    {
+        public abstract void Build(IViewQuery<TViewModel> query);
+    }
+
+    public class QueryDropdownBuilderImpl<TQuery,TViewModel> : QueryDropdownBuilder<TViewModel>
+    {
+        public override void Build(IViewQuery<TViewModel> query)
+        {
+            var slbType = typeof(SelectListBuilderImpl<,>).MakeGenericType(query.GetType(), typeof(TViewModel));
+            var builder = (QueryDropdownBuilder<TViewModel>)Activator.CreateInstance(qdbType);
+        }
+}
+
+    public abstract class SelectListBuilder<TListItem>
+    {
+        public abstract void Build(IEnumerable<TListItem> model);
+    }
+
+    public class SelectListBuilderImpl<TViewModel, TListItem> : SelectListBuilder<TListItem>
+    {
+        public override void Build(IEnumerable<TListItem> model)
+        {
+        }
     }
 }
