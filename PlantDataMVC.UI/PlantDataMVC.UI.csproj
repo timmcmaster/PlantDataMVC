@@ -214,6 +214,8 @@
     <Compile Include="Handlers\Views\GenusDeleteViewModelHandler.cs" />
     <Compile Include="Handlers\Views\GenusListViewModelHandler.cs" />
     <Compile Include="Handlers\Views\GenusShowViewModelHandler.cs" />
+    <Compile Include="Controllers\Queries\ListQuery.cs" />
+    <Compile Include="Handlers\Views\ListViewModelHandler.cs" />
     <Compile Include="Handlers\Views\PlantDeleteViewModelHandler.cs" />
     <Compile Include="Handlers\Views\PlantEditViewModelHandler.cs" />
     <Compile Include="Handlers\Views\PlantListViewModelHandler.cs" />
@@ -221,6 +223,7 @@
     <Compile Include="Handlers\Views\PlantSeedListViewModelHandler.cs" />
     <Compile Include="Handlers\Views\PlantSeedShowViewModelHandler.cs" />
     <Compile Include="Handlers\Views\PlantShowViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\PlantSpeciesDtoListViewModelHandler.cs" />
     <Compile Include="Handlers\Views\PlantStockDeleteViewModelHandler.cs" />
     <Compile Include="Handlers\Views\PlantStockDetailsViewModelHandler.cs" />
     <Compile Include="Handlers\Views\PlantStockEditViewModelHandler.cs" />
@@ -230,6 +233,7 @@
     <Compile Include="Handlers\Views\PlantStockTransactionDeleteViewModelHandler.cs" />
     <Compile Include="Handlers\Views\PlantStockTransactionEditViewModelHandler.cs" />
     <Compile Include="Handlers\Views\SiteDeleteViewModelHandler.cs" />
+    <Compile Include="Handlers\Views\SiteDtoListViewModelHandler.cs" />
     <Compile Include="Handlers\Views\SiteEditViewModelHandler.cs" />
     <Compile Include="Handlers\Views\SiteListViewModelHandler.cs" />
     <Compile Include="Handlers\Views\SiteShowViewModelHandler.cs" />

@@ -5,7 +5,6 @@ namespace PlantDataMVC.UI.Controllers.Queries
 {
     public class SiteIndexQuery: IViewQuery<ListViewModelStatic<SiteListViewModel>>
     {
-
         public SiteIndexQuery(int page, int pageSize)
         {
             Page = page;
@@ -14,12 +13,10 @@ namespace PlantDataMVC.UI.Controllers.Queries
 
         public int Page { get; set; }
         public int PageSize { get; set; }
-
     }
 
     public class SiteDeleteQuery : IViewQuery<SiteDeleteViewModel>
     {
-
         public SiteDeleteQuery(int id)
         {
             Id = id;
@@ -30,7 +27,6 @@ namespace PlantDataMVC.UI.Controllers.Queries
 
     public class SiteEditQuery : IViewQuery<SiteEditViewModel>
     {
-
         public SiteEditQuery(int id)
         {
             Id = id;
@@ -41,7 +37,6 @@ namespace PlantDataMVC.UI.Controllers.Queries
 
     public class SiteShowQuery : IViewQuery<SiteShowViewModel>
     {
-
         public SiteShowQuery(int id)
         {
             Id = id;

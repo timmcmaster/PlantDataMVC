@@ -7,8 +7,11 @@ namespace PlantDataMVC.UI.Models.ViewModels
 {
     public class PlantSeedNewViewModel
     {
-        [Display(Name = "Species Name")]
-        public SpeciesDto PlantSpecies { get; set; }
+        //[Display(Name = "Species Name")]
+        //public SpeciesDto PlantSpecies { get; set; }
+
+        [Display(Name = "Species")]
+        public int SpeciesId { get; set; }
 
         [Display(Name = "Date Collected")]
         public DateTime DateCollected { get; set; }
@@ -19,14 +22,17 @@ namespace PlantDataMVC.UI.Models.ViewModels
         [StringLength(200), DataType("CustomString")]
         public string Notes { get; set; }
 
-        [Display(Name = "Site Name")]
-        public SiteDto Site { get; set; }
+        //[Display(Name = "Site Name")]
+        //public SiteDto Site { get; set; }
+
+        [Display(Name = "Site")]
+        public int SiteId { get; set; }
 
         public PlantSeedNewViewModel()
         {
-            PlantSpecies = new SpeciesDto();
+            //PlantSpecies = new SpeciesDto();
             DateCollected = new DateTime();
-            Site = new SiteDto();
+            //Site = new SiteDto();
         }
     }
 }

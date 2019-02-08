@@ -1,4 +1,5 @@
 ﻿@using Framework.Web.Views
+@using PlantDataMVC.DTO.Dtos
 @using PlantDataMVC.UI.Controllers.Queries
 @using PlantDataMVC.UI.Helpers
 @using PlantDataMVC.UI.Models.ViewModels
@@ -19,30 +20,39 @@
         <legend>Seed Batch</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PlantSpecies)
+            @Html.LabelFor(model => model.SpeciesId)
         </div>
         <div class="editor-field">
             @*TODO: Should be using genus and species for display value*@
-            @*@Html.DropDownFor(() => "SpeciesId", model => model.PlantSpecies, p => p.SpecificName, p => p.Id)*@
-            @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
+            @Html.QueryDropDownFor(
+                () => "SpeciesId",
+                model => model.SpeciesId,
+                new ListQuery<SpeciesDto>(),
+                p => p.Id,
+                p => p.SpecificName)
             @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Site)
+            @Html.LabelFor(model => model.SiteId)
         </div>
         <div class="editor-field">
             @* TODO: Need a get ALL items option for dropdown *@
             @{
                 var x = 1;
             }
-            @(Html.QueryDropDownFor<PlantSeedNewViewModel, SiteListViewModel, ListViewModelStatic<SiteListViewModel>>(
-                                  () => "SiteId",
-                                  model => model.Site.Id,
-                                  new SiteIndexQuery(1, 100),
-                                  p => p.SiteName,
-                                  p => p.Id))
-            @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
+            @*@Html.QueryDropDownFor(
+                () => "SiteId",
+                model => model.Site.Id,
+                new SiteIndexQuery(1, 100),
+                p => p.SiteName,
+                p => p.Id)*@
+            @Html.QueryDropDownFor(
+                  () => "SiteId",
+                  model => model.SiteId,
+                  new ListQuery<SiteDto>(),
+                  p => p.Id,
+                  p => p.SiteName)
             @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
         </div>
 

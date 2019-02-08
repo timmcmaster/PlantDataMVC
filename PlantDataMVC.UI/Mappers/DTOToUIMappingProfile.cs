@@ -138,8 +138,8 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dto => dto.DateCollected))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
-                .ForMember(uio => uio.PlantSpecies, opt => opt.Ignore())    // don't need to map species up for new seed batch
-                .ForMember(uio => uio.Site, opt => opt.Ignore());           // don't need to map site up for new seed batch
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
+                .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dto => dto.SiteId));
 
             CreateMap<SeedBatchDto, PlantSeedShowViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dto => dto.DateCollected))
