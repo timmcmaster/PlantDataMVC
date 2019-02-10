@@ -1,14 +1,12 @@
-﻿using Framework.Web.Forms;
-using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.UI.Models.EditModels;
+﻿using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Models.ViewModels;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
-using Framework.Web;
 using Framework.Web.Mediator;
-using Framework.Web.Views;
 using PlantDataMVC.UI.Controllers.Queries;
+using PlantDataMVC.UI.Models.EditModels.Transaction;
+using PlantDataMVC.UI.Models.ViewModels.Transaction;
 
 namespace PlantDataMVC.UI.Controllers
 {

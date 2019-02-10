@@ -1,5 +1,4 @@
-﻿using Interfaces.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,7 +6,6 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using Framework.Web.Mediator;
 using Framework.Web.Views;
-using PlantDataMVC.UI.Models.ViewModels;
 
 namespace PlantDataMVC.UI.Helpers
 {

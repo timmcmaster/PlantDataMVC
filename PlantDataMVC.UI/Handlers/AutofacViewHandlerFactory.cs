@@ -1,8 +1,6 @@
 ﻿using System;
 using Autofac;
-using Autofac.Core;
 using Autofac.Core.Registration;
-using Framework.Web.Forms;
 using Framework.Web.Views;
 
 namespace PlantDataMVC.UI.Handlers

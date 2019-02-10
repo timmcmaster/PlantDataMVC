@@ -1,13 +1,12 @@
-﻿using System.Net.Http;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Framework.Web.Forms;
 using System.Reflection;
 using Framework.Web.Mediator;
 using Framework.Web.Views;
 using PlantDataMVC.UI.Handlers;
-using PlantDataMVC.UI.Handlers.Forms;
-using PlantDataMVC.UI.Handlers.Views;
+using PlantDataMVC.UI.Handlers.Forms.Plant;
+using PlantDataMVC.UI.Handlers.Views.Genus;
 using PlantDataMVC.UI.Helpers;
 
 namespace PlantDataMVC.UI

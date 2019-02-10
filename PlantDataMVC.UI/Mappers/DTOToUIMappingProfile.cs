@@ -1,6 +1,13 @@
 ﻿using AutoMapper;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Models.ViewModels;
+using PlantDataMVC.UI.Models.ViewModels.Genus;
+using PlantDataMVC.UI.Models.ViewModels.Plant;
+using PlantDataMVC.UI.Models.ViewModels.PlantStock;
+using PlantDataMVC.UI.Models.ViewModels.Seed;
+using PlantDataMVC.UI.Models.ViewModels.Site;
+using PlantDataMVC.UI.Models.ViewModels.Transaction;
+using PlantDataMVC.UI.Models.ViewModels.Tray;
 
 namespace PlantDataMVC.UI.Mappers
 {

@@ -1,7 +1,6 @@
 ﻿using Framework.Web.Mvc.Paging;
 using Framework.Web.Mvc.Sorting;
 using System.Collections.Generic;
-using Framework.Web.Views;
 
 namespace PlantDataMVC.UI.Models.ViewModels
 {

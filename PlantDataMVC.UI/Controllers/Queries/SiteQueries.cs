@@ -1,5 +1,6 @@
 ﻿using Framework.Web.Views;
 using PlantDataMVC.UI.Models.ViewModels;
+using PlantDataMVC.UI.Models.ViewModels.Site;
 
 namespace PlantDataMVC.UI.Controllers.Queries
 {
