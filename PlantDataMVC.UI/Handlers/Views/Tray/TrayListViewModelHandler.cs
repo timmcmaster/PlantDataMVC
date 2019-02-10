@@ -4,7 +4,6 @@ using AutoMapper;
 using Framework.Web.Views;
 using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.UI.Controllers.Queries;
 using PlantDataMVC.UI.Controllers.Queries.Tray;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.ViewModels;

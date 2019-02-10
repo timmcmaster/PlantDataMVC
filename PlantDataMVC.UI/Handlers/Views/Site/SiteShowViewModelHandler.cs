@@ -3,10 +3,8 @@ using AutoMapper;
 using Framework.Web.Views;
 using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.UI.Controllers.Queries;
 using PlantDataMVC.UI.Controllers.Queries.Site;
 using PlantDataMVC.UI.Helpers;
-using PlantDataMVC.UI.Models.ViewModels;
 using PlantDataMVC.UI.Models.ViewModels.Site;
 
 namespace PlantDataMVC.UI.Handlers.Views.Site

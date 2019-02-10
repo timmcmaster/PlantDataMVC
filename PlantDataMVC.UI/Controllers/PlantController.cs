@@ -1,10 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Framework.Web.Mediator;
-using PlantDataMVC.UI.Controllers.Queries;
 using PlantDataMVC.UI.Controllers.Queries.Plant;
 using PlantDataMVC.UI.Models.EditModels.Plant;
-using PlantDataMVC.UI.Models.ViewModels;
 using PlantDataMVC.UI.Models.ViewModels.Plant;
 
 namespace PlantDataMVC.UI.Controllers

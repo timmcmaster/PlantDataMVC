@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.UI.Models.ViewModels;
 using PlantDataMVC.UI.Models.ViewModels.Genus;
 using PlantDataMVC.UI.Models.ViewModels.Plant;
 using PlantDataMVC.UI.Models.ViewModels.PlantStock;
