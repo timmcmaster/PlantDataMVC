@@ -29,7 +29,7 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var query = new PlantStockIndexQuery(localPage, localPageSize);
+            var query = new IndexQuery(localPage, localPageSize);
             var model = await _mediator.Request(query);
 
             if (model == null)
@@ -46,7 +46,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Show/5
         public async Task<ActionResult> Show(int id)
         {
-            var query = new PlantStockShowQuery(id);
+            var query = new ShowQuery(id);
             var model = await _mediator.Request(query);
 
             if (model == null)
@@ -63,7 +63,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var query = new PlantStockDetailsQuery(id);
+            var query = new DetailsQuery(id);
             var model = await _mediator.Request(query);
 
             if (model == null)
@@ -120,7 +120,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var query = new PlantStockEditQuery(id);
+            var query = new EditQuery(id);
             var model = await _mediator.Request(query);
 
             if (model == null)
@@ -154,7 +154,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var query = new PlantStockDeleteQuery(id);
+            var query = new DeleteQuery(id);
             var model = await _mediator.Request(query);
 
             if (model == null)

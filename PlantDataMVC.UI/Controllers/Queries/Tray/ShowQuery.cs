@@ -3,10 +3,10 @@ using PlantDataMVC.UI.Models.ViewModels.Tray;
 
 namespace PlantDataMVC.UI.Controllers.Queries.Tray
 {
-    public class TrayEditQuery : IViewQuery<TrayEditViewModel>
+    public class ShowQuery : IViewQuery<TrayShowViewModel>
     {
 
-        public TrayEditQuery(int id)
+        public ShowQuery(int id)
         {
             Id = id;
         }

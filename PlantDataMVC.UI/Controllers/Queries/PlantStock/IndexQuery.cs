@@ -1,13 +1,13 @@
 ﻿using Framework.Web.Views;
 using PlantDataMVC.UI.Models.ViewModels;
-using PlantDataMVC.UI.Models.ViewModels.Plant;
+using PlantDataMVC.UI.Models.ViewModels.PlantStock;
 
-namespace PlantDataMVC.UI.Controllers.Queries.Plant
+namespace PlantDataMVC.UI.Controllers.Queries.PlantStock
 {
-    public class PlantIndexQuery: IViewQuery<ListViewModelStatic<PlantListViewModel>>
+    public class IndexQuery: IViewQuery<ListViewModelStatic<PlantStockListViewModel>>
     {
 
-        public PlantIndexQuery(int page, int pageSize)
+        public IndexQuery(int page, int pageSize)
         {
             Page = page;
             PageSize = pageSize;

@@ -3,9 +3,9 @@ using PlantDataMVC.UI.Models.ViewModels.Site;
 
 namespace PlantDataMVC.UI.Controllers.Queries.Site
 {
-    public class SiteShowQuery : IViewQuery<SiteShowViewModel>
+    public class DeleteQuery : IViewQuery<SiteDeleteViewModel>
     {
-        public SiteShowQuery(int id)
+        public DeleteQuery(int id)
         {
             Id = id;
         }

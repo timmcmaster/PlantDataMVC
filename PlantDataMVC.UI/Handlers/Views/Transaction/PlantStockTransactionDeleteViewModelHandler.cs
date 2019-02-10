@@ -9,7 +9,7 @@ using PlantDataMVC.UI.Models.ViewModels.Transaction;
 
 namespace PlantDataMVC.UI.Handlers.Views.Transaction
 {
-    public class PlantStockTransactionDeleteViewModelHandler : IViewHandler<PlantStockTransactionDeleteQuery,PlantStockTransactionDeleteViewModel>
+    public class PlantStockTransactionDeleteViewModelHandler : IViewHandler<DeleteQuery,PlantStockTransactionDeleteViewModel>
     {
         private readonly IMyHttpClientFactory _httpClientFactory;
 
@@ -18,7 +18,7 @@ namespace PlantDataMVC.UI.Handlers.Views.Transaction
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<PlantStockTransactionDeleteViewModel> HandleAsync(PlantStockTransactionDeleteQuery query)
+        public async Task<PlantStockTransactionDeleteViewModel> HandleAsync(DeleteQuery query)
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client

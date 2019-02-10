@@ -3,9 +3,9 @@ using PlantDataMVC.UI.Models.ViewModels.Site;
 
 namespace PlantDataMVC.UI.Controllers.Queries.Site
 {
-    public class SiteEditQuery : IViewQuery<SiteEditViewModel>
+    public class EditQuery : IViewQuery<SiteEditViewModel>
     {
-        public SiteEditQuery(int id)
+        public EditQuery(int id)
         {
             Id = id;
         }

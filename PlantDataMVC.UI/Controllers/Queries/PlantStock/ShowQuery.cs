@@ -3,10 +3,10 @@ using PlantDataMVC.UI.Models.ViewModels.PlantStock;
 
 namespace PlantDataMVC.UI.Controllers.Queries.PlantStock
 {
-    public class PlantStockDeleteQuery : IViewQuery<PlantStockDeleteViewModel>
+    public class ShowQuery : IViewQuery<PlantStockShowViewModel>
     {
 
-        public PlantStockDeleteQuery(int id)
+        public ShowQuery(int id)
         {
             Id = id;
         }

@@ -12,7 +12,7 @@ namespace PlantDataMVC.UI.Helpers
     public static class DropDownExtensions
     {
         // Preferred call structure would be:
-        // @(Html.QueryDropDown2For(() => "SiteId", model => model.Site.Id, new SiteIndexQuery(1, 100), p => p.SiteName, p => p.Id))
+        // @(Html.QueryDropDown2For(() => "SiteId", model => model.Site.Id, new IndexQuery(1, 100), p => p.SiteName, p => p.Id))
         // - requires TViewModel to be inferred somehow (preferably from query type)
         public static MvcHtmlString QueryDropDownFor<TModel, TViewModel, TListItem>(this HtmlHelper<TModel> htmlHelper,
                                                                                      Func<string> saveFieldNameFunc,

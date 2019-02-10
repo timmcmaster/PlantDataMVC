@@ -42,7 +42,7 @@
             @*@Html.QueryDropDownFor(
                 () => "SiteId",
                 model => model.Site.Id,
-                new SiteIndexQuery(1, 100),
+                new IndexQuery(1, 100),
                 p => p.SiteName,
                 p => p.Id)*@
             @Html.QueryDropDownFor(

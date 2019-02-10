@@ -3,10 +3,10 @@ using PlantDataMVC.UI.Models.ViewModels.Transaction;
 
 namespace PlantDataMVC.UI.Controllers.Queries.Transaction
 {
-    public class PlantStockTransactionDeleteQuery : IViewQuery<PlantStockTransactionDeleteViewModel>
+    public class EditQuery : IViewQuery<PlantStockTransactionEditViewModel>
     {
 
-        public PlantStockTransactionDeleteQuery(int id)
+        public EditQuery(int id)
         {
             Id = id;
         }

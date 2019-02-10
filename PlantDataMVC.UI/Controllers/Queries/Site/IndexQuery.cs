@@ -1,13 +1,12 @@
 ﻿using Framework.Web.Views;
 using PlantDataMVC.UI.Models.ViewModels;
-using PlantDataMVC.UI.Models.ViewModels.Genus;
+using PlantDataMVC.UI.Models.ViewModels.Site;
 
-namespace PlantDataMVC.UI.Controllers.Queries.Genus
+namespace PlantDataMVC.UI.Controllers.Queries.Site
 {
-    public class GenusIndexQuery: IViewQuery<ListViewModelStatic<GenusListViewModel>>
+    public class IndexQuery: IViewQuery<ListViewModelStatic<SiteListViewModel>>
     {
-
-        public GenusIndexQuery(int page, int pageSize)
+        public IndexQuery(int page, int pageSize)
         {
             Page = page;
             PageSize = pageSize;
@@ -15,6 +14,5 @@ namespace PlantDataMVC.UI.Controllers.Queries.Genus
 
         public int Page { get; set; }
         public int PageSize { get; set; }
-
     }
 }

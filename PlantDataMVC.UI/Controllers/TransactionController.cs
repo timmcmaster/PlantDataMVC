@@ -54,7 +54,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var query = new PlantStockTransactionEditQuery(id);
+            var query = new EditQuery(id);
             var model = await _mediator.Request(query);
 
             if (model == null)
@@ -88,7 +88,7 @@ namespace PlantDataMVC.UI.Controllers
         // GET: /"ControllerName"/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var query = new PlantStockTransactionDeleteQuery(id);
+            var query = new DeleteQuery(id);
             var model = await _mediator.Request(query);
 
             if (model == null)
