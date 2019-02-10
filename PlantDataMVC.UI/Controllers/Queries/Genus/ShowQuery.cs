@@ -3,7 +3,7 @@ using PlantDataMVC.UI.Models.ViewModels.Genus;
 
 namespace PlantDataMVC.UI.Controllers.Queries.Genus
 {
-    public class ShowQuery : IViewQuery<GenusShowViewModel>
+    public class ShowQuery : IQuery<GenusShowViewModel>
     {
 
         public ShowQuery(int id)

@@ -7,8 +7,8 @@ namespace PlantDataMVC.UI.Controllers.Queries
     /// Generic query, currently used for dropdown lists
     /// </summary>
     /// <typeparam name="TItem">The type of the item.</typeparam>
-    /// <seealso cref="Framework.Web.Views.IViewQueryForList{TItem, System.Collections.Generic.IEnumerable{TItem}}" />
-    public class ListQuery<TItem> : IViewQueryForList<TItem, IEnumerable<TItem>>
+    /// <seealso cref="IQueryForList{TListItem,TViewModel}.Collections.Generic.IEnumerable{TItem}}" />
+    public class ListQuery<TItem> : IQueryForList<TItem, IEnumerable<TItem>>
     {
     }
 }

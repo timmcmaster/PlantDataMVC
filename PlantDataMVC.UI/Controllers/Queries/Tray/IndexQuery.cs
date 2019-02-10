@@ -4,7 +4,7 @@ using PlantDataMVC.UI.Models.ViewModels.Tray;
 
 namespace PlantDataMVC.UI.Controllers.Queries.Tray
 {
-    public class IndexQuery: IViewQuery<ListViewModelStatic<TrayListViewModel>>
+    public class IndexQuery: IQuery<ListViewModelStatic<TrayListViewModel>>
     {
 
         public IndexQuery(int page, int pageSize)

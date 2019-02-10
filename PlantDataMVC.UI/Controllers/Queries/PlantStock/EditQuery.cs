@@ -3,7 +3,7 @@ using PlantDataMVC.UI.Models.ViewModels.PlantStock;
 
 namespace PlantDataMVC.UI.Controllers.Queries.PlantStock
 {
-    public class EditQuery : IViewQuery<PlantStockEditViewModel>
+    public class EditQuery : IQuery<PlantStockEditViewModel>
     {
 
         public EditQuery(int id)

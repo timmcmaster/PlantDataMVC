@@ -62,13 +62,13 @@ namespace PlantDataMVC.UI
             //    return ds => cc.Resolve<T>();
             //});
 
-            // Register all types that implement IViewHandler<T,U> from given assembly
-            Assembly viewAssembly = Assembly.GetAssembly(typeof(GenusShowViewModelHandler));
-            builder.RegisterAssemblyTypes(viewAssembly).AsClosedTypesOf(typeof(IViewHandler<,>)).AsImplementedInterfaces();
+            // Register all types that implement IQueryHandler<T,U> from given assembly
+            Assembly viewAssembly = Assembly.GetAssembly(typeof(ShowQueryHandler));
+            builder.RegisterAssemblyTypes(viewAssembly).AsClosedTypesOf(typeof(IQueryHandler<,>)).AsImplementedInterfaces();
             //builder.RegisterAssemblyTypes(viewAssembly).AsImplementedInterfaces();
 
             // TEMP: Want to build factory via IoC itself
-            builder.RegisterType<AutofacViewHandlerFactory>().As<IViewHandlerFactory>();
+            builder.RegisterType<AutofacQueryHandlerFactory>().As<IQueryHandlerFactory>();
 
             // Register HttpClient as a service to be injected
             builder.RegisterType<MyHttpClientFactory>().As<IMyHttpClientFactory>().SingleInstance();

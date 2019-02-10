@@ -73,7 +73,7 @@
   <ItemGroup>
     <Compile Include="Mediator\IMediator.cs" />
     <Compile Include="Mediator\Mediator.cs" />
-    <Compile Include="Views\IViewQuery.cs" />
+    <Compile Include="Views\IQuery.cs" />
     <Compile Include="Forms\IForm.cs" />
     <Compile Include="Forms\IFormHandler.cs" />
     <Compile Include="Forms\IFormHandlerFactory.cs" />
@@ -90,8 +90,8 @@
     <Compile Include="Mvc\Sorting\SortableList.cs" />
     <Compile Include="Mvc\Sorting\SortingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\IViewHandlerFactory.cs" />
-    <Compile Include="Views\IViewHandler.cs" />
+    <Compile Include="Views\IQueryHandlerFactory.cs" />
+    <Compile Include="Views\IQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

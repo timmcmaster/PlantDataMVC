@@ -3,7 +3,7 @@ using PlantDataMVC.UI.Models.ViewModels.Genus;
 
 namespace PlantDataMVC.UI.Controllers.Queries.Genus
 {
-    public class DeleteQuery : IViewQuery<GenusDeleteViewModel>
+    public class DeleteQuery : IQuery<GenusDeleteViewModel>
     {
 
         public DeleteQuery(int id)

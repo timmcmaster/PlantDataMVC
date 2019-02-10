@@ -4,7 +4,7 @@ using PlantDataMVC.UI.Models.ViewModels.Transaction;
 
 namespace PlantDataMVC.UI.Controllers.Queries.Transaction
 {
-    public class IndexQuery : IViewQuery<ListViewModelStatic<PlantStockTransactionListViewModel>>
+    public class IndexQuery : IQuery<ListViewModelStatic<PlantStockTransactionListViewModel>>
     {
 
         public IndexQuery(int page, int pageSize)

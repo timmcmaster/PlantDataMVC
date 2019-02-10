@@ -18,7 +18,7 @@ namespace PlantDataMVC.UI.Helpers
                                                                                      Func<string> saveFieldNameFunc,
                                                                                      Expression<Func<TModel, object>>
                                                                                          selectedDataValue,
-                                                                                     IViewQueryForList<TListItem,
+                                                                                     IQueryForList<TListItem,
                                                                                          TViewModel> query,
                                                                                      Func<TListItem, object>
                                                                                          dataValueSelector,

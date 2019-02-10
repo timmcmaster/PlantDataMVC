@@ -14,7 +14,7 @@ namespace Framework.Web.Mediator
         /// <param name="query">The query request.</param>
         /// <param name="cancellationToken">Optional cancellation token.</param>
         /// <returns>A task that represents the request operation</returns>
-        Task<TViewModel> Request<TViewModel>(IViewQuery<TViewModel> query, CancellationToken cancellationToken = default);
+        Task<TViewModel> Request<TViewModel>(IQuery<TViewModel> query, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Asynchronously sends the specified form.

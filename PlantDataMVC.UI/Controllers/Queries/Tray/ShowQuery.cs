@@ -3,7 +3,7 @@ using PlantDataMVC.UI.Models.ViewModels.Tray;
 
 namespace PlantDataMVC.UI.Controllers.Queries.Tray
 {
-    public class ShowQuery : IViewQuery<TrayShowViewModel>
+    public class ShowQuery : IQuery<TrayShowViewModel>
     {
 
         public ShowQuery(int id)
