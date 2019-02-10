@@ -234,6 +234,8 @@
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Handlers\Views\Genus\DeleteQueryHandler.cs" />
     <Compile Include="Handlers\Views\Genus\IndexQueryHandler.cs" />
+    <Compile Include="Handlers\Views\JournalEntryTypeDtoListQueryHandler.cs" />
+    <Compile Include="Handlers\Views\ProductTypeDtoListQueryHandler.cs" />
     <Compile Include="Handlers\Views\Genus\ShowQueryHandler.cs" />
     <Compile Include="Controllers\Queries\ListQuery.cs" />
     <Compile Include="Handlers\Views\ListQueryHandler.cs" />
@@ -241,6 +243,7 @@
     <Compile Include="Handlers\Views\Plant\EditQueryHandler.cs" />
     <Compile Include="Handlers\Views\Genus\GenusDtoListQueryHandler.cs" />
     <Compile Include="Handlers\Views\Plant\IndexQueryHandler.cs" />
+    <Compile Include="Handlers\Views\Seed\SeedBatchDtoListQueryHandler.cs" />
     <Compile Include="Handlers\Views\Seed\EditQueryHandler.cs" />
     <Compile Include="Handlers\Views\Seed\IndexQueryHandler.cs" />
     <Compile Include="Handlers\Views\Seed\ShowQueryHandler.cs" />
