@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Framework.Web.Mediator;
 using PlantDataMVC.UI.Controllers.Queries;
+using PlantDataMVC.UI.Controllers.Queries.Transaction;
 using PlantDataMVC.UI.Models.EditModels.Transaction;
 using PlantDataMVC.UI.Models.ViewModels.Transaction;
 

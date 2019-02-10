@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Framework.Web.Mediator;
 using PlantDataMVC.UI.Controllers.Queries;
+using PlantDataMVC.UI.Controllers.Queries.Seed;
 using PlantDataMVC.UI.Models.EditModels.Seed;
 using PlantDataMVC.UI.Models.ViewModels.Seed;
 

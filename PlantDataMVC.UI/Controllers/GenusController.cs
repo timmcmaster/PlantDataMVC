@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Framework.Web.Mediator;
 using PlantDataMVC.UI.Controllers.Queries;
+using PlantDataMVC.UI.Controllers.Queries.Genus;
 using PlantDataMVC.UI.Models.EditModels.Genus;
 using PlantDataMVC.UI.Models.ViewModels.Genus;
 
