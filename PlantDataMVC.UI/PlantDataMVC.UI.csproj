@@ -239,12 +239,13 @@
     <Compile Include="Handlers\Views\ListQueryHandler.cs" />
     <Compile Include="Handlers\Views\Plant\DeleteQueryHandler.cs" />
     <Compile Include="Handlers\Views\Plant\EditQueryHandler.cs" />
+    <Compile Include="Handlers\Views\Genus\GenusDtoListQueryHandler.cs" />
     <Compile Include="Handlers\Views\Plant\IndexQueryHandler.cs" />
     <Compile Include="Handlers\Views\Seed\EditQueryHandler.cs" />
     <Compile Include="Handlers\Views\Seed\IndexQueryHandler.cs" />
     <Compile Include="Handlers\Views\Seed\ShowQueryHandler.cs" />
     <Compile Include="Handlers\Views\Plant\ShowQueryHandler.cs" />
-    <Compile Include="Handlers\Views\Plant\PlantSpeciesDtoListQueryHandler.cs" />
+    <Compile Include="Handlers\Views\Plant\SpeciesDtoListQueryHandler.cs" />
     <Compile Include="Handlers\Views\PlantStock\DeleteQueryHandler.cs" />
     <Compile Include="Handlers\Views\PlantStock\DetailsQueryHandler.cs" />
     <Compile Include="Handlers\Views\PlantStock\EditQueryHandler.cs" />

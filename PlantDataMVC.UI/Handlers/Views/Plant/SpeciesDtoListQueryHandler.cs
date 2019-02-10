@@ -7,11 +7,11 @@ using PlantDataMVC.UI.Helpers;
 
 namespace PlantDataMVC.UI.Handlers.Views.Plant
 {
-    public class PlantSpeciesDtoListQueryHandler : ListQueryHandler<SpeciesDto>
+    public class SpeciesDtoListQueryHandler : ListQueryHandler<SpeciesDto>
     {
         private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public PlantSpeciesDtoListQueryHandler(IMyHttpClientFactory httpClientFactory)
+        public SpeciesDtoListQueryHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }

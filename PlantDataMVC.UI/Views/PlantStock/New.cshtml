@@ -1,4 +1,7 @@
-﻿@model PlantDataMVC.UI.Models.ViewModels.PlantStock.PlantStockNewViewModel
+﻿@using PlantDataMVC.DTO.Dtos
+@using PlantDataMVC.UI.Controllers.Queries
+@using PlantDataMVC.UI.Helpers
+@model PlantDataMVC.UI.Models.ViewModels.PlantStock.PlantStockNewViewModel
 
 @{
     ViewBag.Title = "New";
@@ -18,13 +21,17 @@
 
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PlantSpecies)
+            @Html.LabelFor(model => model.SpeciesId)
         </div>
         <div class="editor-field">
             @*TODO: Should be using genus and species for display value*@
-            @*@Html.DropDownFor(() => "SpeciesId", model => model.PlantSpecies, p => p.SpecificName, p => p.Id)*@
-            @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
-            @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
+            @Html.QueryDropDownFor(
+                () => "SpeciesId",
+                model => model.SpeciesId,
+                new ListQuery<SpeciesDto>(),
+                p => p.Id,
+                p => p.SpecificName)
+            @Html.ValidationMessageFor(model => model.SpeciesId)
         </div>
 
         @*<div class="editor-label">
@@ -36,12 +43,16 @@
             </div>*@
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ProductType)
+            @Html.LabelFor(model => model.ProductTypeId)
         </div>
         <div class="editor-field">
-            @*@Html.DropDownFor(() => "ProductType.Id", model => model.ProductType, p => p.Name, p => p.Id)*@
-            @*@Html.DropDownListFor(m => m.ProductTypeId, new SelectList(Model.ProductTypes, "Id", "Name", Model.ProductTypeId), "Select an option")*@
-            @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
+            @Html.QueryDropDownFor(
+                () => "ProductTypeId",
+                model => model.ProductTypeId,
+                new ListQuery<ProductTypeDto>(),
+                p => p.Id,
+                p => p.Name)
+            @Html.ValidationMessageFor(model => model.ProductTypeId)
         </div>
 
         <div class="editor-label">

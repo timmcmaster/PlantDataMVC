@@ -1,4 +1,8 @@
-﻿@model PlantDataMVC.UI.Models.ViewModels.Tray.TrayNewViewModel
+﻿@using System.Globalization
+@using PlantDataMVC.DTO.Dtos
+@using PlantDataMVC.UI.Controllers.Queries
+@using PlantDataMVC.UI.Helpers
+@model PlantDataMVC.UI.Models.ViewModels.Tray.TrayNewViewModel
 
 @{
     ViewBag.Title = "New";
@@ -15,11 +19,16 @@
         <legend>Seed Tray</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.SeedBatch)
+            @Html.LabelFor(model => model.SeedBatchId)
         </div>
         <div class="editor-field">
             @*TODO: Want better representation for display value*@
-            @*@Html.DropDownFor(() => "SeedBatchId", model => model.SeedBatch, p => string.Concat(p.SpeciesId, p.Location, p.DateCollected), p => p.Id)*@
+            @Html.QueryDropDownFor(
+                () => "SeedBatchId",
+                model => model.SeedBatchId,
+                new ListQuery<SeedBatchDto>(),
+                p => p.Id,
+                p => string.Concat(p.SpeciesId, p.Location, p.DateCollected))
         </div>
 
         <div class="editor-label">

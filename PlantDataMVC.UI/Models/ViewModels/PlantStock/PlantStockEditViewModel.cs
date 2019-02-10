@@ -16,7 +16,7 @@ namespace PlantDataMVC.UI.Models.ViewModels.PlantStock
         public string SpeciesBinomial { get; private set; }
 
         [Display(Name = "Product Type")]
-        public ProductTypeDto ProductType { get; set; }
+        public int ProductTypeId { get; set; }
 
         [Display(Name = "Quantity In Stock"),  Editable(false)]
         public int QuantityInStock { get; set; }
@@ -24,7 +24,7 @@ namespace PlantDataMVC.UI.Models.ViewModels.PlantStock
 
         public PlantStockEditViewModel()
         {
-            ProductType = new ProductTypeDto();
+            //ProductType = new ProductTypeDto();
         }
     }
 }

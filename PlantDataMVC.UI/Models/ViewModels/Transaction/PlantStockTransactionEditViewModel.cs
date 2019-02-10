@@ -14,7 +14,7 @@ namespace PlantDataMVC.UI.Models.ViewModels.Transaction
         public int PlantStockId { get; set; }
 
         [Display(Name = "Transaction Type")]
-        public JournalEntryTypeDto TransactionType { get; set; }
+        public int TransactionTypeId { get; set; }
 
         [Display(Name = "Transaction Date")]
         public DateTime TransactionDate { get; set; }

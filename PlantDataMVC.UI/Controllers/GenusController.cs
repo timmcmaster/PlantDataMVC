@@ -29,9 +29,6 @@ namespace PlantDataMVC.UI.Controllers
             var query = new IndexQuery(localPage,localPageSize);
             var model = await _mediator.Request(query);
 
-            //var handler = _queryHandlerFactory.Create<IndexQuery,ListViewModelStatic<GenusListViewModel>>();
-            //var model = await handler.HandleAsync(query);
-
             if (model == null)
             {
                 return Content("An error occurred");

@@ -28,30 +28,20 @@
                 new ListQuery<SpeciesDto>(),
                 p => p.Id,
                 p => p.SpecificName)
-            @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
+            @Html.ValidationMessageFor(model => model.SpeciesId)
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.SiteId)
         </div>
         <div class="editor-field">
-            @* TODO: Need a get ALL items option for dropdown *@
-            @{
-                var x = 1;
-            }
-            @*@Html.QueryDropDownFor(
-                () => "SiteId",
-                model => model.Site.Id,
-                new IndexQuery(1, 100),
-                p => p.SiteName,
-                p => p.Id)*@
             @Html.QueryDropDownFor(
                   () => "SiteId",
                   model => model.SiteId,
                   new ListQuery<SiteDto>(),
                   p => p.Id,
                   p => p.SiteName)
-            @*@Html.ValidationMessageFor(model => model.ProductTypeId)*@
+            @Html.ValidationMessageFor(model => model.SiteId)
         </div>
 
         <div class="editor-label">
