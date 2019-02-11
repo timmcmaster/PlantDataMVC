@@ -37,8 +37,8 @@ namespace PlantDataMVC.WebApi
 
             builder.RegisterType<Repository<Genus>>().As<IRepositoryAsync<Genus>>();
             builder.RegisterType<Repository<JournalEntry>>().As<IRepositoryAsync<JournalEntry>>();
-            //builder.RegisterType<Repository<JournalEntryType>>().As<IRepositoryAsync<JournalEntryType>>();
-            //builder.RegisterType<Repository<ProductType>>().As<IRepositoryAsync<ProductType>>();
+            builder.RegisterType<Repository<JournalEntryType>>().As<IRepositoryAsync<JournalEntryType>>();
+            builder.RegisterType<Repository<ProductType>>().As<IRepositoryAsync<ProductType>>();
             builder.RegisterType<Repository<SeedBatch>>().As<IRepositoryAsync<SeedBatch>>();
             builder.RegisterType<Repository<Site>>().As<IRepositoryAsync<Site>>();
             builder.RegisterType<Repository<Species>>().As<IRepositoryAsync<Species>>();
@@ -51,8 +51,8 @@ namespace PlantDataMVC.WebApi
 
             builder.RegisterType<GenusService>().As<IGenusService>();
             builder.RegisterType<JournalEntryService>().As<IJournalEntryService>();
-            //builder.RegisterType<JournalEntryTypeService>().As<IJournalEntryTypeService>();
-            //builder.RegisterType<ProductTypeService>().As<IProductTypeService>();
+            builder.RegisterType<JournalEntryTypeService>().As<IJournalEntryTypeService>();
+            builder.RegisterType<ProductTypeService>().As<IProductTypeService>();
             builder.RegisterType<SeedBatchService>().As<ISeedBatchService>();
             builder.RegisterType<SiteService>().As<ISiteService>();
             builder.RegisterType<SpeciesService>().As<ISpeciesService>();
