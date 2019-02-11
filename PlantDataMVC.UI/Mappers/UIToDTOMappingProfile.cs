@@ -140,7 +140,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantStock.PlantStockCreateEditModel, PlantStockDto>()
                 .ForMember(dto => dto.Id, opt => opt.Ignore())                  // Id on create will come back from DB
                 .ForMember(dto => dto.JournalEntries, opt => opt.Ignore())      // TODO: check about mapping back collection
-                .ForMember(dto => dto.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductType.Id))
+                .ForMember(dto => dto.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductTypeId))
                 .ForMember(dto => dto.QuantityInStock, opt => opt.MapFrom(uio => uio.QuantityInStock))
                 .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
 
@@ -151,7 +151,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<PlantStock.PlantStockUpdateEditModel, PlantStockDto>()
                 .ForMember(dto => dto.Id, opt => opt.Ignore())                  // Id on create will come back from DB
                 .ForMember(dto => dto.JournalEntries, opt => opt.Ignore())      // TODO: check about mapping back collection
-                .ForMember(dto => dto.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductType.Id))
+                .ForMember(dto => dto.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductTypeId))
                 .ForMember(dto => dto.QuantityInStock, opt => opt.MapFrom(uio => uio.QuantityInStock))
                 .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
         }
