@@ -1,6 +1,4 @@
-﻿using Interfaces.DTO;
-
-namespace PlantDataMVC.DTO.Dtos
+﻿namespace PlantDataMVC.DTO.Dtos
 {
     public class CreateUpdateSpeciesDto : IDto
     {

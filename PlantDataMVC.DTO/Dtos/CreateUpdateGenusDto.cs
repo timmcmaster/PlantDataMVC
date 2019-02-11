@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Interfaces.DTO;
 
 namespace PlantDataMVC.DTO.Dtos
 {

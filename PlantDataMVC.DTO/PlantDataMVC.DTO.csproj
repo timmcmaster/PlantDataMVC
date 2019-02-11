@@ -69,6 +69,7 @@
     <Compile Include="Dtos\PlantStockDto.cs" />
     <Compile Include="Dtos\JournalEntryDto.cs" />
     <Compile Include="Dtos\JournalEntryTypeDto.cs" />
+    <Compile Include="IDto.cs" />
     <Compile Include="Mappers\AutoMapperCoreConfiguration.cs" />
     <Compile Include="Mappers\EfDalToDtoMappingProfile.cs" />
     <Compile Include="Mappers\EfDtoToDalMappingProfile.cs" />

@@ -1,4 +1,4 @@
-﻿namespace Interfaces.DTO
+﻿namespace PlantDataMVC.DTO
 {
     public interface IDto
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using Interfaces.DTO;
 
 namespace PlantDataMVC.DTO.Dtos
 {

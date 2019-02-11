@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
-using Interfaces.DTO;
+using PlantDataMVC.DTO;
 
 namespace PlantDataMVC.WebApi.Helpers
 {
