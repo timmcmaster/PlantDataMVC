@@ -25,7 +25,7 @@ namespace PlantDataMVC.UI.Handlers.Views.Tray
         public async Task<ListViewModelStatic<TrayListViewModel>> HandleAsync(IndexQuery query)
         {
             // Get paging part of query string
-            var requestUri = "api/Genus?page=" + query.Page + "&pageSize=" + query.PageSize;
+            var requestUri = "api/SeedTray?page=" + query.Page + "&pageSize=" + query.PageSize;
 
             // add sorting if it maps ok
             if (!String.IsNullOrEmpty(query.SortBy))
