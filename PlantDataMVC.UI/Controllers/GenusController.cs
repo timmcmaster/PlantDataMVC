@@ -26,7 +26,7 @@ namespace PlantDataMVC.UI.Controllers
             var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
-            var query = new IndexQuery(localPage,localPageSize);
+            var query = new IndexQuery(localPage,localPageSize, localSortBy, localAscending);
             var model = await _mediator.Request(query);
 
             if (model == null)

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
 using Framework.Web.Views;
@@ -22,33 +24,75 @@ namespace PlantDataMVC.UI.Handlers.Views.Plant
 
         public async Task<ListViewModelStatic<PlantListViewModel>> HandleAsync(IndexQuery query)
         {
+            // Get paging part of query
+            // TODO: really want to sort by genus name and species name (if showing details by plant)
+            var requestUri = "api/Species?page=" + query.Page + "&pageSize=" + query.PageSize;
+
+            // add sorting if it maps ok
+            if (!String.IsNullOrEmpty(query.SortBy))
+            {
+                var apiSortField = MapSortField(query.SortBy);
+                if (!String.IsNullOrEmpty(apiSortField))
+                {
+                    var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
+                    requestUri = sortString == "" ? requestUri : requestUri + "&sort=" + sortString;
+                }
+            }
+
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client
-            // Initialise with default sort
-            // TODO: really want to sort by genus name and species name (if showing details by plant)
-            var httpResponse = await httpClient.GetAsync("api/Species?sort=genusId,specificName&page=" + query.Page + "&pageSize=" + query.PageSize).ConfigureAwait(false);
+            var httpResponse = await httpClient.GetAsync(requestUri).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                var content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
+                ApiPagingInfo apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
+                LinkHeader linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<SpeciesDto>>(content);
 
                 // TODO: check to ensure these DTOs map to view model
-                var modelList = Mapper.Map<IEnumerable<SpeciesDto>, List<PlantListViewModel>>(dtoList);
+                List<PlantListViewModel> modelList =
+                    Mapper.Map<IEnumerable<SpeciesDto>, List<PlantListViewModel>>(dtoList);
 
-                var model = new ListViewModelStatic<PlantListViewModel>(modelList, apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount);
-
+                var model = new ListViewModelStatic<PlantListViewModel>(modelList, apiPagingInfo.page,
+                                                                        apiPagingInfo.pageSize,
+                                                                        apiPagingInfo.totalCount,
+                                                                        query.SortBy,
+                                                                        query.SortAscending);
                 return model;
             }
-            else
+
+            // TODO: better way needed to handle failure response
+            return null;
+        }
+
+        /// <summary>
+        /// Maps the sort field from display field column to dto field as used by API
+        /// </summary>
+        /// <param name="querySortBy">The query sort by.</param>
+        /// <returns></returns>
+        private string MapSortField(string querySortBy)
+        {
+            var sortField = "";
+
+            // TODO: Got to be a more rigorous way to convert columns back to API fields
+            // supplied sortBy field should belong to display object (as it is generated from model metadata)
+            if (querySortBy == nameof(PlantListViewModel.Id))
             {
-                // TODO: better way needed to handle failure response
-                return null;
+                sortField = nameof(SpeciesDto.Id);
             }
+            else if (querySortBy == nameof(PlantListViewModel.Binomial))
+            {
+                sortField = ""; // TODO: solve this problem
+            }
+            else if (querySortBy == nameof(PlantListViewModel.CommonName))
+            {
+                sortField = nameof(SpeciesDto.CommonName);
+            }
+
+            return sortField;
         }
     }
 }

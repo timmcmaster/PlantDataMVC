@@ -267,6 +267,7 @@
     <Compile Include="Handlers\Views\Tray\IndexQueryHandler.cs" />
     <Compile Include="Handlers\Views\Tray\ShowQueryHandler.cs" />
     <Compile Include="Helpers\ApiPagingInfo.cs" />
+    <Compile Include="Helpers\ApiSorting.cs" />
     <Compile Include="Helpers\DropDownExtensions.cs" />
     <Compile Include="Helpers\HeaderParser.cs" />
     <Compile Include="Helpers\MyHttpClientFactory.cs" />
