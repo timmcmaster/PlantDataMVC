@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using IdentityServer3.Core.Models;
+using PlantDataMVC.Constants;
 
 namespace PlantDataMVC.IdSrv.Config
 {
@@ -18,7 +16,11 @@ namespace PlantDataMVC.IdSrv.Config
                     ClientName = "PlantData MVC Client (Hybrid Flow)",
                     ClientId = "mvc",
                     Flow = Flows.Hybrid,
-                    RequireConsent = true
+                    RequireConsent = true,
+                    RedirectUris = new List<string>
+                    {
+                        PlantDataMvcConstants.PlantDataApi
+                    }
                 }
             };
         }

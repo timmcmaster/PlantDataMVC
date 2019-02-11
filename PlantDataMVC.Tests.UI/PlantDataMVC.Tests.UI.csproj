@@ -186,6 +186,10 @@
       <Project>{F826FC20-06CE-4415-BFF1-7A0C44EB0E07}</Project>
       <Name>Interfaces.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlantDataMVC.Constants\PlantDataMVC.Constants.csproj">
+      <Project>{fea2e1cb-2588-4b85-b97b-a03a8f75b0a2}</Project>
+      <Name>PlantDataMVC.Constants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj">
       <Project>{21BCD4E8-47A5-4ED3-A832-C9E0659B9B86}</Project>
       <Name>PlantDataMVC.DTO</Name>

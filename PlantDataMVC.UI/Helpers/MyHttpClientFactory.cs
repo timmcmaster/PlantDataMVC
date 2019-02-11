@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using PlantDataMVC.Constants;
 
 namespace PlantDataMVC.UI.Helpers
 {
@@ -29,7 +30,7 @@ namespace PlantDataMVC.UI.Helpers
         {
             AddHttpClient(NamedHttpClients.PlantDataApi, client =>
                 {
-                    client.BaseAddress = new Uri("http://localhost:53274/");
+                    client.BaseAddress = new Uri(PlantDataMvcConstants.PlantDataApi);
 
                     // clear the accept headers and set those we require for ALL client requests
                     client.DefaultRequestHeaders.Accept.Clear();

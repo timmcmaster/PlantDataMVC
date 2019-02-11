@@ -80,10 +80,6 @@
       <Project>{96FD9436-DE5C-432A-94CB-CE5E63EE2405}</Project>
       <Name>Interfaces.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.DTO\Interfaces.DTO.csproj">
-      <Project>{70f08765-902c-4ce6-9067-cfae978f0be8}</Project>
-      <Name>Interfaces.DTO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
       <Project>{ecc2f1e2-a2ea-4390-a75c-114d56f0bd96}</Project>
       <Name>PlantDataMVC.Entities</Name>
