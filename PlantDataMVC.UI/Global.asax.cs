@@ -21,7 +21,7 @@ namespace PlantDataMVC.UI
             // Set the dependency resolver to be Autofac.
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
-            AreaRegistration.RegisterAllAreas();
+            //AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

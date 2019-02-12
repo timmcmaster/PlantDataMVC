@@ -10,6 +10,7 @@ using PlantDataMVC.UI.Models.ViewModels.Tray;
 
 namespace PlantDataMVC.UI.Controllers
 {
+    [Authorize]
     public class TrayController : DefaultController
     {
         private readonly IMediator _mediator;

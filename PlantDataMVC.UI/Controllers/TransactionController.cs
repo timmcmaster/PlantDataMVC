@@ -9,6 +9,7 @@ using PlantDataMVC.UI.Models.ViewModels.Transaction;
 
 namespace PlantDataMVC.UI.Controllers
 {
+    [Authorize]
     public class TransactionController : DefaultController
     {
         private readonly IMediator _mediator;

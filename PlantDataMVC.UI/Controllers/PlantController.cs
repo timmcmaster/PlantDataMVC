@@ -7,6 +7,7 @@ using PlantDataMVC.UI.Models.ViewModels.Plant;
 
 namespace PlantDataMVC.UI.Controllers
 {
+    [Authorize]
     public class PlantController : DefaultController
     {
         private readonly IMediator _mediator;

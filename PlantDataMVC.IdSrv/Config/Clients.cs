@@ -19,7 +19,7 @@ namespace PlantDataMVC.IdSrv.Config
                     RequireConsent = true,
                     RedirectUris = new List<string>
                     {
-                        PlantDataMvcConstants.PlantDataApi
+                        PlantDataMvcConstants.PlantDataClient
                     }
                 }
             };

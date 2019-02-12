@@ -61,3 +61,6 @@
   - https://docs.microsoft.com/en-us/dotnet/csharp/async
   - https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
   - http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
+## OWIN Authentication
+  - https://identityserver.github.io/Documentation/
+  - https://weblog.west-wind.com/posts/2015/Apr/29/Adding-minimal-OWIN-Identity-Authentication-to-an-Existing-ASPNET-MVC-Application

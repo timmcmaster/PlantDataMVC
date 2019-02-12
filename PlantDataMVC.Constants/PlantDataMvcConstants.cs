@@ -9,7 +9,7 @@ namespace PlantDataMVC.Constants
     public class PlantDataMvcConstants
     {
         public const string PlantDataApi = "http://localhost:53274/";
-        public const string PlantDataClient = "http://localhost:55719/";
+        public const string PlantDataClient = "https://localhost:44390/";
 
         public const string IdSrvIssuerUri = "https://plantdataidsrv3/embedded";
 

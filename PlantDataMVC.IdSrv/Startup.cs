@@ -1,6 +1,4 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using IdentityServer3.Core.Configuration;
+﻿using IdentityServer3.Core.Configuration;
 using Microsoft.Owin;
 using Owin;
 using PlantDataMVC.Constants;

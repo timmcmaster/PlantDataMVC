@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Security.Cryptography.X509Certificates;
-using IdentityServer3.Core.Models;
-using PlantDataMVC.Constants;
 
 namespace PlantDataMVC.IdSrv.Config
 {
