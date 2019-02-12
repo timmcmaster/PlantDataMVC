@@ -80,6 +80,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\Certificate.cs" />
     <Compile Include="Config\Clients.cs" />
     <Compile Include="Config\Scopes.cs" />
     <Compile Include="Config\Users.cs" />
@@ -87,15 +88,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Certificates\DevRoot.cer">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Certificates\idsrv3test.cer">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Certificates\idsrv3test.pfx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Certificates\DevRoot.cer" />
+    <EmbeddedResource Include="Certificates\idsrv3test.cer" />
+    <EmbeddedResource Include="Certificates\idsrv3test.pfx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
