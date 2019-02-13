@@ -7,7 +7,7 @@ namespace Framework.DAL.EF
     /// <inheritdoc />
     /// <summary>
     ///     <P>This class implements EF database logging via the Entity Framework database command interceptor. </P>
-    ///     <P>The interceptor is currently initialized via the web.config for the WCFService application. </P>
+    ///     <P>The interceptor is currently initialized via the web.config for the WebApi application. </P>
     /// </summary>
     public class EfLoggingInterceptor : IDbCommandInterceptor
     {
