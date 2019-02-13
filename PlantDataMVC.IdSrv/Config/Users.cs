@@ -24,6 +24,7 @@ namespace PlantDataMVC.IdSrv.Config
                         new Claim(ClaimTypes.Surname, "McMaster"),
                     }
                 },
+
                 new InMemoryUser
                 {
                     Username = "Kernip",
@@ -36,6 +37,7 @@ namespace PlantDataMVC.IdSrv.Config
                         new Claim(ClaimTypes.Surname, "Plummer"),
                     }
                 },
+
                 new InMemoryUser
                 {
                     Username = "Longest",

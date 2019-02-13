@@ -20,7 +20,9 @@ namespace PlantDataMVC.IdSrv.Config
                     RedirectUris = new List<string>
                     {
                         PlantDataMvcConstants.PlantDataClient
-                    }
+                    },
+
+                    AllowAccessToAllScopes = true
                 }
             };
         }
