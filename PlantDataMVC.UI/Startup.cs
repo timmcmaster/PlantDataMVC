@@ -29,7 +29,7 @@ namespace PlantDataMVC.UI
                 SignInAsAuthenticationType = "Cookies",
 
                 ResponseType = "code id_token",
-                Scope = "openid",
+                Scope = "openid profile",
 
                 Notifications = new OpenIdConnectAuthenticationNotifications()
                 {
