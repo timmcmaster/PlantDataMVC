@@ -21,7 +21,7 @@ namespace PlantDataMVC.IdSrv.Config
                     Claims = new[]
                     {
                         new Claim(ClaimTypes.GivenName, "Timothy"),
-                        new Claim(ClaimTypes.Surname, "McMaster"),
+                        new Claim(ClaimTypes.Surname, "McMaster")
                     }
                 },
 
@@ -34,7 +34,7 @@ namespace PlantDataMVC.IdSrv.Config
                     Claims = new[]
                     {
                         new Claim(ClaimTypes.GivenName, "Kerryn"),
-                        new Claim(ClaimTypes.Surname, "Plummer"),
+                        new Claim(ClaimTypes.Surname, "Plummer")
                     }
                 },
 
@@ -47,7 +47,7 @@ namespace PlantDataMVC.IdSrv.Config
                     Claims = new[]
                     {
                         new Claim(ClaimTypes.GivenName, "Joanne"),
-                        new Claim(ClaimTypes.Surname, "Vayena"),
+                        new Claim(ClaimTypes.Surname, "Vayena")
                     }
                 }
             };

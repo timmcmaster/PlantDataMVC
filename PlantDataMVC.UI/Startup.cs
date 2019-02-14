@@ -26,9 +26,10 @@ namespace PlantDataMVC.UI
                 ClientId = "mvc",
                 Authority = PlantDataMvcConstants.IdSrv,
                 RedirectUri = PlantDataMvcConstants.PlantDataClient,
+                PostLogoutRedirectUri = PlantDataMvcConstants.PlantDataClient,
                 SignInAsAuthenticationType = "Cookies",
 
-                ResponseType = "code id_token",
+                ResponseType = "code id_token token",
                 Scope = "openid profile",
 
                 Notifications = new OpenIdConnectAuthenticationNotifications()
@@ -36,6 +37,9 @@ namespace PlantDataMVC.UI
                     MessageReceived = async n =>
                     {
                         EndpointAndTokenHelper.DecodeAndWrite(n.ProtocolMessage.IdToken);
+                        EndpointAndTokenHelper.DecodeAndWrite(n.ProtocolMessage.AccessToken);
+
+                        var userInfo = await EndpointAndTokenHelper.CallUserInfoEndpoint(n.ProtocolMessage.AccessToken);
                     }
                 }
             });
