@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
-using IdentityServer3.Core;
 using IdentityServer3.Core.Services.InMemory;
-using PlantDataMVC.Constants;
 
 namespace PlantDataMVC.IdSrv.Config
 {
@@ -20,8 +18,8 @@ namespace PlantDataMVC.IdSrv.Config
 
                     Claims = new[]
                     {
-                        new Claim(ClaimTypes.GivenName, "Timothy"),
-                        new Claim(ClaimTypes.Surname, "McMaster")
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "Timothy"),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "McMaster")
                     }
                 },
 
@@ -33,8 +31,8 @@ namespace PlantDataMVC.IdSrv.Config
 
                     Claims = new[]
                     {
-                        new Claim(ClaimTypes.GivenName, "Kerryn"),
-                        new Claim(ClaimTypes.Surname, "Plummer")
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "Kerryn"),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "Plummer")
                     }
                 },
 
@@ -46,8 +44,8 @@ namespace PlantDataMVC.IdSrv.Config
 
                     Claims = new[]
                     {
-                        new Claim(ClaimTypes.GivenName, "Joanne"),
-                        new Claim(ClaimTypes.Surname, "Vayena")
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "Joanne"),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "Vayena")
                     }
                 }
             };

@@ -7,6 +7,8 @@ using PlantDataMVC.UI.Models.ViewModels.Site;
 
 namespace PlantDataMVC.UI.Controllers
 {
+    // TODO: Use userId in posts having ValidateAntiForgeryToken (as per GenusController)
+
     [Authorize]
     public class SiteController : DefaultController
     {

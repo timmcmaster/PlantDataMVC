@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Framework.Web.Mediator;
 using PlantDataMVC.UI.Controllers.Queries.Genus;
@@ -70,6 +71,11 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(GenusCreateEditModel form)
         {
+            var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst("unique_user_key").Value;
+
+            // TODO: Use userId in submit of form (via mediator)
+
             var failureResult = DefaultFormFailureResult();
             var successResult = RedirectToAction("Index");
 
@@ -104,6 +110,11 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(GenusUpdateEditModel form)
         {
+            var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst("unique_user_key").Value;
+
+            // TODO: Use userId in submit of form (via mediator)
+
             var failureResult = DefaultFormFailureResult();
             var successResult = RedirectToAction("Show", new { id = form.Id });
 
@@ -138,6 +149,11 @@ namespace PlantDataMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Destroy(GenusDestroyEditModel form)
         {
+            var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst("unique_user_key").Value;
+
+            // TODO: Use userId in submit of form (via mediator)
+
             var failureResult = DefaultFormFailureResult();
             var successResult = RedirectToAction("Index");
 

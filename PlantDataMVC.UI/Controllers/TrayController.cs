@@ -10,6 +10,8 @@ using PlantDataMVC.UI.Models.ViewModels.Tray;
 
 namespace PlantDataMVC.UI.Controllers
 {
+    // TODO: Use userId in posts having ValidateAntiForgeryToken (as per GenusController)
+
     [Authorize]
     public class TrayController : DefaultController
     {

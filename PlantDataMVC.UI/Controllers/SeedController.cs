@@ -10,6 +10,8 @@ using PlantDataMVC.UI.Models.ViewModels.Seed;
 
 namespace PlantDataMVC.UI.Controllers
 {
+    // TODO: Use userId in posts having ValidateAntiForgeryToken (as per GenusController)
+
     [Authorize]
     public class SeedController : DefaultController
     {

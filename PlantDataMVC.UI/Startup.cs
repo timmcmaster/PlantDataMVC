@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
@@ -16,6 +21,11 @@ namespace PlantDataMVC.UI
         public void Configuration(IAppBuilder app)
         {
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
+
+            // Stop trying to map tokens to .Net claim types
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap = new Dictionary<string, string>();
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = "unique_user_key";
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = "Cookies"
@@ -36,10 +46,35 @@ namespace PlantDataMVC.UI
                 {
                     MessageReceived = async n =>
                     {
-                        EndpointAndTokenHelper.DecodeAndWrite(n.ProtocolMessage.IdToken);
-                        EndpointAndTokenHelper.DecodeAndWrite(n.ProtocolMessage.AccessToken);
+                        //EndpointAndTokenHelper.DecodeAndWrite(n.ProtocolMessage.IdToken);
+                        //EndpointAndTokenHelper.DecodeAndWrite(n.ProtocolMessage.AccessToken);
 
+                        //var userInfo = await EndpointAndTokenHelper.CallUserInfoEndpoint(n.ProtocolMessage.AccessToken);
+                    },
+                    SecurityTokenValidated = async n =>
+                    {
+                        // Claims mapping and simplification
+                        // Get user info claims
                         var userInfo = await EndpointAndTokenHelper.CallUserInfoEndpoint(n.ProtocolMessage.AccessToken);
+
+                        var givenNameClaim = new Claim(IdentityModel.JwtClaimTypes.GivenName, userInfo.Value<string>("given_name"));
+                        var familyNameClaim = new Claim(IdentityModel.JwtClaimTypes.FamilyName, userInfo.Value<string>("family_name"));
+
+                        var newIdentity = new ClaimsIdentity(
+                            n.AuthenticationTicket.Identity.AuthenticationType,
+                            IdentityModel.JwtClaimTypes.GivenName,
+                            IdentityModel.JwtClaimTypes.Role);
+
+                        newIdentity.AddClaim(givenNameClaim);
+                        newIdentity.AddClaim(familyNameClaim);
+
+                        // get required identifier token claims (used for antiforgery tokens)
+                        var issuerClaim = n.AuthenticationTicket.Identity.FindFirst(IdentityModel.JwtClaimTypes.Issuer);
+                        var subjectClaim = n.AuthenticationTicket.Identity.FindFirst(IdentityModel.JwtClaimTypes.Subject);
+
+                        newIdentity.AddClaim(new Claim("unique_user_key", issuerClaim.Value + "_" + subjectClaim.Value));
+ 
+                        n.AuthenticationTicket = new AuthenticationTicket(newIdentity, n.AuthenticationTicket.Properties);
                     }
                 }
             });
