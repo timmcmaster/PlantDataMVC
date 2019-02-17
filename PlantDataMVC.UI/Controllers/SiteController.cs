@@ -4,12 +4,12 @@ using Framework.Web.Mediator;
 using PlantDataMVC.UI.Controllers.Queries.Site;
 using PlantDataMVC.UI.Models.EditModels.Site;
 using PlantDataMVC.UI.Models.ViewModels.Site;
+using Thinktecture.IdentityModel.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
     // TODO: Use userId in posts having ValidateAntiForgeryToken (as per GenusController)
 
-    [Authorize]
     public class SiteController : DefaultController
     {
         private readonly IMediator _mediator;
@@ -21,6 +21,7 @@ namespace PlantDataMVC.UI.Controllers
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
+        [ResourceAuthorize("Read", "Site")]
         public async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
             // resolve parameters
@@ -44,6 +45,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Show/5
+        [ResourceAuthorize("Read", "Site")]
         public async Task<ActionResult> Show(int id)
         {
             var query = new ShowQuery(id);
@@ -61,6 +63,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/New
+        [ResourceAuthorize("Write", "Site")]
         public ActionResult New()
         {
             var item = new SiteNewViewModel();
@@ -86,6 +89,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Edit/5
+        [ResourceAuthorize("Write", "Site")]
         public async Task<ActionResult> Edit(int id)
         {
             var query = new EditQuery(id);
@@ -120,6 +124,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Delete/5
+        [ResourceAuthorize("Write", "Site")]
         public async Task<ActionResult> Delete(int id)
         {
             var query = new DeleteQuery(id);

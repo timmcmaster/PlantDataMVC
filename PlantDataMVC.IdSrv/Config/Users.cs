@@ -19,7 +19,10 @@ namespace PlantDataMVC.IdSrv.Config
                     Claims = new[]
                     {
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "Timothy"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "McMaster")
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "McMaster"),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebReadUser"),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebWriteUser"),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebAdminUser"),
                     }
                 },
 
@@ -32,7 +35,9 @@ namespace PlantDataMVC.IdSrv.Config
                     Claims = new[]
                     {
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "Kerryn"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "Plummer")
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "Plummer"),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebReadUser"),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebWriteUser")
                     }
                 },
 
@@ -45,7 +50,8 @@ namespace PlantDataMVC.IdSrv.Config
                     Claims = new[]
                     {
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "Joanne"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "Vayena")
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "Vayena"),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebReadUser")
                     }
                 }
             };

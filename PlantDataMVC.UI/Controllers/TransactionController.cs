@@ -6,12 +6,12 @@ using Framework.Web.Mediator;
 using PlantDataMVC.UI.Controllers.Queries.Transaction;
 using PlantDataMVC.UI.Models.EditModels.Transaction;
 using PlantDataMVC.UI.Models.ViewModels.Transaction;
+using Thinktecture.IdentityModel.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
     // TODO: Use userId in posts having ValidateAntiForgeryToken (as per GenusController)
 
-    [Authorize]
     public class TransactionController : DefaultController
     {
         private readonly IMediator _mediator;
@@ -27,6 +27,7 @@ namespace PlantDataMVC.UI.Controllers
         /// <param name="plantStockId">The Id of the plant stock entry.</param>
         /// <returns></returns>
         //[RequireRequestValue("plantStockId")]
+        [ResourceAuthorize("Write", "Transaction")]
         public ActionResult New(int plantStockId)
         {
             var item = new JournalEntryDto {PlantStockId = plantStockId};
@@ -55,6 +56,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Edit/5
+        [ResourceAuthorize("Write", "Transaction")]
         public async Task<ActionResult> Edit(int id)
         {
             var query = new EditQuery(id);
@@ -89,6 +91,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Delete/5
+        [ResourceAuthorize("Write", "Transaction")]
         public async Task<ActionResult> Delete(int id)
         {
             var query = new DeleteQuery(id);

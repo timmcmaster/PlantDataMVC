@@ -5,10 +5,10 @@ using Framework.Web.Mediator;
 using PlantDataMVC.UI.Controllers.Queries.Genus;
 using PlantDataMVC.UI.Models.EditModels.Genus;
 using PlantDataMVC.UI.Models.ViewModels.Genus;
+using Thinktecture.IdentityModel.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
-    [Authorize]
     public class GenusController : DefaultController
     {
         private readonly IMediator _mediator;
@@ -20,6 +20,7 @@ namespace PlantDataMVC.UI.Controllers
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
+        [ResourceAuthorize("Read", "Genus")]
         public async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
             // resolve parameters
@@ -43,6 +44,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Show/5
+        [ResourceAuthorize("Read", "Genus")]
         public async Task<ActionResult> Show(int id)
         {
             var query = new ShowQuery(id);
@@ -60,6 +62,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/New
+        [ResourceAuthorize("Write", "Genus")]
         public ActionResult New()
         {
             var item = new GenusNewViewModel();
@@ -90,6 +93,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // Display prior to POST via Update 
+        [ResourceAuthorize("Write", "Genus")]
         public async Task<ActionResult> Edit(int id)
         {
             var query = new EditQuery(id);
@@ -129,6 +133,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Delete/5
+        [ResourceAuthorize("Write", "Genus")]
         public async Task<ActionResult> Delete(int id)
         {
             var query = new DeleteQuery(id);

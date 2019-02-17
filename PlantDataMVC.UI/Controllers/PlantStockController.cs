@@ -7,12 +7,12 @@ using Framework.Web.Mediator;
 using PlantDataMVC.UI.Controllers.Queries.PlantStock;
 using PlantDataMVC.UI.Models.EditModels.PlantStock;
 using PlantDataMVC.UI.Models.ViewModels.PlantStock;
+using Thinktecture.IdentityModel.Mvc;
 
 namespace PlantDataMVC.UI.Controllers
 {
     // TODO: Use userId in posts having ValidateAntiForgeryToken (as per GenusController)
 
-    [Authorize]
     public class PlantStockController : DefaultController
     {
         private readonly IMediator _mediator;
@@ -24,6 +24,7 @@ namespace PlantDataMVC.UI.Controllers
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
+        [ResourceAuthorize("Read", "PlantStock")]
         public async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
             // resolve parameters
@@ -47,6 +48,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Show/5
+        [ResourceAuthorize("Read", "PlantStock")]
         public async Task<ActionResult> Show(int id)
         {
             var query = new ShowQuery(id);
@@ -64,6 +66,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Details/5
+        [ResourceAuthorize("Read", "PlantStock")]
         public async Task<ActionResult> Details(int id)
         {
             var query = new DetailsQuery(id);
@@ -81,6 +84,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/New
+        [ResourceAuthorize("Write", "PlantStock")]
         public ActionResult New()
         {
             var item = new PlantStockNewViewModel();
@@ -92,6 +96,7 @@ namespace PlantDataMVC.UI.Controllers
         /// </summary>
         /// <param name="speciesId">The Id of the species.</param>
         /// <returns></returns>
+        [ResourceAuthorize("Write", "PlantStock")]
         [RequireRequestValue("speciesId")]
         public ActionResult New(int speciesId)
         {
@@ -121,6 +126,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Edit/5
+        [ResourceAuthorize("Write", "PlantStock")]
         public async Task<ActionResult> Edit(int id)
         {
             var query = new EditQuery(id);
@@ -155,6 +161,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Delete/5
+        [ResourceAuthorize("Write", "PlantStock")]
         public async Task<ActionResult> Delete(int id)
         {
             var query = new DeleteQuery(id);
