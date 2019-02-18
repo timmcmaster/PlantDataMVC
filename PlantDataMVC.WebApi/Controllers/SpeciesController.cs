@@ -14,11 +14,11 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApi.Helpers;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
     [RoutePrefix("api")]
-    [Authorize]
     public class SpeciesController : ApiController
     {
         private const int MaxPageSize = 100;
@@ -38,6 +38,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpGet]
         [Route("Species", Name = "SpeciesList")]
         [Route("Genus/{genusId}/Species", Name = "SpeciesByGenus")]
+        [ResourceAuthorize("Read", "Species")]
         public IHttpActionResult Get(
             int? genusId = null,
             string sort = "id",
@@ -118,6 +119,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // GET: api/Plant/5
         [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
+        [ResourceAuthorize("Read", "Species")]
         public IHttpActionResult Get(int id, string fields = null)
         {
             try
@@ -154,6 +156,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // POST: api/Plant
         [Route("Species")]
         [HttpPost]
+        [ResourceAuthorize("Write", "Species")]
         public IHttpActionResult Post([FromBody] CreateUpdateSpeciesDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
@@ -190,6 +193,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PUT: api/Plant/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [HttpPut]
+        [ResourceAuthorize("Write", "Species")]
         public IHttpActionResult Put(int id, [FromBody] CreateUpdateSpeciesDto dtoIn)
         {
             try
@@ -239,6 +243,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PATCH: api/Plant/5
         // Partial update
         [HttpPatch]
+        [ResourceAuthorize("Write", "Species")]
         public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateSpeciesDto> itemPatchDoc)
         {
             try
@@ -289,6 +294,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // DELETE: api/Plant/5
         [HttpDelete]
+        [ResourceAuthorize("Write", "Species")]
         public IHttpActionResult Delete(int id)
         {
             try

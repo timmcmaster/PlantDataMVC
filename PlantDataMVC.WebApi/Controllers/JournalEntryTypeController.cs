@@ -14,11 +14,13 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApi.Helpers;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
+    // TODO: add write methods with admin authorization
+
     [RoutePrefix("api")]
-    [Authorize]  // TODO: want admin authorization on write to this one
     public class JournalEntryTypeController : ApiController
     {
         private const int MaxPageSize = 100;
@@ -37,6 +39,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
         [Route("JournalEntryType", Name = "JournalEntryTypeList")]
+        [ResourceAuthorize("Read", "JournalEntryType")]
         public IHttpActionResult Get(
             string sort = "id",
             int page = 1, int pageSize = MaxPageSize,

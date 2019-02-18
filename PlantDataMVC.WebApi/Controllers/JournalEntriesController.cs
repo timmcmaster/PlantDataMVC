@@ -14,11 +14,11 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApi.Helpers;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
     [RoutePrefix("api")]
-    [Authorize]
     public class JournalEntriesController : ApiController
     {
         private const int MaxPageSize = 100;
@@ -37,6 +37,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
         [Route("PlantStock/{plantStockId}/JournalEntries", Name = "EntriesForStock")]
+        [ResourceAuthorize("Read", "JournalEntries")]
         public IHttpActionResult Get(
             int plantStockId,
             string sort = "id",
@@ -101,6 +102,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpCache(DefaultExpirySeconds = 300)]
         [Route("JournalEntries/{id}")]
         [HttpGet]
+        [ResourceAuthorize("Read", "JournalEntries")]
         public IHttpActionResult Get(int id, string fields = null)
         {
             try
@@ -137,6 +139,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // POST: api/Plant
         [Route("JournalEntries")]
         [HttpPost]
+        [ResourceAuthorize("Write", "JournalEntries")]
         public IHttpActionResult Post([FromBody] CreateUpdateJournalEntryDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
@@ -174,6 +177,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [Route("JournalEntries/{id}")]
         [HttpPut]
+        [ResourceAuthorize("Write", "JournalEntries")]
         public IHttpActionResult Put(int id, [FromBody] CreateUpdateJournalEntryDto dtoIn)
         {
             try
@@ -224,6 +228,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // Partial update
         [Route("JournalEntries/{id}")]
         [HttpPatch]
+        [ResourceAuthorize("Write", "JournalEntries")]
         public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateJournalEntryDto> itemPatchDoc)
         {
             try
@@ -275,6 +280,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // DELETE: api/Plant/5
         [Route("JournalEntries/{id}")]
         [HttpDelete]
+        [ResourceAuthorize("Write", "JournalEntries")]
         public IHttpActionResult Delete(int id)
         {
             try

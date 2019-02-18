@@ -14,11 +14,11 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApi.Helpers;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
     [RoutePrefix("api")]
-    [Authorize]
     public class SeedBatchController : ApiController
     {
         private const int MaxPageSize = 100;
@@ -37,6 +37,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
         [Route("SeedBatch", Name = "SeedBatchList")]
+        [ResourceAuthorize("Read", "SeedBatch")]
         public IHttpActionResult Get(
             int? speciesId = null,
             string sort = "id",
@@ -106,6 +107,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpCache(DefaultExpirySeconds = 300)]
         [Route("SeedBatch/{id}")]
         [HttpGet]
+        [ResourceAuthorize("Read", "SeedBatch")]
         public IHttpActionResult Get(int id, string fields = null)
         {
             try
@@ -179,6 +181,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [Route("SeedBatch/{id}")]
         [HttpPut]
+        [ResourceAuthorize("Write", "SeedBatch")]
         public IHttpActionResult Put(int id, [FromBody] CreateUpdateSeedBatchDto dtoIn)
         {
             try
@@ -229,6 +232,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // Partial update
         [Route("SeedBatch/{id}")]
         [HttpPatch]
+        [ResourceAuthorize("Write", "SeedBatch")]
         public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateSeedBatchDto> itemPatchDoc)
         {
             try
@@ -280,6 +284,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // DELETE: api/Plant/5
         [Route("SeedBatch/{id}")]
         [HttpDelete]
+        [ResourceAuthorize("Write", "SeedBatch")]
         public IHttpActionResult Delete(int id)
         {
             try

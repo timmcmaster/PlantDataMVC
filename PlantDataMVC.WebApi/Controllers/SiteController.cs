@@ -14,11 +14,11 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApi.Helpers;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
     [RoutePrefix("api")]
-    [Authorize]
     public class SiteController : ApiController
     {
         private const int MaxPageSize = 100;
@@ -37,6 +37,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
         [Route("Site", Name = "SiteList")]
+        [ResourceAuthorize("Read", "Site")]
         public IHttpActionResult Get(
             string sort = "id",
             string suburb = null,
@@ -105,6 +106,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // GET: api/Plant/5
         [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
+        [ResourceAuthorize("Read", "Site")]
         public IHttpActionResult Get(int id, string fields = null)
         {
             try
@@ -141,6 +143,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // POST: api/Plant
         [Route("Site")]
         [HttpPost]
+        [ResourceAuthorize("Write", "Site")]
         public IHttpActionResult Post([FromBody] CreateUpdateSiteDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
@@ -177,6 +180,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PUT: api/Plant/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [HttpPut]
+        [ResourceAuthorize("Write", "Site")]
         public IHttpActionResult Put(int id, [FromBody] CreateUpdateSiteDto dtoIn)
         {
             try
@@ -226,6 +230,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PATCH: api/Plant/5
         // Partial update
         [HttpPatch]
+        [ResourceAuthorize("Write", "Site")]
         public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateSiteDto> itemPatchDoc)
         {
             try
@@ -276,6 +281,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // DELETE: api/Plant/5
         [HttpDelete]
+        [ResourceAuthorize("Write", "Site")]
         public IHttpActionResult Delete(int id)
         {
             try

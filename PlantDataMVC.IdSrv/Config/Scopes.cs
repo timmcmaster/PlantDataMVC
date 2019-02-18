@@ -30,9 +30,12 @@ namespace PlantDataMVC.IdSrv.Config
                     Enabled = true,
                     Name = "plantdataapi",
                     DisplayName = "PlantData API Scope",
-                    Type = ScopeType.Resource
+                    Type = ScopeType.Resource,
+                    Claims = new List<ScopeClaim>
+                    {
+                        new ScopeClaim("role")
+                    }
                 }
-
             };
 
             //var scopes = StandardScopes.All;

@@ -14,11 +14,11 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApi.Helpers;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
     [RoutePrefix("api")]
-    [Authorize]
     public class SeedTrayController : ApiController
     {
         private const int MaxPageSize = 100;
@@ -37,6 +37,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
         [Route("SeedTray", Name = "SeedTrayList")]
+        [ResourceAuthorize("Read", "SeedTray")]
         public IHttpActionResult Get(
             int? seedBatchId = null,
             string sort = "id",
@@ -114,6 +115,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpCache(DefaultExpirySeconds = 300)]
         [Route("SeedTray/{id}")]
         [HttpGet]
+        [ResourceAuthorize("Read", "SeedTray")]
         public IHttpActionResult Get(int id, string fields = null)
         {
             try
@@ -150,6 +152,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // POST: api/Plant
         [Route("SeedTray")]
         [HttpPost]
+        [ResourceAuthorize("Write", "SeedTray")]
         public IHttpActionResult Post([FromBody] CreateUpdateSeedTrayDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
@@ -187,6 +190,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [Route("SeedTray/{id}")]
         [HttpPut]
+        [ResourceAuthorize("Write", "SeedTray")]
         public IHttpActionResult Put(int id, [FromBody] CreateUpdateSeedTrayDto dtoIn)
         {
             try
@@ -237,6 +241,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // Partial update
         [Route("SeedTray/{id}")]
         [HttpPatch]
+        [ResourceAuthorize("Write", "SeedTray")]
         public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateSeedTrayDto> itemPatchDoc)
         {
             try
@@ -288,6 +293,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // DELETE: api/Plant/5
         [Route("SeedTray/{id}")]
         [HttpDelete]
+        [ResourceAuthorize("Write", "SeedTray")]
         public IHttpActionResult Delete(int id)
         {
             try

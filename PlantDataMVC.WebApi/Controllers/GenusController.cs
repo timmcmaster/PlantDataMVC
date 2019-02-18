@@ -14,11 +14,11 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApi.Helpers;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace PlantDataMVC.WebApi.Controllers
 {
     [RoutePrefix("api")]
-    [Authorize]
     public class GenusController : ApiController
     {
         private const int MaxPageSize = 100;
@@ -35,6 +35,7 @@ namespace PlantDataMVC.WebApi.Controllers
         [HttpCache(DefaultExpirySeconds = 300)]
         [HttpGet]
         [Route("Genus", Name = "GenusList")]
+        [ResourceAuthorize("Read", "Genus")]
         public IHttpActionResult Get(
             string sort = "id",
             string latinName = null,
@@ -99,6 +100,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // GET: api/Plant/5
         [HttpGet]
+        [ResourceAuthorize("Read", "Genus")]
         public IHttpActionResult Get(int id, string fields = null)
         {
             try
@@ -135,6 +137,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // POST: api/Genus
         [Route("Genus")]
         [HttpPost]
+        [ResourceAuthorize("Write", "Genus")]
         public IHttpActionResult Post([FromBody] CreateUpdateGenusDto dtoIn)
         {
             // TODO: Add check for unique genus
@@ -171,6 +174,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PUT: api/Plant/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [HttpPut]
+        [ResourceAuthorize("Write", "Genus")]
         public IHttpActionResult Put(int id, [FromBody] CreateUpdateGenusDto dtoIn)
         {
             try
@@ -220,6 +224,7 @@ namespace PlantDataMVC.WebApi.Controllers
         // PATCH: api/Plant/5
         // Partial update
         [HttpPatch]
+        [ResourceAuthorize("Write", "Genus")]
         public IHttpActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateGenusDto> itemPatchDoc)
         {
             try
@@ -269,6 +274,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
         // DELETE: api/Plant/5
         [HttpDelete]
+        [ResourceAuthorize("Write", "Genus")]
         public IHttpActionResult Delete(int id)
         {
             try
