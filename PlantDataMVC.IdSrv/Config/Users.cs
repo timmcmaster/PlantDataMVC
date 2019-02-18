@@ -13,7 +13,7 @@ namespace PlantDataMVC.IdSrv.Config
                 new InMemoryUser
                 {
                     Username = "Timmo",
-                    Password = "ilikebikes",
+                    Password = "secret",
                     Subject = "1",
 
                     Claims = new[]
@@ -28,8 +28,8 @@ namespace PlantDataMVC.IdSrv.Config
 
                 new InMemoryUser
                 {
-                    Username = "Kernip",
-                    Password = "lovetorun",
+                    Username = "Kerryn",
+                    Password = "secret",
                     Subject = "2",
 
                     Claims = new[]
@@ -43,8 +43,8 @@ namespace PlantDataMVC.IdSrv.Config
 
                 new InMemoryUser
                 {
-                    Username = "Longest",
-                    Password = "nicholas",
+                    Username = "Jo",
+                    Password = "secret",
                     Subject = "3",
 
                     Claims = new[]

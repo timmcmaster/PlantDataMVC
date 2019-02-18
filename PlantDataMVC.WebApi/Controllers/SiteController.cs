@@ -18,6 +18,7 @@ using PlantDataMVC.WebApi.Helpers;
 namespace PlantDataMVC.WebApi.Controllers
 {
     [RoutePrefix("api")]
+    [Authorize]
     public class SiteController : ApiController
     {
         private const int MaxPageSize = 100;

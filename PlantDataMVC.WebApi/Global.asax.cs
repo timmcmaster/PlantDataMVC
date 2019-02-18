@@ -12,17 +12,6 @@ namespace PlantDataMVC.WebApi
     {
         protected void Application_Start()
         {
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-
-            var config = GlobalConfiguration.Configuration;
-
-            // Set the dependency resolver to be Autofac.
-            IContainer container = AutofacConfig.ConfigureContainer();
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-
-            // Configure mappings for all objects
-            AutoMapperBootstrapper.Initialize();
-
         }
 
         /* Added for route debugging */

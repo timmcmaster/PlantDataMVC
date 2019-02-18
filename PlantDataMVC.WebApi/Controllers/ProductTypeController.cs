@@ -13,6 +13,7 @@ using PlantDataMVC.WebApi.Helpers;
 namespace PlantDataMVC.WebApi.Controllers
 {
     [RoutePrefix("api")]
+    [Authorize]  // TODO: want admin authorization on write to this one
     public class ProductTypeController : ApiController
     {
         private const int MaxPageSize = 100;

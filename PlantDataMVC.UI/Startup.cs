@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using System.Web.Helpers;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
@@ -44,7 +42,7 @@ namespace PlantDataMVC.UI
                 SignInAsAuthenticationType = "Cookies",
 
                 ResponseType = "code id_token token",
-                Scope = "openid profile roles",
+                Scope = "openid profile roles plantdataapi",
 
                 Notifications = new OpenIdConnectAuthenticationNotifications()
                 {
@@ -64,7 +62,19 @@ namespace PlantDataMVC.UI
                         var givenNameClaim = new Claim(IdentityModel.JwtClaimTypes.GivenName, userInfo.Value<string>("given_name"));
                         var familyNameClaim = new Claim(IdentityModel.JwtClaimTypes.FamilyName, userInfo.Value<string>("family_name"));
 
-                        var roles = userInfo.Value<JArray>("role").ToList();
+                        // If only single role claim, it is as string not single-element array
+                        JToken token = userInfo["role"];
+                        var roles = new List<JToken>();
+
+                        switch (token.Type)
+                        {
+                            case JTokenType.Array:
+                                roles = token.ToList();
+                                break;
+                            case JTokenType.String:
+                                roles.Add(token);
+                                break;
+                        }
 
                         var newIdentity = new ClaimsIdentity(
                             n.AuthenticationTicket.Identity.AuthenticationType,
@@ -82,9 +92,10 @@ namespace PlantDataMVC.UI
                         // get required identifier token claims (used for antiforgery tokens)
                         var issuerClaim = n.AuthenticationTicket.Identity.FindFirst(IdentityModel.JwtClaimTypes.Issuer);
                         var subjectClaim = n.AuthenticationTicket.Identity.FindFirst(IdentityModel.JwtClaimTypes.Subject);
-                        
+
                         newIdentity.AddClaim(new Claim("unique_user_key", issuerClaim.Value + "_" + subjectClaim.Value));
- 
+                        newIdentity.AddClaim(new Claim("access_token", n.ProtocolMessage.AccessToken));
+
                         n.AuthenticationTicket = new AuthenticationTicket(newIdentity, n.AuthenticationTicket.Properties);
                     }
                 }

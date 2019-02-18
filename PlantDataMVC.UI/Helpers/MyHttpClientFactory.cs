@@ -2,6 +2,8 @@
 using System.Collections.Concurrent;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Web;
 using PlantDataMVC.Constants;
 
 namespace PlantDataMVC.UI.Helpers
@@ -30,6 +32,13 @@ namespace PlantDataMVC.UI.Helpers
         {
             AddHttpClient(NamedHttpClients.PlantDataApi, client =>
                 {
+                    // TODO: User stuff could be an issue if we have singleton http client
+                    var token = (HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst("access_token");
+
+                    if (token != null)
+                    {
+                        client.SetBearerToken(token.Value);
+                    }
                     client.BaseAddress = new Uri(PlantDataMvcConstants.PlantDataApi);
 
                     // clear the accept headers and set those we require for ALL client requests
