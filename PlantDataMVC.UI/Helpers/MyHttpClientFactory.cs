@@ -32,13 +32,13 @@ namespace PlantDataMVC.UI.Helpers
         {
             AddHttpClient(NamedHttpClients.PlantDataApi, client =>
                 {
-                    // TODO: User stuff could be an issue if we have singleton http client
-                    var token = (HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst("access_token");
+                    //// TODO: User stuff could be an issue if we have singleton http client
+                    //var token = (HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst("access_token");
 
-                    if (token != null)
-                    {
-                        client.SetBearerToken(token.Value);
-                    }
+                    //if (token != null)
+                    //{
+                    //    client.SetBearerToken(token.Value);
+                    //}
                     client.BaseAddress = new Uri(PlantDataMvcConstants.PlantDataApi);
 
                     // clear the accept headers and set those we require for ALL client requests
@@ -53,15 +53,22 @@ namespace PlantDataMVC.UI.Helpers
             _clientConfigActions.TryAdd(clientName, configureClient);
         }
 
+        /// <summary>
+        /// The main entry point to return a HttpClient
+        /// </summary>
+        /// <param name="clientName"></param>
+        /// <returns></returns>
         public HttpClient CreateClient(string clientName)
         {
             HttpClient client = null;
 
+            // Retrieve client from dictionary
             if (_clients.TryGetValue(clientName, out client))
             {
                 return client;
             }
 
+            // Retrieve configuration delegate, create client and add to client dictionary
             if (_clientConfigActions.TryGetValue(clientName, out Action<HttpClient> configureClient))
             {
                 client = new HttpClient();

@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web;
 using AutoMapper;
 using Framework.Web.Views;
 using Newtonsoft.Json;
@@ -18,10 +21,15 @@ namespace PlantDataMVC.UI.Handlers.Views.Plant
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<PlantEditViewModel> HandleAsync(EditQuery query)
+        public async Task<PlantEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
         {
+            var token = (HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst("access_token");
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            var httpResponse = await httpClient.GetAsync("api/Species/" + query.Id).ConfigureAwait(false);
+            // todo: if not null client
+            var uri = "api/Species/" + query.Id;
+            var httpResponse = await httpClient.GetAsync(uri, token.Value, cancellationToken).ConfigureAwait(false);
+
+            //var httpResponse = await httpClient.GetAsync(uri).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

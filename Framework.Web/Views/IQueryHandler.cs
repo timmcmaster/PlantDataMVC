@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Framework.Web.Views
 {
@@ -7,6 +8,7 @@ namespace Framework.Web.Views
     // Why do we need covariance?
     public interface IQueryHandler<in TQuery, TViewModel> where TQuery : IQuery<TViewModel>
     {
-        Task<TViewModel> HandleAsync(TQuery query);
+        //Task<TViewModel> HandleAsync(TQuery query);
+        Task<TViewModel> HandleAsync(TQuery query, CancellationToken cancellationToken);
     }
 }

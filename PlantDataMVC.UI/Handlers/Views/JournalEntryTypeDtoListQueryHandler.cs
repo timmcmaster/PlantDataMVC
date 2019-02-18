@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Controllers.Queries;
@@ -16,12 +19,15 @@ namespace PlantDataMVC.UI.Handlers.Views
             _httpClientFactory = httpClientFactory;
         }
 
-        public override async Task<IEnumerable<JournalEntryTypeDto>> HandleAsync(ListQuery<JournalEntryTypeDto> query)
+        public override async Task<IEnumerable<JournalEntryTypeDto>> HandleAsync(ListQuery<JournalEntryTypeDto> query, CancellationToken cancellationToken)
         {
+            var token = (HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst("access_token");
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-
             // todo: if not null client
-            var httpResponse = await httpClient.GetAsync("api/JournalEntryType").ConfigureAwait(false);
+            var uri = "api/JournalEntryType";
+            var httpResponse = await httpClient.GetAsync(uri, token.Value, cancellationToken).ConfigureAwait(false);
+
+            //var httpResponse = await httpClient.GetAsync(uri).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

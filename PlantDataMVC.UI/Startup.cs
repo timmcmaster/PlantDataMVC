@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -60,6 +61,12 @@ namespace PlantDataMVC.UI
                         // Get user info claims
                         var userInfo = await EndpointAndTokenHelper.CallUserInfoEndpoint(n.ProtocolMessage.AccessToken);
 
+                        // use the authorization code to get a refresh token 
+                        var tokenEndpointClient = new OAuth2Client(new Uri(PlantDataMvcConstants.IdSrvToken),"mvc", "secret");
+
+                        var tokenResponse = await tokenEndpointClient.RequestAuthorizationCodeAsync(
+                            n.ProtocolMessage.Code, PlantDataMvcConstants.PlantDataClient);
+
                         var givenNameClaim = new Claim(IdentityModel.JwtClaimTypes.GivenName, userInfo.Value<string>("given_name"));
                         var familyNameClaim = new Claim(IdentityModel.JwtClaimTypes.FamilyName, userInfo.Value<string>("family_name"));
 
@@ -95,9 +102,10 @@ namespace PlantDataMVC.UI
                         var subjectClaim = n.AuthenticationTicket.Identity.FindFirst(IdentityModel.JwtClaimTypes.Subject);
 
                         newIdentity.AddClaim(new Claim("unique_user_key", issuerClaim.Value + "_" + subjectClaim.Value));
-                        newIdentity.AddClaim(new Claim("access_token", n.ProtocolMessage.AccessToken));
 
-                        var tokenEndpointClient = new OAuth2Client()
+                        newIdentity.AddClaim(new Claim("refresh_token", tokenResponse.RefreshToken));
+                        newIdentity.AddClaim(new Claim("access_token", tokenResponse.AccessToken));
+                        newIdentity.AddClaim(new Claim("expires_at",DateTime.Now.AddSeconds(tokenResponse.ExpiresIn).ToLocalTime().ToString()));
 
                         n.AuthenticationTicket = new AuthenticationTicket(newIdentity, n.AuthenticationTicket.Properties);
                     }
