@@ -35,10 +35,9 @@ namespace PlantDataMVC.IdSrv.Config
                     {
                         new ScopeClaim("role")
                     }
-                }
+                },
+                StandardScopes.OfflineAccess
             };
-
-            //var scopes = StandardScopes.All;
 
             return scopes;
         }

@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using Owin;
 using PlantDataMVC.Constants;
 using PlantDataMVC.UI.Helpers;
+using Thinktecture.IdentityModel.Client;
 
 [assembly: OwinStartup(typeof(PlantDataMVC.UI.Startup))]
 
@@ -42,7 +43,7 @@ namespace PlantDataMVC.UI
                 SignInAsAuthenticationType = "Cookies",
 
                 ResponseType = "code id_token token",
-                Scope = "openid profile roles plantdataapi",
+                Scope = "openid profile roles plantdataapi offline_access",
 
                 Notifications = new OpenIdConnectAuthenticationNotifications()
                 {
@@ -95,6 +96,8 @@ namespace PlantDataMVC.UI
 
                         newIdentity.AddClaim(new Claim("unique_user_key", issuerClaim.Value + "_" + subjectClaim.Value));
                         newIdentity.AddClaim(new Claim("access_token", n.ProtocolMessage.AccessToken));
+
+                        var tokenEndpointClient = new OAuth2Client()
 
                         n.AuthenticationTicket = new AuthenticationTicket(newIdentity, n.AuthenticationTicket.Properties);
                     }

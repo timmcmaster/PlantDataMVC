@@ -21,8 +21,13 @@ namespace PlantDataMVC.IdSrv.Config
                     {
                         PlantDataMvcConstants.PlantDataClient
                     },
+                    AllowAccessToAllScopes = true,
 
-                    AllowAccessToAllScopes = true
+                    // Provide secret to allow for refresh tokens
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    }
                 }
             };
         }
