@@ -28,6 +28,20 @@ namespace PlantDataMVC.UI.Helpers
             return httpClient.GetAsync(uri, x => SetToken(x, token), cancellationToken);
         }
 
+
+        public static Task<HttpResponseMessage> PostAsJsonAsync<T>
+            (this HttpClient httpClient, string uri, T value, Action<HttpRequestMessage> preAction)
+        {
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, uri)
+            {
+                Content = new ObjectContent<T>
+                    (value, new JsonMediaTypeFormatter(), (MediaTypeHeaderValue)null)
+            };
+            preAction(httpRequestMessage);
+
+            return httpClient.SendAsync(httpRequestMessage);
+        }
+
         private static void SetToken(HttpRequestMessage request, string token)
         {
             if (token != null)
