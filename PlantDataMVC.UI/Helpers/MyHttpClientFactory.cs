@@ -71,7 +71,7 @@ namespace PlantDataMVC.UI.Helpers
             // Retrieve configuration delegate, create client and add to client dictionary
             if (_clientConfigActions.TryGetValue(clientName, out Action<HttpClient> configureClient))
             {
-                client = new HttpClient();
+                client = new HttpClient(new TokenMessageHandler());
                 configureClient(client);
                 _clients[clientName] = client;
             }

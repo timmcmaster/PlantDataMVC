@@ -92,7 +92,7 @@ namespace Framework.Web.Mediator
 
             // return the task to handle the request
             // If the handle method allows cancellation, pass it in here
-            return handler.HandleAsync((TForm) form);
+            return handler.HandleAsync((TForm) form, cancellationToken);
         }
     }
 }

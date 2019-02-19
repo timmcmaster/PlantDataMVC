@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Framework.Web.Forms;
 using PlantDataMVC.UI.Helpers;
 using PlantDataMVC.UI.Models.EditModels.PlantStock;
@@ -14,13 +15,14 @@ namespace PlantDataMVC.UI.Handlers.Forms.PlantStock
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<bool> HandleAsync(PlantStockDestroyEditModel form)
+        public async Task<bool> HandleAsync(PlantStockDestroyEditModel form, CancellationToken cancellationToken)
         {
             try
             {
                 var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
                 // todo: if not null client
-                var httpResponse = await httpClient.DeleteAsync("api/PlantStock/" + form.Id).ConfigureAwait(false);
+                var uri = "api/PlantStock/" + form.Id;
+                var httpResponse = await httpClient.DeleteAsync(uri, cancellationToken).ConfigureAwait(false);
 
                 return httpResponse.IsSuccessStatusCode;
             }

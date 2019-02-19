@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Framework.Web.Forms
 {
@@ -11,6 +12,6 @@ namespace Framework.Web.Forms
     /// <typeparam name="TResult">The type of the result.</typeparam>
     public interface IFormHandler<in TForm, TResult> where TForm : IForm<TResult>
     {
-        Task<TResult> HandleAsync(TForm form);
+        Task<TResult> HandleAsync(TForm form, CancellationToken cancellationToken);
     }
 }

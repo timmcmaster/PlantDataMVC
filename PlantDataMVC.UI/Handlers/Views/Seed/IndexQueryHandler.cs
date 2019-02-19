@@ -44,7 +44,7 @@ namespace PlantDataMVC.UI.Handlers.Views.Seed
 
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client
-            var httpResponse = await httpClient.GetAsync(requestUri, token.Value, cancellationToken).ConfigureAwait(false);
+            var httpResponse = await httpClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
             //var httpResponse = await httpClient.GetAsync(requestUri).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)

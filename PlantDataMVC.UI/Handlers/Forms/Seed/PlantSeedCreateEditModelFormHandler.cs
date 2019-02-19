@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Framework.Web.Forms;
 using Newtonsoft.Json;
@@ -18,7 +19,7 @@ namespace PlantDataMVC.UI.Handlers.Forms.Seed
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<bool> HandleAsync(PlantSeedCreateEditModel form)
+        public async Task<bool> HandleAsync(PlantSeedCreateEditModel form, CancellationToken cancellationToken)
         {
             try
             {
@@ -30,7 +31,8 @@ namespace PlantDataMVC.UI.Handlers.Forms.Seed
 
                 var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
                 // todo: if not null client
-                var httpResponse = await httpClient.PostAsync("api/SeedBatch", content).ConfigureAwait(false);
+                var uri = "api/SeedBatch";
+                var httpResponse = await httpClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
 
                 return httpResponse.IsSuccessStatusCode;
             }

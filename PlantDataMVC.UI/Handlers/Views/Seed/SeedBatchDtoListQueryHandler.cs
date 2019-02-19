@@ -25,7 +25,7 @@ namespace PlantDataMVC.UI.Handlers.Views.Seed
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client
             var uri = "api/SeedBatch";
-            var httpResponse = await httpClient.GetAsync(uri, token.Value, cancellationToken).ConfigureAwait(false);
+            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
             //var httpResponse = await httpClient.GetAsync(uri).ConfigureAwait(false);
 

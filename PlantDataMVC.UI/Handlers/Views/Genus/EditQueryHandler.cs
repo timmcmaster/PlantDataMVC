@@ -23,12 +23,10 @@ namespace PlantDataMVC.UI.Handlers.Views.Genus
 
         public async Task<GenusEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
         {
-            var token = (HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst("access_token");
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client
             var uri = "api/Genus/" + query.Id;
-            var httpResponse = await httpClient.GetAsync(uri, token.Value, cancellationToken).ConfigureAwait(false);
-            //var httpResponse = await httpClient.GetAsync(uri).ConfigureAwait(false);
+            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

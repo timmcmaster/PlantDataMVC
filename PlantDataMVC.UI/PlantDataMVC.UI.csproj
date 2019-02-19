@@ -345,6 +345,7 @@
     <Compile Include="Handlers\Forms\Seed\PlantSeedCreateEditModelFormHandler.cs" />
     <Compile Include="Handlers\Forms\Seed\PlantSeedDestroyEditModelFormHandler.cs" />
     <Compile Include="Handlers\Forms\Seed\PlantSeedUpdateEditModelFormHandler.cs" />
+    <Compile Include="Helpers\TokenMessageHandler.cs" />
     <Compile Include="Mappers\AutoMapperWebConfiguration.cs" />
     <Compile Include="Mappers\DtoToUiMappingProfile.cs" />
     <Compile Include="Mappers\UiToDtoMappingProfile.cs" />

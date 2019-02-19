@@ -26,8 +26,6 @@ namespace PlantDataMVC.UI.Handlers.Views.Tray
 
         public async Task<ListViewModelStatic<TrayListViewModel>> HandleAsync(IndexQuery query, CancellationToken cancellationToken)
         {
-            var token = (HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst("access_token");
-
             // Get paging part of query string
             var requestUri = "api/SeedTray?page=" + query.Page + "&pageSize=" + query.PageSize;
 
@@ -44,8 +42,7 @@ namespace PlantDataMVC.UI.Handlers.Views.Tray
 
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client
-            var httpResponse = await httpClient.GetAsync(requestUri, token.Value, cancellationToken).ConfigureAwait(false);
-            //var httpResponse = await httpClient.GetAsync(requestUri).ConfigureAwait(false);
+            var httpResponse = await httpClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

@@ -23,13 +23,10 @@ namespace PlantDataMVC.UI.Handlers.Views.Transaction
 
         public async Task<PlantStockTransactionEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
         {
-            var token = (HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst("access_token");
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client
             var uri = "api/JournalEntries/" + query.Id;
-            var httpResponse = await httpClient.GetAsync(uri, token.Value, cancellationToken).ConfigureAwait(false);
-
-            //var httpResponse = await httpClient.GetAsync(uri).ConfigureAwait(false);
+            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {
