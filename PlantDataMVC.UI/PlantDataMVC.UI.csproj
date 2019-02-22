@@ -23,9 +23,12 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <IISExpressSSLPort>44390</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
     <Use64BitIISExpress />
@@ -262,11 +265,11 @@
     <Compile Include="Controllers\Queries\Plant\EditQuery.cs" />
     <Compile Include="Controllers\Queries\Plant\IndexQuery.cs" />
     <Compile Include="Controllers\Queries\Plant\ShowQuery.cs" />
-    <Compile Include="Controllers\Queries\Seed\DeleteQuery.cs" />
-    <Compile Include="Controllers\Queries\Seed\EditQuery.cs" />
-    <Compile Include="Controllers\Queries\Seed\IndexQuery.cs" />
+    <Compile Include="Controllers\Queries\SeedBatch\DeleteQuery.cs" />
+    <Compile Include="Controllers\Queries\SeedBatch\EditQuery.cs" />
+    <Compile Include="Controllers\Queries\SeedBatch\IndexQuery.cs" />
     <Compile Include="Controllers\Queries\PlantStock\IndexQuery.cs" />
-    <Compile Include="Controllers\Queries\Seed\ShowQuery.cs" />
+    <Compile Include="Controllers\Queries\SeedBatch\ShowQuery.cs" />
     <Compile Include="Controllers\Queries\Site\DeleteQuery.cs" />
     <Compile Include="Controllers\Queries\Site\EditQuery.cs" />
     <Compile Include="Controllers\Queries\Site\ShowQuery.cs" />
@@ -300,10 +303,10 @@
     <Compile Include="Handlers\Views\Plant\EditQueryHandler.cs" />
     <Compile Include="Handlers\Views\Genus\GenusDtoListQueryHandler.cs" />
     <Compile Include="Handlers\Views\Plant\IndexQueryHandler.cs" />
-    <Compile Include="Handlers\Views\Seed\SeedBatchDtoListQueryHandler.cs" />
-    <Compile Include="Handlers\Views\Seed\EditQueryHandler.cs" />
-    <Compile Include="Handlers\Views\Seed\IndexQueryHandler.cs" />
-    <Compile Include="Handlers\Views\Seed\ShowQueryHandler.cs" />
+    <Compile Include="Handlers\Views\SeedBatch\SeedBatchDtoListQueryHandler.cs" />
+    <Compile Include="Handlers\Views\SeedBatch\EditQueryHandler.cs" />
+    <Compile Include="Handlers\Views\SeedBatch\IndexQueryHandler.cs" />
+    <Compile Include="Handlers\Views\SeedBatch\ShowQueryHandler.cs" />
     <Compile Include="Handlers\Views\Plant\ShowQueryHandler.cs" />
     <Compile Include="Handlers\Views\Plant\SpeciesDtoListQueryHandler.cs" />
     <Compile Include="Handlers\Views\PlantStock\DeleteQueryHandler.cs" />
@@ -311,7 +314,7 @@
     <Compile Include="Handlers\Views\PlantStock\EditQueryHandler.cs" />
     <Compile Include="Handlers\Views\PlantStock\IndexQueryHandler.cs" />
     <Compile Include="Handlers\Views\PlantStock\ShowQueryHandler.cs" />
-    <Compile Include="Handlers\Views\Seed\DeleteQueryHandler.cs" />
+    <Compile Include="Handlers\Views\SeedBatch\DeleteQueryHandler.cs" />
     <Compile Include="Handlers\Views\Transaction\DeleteQueryHandler.cs" />
     <Compile Include="Handlers\Views\Transaction\EditQueryHandler.cs" />
     <Compile Include="Handlers\Views\Site\DeleteQueryHandler.cs" />
@@ -325,7 +328,6 @@
     <Compile Include="Handlers\Views\Tray\ShowQueryHandler.cs" />
     <Compile Include="Helpers\ApiPagingInfo.cs" />
     <Compile Include="Helpers\ApiSorting.cs" />
-    <Compile Include="Helpers\AuthorizationExtensions.cs" />
     <Compile Include="Helpers\AuthorizationManager.cs" />
     <Compile Include="Helpers\DropDownExtensions.cs" />
     <Compile Include="Helpers\EndpointAndTokenHelper.cs" />
@@ -342,9 +344,9 @@
     <Compile Include="Handlers\Forms\PlantStock\PlantStockCreateEditModelFormHandler.cs" />
     <Compile Include="Handlers\Forms\PlantStock\PlantStockDestroyEditModelFormHandler.cs" />
     <Compile Include="Handlers\Forms\PlantStock\PlantStockUpdateEditModelFormHandler.cs" />
-    <Compile Include="Handlers\Forms\Seed\PlantSeedCreateEditModelFormHandler.cs" />
-    <Compile Include="Handlers\Forms\Seed\PlantSeedDestroyEditModelFormHandler.cs" />
-    <Compile Include="Handlers\Forms\Seed\PlantSeedUpdateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\SeedBatch\SeedBatchEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\SeedBatch\SeedBatchDestroyEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\SeedBatch\SeedBatchUpdateEditModelFormHandler.cs" />
     <Compile Include="Helpers\TokenMessageHandler.cs" />
     <Compile Include="Mappers\AutoMapperWebConfiguration.cs" />
     <Compile Include="Mappers\DtoToUiMappingProfile.cs" />
@@ -353,7 +355,7 @@
     <Compile Include="Models\EditModels\Site\SiteCreateEditModel.cs" />
     <Compile Include="Models\EditModels\Site\SiteDestroyEditModel.cs" />
     <Compile Include="Models\EditModels\Site\SiteUpdateEditModel.cs" />
-    <Compile Include="Models\EditModels\Seed\PlantSeedCreateEditModel.cs" />
+    <Compile Include="Models\EditModels\SeedBatch\SeedBatchCreateEditModel.cs" />
     <Compile Include="Models\ViewModels\PlantStock\PlantStockDetailsViewModel.cs" />
     <Compile Include="Models\ViewModels\ListViewModelStatic.cs" />
     <Compile Include="Models\ViewModels\ListViewModel.cs" />
@@ -362,17 +364,17 @@
     <Compile Include="Models\ViewModels\Site\SiteListViewModel.cs" />
     <Compile Include="Models\ViewModels\Site\SiteNewViewModel.cs" />
     <Compile Include="Models\ViewModels\Site\SiteShowViewModel.cs" />
-    <Compile Include="Models\ViewModels\Seed\PlantSeedListViewModel.cs" />
+    <Compile Include="Models\ViewModels\SeedBatch\SeedBatchListViewModel.cs" />
     <Compile Include="Models\ViewModels\Plant\PlantListViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantStock\PlantStockListViewModel.cs" />
     <Compile Include="Models\ViewModels\Transaction\PlantStockTransactionListViewModel.cs" />
     <Compile Include="Models\ViewModels\Tray\TrayListViewModel.cs" />
-    <Compile Include="Models\ViewModels\Seed\PlantSeedDeleteViewModel.cs" />
-    <Compile Include="Models\EditModels\Seed\PlantSeedDestroyEditModel.cs" />
-    <Compile Include="Models\ViewModels\Seed\PlantSeedEditViewModel.cs" />
-    <Compile Include="Models\ViewModels\Seed\PlantSeedNewViewModel.cs" />
-    <Compile Include="Models\ViewModels\Seed\PlantSeedShowViewModel.cs" />
-    <Compile Include="Models\EditModels\Seed\PlantSeedUpdateEditModel.cs" />
+    <Compile Include="Models\ViewModels\SeedBatch\SeedBatchDeleteViewModel.cs" />
+    <Compile Include="Models\EditModels\SeedBatch\SeedBatchDestroyEditModel.cs" />
+    <Compile Include="Models\ViewModels\SeedBatch\SeedBatchEditViewModel.cs" />
+    <Compile Include="Models\ViewModels\SeedBatch\SeedBatchNewViewModel.cs" />
+    <Compile Include="Models\ViewModels\SeedBatch\SeedBatchShowViewModel.cs" />
+    <Compile Include="Models\EditModels\SeedBatch\SeedBatchUpdateEditModel.cs" />
     <Compile Include="Models\EditModels\Transaction\PlantStockTransactionCreateEditModel.cs" />
     <Compile Include="Models\ViewModels\Transaction\PlantStockTransactionDeleteViewModel.cs" />
     <Compile Include="Models\EditModels\Transaction\PlantStockTransactionDestroyEditModel.cs" />
@@ -396,7 +398,7 @@
     <Compile Include="Controllers\PlantStockController.cs" />
     <Compile Include="Helpers\RequireRequestValueAttribute.cs" />
     <Compile Include="Controllers\TrayController.cs" />
-    <Compile Include="Controllers\SeedController.cs" />
+    <Compile Include="Controllers\SeedBatchController.cs" />
     <Compile Include="Controllers\PlantController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -490,16 +492,16 @@
     <Content Include="Views\Plant\Index.cshtml" />
     <Content Include="Views\Plant\New.cshtml" />
     <Content Include="Views\Plant\Show.cshtml" />
-    <Content Include="Views\Seed\Delete.cshtml" />
-    <Content Include="Views\Seed\Edit.cshtml" />
-    <Content Include="Views\Seed\Index.cshtml" />
-    <Content Include="Views\Seed\New.cshtml" />
-    <Content Include="Views\Seed\Show.cshtml" />
+    <Content Include="Views\SeedBatch\Delete.cshtml" />
+    <Content Include="Views\SeedBatch\Edit.cshtml" />
+    <Content Include="Views\SeedBatch\Index.cshtml" />
+    <Content Include="Views\SeedBatch\New.cshtml" />
+    <Content Include="Views\SeedBatch\Show.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\PlantListTable.cshtml" />
     <Content Include="Views\Shared\PlantStockListTable.cshtml" />
     <Content Include="Views\Shared\PlantStockTransactionListTable.cshtml" />
-    <Content Include="Views\Shared\SeedListTable.cshtml" />
+    <Content Include="Views\Shared\SeedBatchListTable.cshtml" />
     <Content Include="Views\Shared\TrayListTable.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Transaction\Delete.cshtml" />

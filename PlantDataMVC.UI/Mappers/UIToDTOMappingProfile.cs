@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UI.Models.EditModels.SeedBatch;
 using Genus = PlantDataMVC.UI.Models.EditModels.Genus;
 using Plant = PlantDataMVC.UI.Models.EditModels.Plant;
 using PlantStock = PlantDataMVC.UI.Models.EditModels.PlantStock;
-using Seed = PlantDataMVC.UI.Models.EditModels.Seed;
 using Site = PlantDataMVC.UI.Models.EditModels.Site;
 using Transaction = PlantDataMVC.UI.Models.EditModels.Transaction;
 using Tray = PlantDataMVC.UI.Models.EditModels.Tray;
@@ -24,11 +24,11 @@ namespace PlantDataMVC.UI.Mappers
         {
             ConfigureGenusEditModels();
             ConfigurePlantEditModels();
-            ConfigurePlantSeedEditModels();
+            ConfigureSeedBatchEditModels();
             ConfigurePlantSeedTrayEditModels();
             ConfigurePlantStockEditModels();
             ConfigurePlantStockTransactionEditModels();
-            ConfigurePlantSeedSiteEditModels();
+            ConfigureSiteEditModels();
             // Maps from UI edit models to domain
         }
 
@@ -85,10 +85,10 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.SpecificName, opt => opt.MapFrom(uio => uio.Species));
         }
 
-        private void ConfigurePlantSeedEditModels()
+        private void ConfigureSeedBatchEditModels()
         {
             // SeedBatchDTO
-            CreateMap<Seed.PlantSeedCreateEditModel, SeedBatchDto>()
+            CreateMap<SeedBatchCreateEditModel, SeedBatchDto>()
                 .ForMember(dto => dto.Id, opt => opt.Ignore())                          // Id on create will come back from DB
                 .ForMember(dto => dto.Location, opt => opt.MapFrom(uio => uio.Location))
                 .ForMember(dto => dto.Notes, opt => opt.MapFrom(uio => uio.Notes))
@@ -96,11 +96,11 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.SiteId, opt => opt.MapFrom(uio => uio.SiteId))
                 .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
 
-            CreateMap<Seed.PlantSeedDestroyEditModel, SeedBatchDto>()
+            CreateMap<SeedBatchDestroyEditModel, SeedBatchDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForAllOtherMembers(opt => opt.Ignore());
 
-            CreateMap<Seed.PlantSeedUpdateEditModel, SeedBatchDto>()
+            CreateMap<SeedBatchUpdateEditModel, SeedBatchDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForMember(dto => dto.Location, opt => opt.MapFrom(uio => uio.Location))
                 .ForMember(dto => dto.Notes, opt => opt.MapFrom(uio => uio.Notes))
@@ -109,7 +109,7 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
         }
 
-        private void ConfigurePlantSeedSiteEditModels()
+        private void ConfigureSiteEditModels()
         {
             // SiteDTO
             CreateMap<Site.SiteCreateEditModel, SiteDto>()

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
-using System.Web;
 using Thinktecture.IdentityModel.Owin.ResourceAuthorization;
 
 namespace PlantDataMVC.UI.Helpers
@@ -17,7 +13,7 @@ namespace PlantDataMVC.UI.Helpers
             {
                 case "Genus":
                 case "Plant": //Species
-                case "Seed":
+                case "SeedBatch":
                 case "Tray":
                 case "Site":
                 case "PlantStock":
