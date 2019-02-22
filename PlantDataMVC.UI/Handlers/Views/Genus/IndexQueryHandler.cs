@@ -54,8 +54,6 @@ namespace PlantDataMVC.UI.Handlers.Views.Genus
                 LinkHeader linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<GenusDto>>(content);
-
-                // TODO: Mapping does not seem to exist
                 List<GenusListViewModel> modelList =
                     Mapper.Map<IEnumerable<GenusDto>, List<GenusListViewModel>>(dtoList);
 

@@ -69,7 +69,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<SpeciesDto, Plant.PlantDeleteViewModel>()
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Fix this
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Map genus in plant object
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => "Hey, fix me!"))        // TODO: map binomial name
                .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
@@ -79,30 +79,30 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<SpeciesDto, Plant.PlantEditViewModel>()
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Fix this
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Map genus in plant object
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
                .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
             CreateMap<SpeciesDto, Plant.PlantListViewModel>()
-               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "(Fix me!) " + dto.SpecificName))           // TODO: Fix this
+               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "(Fix me!) " + dto.SpecificName))           // TODO: Map binomial in plant object
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id));
 
             CreateMap<SpeciesDto, Plant.PlantNewViewModel>()
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Fix this
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Map genus in plant object
                .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
                .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
             CreateMap<SpeciesDto, Plant.PlantShowViewModel>()
-               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "(Fix me!) " + dto.SpecificName))           // TODO: Fix this
+               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "(Fix me!) " + dto.SpecificName))           // TODO: Map binomial in plant object
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Fix this
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Map genus in plant object
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
                .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
@@ -118,8 +118,8 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
                 .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dto => dto.SiteId))
-                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Fix this
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Map site name in seed batch object
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in seed batch object
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
 
             CreateMap<SeedBatchDto, SeedBatchEditViewModel>()
@@ -128,16 +128,16 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
                 .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dto => dto.SiteId))
-                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Fix this
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Map site name in seed batch object
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in seed batch object
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
 
             CreateMap<SeedBatchDto, SeedBatchListViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dto => dto.DateCollected))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location))
-                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Fix this
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Map site name in seed batch object
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in seed batch object
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
 
             CreateMap<SeedBatchDto, SeedBatchNewViewModel>()
@@ -153,8 +153,8 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
                 .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dto => dto.SiteId))
-                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Fix this
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Map site name in seed batch object
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in seed batch object
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
         }
 
@@ -201,49 +201,49 @@ namespace PlantDataMVC.UI.Mappers
             // PlantStockDTO
             CreateMap<PlantStockDto, PlantStock.PlantStockDeleteViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
-                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map product type in plant stock object
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in plant stock object
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
                 // TODO: What about ProductTypeId from dto?
 
             CreateMap<PlantStockDto, PlantStock.PlantStockEditViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
-                .ForMember(uio => uio.ProductTypeId, opt => opt.Ignore())         // TODO: Fix this
+                .ForMember(uio => uio.ProductTypeId, opt => opt.Ignore())         // TODO: Map product type in plant stock object
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in plant stock object
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
                 // TODO: What about ProductTypeId from dto?
 
             CreateMap<PlantStockDto, PlantStock.PlantStockListViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
-                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map product type in plant stock object
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in plant stock object
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
             // TODO: What about ProductTypeId from dto?
 
             CreateMap<PlantStockDto, PlantStock.PlantStockNewViewModel>()
                 .ForMember(uio => uio.SpeciesId, opt => opt.Ignore())    // don't need to map species up for new stock (TODO: Confirm)
-                .ForMember(uio => uio.ProductTypeId, opt => opt.Ignore())   // TODO: Fix this
+                .ForMember(uio => uio.ProductTypeId, opt => opt.Ignore())   // TODO: Map product type in plant stock object
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock));
                 // TODO: What about SpeciesId from dto?
                 // TODO: What about ProductTypeId from dto?
 
             CreateMap<PlantStockDto, PlantStock.PlantStockShowViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
-                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map product type in plant stock object
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in plant stock object
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
             // TODO: What about ProductTypeId from dto?
 
             // PlantStockDetailsViewModel
             CreateMap<PlantStockDto, PlantStock.PlantStockDetailsViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
-                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map product type in plant stock object
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Fix this
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in plant stock object
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
                 .ForMember(uio => uio.Transactions, opt => opt.MapFrom(dto => dto.JournalEntries))
                 ;
@@ -261,7 +261,7 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dto => dto.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
                 .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dto => dto.Source))
-                .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"));   // TODO: Fix this
+                .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"));   // TODO: Map transaction type in transaction object
 
             CreateMap<JournalEntryDto, Transaction.TransactionEditViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
@@ -271,14 +271,14 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dto => dto.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
                 .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dto => dto.Source))
-                .ForMember(uio => uio.TransactionTypeId, opt => opt.Ignore());   // TODO: Fix this
+                .ForMember(uio => uio.TransactionTypeId, opt => opt.Ignore());   // TODO: Map transaction type in transaction object
 
             CreateMap<JournalEntryDto, Transaction.TransactionListViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dto => dto.Quantity))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
-                .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"));   // TODO: Fix this
+                .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"));   // TODO: Map transaction type in transaction object
 
             CreateMap<JournalEntryDto, Transaction.TransactionNewViewModel>()
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
@@ -287,7 +287,7 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dto => dto.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
                 .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dto => dto.Source))
-                .ForMember(uio => uio.TransactionTypeId, opt => opt.Ignore());   // TODO: Fix this
+                .ForMember(uio => uio.TransactionTypeId, opt => opt.Ignore());   // TODO: Map transaction type in transaction object
         }
 
         private void ConfigureSeedTrayViewModels()
