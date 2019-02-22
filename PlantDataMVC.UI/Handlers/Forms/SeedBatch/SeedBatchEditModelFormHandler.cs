@@ -24,7 +24,6 @@ namespace PlantDataMVC.UI.Handlers.Forms.SeedBatch
             try
             {
                 // Map local model to DTO
-                // TODO: Check map exists
                 SeedBatchDto item = AutoMapper.Mapper.Map<SeedBatchCreateEditModel, SeedBatchDto>(form);
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");

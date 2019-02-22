@@ -53,8 +53,6 @@ namespace PlantDataMVC.UI.Handlers.Views.Plant
                 LinkHeader linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<SpeciesDto>>(content);
-
-                // TODO: check to ensure these DTOs map to view model
                 List<PlantListViewModel> modelList =
                     Mapper.Map<IEnumerable<SpeciesDto>, List<PlantListViewModel>>(dtoList);
 

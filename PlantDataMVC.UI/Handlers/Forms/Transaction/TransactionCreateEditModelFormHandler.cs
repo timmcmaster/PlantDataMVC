@@ -24,7 +24,6 @@ namespace PlantDataMVC.UI.Handlers.Forms.Transaction
             try
             {
                 // Map local model to DTO
-                // TODO: Check map exists
                 JournalEntryDto item = AutoMapper.Mapper.Map<TransactionCreateEditModel, JournalEntryDto>(form);
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");

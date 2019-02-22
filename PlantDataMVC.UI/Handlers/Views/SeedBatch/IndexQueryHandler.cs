@@ -51,8 +51,6 @@ namespace PlantDataMVC.UI.Handlers.Views.SeedBatch
                 LinkHeader linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<SeedBatchDto>>(content);
-
-                // TODO: check to ensure these DTOs map to view model
                 List<SeedBatchListViewModel> modelList =
                     Mapper.Map<IEnumerable<SeedBatchDto>, List<SeedBatchListViewModel>>(dtoList);
 

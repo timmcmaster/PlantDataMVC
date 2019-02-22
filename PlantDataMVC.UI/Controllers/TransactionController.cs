@@ -31,8 +31,6 @@ namespace PlantDataMVC.UI.Controllers
         public ActionResult New(int plantStockId)
         {
             var item = new JournalEntryDto {PlantStockId = plantStockId};
-
-            // TODO: check to ensure these DTOs map to view model
             var model = Mapper.Map<JournalEntryDto, TransactionNewViewModel>(item);
             return View(model);
         }

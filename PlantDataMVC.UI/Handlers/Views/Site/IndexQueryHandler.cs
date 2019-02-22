@@ -52,8 +52,6 @@ namespace PlantDataMVC.UI.Handlers.Views.Site
                 var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<SiteDto>>(content);
-
-                // TODO: check to ensure these DTOs map to view model
                 var modelList = Mapper.Map<IEnumerable<SiteDto>, List<SiteListViewModel>>(dtoList);
 
                 var model = new ListViewModelStatic<SiteListViewModel>(modelList, apiPagingInfo.page,
@@ -61,7 +59,6 @@ namespace PlantDataMVC.UI.Handlers.Views.Site
                                                                         apiPagingInfo.totalCount,
                                                                         query.SortBy,
                                                                         query.SortAscending);
-
                 return model;
             }
             else

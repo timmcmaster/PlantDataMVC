@@ -32,8 +32,6 @@ namespace PlantDataMVC.UI.Handlers.Views.Genus
             {
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<GenusDto>(content);
-
-                // TODO: check to ensure these DTOs map to view model
                 var model = Mapper.Map<GenusDto, GenusEditViewModel>(dto);
                 return model;
             }

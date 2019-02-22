@@ -37,10 +37,10 @@ namespace PlantDataMVC.DTO.Mappers
                            opt => opt.MapFrom(e => e.Species)) // ICollection, explicit and unnecessary
                 .ForAllOtherMembers(opt => opt.Ignore());
 
-            CreateMap<Genus, GenusInListDto>()
-                .ForMember(dto => dto.Id, opt => opt.MapFrom(e => e.Id)) // explicit and unnecessary
-                .ForMember(dto => dto.LatinName, opt => opt.MapFrom(e => e.LatinName)) // explicit and unnecessary
-                .ForAllOtherMembers(opt => opt.Ignore());
+            //CreateMap<Genus, GenusInListDto>()
+            //    .ForMember(dto => dto.Id, opt => opt.MapFrom(e => e.Id)) // explicit and unnecessary
+            //    .ForMember(dto => dto.LatinName, opt => opt.MapFrom(e => e.LatinName)) // explicit and unnecessary
+            //    .ForAllOtherMembers(opt => opt.Ignore());
         }
 
         private void ConfigureSpeciesMappings()
@@ -66,12 +66,12 @@ namespace PlantDataMVC.DTO.Mappers
                 }) // ICollection, explicit and unnecessary
                 .ForAllOtherMembers(opt => opt.Ignore());
 
-            CreateMap<Species, SpeciesInListDto>()
-                .ForMember(dto => dto.Id, opt => opt.MapFrom(e => e.Id)) // explicit and unnecessary
-                .ForMember(dto => dto.GenusId, opt => opt.MapFrom(e => e.GenusId)) // explicit and unnecessary
-                .ForMember(dto => dto.CommonName, opt => opt.MapFrom(e => e.CommonName)) // explicit and unnecessary
-                .ForMember(dto => dto.SpecificName, opt => opt.MapFrom(e => e.SpecificName)) // explicit and unnecessary
-                .ForAllOtherMembers(opt => opt.Ignore());
+            //CreateMap<Species, SpeciesInListDto>()
+            //    .ForMember(dto => dto.Id, opt => opt.MapFrom(e => e.Id)) // explicit and unnecessary
+            //    .ForMember(dto => dto.GenusId, opt => opt.MapFrom(e => e.GenusId)) // explicit and unnecessary
+            //    .ForMember(dto => dto.CommonName, opt => opt.MapFrom(e => e.CommonName)) // explicit and unnecessary
+            //    .ForMember(dto => dto.SpecificName, opt => opt.MapFrom(e => e.SpecificName)) // explicit and unnecessary
+            //    .ForAllOtherMembers(opt => opt.Ignore());
         }
 
         private void ConfigureSeedBatchMappings()

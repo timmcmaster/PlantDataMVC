@@ -24,7 +24,6 @@ namespace PlantDataMVC.UI.Handlers.Forms.Genus
             try
             {
                 // Map local model to DTO
-                // TODO: Check map exists
                 CreateUpdateGenusDto item = AutoMapper.Mapper.Map<GenusCreateEditModel, CreateUpdateGenusDto>(form);
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");

@@ -24,7 +24,6 @@ namespace PlantDataMVC.UI.Handlers.Forms.Transaction
             try
             {
                 // Map local model to DTO
-                // TODO: Check map exists
                 JournalEntryDto item = AutoMapper.Mapper.Map<TransactionUpdateEditModel, JournalEntryDto>(form);
 
                 // Update with PUT

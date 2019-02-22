@@ -83,8 +83,6 @@ namespace PlantDataMVC.UI.Controllers
         public ActionResult New(int speciesId)
         {
             var item = new SeedBatchDto { SpeciesId = speciesId };
-
-            // TODO: check to ensure these DTOs map to view model
             var model = Mapper.Map<SeedBatchDto, SeedBatchNewViewModel>(item);
             return View(model);
         }

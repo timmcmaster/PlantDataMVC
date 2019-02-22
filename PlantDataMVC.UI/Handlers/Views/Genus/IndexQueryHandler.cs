@@ -53,11 +53,11 @@ namespace PlantDataMVC.UI.Handlers.Views.Genus
                 ApiPagingInfo apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                 LinkHeader linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                var dtoList = JsonConvert.DeserializeObject<IEnumerable<GenusInListDto>>(content);
+                var dtoList = JsonConvert.DeserializeObject<IEnumerable<GenusDto>>(content);
 
-                // TODO: check to ensure these DTOs map to view model
+                // TODO: Mapping does not seem to exist
                 List<GenusListViewModel> modelList =
-                    Mapper.Map<IEnumerable<GenusInListDto>, List<GenusListViewModel>>(dtoList);
+                    Mapper.Map<IEnumerable<GenusDto>, List<GenusListViewModel>>(dtoList);
 
                 var model = new ListViewModelStatic<GenusListViewModel>(modelList, apiPagingInfo.page,
                                                                         apiPagingInfo.pageSize,
@@ -84,11 +84,11 @@ namespace PlantDataMVC.UI.Handlers.Views.Genus
             // supplied sortBy field should belong to display object (as it is generated from model metadata)
             if (querySortBy == nameof(GenusListViewModel.Id))
             {
-                sortField = nameof(GenusInListDto.Id);
+                sortField = nameof(GenusDto.Id);
             }
             else if (querySortBy == nameof(GenusListViewModel.LatinName))
             {
-                sortField = nameof(GenusInListDto.LatinName);
+                sortField = nameof(GenusDto.LatinName);
             }
 
             return sortField;

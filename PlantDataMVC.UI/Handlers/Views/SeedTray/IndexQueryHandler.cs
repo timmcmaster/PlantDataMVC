@@ -50,8 +50,6 @@ namespace PlantDataMVC.UI.Handlers.Views.SeedTray
                 var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<SeedTrayDto>>(content);
-
-                // TODO: check to ensure these DTOs map to view model
                 var modelList = Mapper.Map<IEnumerable<SeedTrayDto>, List<SeedTrayListViewModel>>(dtoList);
 
                 var model = new ListViewModelStatic<SeedTrayListViewModel>(modelList, apiPagingInfo.page,

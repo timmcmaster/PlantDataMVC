@@ -24,7 +24,6 @@ namespace PlantDataMVC.UI.Handlers.Forms.PlantStock
             try
             {
                 // Map local model to DTO
-                // TODO: Check map exists
                 PlantStockDto item = AutoMapper.Mapper.Map<PlantStockUpdateEditModel, PlantStockDto>(form);
 
                 // Update with PUT
