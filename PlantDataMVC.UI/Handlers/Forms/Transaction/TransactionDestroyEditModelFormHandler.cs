@@ -6,16 +6,16 @@ using PlantDataMVC.UI.Models.EditModels.Transaction;
 
 namespace PlantDataMVC.UI.Handlers.Forms.Transaction
 {
-    public class PlantStockTransactionDestroyEditModelFormHandler : IFormHandler<PlantStockTransactionDestroyEditModel, bool>
+    public class TransactionDestroyEditModelFormHandler : IFormHandler<TransactionDestroyEditModel, bool>
     {
         private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public PlantStockTransactionDestroyEditModelFormHandler(IMyHttpClientFactory httpClientFactory)
+        public TransactionDestroyEditModelFormHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<bool> HandleAsync(PlantStockTransactionDestroyEditModel form, CancellationToken cancellationToken)
+        public async Task<bool> HandleAsync(TransactionDestroyEditModel form, CancellationToken cancellationToken)
         {
             try
             {

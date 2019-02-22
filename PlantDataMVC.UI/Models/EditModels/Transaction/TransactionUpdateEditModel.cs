@@ -4,7 +4,7 @@ using PlantDataMVC.DTO.Dtos;
 
 namespace PlantDataMVC.UI.Models.EditModels.Transaction
 {
-    public class PlantStockTransactionUpdateEditModel : IForm<bool>
+    public class TransactionUpdateEditModel : IForm<bool>
     {
         public int Id { get; set; }
         public int PlantStockId { get; set; }

@@ -27,7 +27,7 @@ namespace PlantDataMVC.UI.Mappers
             ConfigureSeedBatchEditModels();
             ConfigureSeedTrayEditModels();
             ConfigurePlantStockEditModels();
-            ConfigurePlantStockTransactionEditModels();
+            ConfigureTransactionEditModels();
             ConfigureSiteEditModels();
             // Maps from UI edit models to domain
         }
@@ -156,10 +156,10 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
         }
 
-        private void ConfigurePlantStockTransactionEditModels()
+        private void ConfigureTransactionEditModels()
         {
             // JournalEntryDTO
-            CreateMap<Transaction.PlantStockTransactionCreateEditModel, JournalEntryDto>()
+            CreateMap<Transaction.TransactionCreateEditModel, JournalEntryDto>()
                 .ForMember(dto => dto.Id, opt => opt.Ignore())                 // Id on create will come back from DB
                 .ForMember(dto => dto.JournalEntryTypeId, opt => opt.MapFrom(uio => uio.TransactionType.Id))
                 .ForMember(dto => dto.Notes, opt => opt.MapFrom(uio => uio.Notes))
@@ -169,11 +169,11 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.Source, opt => opt.MapFrom(uio => uio.TransactionSource))
                 .ForMember(dto => dto.TransactionDate, opt => opt.MapFrom(uio => uio.TransactionDate));
 
-            CreateMap<Transaction.PlantStockTransactionDestroyEditModel, JournalEntryDto>()
+            CreateMap<Transaction.TransactionDestroyEditModel, JournalEntryDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForAllOtherMembers(opt => opt.Ignore());
 
-            CreateMap<Transaction.PlantStockTransactionUpdateEditModel, JournalEntryDto>()
+            CreateMap<Transaction.TransactionUpdateEditModel, JournalEntryDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForMember(dto => dto.JournalEntryTypeId, opt => opt.MapFrom(uio => uio.TransactionType.Id))
                 .ForMember(dto => dto.Notes, opt => opt.MapFrom(uio => uio.Notes))

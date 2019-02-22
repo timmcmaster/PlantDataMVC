@@ -24,7 +24,6 @@ namespace PlantDataMVC.UI.Handlers.Forms.SeedTray
             try
             {
                 // Map local model to DTO
-                // TODO: Check map exists
                 SeedTrayDto item = AutoMapper.Mapper.Map<SeedTrayUpdateEditModel, SeedTrayDto>(form);
 
                 // Update with PUT

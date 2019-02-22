@@ -4,12 +4,12 @@ using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Models.ViewModels.Transaction
 {
-    public class PlantStockTransactionListViewModel
+    public class TransactionDeleteViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        [Display(Name = "Plant Stock Id")]
+        [Display(Name = "Plant Stock Entry Id")]
         public int PlantStockId { get; set; }
 
         [Display(Name = "Transaction Type")]
@@ -20,8 +20,16 @@ namespace PlantDataMVC.UI.Models.ViewModels.Transaction
 
         public int Quantity { get; set; }
 
+        [Display(Name = "Seed Tray Id")]
+        public int SeedTrayId { get; set; }
 
-        public PlantStockTransactionListViewModel()
+        [Display(Name = "Transaction Source")]
+        public string TransactionSource { get; set; }
+
+        public string Notes { get; set; }
+
+
+        public TransactionDeleteViewModel()
         {
             TransactionDate = new DateTime();
         }

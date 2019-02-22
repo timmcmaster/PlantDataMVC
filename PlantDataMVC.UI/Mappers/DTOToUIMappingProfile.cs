@@ -33,7 +33,7 @@ namespace PlantDataMVC.UI.Mappers
             ConfigureSeedBatchViewModels();
             ConfigureSeedTrayViewModels();
             ConfigurePlantStockViewModels();
-            ConfigurePlantStockTransactionViewModels();
+            ConfigureTransactionViewModels();
             ConfigureSiteViewModels();
         }
 
@@ -250,10 +250,10 @@ namespace PlantDataMVC.UI.Mappers
 
         }
 
-        private void ConfigurePlantStockTransactionViewModels()
+        private void ConfigureTransactionViewModels()
         {
             // JournalEntryDTO
-            CreateMap<JournalEntryDto, Transaction.PlantStockTransactionDeleteViewModel>()
+            CreateMap<JournalEntryDto, Transaction.TransactionDeleteViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
                 .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId))
@@ -263,7 +263,7 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dto => dto.Source))
                 .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"));   // TODO: Fix this
 
-            CreateMap<JournalEntryDto, Transaction.PlantStockTransactionEditViewModel>()
+            CreateMap<JournalEntryDto, Transaction.TransactionEditViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
                 .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId))
@@ -273,14 +273,14 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dto => dto.Source))
                 .ForMember(uio => uio.TransactionTypeId, opt => opt.Ignore());   // TODO: Fix this
 
-            CreateMap<JournalEntryDto, Transaction.PlantStockTransactionListViewModel>()
+            CreateMap<JournalEntryDto, Transaction.TransactionListViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dto => dto.Quantity))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
                 .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dto => "Hey, fix me!"));   // TODO: Fix this
 
-            CreateMap<JournalEntryDto, Transaction.PlantStockTransactionNewViewModel>()
+            CreateMap<JournalEntryDto, Transaction.TransactionNewViewModel>()
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
                 .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dto => dto.Quantity))

@@ -24,7 +24,6 @@ namespace PlantDataMVC.UI.Handlers.Forms.Site
             try
             {
                 // Map local model to DTO
-                // TODO: Check map exists
                 SiteDto item = AutoMapper.Mapper.Map<SiteUpdateEditModel, SiteDto>(form);
 
                 // Update with PUT

@@ -2,7 +2,7 @@
 
 namespace PlantDataMVC.UI.Models.EditModels.Transaction
 {
-    public class PlantStockTransactionDestroyEditModel : IForm<bool>
+    public class TransactionDestroyEditModel : IForm<bool>
     {
         public int Id { get; set; }
     }

@@ -23,6 +23,6 @@ namespace PlantDataMVC.UI.Models.ViewModels.PlantStock
         public int QuantityInStock { get; set; }
 
         [Display(Name = "Transactions")]
-        public IList<PlantStockTransactionListViewModel> Transactions { get; set; }
+        public IList<TransactionListViewModel> Transactions { get; set; }
     }
 }

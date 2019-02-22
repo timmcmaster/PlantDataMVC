@@ -335,9 +335,9 @@
     <Compile Include="Helpers\MyHttpClientFactory.cs" />
     <Compile Include="Helpers\LinkHeader.cs" />
     <Compile Include="Helpers\MenuExtensions.cs" />
-    <Compile Include="Handlers\Forms\Transaction\PlantStockTransactionCreateEditModelFormHandler.cs" />
-    <Compile Include="Handlers\Forms\Transaction\PlantStockTransactionDestroyEditModelFormHandler.cs" />
-    <Compile Include="Handlers\Forms\Transaction\PlantStockTransactionUpdateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\Transaction\TransactionCreateEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\Transaction\TransactionDestroyEditModelFormHandler.cs" />
+    <Compile Include="Handlers\Forms\Transaction\TransactionUpdateEditModelFormHandler.cs" />
     <Compile Include="Handlers\Forms\SeedTray\SeedTrayCreateEditModelFormHandler.cs" />
     <Compile Include="Handlers\Forms\SeedTray\SeedTrayDestroyEditModelFormHandler.cs" />
     <Compile Include="Handlers\Forms\SeedTray\SeedTrayUpdateEditModelFormHandler.cs" />
@@ -367,7 +367,7 @@
     <Compile Include="Models\ViewModels\SeedBatch\SeedBatchListViewModel.cs" />
     <Compile Include="Models\ViewModels\Plant\PlantListViewModel.cs" />
     <Compile Include="Models\ViewModels\PlantStock\PlantStockListViewModel.cs" />
-    <Compile Include="Models\ViewModels\Transaction\PlantStockTransactionListViewModel.cs" />
+    <Compile Include="Models\ViewModels\Transaction\TransactionListViewModel.cs" />
     <Compile Include="Models\ViewModels\SeedTray\SeedTrayListViewModel.cs" />
     <Compile Include="Models\ViewModels\SeedBatch\SeedBatchDeleteViewModel.cs" />
     <Compile Include="Models\EditModels\SeedBatch\SeedBatchDestroyEditModel.cs" />
@@ -375,11 +375,11 @@
     <Compile Include="Models\ViewModels\SeedBatch\SeedBatchNewViewModel.cs" />
     <Compile Include="Models\ViewModels\SeedBatch\SeedBatchShowViewModel.cs" />
     <Compile Include="Models\EditModels\SeedBatch\SeedBatchUpdateEditModel.cs" />
-    <Compile Include="Models\EditModels\Transaction\PlantStockTransactionCreateEditModel.cs" />
-    <Compile Include="Models\ViewModels\Transaction\PlantStockTransactionDeleteViewModel.cs" />
-    <Compile Include="Models\EditModels\Transaction\PlantStockTransactionDestroyEditModel.cs" />
-    <Compile Include="Models\ViewModels\Transaction\PlantStockTransactionNewViewModel.cs" />
-    <Compile Include="Models\EditModels\Transaction\PlantStockTransactionUpdateEditModel.cs" />
+    <Compile Include="Models\EditModels\Transaction\TransactionCreateEditModel.cs" />
+    <Compile Include="Models\ViewModels\Transaction\TransactionDeleteViewModel.cs" />
+    <Compile Include="Models\EditModels\Transaction\TransactionDestroyEditModel.cs" />
+    <Compile Include="Models\ViewModels\Transaction\TransactionNewViewModel.cs" />
+    <Compile Include="Models\EditModels\Transaction\TransactionUpdateEditModel.cs" />
     <Compile Include="Models\EditModels\SeedTray\SeedTrayCreateEditModel.cs" />
     <Compile Include="Models\ViewModels\SeedTray\SeedTrayDeleteViewModel.cs" />
     <Compile Include="Models\EditModels\SeedTray\SeedTrayDestroyEditModel.cs" />
@@ -412,7 +412,7 @@
     <Compile Include="Models\EditModels\Plant\PlantCreateEditModel.cs" />
     <Compile Include="Models\EditModels\Plant\PlantUpdateEditModel.cs" />
     <Compile Include="Models\ViewModels\Plant\PlantNewViewModel.cs" />
-    <Compile Include="Models\ViewModels\Transaction\PlantStockTransactionEditViewModel.cs" />
+    <Compile Include="Models\ViewModels\Transaction\TransactionEditViewModel.cs" />
     <Compile Include="Models\ViewModels\Plant\PlantEditViewModel.cs" />
     <Compile Include="Models\ViewModels\Plant\PlantDeleteViewModel.cs" />
     <Compile Include="Models\ViewModels\Plant\PlantShowViewModel.cs" />
@@ -500,7 +500,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\PlantListTable.cshtml" />
     <Content Include="Views\Shared\PlantStockListTable.cshtml" />
-    <Content Include="Views\Shared\PlantStockTransactionListTable.cshtml" />
+    <Content Include="Views\Shared\TransactionListTable.cshtml" />
     <Content Include="Views\Shared\SeedBatchListTable.cshtml" />
     <Content Include="Views\Shared\SeedTrayListTable.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

@@ -12,7 +12,7 @@ using PlantDataMVC.UI.Models.ViewModels.Transaction;
 
 namespace PlantDataMVC.UI.Handlers.Views.Transaction
 {
-    public class EditQueryHandler : IQueryHandler<EditQuery,PlantStockTransactionEditViewModel>
+    public class EditQueryHandler : IQueryHandler<EditQuery,TransactionEditViewModel>
     {
         private readonly IMyHttpClientFactory _httpClientFactory;
 
@@ -21,7 +21,7 @@ namespace PlantDataMVC.UI.Handlers.Views.Transaction
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<PlantStockTransactionEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
+        public async Task<TransactionEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client
@@ -33,7 +33,7 @@ namespace PlantDataMVC.UI.Handlers.Views.Transaction
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<JournalEntryDto>(content);
 
-                var model = Mapper.Map<JournalEntryDto, PlantStockTransactionEditViewModel>(dto);
+                var model = Mapper.Map<JournalEntryDto, TransactionEditViewModel>(dto);
                 return model;
             }
             else

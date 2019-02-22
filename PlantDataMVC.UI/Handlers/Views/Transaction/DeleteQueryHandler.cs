@@ -12,7 +12,7 @@ using PlantDataMVC.UI.Models.ViewModels.Transaction;
 
 namespace PlantDataMVC.UI.Handlers.Views.Transaction
 {
-    public class DeleteQueryHandler : IQueryHandler<DeleteQuery,PlantStockTransactionDeleteViewModel>
+    public class DeleteQueryHandler : IQueryHandler<DeleteQuery,TransactionDeleteViewModel>
     {
         private readonly IMyHttpClientFactory _httpClientFactory;
 
@@ -21,7 +21,7 @@ namespace PlantDataMVC.UI.Handlers.Views.Transaction
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<PlantStockTransactionDeleteViewModel> HandleAsync(DeleteQuery query, CancellationToken cancellationToken)
+        public async Task<TransactionDeleteViewModel> HandleAsync(DeleteQuery query, CancellationToken cancellationToken)
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             // todo: if not null client
@@ -33,7 +33,7 @@ namespace PlantDataMVC.UI.Handlers.Views.Transaction
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<JournalEntryDto>(content);
 
-                var model = Mapper.Map<JournalEntryDto, PlantStockTransactionDeleteViewModel>(dto);
+                var model = Mapper.Map<JournalEntryDto, TransactionDeleteViewModel>(dto);
                 return model;
             }
             else

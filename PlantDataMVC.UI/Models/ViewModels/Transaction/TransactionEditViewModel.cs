@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace PlantDataMVC.UI.Models.ViewModels.Transaction
 {
-    public class PlantStockTransactionEditViewModel
+    public class TransactionEditViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
@@ -30,7 +30,7 @@ namespace PlantDataMVC.UI.Models.ViewModels.Transaction
         public string Notes { get; set; }
 
 
-        public PlantStockTransactionEditViewModel()
+        public TransactionEditViewModel()
         {
             TransactionDate = new DateTime();
         }

@@ -10,29 +10,31 @@ using PlantDataMVC.UI.Models.EditModels.Transaction;
 
 namespace PlantDataMVC.UI.Handlers.Forms.Transaction
 {
-    public class PlantStockTransactionCreateEditModelFormHandler : IFormHandler<PlantStockTransactionCreateEditModel, bool>
+    public class TransactionUpdateEditModelFormHandler : IFormHandler<TransactionUpdateEditModel, bool>
     {
         private readonly IMyHttpClientFactory _httpClientFactory;
 
-        public PlantStockTransactionCreateEditModelFormHandler(IMyHttpClientFactory httpClientFactory)
+        public TransactionUpdateEditModelFormHandler(IMyHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<bool> HandleAsync(PlantStockTransactionCreateEditModel form, CancellationToken cancellationToken)
+        public async Task<bool> HandleAsync(TransactionUpdateEditModel form, CancellationToken cancellationToken)
         {
             try
             {
                 // Map local model to DTO
                 // TODO: Check map exists
-                JournalEntryDto item = AutoMapper.Mapper.Map<PlantStockTransactionCreateEditModel, JournalEntryDto>(form);
+                JournalEntryDto item = AutoMapper.Mapper.Map<TransactionUpdateEditModel, JournalEntryDto>(form);
+
+                // Update with PUT
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
                 var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
                 // todo: if not null client
-                var uri = "api/JournalEntries";
-                var httpResponse = await httpClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var uri = "api/JournalEntries/" + form.Id;
+                var httpResponse = await httpClient.PutAsync(uri, content, cancellationToken).ConfigureAwait(false);
 
                 return httpResponse.IsSuccessStatusCode;
             }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.UI.Models.ViewModels.Transaction
 {
-    public class PlantStockTransactionNewViewModel
+    public class TransactionNewViewModel
     {
         [Display(Name = "Plant Stock Id")]
         public int PlantStockId { get; set; }
@@ -26,7 +26,7 @@ namespace PlantDataMVC.UI.Models.ViewModels.Transaction
         public string Notes { get; set; }
 
 
-        public PlantStockTransactionNewViewModel()
+        public TransactionNewViewModel()
         {
             TransactionDate = new DateTime();
         }

@@ -24,7 +24,6 @@ namespace PlantDataMVC.UI.Handlers.Forms.SeedTray
             try
             {
                 // Map local model to DTO
-                // TODO: Check map exists
                 SeedTrayDto item = AutoMapper.Mapper.Map<SeedTrayCreateEditModel, SeedTrayDto>(form);
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");

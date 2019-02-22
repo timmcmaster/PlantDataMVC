@@ -33,14 +33,14 @@ namespace PlantDataMVC.UI.Controllers
             var item = new JournalEntryDto {PlantStockId = plantStockId};
 
             // TODO: check to ensure these DTOs map to view model
-            var model = Mapper.Map<JournalEntryDto, PlantStockTransactionNewViewModel>(item);
+            var model = Mapper.Map<JournalEntryDto, TransactionNewViewModel>(item);
             return View(model);
         }
 
         //
         // POST: /"ControllerName"/Create
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(int plantStockId, PlantStockTransactionCreateEditModel form)
+        public async Task<ActionResult> Create(int plantStockId, TransactionCreateEditModel form)
         {
             var failureResult = DefaultFormFailureResult();
             var successResult = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
@@ -75,7 +75,7 @@ namespace PlantDataMVC.UI.Controllers
         //
         // POST: /"ControllerName"/Update/5
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Update(int plantStockId, PlantStockTransactionUpdateEditModel form)
+        public async Task<ActionResult> Update(int plantStockId, TransactionUpdateEditModel form)
         {
             var failureResult = DefaultFormFailureResult();
             var successResult = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
@@ -110,7 +110,7 @@ namespace PlantDataMVC.UI.Controllers
         //
         // POST: /"ControllerName"/Delete/5
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Destroy(int plantStockId, PlantStockTransactionDestroyEditModel form)
+        public async Task<ActionResult> Destroy(int plantStockId, TransactionDestroyEditModel form)
         {
             var failureResult = DefaultFormFailureResult();
             var successResult = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
