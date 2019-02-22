@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Models.ViewModels.SeedBatch;
+using PlantDataMVC.UI.Models.ViewModels.SeedTray;
 using Genus = PlantDataMVC.UI.Models.ViewModels.Genus;
 using Plant = PlantDataMVC.UI.Models.ViewModels.Plant;
 using PlantStock = PlantDataMVC.UI.Models.ViewModels.PlantStock;
 using Site = PlantDataMVC.UI.Models.ViewModels.Site;
 using Transaction = PlantDataMVC.UI.Models.ViewModels.Transaction;
-using Tray = PlantDataMVC.UI.Models.ViewModels.Tray;
 
 namespace PlantDataMVC.UI.Mappers
 {
@@ -31,7 +31,7 @@ namespace PlantDataMVC.UI.Mappers
             ConfigureGenusViewModels();
             ConfigurePlantViewModels();
             ConfigureSeedBatchViewModels();
-            ConfigurePlantSeedTrayViewModels();
+            ConfigureSeedTrayViewModels();
             ConfigurePlantStockViewModels();
             ConfigurePlantStockTransactionViewModels();
             ConfigureSiteViewModels();
@@ -290,37 +290,37 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.TransactionTypeId, opt => opt.Ignore());   // TODO: Fix this
         }
 
-        private void ConfigurePlantSeedTrayViewModels()
+        private void ConfigureSeedTrayViewModels()
         {
-            // PlantSeedTray
-            CreateMap<SeedTrayDto, Tray.TrayDeleteViewModel>()
+            // SeedTray
+            CreateMap<SeedTrayDto, SeedTrayDeleteViewModel>()
                 .ForMember(uio => uio.DatePlanted, opt => opt.MapFrom(dto => dto.DatePlanted))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dto => dto.SeedBatchId))
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dto => dto.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dto => dto.Treatment));
 
-            CreateMap<SeedTrayDto, Tray.TrayEditViewModel>()
+            CreateMap<SeedTrayDto, SeedTrayEditViewModel>()
                 .ForMember(uio => uio.DatePlanted, opt => opt.MapFrom(dto => dto.DatePlanted))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dto => dto.SeedBatchId))
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dto => dto.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dto => dto.Treatment));
 
-            CreateMap<SeedTrayDto, Tray.TrayListViewModel>()
+            CreateMap<SeedTrayDto, SeedTrayListViewModel>()
                 .ForMember(uio => uio.DatePlanted, opt => opt.MapFrom(dto => dto.DatePlanted))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dto => dto.SeedBatchId))
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dto => dto.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dto => dto.Treatment));
 
-            CreateMap<SeedTrayDto, Tray.TrayNewViewModel>()
+            CreateMap<SeedTrayDto, SeedTrayNewViewModel>()
                 .ForMember(uio => uio.DatePlanted, opt => opt.MapFrom(dto => dto.DatePlanted))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.Ignore())   // // don't need to map seed batch up for new seed tray (TODO: Check this)
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dto => dto.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dto => dto.Treatment));
 
-            CreateMap<SeedTrayDto, Tray.TrayShowViewModel>()
+            CreateMap<SeedTrayDto, SeedTrayShowViewModel>()
                 .ForMember(uio => uio.DatePlanted, opt => opt.MapFrom(dto => dto.DatePlanted))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dto => dto.SeedBatchId))

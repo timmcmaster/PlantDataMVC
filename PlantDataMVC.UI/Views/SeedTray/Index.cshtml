@@ -1,0 +1,13 @@
+﻿@model ListViewModelStatic<PlantDataMVC.UI.Models.ViewModels.SeedTray.SeedTrayListViewModel>
+
+@using Framework.Web.Mvc.Paging
+@using PlantDataMVC.UI.Models.ViewModels
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.Partial("SeedTrayListTable", Model)
+@Html.PagingLinksFor(m => Model)

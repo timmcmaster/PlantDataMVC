@@ -1,0 +1,28 @@
+﻿@model PlantDataMVC.UI.Models.ViewModels.SeedTray.SeedTrayEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Update","SeedTray"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Seed Tray</legend>
+
+        @Html.EditorForModel()
+
+        <p>
+            <input type="submit" value="Update" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to Index", "Index")
+</div>
+

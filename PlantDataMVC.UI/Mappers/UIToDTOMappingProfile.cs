@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UI.Models.EditModels.SeedBatch;
+using PlantDataMVC.UI.Models.EditModels.SeedTray;
 using Genus = PlantDataMVC.UI.Models.EditModels.Genus;
 using Plant = PlantDataMVC.UI.Models.EditModels.Plant;
 using PlantStock = PlantDataMVC.UI.Models.EditModels.PlantStock;
 using Site = PlantDataMVC.UI.Models.EditModels.Site;
 using Transaction = PlantDataMVC.UI.Models.EditModels.Transaction;
-using Tray = PlantDataMVC.UI.Models.EditModels.Tray;
 
 namespace PlantDataMVC.UI.Mappers
 {
@@ -25,7 +25,7 @@ namespace PlantDataMVC.UI.Mappers
             ConfigureGenusEditModels();
             ConfigurePlantEditModels();
             ConfigureSeedBatchEditModels();
-            ConfigurePlantSeedTrayEditModels();
+            ConfigureSeedTrayEditModels();
             ConfigurePlantStockEditModels();
             ConfigurePlantStockTransactionEditModels();
             ConfigureSiteEditModels();
@@ -184,10 +184,10 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.TransactionDate, opt => opt.MapFrom(uio => uio.TransactionDate));
         }
 
-        private void ConfigurePlantSeedTrayEditModels()
+        private void ConfigureSeedTrayEditModels()
         {
-            // PlantSeedTray
-            CreateMap<Tray.TrayCreateEditModel, SeedTrayDto>()
+            // SeedTray
+            CreateMap<SeedTrayCreateEditModel, SeedTrayDto>()
                 .ForMember(dto => dto.DatePlanted, opt => opt.MapFrom(uio => uio.DatePlanted))
                 .ForMember(dto => dto.Id, opt => opt.Ignore())                                  // Id on create will come back from DB
                 .ForMember(dto => dto.JournalEntries, opt => opt.Ignore())                      // TODO: check about mapping back collection
@@ -195,11 +195,11 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.ThrownOut, opt => opt.MapFrom(uio => uio.ThrownOut))
                 .ForMember(dto => dto.Treatment, opt => opt.MapFrom(uio => uio.Treatment));
 
-            CreateMap<Tray.TrayDestroyEditModel, SeedTrayDto>()
+            CreateMap<SeedTrayDestroyEditModel, SeedTrayDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForAllOtherMembers(opt => opt.Ignore());
 
-            CreateMap<Tray.TrayUpdateEditModel, SeedTrayDto>()
+            CreateMap<SeedTrayUpdateEditModel, SeedTrayDto>()
                 .ForMember(dto => dto.DatePlanted, opt => opt.MapFrom(uio => uio.DatePlanted))
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForMember(dto => dto.JournalEntries, opt => opt.Ignore())                      // TODO: check about mapping back collection
