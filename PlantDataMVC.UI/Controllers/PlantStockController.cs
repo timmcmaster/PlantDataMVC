@@ -101,8 +101,6 @@ namespace PlantDataMVC.UI.Controllers
         public ActionResult New(int speciesId)
         {
             var item = new PlantStockDto {SpeciesId = speciesId};
-
-            // TODO: check to ensure these DTOs map to view model
             var model = Mapper.Map<PlantStockDto, PlantStockNewViewModel>(item);
             return View(model);
         }

@@ -24,7 +24,7 @@ namespace PlantDataMVC.UI.Controllers
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
-        [ResourceAuthorize("Read", "Tray")]
+        [ResourceAuthorize("Read", "SeedTray")]
         public async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
             // resolve parameters
@@ -46,7 +46,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Show/5
-        [ResourceAuthorize("Read", "Tray")]
+        [ResourceAuthorize("Read", "SeedTray")]
         public async Task<ActionResult> Show(int id)
         {
             var query = new ShowQuery(id);
@@ -62,7 +62,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/New
-        [ResourceAuthorize("Write", "Tray")]
+        [ResourceAuthorize("Write", "SeedTray")]
         public ActionResult New()
         {
             var item = new SeedTrayNewViewModel();
@@ -75,12 +75,10 @@ namespace PlantDataMVC.UI.Controllers
         /// <param name="seedBatchId">The Id of the seed batch.</param>
         /// <returns></returns>
         [RequireRequestValue("seedBatchId")]
-        [ResourceAuthorize("Write", "Tray")]
+        [ResourceAuthorize("Write", "SeedTray")]
         public ActionResult New(int seedBatchId)
         {
             var item = new SeedTrayDto { SeedBatchId = seedBatchId };
-
-            // TODO: check to ensure these DTOs map to view model
             var model = Mapper.Map<SeedTrayDto, SeedTrayNewViewModel>(item);
             return View(model);
         }
@@ -104,7 +102,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Edit/5
-        [ResourceAuthorize("Write", "Tray")]
+        [ResourceAuthorize("Write", "SeedTray")]
         public async Task<ActionResult> Edit(int id)
         {
             var query = new EditQuery(id);
@@ -137,7 +135,7 @@ namespace PlantDataMVC.UI.Controllers
 
         //
         // GET: /"ControllerName"/Delete/5
-        [ResourceAuthorize("Write", "Tray")]
+        [ResourceAuthorize("Write", "SeedTray")]
         public async Task<ActionResult> Delete(int id)
         {
             var query = new DeleteQuery(id);

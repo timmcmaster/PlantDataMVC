@@ -13,7 +13,7 @@
 
     @*<div class="display-label">@Html.LabelFor(model => model.Seeds)</div>
     <div class="child-table">@Html.Partial("SeedListTable", Model.Seeds)</div>
-    <div class="button">@Html.ActionLink("New", "New", "Seed", new { speciesId = Model.Id }, null)</div>*@
+    <div class="button">@Html.ActionLink("New", "New", "SeedBatch", new { speciesId = Model.Id }, null)</div>*@
     @*<p></p>*@
     @*<div class="display-label">@Html.LabelFor(model => model.Stock)</div>
     <div class="child-table">@Html.Partial("PlantStockListTable", Model.Stock)</div>

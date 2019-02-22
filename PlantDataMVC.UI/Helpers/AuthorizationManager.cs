@@ -14,7 +14,7 @@ namespace PlantDataMVC.UI.Helpers
                 case "Genus":
                 case "Plant": //Species
                 case "SeedBatch":
-                case "Tray":
+                case "SeedTray":
                 case "Site":
                 case "PlantStock":
                 case "Transaction":
