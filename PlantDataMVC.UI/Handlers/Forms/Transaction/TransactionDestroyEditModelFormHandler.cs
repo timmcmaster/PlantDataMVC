@@ -20,7 +20,6 @@ namespace PlantDataMVC.UI.Handlers.Forms.Transaction
             try
             {
                 var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-                // todo: if not null client
                 var uri = "api/JournalEntries/" + form.Id;
                 var httpResponse = await httpClient.DeleteAsync(uri, cancellationToken).ConfigureAwait(false);
 

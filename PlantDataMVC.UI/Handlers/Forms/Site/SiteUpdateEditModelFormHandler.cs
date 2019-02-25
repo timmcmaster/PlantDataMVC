@@ -31,7 +31,6 @@ namespace PlantDataMVC.UI.Handlers.Forms.Site
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
                 var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-                // todo: if not null client
                 var uri = "api/Site/" + form.Id;
                 var httpResponse = await httpClient.PutAsync(uri, content, cancellationToken).ConfigureAwait(false);
 

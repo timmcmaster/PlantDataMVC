@@ -41,6 +41,11 @@ namespace PlantDataMVC.UI.Helpers
             );
         }
 
+        /// <summary>
+        /// Adds the HTTP client.
+        /// </summary>
+        /// <param name="clientName">Name of the client.</param>
+        /// <param name="configureClient">The configure client.</param>
         private void AddHttpClient(string clientName, Action<HttpClient> configureClient)
         {
             _clientConfigActions.TryAdd(clientName, configureClient);
@@ -53,7 +58,12 @@ namespace PlantDataMVC.UI.Helpers
         /// <returns></returns>
         public HttpClient CreateClient(string clientName)
         {
-            HttpClient client = null;
+            if (clientName == null)
+            {
+                throw new ArgumentNullException(nameof(clientName));
+            }
+
+            HttpClient client;
 
             // Retrieve client from dictionary
             if (_clients.TryGetValue(clientName, out client))
@@ -67,7 +77,14 @@ namespace PlantDataMVC.UI.Helpers
                 client = new HttpClient(new TokenMessageHandler());
                 configureClient(client);
                 _clients[clientName] = client;
+
+                return client;
             }
+
+            // If we can't find named client or config for named client, return standard base client and add to dictionary
+            // Note: this seems a little bit iffy
+            client = new HttpClient(new TokenMessageHandler());
+            _clients[clientName] = client;
 
             return client;
         }

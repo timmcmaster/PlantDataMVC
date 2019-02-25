@@ -22,7 +22,6 @@ namespace PlantDataMVC.UI.Handlers.Views.SeedBatch
         public async Task<SeedBatchDeleteViewModel> HandleAsync(DeleteQuery query, CancellationToken cancellationToken)
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
             var uri = "api/SeedBatch/" + query.Id;
             var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 

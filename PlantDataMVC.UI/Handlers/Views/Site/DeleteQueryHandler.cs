@@ -24,7 +24,6 @@ namespace PlantDataMVC.UI.Handlers.Views.Site
         public async Task<SiteDeleteViewModel> HandleAsync(DeleteQuery query, CancellationToken cancellationToken)
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
             var uri = "api/Site/" + query.Id;
             var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 

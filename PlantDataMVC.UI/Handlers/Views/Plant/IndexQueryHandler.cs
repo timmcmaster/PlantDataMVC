@@ -42,7 +42,6 @@ namespace PlantDataMVC.UI.Handlers.Views.Plant
             }
 
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
             var httpResponse = await httpClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
@@ -85,7 +84,7 @@ namespace PlantDataMVC.UI.Handlers.Views.Plant
             }
             else if (querySortBy == nameof(PlantListViewModel.Binomial))
             {
-                sortField = ""; // TODO: solve this problem
+                sortField = ""; // TODO: solve problem of sort by species binomial
             }
             else if (querySortBy == nameof(PlantListViewModel.CommonName))
             {

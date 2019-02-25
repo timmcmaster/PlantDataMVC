@@ -30,7 +30,6 @@ namespace PlantDataMVC.UI.Handlers.Forms.Genus
 
                 var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
                 var uri = "api/Genus";
-                // todo: if not null client
                 var httpResponse = await httpClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
 
                 return httpResponse.IsSuccessStatusCode;

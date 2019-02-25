@@ -24,7 +24,6 @@ namespace PlantDataMVC.UI.Handlers.Views.Transaction
         public async Task<TransactionEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
             var uri = "api/JournalEntries/" + query.Id;
             var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 

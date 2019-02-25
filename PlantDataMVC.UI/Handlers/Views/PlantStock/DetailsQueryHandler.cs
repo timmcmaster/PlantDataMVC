@@ -24,7 +24,6 @@ namespace PlantDataMVC.UI.Handlers.Views.PlantStock
         public async Task<PlantStockDetailsViewModel> HandleAsync(DetailsQuery query, CancellationToken cancellationToken)
         {
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
             var uri = "api/PlantStock/" + query.Id + "?fields=id,speciesId,productTypeId,quantityInStock,journalEntries";
             var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 

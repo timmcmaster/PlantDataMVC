@@ -39,7 +39,6 @@ namespace PlantDataMVC.UI.Handlers.Views.SeedBatch
             }
 
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
             var httpResponse = await httpClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
             //var httpResponse = await httpClient.GetAsync(requestUri).ConfigureAwait(false);
 
@@ -90,11 +89,11 @@ namespace PlantDataMVC.UI.Handlers.Views.SeedBatch
             }
             else if (querySortBy == nameof(SeedBatchListViewModel.SiteName))
             {
-                sortField = ""; // TODO: solve this problem
+                sortField = ""; // TODO: solve problem of sort by site name
             }
             else if (querySortBy == nameof(SeedBatchListViewModel.SpeciesBinomial))
             {
-                sortField = ""; // TODO: solve this problem
+                sortField = ""; // TODO: solve problem of sort by species binomial
             }
             else if (querySortBy == nameof(SeedBatchListViewModel.SpeciesId))
             {

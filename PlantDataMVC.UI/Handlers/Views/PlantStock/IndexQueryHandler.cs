@@ -41,7 +41,6 @@ namespace PlantDataMVC.UI.Handlers.Views.PlantStock
             }
 
             var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            // todo: if not null client
             var httpResponse = await httpClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
@@ -86,7 +85,7 @@ namespace PlantDataMVC.UI.Handlers.Views.PlantStock
             }
             else if (querySortBy == nameof(PlantStockListViewModel.ProductTypeName))
             {
-                sortField = ""; // TODO: solve this problem
+                sortField = ""; // TODO: solve problem of sort by product type
                 //sortField = nameof(PlantStockDto.ProductTypeId);
             }
             else if (querySortBy == nameof(PlantStockListViewModel.QuantityInStock))
@@ -95,7 +94,7 @@ namespace PlantDataMVC.UI.Handlers.Views.PlantStock
             }
             else if (querySortBy == nameof(PlantStockListViewModel.SpeciesBinomial))
             {
-                sortField = ""; // TODO: solve this problem
+                sortField = ""; // TODO: solve problem of sort by species binomial
             }
             else if (querySortBy == nameof(PlantStockListViewModel.SpeciesId))
             {
