@@ -3,7 +3,7 @@ using Interfaces.DAL.Entity;
 
 namespace PlantDataMVC.Entities.Models
 {
-    partial class JournalEntryType : EntityBase
+    partial class JournalEntryType : Entity
     {
     }
 }

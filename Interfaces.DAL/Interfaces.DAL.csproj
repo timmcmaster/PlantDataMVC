@@ -47,6 +47,7 @@
     <Compile Include="DataContext\IDataContextAsync.cs" />
     <Compile Include="Entity\EntityBase.cs" />
     <Compile Include="Entity\IEntity.cs" />
+    <Compile Include="Entity\ValueObjectBase.cs" />
     <Compile Include="Infrastructure\IObjectState.cs" />
     <Compile Include="Infrastructure\ObjectState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

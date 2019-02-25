@@ -3,7 +3,7 @@ using Interfaces.DAL.Entity;
 
 namespace PlantDataMVC.Entities.Models
 {
-    partial class Site : EntityBase
+    partial class Site : Entity
     {
     }
 }
