@@ -3,7 +3,7 @@ using Interfaces.DAL.Infrastructure;
 
 namespace Interfaces.DAL.Entity
 {
-    public abstract class ValueObjectBase<T> where T : ValueObjectBase<T>
+    public abstract class ValueObject<T> where T : ValueObject<T>
     {
         public override bool Equals(object obj)
         {
@@ -19,7 +19,7 @@ namespace Interfaces.DAL.Entity
 
         protected abstract bool EqualsCore(T valueObject);
 
-        public static bool operator ==(ValueObjectBase<T> a, ValueObjectBase<T> b)
+        public static bool operator ==(ValueObject<T> a, ValueObject<T> b)
         {
             if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
             {
@@ -34,7 +34,7 @@ namespace Interfaces.DAL.Entity
             return a.Equals(b);
         }
 
-        public static bool operator !=(ValueObjectBase<T> a, ValueObjectBase<T> b)
+        public static bool operator !=(ValueObject<T> a, ValueObject<T> b)
         {
             return !(a == b);
         }

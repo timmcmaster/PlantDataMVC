@@ -6,7 +6,7 @@ namespace Interfaces.DAL.Entity
     /// <summary>
     /// Do we even need this class?
     /// </summary>
-    public abstract class EntityBase : IObjectState, IEntity
+    public abstract class Entity : IObjectState, IEntity
     {
         public abstract int Id { get; set; }
 
@@ -15,7 +15,7 @@ namespace Interfaces.DAL.Entity
 
         public override bool Equals(object obj)
         {
-            var other = obj as EntityBase;
+            var other = obj as Entity;
 
             if (ReferenceEquals(other, null))
             {
@@ -40,7 +40,7 @@ namespace Interfaces.DAL.Entity
             return Id == other.Id;
         }
 
-        public static bool operator ==(EntityBase a, EntityBase b)
+        public static bool operator ==(Entity a, Entity b)
         {
             if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
             {
@@ -55,7 +55,7 @@ namespace Interfaces.DAL.Entity
             return a.Equals(b);
         }
 
-        public static bool operator !=(EntityBase a, EntityBase b)
+        public static bool operator !=(Entity a, Entity b)
         {
             return !(a == b);
         }
