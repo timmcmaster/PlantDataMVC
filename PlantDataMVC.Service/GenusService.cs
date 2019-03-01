@@ -13,6 +13,7 @@ namespace PlantDataMVC.Service
     /// </summary>
     public interface IGenusService : IService<Genus>
     {
+        Genus GetItemByLatinName(string latinName);
     }
 
     /// <summary>
@@ -37,6 +38,11 @@ namespace PlantDataMVC.Service
             return base.Add(item);
         }
         #endregion
+
+        public Genus GetItemByLatinName(string latinName)
+        {
+            return _repository.GenusExtensions().GetItemByLatinName(latinName);
+        }
 
         public Genus GetItemWithAllSpecies(int id)
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Http;
+using System.Web.UI.WebControls.Expressions;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CacheCow.Server.WebApi;
@@ -140,7 +141,6 @@ namespace PlantDataMVC.WebApi.Controllers
         [ResourceAuthorize("Write", "Genus")]
         public IHttpActionResult Post([FromBody] CreateUpdateGenusDto dtoIn)
         {
-            // TODO: Add check for unique genus
             try
             {
                 if (dtoIn == null)
@@ -149,6 +149,13 @@ namespace PlantDataMVC.WebApi.Controllers
                 }
 
                 var entity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoIn);
+
+                // Check for unique genus
+                if (_service.GetItemByLatinName(entity.LatinName) != null)
+                {
+                    return BadRequest("Genus already exists" + entity.LatinName);
+                }
+
                 _service.Add(entity);
 
                 // Save changes before we map back
