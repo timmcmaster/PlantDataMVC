@@ -11,6 +11,7 @@
 // TargetFrameworkVersion = 4.7
 #pragma warning disable 1591    //  Ignore "Missing XML Comment" warning
 
+using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
 {
@@ -19,13 +20,38 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.2.0")]
     public partial class JournalEntry
     {
+        [Required]
+        [Display(Name = "Id")]
         public override int Id { get; set; } // Id (Primary key)
+
+        [Required]
+        [Display(Name = "Plant stock ID")]
         public int PlantStockId { get; set; } // PlantStockId
+
+        [Required]
+        [Display(Name = "Quantity")]
         public int Quantity { get; set; } // Quantity
+
+        [Required]
+        [Display(Name = "Journal entry type ID")]
         public int JournalEntryTypeId { get; set; } // JournalEntryTypeId
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Transaction date")]
         public System.DateTime TransactionDate { get; set; } // TransactionDate
+
+        [MaxLength(50)]
+        [StringLength(50)]
+        [Display(Name = "Source")]
         public string Source { get; set; } // Source (length: 50)
+
+        [Display(Name = "Seed tray ID")]
         public int? SeedTrayId { get; set; } // SeedTrayId
+
+        [MaxLength(50)]
+        [StringLength(50)]
+        [Display(Name = "Notes")]
         public string Notes { get; set; } // Notes (length: 50)
 
         // Foreign keys

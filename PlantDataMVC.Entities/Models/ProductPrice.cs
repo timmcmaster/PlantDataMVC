@@ -11,6 +11,7 @@
 // TargetFrameworkVersion = 4.7
 #pragma warning disable 1591    //  Ignore "Missing XML Comment" warning
 
+using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
 {
@@ -19,9 +20,21 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.2.0")]
     public partial class ProductPrice
     {
+        [Required]
+        [Display(Name = "Price list type ID")]
         public int PriceListTypeId { get; set; } // PriceListTypeId (Primary key)
+
+        [Required]
+        [Display(Name = "Product type ID")]
         public int ProductTypeId { get; set; } // ProductTypeId (Primary key)
+
+        [Required]
+        [Display(Name = "Price")]
         public decimal Price { get; set; } // Price
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Date effective")]
         public System.DateTime DateEffective { get; set; } // DateEffective (Primary key)
 
         // Foreign keys

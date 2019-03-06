@@ -11,6 +11,7 @@
 // TargetFrameworkVersion = 4.7
 #pragma warning disable 1591    //  Ignore "Missing XML Comment" warning
 
+using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
 {
@@ -19,8 +20,20 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.2.0")]
     public partial class PriceListType
     {
+        [Required]
+        [Display(Name = "Id")]
         public override int Id { get; set; } // Id (Primary key)
+
+        [Required(AllowEmptyStrings = true)]
+        [MaxLength(50)]
+        [StringLength(50)]
+        [Display(Name = "Name")]
         public string Name { get; set; } // Name (length: 50)
+
+        [Required(AllowEmptyStrings = true)]
+        [MaxLength(1)]
+        [StringLength(1)]
+        [Display(Name = "Kind")]
         public string Kind { get; set; } // Kind (length: 1)
 
         // Reverse navigation

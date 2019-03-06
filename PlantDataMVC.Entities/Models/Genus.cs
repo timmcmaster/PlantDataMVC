@@ -11,6 +11,7 @@
 // TargetFrameworkVersion = 4.7
 #pragma warning disable 1591    //  Ignore "Missing XML Comment" warning
 
+using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
 {
@@ -19,7 +20,14 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.2.0")]
     public partial class Genus
     {
+        [Required]
+        [Display(Name = "Id")]
         public override int Id { get; set; } // Id (Primary key)
+
+        [Required(AllowEmptyStrings = true)]
+        [MaxLength(30)]
+        [StringLength(30)]
+        [Display(Name = "Latin name")]
         public string LatinName { get; set; } // LatinName (length: 30)
 
         // Reverse navigation

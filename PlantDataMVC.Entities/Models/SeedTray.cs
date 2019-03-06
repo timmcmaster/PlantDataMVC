@@ -11,6 +11,7 @@
 // TargetFrameworkVersion = 4.7
 #pragma warning disable 1591    //  Ignore "Missing XML Comment" warning
 
+using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
 {
@@ -19,10 +20,26 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.2.0")]
     public partial class SeedTray
     {
+        [Required]
+        [Display(Name = "Id")]
         public override int Id { get; set; } // Id (Primary key)
+
+        [Required]
+        [Display(Name = "Seed batch ID")]
         public int SeedBatchId { get; set; } // SeedBatchId
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Date planted")]
         public System.DateTime DatePlanted { get; set; } // DatePlanted
+
+        [MaxLength(50)]
+        [StringLength(50)]
+        [Display(Name = "Treatment")]
         public string Treatment { get; set; } // Treatment (length: 50)
+
+        [Required]
+        [Display(Name = "Thrown out")]
         public bool ThrownOut { get; set; } // ThrownOut
 
         // Reverse navigation

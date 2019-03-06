@@ -11,6 +11,7 @@
 // TargetFrameworkVersion = 4.7
 #pragma warning disable 1591    //  Ignore "Missing XML Comment" warning
 
+using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
 {
@@ -19,12 +20,35 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.2.0")]
     public partial class Species
     {
+        [Required]
+        [Display(Name = "Id")]
         public override int Id { get; set; } // Id (Primary key)
+
+        [Required]
+        [Display(Name = "Genus ID")]
         public int GenusId { get; set; } // GenusId
+
+        [Required(AllowEmptyStrings = true)]
+        [MaxLength(30)]
+        [StringLength(30)]
+        [Display(Name = "Specific name")]
         public string SpecificName { get; set; } // SpecificName (length: 30)
+
+        [MaxLength(50)]
+        [StringLength(50)]
+        [Display(Name = "Common name")]
         public string CommonName { get; set; } // CommonName (length: 50)
+
+        [MaxLength(200)]
+        [StringLength(200)]
+        [Display(Name = "Description")]
         public string Description { get; set; } // Description (length: 200)
+
+        [Display(Name = "Propagation time")]
         public int? PropagationTime { get; set; } // PropagationTime
+
+        [Required]
+        [Display(Name = "Native")]
         public bool Native { get; set; } // Native
 
         // Reverse navigation

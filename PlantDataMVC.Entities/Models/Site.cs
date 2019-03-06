@@ -11,6 +11,7 @@
 // TargetFrameworkVersion = 4.7
 #pragma warning disable 1591    //  Ignore "Missing XML Comment" warning
 
+using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
 {
@@ -19,10 +20,24 @@ namespace PlantDataMVC.Entities.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.2.0")]
     public partial class Site
     {
+        [Required]
+        [Display(Name = "Id")]
         public override int Id { get; set; } // Id (Primary key)
+
+        [MaxLength(50)]
+        [StringLength(50)]
+        [Display(Name = "Site name")]
         public string SiteName { get; set; } // SiteName (length: 50)
+
+        [MaxLength(50)]
+        [StringLength(50)]
+        [Display(Name = "Suburb")]
         public string Suburb { get; set; } // Suburb (length: 50)
+
+        [Display(Name = "Latitude")]
         public decimal? Latitude { get; set; } // Latitude
+
+        [Display(Name = "Longitude")]
         public decimal? Longitude { get; set; } // Longitude
 
         // Reverse navigation
