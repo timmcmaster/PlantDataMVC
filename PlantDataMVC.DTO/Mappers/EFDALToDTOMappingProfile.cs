@@ -54,6 +54,7 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(dto => dto.PropagationTime,
                            opt => opt.MapFrom(e => e.PropagationTime)) // explicit and unnecessary
                 .ForMember(dto => dto.SpecificName, opt => opt.MapFrom(e => e.SpecificName)) // explicit and unnecessary
+                .ForMember(dto => dto.Binomial, opt => opt.MapFrom(e => e.Binomial)) // explicit and unnecessary
                 .ForMember(dto => dto.SeedBatches, opt =>
                 {
                     opt.MapFrom(e => e.SeedBatches);
@@ -71,6 +72,7 @@ namespace PlantDataMVC.DTO.Mappers
             //    .ForMember(dto => dto.GenusId, opt => opt.MapFrom(e => e.GenusId)) // explicit and unnecessary
             //    .ForMember(dto => dto.CommonName, opt => opt.MapFrom(e => e.CommonName)) // explicit and unnecessary
             //    .ForMember(dto => dto.SpecificName, opt => opt.MapFrom(e => e.SpecificName)) // explicit and unnecessary
+            //    .ForMember(dto => dto.Binomial, opt => opt.MapFrom(e => e.Binomial)) // explicit and unnecessary
             //    .ForAllOtherMembers(opt => opt.Ignore());
         }
 

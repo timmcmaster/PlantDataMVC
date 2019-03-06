@@ -71,7 +71,7 @@ namespace PlantDataMVC.UI.Mappers
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
                .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Map genus in plant object
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
-               .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => "Hey, fix me!"))        // TODO: map binomial name
+               .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.Binomial))        
                .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
                .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
@@ -86,7 +86,7 @@ namespace PlantDataMVC.UI.Mappers
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
             CreateMap<SpeciesDto, Plant.PlantListViewModel>()
-               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "(Fix me!) " + dto.SpecificName))           // TODO: Map binomial in plant object
+               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => dto.Binomial))
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id));
 
@@ -99,7 +99,7 @@ namespace PlantDataMVC.UI.Mappers
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
             CreateMap<SpeciesDto, Plant.PlantShowViewModel>()
-               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => "(Fix me!) " + dto.SpecificName))           // TODO: Map binomial in plant object
+               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => dto.Binomial))
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
                .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Map genus in plant object
