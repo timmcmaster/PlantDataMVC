@@ -25,6 +25,7 @@ namespace PlantDataMVC.IdSrv.Config
                         new ScopeClaim("role")
                     }
                 },
+                // resource scopes
                 new Scope
                 {
                     Enabled = true,

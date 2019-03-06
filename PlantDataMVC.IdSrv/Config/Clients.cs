@@ -10,6 +10,7 @@ namespace PlantDataMVC.IdSrv.Config
         {
             return new[]
             {
+                // MVC App
                 new Client
                 {
                     Enabled = true,
@@ -28,7 +29,28 @@ namespace PlantDataMVC.IdSrv.Config
                     {
                         new Secret("secret".Sha256())
                     }
+                },
+                // Postman test client
+                new Client
+                {
+                    Enabled = true,
+                    ClientName = "Postman Test Client (Hybrid Flow)",
+                    ClientId = "postman-api",
+                    Flow = Flows.AuthorizationCode,
+                    AccessTokenLifetime = 43200, // 12 hours
+                    RequireConsent = false,
+                    RedirectUris = new List<string>
+                    {
+                        "https://www.getpostman.com/oauth2/callback"
+                    },
+                    AllowAccessToAllScopes = true,
+
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    }
                 }
+
             };
         }
     }
