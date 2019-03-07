@@ -72,7 +72,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
-                    dtos,
+                    dtos.Count(),
                     "ProductTypeList",
                     new
                     {
