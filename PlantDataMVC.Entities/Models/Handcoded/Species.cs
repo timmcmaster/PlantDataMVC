@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using DelegateDecompiler;
 using Interfaces.DAL.Entity;
 
 namespace PlantDataMVC.Entities.Models
@@ -16,29 +17,31 @@ namespace PlantDataMVC.Entities.Models
         /// The binomial string.
         /// </value>
         [NotMapped]
+        [Computed]
         public string Binomial
         {
             get
             {
-                var genericName = Genus.LatinName.Trim();
-                var specificName = SpecificName.Trim();
+                //var genericName = Genus.LatinName.Trim();
+                //var specificName = SpecificName.Trim();
 
-                if (string.IsNullOrEmpty(genericName) && string.IsNullOrEmpty(specificName))
-                {
-                    return "";
-                }
-                else if (string.IsNullOrEmpty(genericName))
-                {
-                    return SpecificName;
-                }
-                else if (string.IsNullOrEmpty(SpecificName.Trim()))
-                {
-                    return genericName;
-                }
-                else
-                {
-                    return $"{genericName} {specificName}";
-                }
+                //if (string.IsNullOrEmpty(genericName) && string.IsNullOrEmpty(specificName))
+                //{
+                //    return "";
+                //}
+                //else if (string.IsNullOrEmpty(genericName))
+                //{
+                //    return SpecificName;
+                //}
+                //else if (string.IsNullOrEmpty(SpecificName.Trim()))
+                //{
+                //    return genericName;
+                //}
+                //else
+                //{
+                //    return $"{genericName} {specificName}";
+                //}
+                return Genus.LatinName + " " + SpecificName;
             }
         }
 
