@@ -8,6 +8,7 @@ using System.Web.Http;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CacheCow.Server.WebApi;
+using DelegateDecompiler;
 using Interfaces.DAL.UnitOfWork;
 using Marvin.JsonPatch;
 using PlantDataMVC.DTO.Dtos;
@@ -67,11 +68,19 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var context = _service.Queryable();
 
-                //IList<SpeciesInListDto> itemList = context
-                //    .ProjectTo<SpeciesInListDto>()
-                //    .ApplySort(sort)
-                //    .ToList();
+                /*
+                // Without DelegateDecompiler, we can't use ProjectTo due to calculated field
+                // Less optimal solution means materializing entities then converting list back to queryable
+                IEnumerable<SpeciesDto> dtoList = Mapper.Map<IEnumerable<Species>, IEnumerable<SpeciesDto>>(_service.GetAll().ToList());
 
+                IQueryable<SpeciesDto> dtoQueryable = dtoList.AsQueryable();
+
+                var dtos = dtoQueryable
+                           .ApplySort(sort)
+                           .Where(s => native == null || s.Native == native)
+                           .Where(s => specificName == null || s.SpecificName == specificName)
+                           .Where(s => genusId == null || s.GenusId == genusId);
+                */
                 var dtos = context
                            .ProjectTo<SpeciesDto>(null, childDtosToInclude.ToArray())
                            .ApplySort(sort)
@@ -88,7 +97,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
-                    dtos,
+                    dtos.Decompile().Count(),
                     onSpeciesByGenus ? "SpeciesByGenus" : "SpeciesList",
                     new
                     {
@@ -105,12 +114,13 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var itemList = dtos
                                .Paginate(page, pageSize)
+                               .Decompile()
                                .ToList()
                                .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
 
                 return Ok(itemList);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return InternalServerError();
             }
