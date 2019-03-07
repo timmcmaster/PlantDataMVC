@@ -9,6 +9,7 @@ using System.Web.UI.WebControls.Expressions;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CacheCow.Server.WebApi;
+using DelegateDecompiler;
 using Interfaces.DAL.UnitOfWork;
 using Marvin.JsonPatch;
 using PlantDataMVC.DTO.Dtos;
@@ -63,10 +64,16 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var context = _service.Queryable();
 
-                //IList<GenusDto> itemList = context
-                //    .ProjectTo<GenusDto>()
-                //    .ApplySort(sort)
-                //    .ToList();
+                /*
+                // Without DelegateDecompiler, we can't use ProjectTo due to calculated field in Species
+                // Less optimal solution means evaluating query then converting list back to queryable
+                IList<GenusDto> dtoList = Mapper.Map<IList<Genus>, IList<GenusDto>>(_service.GetAll().ToList());
+                IQueryable<GenusDto> dtoQueryable = dtoList.AsQueryable();
+                
+                var dtos = dtoQueryable
+                           .ApplySort(sort)
+                           .Where(s => latinName == null || s.LatinName == latinName);
+                */
 
                 var dtos = context
                            .ProjectTo<GenusDto>(null, childDtosToInclude.ToArray())
@@ -75,7 +82,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
-                    dtos,
+                    dtos.Decompile().Count(),
                     "GenusList",
                     new
                     {
@@ -88,12 +95,13 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var itemList = dtos
                                .Paginate(page, pageSize)
+                               .Decompile()
                                .ToList()
                                .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
 
                 return Ok(itemList);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return InternalServerError();
             }
@@ -311,3 +319,4 @@ namespace PlantDataMVC.WebApi.Controllers
         }
     }
 }
+ 

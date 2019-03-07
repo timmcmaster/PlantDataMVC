@@ -72,7 +72,6 @@ namespace PlantDataMVC.WebApi.Controllers
                 // Without DelegateDecompiler, we can't use ProjectTo due to calculated field
                 // Less optimal solution means materializing entities then converting list back to queryable
                 IEnumerable<SpeciesDto> dtoList = Mapper.Map<IEnumerable<Species>, IEnumerable<SpeciesDto>>(_service.GetAll().ToList());
-
                 IQueryable<SpeciesDto> dtoQueryable = dtoList.AsQueryable();
 
                 var dtos = dtoQueryable
