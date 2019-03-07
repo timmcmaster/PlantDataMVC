@@ -9,13 +9,13 @@ namespace PlantDataMVC.WebApi.Helpers
 {
     public static class PagingHelper
     {
-        public static NameValueCollection GetPaginationHeaders<T>(UrlHelper urlHelper, IQueryable<T> source,
+        public static NameValueCollection GetPaginationHeaders(UrlHelper urlHelper, int sourceCount,
                                                                   string routeName,
                                                                   object routeValues, int page, int pageSize)
         {
             const string linkHeaderTemplate = "<{0}>; rel=\"{1}\"";
 
-            var totalCount = source.Count();
+            var totalCount = sourceCount;
             var totalPages = (int) Math.Ceiling((double) totalCount / pageSize);
 
             // create anonymous pagination header object
