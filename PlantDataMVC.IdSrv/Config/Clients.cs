@@ -43,6 +43,10 @@ namespace PlantDataMVC.IdSrv.Config
                     {
                         "https://www.getpostman.com/oauth2/callback"
                     },
+                    AllowedCorsOrigins = new List<string>
+                    {
+                        "http://www.getpostman.com"
+                    },
                     AllowAccessToAllScopes = true,
 
                     ClientSecrets = new List<Secret>
