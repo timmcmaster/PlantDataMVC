@@ -62,13 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\CommonTestData.cs" />
-    <Compile Include="DAL\JournalEntryBuilder.cs" />
-    <Compile Include="DAL\PlantStockBuilder.cs" />
-    <Compile Include="DAL\JournalEntryTypeBuilder.cs" />
-    <Compile Include="DAL\ProductTypeBuilder.cs" />
-    <Compile Include="DAL\GenusBuilder.cs" />
-    <Compile Include="DAL\SiteBuilder.cs" />
-    <Compile Include="DAL\SpeciesBuilder.cs" />
+    <Compile Include="Domain\JournalEntryBuilder.cs" />
+    <Compile Include="Domain\PlantStockBuilder.cs" />
+    <Compile Include="Domain\JournalEntryTypeBuilder.cs" />
+    <Compile Include="Domain\ProductTypeBuilder.cs" />
+    <Compile Include="Domain\GenusBuilder.cs" />
+    <Compile Include="Domain\SiteBuilder.cs" />
+    <Compile Include="Domain\SpeciesBuilder.cs" />
     <Compile Include="Common\Print.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

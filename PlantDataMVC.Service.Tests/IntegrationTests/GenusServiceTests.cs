@@ -8,7 +8,7 @@ using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.DTO.Mappers;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
-using UnitTest.Utils.DAL;
+using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
 

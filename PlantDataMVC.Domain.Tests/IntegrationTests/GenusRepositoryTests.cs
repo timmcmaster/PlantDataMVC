@@ -4,7 +4,7 @@ using Interfaces.Domain.DataContext;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
-using UnitTest.Utils.DAL;
+using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
 

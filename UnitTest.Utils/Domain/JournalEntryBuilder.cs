@@ -2,7 +2,7 @@
 using PlantDataMVC.Entities.Models;
 using UnitTest.Utils.Common;
 
-namespace UnitTest.Utils.DAL
+namespace UnitTest.Utils.Domain
 {
     /// <summary>
     /// Creates random data against the domain objects in the namespace <code>PlantDataMVC.Core.Domain.BusinessObjects</code>

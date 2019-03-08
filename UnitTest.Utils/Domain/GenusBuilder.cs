@@ -1,21 +1,21 @@
 ﻿using PlantDataMVC.Entities.Models;
 using UnitTest.Utils.Common;
 
-namespace UnitTest.Utils.DAL
+namespace UnitTest.Utils.Domain
 {
     /// <summary>
     /// Creates random data against the domain objects in the namespace <code>PlantDataMVC.Core.Domain.BusinessObjects</code>
     /// </summary>
-    public class ProductTypeBuilder
+    public class GenusBuilder
     {
         // Default members
-        public static readonly string DEFAULT_NAME = "Standard tube";
+        public static readonly string DEFAULT_GENUS = "Eucalyptus";
 
         // private members (for object properties)
         private int _id;
-        private string _name = DEFAULT_NAME;
+        private string _latinName = DEFAULT_GENUS;
 
-        private ProductTypeBuilder()
+        private GenusBuilder()
         {
         }
 
@@ -23,42 +23,42 @@ namespace UnitTest.Utils.DAL
         /// Starting point for creating plant test data
         /// </summary>
         /// <returns></returns>
-        public static ProductTypeBuilder aProductType()
+        public static GenusBuilder aGenus()
         {
-            return new ProductTypeBuilder();
+            return new GenusBuilder();
         }
 
-        public ProductTypeBuilder withNoId()
+        public GenusBuilder withNoId()
         {
             _id = 0;
             return this;
         }
 
-        public ProductTypeBuilder withId()
+        public GenusBuilder withId()
         {
             _id = CommonTestData.GeneratRandomInt();
             return this;
         }
 
-        public ProductTypeBuilder withName(string name)
+        public GenusBuilder withLatinName(string latinName)
         {
-            _name = name;
+            _latinName = latinName;
             return this;
         }
 
-        public ProductTypeBuilder withRandomValues()
+        public GenusBuilder withRandomValues()
         {
             _id = CommonTestData.GeneratRandomInt();
-            _name = CommonTestData.GenerateRandomAlphabetString(10);
+            _latinName = CommonTestData.GenerateRandomAlphabetString(10);
             return this;
         }
 
-        public ProductType Build()
+        public Genus Build()
         {
-            return new ProductType()
+            return new Genus()
             {
                 Id = _id,
-                Name = _name
+                LatinName = _latinName
             };
         }
     }
