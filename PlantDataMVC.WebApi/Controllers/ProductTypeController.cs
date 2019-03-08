@@ -87,7 +87,7 @@ namespace PlantDataMVC.WebApi.Controllers
                 var itemList = dtos
                                .Paginate(page, pageSize)
                                .ToList()
-                               .Select(prodtype => DataShaping.CreateDataShapedObject(prodtype, lstOfFields));
+                               .Select(prodType => DataShaping.CreateDataShapedObject(prodType, lstOfFields));
 
                 return Ok(itemList);
             }

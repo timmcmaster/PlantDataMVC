@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Web;
-using Autofac;
-using Autofac.Integration.WebApi;
-using PlantDataMVC.WebApi.Mappers;
-using System.Web.Http;
 using System.Web.Routing;
 
 namespace PlantDataMVC.WebApi
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class WebApiApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -18,7 +14,7 @@ namespace PlantDataMVC.WebApi
         public override void Init()
         {
             base.Init();
-            this.AcquireRequestState += ShowRouteValues;
+            AcquireRequestState += ShowRouteValues;
         }
 
         protected void ShowRouteValues(object sender, EventArgs e)

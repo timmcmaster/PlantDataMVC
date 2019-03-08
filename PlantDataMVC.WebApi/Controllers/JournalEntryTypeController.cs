@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Http;
-using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CacheCow.Server.WebApi;
 using Interfaces.Domain.UnitOfWork;
-using Marvin.JsonPatch;
 using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApi.Helpers;
 using Thinktecture.IdentityModel.WebApi;

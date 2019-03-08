@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
 using IdentityServer3.AccessTokenValidation;
 using Microsoft.Owin;
 using Owin;
