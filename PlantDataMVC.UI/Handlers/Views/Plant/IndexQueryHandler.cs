@@ -84,7 +84,7 @@ namespace PlantDataMVC.UI.Handlers.Views.Plant
             }
             else if (querySortBy == nameof(PlantListViewModel.Binomial))
             {
-                sortField = ""; // TODO: solve problem of sort by species binomial
+                sortField = nameof(PlantListViewModel.Binomial); 
             }
             else if (querySortBy == nameof(PlantListViewModel.CommonName))
             {
