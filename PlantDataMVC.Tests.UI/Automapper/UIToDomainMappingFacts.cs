@@ -3,7 +3,7 @@ using AutoMapper;
 using PlantDataMVC.UI.Mappers;
 using Xunit;
 
-namespace PlantDataMVC.Tests.UI.Automapper
+namespace PlantDataMVC.UI.Tests.Automapper
 {
     public class UiToDomainMappingFacts : IDisposable
     {

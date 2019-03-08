@@ -9,6 +9,9 @@
 // ReSharper disable RedundantOverridenMember
 // ReSharper disable UseNameofExpression
 // TargetFrameworkVersion = 4.7
+
+using Framework.Domain.EF;
+
 #pragma warning disable 1591    //  Ignore "Missing XML Comment" warning
 
 
@@ -20,7 +23,7 @@ namespace PlantDataMVC.Entities.Context
 
 
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.2.0")]
-    public partial class PlantDataDbContext : Framework.DAL.EF.DataContext, IPlantDataDbContext
+    public partial class PlantDataDbContext : DataContext, IPlantDataDbContext
     {
         public System.Data.Entity.DbSet<Genus> Genus { get; set; } // Genus
         public System.Data.Entity.DbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry

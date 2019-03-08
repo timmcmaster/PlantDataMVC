@@ -3,7 +3,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using DelegateDecompiler;
-using Interfaces.DAL.Entity;
+using Interfaces.Domain.Entity;
 
 namespace PlantDataMVC.Entities.Models
 {

@@ -76,10 +76,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
-      <Project>{96FD9436-DE5C-432A-94CB-CE5E63EE2405}</Project>
-      <Name>Interfaces.DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj">
       <Project>{ecc2f1e2-a2ea-4390-a75c-114d56f0bd96}</Project>
       <Name>PlantDataMVC.Entities</Name>

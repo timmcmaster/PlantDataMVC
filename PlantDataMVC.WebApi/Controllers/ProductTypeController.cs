@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http;
 using AutoMapper.QueryableExtensions;
 using CacheCow.Server.WebApi;
-using Interfaces.DAL.UnitOfWork;
+using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApi.Helpers;

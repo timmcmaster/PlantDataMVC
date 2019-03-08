@@ -1,5 +1,6 @@
 ﻿// ReSharper disable CheckNamespace
-using Interfaces.DAL.Entity;
+
+using Interfaces.Domain.Entity;
 
 namespace PlantDataMVC.Entities.Models
 {

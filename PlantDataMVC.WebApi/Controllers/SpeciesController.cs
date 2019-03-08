@@ -9,7 +9,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CacheCow.Server.WebApi;
 using DelegateDecompiler;
-using Interfaces.DAL.UnitOfWork;
+using Interfaces.Domain.UnitOfWork;
 using Marvin.JsonPatch;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;

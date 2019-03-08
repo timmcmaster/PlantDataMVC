@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Interfaces.DAL.Repository;
+using Interfaces.Domain.Repository;
 using PlantDataMVC.Entities.Models;
 
 // This file provides classes & interfaces to allow extension methods 

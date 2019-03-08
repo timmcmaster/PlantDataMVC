@@ -1,19 +1,18 @@
 ﻿using System;
 using AutoMapper;
 using FluentAssertions;
-using Framework.DAL.EF;
-using Interfaces.DAL.DataContext;
-using Interfaces.DAL.Repository;
-using Interfaces.DAL.UnitOfWork;
+using Framework.Domain.EF;
+using Interfaces.Domain.DataContext;
+using Interfaces.Domain.Repository;
+using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.DTO.Mappers;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
-using PlantDataMVC.Service;
 using UnitTest.Utils.DAL;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PlantDataMVC.Tests.Core.IntegrationTests
+namespace PlantDataMVC.Service.Tests.IntegrationTests
 {
     public class GenusServiceTests : IntegrationTestBase, IDisposable
     {

@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace PlantDataMVC.Tests.UI.TestDoubles
+namespace PlantDataMVC.UI.Tests.TestDoubles
 {
     internal class StubContext : HttpContextBase
     {

@@ -3,7 +3,7 @@ using AutoMapper;
 using PlantDataMVC.DTO.Mappers;
 using Xunit;
 
-namespace PlantDataMVC.Tests.Core.UnitTests
+namespace PlantDataMVC.Service.Tests.UnitTests
 {
     public class DtoToDalMappingFacts : IDisposable
     {

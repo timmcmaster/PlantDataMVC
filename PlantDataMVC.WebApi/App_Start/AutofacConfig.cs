@@ -1,13 +1,13 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
-using Framework.DAL.EF;
-using Interfaces.DAL.DataContext;
-using Interfaces.DAL.Repository;
-using Interfaces.DAL.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using System.Reflection;
+using Framework.Domain.EF;
+using Interfaces.Domain.DataContext;
+using Interfaces.Domain.Repository;
+using Interfaces.Domain.UnitOfWork;
 
 namespace PlantDataMVC.WebApi
 {

@@ -3,7 +3,7 @@ using AutoMapper;
 using PlantDataMVC.DTO.Mappers;
 using Xunit.Abstractions;
 
-namespace PlantDataMVC.Tests.Core.UnitTests.Services
+namespace PlantDataMVC.Service.Tests.UnitTests.Services
 {
     public class PlantDataServiceFacts : IDisposable
     {

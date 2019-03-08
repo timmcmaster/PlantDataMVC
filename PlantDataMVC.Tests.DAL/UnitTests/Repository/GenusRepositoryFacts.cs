@@ -1,15 +1,15 @@
 ﻿using FluentAssertions;
-using Framework.DAL.EF;
-using Interfaces.DAL.DataContext;
-using Interfaces.DAL.Repository;
-using Interfaces.DAL.UnitOfWork;
+using Framework.Domain.EF;
+using Interfaces.Domain.DataContext;
+using Interfaces.Domain.Repository;
+using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Repositories;
 using UnitTest.Utils.DAL;
 using Xunit;
 
-namespace PlantDataMVC.Tests.DAL.UnitTests.Repository
+namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
 {
     public class GenusRepositoryFacts
     {

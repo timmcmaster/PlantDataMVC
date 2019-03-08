@@ -1,6 +1,6 @@
 ﻿using Common.Logging;
 using Framework.Service;
-using Interfaces.DAL.Repository;
+using Interfaces.Domain.Repository;
 using Interfaces.Service;
 using PlantDataMVC.Entities.Models;
 

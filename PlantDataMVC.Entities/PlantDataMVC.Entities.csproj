@@ -197,13 +197,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework.DAL.EF\Framework.DAL.EF.csproj">
-      <Project>{23ce37b8-56fa-429a-af13-3b06841c9817}</Project>
-      <Name>Framework.DAL.EF</Name>
+    <ProjectReference Include="..\Framework.Domain.EF\Framework.Domain.EF.csproj">
+      <Project>{23CE37B8-56FA-429A-AF13-3B06841C9817}</Project>
+      <Name>Framework.Domain.EF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
+    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
       <Project>{96fd9436-de5c-432a-94cb-ce5e63ee2405}</Project>
-      <Name>Interfaces.DAL</Name>
+      <Name>Interfaces.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

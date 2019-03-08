@@ -1,7 +1,6 @@
-﻿using PlantDataMVC.UI;
-using Xunit;
+﻿using Xunit;
 
-namespace PlantDataMVC.Tests.UI.IoC
+namespace PlantDataMVC.UI.Tests.IoC
 {
     public class ServiceFacts : IClassFixture<IocFixture>
     {

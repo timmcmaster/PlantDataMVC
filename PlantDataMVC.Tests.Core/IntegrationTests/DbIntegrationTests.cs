@@ -5,7 +5,7 @@ using PlantDataMVC.DTO.Mappers;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PlantDataMVC.Tests.Core.IntegrationTests
+namespace PlantDataMVC.Service.Tests.IntegrationTests
 {
     public class DbIntegrationTests : IntegrationTestBase, IDisposable
     {

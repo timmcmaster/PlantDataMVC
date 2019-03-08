@@ -1,11 +1,10 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using FluentAssertions;
-using PlantDataMVC.Tests.UI.TestDoubles;
-using PlantDataMVC.UI;
+using PlantDataMVC.UI.Tests.TestDoubles;
 using Xunit;
 
-namespace PlantDataMVC.Tests.UI.Routes
+namespace PlantDataMVC.UI.Tests.Routes
 {
     public class RouteFacts
     {

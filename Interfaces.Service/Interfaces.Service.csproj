@@ -49,11 +49,10 @@
     <Compile Include="ServiceActionStatus.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces.DAL\Interfaces.DAL.csproj">
-      <Project>{96fd9436-de5c-432a-94cb-ce5e63ee2405}</Project>
-      <Name>Interfaces.DAL</Name>
+    <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
+      <Project>{96FD9436-DE5C-432A-94CB-CE5E63EE2405}</Project>
+      <Name>Interfaces.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

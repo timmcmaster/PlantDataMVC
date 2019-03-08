@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Respawn;
 
-namespace PlantDataMVC.Tests.Core.IntegrationTests
+namespace PlantDataMVC.Service.Tests.IntegrationTests
 {
     public class DbFixture
     {

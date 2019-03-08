@@ -1,16 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using AutoMapper;
-using FluentAssertions;
-using Framework.Web.Forms;
-using Moq;
-using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.UI.Controllers;
+﻿using AutoMapper;
 using PlantDataMVC.UI.Mappers;
-using PlantDataMVC.UI.Models.ViewModels;
-using Xunit;
 
-namespace PlantDataMVC.Tests.UI.Controllers
+namespace PlantDataMVC.UI.Tests.Controllers
 {
     public class PlantControllerFacts
     {

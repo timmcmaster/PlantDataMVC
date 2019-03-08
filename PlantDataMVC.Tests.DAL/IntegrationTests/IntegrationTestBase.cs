@@ -2,7 +2,7 @@
 using Nito.AsyncEx;
 using Xunit;
 
-namespace PlantDataMVC.Tests.DAL.IntegrationTests
+namespace PlantDataMVC.Domain.Tests.IntegrationTests
 {
     /// <summary>
     ///     <P>Base class for integration tests in this namespace</P>

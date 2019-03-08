@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
-using Interfaces.DAL.Entity;
+using Interfaces.Domain.Entity;
 using PlantDataMVC.Entities.Models;
 using Xunit;
 
-namespace PlantDataMVC.Tests.DAL.UnitTests.Entity
+namespace PlantDataMVC.Domain.Tests.UnitTests.Entity
 {
     public class SiteFacts
     {

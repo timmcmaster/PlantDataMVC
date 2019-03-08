@@ -3,7 +3,7 @@ using FluentAssertions;
 using PlantDataMVC.UI.Controllers;
 using Xunit;
 
-namespace PlantDataMVC.Tests.UI.Controllers
+namespace PlantDataMVC.UI.Tests.Controllers
 {
     public class HomeControllerFacts
     {

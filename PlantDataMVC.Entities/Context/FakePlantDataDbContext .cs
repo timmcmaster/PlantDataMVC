@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
-using Framework.DAL.EF;
+using Framework.Domain.EF;
 using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.Models;
 

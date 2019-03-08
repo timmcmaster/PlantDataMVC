@@ -1,14 +1,14 @@
 ﻿using FluentAssertions;
-using Framework.DAL.EF;
-using Interfaces.DAL.DataContext;
-using Interfaces.DAL.UnitOfWork;
+using Framework.Domain.EF;
+using Interfaces.Domain.DataContext;
+using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
 using UnitTest.Utils.DAL;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PlantDataMVC.Tests.DAL.IntegrationTests
+namespace PlantDataMVC.Domain.Tests.IntegrationTests
 {
     public class GenusRepositoryTests : IntegrationTestBase
     {

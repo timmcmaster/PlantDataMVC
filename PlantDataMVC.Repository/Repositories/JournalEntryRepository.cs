@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Interfaces.DAL.Repository;
+using Interfaces.Domain.Repository;
 using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.Repository.Repositories

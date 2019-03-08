@@ -1,7 +1,6 @@
 ﻿using Autofac;
-using PlantDataMVC.UI;
 
-namespace PlantDataMVC.Tests.UI.IoC
+namespace PlantDataMVC.UI.Tests.IoC
 {
     public class IocFixture
     {
