@@ -64,6 +64,9 @@
     <Compile Include="Configuration\JournalEntryTypeConfiguration.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\PlantConfiguration.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\PlantData.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -129,6 +132,9 @@
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\JournalEntryType.cs">
+      <DependentUpon>PlantData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Plant.cs">
       <DependentUpon>PlantData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlantData.cs">

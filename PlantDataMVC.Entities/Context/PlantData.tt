@@ -39,7 +39,7 @@
     Settings.IncludeComments = CommentsStyle.AtEndOfField; // Adds comments to the generated code
     Settings.IncludeExtendedPropertyComments = CommentsStyle.InSummaryBlock; // Adds extended properties as comments to the generated code
     Settings.IncludeConnectionSettingComments = true; // Add comments describing connection settings used to generate file
-    Settings.IncludeViews = false;
+    Settings.IncludeViews = true;
     Settings.IncludeSynonyms = false;
     Settings.IncludeStoredProcedures = false;
     Settings.IncludeTableValuedFunctions = false; // If true, you must set IncludeStoredProcedures = true, and install the "EntityFramework.CodeFirstStoreFunctions" Nuget Package.

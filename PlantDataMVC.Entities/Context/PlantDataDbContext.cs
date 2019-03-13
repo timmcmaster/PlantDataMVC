@@ -9,9 +9,6 @@
 // ReSharper disable RedundantOverridenMember
 // ReSharper disable UseNameofExpression
 // TargetFrameworkVersion = 4.7
-
-using Framework.Domain.EF;
-
 #pragma warning disable 1591    //  Ignore "Missing XML Comment" warning
 
 
@@ -23,11 +20,12 @@ namespace PlantDataMVC.Entities.Context
 
 
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.2.0")]
-    public partial class PlantDataDbContext : DataContext, IPlantDataDbContext
+    public partial class PlantDataDbContext : Framework.Domain.EF.DataContext, IPlantDataDbContext
     {
         public System.Data.Entity.DbSet<Genus> Genus { get; set; } // Genus
         public System.Data.Entity.DbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
         public System.Data.Entity.DbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
+        public System.Data.Entity.DbSet<Plant> Plants { get; set; } // Plant
         public System.Data.Entity.DbSet<PlantStock> PlantStocks { get; set; } // PlantStock
         public System.Data.Entity.DbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
         public System.Data.Entity.DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
@@ -94,6 +92,7 @@ namespace PlantDataMVC.Entities.Context
             modelBuilder.Configurations.Add(new GenusConfiguration());
             modelBuilder.Configurations.Add(new JournalEntryConfiguration());
             modelBuilder.Configurations.Add(new JournalEntryTypeConfiguration());
+            modelBuilder.Configurations.Add(new PlantConfiguration());
             modelBuilder.Configurations.Add(new PlantStockConfiguration());
             modelBuilder.Configurations.Add(new PriceListTypeConfiguration());
             modelBuilder.Configurations.Add(new ProductPriceConfiguration());
@@ -111,6 +110,7 @@ namespace PlantDataMVC.Entities.Context
             modelBuilder.Configurations.Add(new GenusConfiguration(schema));
             modelBuilder.Configurations.Add(new JournalEntryConfiguration(schema));
             modelBuilder.Configurations.Add(new JournalEntryTypeConfiguration(schema));
+            modelBuilder.Configurations.Add(new PlantConfiguration(schema));
             modelBuilder.Configurations.Add(new PlantStockConfiguration(schema));
             modelBuilder.Configurations.Add(new PriceListTypeConfiguration(schema));
             modelBuilder.Configurations.Add(new ProductPriceConfiguration(schema));

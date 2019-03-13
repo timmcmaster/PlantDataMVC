@@ -21,6 +21,7 @@ namespace PlantDataMVC.Entities.Interfaces
         System.Data.Entity.DbSet<Genus> Genus { get; set; } // Genus
         System.Data.Entity.DbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
         System.Data.Entity.DbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
+        System.Data.Entity.DbSet<Plant> Plants { get; set; } // Plant
         System.Data.Entity.DbSet<PlantStock> PlantStocks { get; set; } // PlantStock
         System.Data.Entity.DbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
         System.Data.Entity.DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
