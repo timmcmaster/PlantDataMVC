@@ -202,7 +202,7 @@
       <Name>Framework.Domain.EF</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
-      <Project>{96fd9436-de5c-432a-94cb-ce5e63ee2405}</Project>
+      <Project>{81d166ce-88a8-443b-8ae8-dfcf315ea44b}</Project>
       <Name>Interfaces.Domain</Name>
     </ProjectReference>
   </ItemGroup>

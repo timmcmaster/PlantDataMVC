@@ -84,7 +84,7 @@
       <Name>Framework.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
-      <Project>{96FD9436-DE5C-432A-94CB-CE5E63EE2405}</Project>
+      <Project>{81d166ce-88a8-443b-8ae8-dfcf315ea44b}</Project>
       <Name>Interfaces.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
