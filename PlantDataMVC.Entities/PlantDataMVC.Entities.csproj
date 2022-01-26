@@ -55,114 +55,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\GenusConfiguration.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\JournalEntryConfiguration.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\JournalEntryTypeConfiguration.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\PlantData.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\PlantStockConfiguration.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\PriceListTypeConfiguration.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\ProductPriceConfiguration.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\ProductTypeConfiguration.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\SeedBatchConfiguration.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\SeedTrayConfiguration.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\SiteConfiguration.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\SpeciesConfiguration.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Configuration\SeedBatchConfiguration.cs" />
+    <Compile Include="Configuration\SeedTrayConfiguration.cs" />
+    <Compile Include="Configuration\SiteConfiguration.cs" />
+    <Compile Include="Configuration\SpeciesConfiguration.cs" />
+    <Compile Include="Configuration\ProductTypeConfiguration.cs" />
+    <Compile Include="Configuration\ProductPriceConfiguration.cs" />
+    <Compile Include="Configuration\PriceListTypeConfiguration.cs" />
+    <Compile Include="Configuration\PlantStockConfiguration.cs" />
+    <Compile Include="Configuration\JournalEntryTypeConfiguration.cs" />
+    <Compile Include="Configuration\JournalEntryConfiguration.cs" />
+    <Compile Include="Configuration\GenusConfiguration.cs" />
+    <Compile Include="Context\PlantDataDbContextFactory.cs" />
+    <Compile Include="Context\PlantDataDbContext.cs" />
     <Compile Include="Context\FakePlantDataDbContext .cs" />
     <Compile Include="Context\FakePlantDataDbSets.cs" />
-    <Compile Include="Context\PlantData.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Context\PlantDataDbContext.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Context\PlantDataDbContextFactory.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\PlantData.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Handcoded\Genus.cs" />
-    <Compile Include="Models\Genus.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Handcoded\JournalEntry.cs" />
-    <Compile Include="Models\Handcoded\JournalEntryType.cs" />
-    <Compile Include="Models\Handcoded\PlantStock.cs" />
-    <Compile Include="Models\Handcoded\PriceListType.cs" />
-    <Compile Include="Models\Handcoded\ProductPrice.cs" />
-    <Compile Include="Models\Handcoded\ProductType.cs" />
-    <Compile Include="Models\Handcoded\SeedBatch.cs" />
-    <Compile Include="Models\Handcoded\SeedTray.cs" />
-    <Compile Include="Models\Handcoded\Site.cs" />
-    <Compile Include="Models\Handcoded\Species.cs" />
-    <Compile Include="Models\JournalEntry.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\JournalEntryType.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PlantData.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PlantStock.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PriceListType.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductPrice.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductType.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SeedBatch.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SeedTray.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Site.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Species.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\IPlantDataDbContext.cs">
-      <DependentUpon>PlantData.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Interfaces\IPlantDataDbContext.cs" />
+    <Compile Include="Models\Genus.cs" />
+    <Compile Include="Models\JournalEntry.cs" />
+    <Compile Include="Models\JournalEntryType.cs" />
+    <Compile Include="Models\PlantStock.cs" />
+    <Compile Include="Models\PriceListType.cs" />
+    <Compile Include="Models\ProductPrice.cs" />
+    <Compile Include="Models\ProductType.cs" />
+    <Compile Include="Models\SeedBatch.cs" />
+    <Compile Include="Models\SeedTray.cs" />
+    <Compile Include="Models\Site.cs" />
+    <Compile Include="Models\Species.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -171,27 +90,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="App.config" />
-    <None Include="EF.Reverse.POCO.Core.ttinclude" />
-    <None Include="EF.Reverse.POCO.ttinclude" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Configuration\PlantData.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PlantData.cs</LastGenOutput>
-    </Content>
-    <Content Include="Context\PlantData.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PlantData.cs</LastGenOutput>
-    </Content>
-    <Content Include="Interfaces\PlantData.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PlantData.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\PlantData.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PlantData.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
