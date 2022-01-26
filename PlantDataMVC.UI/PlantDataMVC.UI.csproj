@@ -419,10 +419,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ASPNETDB.MDF" />
-    <Content Include="App_Data\ASPNETDB_log.ldf">
-      <DependentUpon>ASPNETDB.MDF</DependentUpon>
-    </Content>
     <Content Include="Areas\Security\Views\Account\ChangePassword.cshtml" />
     <Content Include="Areas\Security\Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Areas\Security\Views\Account\LogOn.cshtml" />

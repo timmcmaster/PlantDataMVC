@@ -322,9 +322,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Framework.Domain.EF\Framework.Domain.EF.csproj">
       <Project>{23CE37B8-56FA-429A-AF13-3B06841C9817}</Project>
