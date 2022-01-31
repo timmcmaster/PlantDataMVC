@@ -18,14 +18,14 @@ namespace Framework.Domain.EF
     ///     All public methods are implemented in terms of Entity-derived classes (i.e. non-framework specific).
     /// </summary>
     /// <typeparam name="TEntity">The external Entity-derived type.</typeparam>
-    public class Repository<TEntity> : IRepositoryAsync<TEntity>
+    public class EFRepository<TEntity> : IRepositoryAsync<TEntity>
         where TEntity : class, IEntity
     {
         private readonly IDataContextAsync _context;
         private readonly IDbSet<TEntity> _dbSet;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public Repository(IDataContextAsync context, IUnitOfWorkAsync unitOfWork)
+        public EFRepository(IDataContextAsync context, IUnitOfWorkAsync unitOfWork)
         {
             _context = context;
             _unitOfWork = unitOfWork;
@@ -45,17 +45,30 @@ namespace Framework.Domain.EF
         }
 
         #region IRepositoryAsync<TEntity> Members
-        // Note: This is same as Queryable() method
-        public IQueryable<TEntity> GetAll()
+        public IQueryable<TEntity> GetAllItems()
         {
-            return _dbSet;
+            return _dbSet.AsQueryable<TEntity>();
         }
 
-        public TEntity GetItemById(int id)
+        public IQueryable<TEntity> GetAllItemsAsNoTracking()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual TEntity GetItemById(int id)
         {
             return _dbSet.Find(id);
         }
 
+        public virtual TEntity GetItemById(string id)
+        {
+            return _dbSet.Find(id);
+        }
+
+        public virtual TEntity GetItemById<U>(U id)
+        {
+            return _dbSet.Find(id);
+        }
 
         //public TEntity GetItemById(int id, params Expression<System.Func<TEntity, object>>[] includes)
         //{
@@ -74,16 +87,19 @@ namespace Framework.Domain.EF
         //    return query.FirstOrDefault();
         //}
 
-        public TEntity Add(TEntity item)
+        public virtual void Add(TEntity item)
         {
             item.ObjectState = ObjectState.Added;
             _dbSet.Attach(item);
             _context.SyncObjectState(item);
-
-            return item;
         }
 
-        public TEntity Save(TEntity item)
+        //public virtual void AddRange(List<TEntity> itemList)
+        //{
+        //    _dbSet.AddRange(itemList);
+        //}
+
+        public virtual void Update(TEntity item)
         {
             // TODO: Does save need to be a detach of existing and attach of new item
             //       in order to implement PUT method properly?
@@ -93,8 +109,6 @@ namespace Framework.Domain.EF
             item.ObjectState = ObjectState.Modified;
             _dbSet.Attach(item);
             _context.SyncObjectState(item);
-
-            return item;
         }
 
         public void Delete(TEntity item)
@@ -104,15 +118,38 @@ namespace Framework.Domain.EF
             _context.SyncObjectState(item);
         }
 
-        public IQueryable<TEntity> Queryable()
+        public void Delete(int id)
         {
-            return _dbSet;
+            var entity = GetItemById(id);
+            if (entity == null)
+                return;
+            Delete(entity);
         }
 
-        public IRepository<TOtherEntity> GetRepository<TOtherEntity>() where TOtherEntity : class, IEntity
+        public void Delete(string id)
         {
-            return _unitOfWork.Repository<TOtherEntity>();
+            var entity = GetItemById(id);
+            if (entity == null)
+                return;
+            Delete(entity);
         }
+
+        public void Delete<U>(U id)
+        {
+            var entity = GetItemById(id);
+            if (entity == null)
+                return;
+            Delete(entity);
+        }
+
+        public virtual void Remove(TEntity item)
+        {
+                //if (item.ObjectState == ObjectState.Added)
+                //    item.ObjectState = ObjectState.Detached;
+                //else
+                    Delete(item);
+        }
+
 
         public IQueryFluent<TEntity> Query()
         {
@@ -127,6 +164,16 @@ namespace Framework.Domain.EF
         public IQueryFluent<TEntity> Query(Expression<Func<TEntity, bool>> query)
         {
             return new QueryFluent<TEntity>(this, query);
+        }
+
+        public IQueryable<TEntity> Queryable()
+        {
+            return _dbSet;
+        }
+
+        public IRepository<TOtherEntity> GetRepository<TOtherEntity>() where TOtherEntity : class, IEntity
+        {
+            return _unitOfWork.Repository<TOtherEntity>();
         }
         #endregion
 
@@ -162,5 +209,17 @@ namespace Framework.Domain.EF
         {
             return await Select(filter, orderBy, includes).ToListAsync();
         }
+
+        /// <summary>
+        /// Note, do not use this method if you want to query for a list and then track changes,
+        /// use GetAllItems below
+        /// </summary>
+        /// <returns></returns>
+        // Note: This is same as Queryable() method
+        protected virtual IQueryable<TEntity> GetAll()
+        {
+            return _dbSet;
+        }
+
     }
 }

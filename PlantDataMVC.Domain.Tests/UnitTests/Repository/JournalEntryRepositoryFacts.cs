@@ -5,6 +5,7 @@ using Interfaces.Domain.DataContext;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Repository.Interfaces;
 using PlantDataMVC.Repository.Repositories;
 using UnitTest.Utils.Domain;
 using Xunit;
@@ -31,15 +32,16 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                               .withId()
                               .Build();
 
-                var addedSpecies = unitOfWork.Repository<Species>().Add(species);
-
+                unitOfWork.Repository<Species>().Add(species);
+                var addedSpecies = unitOfWork.Repository<Species>().GetItemById(species);
                 // Add product type and stock record
                 var productType = ProductTypeBuilder
                                   .aProductType()
                                   .withId()
                                   .Build();
 
-                var addedProductType = unitOfWork.Repository<ProductType>().Add(productType);
+                unitOfWork.Repository<ProductType>().Add(productType);
+                var addedProductType = unitOfWork.Repository<ProductType>().GetItemById(productType);
 
                 var plantStock = PlantStockBuilder
                                  .aStockItem()
@@ -49,7 +51,8 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                                  .withQuantity(0)
                                  .Build();
 
-                var addedStock = unitOfWork.Repository<PlantStock>().Add(plantStock);
+                unitOfWork.Repository<PlantStock>().Add(plantStock);
+                var addedStock = unitOfWork.Repository<PlantStock>().GetItemById(plantStock);
 
                 // Add transaction types
                 var jeTypeAdd = JournalEntryTypeBuilder
@@ -59,7 +62,8 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                                 .withEffect(1)
                                 .Build();
 
-                var addedTypeAdd = unitOfWork.Repository<JournalEntryType>().Add(jeTypeAdd);
+                unitOfWork.Repository<JournalEntryType>().Add(jeTypeAdd);
+                var addedTypeAdd = unitOfWork.Repository<JournalEntryType>().GetItemById(jeTypeAdd);
 
                 var jeTypeSale = JournalEntryTypeBuilder
                                  .aJournalEntryType()
@@ -68,7 +72,8 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                                  .withEffect(-1)
                                  .Build();
 
-                var addedTypeSale = unitOfWork.Repository<JournalEntryType>().Add(jeTypeSale);
+                unitOfWork.Repository<JournalEntryType>().Add(jeTypeSale);
+                var addedTypeSale = unitOfWork.Repository<JournalEntryType>().GetItemById(jeTypeSale);
 
                 // Add transactions
                 var add27Plants5DaysAgo = JournalEntryBuilder
@@ -98,7 +103,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                                        .withQuantity(7)
                                        .Build();
 
-                var jnlEntryRepository = unitOfWork.Repository<JournalEntry>();
+                var jnlEntryRepository = unitOfWork.Repository<JournalEntry>() as IJournalEntryRepository;
                 jnlEntryRepository.Add(add27Plants5DaysAgo);
                 jnlEntryRepository.Add(sell12Plants2DaysAgo);
                 jnlEntryRepository.Add(sell7PlantsToday);

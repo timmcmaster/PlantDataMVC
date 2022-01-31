@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Interfaces.Domain.Entity;
@@ -17,7 +18,9 @@ namespace Interfaces.Domain.Repository
         /// Get list of items 
         /// </summary>
         /// <returns></returns>
-        IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> GetAllItems();
+
+        IQueryable<TEntity> GetAllItemsAsNoTracking();
 
         /// <summary>
         /// Get single item 
@@ -26,17 +29,23 @@ namespace Interfaces.Domain.Repository
         /// <returns></returns>
         TEntity GetItemById(int id);
 
+        TEntity GetItemById(string id);
+
+        TEntity GetItemById<U>(U id);
+
         /// <summary>
         /// Add a single item
         /// </summary>
         /// <param name="item"></param>
-        TEntity Add(TEntity item);
+        void Add(TEntity item);
+
+        //void AddRange(List<TEntity> itemList);
 
         /// <summary>
         /// Save a single item 
         /// </summary>
         /// <param name="item"></param>
-        TEntity Save(TEntity item);
+        void Update(TEntity item);
 
        
         /// <summary>
@@ -44,6 +53,14 @@ namespace Interfaces.Domain.Repository
         /// </summary>
         /// <param name="item"></param>
         void Delete(TEntity item);
+
+        void Delete(int id);
+
+        void Delete(string id);
+
+        void Delete<U>(U id);
+
+        void Remove(TEntity item);
 
         /// <summary>
         /// Return a IQueryFluent object, with no initial query 

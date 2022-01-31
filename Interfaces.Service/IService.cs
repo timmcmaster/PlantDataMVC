@@ -14,9 +14,9 @@ namespace Interfaces.Service
 
         TEntity GetItemById(int id);
 
-        TEntity Add(TEntity item);
+        void Add(TEntity item);
 
-        TEntity Save(TEntity item);
+        void Update(TEntity item);
 
         void Delete(TEntity item);
 

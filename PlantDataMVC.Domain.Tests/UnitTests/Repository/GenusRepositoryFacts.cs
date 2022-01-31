@@ -20,14 +20,14 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange
-                IRepositoryAsync<Genus> genusRepository = new Repository<Genus>(plantDataFakeDbContext, unitOfWork);
+                IRepositoryAsync<Genus> genusRepository = new EFRepository<Genus>(plantDataFakeDbContext, unitOfWork);
 
                 var genus = GenusBuilder.aGenus().withId().withLatinName("Eremophila").Build();
 
                 // Act
-                var addedGenus = genusRepository.Add(genus);
-
+                genusRepository.Add(genus);
                 unitOfWork.SaveChanges();
+                var addedGenus = genusRepository.GetItemById(genus);
 
                 // Assert
                 addedGenus.Should().NotBeNull();
@@ -48,7 +48,8 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                 var genus = GenusBuilder.aGenus().withNoId().withLatinName("Eremophila").Build();
 
                 // Act
-                var addedGenus = repository.Add(genus);
+                repository.Add(genus);
+                var addedGenus = repository.GetItemById(genus);
 
                 // Assert
                 addedGenus.Should().NotBeNull();
@@ -68,18 +69,18 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                 var repository = unitOfWork.Repository<Genus>();
                 var genus = GenusBuilder.aGenus().withNoId().withLatinName("Eremophila").Build();
 
-                var addedGenus = repository.Add(genus);
+                repository.Add(genus);
 
                 // TODO: Does Id only get set if SaveChanges is called on UnitOfWork? 
                 //       Or are we calling with value of 0?
 
                 // Act
-                var entity = repository.GetItemById(addedGenus.Id);
+                var entity = repository.GetItemById(genus);
 
                 // Assert
                 entity.Should().NotBeNull();
                 entity.Should().BeOfType<Genus>();
-                entity.Should().BeEquivalentTo(addedGenus);
+                entity.Should().BeEquivalentTo(genus);
             }
         }
 
@@ -95,18 +96,18 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                 var repository = unitOfWork.Repository<Genus>();
                 var genus = GenusBuilder.aGenus().withNoId().withLatinName(latinName).Build();
 
-                var addedGenus = repository.Add(genus);
+                repository.Add(genus);
 
                 // TODO: Does Id only get set if SaveChanges is called on UnitOfWork? 
                 //       Or are we calling with value of 0?
 
                 // Act
-                var entity = repository.GenusExtensions().GetItemByLatinName(latinName);
+                var entity = repository.GetItemByLatinName(latinName);
 
                 // Assert
                 entity.Should().NotBeNull();
                 entity.Should().BeOfType<Genus>();
-                entity.Should().BeEquivalentTo(addedGenus);
+                entity.Should().BeEquivalentTo(genus);
             }
         }
     }

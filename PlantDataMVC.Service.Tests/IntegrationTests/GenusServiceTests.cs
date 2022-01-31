@@ -42,7 +42,7 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
-                IRepositoryAsync<Genus> repository = new Repository<Genus>(plantDataDbContext, unitOfWork);
+                IRepositoryAsync<Genus> repository = new EFRepository<Genus>(plantDataDbContext, unitOfWork);
                 IGenusService service = new GenusService(repository);
 
                 var requestGenus = GenusBuilder.aGenus().withNoId().Build();

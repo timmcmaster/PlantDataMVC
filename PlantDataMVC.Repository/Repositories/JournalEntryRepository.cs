@@ -1,17 +1,24 @@
-﻿using System.Linq;
-using Interfaces.Domain.Repository;
+﻿using Framework.Domain.EF;
+using Interfaces.Domain.DataContext;
+using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Repository.Interfaces;
+using System.Linq;
 
 namespace PlantDataMVC.Repository.Repositories
 {
-    /// <summary>
-    ///     Use extension methods to provide specific queries per entity type
-    /// </summary>
-    public static class JournalEntryRepository
+    public class JournalEntryRepository : EFRepository<JournalEntry>, IJournalEntryRepository
     {
-        public static int GetStockCountForProduct(this IRepository<JournalEntry> repository, int plantStockId)
+        private readonly IDataContextAsync _dataContext;
+
+        public JournalEntryRepository(IDataContextAsync dataContext, IUnitOfWorkAsync unitOfWork) : base(dataContext, unitOfWork)
         {
-            return repository
+            _dataContext = dataContext;
+        }
+
+        public int GetStockCountForProduct(int plantStockId)
+        {
+            return this
                    .Queryable()
                    .Where(je => je.PlantStockId == plantStockId)
                    .Select(je => je.Quantity * je.JournalEntryType.Effect)

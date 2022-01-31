@@ -33,8 +33,9 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                 var repository = unitOfWork.Repository<Site>();
 
                 // Act
-                var returnedSite = repository.Add(requestSite);
+                repository.Add(requestSite);
                 unitOfWork.SaveChanges();
+                var returnedSite = repository.GetItemById(requestSite);
 
                 // Assert
                 returnedSite.Should().NotBeNull();
@@ -58,8 +59,9 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                 var repository = unitOfWork.Repository<Site>();
 
                 // Act
-                var returnedSite = repository.Add(requestSite);
+                repository.Add(requestSite);
                 unitOfWork.SaveChanges();
+                var returnedSite = repository.GetItemById(requestSite);
 
                 addedSiteId = returnedSite.Id;
             }
@@ -78,7 +80,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
 
                 try
                 {
-                    repository.Save(site);
+                    repository.Update(site);
                     unitOfWork.SaveChanges();
                 }
                 catch (DbEntityValidationException)
@@ -115,8 +117,9 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                 var repository = unitOfWork.Repository<Site>();
 
                 // Act
-                var returnedSite = repository.Add(requestSite);
+                repository.Add(requestSite);
                 unitOfWork.SaveChanges();
+                var returnedSite = repository.GetItemById(requestSite);
 
                 addedSiteId = returnedSite.Id;
             }
@@ -134,8 +137,9 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
 
                 try
                 {
-                    var updatedSite = repository.Save(site);
+                    repository.Update(site);
                     unitOfWork.SaveChanges();
+                    var updatedSite = repository.GetItemById(site);
                 }
                 catch (DbEntityValidationException ex)
                 {

@@ -88,7 +88,7 @@ namespace Framework.Domain.EF
             }
 
             // 3. Create new one, add to dictionary and return instance
-            var repositoryType = typeof(Repository<>);
+            var repositoryType = typeof(EFRepository<>);
 
             _repositories.Add(
                 type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext, this));

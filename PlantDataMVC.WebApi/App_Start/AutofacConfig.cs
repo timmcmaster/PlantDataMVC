@@ -35,15 +35,15 @@ namespace PlantDataMVC.WebApi
             // These are passed to Service constructors
             //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
 
-            builder.RegisterType<Repository<Genus>>().As<IRepositoryAsync<Genus>>();
-            builder.RegisterType<Repository<JournalEntry>>().As<IRepositoryAsync<JournalEntry>>();
-            builder.RegisterType<Repository<JournalEntryType>>().As<IRepositoryAsync<JournalEntryType>>();
-            builder.RegisterType<Repository<ProductType>>().As<IRepositoryAsync<ProductType>>();
-            builder.RegisterType<Repository<SeedBatch>>().As<IRepositoryAsync<SeedBatch>>();
-            builder.RegisterType<Repository<Site>>().As<IRepositoryAsync<Site>>();
-            builder.RegisterType<Repository<Species>>().As<IRepositoryAsync<Species>>();
-            builder.RegisterType<Repository<SeedTray>>().As<IRepositoryAsync<SeedTray>>();
-            builder.RegisterType<Repository<PlantStock>>().As<IRepositoryAsync<PlantStock>>();
+            builder.RegisterType<EFRepository<Genus>>().As<IRepositoryAsync<Genus>>();
+            builder.RegisterType<EFRepository<JournalEntry>>().As<IRepositoryAsync<JournalEntry>>();
+            builder.RegisterType<EFRepository<JournalEntryType>>().As<IRepositoryAsync<JournalEntryType>>();
+            builder.RegisterType<EFRepository<ProductType>>().As<IRepositoryAsync<ProductType>>();
+            builder.RegisterType<EFRepository<SeedBatch>>().As<IRepositoryAsync<SeedBatch>>();
+            builder.RegisterType<EFRepository<Site>>().As<IRepositoryAsync<Site>>();
+            builder.RegisterType<EFRepository<Species>>().As<IRepositoryAsync<Species>>();
+            builder.RegisterType<EFRepository<SeedTray>>().As<IRepositoryAsync<SeedTray>>();
+            builder.RegisterType<EFRepository<PlantStock>>().As<IRepositoryAsync<PlantStock>>();
 
             //*****************************************
             // Register services wrapping repositories

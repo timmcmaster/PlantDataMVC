@@ -216,7 +216,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var entity = Mapper.Map<CreateUpdateSeedTrayDto, SeedTray>(dtoIn);
                 entity.Id = entityFound.Id;
-                _service.Save(entity);
+                _service.Update(entity);
 
                 // Save changes before we map back
                 var changes = _unitOfWorkAsync.SaveChanges();
@@ -269,7 +269,7 @@ namespace PlantDataMVC.WebApi.Controllers
 
                 var updatedEntity = Mapper.Map<CreateUpdateSeedTrayDto, SeedTray>(dtoFound);
                 updatedEntity.Id = id;
-                _service.Save(updatedEntity);
+                _service.Update(updatedEntity);
 
                 // Save changes before we map back
                 var changes = _unitOfWorkAsync.SaveChanges();

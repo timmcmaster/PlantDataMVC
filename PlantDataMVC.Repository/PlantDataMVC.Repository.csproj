@@ -42,12 +42,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\GenusRepositoryOld.cs" />
+    <Compile Include="Interfaces\ISiteRepository.cs" />
+    <Compile Include="Interfaces\ISeedTrayRepository.cs" />
+    <Compile Include="Interfaces\ISeedBatchRepository.cs" />
+    <Compile Include="Interfaces\IProductTypeRepository.cs" />
+    <Compile Include="Interfaces\IProductPriceRepository.cs" />
+    <Compile Include="Interfaces\IPriceListTypeRepository.cs" />
+    <Compile Include="Interfaces\IPlantStockRepository.cs" />
+    <Compile Include="Interfaces\IJournalEntryTypeRepository.cs" />
+    <Compile Include="Interfaces\IJournalEntryRepository.cs" />
+    <Compile Include="Interfaces\ISpeciesRepository.cs" />
+    <Compile Include="Interfaces\IGenusRepository.cs" />
+    <Compile Include="Repositories\PlantStockRepository.cs" />
+    <Compile Include="Repositories\PriceListTypeRepository.cs" />
+    <Compile Include="Repositories\ProductPriceRepository.cs" />
+    <Compile Include="Repositories\ProductTypeRepository.cs" />
+    <Compile Include="Repositories\SeedBatchRepository.cs" />
+    <Compile Include="Repositories\SeedTrayRepository.cs" />
+    <Compile Include="Repositories\SiteRepository.cs" />
+    <Compile Include="Repositories\SpeciesRepository.cs" />
+    <Compile Include="Repositories\JournalEntryTypeRepository.cs" />
+    <Compile Include="Repositories\GenusRepository.cs" />
+    <Compile Include="Repositories\xxGenusRepositoryOld.cs" />
     <Compile Include="Repositories\JournalEntryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\GenusRepository.cs" />
+    <Compile Include="Repositories\xxGenusRepositoryExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework.Domain.EF\Framework.Domain.EF.csproj">
+      <Project>{23ce37b8-56fa-429a-af13-3b06841c9817}</Project>
+      <Name>Framework.Domain.EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj">
       <Project>{96FD9436-DE5C-432A-94CB-CE5E63EE2405}</Project>
       <Name>Interfaces.Domain</Name>

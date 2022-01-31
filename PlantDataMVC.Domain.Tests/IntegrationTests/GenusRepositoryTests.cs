@@ -29,11 +29,12 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             {
                 // Arrange
                 var requestGenus = GenusBuilder.aGenus().withNoId().Build();
-                var repository = new Repository<Genus>(plantDataDbContext, unitOfWork);
+                var repository = new EFRepository<Genus>(plantDataDbContext, unitOfWork);
 
                 // Act
-                var returnedGenus = repository.Add(requestGenus);
+                repository.Add(requestGenus);
                 unitOfWork.SaveChanges();
+                var returnedGenus = repository.GetItemById(requestGenus);
 
                 // Assert
                 returnedGenus.Should().NotBeNull();
@@ -53,8 +54,9 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                 var repository = unitOfWork.Repository<Genus>();
 
                 // Act
-                var returnedGenus = repository.Add(requestGenus);
+                repository.Add(requestGenus);
                 unitOfWork.SaveChanges();
+                var returnedGenus = repository.GetItemById(requestGenus);
 
                 // Assert
                 returnedGenus.Should().NotBeNull();

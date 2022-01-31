@@ -1,63 +1,30 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Interfaces.Domain.Repository;
+﻿using Framework.Domain.EF;
+using Interfaces.Domain.DataContext;
+using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Models;
-
-// This file provides classes & interfaces to allow extension methods 
-// for <code>IRepository<Genus></code> to be mocked via a mocking framework.
-// <see href="http://blogs.clariusconsulting.net/kzu/making-extension-methods-amenable-to-mocking/"/>
-
-// Allow test assembly to be friend assembly for unit testing
-[assembly: InternalsVisibleTo("PlantDataMVC.Tests.Core")]
+using PlantDataMVC.Repository.Interfaces;
+using System.Linq;
 
 namespace PlantDataMVC.Repository.Repositories
 {
-    public interface IGenusExtensions
+    public class GenusRepository : EFRepository<Genus>, IGenusRepository
     {
-        Genus GetItemByLatinName(string latinName);
-        Genus GetItemWithAllSpecies(int id);
-    }
+        private readonly IDataContextAsync _dataContext;
 
-    /// <summary>
-    ///     Grouping of extension methods specific to repository of Genus
-    /// </summary>
-    /// <seealso cref="PlantDataMVC.Repository.Repositories.IGenusExtensions" />
-    internal class GenusExtensions : IGenusExtensions
-    {
-        private readonly IRepository<Genus> _repository;
-
-        public GenusExtensions(IRepository<Genus> genusRepository)
+        public GenusRepository(IDataContextAsync dataContext, IUnitOfWorkAsync unitOfWork) : base(dataContext, unitOfWork)
         {
-            _repository = genusRepository;
+            _dataContext = dataContext;
         }
 
-        #region IGenusExtensions Members
         public Genus GetItemByLatinName(string latinName)
         {
-            return _repository.Queryable().FirstOrDefault(g => g.LatinName == latinName);
+            return this.Queryable().FirstOrDefault(g => g.LatinName == latinName);
+
         }
 
         public Genus GetItemWithAllSpecies(int id)
         {
-            return _repository.Query(g => g.Id == id).Include(g => g.Species).Select().SingleOrDefault();
-        }
-        #endregion
-    }
-
-    public static class GenusRepository
-    {
-        static GenusRepository()
-        {
-            GenusExtensionsFactory = gr => new GenusExtensions(gr);
-        }
-
-        // use a friend class when testing to set this
-        internal static Func<IRepository<Genus>, IGenusExtensions> GenusExtensionsFactory { get; set; }
-
-        public static IGenusExtensions GenusExtensions(this IRepository<Genus> target)
-        {
-            return GenusExtensionsFactory(target);
+            return this.Query(g => g.Id == id).Include(g => g.Species).Select().SingleOrDefault();
         }
     }
 }

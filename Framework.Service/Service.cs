@@ -19,7 +19,7 @@ namespace Framework.Service
         #region IService<TEntity> Members
         public virtual IQueryable<TEntity> GetAll()
         {
-            return _repository.GetAll();
+            return _repository.GetAllItems();
         }
 
         public virtual TEntity GetItemById(int id)
@@ -27,14 +27,14 @@ namespace Framework.Service
             return _repository.GetItemById(id);
         }
 
-        public virtual TEntity Add(TEntity item)
+        public virtual void Add(TEntity item)
         {
-            return _repository.Add(item);
+            _repository.Add(item);
         }
 
-        public virtual TEntity Save(TEntity item)
+        public virtual void Update(TEntity item)
         {
-            return _repository.Save(item);
+            _repository.Update(item);
         }
 
         public virtual void Delete(TEntity item)

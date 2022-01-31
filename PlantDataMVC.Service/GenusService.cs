@@ -4,6 +4,7 @@ using Framework.Service;
 using Interfaces.Domain.Repository;
 using Interfaces.Service;
 using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Repository.Interfaces;
 using PlantDataMVC.Repository.Repositories;
 
 namespace PlantDataMVC.Service
@@ -25,28 +26,19 @@ namespace PlantDataMVC.Service
         private static readonly ILog _log = LogManager.GetLogger<GenusService>();
         private readonly IRepositoryAsync<Genus> _repository;
 
-        public GenusService(IRepositoryAsync<Genus> repository) : base(repository)
+        public GenusService(IGenusRepository repository) : base(repository)
         {
             _repository = repository;
         }
 
-        #region IGenusService Members
-        // Not really needed, just here as an example
-        public override Genus Add(Genus item)
-        {
-            _log.Debug(m => m("Entering {0}", MethodBase.GetCurrentMethod().Name.ToString()));
-            return base.Add(item);
-        }
-        #endregion
-
         public Genus GetItemByLatinName(string latinName)
         {
-            return _repository.GenusExtensions().GetItemByLatinName(latinName);
+            return _repository.GetItemByLatinName(latinName);
         }
 
         public Genus GetItemWithAllSpecies(int id)
         {
-            return _repository.GenusExtensions().GetItemWithAllSpecies(id);
+            return _repository.GetItemWithAllSpecies(id);
         }
     }
 }
