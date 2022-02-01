@@ -23,10 +23,11 @@ namespace PlantDataMVC.Entities.Context
         public IDbSet<Site> Sites { get; set; } // Site
         public IDbSet<Species> Species { get; set; } // Species
 
-        //static PlantDataDbContext()
-        //{
-        //    Database.SetInitializer<PlantDataDbContext>(null);
-        //}
+        static PlantDataDbContext()
+        {
+            // Disable CodeFirst migrations 
+            Database.SetInitializer<PlantDataDbContext>(null);
+        }
 
         public PlantDataDbContext() 
             : base("Name=PlantDataDbContext")

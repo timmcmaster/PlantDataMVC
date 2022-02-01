@@ -40,21 +40,21 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
             using (IDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
-                // Arrange
-                IRepositoryAsync<Genus> repository = new EFRepository<Genus>(plantDataDbContext);
-                IGenusService service = new GenusService(repository);
+                //// Arrange
+                //IRepositoryAsync<Genus> repository = new EFRepository<Genus>(plantDataDbContext);
+                //IGenusService service = new GenusService(repository);
 
-                var requestGenus = GenusBuilder.aGenus().withNoId().Build();
+                //var requestGenus = GenusBuilder.aGenus().withNoId().Build();
 
-                // Act
-                var returnedGenus = service.Add(requestGenus);
-                var changes = unitOfWork.SaveChanges();
+                //// Act
+                //var returnedGenus = service.Add(requestGenus);
+                //var changes = unitOfWork.SaveChanges();
 
-                // Assert
-                changes.Should().BeGreaterThan(0);
-                returnedGenus.Should().NotBeNull();
-                returnedGenus.Id.Should().NotBe(0);
-                _output.WriteLine("returnedGenus.Id: {0}", returnedGenus.Id);
+                //// Assert
+                //changes.Should().BeGreaterThan(0);
+                //returnedGenus.Should().NotBeNull();
+                //returnedGenus.Id.Should().NotBe(0);
+                //_output.WriteLine("returnedGenus.Id: {0}", returnedGenus.Id);
             }
         }
 
@@ -64,21 +64,21 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
             using (IDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
-                // Arrange
-                var repository = unitOfWork.RepositoryAsync<Genus>();
-                IGenusService service = new GenusService(repository);
+                //// Arrange
+                //var repository = unitOfWork.RepositoryAsync<Genus>();
+                //IGenusService service = new GenusService(repository);
 
-                var requestGenus = GenusBuilder.aGenus().withNoId().Build();
+                //var requestGenus = GenusBuilder.aGenus().withNoId().Build();
 
-                // Act
-                var returnedGenus = service.Add(requestGenus);
-                var changes = unitOfWork.SaveChanges();
+                //// Act
+                //var returnedGenus = service.Add(requestGenus);
+                //var changes = unitOfWork.SaveChanges();
 
-                // Assert
-                changes.Should().BeGreaterThan(0);
-                returnedGenus.Should().NotBeNull();
-                returnedGenus.Id.Should().NotBe(0);
-                _output.WriteLine("returnedGenus.Id: {0}", returnedGenus.Id);
+                //// Assert
+                //changes.Should().BeGreaterThan(0);
+                //returnedGenus.Should().NotBeNull();
+                //returnedGenus.Id.Should().NotBe(0);
+                //_output.WriteLine("returnedGenus.Id: {0}", returnedGenus.Id);
             }
         }
 

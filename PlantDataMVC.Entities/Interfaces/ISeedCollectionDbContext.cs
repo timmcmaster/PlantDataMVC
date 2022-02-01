@@ -15,6 +15,7 @@ namespace PlantDataMVC.Entities.Interfaces
     {
         IDbSet<Genus> Genus { get; set; } // Genus
         IDbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
+        IDbSet<SeedTray> SeedTrays { get; set; } // SeedTray
         IDbSet<Site> Sites { get; set; } // Site
         IDbSet<Species> Species { get; set; } // Species
 

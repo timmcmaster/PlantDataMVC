@@ -66,6 +66,10 @@
     <Compile Include="Configuration\JournalEntryTypeConfiguration.cs" />
     <Compile Include="Configuration\JournalEntryConfiguration.cs" />
     <Compile Include="Configuration\GenusConfiguration.cs" />
+    <Compile Include="Context\InventoryDbContext.cs" />
+    <Compile Include="Context\PlantDefinitionDbContext.cs" />
+    <Compile Include="Context\PricingDbContext.cs" />
+    <Compile Include="Context\SeedCollectionDbContext.cs" />
     <Compile Include="Context\PlantDataDbContextFactory.cs" />
     <Compile Include="Context\PlantDataDbContext.cs" />
     <Compile Include="Context\FakePlantDataDbContext .cs" />
