@@ -9,7 +9,7 @@ namespace PlantDataMVC.Entities.Context
 {
 
 
-    public class PlantDataDbContext : DataContext, IPlantDataDbContext
+    public class PlantDataDbContext : DbContext, IPlantDataDbContext
     {
         public IDbSet<Genus> Genus { get; set; } // Genus
         public IDbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
@@ -23,12 +23,13 @@ namespace PlantDataMVC.Entities.Context
         public IDbSet<Site> Sites { get; set; } // Site
         public IDbSet<Species> Species { get; set; } // Species
 
-        static PlantDataDbContext()
-        {
-            Database.SetInitializer<PlantDataDbContext>(null);
-        }
+        //static PlantDataDbContext()
+        //{
+        //    Database.SetInitializer<PlantDataDbContext>(null);
+        //}
 
-        public PlantDataDbContext() : base("Name=PlantDataDbContext")
+        public PlantDataDbContext() 
+            : base("Name=PlantDataDbContext")
         {
         }
 
@@ -37,39 +38,37 @@ namespace PlantDataMVC.Entities.Context
         {
         }
 
-        public PlantDataDbContext(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model)
-            : base(connectionString, model)
-        {
-        }
+        //public PlantDataDbContext(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model)
+        //    : base(connectionString, model)
+        //{
+        //}
 
         public PlantDataDbContext(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection)
             : base(existingConnection, contextOwnsConnection)
         {
         }
 
-        public PlantDataDbContext(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection)
-            : base(existingConnection, model, contextOwnsConnection)
-        {
-        }
+        //public PlantDataDbContext(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection)
+        //    : base(existingConnection, model, contextOwnsConnection)
+        //{
+        //}
 
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
         }
 
-        public bool IsSqlParameterNull(System.Data.SqlClient.SqlParameter param)
-        {
-            var sqlValue = param.SqlValue;
-            var nullableValue = sqlValue as System.Data.SqlTypes.INullable;
-            if (nullableValue != null)
-                return nullableValue.IsNull;
-            return (sqlValue == null || sqlValue == System.DBNull.Value);
-        }
+        //public bool IsSqlParameterNull(System.Data.SqlClient.SqlParameter param)
+        //{
+        //    var sqlValue = param.SqlValue;
+        //    var nullableValue = sqlValue as System.Data.SqlTypes.INullable;
+        //    if (nullableValue != null)
+        //        return nullableValue.IsNull;
+        //    return (sqlValue == null || sqlValue == System.DBNull.Value);
+        //}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Configurations.Add(new GenusConfiguration());
             modelBuilder.Configurations.Add(new JournalEntryConfiguration());
             modelBuilder.Configurations.Add(new JournalEntryTypeConfiguration());
@@ -81,23 +80,25 @@ namespace PlantDataMVC.Entities.Context
             modelBuilder.Configurations.Add(new SeedTrayConfiguration());
             modelBuilder.Configurations.Add(new SiteConfiguration());
             modelBuilder.Configurations.Add(new SpeciesConfiguration());
+
+            base.OnModelCreating(modelBuilder);
         }
 
-        public static DbModelBuilder CreateModel(DbModelBuilder modelBuilder, string schema)
-        {
-            modelBuilder.Configurations.Add(new GenusConfiguration(schema));
-            modelBuilder.Configurations.Add(new JournalEntryConfiguration(schema));
-            modelBuilder.Configurations.Add(new JournalEntryTypeConfiguration(schema));
-            modelBuilder.Configurations.Add(new PlantStockConfiguration(schema));
-            modelBuilder.Configurations.Add(new PriceListTypeConfiguration(schema));
-            modelBuilder.Configurations.Add(new ProductPriceConfiguration(schema));
-            modelBuilder.Configurations.Add(new ProductTypeConfiguration(schema));
-            modelBuilder.Configurations.Add(new SeedBatchConfiguration(schema));
-            modelBuilder.Configurations.Add(new SeedTrayConfiguration(schema));
-            modelBuilder.Configurations.Add(new SiteConfiguration(schema));
-            modelBuilder.Configurations.Add(new SpeciesConfiguration(schema));
+        //public static DbModelBuilder CreateModel(DbModelBuilder modelBuilder, string schema)
+        //{
+        //    modelBuilder.Configurations.Add(new GenusConfiguration(schema));
+        //    modelBuilder.Configurations.Add(new JournalEntryConfiguration(schema));
+        //    modelBuilder.Configurations.Add(new JournalEntryTypeConfiguration(schema));
+        //    modelBuilder.Configurations.Add(new PlantStockConfiguration(schema));
+        //    modelBuilder.Configurations.Add(new PriceListTypeConfiguration(schema));
+        //    modelBuilder.Configurations.Add(new ProductPriceConfiguration(schema));
+        //    modelBuilder.Configurations.Add(new ProductTypeConfiguration(schema));
+        //    modelBuilder.Configurations.Add(new SeedBatchConfiguration(schema));
+        //    modelBuilder.Configurations.Add(new SeedTrayConfiguration(schema));
+        //    modelBuilder.Configurations.Add(new SiteConfiguration(schema));
+        //    modelBuilder.Configurations.Add(new SpeciesConfiguration(schema));
 
-            return modelBuilder;
-        }
+        //    return modelBuilder;
+        //}
     }
 }

@@ -1,13 +1,12 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentAssertions;
 using Framework.Domain.EF;
-using Interfaces.Domain.DataContext;
 using Interfaces.Domain.Repository;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.DTO.Mappers;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
+using System;
 using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
@@ -38,11 +37,11 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
         [Fact]
         public void Add_UsingCreatedRepository_ReturnsIdAfterSaveChanges()
         {
-            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
-                IRepositoryAsync<Genus> repository = new EFRepository<Genus>(plantDataDbContext, unitOfWork);
+                IRepositoryAsync<Genus> repository = new EFRepository<Genus>(plantDataDbContext);
                 IGenusService service = new GenusService(repository);
 
                 var requestGenus = GenusBuilder.aGenus().withNoId().Build();
@@ -62,7 +61,7 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
         [Fact]
         public void Add_UsingUnitOfWorkRepository_ReturnsIdAfterSaveChanges()
         {
-            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange

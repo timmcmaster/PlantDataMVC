@@ -97,7 +97,7 @@ namespace Interfaces.Domain.Repository
         /// </summary>
         /// <typeparam name="TOtherEntity">The type of the other entity.</typeparam>
         /// <returns></returns>
-        IRepository<TOtherEntity> GetRepository<TOtherEntity>() where TOtherEntity : class, IEntity;
+        //IRepository<TOtherEntity> GetRepository<TOtherEntity>() where TOtherEntity : class, IEntity;
 
     }
 }

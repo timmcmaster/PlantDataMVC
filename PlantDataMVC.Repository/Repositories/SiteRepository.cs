@@ -1,6 +1,4 @@
 ﻿using Framework.Domain.EF;
-using Interfaces.Domain.DataContext;
-using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Interfaces;
 
@@ -8,11 +6,11 @@ namespace PlantDataMVC.Repository.Repositories
 {
     public class SiteRepository : EFRepository<Site>, ISiteRepository
     {
-        private readonly IDataContextAsync _dataContext;
+        private readonly IDbContext _dbContext;
 
-        public SiteRepository(IDataContextAsync dataContext, IUnitOfWorkAsync unitOfWork) : base(dataContext, unitOfWork)
+        public SiteRepository(IDbContext dbContext) : base(dbContext)
         {
-            _dataContext = dataContext;
+            _dbContext = dbContext;
         }
     }
 }

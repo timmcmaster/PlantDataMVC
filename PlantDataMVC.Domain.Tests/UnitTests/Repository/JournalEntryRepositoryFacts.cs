@@ -1,12 +1,10 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Framework.Domain.EF;
-using Interfaces.Domain.DataContext;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Interfaces;
-using PlantDataMVC.Repository.Repositories;
+using System;
 using UnitTest.Utils.Domain;
 using Xunit;
 
@@ -17,7 +15,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
         [Fact]
         public void CanGetTransactionTotalForStockId()
         {
-            using (IDataContextAsync plantDataFakeDbContext = new FakePlantDataDbContext())
+            using (IDbContext plantDataFakeDbContext = new FakePlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange

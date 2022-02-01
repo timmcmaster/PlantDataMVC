@@ -25,15 +25,7 @@ namespace PlantDataMVC.Entities.Interfaces
         IDbSet<Site> Sites { get; set; } // Site
         IDbSet<Species> Species { get; set; } // Species
 
-        int SaveChanges();
-        Task<int> SaveChangesAsync();
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        //DbChangeTracker ChangeTracker { get; }
-        //DbContextConfiguration Configuration { get; }
-        //IEnumerable<DbEntityValidationResult> GetValidationErrors();
-        //DbSet Set(System.Type entityType);
-        DbSet<TEntity> Set<TEntity>() where TEntity : class;
-        //string ToString();
+
     }
 
 }

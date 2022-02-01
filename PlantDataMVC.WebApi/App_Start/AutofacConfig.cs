@@ -1,13 +1,13 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
+using Framework.Domain.EF;
+using Interfaces.Domain.Repository;
+using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
+using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using System.Reflection;
-using Framework.Domain.EF;
-using Interfaces.Domain.DataContext;
-using Interfaces.Domain.Repository;
-using Interfaces.Domain.UnitOfWork;
 
 namespace PlantDataMVC.WebApi
 {
@@ -23,7 +23,7 @@ namespace PlantDataMVC.WebApi
             //*****************************************
             // Register data context
             // This is passed to UnitOfWork constructor
-            builder.RegisterType<PlantDataDbContext>().As<IDataContextAsync>().InstancePerRequest();
+            builder.RegisterType<PlantDataDbContext>().As<IPlantDataDbContext>().InstancePerRequest();
 
             //*****************************************
             // Register unit of work

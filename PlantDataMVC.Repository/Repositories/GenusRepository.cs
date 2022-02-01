@@ -1,6 +1,4 @@
 ﻿using Framework.Domain.EF;
-using Interfaces.Domain.DataContext;
-using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Interfaces;
 using System.Linq;
@@ -9,11 +7,11 @@ namespace PlantDataMVC.Repository.Repositories
 {
     public class GenusRepository : EFRepository<Genus>, IGenusRepository
     {
-        private readonly IDataContextAsync _dataContext;
+        private readonly IDbContext _dbContext;
 
-        public GenusRepository(IDataContextAsync dataContext, IUnitOfWorkAsync unitOfWork) : base(dataContext, unitOfWork)
+        public GenusRepository(IDbContext dbContext) : base(dbContext)
         {
-            _dataContext = dataContext;
+            _dbContext = dbContext;
         }
 
         public Genus GetItemByLatinName(string latinName)

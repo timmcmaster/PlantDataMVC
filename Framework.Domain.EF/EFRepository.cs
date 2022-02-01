@@ -1,15 +1,13 @@
-﻿using System;
+﻿using Interfaces.Domain.Entity;
+using Interfaces.Domain.Repository;
+using LinqKit;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Interfaces.Domain.DataContext;
-using Interfaces.Domain.Entity;
-using Interfaces.Domain.Infrastructure;
-using Interfaces.Domain.Repository;
-using Interfaces.Domain.UnitOfWork;
-using LinqKit;
 
 namespace Framework.Domain.EF
 {
@@ -21,27 +19,29 @@ namespace Framework.Domain.EF
     public class EFRepository<TEntity> : IRepositoryAsync<TEntity>
         where TEntity : class, IEntity
     {
-        private readonly IDataContextAsync _context;
+        private readonly IDbContext _context;
         private readonly IDbSet<TEntity> _dbSet;
-        private readonly IUnitOfWorkAsync _unitOfWork;
+        //private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public EFRepository(IDataContextAsync context, IUnitOfWorkAsync unitOfWork)
+        //public EFRepository(IDbContext context, IUnitOfWorkAsync unitOfWork)
+        public EFRepository(IDbContext context)
         {
             _context = context;
-            _unitOfWork = unitOfWork;
+            //_unitOfWork = unitOfWork;
 
             // HACK: Feels dodgy to need to know which context type it is here
             // I suspect it is here because Set is an EF concept, not generic, hence not in interface 
 
-            switch (context)
-            {
-                case DbContext dbContext:
-                    _dbSet = dbContext.Set<TEntity>();
-                    break;
-                case FakeDbContext fakeContext:
-                    _dbSet = fakeContext.Set<TEntity>();
-                    break;
-            }
+            //switch (context)
+            //{
+            //    case DbContext dbContext:
+            //        _dbSet = dbContext.Set<TEntity>();
+            //        break;
+            //    case FakeDbContext fakeContext:
+            //        _dbSet = fakeContext.Set<TEntity>();
+            //        break;
+            //}
+            _dbSet = _context.Set<TEntity>();
         }
 
         #region IRepositoryAsync<TEntity> Members
@@ -52,7 +52,7 @@ namespace Framework.Domain.EF
 
         public IQueryable<TEntity> GetAllItemsAsNoTracking()
         {
-            throw new NotImplementedException();
+            return _dbSet.AsNoTracking<TEntity>();
         }
 
         public virtual TEntity GetItemById(int id)
@@ -89,9 +89,15 @@ namespace Framework.Domain.EF
 
         public virtual void Add(TEntity item)
         {
-            item.ObjectState = ObjectState.Added;
-            _dbSet.Attach(item);
-            _context.SyncObjectState(item);
+            DbEntityEntry dbEntityEntry = _context.Entry(item);
+            if (dbEntityEntry.State != EntityState.Detached)
+            {
+                dbEntityEntry.State = EntityState.Added;
+            }
+            else
+            {
+                _dbSet.Add(item);
+            }
         }
 
         //public virtual void AddRange(List<TEntity> itemList)
@@ -101,21 +107,26 @@ namespace Framework.Domain.EF
 
         public virtual void Update(TEntity item)
         {
-            // TODO: Does save need to be a detach of existing and attach of new item
-            //       in order to implement PUT method properly?
+            DbEntityEntry dbEntityEntry = _context.Entry(item);
+            if (dbEntityEntry.State == EntityState.Detached)
+                _dbSet.Attach(item);
 
-            // ObjectState is required here to ensure data actually gets saved
-            // while also allowing non-EF implementations of generic pattern
-            item.ObjectState = ObjectState.Modified;
-            _dbSet.Attach(item);
-            _context.SyncObjectState(item);
+            if (dbEntityEntry.State != EntityState.Added)
+                dbEntityEntry.State = EntityState.Modified;
         }
 
         public void Delete(TEntity item)
         {
-            item.ObjectState = ObjectState.Deleted;
-            _dbSet.Attach(item);
-            _context.SyncObjectState(item);
+            DbEntityEntry dbEntityEntry = _context.Entry(item);
+            if (dbEntityEntry.State != EntityState.Deleted)
+            {
+                dbEntityEntry.State = EntityState.Deleted;
+            }
+            else
+            {
+                _dbSet.Attach(item);
+                _dbSet.Remove(item);
+            }
         }
 
         public void Delete(int id)
@@ -144,10 +155,14 @@ namespace Framework.Domain.EF
 
         public virtual void Remove(TEntity item)
         {
-                //if (item.ObjectState == ObjectState.Added)
-                //    item.ObjectState = ObjectState.Detached;
-                //else
+            var entry = _context.Entry(item);
+            if (entry != null)
+            {
+                if (entry.State == EntityState.Added)
+                    entry.State = EntityState.Detached;
+                else
                     Delete(item);
+            }
         }
 
 
@@ -171,12 +186,41 @@ namespace Framework.Domain.EF
             return _dbSet;
         }
 
-        public IRepository<TOtherEntity> GetRepository<TOtherEntity>() where TOtherEntity : class, IEntity
-        {
-            return _unitOfWork.Repository<TOtherEntity>();
-        }
+        //public IRepository<TOtherEntity> GetRepository<TOtherEntity>() where TOtherEntity : class, IEntity
+        //{
+        //    return _unitOfWork.Repository<TOtherEntity>();
+        //}
         #endregion
 
+
+        public virtual void Detach(TEntity item)
+        {
+            DbEntityEntry dbEntityEntry = _context.Entry(item);
+            if (dbEntityEntry.State != EntityState.Detached)
+            {
+                dbEntityEntry.State = EntityState.Detached;
+            }
+        }
+
+        /// <summary>
+        /// Detach an object from the context, can be used to force future refreshes of the object from the db
+        /// </summary>
+        /// <param name="id"></param>
+        public virtual void Detach(String id)
+        {
+            var entity = _dbSet.Find(id);
+            if (entity == null)
+                return;
+            Detach(entity);
+        }
+
+        public virtual void Detach<U>(U id)
+        {
+            var entity = _dbSet.Find(id);
+            if (entity == null)
+                return;
+            Detach(entity);
+        }
 
         internal IQueryable<TEntity> Select(Expression<Func<TEntity, bool>> filter = null,
                                             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
 using Interfaces.Domain.Entity;
@@ -21,9 +22,17 @@ namespace Framework.Domain.EF
             _fakeDbSets = new Dictionary<Type, object>();
         }
 
-        #region IFakeDbContext Members
-        public void Dispose()
+        #region IDbContext Members
+        public Database Database => throw new NotImplementedException();
+
+        public DbEntityEntry Entry(object entity)
         {
+            throw new NotImplementedException();
+        }
+
+        public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
+        {
+            throw new NotImplementedException();
         }
 
         public int SaveChanges()
@@ -45,7 +54,9 @@ namespace Framework.Domain.EF
         {
             return (DbSet<T>) _fakeDbSets[typeof(T)];
         }
+        #endregion
 
+        #region IFakeDbContext members
         public void AddFakeDbSet<TEntity, TFakeDbSet>()
             where TEntity : class, IEntity, new()
             where TFakeDbSet : FakeDbSet<TEntity>, IDbSet<TEntity>, new()
@@ -53,12 +64,10 @@ namespace Framework.Domain.EF
             var fakeDbSet = Activator.CreateInstance<TFakeDbSet>();
             _fakeDbSets.Add(typeof(TEntity), fakeDbSet);
         }
+        #endregion
 
-        public void SyncObjectState<TEntity>(TEntity entity) where TEntity : class, IObjectState
-        {
-        }
-
-        public void SyncObjectsStatePostCommit()
+        #region IDisposable members
+        public void Dispose()
         {
         }
         #endregion

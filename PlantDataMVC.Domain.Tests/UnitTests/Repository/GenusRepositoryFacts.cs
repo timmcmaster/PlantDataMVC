@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using Framework.Domain.EF;
-using Interfaces.Domain.DataContext;
 using Interfaces.Domain.Repository;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
@@ -16,11 +15,11 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
         [Fact]
         public void CanAddItemWithId()
         {
-            using (IDataContextAsync plantDataFakeDbContext = new FakePlantDataDbContext())
+            using (IDbContext plantDataFakeDbContext = new FakePlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange
-                IRepositoryAsync<Genus> genusRepository = new EFRepository<Genus>(plantDataFakeDbContext, unitOfWork);
+                IRepositoryAsync<Genus> genusRepository = new EFRepository<Genus>(plantDataFakeDbContext);
 
                 var genus = GenusBuilder.aGenus().withId().withLatinName("Eremophila").Build();
 
@@ -40,7 +39,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
         [Fact]
         public void CanAddItemWithoutId()
         {
-            using (IDataContextAsync plantDataFakeDbContext = new FakePlantDataDbContext())
+            using (IDbContext plantDataFakeDbContext = new FakePlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange
@@ -62,7 +61,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
         [Fact]
         public void CanGetItemById()
         {
-            using (IDataContextAsync plantDataFakeDbContext = new FakePlantDataDbContext())
+            using (IDbContext plantDataFakeDbContext = new FakePlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange
@@ -87,7 +86,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
         [Fact]
         public void CanGetItemByLatinName()
         {
-            using (IDataContextAsync plantDataFakeDbContext = new FakePlantDataDbContext())
+            using (IDbContext plantDataFakeDbContext = new FakePlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 var latinName = "Eremophila";

@@ -1,15 +1,14 @@
-﻿using System;
+﻿using CommonServiceLocator;
+using Interfaces.Domain.Entity;
+using Interfaces.Domain.Repository;
+using Interfaces.Domain.UnitOfWork;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
-using CommonServiceLocator;
-using Interfaces.Domain.DataContext;
-using Interfaces.Domain.Entity;
-using Interfaces.Domain.Repository;
-using Interfaces.Domain.UnitOfWork;
 
 namespace Framework.Domain.EF
 {
@@ -19,32 +18,32 @@ namespace Framework.Domain.EF
     /// </summary>
     public class UnitOfWork : IUnitOfWorkAsync
     {
-        private IDataContextAsync _dataContext;
+        private IDbContext _dbContext;
         private bool _disposed;
         private ObjectContext _objectContext;
         private readonly Dictionary<string, dynamic> _repositories;
         private IDbTransaction _transaction;
 
-        public UnitOfWork(IDataContextAsync dataContext)
+        public UnitOfWork(IDbContext dbContext)
         {
-            _dataContext = dataContext;
+            _dbContext = dbContext;
             _repositories = new Dictionary<string, dynamic>();
         }
 
         #region IUnitOfWorkAsync Members
         public int SaveChanges()
         {
-            return _dataContext.SaveChanges();
+            return _dbContext.SaveChanges();
         }
 
         public Task<int> SaveChangesAsync()
         {
-            return _dataContext.SaveChangesAsync();
+            return _dbContext.SaveChangesAsync();
         }
 
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
-            return _dataContext.SaveChangesAsync(cancellationToken);
+            return _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         public void Dispose()
@@ -91,14 +90,14 @@ namespace Framework.Domain.EF
             var repositoryType = typeof(EFRepository<>);
 
             _repositories.Add(
-                type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext, this));
+                type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dbContext, this));
 
             return _repositories[type];
         }
 
         public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified)
         {
-            _objectContext = ((IObjectContextAdapter) _dataContext).ObjectContext;
+            _objectContext = ((IObjectContextAdapter)_dbContext).ObjectContext;
 
             if (_objectContext.Connection.State != ConnectionState.Open)
             {
@@ -117,7 +116,7 @@ namespace Framework.Domain.EF
         public void Rollback()
         {
             _transaction.Rollback();
-            _dataContext.SyncObjectsStatePostCommit();
+            //_dataContext.SyncObjectsStatePostCommit();
         }
         #endregion
 
@@ -139,10 +138,10 @@ namespace Framework.Domain.EF
                         // do nothing, the objectContext has already been disposed
                     }
 
-                    if (_dataContext != null)
+                    if (_dbContext != null)
                     {
-                        _dataContext.Dispose();
-                        _dataContext = null;
+                        _dbContext.Dispose();
+                        _dbContext = null;
                     }
                 }
             }

@@ -1,12 +1,11 @@
-﻿using System.Data.Entity;
-using Interfaces.Domain.DataContext;
-using Interfaces.Domain.Entity;
+﻿using Interfaces.Domain.Entity;
+using System.Data.Entity;
 
 namespace Framework.Domain.EF
 {
-    public interface IFakeDbContext : IDataContextAsync
+    public interface IFakeDbContext : IDbContext
     {
-        DbSet<T> Set<T>() where T : class;
+        //DbSet<T> Set<T>() where T : class;
 
         void AddFakeDbSet<TEntity, TFakeDbSet>()
             where TEntity : class, IEntity, new()

@@ -1,6 +1,4 @@
 ﻿using Framework.Domain.EF;
-using Interfaces.Domain.DataContext;
-using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Interfaces;
 
@@ -8,11 +6,11 @@ namespace PlantDataMVC.Repository.Repositories
 {
     public class JournalEntryTypeRepository : EFRepository<JournalEntryType>, IJournalEntryTypeRepository
     {
-        private readonly IDataContextAsync _dataContext;
+        private readonly IDbContext _dbContext;
 
-        public JournalEntryTypeRepository(IDataContextAsync dataContext, IUnitOfWorkAsync unitOfWork) : base(dataContext, unitOfWork)
+        public JournalEntryTypeRepository(IDbContext dbContext) : base(dbContext)
         {
-            _dataContext = dataContext;
+            _dbContext = dbContext;
         }
     }
 }

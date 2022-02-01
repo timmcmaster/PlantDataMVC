@@ -72,7 +72,6 @@
   <ItemGroup>
     <Compile Include="DataContext\IDbContext.cs" />
     <Compile Include="EFLoggingInterceptor.cs" />
-    <Compile Include="DataContext\DataContext.cs" />
     <Compile Include="DataContext\FakeDbContext.cs" />
     <Compile Include="DataContext\IFakeDbContext.cs" />
     <Compile Include="DataContext\FakeDbSet.cs" />

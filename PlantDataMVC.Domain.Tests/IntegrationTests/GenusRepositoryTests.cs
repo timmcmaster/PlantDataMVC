@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using Framework.Domain.EF;
-using Interfaces.Domain.DataContext;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
@@ -24,12 +23,12 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
         [Fact]
         public void Add_UsingCreatedRepository_ReturnsIdAfterSaveChanges()
         {
-            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
                 var requestGenus = GenusBuilder.aGenus().withNoId().Build();
-                var repository = new EFRepository<Genus>(plantDataDbContext, unitOfWork);
+                var repository = new EFRepository<Genus>(plantDataDbContext);
 
                 // Act
                 repository.Add(requestGenus);
@@ -46,7 +45,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
         [Fact]
         public void Add_UsingUnitOfWorkRepository_ReturnsIdAfterSaveChanges()
         {
-            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange

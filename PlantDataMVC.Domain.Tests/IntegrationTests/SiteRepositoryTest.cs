@@ -1,10 +1,10 @@
-﻿using System.Data.Entity.Validation;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Framework.Domain.EF;
-using Interfaces.Domain.DataContext;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
+using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.Models;
+using System.Data.Entity.Validation;
 using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
@@ -25,7 +25,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
         [Fact]
         public void CanCreateSiteAndReturnIdentityWithSaveChanges()
         {
-            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IPlantDataDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
@@ -52,7 +52,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             var siteLongitude = 1.12345m;
 
             // Add a site so that we can update it
-            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 var requestSite = SiteBuilder.aSite().withNoId().Build();
@@ -67,7 +67,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             }
 
             // Update with one context
-            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
@@ -89,7 +89,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             }
 
             // Retrieve with another
-            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 var repository = unitOfWork.Repository<Site>();
@@ -110,7 +110,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             var siteLongitude = 1.12345m;
 
             // Add a site so that we can update it
-            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 var requestSite = SiteBuilder.aSite().withNoId().Build();
@@ -124,7 +124,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                 addedSiteId = returnedSite.Id;
             }
 
-            using (IDataContextAsync plantDataDbContext = new PlantDataDbContext())
+            using (IDbContext plantDataDbContext = new PlantDataDbContext())
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange

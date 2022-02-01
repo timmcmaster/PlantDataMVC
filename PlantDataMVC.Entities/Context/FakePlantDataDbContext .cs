@@ -97,15 +97,15 @@ namespace PlantDataMVC.Entities.Context
             set => throw new NotImplementedException();
         }
 
-        public DbChangeTracker ChangeTracker
-        {
-            get => _changeTracker;
-        }
+        //public DbChangeTracker ChangeTracker
+        //{
+        //    get => _changeTracker;
+        //}
 
-        public DbContextConfiguration Configuration
-        {
-            get => _configuration;
-        }
+        //public DbContextConfiguration Configuration
+        //{
+        //    get => _configuration;
+        //}
 
         public Database Database
         {
@@ -122,20 +122,20 @@ namespace PlantDataMVC.Entities.Context
             throw new NotImplementedException();
         }
 
-        public IEnumerable<DbEntityValidationResult> GetValidationErrors()
-        {
-            throw new NotImplementedException();
-        }
+        //public IEnumerable<DbEntityValidationResult> GetValidationErrors()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public DbSet Set(Type entityType)
-        {
-            throw new NotImplementedException();
-        }
+        //public DbSet Set(Type entityType)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override string ToString()
-        {
-            throw new NotImplementedException();
-        }
+        //public override string ToString()
+        //{
+        //    throw new NotImplementedException();
+        //}
         #endregion
     }
 }
