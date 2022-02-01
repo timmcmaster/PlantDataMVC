@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Interfaces.Domain.Entity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
-using Interfaces.Domain.Entity;
-using Interfaces.Domain.Infrastructure;
 
 namespace Framework.Domain.EF
 {

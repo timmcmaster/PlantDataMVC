@@ -43,11 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\IEntity.cs" />
-    <Compile Include="Entity\ValueObject.cs" />
-    <Compile Include="Infrastructure\IObjectState.cs" />
-    <Compile Include="Infrastructure\ObjectState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IQueryFluent.cs" />
     <Compile Include="Repository\IQueryObject.cs" />
@@ -56,8 +52,6 @@
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\IUnitOfWorkAsync.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataContext\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
 {
-    public class ProductPrice : Entity
+    public class ProductPrice : IEntity
     {
-        // HACK: Putting Id in just to meet interface requirements
-        public override int Id
-        {
-            get => -1;
-            set { }
-        }
+        //// HACK: Putting Id in just to meet interface requirements
+        //public override int Id
+        //{
+        //    get => -1;
+        //    set { }
+        //}
 
         [Required]
         [Display(Name = "Price list type ID")]

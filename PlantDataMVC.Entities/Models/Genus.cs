@@ -6,11 +6,11 @@ using Interfaces.Domain.Entity;
 
 namespace PlantDataMVC.Entities.Models
 {
-    public class Genus : Entity
+    public class Genus : IEntity
     {
         [Required]
         [Display(Name = "Id")]
-        public override int Id { get; set; } // Id (Primary key)
+        public int Id { get; set; } // Id (Primary key)
 
         [Required(AllowEmptyStrings = true)]
         [MaxLength(30)]

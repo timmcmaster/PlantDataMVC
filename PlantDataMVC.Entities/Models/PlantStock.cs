@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
 {
-    public class PlantStock: Entity
+    public class PlantStock: IEntity
     {
         [Required]
         [Display(Name = "Id")]
-        public override int Id { get; set; } // Id (Primary key)
+        public int Id { get; set; } // Id (Primary key)
 
         [Required]
         [Display(Name = "Species ID")]

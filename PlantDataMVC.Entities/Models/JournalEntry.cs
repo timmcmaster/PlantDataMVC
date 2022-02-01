@@ -7,11 +7,11 @@ namespace PlantDataMVC.Entities.Models
 {
 
     // JournalEntry
-    public class JournalEntry: Entity
+    public class JournalEntry: IEntity
     {
         [Required]
         [Display(Name = "Id")]
-        public override int Id { get; set; } // Id (Primary key)
+        public int Id { get; set; } // Id (Primary key)
 
         [Required]
         [Display(Name = "Plant stock ID")]

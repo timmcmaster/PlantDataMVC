@@ -8,11 +8,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
 {
-    public class Species : Entity
+    public class Species : IEntity
     {
         [Required]
         [Display(Name = "Id")]
-        public override int Id { get; set; } // Id (Primary key)
+        public int Id { get; set; } // Id (Primary key)
 
         [Required]
         [Display(Name = "Genus ID")]

@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
 {
-    public class ProductType : Entity
+    public class ProductType : IEntity
     {
         [Required]
         [Display(Name = "Id")]
-        public override int Id { get; set; } // Id (Primary key)
+        public int Id { get; set; } // Id (Primary key)
 
         [Required(AllowEmptyStrings = true)]
         [MaxLength(50)]

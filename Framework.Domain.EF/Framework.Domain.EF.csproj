@@ -79,7 +79,6 @@
     <Compile Include="QueryFluent.cs" />
     <Compile Include="QueryObject.cs" />
     <Compile Include="EFRepository.cs" />
-    <Compile Include="StateHelper.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
