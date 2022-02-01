@@ -31,67 +31,67 @@ namespace PlantDataMVC.Entities.Context
         }
 
         #region IPlantDataDbContext Members
-        public DbSet<Genus> Genus
+        public IDbSet<Genus> Genus
         {
             get => Set<Genus>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<JournalEntry> JournalEntries
+        public IDbSet<JournalEntry> JournalEntries
         {
             get => Set<JournalEntry>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<JournalEntryType> JournalEntryTypes
+        public IDbSet<JournalEntryType> JournalEntryTypes
         {
             get => Set<JournalEntryType>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<PlantStock> PlantStocks
+        public IDbSet<PlantStock> PlantStocks
         {
             get => Set<PlantStock>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<PriceListType> PriceListTypes
+        public IDbSet<PriceListType> PriceListTypes
         {
             get => Set<PriceListType>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<ProductPrice> ProductPrices
+        public IDbSet<ProductPrice> ProductPrices
         {
             get => Set<ProductPrice>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<ProductType> ProductTypes
+        public IDbSet<ProductType> ProductTypes
         {
             get => Set<ProductType>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<SeedBatch> SeedBatches
+        public IDbSet<SeedBatch> SeedBatches
         {
             get => Set<SeedBatch>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<SeedTray> SeedTrays
+        public IDbSet<SeedTray> SeedTrays
         {
             get => Set<SeedTray>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<Site> Sites
+        public IDbSet<Site> Sites
         {
             get => Set<Site>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<Species> Species
+        public IDbSet<Species> Species
         {
             get => Set<Species>();
             set => throw new NotImplementedException();

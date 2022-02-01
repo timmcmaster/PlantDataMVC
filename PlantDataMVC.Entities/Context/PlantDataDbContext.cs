@@ -11,17 +11,17 @@ namespace PlantDataMVC.Entities.Context
 
     public class PlantDataDbContext : DataContext, IPlantDataDbContext
     {
-        public DbSet<Genus> Genus { get; set; } // Genus
-        public DbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
-        public DbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
-        public DbSet<PlantStock> PlantStocks { get; set; } // PlantStock
-        public DbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
-        public DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
-        public DbSet<ProductType> ProductTypes { get; set; } // ProductType
-        public DbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
-        public DbSet<SeedTray> SeedTrays { get; set; } // SeedTray
-        public DbSet<Site> Sites { get; set; } // Site
-        public DbSet<Species> Species { get; set; } // Species
+        public IDbSet<Genus> Genus { get; set; } // Genus
+        public IDbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
+        public IDbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
+        public IDbSet<PlantStock> PlantStocks { get; set; } // PlantStock
+        public IDbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
+        public IDbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
+        public IDbSet<ProductType> ProductTypes { get; set; } // ProductType
+        public IDbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
+        public IDbSet<SeedTray> SeedTrays { get; set; } // SeedTray
+        public IDbSet<Site> Sites { get; set; } // Site
+        public IDbSet<Species> Species { get; set; } // Species
 
         static PlantDataDbContext()
         {

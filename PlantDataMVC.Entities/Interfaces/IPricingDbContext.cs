@@ -11,28 +11,20 @@ using Framework.Domain.EF;
 namespace PlantDataMVC.Entities.Interfaces
 {
 
-    public interface IPlantDataDbContext : IDbContext, IDisposable
+    public interface IPricingDbContext : IDbContext, IDisposable
     {
-        IDbSet<Genus> Genus { get; set; } // Genus
-        IDbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
-        IDbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
-        IDbSet<PlantStock> PlantStocks { get; set; } // PlantStock
         IDbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
         IDbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
         IDbSet<ProductType> ProductTypes { get; set; } // ProductType
-        IDbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
-        IDbSet<SeedTray> SeedTrays { get; set; } // SeedTray
-        IDbSet<Site> Sites { get; set; } // Site
-        IDbSet<Species> Species { get; set; } // Species
 
-        int SaveChanges();
-        Task<int> SaveChangesAsync();
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        //int SaveChanges();
+        //Task<int> SaveChangesAsync();
+        //Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         //DbChangeTracker ChangeTracker { get; }
         //DbContextConfiguration Configuration { get; }
         //IEnumerable<DbEntityValidationResult> GetValidationErrors();
         //DbSet Set(System.Type entityType);
-        DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        //DbSet<TEntity> Set<TEntity>() where TEntity : class;
         //string ToString();
     }
 

@@ -71,6 +71,10 @@
     <Compile Include="Context\FakePlantDataDbContext .cs" />
     <Compile Include="Context\FakePlantDataDbSets.cs" />
     <Compile Include="Interfaces\IPlantDataDbContext.cs" />
+    <Compile Include="Interfaces\ISeedCollectionDbContext.cs" />
+    <Compile Include="Interfaces\IInventoryDbContext.cs" />
+    <Compile Include="Interfaces\IPricingDbContext.cs" />
+    <Compile Include="Interfaces\IPlantDefinitionDbContext.cs" />
     <Compile Include="Models\Genus.cs" />
     <Compile Include="Models\JournalEntry.cs" />
     <Compile Include="Models\JournalEntryType.cs" />

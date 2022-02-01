@@ -70,11 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContext\IDbContext.cs" />
     <Compile Include="EFLoggingInterceptor.cs" />
-    <Compile Include="DataContext.cs" />
-    <Compile Include="FakeDbContext.cs" />
-    <Compile Include="IFakeDbContext.cs" />
-    <Compile Include="FakeDbSet.cs" />
+    <Compile Include="DataContext\DataContext.cs" />
+    <Compile Include="DataContext\FakeDbContext.cs" />
+    <Compile Include="DataContext\IFakeDbContext.cs" />
+    <Compile Include="DataContext\FakeDbSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryFluent.cs" />
     <Compile Include="QueryObject.cs" />
