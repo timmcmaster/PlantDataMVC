@@ -13,8 +13,9 @@ namespace Framework.Domain.EF
     {
         //String Schema { get; }
         Database Database { get; }
-        DbEntityEntry Entry(object entity);
-        DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+        EntityState GetState<TEntity>(TEntity entity) where TEntity: class;
+        void SetState<TEntity>(TEntity entity, EntityState entityState);
+
 
         int SaveChanges();
         Task<int> SaveChangesAsync();

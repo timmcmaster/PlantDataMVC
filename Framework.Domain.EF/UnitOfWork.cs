@@ -90,7 +90,7 @@ namespace Framework.Domain.EF
             var repositoryType = typeof(EFRepository<>);
 
             _repositories.Add(
-                type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dbContext, this));
+                type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dbContext));
 
             return _repositories[type];
         }

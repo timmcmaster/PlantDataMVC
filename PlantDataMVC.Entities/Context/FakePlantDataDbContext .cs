@@ -112,16 +112,6 @@ namespace PlantDataMVC.Entities.Context
             get => _database;
         }
 
-        public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public DbEntityEntry Entry(object entity)
-        {
-            throw new NotImplementedException();
-        }
-
         //public IEnumerable<DbEntityValidationResult> GetValidationErrors()
         //{
         //    throw new NotImplementedException();

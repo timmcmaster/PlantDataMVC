@@ -89,10 +89,10 @@ namespace Framework.Domain.EF
 
         public virtual void Add(TEntity item)
         {
-            DbEntityEntry dbEntityEntry = _context.Entry(item);
-            if (dbEntityEntry.State != EntityState.Detached)
+            var entityState = _context.GetState(item);
+            if (entityState != EntityState.Detached)
             {
-                dbEntityEntry.State = EntityState.Added;
+                _context.SetState(item, EntityState.Added);
             }
             else
             {
@@ -107,20 +107,20 @@ namespace Framework.Domain.EF
 
         public virtual void Update(TEntity item)
         {
-            DbEntityEntry dbEntityEntry = _context.Entry(item);
-            if (dbEntityEntry.State == EntityState.Detached)
+            var entityState = _context.GetState<TEntity>(item);
+            if (entityState == EntityState.Detached)
                 _dbSet.Attach(item);
 
-            if (dbEntityEntry.State != EntityState.Added)
-                dbEntityEntry.State = EntityState.Modified;
+            if (entityState != EntityState.Added)
+                _context.SetState(item, EntityState.Modified);
         }
 
         public void Delete(TEntity item)
         {
-            DbEntityEntry dbEntityEntry = _context.Entry(item);
-            if (dbEntityEntry.State != EntityState.Deleted)
+            var entityState = _context.GetState<TEntity>(item);
+            if (entityState != EntityState.Deleted)
             {
-                dbEntityEntry.State = EntityState.Deleted;
+                _context.SetState(item, EntityState.Deleted);
             }
             else
             {
@@ -155,14 +155,15 @@ namespace Framework.Domain.EF
 
         public virtual void Remove(TEntity item)
         {
-            var entry = _context.Entry(item);
-            if (entry != null)
-            {
-                if (entry.State == EntityState.Added)
-                    entry.State = EntityState.Detached;
-                else
-                    Delete(item);
-            }
+            //var entry = _context.Entry(item);
+            //if (entry != null)
+            //{
+            var entityState = _context.GetState(item);
+            if (entityState == EntityState.Added)
+                _context.SetState(item, EntityState.Detached);
+            else
+                Delete(item);
+            //}
         }
 
 
@@ -195,10 +196,10 @@ namespace Framework.Domain.EF
 
         public virtual void Detach(TEntity item)
         {
-            DbEntityEntry dbEntityEntry = _context.Entry(item);
-            if (dbEntityEntry.State != EntityState.Detached)
+            var entityState = _context.GetState(item);
+            if (entityState != EntityState.Detached)
             {
-                dbEntityEntry.State = EntityState.Detached;
+                _context.SetState(item,EntityState.Detached);
             }
         }
 

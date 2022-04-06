@@ -50,5 +50,14 @@ namespace PlantDataMVC.Entities.Context
             base.OnModelCreating(modelBuilder);
         }
 
+        public EntityState GetState<TEntity>(TEntity entity) where TEntity : class
+        {
+            return Entry(entity).State;
+        }
+
+        public void SetState<TEntity>(TEntity entity, EntityState entityState)
+        {
+            Entry(entity).State = entityState;
+        }
     }
 }
