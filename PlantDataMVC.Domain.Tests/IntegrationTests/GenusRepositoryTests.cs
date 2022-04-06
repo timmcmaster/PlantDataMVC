@@ -33,7 +33,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                 // Act
                 repository.Add(requestGenus);
                 unitOfWork.SaveChanges();
-                var returnedGenus = repository.GetItemById(requestGenus);
+                var returnedGenus = repository.GetItemById(requestGenus.Id);
 
                 // Assert
                 returnedGenus.Should().NotBeNull();
@@ -55,7 +55,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                 // Act
                 repository.Add(requestGenus);
                 unitOfWork.SaveChanges();
-                var returnedGenus = repository.GetItemById(requestGenus);
+                var returnedGenus = repository.GetItemById(requestGenus.Id);
 
                 // Assert
                 returnedGenus.Should().NotBeNull();

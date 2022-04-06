@@ -35,7 +35,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                 // Act
                 repository.Add(requestSite);
                 unitOfWork.SaveChanges();
-                var returnedSite = repository.GetItemById(requestSite);
+                var returnedSite = repository.GetItemById(requestSite.Id);
 
                 // Assert
                 returnedSite.Should().NotBeNull();
@@ -61,7 +61,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                 // Act
                 repository.Add(requestSite);
                 unitOfWork.SaveChanges();
-                var returnedSite = repository.GetItemById(requestSite);
+                var returnedSite = repository.GetItemById(requestSite.Id);
 
                 addedSiteId = returnedSite.Id;
             }
@@ -119,7 +119,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                 // Act
                 repository.Add(requestSite);
                 unitOfWork.SaveChanges();
-                var returnedSite = repository.GetItemById(requestSite);
+                var returnedSite = repository.GetItemById(requestSite.Id);
 
                 addedSiteId = returnedSite.Id;
             }
@@ -139,7 +139,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                 {
                     repository.Update(site);
                     unitOfWork.SaveChanges();
-                    var updatedSite = repository.GetItemById(site);
+                    var updatedSite = repository.GetItemById(site.Id);
                 }
                 catch (DbEntityValidationException ex)
                 {

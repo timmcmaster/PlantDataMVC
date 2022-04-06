@@ -26,7 +26,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                 // Act
                 genusRepository.Add(genus);
                 unitOfWork.SaveChanges();
-                var addedGenus = genusRepository.GetItemById(genus);
+                var addedGenus = genusRepository.GetItemById(genus.Id);
 
                 // Assert
                 addedGenus.Should().NotBeNull();
@@ -48,7 +48,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
 
                 // Act
                 repository.Add(genus);
-                var addedGenus = repository.GetItemById(genus);
+                var addedGenus = repository.GetItemById(genus.Id);
 
                 // Assert
                 addedGenus.Should().NotBeNull();
@@ -74,7 +74,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                 //       Or are we calling with value of 0?
 
                 // Act
-                var entity = repository.GetItemById(genus);
+                var entity = repository.GetItemById(genus.Id);
 
                 // Assert
                 entity.Should().NotBeNull();
