@@ -22,7 +22,7 @@ namespace PlantDataMVC.IdSrv.Config
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "McMaster"),
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebReadUser"),
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebWriteUser"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebAdminUser"),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebAdminUser")
                     }
                 },
 
