@@ -8,6 +8,8 @@ using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using System.Reflection;
+using PlantDataMVC.Repository.Interfaces;
+using PlantDataMVC.Repository.Repositories;
 
 namespace PlantDataMVC.WebApi
 {
@@ -23,7 +25,8 @@ namespace PlantDataMVC.WebApi
             //*****************************************
             // Register data context
             // This is passed to UnitOfWork constructor
-            builder.RegisterType<PlantDataDbContext>().As<IPlantDataDbContext>().InstancePerRequest();
+            //builder.RegisterType<PlantDataDbContext>().As<IPlantDataDbContext>().InstancePerRequest();
+            builder.RegisterType<PlantDataDbContext>().As<IDbContext>().InstancePerRequest();
 
             //*****************************************
             // Register unit of work
@@ -34,6 +37,15 @@ namespace PlantDataMVC.WebApi
             // Register repository types as open generics because they are only closed at call time
             // These are passed to Service constructors
             //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
+            builder.RegisterType<GenusRepository>().As<IGenusRepository>();
+            builder.RegisterType<JournalEntryRepository>().As<IJournalEntryRepository>();
+            builder.RegisterType<JournalEntryTypeRepository>().As<IJournalEntryTypeRepository>();
+            builder.RegisterType<ProductTypeRepository>().As<IProductTypeRepository>();
+            builder.RegisterType<SeedBatchRepository>().As<ISeedBatchRepository>();
+            builder.RegisterType<SiteRepository>().As<ISiteRepository>();
+            builder.RegisterType<SpeciesRepository>().As<ISpeciesRepository>();
+            builder.RegisterType<SeedTrayRepository>().As<ISeedTrayRepository>();
+            builder.RegisterType<SpeciesRepository>().As<ISpeciesRepository>();
 
             builder.RegisterType<EFRepository<Genus>>().As<IRepositoryAsync<Genus>>();
             builder.RegisterType<EFRepository<JournalEntry>>().As<IRepositoryAsync<JournalEntry>>();
