@@ -10,7 +10,7 @@ using Xunit;
 
 namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
 {
-    public class JournalEntryRepositoryFacts
+    public class RepositoryOfJournalEntryFacts
     {
         [Fact]
         public void CanGetTransactionTotalForStockId()

@@ -10,7 +10,7 @@ using Xunit;
 
 namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
 {
-    public class GenusRepositoryFacts
+    public class RepositoryOfGenusFacts
     {
         [Fact]
         public void CanAddItemWithId()
