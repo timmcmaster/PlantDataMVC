@@ -62,6 +62,7 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.CommonName, opt => opt.MapFrom(uio => uio.CommonName))
                 .ForMember(dto => dto.Description, opt => opt.MapFrom(uio => uio.Description))
                 .ForMember(dto => dto.GenusId, opt => opt.MapFrom(uio => uio.GenusId))
+                .ForMember(dto => dto.GenusName, opt => opt.Ignore())
                 .ForMember(dto => dto.Id, opt => opt.Ignore())                                  // Id on create will come back from DB
                 .ForMember(dto => dto.Native, opt => opt.MapFrom(uio => uio.Native))
                 .ForMember(dto => dto.PlantStocks, opt => opt.Ignore())                         // TODO: check about mapping back collection
@@ -77,6 +78,7 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.CommonName, opt => opt.MapFrom(uio => uio.CommonName))
                 .ForMember(dto => dto.Description, opt => opt.MapFrom(uio => uio.Description))
                 .ForMember(dto => dto.GenusId, opt => opt.MapFrom(uio => uio.GenusId))
+                .ForMember(dto => dto.GenusName, opt => opt.Ignore())
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForMember(dto => dto.Native, opt => opt.MapFrom(uio => uio.Native))
                 .ForMember(dto => dto.PlantStocks, opt => opt.Ignore())                         // TODO: check about mapping back collection
@@ -94,7 +96,10 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.Notes, opt => opt.MapFrom(uio => uio.Notes))
                 .ForMember(dto => dto.SeedTrays, opt => opt.Ignore())                   // TODO: check about mapping back collection
                 .ForMember(dto => dto.SiteId, opt => opt.MapFrom(uio => uio.SiteId))
-                .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
+                .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId))
+                .ForMember(dto => dto.SpeciesName, opt => opt.Ignore())
+                .ForMember(dto => dto.SiteName, opt => opt.Ignore())
+                .ForMember(dto => dto.GenusName, opt => opt.Ignore());
 
             CreateMap<SeedBatchDestroyEditModel, SeedBatchDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
@@ -106,7 +111,10 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.Notes, opt => opt.MapFrom(uio => uio.Notes))
                 .ForMember(dto => dto.SeedTrays, opt => opt.Ignore())                   // TODO: check about mapping back collection
                 .ForMember(dto => dto.SiteId, opt => opt.MapFrom(uio => uio.SiteId))
-                .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
+                .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId))
+                .ForMember(dto => dto.SpeciesName, opt => opt.Ignore())
+                .ForMember(dto => dto.SiteName, opt => opt.Ignore())
+                .ForMember(dto => dto.GenusName, opt => opt.Ignore());
         }
 
         private void ConfigureSiteEditModels()
@@ -142,7 +150,11 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.JournalEntries, opt => opt.Ignore())      // TODO: check about mapping back collection
                 .ForMember(dto => dto.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductTypeId))
                 .ForMember(dto => dto.QuantityInStock, opt => opt.MapFrom(uio => uio.QuantityInStock))
-                .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
+                .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId))
+                .ForMember(dto => dto.SpeciesName, opt => opt.Ignore())
+                .ForMember(dto => dto.ProductTypeName, opt => opt.Ignore())
+                .ForMember(dto => dto.GenusName, opt => opt.Ignore());
+            ;
 
             CreateMap<PlantStock.PlantStockDestroyEditModel, PlantStockDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
@@ -153,7 +165,10 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.JournalEntries, opt => opt.Ignore())      // TODO: check about mapping back collection
                 .ForMember(dto => dto.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductTypeId))
                 .ForMember(dto => dto.QuantityInStock, opt => opt.MapFrom(uio => uio.QuantityInStock))
-                .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
+                .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId))
+                .ForMember(dto => dto.SpeciesName, opt => opt.Ignore())
+                .ForMember(dto => dto.ProductTypeName, opt => opt.Ignore())
+                .ForMember(dto => dto.GenusName, opt => opt.Ignore());
         }
 
         private void ConfigureTransactionEditModels()
@@ -167,7 +182,8 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.Quantity, opt => opt.MapFrom(uio => uio.Quantity))
                 .ForMember(dto => dto.SeedTrayId, opt => opt.MapFrom(uio => uio.SeedTrayId))
                 .ForMember(dto => dto.Source, opt => opt.MapFrom(uio => uio.TransactionSource))
-                .ForMember(dto => dto.TransactionDate, opt => opt.MapFrom(uio => uio.TransactionDate));
+                .ForMember(dto => dto.TransactionDate, opt => opt.MapFrom(uio => uio.TransactionDate))
+                .ForMember(dto => dto.JournalEntryTypeName, opt => opt.Ignore());
 
             CreateMap<Transaction.TransactionDestroyEditModel, JournalEntryDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
@@ -181,7 +197,9 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(dto => dto.Quantity, opt => opt.MapFrom(uio => uio.Quantity))
                 .ForMember(dto => dto.SeedTrayId, opt => opt.MapFrom(uio => uio.SeedTrayId))
                 .ForMember(dto => dto.Source, opt => opt.MapFrom(uio => uio.TransactionSource))
-                .ForMember(dto => dto.TransactionDate, opt => opt.MapFrom(uio => uio.TransactionDate));
+                .ForMember(dto => dto.TransactionDate, opt => opt.MapFrom(uio => uio.TransactionDate))
+                .ForMember(dto => dto.JournalEntryTypeName, opt => opt.Ignore());
+
         }
 
         private void ConfigureSeedTrayEditModels()
