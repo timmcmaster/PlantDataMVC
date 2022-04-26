@@ -56,14 +56,14 @@
     <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="CacheCow.Common, Version=2.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CacheCow.Common.2.4.3\lib\net452\CacheCow.Common.dll</HintPath>
+    <Reference Include="CacheCow.Common, Version=2.11.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheCow.Common.2.11.1\lib\net452\CacheCow.Common.dll</HintPath>
     </Reference>
-    <Reference Include="CacheCow.Server, Version=2.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CacheCow.Server.2.4.3\lib\net452\CacheCow.Server.dll</HintPath>
+    <Reference Include="CacheCow.Server, Version=2.11.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheCow.Server.2.11.1\lib\net452\CacheCow.Server.dll</HintPath>
     </Reference>
-    <Reference Include="CacheCow.Server.WebApi, Version=2.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CacheCow.Server.WebApi.2.4.3\lib\net452\CacheCow.Server.WebApi.dll</HintPath>
+    <Reference Include="CacheCow.Server.WebApi, Version=2.11.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheCow.Server.WebApi.2.11.1\lib\net452\CacheCow.Server.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
