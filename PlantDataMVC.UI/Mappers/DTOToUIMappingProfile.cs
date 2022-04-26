@@ -118,9 +118,9 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
                 .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dto => dto.SiteId))
-                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Map site name in seed batch object
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in seed batch object
-                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
+                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => dto.SiteName))
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial));
 
             CreateMap<SeedBatchDto, SeedBatchEditViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dto => dto.DateCollected))
@@ -128,17 +128,17 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
                 .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dto => dto.SiteId))
-                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Map site name in seed batch object
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in seed batch object
-                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
+                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => dto.SiteName))
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial));
 
             CreateMap<SeedBatchDto, SeedBatchListViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dto => dto.DateCollected))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location))
-                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Map site name in seed batch object
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in seed batch object
-                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
+                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => dto.SiteName))
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial));
 
             CreateMap<SeedBatchDto, SeedBatchNewViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dto => dto.DateCollected))
@@ -153,9 +153,9 @@ namespace PlantDataMVC.UI.Mappers
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dto => dto.Notes))
                 .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dto => dto.SiteId))
-                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => "Hey, fix me!"))          // TODO: Map site name in seed batch object
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => "Hey, fix me!"))   // TODO: Map binomial in seed batch object
-                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
+                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => dto.SiteName))
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial));
         }
 
         private void ConfigureSiteViewModels()

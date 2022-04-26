@@ -7,10 +7,12 @@ namespace PlantDataMVC.DTO.Dtos
     {
         public int Id { get; set; }
         public int SpeciesId { get; set; }
+        public string SpeciesBinomial { get; set; }
         public DateTime DateCollected { get; set; }
         public string Location { get; set; }
         public string Notes { get; set; }
         public int? SiteId { get; set; }
+        public string? SiteName { get; set; }
         public ICollection<SeedTrayDto> SeedTrays { get; set; }
     }
 }

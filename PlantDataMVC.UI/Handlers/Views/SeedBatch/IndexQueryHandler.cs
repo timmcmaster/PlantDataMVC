@@ -93,7 +93,7 @@ namespace PlantDataMVC.UI.Handlers.Views.SeedBatch
             }
             else if (querySortBy == nameof(SeedBatchListViewModel.SpeciesBinomial))
             {
-                sortField = ""; // TODO: solve problem of sort by species binomial
+                sortField = nameof(SeedBatchDto.SpeciesBinomial);
             }
             else if (querySortBy == nameof(SeedBatchListViewModel.SpeciesId))
             {

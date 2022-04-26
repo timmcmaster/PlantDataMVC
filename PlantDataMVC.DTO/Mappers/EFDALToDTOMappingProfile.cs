@@ -86,7 +86,9 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(dto => dto.Location, opt => opt.MapFrom(e => e.Location)) // explicit and unnecessary
                 .ForMember(dto => dto.Notes, opt => opt.MapFrom(e => e.Notes)) // explicit and unnecessary
                 .ForMember(dto => dto.SiteId, opt => opt.MapFrom(e => e.SiteId)) // explicit and unnecessary
+                .ForMember(dto => dto.SiteName, opt => opt.MapFrom(e => e.Site.SiteName))
                 .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(e => e.SpeciesId)) // explicit and unnecessary
+                .ForMember(dto => dto.SpeciesBinomial, opt => opt.MapFrom(e => e.Species.Binomial))
                 .ForMember(dto => dto.SeedTrays,
                            opt => opt.MapFrom(e => e.SeedTrays)) // ICollection, explicit and unnecessary
                 .ForAllOtherMembers(opt => opt.Ignore());
