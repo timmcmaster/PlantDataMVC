@@ -1,10 +1,10 @@
 ﻿// ReSharper disable CheckNamespace
 
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using DelegateDecompiler;
 using Interfaces.Domain.Entity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlantDataMVC.Entities.Models
 {
@@ -81,11 +81,11 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child PlantStocks where [PlantStock].[SpeciesId] point to this entity (FK_PlantStock_Species)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<PlantStock> PlantStocks { get; set; } // PlantStock.FK_PlantStock_Species
+        public virtual ICollection<PlantStock> PlantStocks { get; set; } // PlantStock.FK_PlantStock_Species
         /// <summary>
         /// Child SeedBatches where [SeedBatch].[SpeciesId] point to this entity (FK_SeedBatch_Species)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<SeedBatch> SeedBatches { get; set; } // SeedBatch.FK_SeedBatch_Species
+        public virtual ICollection<SeedBatch> SeedBatches { get; set; } // SeedBatch.FK_SeedBatch_Species
 
         // Foreign keys
 
@@ -96,8 +96,8 @@ namespace PlantDataMVC.Entities.Models
 
         public Species()
         {
-            PlantStocks = new System.Collections.Generic.List<PlantStock>();
-            SeedBatches = new System.Collections.Generic.List<SeedBatch>();
+            PlantStocks = new List<PlantStock>();
+            SeedBatches = new List<SeedBatch>();
         }
 
     }

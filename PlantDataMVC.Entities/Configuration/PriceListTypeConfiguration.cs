@@ -1,9 +1,6 @@
-﻿
-using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Entities.Models;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Entity.ModelConfiguration;
+﻿using PlantDataMVC.Entities.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 
 
 namespace PlantDataMVC.Entities.Configuration

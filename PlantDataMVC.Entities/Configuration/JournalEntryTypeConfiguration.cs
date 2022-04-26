@@ -1,14 +1,9 @@
-﻿
-using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Entities.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace PlantDataMVC.Entities.Configuration
 {
-    using PlantDataMVC.Entities.Context;
     using PlantDataMVC.Entities.Models;
 
     // JournalEntryType

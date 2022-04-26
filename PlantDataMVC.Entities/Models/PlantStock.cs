@@ -1,4 +1,5 @@
 ﻿using Interfaces.Domain.Entity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
@@ -26,7 +27,7 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child JournalEntries where [JournalEntry].[PlantStockId] point to this entity (FK_Transactions_PlantStock)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<JournalEntry> JournalEntries { get; set; } // JournalEntry.FK_Transactions_PlantStock
+        public virtual ICollection<JournalEntry> JournalEntries { get; set; } // JournalEntry.FK_Transactions_PlantStock
 
         // Foreign keys
 
@@ -42,7 +43,7 @@ namespace PlantDataMVC.Entities.Models
 
         public PlantStock()
         {
-            JournalEntries = new System.Collections.Generic.List<JournalEntry>();
+            JournalEntries = new List<JournalEntry>();
         }
     }
 

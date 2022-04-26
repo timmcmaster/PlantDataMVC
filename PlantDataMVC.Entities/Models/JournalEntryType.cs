@@ -1,6 +1,7 @@
 ﻿// ReSharper disable CheckNamespace
 
 using Interfaces.Domain.Entity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
@@ -26,11 +27,11 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child JournalEntries where [JournalEntry].[JournalEntryTypeId] point to this entity (FK_Transactions_TransactionType)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<JournalEntry> JournalEntries { get; set; } // JournalEntry.FK_Transactions_TransactionType
+        public virtual ICollection<JournalEntry> JournalEntries { get; set; } // JournalEntry.FK_Transactions_TransactionType
 
         public JournalEntryType()
         {
-            JournalEntries = new System.Collections.Generic.List<JournalEntry>();
+            JournalEntries = new List<JournalEntry>();
         }
     }
 

@@ -1,8 +1,8 @@
 ﻿// ReSharper disable CheckNamespace
 
+using Interfaces.Domain.Entity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Interfaces.Domain.Entity;
 
 namespace PlantDataMVC.Entities.Models
 {

@@ -1,6 +1,7 @@
 ﻿// ReSharper disable CheckNamespace
 
 using Interfaces.Domain.Entity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
@@ -28,11 +29,11 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child ProductPrices where [ProductPrice].[PriceListTypeId] point to this entity (FK_ProductPrices_PriceListType)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<ProductPrice> ProductPrices { get; set; } // ProductPrice.FK_ProductPrices_PriceListType
+        public virtual ICollection<ProductPrice> ProductPrices { get; set; } // ProductPrice.FK_ProductPrices_PriceListType
 
         public PriceListType()
         {
-            ProductPrices = new System.Collections.Generic.List<ProductPrice>();
+            ProductPrices = new List<ProductPrice>();
         }
 
     }

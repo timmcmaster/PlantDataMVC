@@ -1,4 +1,5 @@
 ﻿using Interfaces.Domain.Entity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.Models
@@ -36,7 +37,7 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child SeedTrays where [SeedTray].[SeedBatchId] point to this entity (FK_SeedTray_SeedBatch)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<SeedTray> SeedTrays { get; set; } // SeedTray.FK_SeedTray_SeedBatch
+        public virtual ICollection<SeedTray> SeedTrays { get; set; } // SeedTray.FK_SeedTray_SeedBatch
 
         // Foreign keys
 
@@ -52,7 +53,7 @@ namespace PlantDataMVC.Entities.Models
 
         public SeedBatch()
         {
-            SeedTrays = new System.Collections.Generic.List<SeedTray>();
+            SeedTrays = new List<SeedTray>();
         }
     }
 }
