@@ -95,11 +95,11 @@
     <Reference Include="Glimpse.EF6, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Glimpse.EF6.1.6.5\lib\net45\Glimpse.EF6.dll</HintPath>
     </Reference>
-    <Reference Include="IdentityModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e7877f4675df049f, processorArchitecture=MSIL">
-      <HintPath>..\packages\IdentityModel.4.0.0\lib\net461\IdentityModel.dll</HintPath>
+    <Reference Include="IdentityModel, Version=3.10.6.0, Culture=neutral, PublicKeyToken=e7877f4675df049f, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityModel.3.10.6\lib\net452\IdentityModel.dll</HintPath>
     </Reference>
-    <Reference Include="IdentityServer3.AccessTokenValidation, Version=4.1.16.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\IdentityServer3.Contrib.AccessTokenValidation.4.1.16\lib\net461\IdentityServer3.AccessTokenValidation.dll</HintPath>
+    <Reference Include="IdentityServer3.AccessTokenValidation, Version=4.0.36.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityServer3.Contrib.AccessTokenValidation.4.0.36\lib\net461\IdentityServer3.AccessTokenValidation.dll</HintPath>
     </Reference>
     <Reference Include="Marvin.JsonPatch, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Marvin.JsonPatch.2.2.1\lib\net45\Marvin.JsonPatch.dll</HintPath>
