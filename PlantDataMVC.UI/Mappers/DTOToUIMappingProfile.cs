@@ -69,7 +69,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<SpeciesDto, Plant.PlantDeleteViewModel>()
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Map genus in plant object
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => dto.GenusName))
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.Binomial))        
                .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
@@ -79,7 +79,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<SpeciesDto, Plant.PlantEditViewModel>()
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Map genus in plant object
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => dto.GenusName))
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
                .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
@@ -93,7 +93,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<SpeciesDto, Plant.PlantNewViewModel>()
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Map genus in plant object
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => dto.GenusName))
                .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
                .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
@@ -102,7 +102,7 @@ namespace PlantDataMVC.UI.Mappers
                .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => dto.Binomial))
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
-               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => "Hey, fix me!"))              // TODO: Map genus in plant object
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => dto.GenusName))
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
                .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))

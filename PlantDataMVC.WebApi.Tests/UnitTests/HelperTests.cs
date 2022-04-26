@@ -19,6 +19,7 @@ namespace PlantDataMVC.WebApi.Tests.UnitTests
                 CommonName = "Brisbane wattle",
                 Description = "Small tree to 10m",
                 GenusId = 1,
+                GenusName = "Acacia",
                 Id = 1,
                 Native = true,
                 PropagationTime = 17,
