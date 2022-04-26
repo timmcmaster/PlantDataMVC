@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DomainFunctions\SpeciesFunctions.cs" />
     <Compile Include="Dtos\CreateUpdateGenusDto.cs" />
     <Compile Include="Dtos\CreateUpdateJournalEntryDto.cs" />
     <Compile Include="Dtos\CreateUpdatePlantStockDto.cs" />

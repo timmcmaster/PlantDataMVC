@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlantDataMVC.DTO.DomainFunctions;
+using System;
 using System.Collections.Generic;
 
 namespace PlantDataMVC.DTO.Dtos
@@ -7,7 +8,15 @@ namespace PlantDataMVC.DTO.Dtos
     {
         public int Id { get; set; }
         public int SpeciesId { get; set; }
-        public string SpeciesBinomial { get; set; }
+        public string GenusName { get; set; }
+        public string SpeciesName { get; set; }
+        public string SpeciesBinomial
+        {
+            get
+            {
+                return SpeciesFunctions.GetBinomial(GenusName, SpeciesName);
+            }
+        }
         public DateTime DateCollected { get; set; }
         public string Location { get; set; }
         public string Notes { get; set; }
