@@ -1,6 +1,6 @@
 ﻿@using PlantDataMVC.DTO.Dtos
 @using PlantDataMVC.UI.Controllers.Queries
-@using PlantDataMVC.UI.Helpers
+@using PlantDataMVC.UI.Helpers;
 @model PlantDataMVC.UI.Models.ViewModels.SeedBatch.SeedBatchNewViewModel
 
 @{
@@ -21,13 +21,12 @@
             @Html.LabelFor(model => model.SpeciesId)
         </div>
         <div class="editor-field">
-            @*TODO: Should be using genus and species for display value*@
             @Html.QueryDropDownFor(
                 () => "SpeciesId",
                 model => model.SpeciesId,
                 new ListQuery<SpeciesDto>(),
                 p => p.Id,
-                p => p.SpecificName)
+                p => p.Binomial)
             @Html.ValidationMessageFor(model => model.SpeciesId)
         </div>
 

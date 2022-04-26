@@ -61,7 +61,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<Plant.PlantCreateEditModel, SpeciesDto>()
                 .ForMember(dto => dto.CommonName, opt => opt.MapFrom(uio => uio.CommonName))
                 .ForMember(dto => dto.Description, opt => opt.MapFrom(uio => uio.Description))
-                .ForMember(dto => dto.GenusId, opt => opt.Ignore())                             // TODO: handle creation without GenusID  
+                .ForMember(dto => dto.GenusId, opt => opt.MapFrom(uio => uio.GenusId))
                 .ForMember(dto => dto.Id, opt => opt.Ignore())                                  // Id on create will come back from DB
                 .ForMember(dto => dto.Native, opt => opt.MapFrom(uio => uio.Native))
                 .ForMember(dto => dto.PlantStocks, opt => opt.Ignore())                         // TODO: check about mapping back collection
@@ -76,7 +76,7 @@ namespace PlantDataMVC.UI.Mappers
             CreateMap<Plant.PlantUpdateEditModel, SpeciesDto>()
                 .ForMember(dto => dto.CommonName, opt => opt.MapFrom(uio => uio.CommonName))
                 .ForMember(dto => dto.Description, opt => opt.MapFrom(uio => uio.Description))
-                .ForMember(dto => dto.GenusId, opt => opt.Ignore())                             // TODO: fix GenusID in UIO  
+                .ForMember(dto => dto.GenusId, opt => opt.MapFrom(uio => uio.GenusId))
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForMember(dto => dto.Native, opt => opt.MapFrom(uio => uio.Native))
                 .ForMember(dto => dto.PlantStocks, opt => opt.Ignore())                         // TODO: check about mapping back collection

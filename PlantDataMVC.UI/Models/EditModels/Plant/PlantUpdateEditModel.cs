@@ -5,7 +5,7 @@ namespace PlantDataMVC.UI.Models.EditModels.Plant
     public class PlantUpdateEditModel : IForm<bool>
     {
         public int Id { get; set; }
-        public string Genus { get; set; }
+        public int GenusId { get; set; }
         public string Species { get; set; }
         public string CommonName { get; set; }
         public string Description { get; set; }

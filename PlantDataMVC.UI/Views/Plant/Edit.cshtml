@@ -1,4 +1,7 @@
-﻿@model PlantDataMVC.UI.Models.ViewModels.Plant.PlantEditViewModel
+﻿@using PlantDataMVC.DTO.Dtos
+@using PlantDataMVC.UI.Controllers.Queries
+@using PlantDataMVC.UI.Helpers
+@model PlantDataMVC.UI.Models.ViewModels.Plant.PlantEditViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -14,7 +17,62 @@
     <fieldset>
         <legend>Plant</legend>
 
-        @Html.EditorForModel()
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GenusId)
+        </div>
+        <div class="editor-field">
+            @Html.QueryDropDownFor(
+                () => "GenusId",
+                model => model.GenusId,
+                new ListQuery<GenusDto>(),
+                p => p.Id,
+                p => p.LatinName)
+            @Html.ValidationMessageFor(model => model.GenusId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Species)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Species)
+            @Html.ValidationMessageFor(model => model.Species)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CommonName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CommonName)
+            @Html.ValidationMessageFor(model => model.CommonName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PropagationTime)
+        </div>
+        <div class="editor-field">
+
+            @Html.EditorFor(model => model.PropagationTime)
+            @Html.ValidationMessageFor(model => model.PropagationTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Native)
+        </div>
+        <div class="editor-field">
+
+            @Html.EditorFor(model => model.Native)
+            @Html.ValidationMessageFor(model => model.Native)
+        </div>
 
         <p>
             <input type="submit" value="Update" />

@@ -4,8 +4,8 @@ namespace PlantDataMVC.UI.Models.ViewModels.Plant
 {
     public class PlantNewViewModel
     {
-        [Required, StringLength(30), DataType("CustomString")]
-        public string Genus { get; set; }
+        [Required, Display(Name = "Genus")]
+        public int GenusId { get; set; }
 
         [StringLength(30), DataType("CustomString")]
         public string Species { get; set; }

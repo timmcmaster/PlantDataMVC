@@ -8,7 +8,7 @@ namespace PlantDataMVC.UI.Models.EditModels.Plant
     [ModelBinder(typeof(DebugModelBinder))]
     public class PlantCreateEditModel : IForm<bool>
     {
-        public string Genus { get; set; }
+        public int GenusId { get; set; }
         public string Species { get; set; }
         public string CommonName { get; set; }
         public string Description { get; set; }

@@ -8,8 +8,8 @@ namespace PlantDataMVC.UI.Models.ViewModels.Plant
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        [Required, StringLength(30), DataType("CustomString")]
-        public string Genus { get; set; }
+        [Required, Display(Name = "Genus")]
+        public int GenusId { get; set; }
 
         [StringLength(30), DataType("CustomString")]
         public string Species { get; set; }
