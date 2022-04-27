@@ -21,7 +21,7 @@ namespace PlantDataMVC.DTO.Dtos
         public string Location { get; set; }
         public string Notes { get; set; }
         public int? SiteId { get; set; }
-        public string? SiteName { get; set; }
+        public string SiteName { get; set; }
         public ICollection<SeedTrayDto> SeedTrays { get; set; }
     }
 }
