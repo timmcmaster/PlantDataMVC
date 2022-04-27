@@ -1,44 +1,51 @@
-﻿using PlantDataMVC.Entities.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.Entities.Configuration
 {
-    public class SpeciesConfiguration : EntityTypeConfiguration<Species>
+    public class SpeciesConfiguration : IEntityTypeConfiguration<Species>
     {
+        private string _schema;
+
         public SpeciesConfiguration() : this("dbo")
         {
         }
 
         public SpeciesConfiguration(string schema)
         {
+            _schema = schema;
+        }
+
+        public void Configure(EntityTypeBuilder<Species> builder)
+        {
             // Primary key 
-            this.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
 
             // Properties
-            this.Property(x => x.Id).IsRequired();
-            this.Property(x => x.GenusId).IsRequired();
-            this.Property(x => x.SpecificName).IsRequired().HasMaxLength(30);
-            this.Property(x => x.CommonName).IsOptional().HasMaxLength(50);
-            this.Property(x => x.Description).IsOptional().HasMaxLength(200);
-            this.Property(x => x.PropagationTime).IsOptional();
-            this.Property(x => x.Native).IsRequired();
+            builder.Property(x => x.Id).IsRequired();
+            builder.Property(x => x.GenusId).IsRequired();
+            builder.Property(x => x.SpecificName).IsRequired().HasMaxLength(30);
+            builder.Property(x => x.CommonName).HasMaxLength(50);
+            builder.Property(x => x.Description).HasMaxLength(200);
+            builder.Property(x => x.PropagationTime);
+            builder.Property(x => x.Native).IsRequired();
 
             // Ignore 
 
             // Table & column mappings
-            this.ToTable("Species", schema);
+            builder.ToTable("Species", _schema);
 
-            this.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(x => x.GenusId).HasColumnName(@"GenusId").HasColumnType("int");
-            this.Property(x => x.SpecificName).HasColumnName(@"SpecificName").HasColumnType("nvarchar");
-            this.Property(x => x.CommonName).HasColumnName(@"CommonName").HasColumnType("nvarchar");
-            this.Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar");
-            this.Property(x => x.PropagationTime).HasColumnName(@"PropagationTime").HasColumnType("int");
-            this.Property(x => x.Native).HasColumnName(@"Native").HasColumnType("bit");
+            builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").UseIdentityColumn();
+            builder.Property(x => x.GenusId).HasColumnName(@"GenusId").HasColumnType("int");
+            builder.Property(x => x.SpecificName).HasColumnName(@"SpecificName").HasColumnType("nvarchar");
+            builder.Property(x => x.CommonName).HasColumnName(@"CommonName").HasColumnType("nvarchar");
+            builder.Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar");
+            builder.Property(x => x.PropagationTime).HasColumnName(@"PropagationTime").HasColumnType("int");
+            builder.Property(x => x.Native).HasColumnName(@"Native").HasColumnType("bit");
 
             // Foreign keys
-            this.HasRequired(a => a.Genus).WithMany(b => b.Species).HasForeignKey(c => c.GenusId).WillCascadeOnDelete(false); // FK_Species_Genus
+            builder.HasOne(a => a.Genus).WithMany(b => b.Species).HasForeignKey(c => c.GenusId).OnDelete(DeleteBehavior.NoAction); // FK_Species_Genus
         }
     }
 

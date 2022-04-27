@@ -1,50 +1,56 @@
-﻿using PlantDataMVC.Entities.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PlantDataMVC.Entities.Models;
 
 
 namespace PlantDataMVC.Entities.Configuration
 {
     // JournalEntry
-    public class JournalEntryConfiguration : EntityTypeConfiguration<JournalEntry>
+    public class JournalEntryConfiguration : IEntityTypeConfiguration<JournalEntry>
     {
+        private string _schema;
+
         public JournalEntryConfiguration() : this("dbo")
         {
         }
 
         public JournalEntryConfiguration(string schema)
         {
+            _schema = schema;
+        }
+        public void Configure(EntityTypeBuilder<JournalEntry> builder)
+        {
             // Primary key 
-            this.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
 
             // Properties
-            this.Property(x => x.Id).IsRequired();
-            this.Property(x => x.PlantStockId).IsRequired();
-            this.Property(x => x.Quantity).IsRequired();
-            this.Property(x => x.JournalEntryTypeId).IsRequired();
-            this.Property(x => x.TransactionDate).IsRequired();
-            this.Property(x => x.Source).IsOptional().HasMaxLength(50);
-            this.Property(x => x.SeedTrayId).IsOptional();
-            this.Property(x => x.Notes).IsOptional().HasMaxLength(50);
+            builder.Property(x => x.Id).IsRequired();
+            builder.Property(x => x.PlantStockId).IsRequired();
+            builder.Property(x => x.Quantity).IsRequired();
+            builder.Property(x => x.JournalEntryTypeId).IsRequired();
+            builder.Property(x => x.TransactionDate).IsRequired();
+            builder.Property(x => x.Source).HasMaxLength(50);
+            builder.Property(x => x.SeedTrayId);
+            builder.Property(x => x.Notes).HasMaxLength(50);
 
             // Ignore 
 
             // Table & column mappings
-            this.ToTable("JournalEntry", schema);
+            builder.ToTable("JournalEntry", _schema);
 
-            this.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(x => x.PlantStockId).HasColumnName(@"PlantStockId").HasColumnType("int");
-            this.Property(x => x.Quantity).HasColumnName(@"Quantity").HasColumnType("int");
-            this.Property(x => x.JournalEntryTypeId).HasColumnName(@"JournalEntryTypeId").HasColumnType("int");
-            this.Property(x => x.TransactionDate).HasColumnName(@"TransactionDate").HasColumnType("date");
-            this.Property(x => x.Source).HasColumnName(@"Source").HasColumnType("nvarchar");
-            this.Property(x => x.SeedTrayId).HasColumnName(@"SeedTrayId").HasColumnType("int");
-            this.Property(x => x.Notes).HasColumnName(@"Notes").HasColumnType("nvarchar");
+            builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").UseIdentityColumn();
+            builder.Property(x => x.PlantStockId).HasColumnName(@"PlantStockId").HasColumnType("int");
+            builder.Property(x => x.Quantity).HasColumnName(@"Quantity").HasColumnType("int");
+            builder.Property(x => x.JournalEntryTypeId).HasColumnName(@"JournalEntryTypeId").HasColumnType("int");
+            builder.Property(x => x.TransactionDate).HasColumnName(@"TransactionDate").HasColumnType("date");
+            builder.Property(x => x.Source).HasColumnName(@"Source").HasColumnType("nvarchar");
+            builder.Property(x => x.SeedTrayId).HasColumnName(@"SeedTrayId").HasColumnType("int");
+            builder.Property(x => x.Notes).HasColumnName(@"Notes").HasColumnType("nvarchar");
 
             // Foreign keys
-            this.HasOptional(a => a.SeedTray).WithMany(b => b.JournalEntries).HasForeignKey(c => c.SeedTrayId).WillCascadeOnDelete(false); // FK_Transactions_SeedTray
-            this.HasRequired(a => a.JournalEntryType).WithMany(b => b.JournalEntries).HasForeignKey(c => c.JournalEntryTypeId).WillCascadeOnDelete(false); // FK_Transactions_TransactionType
-            this.HasRequired(a => a.PlantStock).WithMany(b => b.JournalEntries).HasForeignKey(c => c.PlantStockId).WillCascadeOnDelete(false); // FK_Transactions_PlantStock
+            builder.HasOne(a => a.SeedTray).WithMany(b => b.JournalEntries).HasForeignKey(c => c.SeedTrayId).OnDelete(DeleteBehavior.NoAction); // FK_Transactions_SeedTray
+            builder.HasOne(a => a.JournalEntryType).WithMany(b => b.JournalEntries).HasForeignKey(c => c.JournalEntryTypeId).OnDelete(DeleteBehavior.NoAction); // FK_Transactions_TransactionType
+            builder.HasOne(a => a.PlantStock).WithMany(b => b.JournalEntries).HasForeignKey(c => c.PlantStockId).OnDelete(DeleteBehavior.NoAction); // FK_Transactions_PlantStock
         }
     }
 

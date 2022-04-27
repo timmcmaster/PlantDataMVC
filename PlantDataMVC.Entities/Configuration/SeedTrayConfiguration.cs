@@ -1,40 +1,47 @@
-﻿using PlantDataMVC.Entities.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.Entities.Configuration
 {
-    public class SeedTrayConfiguration : EntityTypeConfiguration<SeedTray>
+    public class SeedTrayConfiguration : IEntityTypeConfiguration<SeedTray>
     {
+        private string _schema;
+
         public SeedTrayConfiguration() : this("dbo")
         {
         }
 
         public SeedTrayConfiguration(string schema)
         {
+            _schema = schema;
+        }
+
+        public void Configure(EntityTypeBuilder<SeedTray> builder)
+        {
             // Primary key 
-            this.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
 
             // Properties
-            this.Property(x => x.Id).IsRequired();
-            this.Property(x => x.SeedBatchId).IsRequired();
-            this.Property(x => x.DatePlanted).IsRequired();
-            this.Property(x => x.Treatment).IsOptional().HasMaxLength(50);
-            this.Property(x => x.ThrownOut).IsRequired();
+            builder.Property(x => x.Id).IsRequired();
+            builder.Property(x => x.SeedBatchId).IsRequired();
+            builder.Property(x => x.DatePlanted).IsRequired();
+            builder.Property(x => x.Treatment).HasMaxLength(50);
+            builder.Property(x => x.ThrownOut).IsRequired();
 
             // Ignore 
 
             // Table & column mappings
-            this.ToTable("SeedTray", schema);
+            builder.ToTable("SeedTray", _schema);
 
-            this.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(x => x.SeedBatchId).HasColumnName(@"SeedBatchId").HasColumnType("int");
-            this.Property(x => x.DatePlanted).HasColumnName(@"DatePlanted").HasColumnType("date");
-            this.Property(x => x.Treatment).HasColumnName(@"Treatment").HasColumnType("nvarchar");
-            this.Property(x => x.ThrownOut).HasColumnName(@"ThrownOut").HasColumnType("bit");
+            builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").UseIdentityColumn();
+            builder.Property(x => x.SeedBatchId).HasColumnName(@"SeedBatchId").HasColumnType("int");
+            builder.Property(x => x.DatePlanted).HasColumnName(@"DatePlanted").HasColumnType("date");
+            builder.Property(x => x.Treatment).HasColumnName(@"Treatment").HasColumnType("nvarchar");
+            builder.Property(x => x.ThrownOut).HasColumnName(@"ThrownOut").HasColumnType("bit");
 
             // Foreign keys
-            HasRequired(a => a.SeedBatch).WithMany(b => b.SeedTrays).HasForeignKey(c => c.SeedBatchId).WillCascadeOnDelete(false); // FK_SeedTray_SeedBatch
+            builder.HasOne(a => a.SeedBatch).WithMany(b => b.SeedTrays).HasForeignKey(c => c.SeedBatchId).OnDelete(DeleteBehavior.NoAction); // FK_SeedTray_SeedBatch
         }
     }
 

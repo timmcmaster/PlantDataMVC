@@ -1,32 +1,39 @@
-﻿using PlantDataMVC.Entities.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.Entities.Configuration
 {
 
     // Genus
-    public class GenusConfiguration : EntityTypeConfiguration<Genus>
+    public class GenusConfiguration : IEntityTypeConfiguration<Genus>
     {
+        private string _schema; 
+
         public GenusConfiguration() : this("dbo")
         {
         }
 
         public GenusConfiguration(string schema)
         {
+            _schema = schema;
+        }
+
+        public void Configure(EntityTypeBuilder<Genus> builder)
+        {
             // Primary key 
-            this.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
 
             // Properties
-            this.Property(x => x.Id).IsRequired();
-            this.Property(x => x.LatinName).IsRequired().HasMaxLength(30);
+            builder.Property(x => x.Id).IsRequired();
+            builder.Property(x => x.LatinName).IsRequired().HasMaxLength(30);
 
             // Ignore 
 
             // Table & column mappings
-            this.ToTable("Genus", schema);
-            this.Property(x => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(x => x.LatinName).HasColumnName("LatinName").HasColumnType("nvarchar");
+            builder.ToTable("Genus", _schema);
+            builder.Property(x => x.Id).HasColumnName("Id").HasColumnType("int").UseIdentityColumn();
+            builder.Property(x => x.LatinName).HasColumnName("LatinName").HasColumnType("nvarchar");
         }
     }
 

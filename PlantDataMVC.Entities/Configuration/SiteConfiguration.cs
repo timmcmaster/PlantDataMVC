@@ -1,11 +1,13 @@
-﻿using PlantDataMVC.Entities.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.Entities.Configuration
 {
-    public class SiteConfiguration : EntityTypeConfiguration<Site>
+    public class SiteConfiguration : IEntityTypeConfiguration<Site>
     {
+        private string _schema;
+
         public SiteConfiguration()
             : this("dbo")
         {
@@ -13,26 +15,31 @@ namespace PlantDataMVC.Entities.Configuration
 
         public SiteConfiguration(string schema)
         {
+            _schema = schema;
+        }
+
+        public void Configure(EntityTypeBuilder<Site> builder)
+        {
             // Primary key 
-            this.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
 
             // Properties
-            this.Property(x => x.Id).IsRequired();
-            this.Property(x => x.SiteName).IsOptional().HasMaxLength(50);
-            this.Property(x => x.Suburb).IsOptional().HasMaxLength(50);
-            this.Property(x => x.Latitude).IsOptional().HasPrecision(8, 5);
-            this.Property(x => x.Longitude).IsOptional().HasPrecision(8, 5);
+            builder.Property(x => x.Id).IsRequired();
+            builder.Property(x => x.SiteName).HasMaxLength(50);
+            builder.Property(x => x.Suburb).HasMaxLength(50);
+            builder.Property(x => x.Latitude);//.HasPrecision(8, 5);
+            builder.Property(x => x.Longitude);//.HasPrecision(8, 5);
 
             // Ignore 
 
             // Table & column mappings
-            this.ToTable("Site", schema);
+            builder.ToTable("Site", _schema);
 
-            this.Property(x => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(x => x.SiteName).HasColumnName("SiteName").HasColumnType("nvarchar");
-            this.Property(x => x.Suburb).HasColumnName("Suburb").HasColumnType("nvarchar");
-            this.Property(x => x.Latitude).HasColumnName("Latitude").HasColumnType("decimal");
-            this.Property(x => x.Longitude).HasColumnName("Longitude").HasColumnType("decimal");
+            builder.Property(x => x.Id).HasColumnName("Id").HasColumnType("int").UseIdentityColumn();
+            builder.Property(x => x.SiteName).HasColumnName("SiteName").HasColumnType("nvarchar");
+            builder.Property(x => x.Suburb).HasColumnName("Suburb").HasColumnType("nvarchar");
+            builder.Property(x => x.Latitude).HasColumnName("Latitude").HasColumnType("decimal");
+            builder.Property(x => x.Longitude).HasColumnName("Longitude").HasColumnType("decimal");
         }
     }
 

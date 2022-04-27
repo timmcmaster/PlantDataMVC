@@ -1,42 +1,49 @@
-﻿using PlantDataMVC.Entities.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PlantDataMVC.Entities.Models;
 
 namespace PlantDataMVC.Entities.Configuration
 {
-    public class SeedBatchConfiguration : EntityTypeConfiguration<SeedBatch>
+    public class SeedBatchConfiguration : IEntityTypeConfiguration<SeedBatch>
     {
+        private string _schema;
+
         public SeedBatchConfiguration() : this("dbo")
         {
         }
 
         public SeedBatchConfiguration(string schema)
         {
+            _schema = schema;
+        }
+
+        public void Configure(EntityTypeBuilder<SeedBatch> builder)
+        {
             // Primary key 
-            this.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
 
             // Properties
-            this.Property(x => x.Id).IsRequired();
-            this.Property(x => x.SpeciesId).IsRequired();
-            this.Property(x => x.DateCollected).IsRequired();
-            this.Property(x => x.Location).IsOptional().HasMaxLength(30);
-            this.Property(x => x.Notes).IsOptional().HasMaxLength(200);
-            this.Property(x => x.SiteId).IsOptional();
+            builder.Property(x => x.Id).IsRequired();
+            builder.Property(x => x.SpeciesId).IsRequired();
+            builder.Property(x => x.DateCollected).IsRequired();
+            builder.Property(x => x.Location).HasMaxLength(30);
+            builder.Property(x => x.Notes).HasMaxLength(200);
+            builder.Property(x => x.SiteId);
 
             // Ignore 
 
             // Table & column mappings
-            this.ToTable("SeedBatch", schema);
-            this.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(x => x.SpeciesId).HasColumnName(@"SpeciesId").HasColumnType("int");
-            this.Property(x => x.DateCollected).HasColumnName(@"DateCollected").HasColumnType("date");
-            this.Property(x => x.Location).HasColumnName(@"Location").HasColumnType("nvarchar");
-            this.Property(x => x.Notes).HasColumnName(@"Notes").HasColumnType("nvarchar");
-            this.Property(x => x.SiteId).HasColumnName(@"SiteId").HasColumnType("int");
+            builder.ToTable("SeedBatch", _schema);
+            builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").UseIdentityColumn();
+            builder.Property(x => x.SpeciesId).HasColumnName(@"SpeciesId").HasColumnType("int");
+            builder.Property(x => x.DateCollected).HasColumnName(@"DateCollected").HasColumnType("date");
+            builder.Property(x => x.Location).HasColumnName(@"Location").HasColumnType("nvarchar");
+            builder.Property(x => x.Notes).HasColumnName(@"Notes").HasColumnType("nvarchar");
+            builder.Property(x => x.SiteId).HasColumnName(@"SiteId").HasColumnType("int");
 
             // Foreign keys
-            this.HasOptional(a => a.Site).WithMany(b => b.SeedBatches).HasForeignKey(c => c.SiteId).WillCascadeOnDelete(false); // FK_SeedBatch_Site
-            this.HasRequired(a => a.Species).WithMany(b => b.SeedBatches).HasForeignKey(c => c.SpeciesId).WillCascadeOnDelete(false); // FK_SeedBatch_Species
+            builder.HasOne(a => a.Site).WithMany(b => b.SeedBatches).HasForeignKey(c => c.SiteId).OnDelete(DeleteBehavior.NoAction); // FK_SeedBatch_Site
+            builder.HasOne(a => a.Species).WithMany(b => b.SeedBatches).HasForeignKey(c => c.SpeciesId).OnDelete(DeleteBehavior.NoAction); // FK_SeedBatch_Species
         }
     }
 
