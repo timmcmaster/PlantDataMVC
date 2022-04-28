@@ -1,14 +1,12 @@
-﻿using PlantDataMVC.Entities.Configuration;
-using PlantDataMVC.Entities.Interfaces;
-using PlantDataMVC.Entities.Models;
-using System.Data.Entity.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace PlantDataMVC.Entities.Context
 {
 
-    public class PlantDataDbContextFactory : IDbContextFactory<PlantDataDbContext>
+    public class PlantDataDbContextFactory : IDesignTimeDbContextFactory<PlantDataDbContext>
     {
-        public PlantDataDbContext Create()
+        public PlantDataDbContext CreateDbContext(string[] args)
         {
             return new PlantDataDbContext();
         }

@@ -1,55 +1,50 @@
-﻿using Framework.Domain.EF;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Configuration;
 using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.Models;
 
-using System.Data.Entity;
-
 namespace PlantDataMVC.Entities.Context
 {
-
-
     public class SeedCollectionDbContext : DbContext, ISeedCollectionDbContext
     {
-        public IDbSet<Genus> Genus { get; set; } // Genus
-        public IDbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
-        public IDbSet<SeedTray> SeedTrays { get; set; } // SeedTray
-        public IDbSet<Site> Sites { get; set; } // Site
-        public IDbSet<Species> Species { get; set; } // Species
+        private string _connectionString;
 
-        static SeedCollectionDbContext()
+        public DbSet<Genus> Genus { get; set; } // Genus
+        public DbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
+        public DbSet<SeedTray> SeedTrays { get; set; } // SeedTray
+        public DbSet<Site> Sites { get; set; } // Site
+        public DbSet<Species> Species { get; set; } // Species
+
+        public SeedCollectionDbContext() : this("Name=PlantDataDbContext")
         {
-            // Disable CodeFirst migrations 
-            Database.SetInitializer<SeedCollectionDbContext>(null);
         }
-
-        //public SeedCollectionDbContext() 
-        //    : base("Name=PlantDataDbContext")
-        //{
-        //}
 
         public SeedCollectionDbContext(string connectionString)
-            : base(connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public SeedCollectionDbContext(DbContextOptions options) : base(options)
         {
         }
 
-        public SeedCollectionDbContext(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection)
-            : base(existingConnection, contextOwnsConnection)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var conn = new SqlConnection(_connectionString);
+                optionsBuilder.UseSqlServer(conn);
+            }
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.Dispose(disposing);
-        }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations.Add(new GenusConfiguration());
-            modelBuilder.Configurations.Add(new SeedBatchConfiguration());
-            modelBuilder.Configurations.Add(new SeedTrayConfiguration());
-            modelBuilder.Configurations.Add(new SiteConfiguration());
-            modelBuilder.Configurations.Add(new SpeciesConfiguration());
+            modelBuilder.ApplyConfiguration(new GenusConfiguration());
+            modelBuilder.ApplyConfiguration(new SeedBatchConfiguration());
+            modelBuilder.ApplyConfiguration(new SeedTrayConfiguration());
+            modelBuilder.ApplyConfiguration(new SiteConfiguration());
+            modelBuilder.ApplyConfiguration(new SpeciesConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1,23 +1,18 @@
-﻿using PlantDataMVC.Entities.Models;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Data.Entity.Validation;
+﻿using Framework.Domain.EF;
+using Microsoft.EntityFrameworkCore;
+using PlantDataMVC.Entities.Models;
 using System;
-using Framework.Domain.EF;
 
 namespace PlantDataMVC.Entities.Interfaces
 {
 
     public interface ISeedCollectionDbContext : IDbContext, IDisposable
     {
-        IDbSet<Genus> Genus { get; set; } // Genus
-        IDbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
-        IDbSet<SeedTray> SeedTrays { get; set; } // SeedTray
-        IDbSet<Site> Sites { get; set; } // Site
-        IDbSet<Species> Species { get; set; } // Species
+        DbSet<Genus> Genus { get; set; } // Genus
+        DbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
+        DbSet<SeedTray> SeedTrays { get; set; } // SeedTray
+        DbSet<Site> Sites { get; set; } // Site
+        DbSet<Species> Species { get; set; } // Species
 
         //int SaveChanges();
         //Task<int> SaveChangesAsync();

@@ -1,62 +1,44 @@
-﻿using Framework.Domain.EF;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Configuration;
 using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.Models;
 
-using System.Data.Entity;
-
 namespace PlantDataMVC.Entities.Context
 {
-
-
     public class PlantDataDbContext : DbContext, IPlantDataDbContext
     {
-        public IDbSet<Genus> Genus { get; set; } // Genus
-        public IDbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
-        public IDbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
-        public IDbSet<PlantStock> PlantStocks { get; set; } // PlantStock
-        public IDbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
-        public IDbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
-        public IDbSet<ProductType> ProductTypes { get; set; } // ProductType
-        public IDbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
-        public IDbSet<SeedTray> SeedTrays { get; set; } // SeedTray
-        public IDbSet<Site> Sites { get; set; } // Site
-        public IDbSet<Species> Species { get; set; } // Species
+        private string _connectionString;
 
-        static PlantDataDbContext()
-        {
-            // Disable CodeFirst migrations 
-            Database.SetInitializer<PlantDataDbContext>(null);
-        }
+        public DbSet<Genus> Genus { get; set; } // Genus
+        public DbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
+        public DbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
+        public DbSet<PlantStock> PlantStocks { get; set; } // PlantStock
+        public DbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
+        public DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
+        public DbSet<ProductType> ProductTypes { get; set; } // ProductType
+        public DbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
+        public DbSet<SeedTray> SeedTrays { get; set; } // SeedTray
+        public DbSet<Site> Sites { get; set; } // Site
+        public DbSet<Species> Species { get; set; } // Species
 
-        public PlantDataDbContext() 
-            : base("Name=PlantDataDbContext")
+        //static PlantDataDbContext()
+        //{
+        //    // Disable CodeFirst migrations 
+        //    //Database.SetInitializer<PlantDataDbContext>(null);
+        //}
+
+        public PlantDataDbContext() : this("Name=PlantDataDbContext")
         {
         }
 
         public PlantDataDbContext(string connectionString)
-            : base(connectionString)
         {
+            _connectionString = connectionString;
         }
 
-        //public PlantDataDbContext(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model)
-        //    : base(connectionString, model)
-        //{
-        //}
-
-        public PlantDataDbContext(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection)
-            : base(existingConnection, contextOwnsConnection)
+        public PlantDataDbContext(DbContextOptions options): base(options)
         {
-        }
-
-        //public PlantDataDbContext(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection)
-        //    : base(existingConnection, model, contextOwnsConnection)
-        //{
-        //}
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
         }
 
         //public bool IsSqlParameterNull(System.Data.SqlClient.SqlParameter param)
@@ -68,19 +50,43 @@ namespace PlantDataMVC.Entities.Context
         //    return (sqlValue == null || sqlValue == System.DBNull.Value);
         //}
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //
+        // Summary:
+        //     Override this method to configure the database (and other options) to be used
+        //     for this context. This method is called for each instance of the context that
+        //     is created. The base implementation does nothing.
+        //     In situations where an instance of Microsoft.EntityFrameworkCore.DbContextOptions
+        //     may or may not have been passed to the constructor, you can use Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.IsConfigured
+        //     to determine if the options have already been set, and skip some or all of the
+        //     logic in Microsoft.EntityFrameworkCore.DbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder).
+        //
+        // Parameters:
+        //   optionsBuilder:
+        //     A builder used to create or modify options for this context. Databases (and other
+        //     extensions) typically define extension methods on this object that allow you
+        //     to configure the context.
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            modelBuilder.Configurations.Add(new GenusConfiguration());
-            modelBuilder.Configurations.Add(new JournalEntryConfiguration());
-            modelBuilder.Configurations.Add(new JournalEntryTypeConfiguration());
-            modelBuilder.Configurations.Add(new PlantStockConfiguration());
-            modelBuilder.Configurations.Add(new PriceListTypeConfiguration());
-            modelBuilder.Configurations.Add(new ProductPriceConfiguration());
-            modelBuilder.Configurations.Add(new ProductTypeConfiguration());
-            modelBuilder.Configurations.Add(new SeedBatchConfiguration());
-            modelBuilder.Configurations.Add(new SeedTrayConfiguration());
-            modelBuilder.Configurations.Add(new SiteConfiguration());
-            modelBuilder.Configurations.Add(new SpeciesConfiguration());
+            if (!optionsBuilder.IsConfigured)
+            {
+                var conn = new SqlConnection(_connectionString);
+                optionsBuilder.UseSqlServer(conn);
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new GenusConfiguration());
+            modelBuilder.ApplyConfiguration(new JournalEntryConfiguration());
+            modelBuilder.ApplyConfiguration(new JournalEntryTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PlantStockConfiguration());
+            modelBuilder.ApplyConfiguration(new PriceListTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductPriceConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SeedBatchConfiguration());
+            modelBuilder.ApplyConfiguration(new SeedTrayConfiguration());
+            modelBuilder.ApplyConfiguration(new SiteConfiguration());
+            modelBuilder.ApplyConfiguration(new SpeciesConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -94,22 +100,5 @@ namespace PlantDataMVC.Entities.Context
         {
             Entry(entity).State = entityState;
         }
-
-        //public static DbModelBuilder CreateModel(DbModelBuilder modelBuilder, string schema)
-        //{
-        //    modelBuilder.Configurations.Add(new GenusConfiguration(schema));
-        //    modelBuilder.Configurations.Add(new JournalEntryConfiguration(schema));
-        //    modelBuilder.Configurations.Add(new JournalEntryTypeConfiguration(schema));
-        //    modelBuilder.Configurations.Add(new PlantStockConfiguration(schema));
-        //    modelBuilder.Configurations.Add(new PriceListTypeConfiguration(schema));
-        //    modelBuilder.Configurations.Add(new ProductPriceConfiguration(schema));
-        //    modelBuilder.Configurations.Add(new ProductTypeConfiguration(schema));
-        //    modelBuilder.Configurations.Add(new SeedBatchConfiguration(schema));
-        //    modelBuilder.Configurations.Add(new SeedTrayConfiguration(schema));
-        //    modelBuilder.Configurations.Add(new SiteConfiguration(schema));
-        //    modelBuilder.Configurations.Add(new SpeciesConfiguration(schema));
-
-        //    return modelBuilder;
-        //}
     }
 }

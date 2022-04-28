@@ -1,21 +1,16 @@
-﻿using PlantDataMVC.Entities.Models;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Data.Entity.Validation;
+﻿using Framework.Domain.EF;
+using Microsoft.EntityFrameworkCore;
+using PlantDataMVC.Entities.Models;
 using System;
-using Framework.Domain.EF;
 
 namespace PlantDataMVC.Entities.Interfaces
 {
 
     public interface IPricingDbContext : IDbContext, IDisposable
     {
-        IDbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
-        IDbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
-        IDbSet<ProductType> ProductTypes { get; set; } // ProductType
+        DbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
+        DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
+        DbSet<ProductType> ProductTypes { get; set; } // ProductType
 
         //int SaveChanges();
         //Task<int> SaveChangesAsync();

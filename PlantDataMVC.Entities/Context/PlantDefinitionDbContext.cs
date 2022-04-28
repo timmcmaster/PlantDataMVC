@@ -1,9 +1,8 @@
-﻿using Framework.Domain.EF;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Configuration;
 using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.Models;
-
-using System.Data.Entity;
 
 namespace PlantDataMVC.Entities.Context
 {
@@ -11,42 +10,37 @@ namespace PlantDataMVC.Entities.Context
 
     public class PlantDefinitionDbContext : DbContext, IPlantDefinitionDbContext
     {
-        public IDbSet<Genus> Genus { get; set; } // Genus
-        public IDbSet<Species> Species { get; set; } // Species
+        private string _connectionString;
 
-        static PlantDefinitionDbContext()
-        {
-            // Disable CodeFirst migrations 
-            Database.SetInitializer<PlantDefinitionDbContext>(null);
-        }
-
-        //public PlantDefinitionDbContext() 
-        //    : base("Name=PlantDataDbContext")
-        //{
-        //}
+        public DbSet<Genus> Genus { get; set; } // Genus
+        public DbSet<Species> Species { get; set; } // Species
 
         public PlantDefinitionDbContext(string connectionString)
-            : base(connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public PlantDefinitionDbContext(DbContextOptions options) : base(options)
         {
         }
 
-        public PlantDefinitionDbContext(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection)
-            : base(existingConnection, contextOwnsConnection)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var conn = new SqlConnection(_connectionString);
+                optionsBuilder.UseSqlServer(conn);
+            }
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.Dispose(disposing);
-        }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations.Add(new GenusConfiguration());
-            modelBuilder.Configurations.Add(new SpeciesConfiguration());
+            modelBuilder.ApplyConfiguration(new GenusConfiguration());
+            modelBuilder.ApplyConfiguration(new SpeciesConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
+
         public EntityState GetState<TEntity>(TEntity entity) where TEntity : class
         {
             return Entry(entity).State;

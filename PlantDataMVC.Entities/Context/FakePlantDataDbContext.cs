@@ -1,19 +1,20 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
 using Framework.Domain.EF;
 using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.Models;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace PlantDataMVC.Entities.Context
 {
     public class FakePlantDataDbContext : FakeDbContext, IPlantDataDbContext
     {
-        public DbChangeTracker _changeTracker;
-        public DbContextConfiguration _configuration;
-        public Database _database;
+        public ChangeTracker _changeTracker;
+        
+        //public DbContextConfiguration _configuration;
+        //public DatabaseFacade _database;
 
         public FakePlantDataDbContext()
         {
@@ -31,73 +32,73 @@ namespace PlantDataMVC.Entities.Context
         }
 
         #region IPlantDataDbContext Members
-        public IDbSet<Genus> Genus
+        public DbSet<Genus> Genus
         {
             get => Set<Genus>();
             set => throw new NotImplementedException();
         }
 
-        public IDbSet<JournalEntry> JournalEntries
+        public DbSet<JournalEntry> JournalEntries
         {
             get => Set<JournalEntry>();
             set => throw new NotImplementedException();
         }
 
-        public IDbSet<JournalEntryType> JournalEntryTypes
+        public DbSet<JournalEntryType> JournalEntryTypes
         {
             get => Set<JournalEntryType>();
             set => throw new NotImplementedException();
         }
 
-        public IDbSet<PlantStock> PlantStocks
+        public DbSet<PlantStock> PlantStocks
         {
             get => Set<PlantStock>();
             set => throw new NotImplementedException();
         }
 
-        public IDbSet<PriceListType> PriceListTypes
+        public DbSet<PriceListType> PriceListTypes
         {
             get => Set<PriceListType>();
             set => throw new NotImplementedException();
         }
 
-        public IDbSet<ProductPrice> ProductPrices
+        public DbSet<ProductPrice> ProductPrices
         {
             get => Set<ProductPrice>();
             set => throw new NotImplementedException();
         }
 
-        public IDbSet<ProductType> ProductTypes
+        public DbSet<ProductType> ProductTypes
         {
             get => Set<ProductType>();
             set => throw new NotImplementedException();
         }
 
-        public IDbSet<SeedBatch> SeedBatches
+        public DbSet<SeedBatch> SeedBatches
         {
             get => Set<SeedBatch>();
             set => throw new NotImplementedException();
         }
 
-        public IDbSet<SeedTray> SeedTrays
+        public DbSet<SeedTray> SeedTrays
         {
             get => Set<SeedTray>();
             set => throw new NotImplementedException();
         }
 
-        public IDbSet<Site> Sites
+        public DbSet<Site> Sites
         {
             get => Set<Site>();
             set => throw new NotImplementedException();
         }
 
-        public IDbSet<Species> Species
+        public DbSet<Species> Species
         {
             get => Set<Species>();
             set => throw new NotImplementedException();
         }
 
-        //public DbChangeTracker ChangeTracker
+        //public ChangeTracker ChangeTracker
         //{
         //    get => _changeTracker;
         //}
@@ -107,10 +108,10 @@ namespace PlantDataMVC.Entities.Context
         //    get => _configuration;
         //}
 
-        public Database Database
-        {
-            get => _database;
-        }
+        //public DatabaseFacade Database
+        //{
+        //    get => _database;
+        //}
 
         //public IEnumerable<DbEntityValidationResult> GetValidationErrors()
         //{

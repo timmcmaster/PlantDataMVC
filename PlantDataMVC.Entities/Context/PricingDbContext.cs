@@ -1,51 +1,46 @@
-﻿using Framework.Domain.EF;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Configuration;
 using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.Models;
 
-using System.Data.Entity;
-
 namespace PlantDataMVC.Entities.Context
 {
-
-
     public class PricingDbContext : DbContext, IPricingDbContext
     {
-        public IDbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
-        public IDbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
-        public IDbSet<ProductType> ProductTypes { get; set; } // ProductType
+        private string _connectionString;
 
-        static PricingDbContext()
+        public DbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
+        public DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
+        public DbSet<ProductType> ProductTypes { get; set; } // ProductType
+
+        public PricingDbContext(): this("Name=PlantDataDbContext")
         {
-            // Disable CodeFirst migrations 
-            Database.SetInitializer<PricingDbContext>(null);
         }
-
-        //public PricingDbContext() 
-        //    : base("Name=PlantDataDbContext")
-        //{
-        //}
 
         public PricingDbContext(string connectionString)
-            : base(connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public PricingDbContext(DbContextOptions options) : base(options)
         {
         }
 
-        public PricingDbContext(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection)
-            : base(existingConnection, contextOwnsConnection)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var conn = new SqlConnection(_connectionString);
+                optionsBuilder.UseSqlServer(conn);
+            }
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.Dispose(disposing);
-        }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations.Add(new PriceListTypeConfiguration());
-            modelBuilder.Configurations.Add(new ProductPriceConfiguration());
-            modelBuilder.Configurations.Add(new ProductTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PriceListTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductPriceConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

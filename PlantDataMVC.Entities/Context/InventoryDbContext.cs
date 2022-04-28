@@ -1,50 +1,54 @@
-﻿using Framework.Domain.EF;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Configuration;
 using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.Models;
-
-using System.Data.Entity;
 
 namespace PlantDataMVC.Entities.Context
 {
     public class InventoryDbContext : DbContext, IInventoryDbContext
     {
-        public IDbSet<Genus> Genus { get; set; } // Genus
-        public IDbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
-        public IDbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
-        public IDbSet<PlantStock> PlantStocks { get; set; } // PlantStock
-        public IDbSet<ProductType> ProductTypes { get; set; } // ProductType
-        public IDbSet<Species> Species { get; set; } // Species
+        private string _connectionString;
 
-        static InventoryDbContext()
-        {
-            // Disable CodeFirst migrations 
-            Database.SetInitializer<InventoryDbContext>(null);
-        }
+        public DbSet<Genus> Genus { get; set; } // Genus
+        public DbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
+        public DbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
+        public DbSet<PlantStock> PlantStocks { get; set; } // PlantStock
+        public DbSet<ProductType> ProductTypes { get; set; } // ProductType
+        public DbSet<Species> Species { get; set; } // Species
+
+        //static InventoryDbContext()
+        //{
+        //    // Disable CodeFirst migrations 
+        //    Database.SetInitializer<InventoryDbContext>(null);
+        //}
 
         public InventoryDbContext(string connectionString)
-            : base(connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public InventoryDbContext(DbContextOptions options) : base(options)
         {
         }
 
-        public InventoryDbContext(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection)
-            : base(existingConnection, contextOwnsConnection)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var conn = new SqlConnection(_connectionString);
+                optionsBuilder.UseSqlServer(conn);
+            }
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.Dispose(disposing);
-        }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations.Add(new GenusConfiguration());
-            modelBuilder.Configurations.Add(new JournalEntryConfiguration());
-            modelBuilder.Configurations.Add(new JournalEntryTypeConfiguration());
-            modelBuilder.Configurations.Add(new PlantStockConfiguration());
-            modelBuilder.Configurations.Add(new ProductTypeConfiguration());
-            modelBuilder.Configurations.Add(new SpeciesConfiguration());
+            modelBuilder.ApplyConfiguration(new GenusConfiguration());
+            modelBuilder.ApplyConfiguration(new JournalEntryConfiguration());
+            modelBuilder.ApplyConfiguration(new JournalEntryTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PlantStockConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SpeciesConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

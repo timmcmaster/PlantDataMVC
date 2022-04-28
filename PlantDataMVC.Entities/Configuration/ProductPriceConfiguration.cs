@@ -40,8 +40,8 @@ namespace PlantDataMVC.Entities.Configuration
             builder.Property(x => x.DateEffective).HasColumnName(@"DateEffective").HasColumnType("date"); //.HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             // Foreign keys
-            builder.HasRequired(a => a.PriceListType).WithMany(b => b.ProductPrices).HasForeignKey(c => c.PriceListTypeId).OnDelete(DeleteBehavior.NoAction); // FK_ProductPrices_PriceListType
-            builder.HasRequired(a => a.ProductType).WithMany(b => b.ProductPrices).HasForeignKey(c => c.ProductTypeId).OnDelete(DeleteBehavior.NoAction); // FK_ProductPrices_ProductType
+            builder.HasOne(a => a.PriceListType).WithMany(b => b.ProductPrices).HasForeignKey(c => c.PriceListTypeId).OnDelete(DeleteBehavior.NoAction); // FK_ProductPrices_PriceListType
+            builder.HasOne(a => a.ProductType).WithMany(b => b.ProductPrices).HasForeignKey(c => c.ProductTypeId).OnDelete(DeleteBehavior.NoAction); // FK_ProductPrices_ProductType
         }
     }
 

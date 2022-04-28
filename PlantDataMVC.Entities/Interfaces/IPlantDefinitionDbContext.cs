@@ -1,20 +1,15 @@
-﻿using PlantDataMVC.Entities.Models;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Data.Entity.Validation;
+﻿using Framework.Domain.EF;
+using Microsoft.EntityFrameworkCore;
+using PlantDataMVC.Entities.Models;
 using System;
-using Framework.Domain.EF;
 
 namespace PlantDataMVC.Entities.Interfaces
 {
 
     public interface IPlantDefinitionDbContext : IDbContext, IDisposable
     {
-        IDbSet<Genus> Genus { get; set; } // Genus
-        IDbSet<Species> Species { get; set; } // Species
+        DbSet<Genus> Genus { get; set; } // Genus
+        DbSet<Species> Species { get; set; } // Species
 
         //int SaveChanges();
         //Task<int> SaveChangesAsync();

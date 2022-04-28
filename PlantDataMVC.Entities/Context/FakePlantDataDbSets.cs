@@ -16,9 +16,14 @@ namespace PlantDataMVC.Entities.Context
             return this.SingleOrDefault(g => g.Id == id);
         }
 
-        public override Task<Genus> FindAsync(CancellationToken cancellationToken, params object[] keyValues)
+        public override ValueTask<Genus> FindAsync(object[] keyValues, CancellationToken cancellationToken)
         {
-            return new Task<Genus>(() => Find(keyValues));
+            return new ValueTask<Genus>(new Task<Genus>(() => Find(keyValues)));
+        }
+
+        public override ValueTask<Genus> FindAsync(params object[] keyValues)
+        {
+            return new ValueTask<Genus>(new Task<Genus>(() => Find(keyValues)));
         }
     }
 

@@ -1,29 +1,24 @@
-﻿using PlantDataMVC.Entities.Models;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Data.Entity.Validation;
+﻿using Framework.Domain.EF;
+using Microsoft.EntityFrameworkCore;
+using PlantDataMVC.Entities.Models;
 using System;
-using Framework.Domain.EF;
 
 namespace PlantDataMVC.Entities.Interfaces
 {
 
     public interface IPlantDataDbContext : IDbContext, IDisposable
     {
-        IDbSet<Genus> Genus { get; set; } // Genus
-        IDbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
-        IDbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
-        IDbSet<PlantStock> PlantStocks { get; set; } // PlantStock
-        IDbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
-        IDbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
-        IDbSet<ProductType> ProductTypes { get; set; } // ProductType
-        IDbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
-        IDbSet<SeedTray> SeedTrays { get; set; } // SeedTray
-        IDbSet<Site> Sites { get; set; } // Site
-        IDbSet<Species> Species { get; set; } // Species
+        DbSet<Genus> Genus { get; set; } // Genus
+        DbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
+        DbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
+        DbSet<PlantStock> PlantStocks { get; set; } // PlantStock
+        DbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
+        DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
+        DbSet<ProductType> ProductTypes { get; set; } // ProductType
+        DbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
+        DbSet<SeedTray> SeedTrays { get; set; } // SeedTray
+        DbSet<Site> Sites { get; set; } // Site
+        DbSet<Species> Species { get; set; } // Species
 
 
     }
