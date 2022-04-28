@@ -7,6 +7,7 @@ using PlantDataMVC.DTO.Mappers;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
 using System;
+using System.Threading.Tasks;
 using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
@@ -85,8 +86,8 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
         //[Fact]
         //public async Task TestCreatePlantWhereGenusLatinNameDoesNotExist()
         //{
-        //    using (IDataContextAsync dataContext = new PlantDataDbContext())
-        //    using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
+        //    using (IDbContext dbContext = new PlantDataDbContext())
+        //    using (IUnitOfWorkAsync uow = new UnitOfWork(dbContext))
         //    {
         //        // Arrange
         //        // create plant 
@@ -113,8 +114,8 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
         //    // create another plant with same genus
         //    var secondPlant = PlantBuilder.aPlant().withSpecificName("curtisii").withNoId().Build();
 
-        //    using (IDataContextAsync dataContext = new PlantDataDbContext())
-        //    using (IUnitOfWorkAsync uow = new UnitOfWork(dataContext))
+        //    using (IDbContext plantDataDbContext = new PlantDataDbContext())
+        //    using (IUnitOfWorkAsync uow = new UnitOfWork(dbContext))
         //    {
         //        // add first plant
         //        //var requestOne = new CreateRequest<Plant>(firstPlant);
