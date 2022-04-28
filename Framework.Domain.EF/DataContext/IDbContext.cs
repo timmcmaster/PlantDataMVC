@@ -15,8 +15,9 @@ namespace Framework.Domain.EF
 
 
         int SaveChanges();
-        Task<int> SaveChangesAsync();
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        int SaveChanges(bool acceptAllChangesOnSuccess);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken));
         //DbChangeTracker ChangeTracker { get; }
         //DbContextConfiguration Configuration { get; }
         //IEnumerable<DbEntityValidationResult> GetValidationErrors();

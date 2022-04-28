@@ -33,12 +33,17 @@ namespace Framework.Domain.EF
             return default(int);
         }
 
+        public int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            return default(int);
+        }
+
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             return new Task<int>(() => default(int));
         }
 
-        public Task<int> SaveChangesAsync()
+        public Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             return new Task<int>(() => default(int));
         }
