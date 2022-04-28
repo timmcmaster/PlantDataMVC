@@ -1,5 +1,4 @@
 ﻿using Interfaces.Domain.Entity;
-using System.Data.Entity;
 
 namespace Framework.Domain.EF
 {
@@ -9,6 +8,6 @@ namespace Framework.Domain.EF
 
         void AddFakeDbSet<TEntity, TFakeDbSet>()
             where TEntity : class, IEntity, new()
-            where TFakeDbSet : FakeDbSet<TEntity>, IDbSet<TEntity>, new();
+            where TFakeDbSet : FakeDbSet<TEntity>, new();
     }
 }

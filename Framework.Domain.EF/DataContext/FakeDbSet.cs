@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections;
+﻿using Interfaces.Domain.Entity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using Interfaces.Domain.Entity;
 
 namespace Framework.Domain.EF
 {
-    public abstract class FakeDbSet<TEntity> : DbSet<TEntity>, IDbSet<TEntity> where TEntity : class, IEntity, new()
+    public abstract class FakeDbSet<TEntity> : DbSet<TEntity> where TEntity : class, IEntity, new()
     {
         private readonly ObservableCollection<TEntity> _items;
         private readonly IQueryable _query;
@@ -20,22 +20,17 @@ namespace Framework.Domain.EF
             _query = _items.AsQueryable();
         }
 
-        #region IDbSet<TEntity> Members
+        #region DbSet<TEntity> Members
         // Note: Don't implement find generically - do that with specific derived sets
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _items.GetEnumerator();
-        }
-
         public IEnumerator<TEntity> GetEnumerator()
         {
             return _items.GetEnumerator();
         }
 
-        public override ObservableCollection<TEntity> Local
-        {
-            get => _items;
-        }
+        //public override ObservableCollection<TEntity> Local
+        //{
+        //    get => _items;
+        //}
 
         public Expression Expression
         {
@@ -52,7 +47,7 @@ namespace Framework.Domain.EF
             get => _query.Provider;
         }
 
-        public override TEntity Add(TEntity entity)
+        public override EntityEntry<TEntity> Add(TEntity entity)
         {
             if (entity == null)
             {
@@ -60,10 +55,10 @@ namespace Framework.Domain.EF
             }
 
             _items.Add(entity);
-            return entity;
+            return null;
         }
 
-        public override TEntity Attach(TEntity entity)
+        public override EntityEntry<TEntity> Attach(TEntity entity)
         {
             // just doing add
             if (entity == null)
@@ -72,15 +67,10 @@ namespace Framework.Domain.EF
             }
 
             _items.Add(entity);
-            return entity;
+            return null;
         }
 
-        public override TEntity Create()
-        {
-            return new TEntity();
-        }
-
-        public override TEntity Remove(TEntity entity)
+        public override EntityEntry<TEntity> Remove(TEntity entity)
         {
             if (entity == null)
             {
@@ -88,12 +78,7 @@ namespace Framework.Domain.EF
             }
 
             _items.Remove(entity);
-            return entity;
-        }
-
-        public override TDerivedEntity Create<TDerivedEntity>()
-        {
-            return Activator.CreateInstance<TDerivedEntity>();
+            return null;
         }
         #endregion
     }

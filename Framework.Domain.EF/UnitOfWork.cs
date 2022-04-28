@@ -2,11 +2,11 @@
 using Interfaces.Domain.Entity;
 using Interfaces.Domain.Repository;
 using Interfaces.Domain.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,9 +20,8 @@ namespace Framework.Domain.EF
     {
         private IDbContext _dbContext;
         private bool _disposed;
-        private ObjectContext _objectContext;
         private readonly Dictionary<string, dynamic> _repositories;
-        private IDbTransaction _transaction;
+        private IDbContextTransaction _transaction;
 
         public UnitOfWork(IDbContext dbContext)
         {
@@ -97,14 +96,14 @@ namespace Framework.Domain.EF
 
         public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified)
         {
-            _objectContext = ((IObjectContextAdapter)_dbContext).ObjectContext;
-
-            if (_objectContext.Connection.State != ConnectionState.Open)
+            var dbConnection = _dbContext.Database.GetDbConnection();
+            if (dbConnection.State != ConnectionState.Open)
             {
-                _objectContext.Connection.Open();
+                dbConnection.Open();
             }
 
-            _transaction = _objectContext.Connection.BeginTransaction(isolationLevel);
+            _transaction = _dbContext.Database.BeginTransaction(isolationLevel);
+
         }
 
         public bool Commit()
@@ -128,9 +127,9 @@ namespace Framework.Domain.EF
                 {
                     try
                     {
-                        if (_objectContext != null && _objectContext.Connection.State == ConnectionState.Open)
+                        if (_dbContext != null && _dbContext.Database.GetDbConnection().State == ConnectionState.Open)
                         {
-                            _objectContext.Connection.Close();
+                            _dbContext.Database.CloseConnection();
                         }
                     }
                     catch (ObjectDisposedException)

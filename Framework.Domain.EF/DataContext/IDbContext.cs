@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +9,7 @@ namespace Framework.Domain.EF
     public interface IDbContext: IDisposable
     {
         //String Schema { get; }
-        Database Database { get; }
+        DatabaseFacade Database { get; }
         EntityState GetState<TEntity>(TEntity entity) where TEntity: class;
         void SetState<TEntity>(TEntity entity, EntityState entityState);
 

@@ -1,10 +1,9 @@
 ﻿using Interfaces.Domain.Entity;
 using Interfaces.Domain.Repository;
 using LinqKit;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -20,7 +19,7 @@ namespace Framework.Domain.EF
         where TEntity : class, IEntity
     {
         private readonly IDbContext _context;
-        private readonly IDbSet<TEntity> _dbSet;
+        private readonly DbSet<TEntity> _dbSet;
         //private readonly IUnitOfWorkAsync _unitOfWork;
 
         //public EFRepository(IDbContext context, IUnitOfWorkAsync unitOfWork)

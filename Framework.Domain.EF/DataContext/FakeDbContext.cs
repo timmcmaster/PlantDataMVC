@@ -1,8 +1,8 @@
 ﻿using Interfaces.Domain.Entity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,7 +26,7 @@ namespace Framework.Domain.EF
         }
 
         #region IDbContext Members
-        public Database Database => throw new NotImplementedException();
+        public DatabaseFacade Database => throw new NotImplementedException();
 
         public int SaveChanges()
         {
@@ -70,7 +70,7 @@ namespace Framework.Domain.EF
         #region IFakeDbContext members
         public void AddFakeDbSet<TEntity, TFakeDbSet>()
             where TEntity : class, IEntity, new()
-            where TFakeDbSet : FakeDbSet<TEntity>, IDbSet<TEntity>, new()
+            where TFakeDbSet : FakeDbSet<TEntity>, new()
         {
             var fakeDbSet = Activator.CreateInstance<TFakeDbSet>();
             _fakeDbSets.Add(typeof(TEntity), fakeDbSet);
