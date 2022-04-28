@@ -1,33 +1,42 @@
-﻿using IdentityServer3.Core.Configuration;
-using Microsoft.Owin;
-using Owin;
-using PlantDataMVC.Constants;
-using PlantDataMVC.IdSrv;
-using PlantDataMVC.IdSrv.Config;
-
-[assembly: OwinStartup(typeof(Startup))]
+﻿
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+//using Owin;
 
 namespace PlantDataMVC.IdSrv
 {
+    using IdentityServer3.Core.Configuration;
+    using Microsoft.AspNetCore.Hosting;
+    using PlantDataMVC.Constants;
+    using PlantDataMVC.IdSrv.Config;
+
     public class Startup
     {
-        public void Configuration(IAppBuilder app)
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
         {
-            // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
+            services.AddDataProtection();
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment host)
+        {
             app.Map("/identity", idsrvApp =>
             {
-                idsrvApp.UseIdentityServer(new IdentityServerOptions
+                var factory = new IdentityServerServiceFactory()
+                          .UseInMemoryClients(Clients.Get())
+                          .UseInMemoryUsers(Users.Get())
+                          .UseInMemoryScopes(Scopes.Get());
+
+                var options = new IdentityServerOptions
                 {
                     SiteName = "Embedded IdentityServer",
                     IssuerUri = PlantDataMvcConstants.IdSrvIssuerUri,
+                    SigningCertificate = Certificate.Get(),
+                    Factory = factory
+                };
 
-                    Factory = new IdentityServerServiceFactory()
-                              .UseInMemoryClients(Clients.Get())
-                              .UseInMemoryUsers(Users.Get())
-                              .UseInMemoryScopes(Scopes.Get()),
-
-                    SigningCertificate = Certificate.Get() 
-                });
+                idsrvApp.UseIdentityServer(options);
             });
         }
     }
