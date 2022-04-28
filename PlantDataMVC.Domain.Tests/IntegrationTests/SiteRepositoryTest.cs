@@ -1,10 +1,10 @@
 ﻿using FluentAssertions;
 using Framework.Domain.EF;
 using Interfaces.Domain.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.Models;
-using System.Data.Entity.Validation;
 using UnitTest.Utils.Domain;
 using Xunit;
 using Xunit.Abstractions;
@@ -83,7 +83,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                     repository.Update(site);
                     unitOfWork.SaveChanges();
                 }
-                catch (DbEntityValidationException)
+                catch (DbUpdateException)
                 {
                 }
             }
@@ -141,7 +141,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
                     unitOfWork.SaveChanges();
                     var updatedSite = repository.GetItemById(site.Id);
                 }
-                catch (DbEntityValidationException ex)
+                catch (DbUpdateException ex)
                 {
                 }
 
