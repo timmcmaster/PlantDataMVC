@@ -1,7 +1,10 @@
 ﻿
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+//using Microsoft.Owin;
 //using Owin;
+
+//[assembly: OwinStartup(typeof(PlantDataMVC.IdSrv.Startup))]
 
 namespace PlantDataMVC.IdSrv
 {

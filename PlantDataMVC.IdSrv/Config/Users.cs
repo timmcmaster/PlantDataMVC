@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using IdentityServer3.Core.Services.InMemory;
+using PlantDataMVC.Constants;
 
 namespace PlantDataMVC.IdSrv.Config
 {
@@ -20,9 +21,9 @@ namespace PlantDataMVC.IdSrv.Config
                     {
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "Timothy"),
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "McMaster"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebReadUser"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebWriteUser"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebAdminUser")
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, AuthorizationRole.WebReadUser),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, AuthorizationRole.WebWriteUser),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, AuthorizationRole.WebAdminUser)
                     }
                 },
 
@@ -36,8 +37,8 @@ namespace PlantDataMVC.IdSrv.Config
                     {
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "Kerryn"),
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "Plummer"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebReadUser"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebWriteUser")
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, AuthorizationRole.WebReadUser),
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, AuthorizationRole.WebWriteUser)
                     }
                 },
 
@@ -51,7 +52,7 @@ namespace PlantDataMVC.IdSrv.Config
                     {
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.GivenName, "Joanne"),
                         new Claim(IdentityServer3.Core.Constants.ClaimTypes.FamilyName, "Vayena"),
-                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, "WebReadUser")
+                        new Claim(IdentityServer3.Core.Constants.ClaimTypes.Role, AuthorizationRole.WebReadUser)
                     }
                 }
             };

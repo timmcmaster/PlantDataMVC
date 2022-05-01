@@ -8,6 +8,7 @@ namespace PlantDataMVC.IdSrv
     {
         public static void Main(string[] args)
         {
+            // TODO: Convert to latest Identity server
             CreateHostBuilder(args).Build().Run();
         }
 
