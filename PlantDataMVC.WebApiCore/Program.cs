@@ -17,9 +17,7 @@ namespace PlantDataMVC.WebApiCore
 
             try
             {
-                var app = CreateWebHostBuilder(args).Build();
-
-                app.Run();
+                CreateHostBuilder(args).Build().Run();
             }
             catch (Exception exception)
             {
@@ -33,10 +31,14 @@ namespace PlantDataMVC.WebApiCore
                 NLog.LogManager.Shutdown();
             }
         }
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-            .UseNLog();
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+                webBuilder.UseNLog();
+            });
 
         //TODO: Work out split between program and startup files
 
