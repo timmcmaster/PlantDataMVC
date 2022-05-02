@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Web.Mvc;
-using System.Web.Mvc.Html;
-using System.Web.Routing;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Routing;
 
 namespace Framework.Web.Mvc.Paging
 {
@@ -11,7 +12,7 @@ namespace Framework.Web.Mvc.Paging
     /// </summary>
     public static class PagingExtensions
     {
-        public static MvcHtmlString PagingLinksFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+        public static HtmlString PagingLinksFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
                                                                       Expression<Func<TModel, TProperty>>
                                                                           expr) //where TModel : IPageable
         {
@@ -19,9 +20,9 @@ namespace Framework.Web.Mvc.Paging
 
             //ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
 
-            var prevLink = new MvcHtmlString("");
-            var separator = new MvcHtmlString("");
-            var nextLink = new MvcHtmlString("");
+            IHtmlContent prevLink = new HtmlString("");
+            IHtmlContent separator = new HtmlString("");
+            IHtmlContent nextLink = new HtmlString("");
 
             if (model != null)
             {
@@ -32,17 +33,15 @@ namespace Framework.Web.Mvc.Paging
 
                     routeDataPrev.AddQueryStringParameters();
 
-                    prevLink = helper.ActionLink("< Previous Page",
-                                                 helper.ViewContext.RouteData.Values["action"].ToString(),
-                                                 routeDataPrev);
+                    prevLink = helper.ActionLink("< Previous Page", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataPrev);
                 }
 
                 if (model.HasPreviousPage && model.HasNextPage)
                 {
                     var builder = new TagBuilder("text");
-                    builder.InnerHtml = "&nbsp;|&nbsp;";
+                    builder.InnerHtml.AppendHtml("&nbsp;|&nbsp;");
 
-                    separator = MvcHtmlString.Create(builder.ToString());
+                    separator = new HtmlString(builder.ToString());
                 }
 
                 if (model.HasNextPage)
@@ -52,17 +51,17 @@ namespace Framework.Web.Mvc.Paging
 
                     routeDataNext.AddQueryStringParameters();
 
-                    nextLink = helper.ActionLink("Next Page >",
-                                                 helper.ViewContext.RouteData.Values["action"].ToString(),
-                                                 routeDataNext);
+                    nextLink = helper.ActionLink("Next Page >", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataNext);
                 }
             }
 
             var divBuilder = new TagBuilder("div");
             divBuilder.AddCssClass("pagination");
-            divBuilder.InnerHtml = prevLink.ToHtmlString() + separator.ToHtmlString() + nextLink.ToHtmlString();
+            divBuilder.InnerHtml.AppendHtml(prevLink);
+            divBuilder.InnerHtml.AppendHtml(separator);
+            divBuilder.InnerHtml.AppendHtml(nextLink);
 
-            return MvcHtmlString.Create(divBuilder.ToString());
+            return new HtmlString(divBuilder.ToString());
         }
     }
 }

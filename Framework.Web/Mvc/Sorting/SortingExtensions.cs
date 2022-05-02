@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Routing;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Web.Mvc;
-using System.Web.Mvc.Html;
-using System.Web.Routing;
 
 namespace Framework.Web.Mvc.Sorting
 {
@@ -12,29 +13,37 @@ namespace Framework.Web.Mvc.Sorting
     /// </summary>
     public static class SortingExtensions
     {
-        public static MvcHtmlString ColumnHeaderFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+        // TODO: Perhaps should be TagHelpers? https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/intro?view=aspnetcore-6.0
+
+        public static HtmlString ColumnHeaderFor<TModel, TProperty>(this IHtmlHelper<TModel> helper,
                                                                        Expression<Func<TModel, TProperty>> expr)
         {
-            var metadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
+            var expressionProvider = new ModelExpressionProvider(helper.MetadataProvider);
+            var modelExpression = expressionProvider.CreateModelExpression(helper.ViewData, expr);
+            var metadata = modelExpression.Metadata;
+
 
             if (helper.ViewData.Model is ISortable)
             {
                 return SortableColumnHeaderFor(helper, expr);
             }
 
-            return MvcHtmlString.Create(metadata.GetDisplayName());
+            return new HtmlString(metadata.GetDisplayName());
         }
 
-        public static MvcHtmlString SortableColumnHeaderFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+        public static HtmlString SortableColumnHeaderFor<TModel, TProperty>(this IHtmlHelper<TModel> helper,
                                                                                Expression<Func<TModel, TProperty>>
                                                                                    expr) //where TModel : ISortable
         {
             var model = helper.ViewData.Model as ISortable;
-            var metadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
+
+            var expressionProvider = new ModelExpressionProvider(helper.MetadataProvider);
+            var modelExpression = expressionProvider.CreateModelExpression(helper.ViewData, expr);
+            var metadata = modelExpression.Metadata;
 
             if (model == null)
             {
-                return MvcHtmlString.Create(metadata.GetDisplayName());
+                return new HtmlString(metadata.GetDisplayName());
             }
 
             // check if current sort is descending on current column
@@ -63,9 +72,9 @@ namespace Framework.Web.Mvc.Sorting
 
             var builder = new TagBuilder("div");
             builder.AddCssClass("sorting");
-            builder.InnerHtml = actionLink.ToHtmlString();
+            builder.InnerHtml.AppendHtml(actionLink);
 
-            return MvcHtmlString.Create(builder.ToString());
+            return new HtmlString(builder.ToString());
         }
     }
 }

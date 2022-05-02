@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Web.Mvc;
-using System.Web.Mvc.Html;
-using System.Web.Routing;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
 
 namespace Framework.Web.Mvc
 {
@@ -11,6 +11,8 @@ namespace Framework.Web.Mvc
     /// </summary>
     public static class RenderActionExtensions
     {
+        // TODO: Going to need to be rewritten if needed
+        /*
         /// <summary>
         ///     Extension method for HtmlHelper.
         ///     Renders an action on a controller given a lambda expression representing a controller action method.
@@ -18,7 +20,7 @@ namespace Framework.Web.Mvc
         /// <typeparam name="TController"></typeparam>
         /// <param name="helper"></param>
         /// <param name="action"></param>
-        public static void RenderAction<TController>(this HtmlHelper helper, Expression<Action<TController>> action)
+        public static void RenderAction<TController>(this IHtmlHelper helper, Expression<Action<TController>> action)
             where TController : Controller
         {
             helper.RenderAction(action, null);
@@ -33,8 +35,7 @@ namespace Framework.Web.Mvc
         /// <param name="helper"></param>
         /// <param name="action"></param>
         /// <param name="values"></param>
-        public static void RenderAction<TController>(this HtmlHelper helper, Expression<Action<TController>> action,
-                                                     RouteValueDictionary values)
+        public static void RenderAction<TController>(this IHtmlHelper helper, Expression<Action<TController>> action, RouteValueDictionary values)
             where TController : Controller
         {
             // resolve if dictionary is null
@@ -51,5 +52,6 @@ namespace Framework.Web.Mvc
             // Render the action 
             helper.RenderAction(actionName, controllerName, values);
         }
+        */
     }
 }

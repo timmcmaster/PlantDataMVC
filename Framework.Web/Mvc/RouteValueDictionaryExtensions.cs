@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Web;
-using System.Web.Routing;
+using Framework.Web;
+using Microsoft.AspNetCore.Routing;
 
 namespace Framework.Web.Mvc
 {
@@ -14,13 +14,13 @@ namespace Framework.Web.Mvc
         /// </summary>
         public static RouteValueDictionary AddQueryStringParameters(this RouteValueDictionary routeValues)
         {
-            var queryString = HttpContext.Current.Request.QueryString;
+            var query = HttpContextHelper.Current.Request.Query;
 
-            foreach (var key in queryString.AllKeys)
+            foreach (var key in query.Keys)
             {
                 if (!routeValues.ContainsKey(key))
                 {
-                    routeValues.Add(key, queryString.GetValues(key)[0]);
+                    routeValues.Add(key, query[key]);
                 }
             }
 

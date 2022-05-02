@@ -7,6 +7,7 @@ using Framework.Web.Views;
 
 namespace Framework.Web.Mediator
 {
+    //TODO: swap out for Mediatr pkg - 
     public class Mediator : IMediator
     {
         private readonly IQueryHandlerFactory _queryHandlerFactory;
