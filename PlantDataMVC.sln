@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Utils", "UnitTest.Utils\UnitTest.Utils.csproj", "{1A3A2975-AB2E-468B-914C-27D87A9E3804}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.Utils", "UnitTest.Utils\UnitTest.Utils.csproj", "{1A3A2975-AB2E-468B-914C-27D87A9E3804}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FDD2BEF9-ADC5-4899-87A0-4E6E5CA3FA3E}"
 	ProjectSection(SolutionItems) = preProject
@@ -66,7 +66,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.Service.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.UI.Tests", "PlantDataMVC.UI.Tests\PlantDataMVC.UI.Tests.csproj", "{E8C81B77-5B26-4695-B70A-C87832871915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.WebApiCore", "PlantDataMVC.WebApiCore\PlantDataMVC.WebApiCore.csproj", "{B3CCB978-2294-4403-9DCF-A7222CB5BDC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.WebApiCore", "PlantDataMVC.WebApiCore\PlantDataMVC.WebApiCore.csproj", "{B3CCB978-2294-4403-9DCF-A7222CB5BDC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc.WebApiCore.Tests", "PlantDataMvc.WebApiCore.Tests\PlantDataMvc.WebApiCore.Tests.csproj", "{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -322,6 +324,18 @@ Global
 		{B3CCB978-2294-4403-9DCF-A7222CB5BDC1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B3CCB978-2294-4403-9DCF-A7222CB5BDC1}.Release|x86.ActiveCfg = Release|Any CPU
 		{B3CCB978-2294-4403-9DCF-A7222CB5BDC1}.Release|x86.Build.0 = Release|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Debug|x86.Build.0 = Debug|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Release|x86.ActiveCfg = Release|Any CPU
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -346,6 +360,7 @@ Global
 		{22230FCA-989F-4CCC-93EA-8B10E8BE0232} = {25C7A4B6-71E1-41B6-9F5A-52FA5309F413}
 		{E8C81B77-5B26-4695-B70A-C87832871915} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
 		{B3CCB978-2294-4403-9DCF-A7222CB5BDC1} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
+		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {60B4C356-76F5-4270-90B7-5609C4A1FDFE}
