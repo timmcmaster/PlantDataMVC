@@ -130,7 +130,6 @@ namespace PlantDataMVC.WebApiCore
             // Stop trying to map tokens to .Net claim types
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap = new Dictionary<string, string>();
 
-            app.UseNlog();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors();
