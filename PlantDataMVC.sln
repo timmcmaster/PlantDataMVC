@@ -68,7 +68,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.UI.Tests", "Pl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.WebApiCore", "PlantDataMVC.WebApiCore\PlantDataMVC.WebApiCore.csproj", "{B3CCB978-2294-4403-9DCF-A7222CB5BDC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc.WebApiCore.Tests", "PlantDataMvc.WebApiCore.Tests\PlantDataMvc.WebApiCore.Tests.csproj", "{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMvc.WebApiCore.Tests", "PlantDataMvc.WebApiCore.Tests\PlantDataMvc.WebApiCore.Tests.csproj", "{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc.UICore", "PlantDataMvc.UICore\PlantDataMvc.UICore.csproj", "{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -336,6 +338,18 @@ Global
 		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Release|x86.ActiveCfg = Release|Any CPU
 		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}.Release|x86.Build.0 = Release|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Debug|x86.Build.0 = Debug|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Release|x86.ActiveCfg = Release|Any CPU
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -361,6 +375,7 @@ Global
 		{E8C81B77-5B26-4695-B70A-C87832871915} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
 		{B3CCB978-2294-4403-9DCF-A7222CB5BDC1} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
 		{B5FC154C-CB1A-43A4-BE9D-FB27B0371283} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
+		{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {60B4C356-76F5-4270-90B7-5609C4A1FDFE}
