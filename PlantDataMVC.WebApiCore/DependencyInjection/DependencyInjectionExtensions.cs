@@ -8,7 +8,7 @@ using PlantDataMVC.Repository.Interfaces;
 using PlantDataMVC.Repository.Repositories;
 using PlantDataMVC.Service;
 
-namespace PlantDataMVC.WebApiCore
+namespace PlantDataMVC.WebApiCore.DependencyInjection
 {
     public static class DependencyInjectionExtensions
     {

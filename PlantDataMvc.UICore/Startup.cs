@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PlantDataMVC.UICore.DependencyInjection;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace PlantDataMVC.UICore
@@ -22,6 +23,8 @@ namespace PlantDataMVC.UICore
         // ConfigureServices is where you register dependencies.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDomainServices();
+            services.AddControllersWithViews();
         }
 
 

@@ -1,4 +1,5 @@
-﻿using IdentityServer4.AccessTokenValidation;
+﻿using CacheCow.Server.Core.Mvc;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,14 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using PlantDataMVC.Constants;
+using PlantDataMVC.WebApiCore.DependencyInjection;
 using PlantDataMVC.WebApiCore.Helpers;
 using PlantDataMVC.WebApiCore.Mappers;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using CacheCow.Server.Core.Mvc;
 //using Microsoft.AspNetCore.Mvc.Versioning;
-using NLog;
-using NLog.Web;
 
 namespace PlantDataMVC.WebApiCore
 {
@@ -97,7 +96,13 @@ namespace PlantDataMVC.WebApiCore
 
             });
 
+            // TODO: investigate Built-in caching vs CacheCow
             services.AddHttpCachingMvc();
+            //services.AddResponseCaching(options =>
+            //{
+                
+            //});
+
 
             // Authorization setup
             //services.AddSingleton<IAuthorizationHandler, ResourceAuthorizationHandler>();
