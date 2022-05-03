@@ -44,7 +44,7 @@ namespace PlantDataMVC.UICore.DependencyInjection
             //builder.RegisterType<AutofacQueryHandlerFactory>().As<IQueryHandlerFactory>();
 
             //// Register HttpClient as a service to be injected
-            //builder.RegisterType<MyHttpClientFactory>().As<IMyHttpClientFactory>().SingleInstance();
+            //builder.RegisterType<MyHttpClientFactory>().As<IHttpClientFactory>().SingleInstance();
 
 
             return services;

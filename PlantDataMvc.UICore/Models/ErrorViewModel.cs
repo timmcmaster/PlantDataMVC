@@ -1,4 +1,4 @@
-namespace PlantDataMvc.UICore.Models
+namespace PlantDataMVC.UICore.Models
 {
     public class ErrorViewModel
     {

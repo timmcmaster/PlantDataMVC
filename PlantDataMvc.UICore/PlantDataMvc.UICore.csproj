@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Framework.Web.Core\Framework.Web.Core.csproj" />
+    <ProjectReference Include="..\PlantDataMVC.Constants\PlantDataMVC.Constants.csproj" />
+    <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj" />
   </ItemGroup>
 
 </Project>

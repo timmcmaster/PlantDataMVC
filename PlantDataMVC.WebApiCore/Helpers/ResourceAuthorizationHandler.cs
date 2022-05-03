@@ -6,19 +6,9 @@ using PlantDataMVC.Constants;
 
 namespace PlantDataMVC.WebApiCore.Helpers
 {
-    public static class AuthorizationPolicies
+    public class ResourceAuthorizationHandler //: IAuthorizationHandler
     {
-        public const string ReadPolicy = "ReadPolicy";
-        public const string WritePolicy = "WritePolicy";
-        public const string AdminUserPolicy = "AdminUserPolicy";
-
-        public const string RequireReadUserRole = "RequireReadUserRole";
-        public const string RequireWriteUserRole = "RequireWriteUserRole";
-        public const string RequireAdminUserRole = "RequireAdminUserRole";
-    }
-
-    public class ResourceAuthorizationHandler : IAuthorizationHandler
-    {
+        /*
         public Task HandleAsync(AuthorizationHandlerContext context)
         {
             // Check the requested resource
@@ -107,10 +97,12 @@ namespace PlantDataMVC.WebApiCore.Helpers
         {
             return user.HasClaim("role", AuthorizationRole.WebAdminUser);
         }
-
+        */
     }
 
+    /*
     public class ReadPermissionRequirement : IAuthorizationRequirement { }
     public class WritePermissionRequirement : IAuthorizationRequirement { }
     public class AdminPermissionRequirement : IAuthorizationRequirement { }
+*/
 }

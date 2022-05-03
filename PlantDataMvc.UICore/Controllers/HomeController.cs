@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PlantDataMvc.UICore.Models;
+using PlantDataMVC.UICore.Models;
 using System.Diagnostics;
 
-namespace PlantDataMvc.UICore.Controllers
+namespace PlantDataMVC.UICore.Controllers
 {
     public class HomeController : Controller
     {
@@ -15,6 +15,13 @@ namespace PlantDataMvc.UICore.Controllers
         }
 
         public IActionResult Index()
+        {
+            ViewBag.Message = "Welcome to ASP.NET Core 6.0 MVC!";
+
+            return View();
+        }
+
+        public ActionResult About()
         {
             return View();
         }

@@ -1,0 +1,44 @@
+﻿using AutoMapper;
+using Framework.Web.Core.Views;
+using Newtonsoft.Json;
+using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.UICore.Controllers.Queries.PlantStock;
+using PlantDataMVC.UICore.Helpers;
+using PlantDataMVC.UICore.Models.ViewModels.PlantStock;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
+{
+    public class DetailsQueryHandler : IQueryHandler<DetailsQuery, PlantStockDetailsViewModel>
+    {
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public DetailsQueryHandler(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
+        public async Task<PlantStockDetailsViewModel> HandleAsync(DetailsQuery query, CancellationToken cancellationToken)
+        {
+            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
+            var uri = "api/PlantStock/" + query.Id + "?fields=id,speciesId,productTypeId,quantityInStock,journalEntries";
+            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var dto = JsonConvert.DeserializeObject<PlantStockDto>(content);
+
+                var model = Mapper.Map<PlantStockDto, PlantStockDetailsViewModel>(dto);
+                return model;
+            }
+            else
+            {
+                // TODO: better way needed to handle failure response
+                return null;
+            }
+        }
+    }
+}

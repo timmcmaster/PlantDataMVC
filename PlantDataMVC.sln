@@ -68,7 +68,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.WebApiCore", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMvc.WebApiCore.Tests", "PlantDataMvc.WebApiCore.Tests\PlantDataMvc.WebApiCore.Tests.csproj", "{B5FC154C-CB1A-43A4-BE9D-FB27B0371283}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMvc.UICore", "PlantDataMvc.UICore\PlantDataMvc.UICore.csproj", "{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.UICore", "PlantDataMvc.UICore\PlantDataMVC.UICore.csproj", "{4A41A421-7691-4D2C-A0DD-7C1FD4E28F1E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Web.Core", "Framework.Web.Core\Framework.Web.Core.csproj", "{DCD26E84-3F2C-4908-BF2C-6DBF1A3EBF45}"
 EndProject
