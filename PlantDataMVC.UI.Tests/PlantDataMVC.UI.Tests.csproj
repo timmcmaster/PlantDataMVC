@@ -272,7 +272,7 @@
       <Name>Framework.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Framework.Web\Framework.Web.csproj">
-      <Project>{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}</Project>
+      <Project>{2acec3d2-cb25-4b0d-a6bc-e224ecd5248e}</Project>
       <Name>Framework.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj">
