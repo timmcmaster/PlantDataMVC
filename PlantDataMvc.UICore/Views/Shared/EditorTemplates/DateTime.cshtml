@@ -1,0 +1,19 @@
+﻿@model System.DateTime
+
+@* TODO: Add Modernizr to handle browser features (e.g. non HTML5)
+@{
+    string prefixName = ViewData.TemplateInfo.HtmlFieldPrefix;
+}
+
+
+<script type="text/javascript">
+    if (!Modernizr.inputtypes.date) {
+        $(function () {
+            // Call datepicker
+
+            $('#@prefixName').datepicker({ dateFormat: 'dd/mm/yyyy' });
+            });
+    }
+</script>*@
+
+@Html.TextBox("", String.Format("{0:yyyy-MM-dd}", Model), new { @class = "datefield", type = "date" })

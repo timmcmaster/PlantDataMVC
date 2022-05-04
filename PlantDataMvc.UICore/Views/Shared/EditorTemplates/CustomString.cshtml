@@ -1,0 +1,62 @@
+﻿@model System.String
+           
+@using System.Linq
+@using System.ComponentModel.DataAnnotations;
+@using System.Reflection;
+
+@*@if (!(ViewData.ModelMetadata.ModelType == typeof(System.String)))
+{
+    @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new { @class = "text-box single-line" })
+}
+else
+{
+*@
+  
+@{
+    const int narrowLength = 10;
+    const int wideLength = 40;
+    const int multilineLength = 100;
+
+    // get the memberInfo for this property from it's container type   
+    MemberInfo memberInfo = ViewData.ModelMetadata.ContainerType.GetMembers().FirstOrDefault(mi => mi.Name == ViewData.ModelMetadata.PropertyName);
+
+    if (memberInfo != null)
+    {
+        var stringLengthAttribute = memberInfo.GetCustomAttributes(typeof(StringLengthAttribute), false).FirstOrDefault() as StringLengthAttribute;
+        if (stringLengthAttribute != null)
+        {
+            var maxLength = stringLengthAttribute.MaximumLength;
+
+            if (maxLength <= narrowLength)
+            {
+                // use narrow style
+                @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new {@class = "text-box single-line narrow"})
+            }
+            else if (maxLength <= wideLength)
+            {
+                // use default style
+                @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new {@class = "text-box single-line"})
+            }
+            else if (maxLength <= multilineLength)
+            {
+                // use wide style
+                @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new {@class = "text-box single-line wide"})
+            }
+            else
+            {
+                // use multiline text
+                @Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue.ToString(), new {@class = "text-box multi-line"})
+            }
+        }
+        else
+        {
+            // use default style
+            @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new {@class = "text-box single-line"})
+        }
+    }
+    else
+    {
+        // use default style
+        @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new {@class = "text-box single-line"})
+    }
+}

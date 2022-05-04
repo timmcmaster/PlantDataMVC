@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Framework.Web.Core.Mediator;
+using Framework.Web.Core.Views;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Framework.Web.Core.Mediator;
-using Framework.Web.Core.Views;
 
 namespace PlantDataMVC.UI.Helpers
 {
@@ -12,7 +14,7 @@ namespace PlantDataMVC.UI.Helpers
         // Preferred call structure would be:
         // @(Html.QueryDropDown2For(() => "SiteId", model => model.Site.Id, new IndexQuery(1, 100), p => p.SiteName, p => p.Id))
         // - requires TViewModel to be inferred somehow (preferably from query type)
-        public static MvcHtmlString QueryDropDownFor<TModel, TViewModel, TListItem>(this HtmlHelper<TModel> htmlHelper,
+        public static IHtmlContent QueryDropDownFor<TModel, TViewModel, TListItem>(this IHtmlHelper<TModel> htmlHelper,
                                                                                      Func<string> saveFieldNameFunc,
                                                                                      Expression<Func<TModel, object>>
                                                                                          selectedDataValue,
