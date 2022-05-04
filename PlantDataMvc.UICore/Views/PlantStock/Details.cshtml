@@ -1,4 +1,4 @@
-﻿@model PlantDataMVC.UI.Models.ViewModels.PlantStock.PlantStockDetailsViewModel
+﻿@model PlantDataMVC.UICore.Models.ViewModels.PlantStock.PlantStockDetailsViewModel
 
 @{
     ViewBag.Title = "Plant Stock";
@@ -15,7 +15,7 @@
         <label asp-for="Transactions"></label>
     </div>
     <div class="button">
-        <a asp-controller="Transaction" asp-action="New" asp-route-plantStockId="Id">New</a>
+        <a asp-controller="Transaction" asp-action="New" asp-route-plantStockId="@Model.Id">New</a>
     </div>
     <div class="child-table">
         @Html.Partial("TransactionListTable", Model.Transactions)

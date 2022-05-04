@@ -1,0 +1,67 @@
+﻿@model PlantDataMVC.UICore.Models.ViewModels.SeedBatch.SeedBatchEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Update" asp-controller="SeedBatch">
+    <div asp-validation-summary="ModelOnly"></div>
+    <fieldset>
+        <legend>Seed Batch</legend>
+
+        <input asp-for="Id" type="hidden" />
+
+        <input asp-for="SpeciesId" type="hidden" />
+
+        <div class="editor-label">
+            <label asp-for="SpeciesBinomial"></label>
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.SpeciesBinomial)
+        </div>
+
+        <input asp-for="SiteId" type="hidden" />
+
+        <div class="editor-label">
+            <label asp-for="SiteName"></label>
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.SiteName)
+        </div>
+
+        <div class="editor-label">
+            <label asp-for="DateCollected"></label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateCollected)
+            <span asp-validation-for="DateCollected"></span>
+        </div>
+
+        <div class="editor-label">
+            <label asp-for="Location"></label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Location)
+            <span asp-validation-for="Location"></span>
+        </div>
+
+        <div class="editor-label">
+            <label asp-for="Notes"></label>
+        </div>
+        <div class="editor-field">
+
+            @Html.EditorFor(model => model.Notes)
+            <span asp-validation-for="Notes"></span>
+        </div>
+        <p>
+            <input type="submit" value="Update"/>
+        </p>
+    </fieldset>
+</form>
+
+
+<div>
+    <a asp-controller="SeedBatch" asp-action="Index">Back to List</a>
+</div>

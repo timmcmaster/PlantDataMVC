@@ -1,0 +1,10 @@
+﻿@model ListViewModelStatic<PlantDataMVC.UICore.Models.ViewModels.SeedBatch.SeedBatchListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.Partial("SeedBatchListTable", Model)
+@Html.PagingLinksFor(m => Model)

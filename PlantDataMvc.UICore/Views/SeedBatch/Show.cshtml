@@ -1,0 +1,22 @@
+﻿@model PlantDataMVC.UICore.Models.ViewModels.SeedBatch.SeedBatchShowViewModel
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+<fieldset>
+    <legend>Seed Batch</legend>
+
+    @Html.DisplayForModel()
+    
+    @*<div class="child-table">@Html.Partial("SeedTrayListTable", Model.SeedTrays)</div>
+    <div class="button">@Html.ActionLink("New", "New", "SeedTray", new { seedBatchId = Model.Id }, null)</div>*@
+</fieldset>
+
+<p>
+    <a asp-controller="SeedBatch" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-controller="SeedBatch" asp-action="Index">Back to Index</a>
+</p>
+
