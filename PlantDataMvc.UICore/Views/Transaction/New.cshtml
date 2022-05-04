@@ -24,7 +24,7 @@
         </div>
         <div class="editor-field">
             @Html.QueryDropDownFor(
-                () => "TransactionTypeId",
+                () => nameof(Model.TransactionTypeId),
                 model => model.TransactionTypeId,
                 new ListQuery<JournalEntryTypeDto>(),
                 p => p.Id,

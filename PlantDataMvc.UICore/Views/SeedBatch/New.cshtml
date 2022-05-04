@@ -16,7 +16,7 @@
         </div>
         <div class="editor-field">
             @Html.QueryDropDownFor(
-                () => "SpeciesId",
+                () => nameof(Model.SpeciesId),
                 model => model.SpeciesId,
                 new ListQuery<SpeciesDto>(),
                 p => p.Id,
@@ -29,7 +29,7 @@
         </div>
         <div class="editor-field">
             @Html.QueryDropDownFor(
-                  () => "SiteId",
+                  () => nameof(Model.SiteId),
                   model => model.SiteId,
                   new ListQuery<SiteDto>(),
                   p => p.Id,

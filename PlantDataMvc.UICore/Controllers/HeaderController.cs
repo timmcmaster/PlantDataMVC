@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace PlantDataMVC.UI.Controllers
+namespace PlantDataMVC.UICore.Controllers
 {
     public class HeaderController : Controller
     {

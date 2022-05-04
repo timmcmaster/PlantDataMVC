@@ -17,7 +17,7 @@
         <div class="editor-field">
             @*TODO: Want better representation for display value*@
             @Html.QueryDropDownFor(
-                () => "SeedBatchId",
+                () => nameof(Model.SeedBatchId),
                 model => model.SeedBatchId,
                 new ListQuery<SeedBatchDto>(),
                 p => p.Id,
