@@ -43,10 +43,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Transaction\" />
-    <Folder Include="Views\Site\" />
-    <Folder Include="Views\SeedTray\" />
-  </ItemGroup>
-
 </Project>

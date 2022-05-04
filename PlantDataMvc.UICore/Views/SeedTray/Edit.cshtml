@@ -1,0 +1,25 @@
+﻿@model PlantDataMVC.UICore.Models.ViewModels.SeedTray.SeedTrayEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Update" asp-controller="SeedTray">
+    <div asp-validation-summary="ModelOnly"></div>
+    <fieldset>
+        <legend>Seed Tray</legend>
+
+        @Html.EditorForModel()
+
+        <p>
+            <input type="submit" value="Update" />
+        </p>
+    </fieldset>
+</form>
+
+<div>
+    <a asp-controller="SeedTray" asp-action="Index">Back to List</a>
+</div>
+

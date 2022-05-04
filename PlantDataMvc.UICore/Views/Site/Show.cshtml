@@ -1,0 +1,56 @@
+﻿@model PlantDataMVC.UICore.Models.ViewModels.Site.SiteShowViewModel
+
+<style>
+    .map {
+        height: 400px;
+        width: 400px;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+<fieldset>
+    <legend>Site</legend>
+
+    @Html.DisplayForModel()
+    @*<div class="child-table">@Html.Partial("SeedBatchListTable", Model.SeedBatches)</div>*@
+    @*<div class="button">@Html.ActionLink("New", "New", "SeedTray", new { seedBatchId = Model.Id }, null)</div>*@
+</fieldset>
+
+<!-- This is the div that will contain the map -->
+<div id="map" class="map"><div id="popup"></div></div>
+
+<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/lib/maplib.bundle.js"></script>
+    <script type="text/javascript">
+
+        // This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded.
+        $(document).ready(function () {
+            Initialise();
+        });
+
+        function Initialise() {
+            // get siteModel in JSON encoded format
+            var latitude = @Html.Raw(Json.Encode(Model.Latitude));
+            var longitude = @Html.Raw(Json.Encode(Model.Longitude));
+            var centreLat = latitude;
+            var centreLong = longitude;
+            var zoomLevel = 4;
+
+            // TODO: Need some sort of error on invalid coordinates
+            var map = maplib.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
+            maplib.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, centreLat, centreLong);
+        };
+    </script>
+}
+
+<p>
+    <a asp-controller="Site" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-controller="Site" asp-action="Index">Back to Index</a>
+</p>
+

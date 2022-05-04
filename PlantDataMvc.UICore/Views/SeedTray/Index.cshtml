@@ -1,0 +1,10 @@
+﻿@model ListViewModelStatic<PlantDataMVC.UICore.Models.ViewModels.SeedTray.SeedTrayListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.Partial("SeedTrayListTable", Model)
+@Html.PagingLinksFor(m => Model)
