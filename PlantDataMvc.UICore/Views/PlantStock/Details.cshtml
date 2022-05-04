@@ -1,0 +1,27 @@
+﻿@model PlantDataMVC.UI.Models.ViewModels.PlantStock.PlantStockDetailsViewModel
+
+@{
+    ViewBag.Title = "Plant Stock";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Plant Stock with Transactions </legend>
+
+    @Html.DisplayForModel()
+
+    <div class="display-label">
+        <label asp-for="Transactions"></label>
+    </div>
+    <div class="button">
+        <a asp-controller="Transaction" asp-action="New" asp-route-plantStockId="Id">New</a>
+    </div>
+    <div class="child-table">
+        @Html.Partial("TransactionListTable", Model.Transactions)
+    </div>
+</fieldset>
+<p>
+    <a asp-controller="PlantStock" asp-action="Index">Back to Index</a>
+</p>
+

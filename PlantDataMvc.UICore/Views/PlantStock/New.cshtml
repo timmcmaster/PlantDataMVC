@@ -1,0 +1,134 @@
+﻿@model PlantDataMVC.UICore.Models.ViewModels.PlantStock.PlantStockNewViewModel
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+
+<form asp-action="Create" asp-controller="PlantStock">
+    <div asp-validation-summary="ModelOnly"></div>
+    <fieldset>
+        <legend>Plant Stock</legend>
+
+        @*@Html.HiddenFor(model => model.SpeciesId)*@
+
+
+        <div class="editor-label">
+            <label asp-for="SpeciesId"></label>
+        </div>
+        <div class="editor-field">
+            @*TODO: Should be using genus and species for display value*@
+            @Html.QueryDropDownFor(
+                () => "SpeciesId",
+                model => model.SpeciesId,
+                new ListQuery<SpeciesDto>(),
+                p => p.Id,
+                p => p.SpecificName)
+            <span asp-validation-for="SpeciesId"></span>
+        </div>
+
+        @*
+        <div class="editor-label">
+            <label asp-for="SpeciesBinomial"></label>
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.SpeciesBinomial)
+            <span asp-validation-for="SpeciesBinomial"></span>
+        </div>
+*@
+        <div class="editor-label">
+            <label asp-for="ProductTypeId"></label>
+        </div>
+        <div class="editor-field">
+            @Html.QueryDropDownFor(
+                () => "ProductTypeId",
+                model => model.ProductTypeId,
+                new ListQuery<ProductTypeDto>(),
+                p => p.Id,
+                p => p.Name)
+            <span asp-validation-for="ProductTypeId"></span>
+        </div>
+
+        <div class="editor-label">
+            <label asp-for="QuantityInStock"></label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.QuantityInStock)
+            <span asp-validation-for="QuantityInStock"></span>
+        </div>
+
+        <p>
+            <input type="submit" value="Create"/>
+        </p>
+    </fieldset>
+</form>
+
+<div>
+    <a asp-controller="PlantStock" asp-action="Index">Back to Index</a>
+</div>
+
+@using (Html.BeginForm("Create", "PlantStock"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Plant Stock</legend>
+
+        @*@Html.HiddenFor(model => model.SpeciesId)*@
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SpeciesId)
+        </div>
+        <div class="editor-field">
+            @*TODO: Should be using genus and species for display value*@
+            @Html.QueryDropDownFor(
+                () => "SpeciesId",
+                model => model.SpeciesId,
+                new ListQuery<SpeciesDto>(),
+                p => p.Id,
+                p => p.SpecificName)
+            @Html.ValidationMessageFor(model => model.SpeciesId)
+        </div>
+
+        @*<div class="editor-label">
+                @Html.LabelFor(model => model.SpeciesBinomial)
+            </div>
+            <div class="editor-field">
+                @Html.DisplayFor(model => model.SpeciesBinomial)
+                @Html.ValidationMessageFor(model => model.SpeciesBinomial)
+            </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductTypeId)
+        </div>
+        <div class="editor-field">
+            @Html.QueryDropDownFor(
+                () => "ProductTypeId",
+                model => model.ProductTypeId,
+                new ListQuery<ProductTypeDto>(),
+                p => p.Id,
+                p => p.Name)
+            @Html.ValidationMessageFor(model => model.ProductTypeId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.QuantityInStock)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.QuantityInStock)
+            @Html.ValidationMessageFor(model => model.QuantityInStock)
+        </div>
+
+        <p>
+            <input type="submit" value="Create"/>
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to Index", "Index")
+</div>
+

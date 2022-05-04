@@ -7,9 +7,40 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\arrow_down.png" />
+    <None Remove="Content\arrow_up.png" />
+    <None Remove="Content\cancel.png" />
+    <None Remove="Content\CustomStyles.css" />
+    <None Remove="Content\Images\place-marker.png" />
+    <None Remove="Content\menu-style.css" />
+    <None Remove="Content\OldSite.css" />
+    <None Remove="Content\PagedList.css" />
+    <None Remove="Content\sinorcaish-screen.css" />
+    <None Remove="Content\Site.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Content\arrow_down.png" />
+    <Content Include="Content\arrow_up.png" />
+    <Content Include="Content\cancel.png" />
+    <Content Include="Content\CustomStyles.css" />
+    <Content Include="Content\Images\place-marker.png" />
+    <Content Include="Content\menu-style.css" />
+    <Content Include="Content\OldSite.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\sinorcaish-screen.css" />
+    <Content Include="Content\Site.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Framework.Web.Core\Framework.Web.Core.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Constants\PlantDataMVC.Constants.csproj" />
     <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
 
 </Project>

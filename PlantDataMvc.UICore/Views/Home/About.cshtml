@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "About Us";
+}
+
+<style>
+    .map {
+        height: 400px;
+        width: 400px;
+    }
+</style>
+
+<h2>About</h2>
+<p>
+    Put content here.
+</p>
+
+<!-- This is the div that will contain the map -->
+<div id="map" class="map"><div id="popup"></div></div>
+
+
+<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/lib/maplib.bundle.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            Initialise();
+        });
+
+        function Initialise() {
+
+            var map = maplib.createMap(document.getElementById('map'), '0', '0', '4');
+            maplib.addMarker('@Url.Content("~/Content/Images/place-marker.png")', map, 0, 0);
+        };
+    </script>
+}

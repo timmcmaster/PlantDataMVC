@@ -12,7 +12,7 @@ namespace Framework.Web.Core.Mvc.Paging
     /// </summary>
     public static class PagingExtensions
     {
-        public static HtmlString PagingLinksFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+        public static HtmlString PagingLinksFor<TModel, TProperty>(this IHtmlHelper<TModel> helper,
                                                                       Expression<Func<TModel, TProperty>>
                                                                           expr) //where TModel : IPageable
         {

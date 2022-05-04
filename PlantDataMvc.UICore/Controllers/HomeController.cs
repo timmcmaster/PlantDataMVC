@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PlantDataMVC.UICore.Models;
+using PlantDataMVC.UICore.Models.ViewModels;
 using System.Diagnostics;
 
 namespace PlantDataMVC.UICore.Controllers

@@ -1,0 +1,15 @@
+﻿@model ListViewModelStatic<PlantDataMVC.UICore.Models.ViewModels.Genus.GenusListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Genus List</h2>
+<p>This is a list of all genuses recorded</p>
+
+
+@*
+// TODO: Convert views to TagHelpers/use built-in taghelpers
+*@
+@Html.Partial("GenusListTable", Model)
+@Html.PagingLinksFor(m => Model)

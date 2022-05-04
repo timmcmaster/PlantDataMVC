@@ -1,0 +1,22 @@
+﻿@model PlantDataMVC.UI.Models.ViewModels.PlantStock.PlantStockDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<form asp-action="Destroy" asp-controller="PlantStock">
+    <fieldset>
+        <legend>Plant Stock</legend>
+        @*Add hidden, as display for model doesn't show hidden input needed for submit*@
+        <input asp-for="Id" type="hidden" />
+
+        @Html.DisplayForModel()
+    </fieldset>
+    <p>
+        <input type="submit" value="Delete" /> |
+        <a asp-controller="PlantStock" asp-action="Index">Back to Index</a>
+    </p>
+</form>
