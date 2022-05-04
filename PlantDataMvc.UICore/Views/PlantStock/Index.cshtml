@@ -5,5 +5,5 @@
 
 <h2>Index</h2>
 
-@Html.Partial("PlantStockListTable", Model)
+<partial name="Shared/PlantStockListTable.cshtml" for="@Model" />
 @Html.PagingLinksFor(m => Model)

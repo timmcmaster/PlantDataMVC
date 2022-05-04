@@ -11,5 +11,5 @@
 @*
 // TODO: Convert views to TagHelpers/use built-in taghelpers
 *@
-@Html.Partial("GenusListTable", Model)
+<partial name="Shared/GenusListTable.cshtml" for="@Model" />
 @Html.PagingLinksFor(m => Model)

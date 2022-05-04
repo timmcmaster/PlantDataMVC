@@ -18,7 +18,7 @@
         <a asp-controller="Transaction" asp-action="New" asp-route-plantStockId="@Model.Id">New</a>
     </div>
     <div class="child-table">
-        @Html.Partial("TransactionListTable", Model.Transactions)
+        <partial name="Shared/TransactionListTable.cshtml" for="Transactions" />
     </div>
 </fieldset>
 <p>

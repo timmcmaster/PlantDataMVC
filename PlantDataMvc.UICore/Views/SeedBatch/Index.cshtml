@@ -6,5 +6,5 @@
 
 <h2>Index</h2>
 
-@Html.Partial("SeedBatchListTable", Model)
+<partial name="Shared/SeedBatchListTable.cshtml" for="@Model" />
 @Html.PagingLinksFor(m => Model)
