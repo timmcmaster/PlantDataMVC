@@ -7,25 +7,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace PlantDataMVC.UI.Helpers
+namespace PlantDataMVC.UICore.Helpers
 {
-    public static class DropDownExtensions
+    public class DropDownTagHelper
     {
         // Preferred call structure would be:
         // @(Html.QueryDropDown2For(() => "SiteId", model => model.Site.Id, new IndexQuery(1, 100), p => p.SiteName, p => p.Id))
         // - requires TViewModel to be inferred somehow (preferably from query type)
-        
-        /* Current sample call model for a Genus drop down
 
+        /* Sample call model for a Genus drop down
+          
          @Html.QueryDropDownFor(
                 () => "GenusId",
                 model => model.GenusId,
                 new ListQuery<GenusDto>(),
                 p => p.Id,
                 p => p.LatinName)
-
+ 
          */
-
         public static IHtmlContent QueryDropDownFor<TModel, TViewModel, TListItem>(this IHtmlHelper<TModel> htmlHelper,
                                                                                      Func<string> saveFieldNameFunc,
                                                                                      Expression<Func<TModel, object>>
