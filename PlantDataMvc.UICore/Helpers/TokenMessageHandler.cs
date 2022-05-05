@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Thinktecture.IdentityModel.Client;
+using Microsoft.AspNetCore.Http;
 
 namespace PlantDataMVC.UICore.Helpers
 {
@@ -12,17 +14,22 @@ namespace PlantDataMVC.UICore.Helpers
     {
         // TODO: Revisit all of this (including upgrade to identityServer version)
         // TODO: Use new processes for delegating handlers https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-6.0#outgoing-request-middleware-1
-        public TokenMessageHandler()
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public TokenMessageHandler(IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             this.InnerHandler = new HttpClientHandler();
         }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
                                                                CancellationToken cancellationToken)
         {
-            CheckAndPossiblyRefreshToken((HttpContext.Current.User.Identity as ClaimsIdentity));
+            var userIdentity = _httpContextAccessor.HttpContext.User.Identity;
+            CheckAndPossiblyRefreshToken((userIdentity as ClaimsIdentity));
 
-            var token = (HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst("access_token");
+            var token = (userIdentity as ClaimsIdentity).FindFirst("access_token");
 
             if (token.Value != null)
             {
