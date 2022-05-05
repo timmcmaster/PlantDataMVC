@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using IdentityServer3.Core.Models;
-using PlantDataMVC.Constants;
 
 namespace PlantDataMVC.IdSrv.Config
 {
