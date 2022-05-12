@@ -1,13 +1,12 @@
-﻿using PlantDataMVC.Constants;
+﻿//using Thinktecture.IdentityModel.Client;
+using Microsoft.AspNetCore.Http;
+using PlantDataMVC.Constants;
 using System;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using Thinktecture.IdentityModel.Client;
-using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 
 namespace PlantDataMVC.UICore.Helpers
 {
@@ -34,7 +33,7 @@ namespace PlantDataMVC.UICore.Helpers
 
             if (token.Value != null)
             {
-                request.SetBearerToken(token.Value);
+                _httpContextAccessor.SetBearerToken(token.Value);
             }
 
             return base.SendAsync(request, cancellationToken);
