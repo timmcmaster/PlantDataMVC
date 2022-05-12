@@ -1,6 +1,6 @@
 ﻿using Duende.IdentityServer.Models;
 using PlantDataMVC.Constants;
-
+using System.Collections.Generic;
 
 namespace PlantDataMVC.IdentityServer
 {
@@ -16,6 +16,7 @@ namespace PlantDataMVC.IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
+                // generic scope for api access (not broken down at all)
                 new ApiScope(name: "plantdataapi", displayName: "PlantData API Scope")
             };
 
@@ -109,6 +110,5 @@ namespace PlantDataMVC.IdentityServer
                 }
                 */
             };
-        };
-    }
+    };
 }

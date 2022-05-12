@@ -9,6 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using PlantDataMVC.IdentityServer.Pages.Consent;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System;
+using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace PlantDataMVC.IdentityServer.Pages.Device
 {

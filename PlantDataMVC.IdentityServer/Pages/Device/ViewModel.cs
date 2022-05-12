@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace PlantDataMVC.IdentityServer.Pages.Device
 {
     public class ViewModel

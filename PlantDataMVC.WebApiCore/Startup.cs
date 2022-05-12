@@ -1,5 +1,5 @@
 ﻿using CacheCow.Server.Core.Mvc;
-using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using PlantDataMVC.Constants;
 using PlantDataMVC.WebApiCore.DependencyInjection;
@@ -64,20 +65,17 @@ namespace PlantDataMVC.WebApiCore
                 });
             });
 
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
                     options.Authority = PlantDataMvcConstants.IdSrv;
-                    options.RequireHttpsMetadata = false;
-                    //options.ApiName = "";
-                    //options.ApiSecret = "";
-                    //RequiredScopes = new[] { "plantdataapi" }
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false,
+                        // it's recommended to check the type header to avoid "JWT confusion" attacks
+                        ValidTypes = new[] { "at+jwt" }
 
-                    // this is only needed because IS3 does not include the API name in the JWT audience list
-                    // so we disable UseIdentityServerAuthentication JWT audience check and rely upon
-                    // scope validation to ensure we're only accepting tokens for the right API
-                    options.LegacyAudienceValidation = true;
-
+                    };
                 });
 
             // Enable Cross-origin resource sharing if browser client on different domain to API and using AJAX calls
@@ -100,7 +98,7 @@ namespace PlantDataMVC.WebApiCore
             services.AddHttpCachingMvc();
             //services.AddResponseCaching(options =>
             //{
-                
+
             //});
 
 

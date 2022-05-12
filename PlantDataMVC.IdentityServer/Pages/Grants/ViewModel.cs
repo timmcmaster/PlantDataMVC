@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace PlantDataMVC.IdentityServer.Pages.Grants
 {
     public class ViewModel

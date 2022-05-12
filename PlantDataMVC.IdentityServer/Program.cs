@@ -1,5 +1,7 @@
-﻿using PlantDataMVC.IdentityServer;
+﻿using Microsoft.AspNetCore.Builder;
+using PlantDataMVC.IdentityServer;
 using Serilog;
+using System;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()

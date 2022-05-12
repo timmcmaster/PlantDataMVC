@@ -1,3 +1,5 @@
+using System;
+
 namespace PlantDataMVC.IdentityServer.Pages.Login
 {
     public class LoginOptions

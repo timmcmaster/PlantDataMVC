@@ -1,5 +1,8 @@
-using Duende.IdentityServer;
 using Serilog;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace PlantDataMVC.IdentityServer
 {

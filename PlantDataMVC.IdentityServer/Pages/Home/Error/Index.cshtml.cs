@@ -1,6 +1,9 @@
 using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace PlantDataMVC.IdentityServer.Pages.Error
 {

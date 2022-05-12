@@ -8,6 +8,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System;
+using Microsoft.Extensions.Logging;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace PlantDataMVC.IdentityServer.Pages.ExternalLogin
 {

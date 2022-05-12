@@ -6,6 +6,7 @@ using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using System.Text;
 using System.Text.Json;
+using System.Collections.Generic;
 
 namespace PlantDataMVC.IdentityServer.Pages.Diagnostics
 {

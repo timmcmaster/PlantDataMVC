@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Thinktecture.IdentityModel.Client;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace PlantDataMVC.UICore.Helpers
 {

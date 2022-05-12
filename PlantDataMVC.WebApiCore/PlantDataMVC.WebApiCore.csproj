@@ -33,6 +33,7 @@
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="CacheCow.Server.Core.Mvc" Version="2.11.1" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="NLog" Version="4.7.15" />
