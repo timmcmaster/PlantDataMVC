@@ -42,12 +42,7 @@ namespace PlantDataMVC.WebApiCore
             });
 
             // 1. Identity Server setup 
-            services.AddMvcCore(options =>
-            {
-                // IS3 does not include the api name/audience - hence the extra scope check
-                options.Filters.Add(new AuthorizeFilter(ScopePolicy.Create("plantdataapi")));
-
-            });
+            services.AddMvcCore();
 
             services.AddAuthorization(options =>
             {

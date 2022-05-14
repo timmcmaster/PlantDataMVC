@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using IdentityModel.Client;
+using IdentityModel.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PlantDataMVC.Constants;
-using PlantDataMVC.UICore.Helpers;
 using PlantDataMVC.UICore.DependencyInjection;
 using PlantDataMVC.UICore.Helpers;
 using System;
@@ -47,16 +48,36 @@ namespace PlantDataMVC.UICore
 
             // HttpClientFactory
             // -->
-            services.AddTransient<TokenMessageHandler>();
+            // Add clientcredentialstokenrequest
+            services.AddSingleton(new ClientCredentialsTokenRequest
+            {
+                // ProtocolRequest elements
+                Address = PlantDataMvcConstants.IdSrvToken,
+                ClientId = "mvc",
+                ClientSecret = "secret",
+                //ClientCredentialStyle =  ClientCredentialStyle.AuthorizationHeader
 
-            services.AddHttpClient(NamedHttpClients.PlantDataApi, client =>
+                // ClientCredentialsRequest elements
+                Scope = ""
+                //Resource = new List<string>()
+            }); ;
+
+            services.AddTransient<BearerTokenMessageHandler>();
+
+            services.AddHttpClient<IIdentityServerClient, IdentityServerClient>(client =>
+            {
+                client.BaseAddress = new Uri(PlantDataMvcConstants.IdSrv);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            });
+
+            services.AddHttpClient<IPlantDataApiClient, PlantDataApiClient>(client =>
             {
                 client.BaseAddress = new Uri(PlantDataMvcConstants.PlantDataApi);
 
                 // clear the accept headers and set those we require for ALL client requests
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }).AddHttpMessageHandler<TokenMessageHandler>();
+            }).AddHttpMessageHandler<BearerTokenMessageHandler>();
             // <--
 
             // Main Domain stuff
