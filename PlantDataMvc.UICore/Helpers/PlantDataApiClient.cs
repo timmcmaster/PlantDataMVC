@@ -5,11 +5,6 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.UICore.Helpers
 {
-    public static class NamedHttpClients
-    {
-        public const string PlantDataApi = "PlantDataApi";
-    }
-
     public interface IPlantDataApiClient
     {
         Task<HttpResponseMessage> GetAsync(string uri, CancellationToken cancellationToken);
