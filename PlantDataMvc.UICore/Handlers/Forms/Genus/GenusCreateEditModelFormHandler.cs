@@ -12,11 +12,11 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Genus
 {
     public class GenusCreateEditModelFormHandler : IFormHandler<GenusCreateEditModel, bool>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public GenusCreateEditModelFormHandler(IHttpClientFactory httpClientFactory)
+        public GenusCreateEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public async Task<bool> HandleAsync(GenusCreateEditModel form, CancellationToken cancellationToken)
@@ -28,9 +28,8 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Genus
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
-                var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
                 var uri = "api/Genus";
-                var httpResponse = await httpClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var httpResponse = await _plantDataApiClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
 
                 return httpResponse.IsSuccessStatusCode;
             }

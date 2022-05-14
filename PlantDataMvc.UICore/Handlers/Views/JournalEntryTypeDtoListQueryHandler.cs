@@ -3,7 +3,6 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Controllers.Queries;
 using PlantDataMVC.UICore.Helpers;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,18 +10,17 @@ namespace PlantDataMVC.UICore.Handlers.Views
 {
     public class JournalEntryTypeDtoListQueryHandler : ListQueryHandler<JournalEntryTypeDto>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public JournalEntryTypeDtoListQueryHandler(IHttpClientFactory httpClientFactory)
+        public JournalEntryTypeDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public override async Task<IEnumerable<JournalEntryTypeDto>> HandleAsync(ListQuery<JournalEntryTypeDto> query, CancellationToken cancellationToken)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             var uri = "api/JournalEntryType";
-            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

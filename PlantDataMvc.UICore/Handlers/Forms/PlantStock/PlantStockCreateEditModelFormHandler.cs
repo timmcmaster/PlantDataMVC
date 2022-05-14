@@ -12,11 +12,11 @@ namespace PlantDataMVC.UICore.Handlers.Forms.PlantStock
 {
     public class PlantStockCreateEditModelFormHandler : IFormHandler<PlantStockCreateEditModel, bool>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public PlantStockCreateEditModelFormHandler(IHttpClientFactory httpClientFactory)
+        public PlantStockCreateEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public async Task<bool> HandleAsync(PlantStockCreateEditModel form, CancellationToken cancellationToken)
@@ -28,9 +28,8 @@ namespace PlantDataMVC.UICore.Handlers.Forms.PlantStock
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
-                var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
                 var uri = "api/PlantStock";
-                var httpResponse = await httpClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var httpResponse = await _plantDataApiClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
 
                 return httpResponse.IsSuccessStatusCode;
             }

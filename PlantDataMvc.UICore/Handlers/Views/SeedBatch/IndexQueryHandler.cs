@@ -7,7 +7,6 @@ using PlantDataMVC.UICore.Helpers;
 using PlantDataMVC.UICore.Models.ViewModels;
 using PlantDataMVC.UICore.Models.ViewModels.SeedBatch;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,11 +14,11 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
 {
     public class IndexQueryHandler : IQueryHandler<IndexQuery, ListViewModelStatic<SeedBatchListViewModel>>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public IndexQueryHandler(IHttpClientFactory httpClientFactory)
+        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public async Task<ListViewModelStatic<SeedBatchListViewModel>> HandleAsync(IndexQuery query, CancellationToken cancellationToken)
@@ -38,9 +37,8 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
                 }
             }
 
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            var httpResponse = await httpClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
-            //var httpResponse = await httpClient.GetAsync(requestUri).ConfigureAwait(false);
+            var httpResponse = await _plantDataApiClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
+            //var httpResponse = await _plantDataApiClient.GetAsync(requestUri).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

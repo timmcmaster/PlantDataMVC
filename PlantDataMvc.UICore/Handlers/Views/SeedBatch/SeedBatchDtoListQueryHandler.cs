@@ -3,7 +3,6 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Controllers.Queries;
 using PlantDataMVC.UICore.Helpers;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,20 +10,19 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
 {
     public class SeedBatchDtoListQueryHandler : ListQueryHandler<SeedBatchDto>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public SeedBatchDtoListQueryHandler(IHttpClientFactory httpClientFactory)
+        public SeedBatchDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public override async Task<IEnumerable<SeedBatchDto>> HandleAsync(ListQuery<SeedBatchDto> query, CancellationToken cancellationToken)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             var uri = "api/SeedBatch";
-            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
-            //var httpResponse = await httpClient.GetAsync(uri).ConfigureAwait(false);
+            //var httpResponse = await _plantDataApiClient.GetAsync(uri).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

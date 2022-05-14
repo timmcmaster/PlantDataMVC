@@ -13,18 +13,17 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
 {
     public class EditQueryHandler : IQueryHandler<EditQuery, PlantStockEditViewModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public EditQueryHandler(IHttpClientFactory httpClientFactory)
+        public EditQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public async Task<PlantStockEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             var uri = "api/PlantStock/" + query.Id;
-            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

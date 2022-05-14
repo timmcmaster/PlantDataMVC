@@ -3,7 +3,6 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Controllers.Queries;
 using PlantDataMVC.UICore.Helpers;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,18 +10,17 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
 {
     public class GenusDtoListQueryHandler : ListQueryHandler<GenusDto>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public GenusDtoListQueryHandler(IHttpClientFactory httpClientFactory)
+        public GenusDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public override async Task<IEnumerable<GenusDto>> HandleAsync(ListQuery<GenusDto> query, CancellationToken cancellationToken)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             var uri = "api/Genus";
-            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

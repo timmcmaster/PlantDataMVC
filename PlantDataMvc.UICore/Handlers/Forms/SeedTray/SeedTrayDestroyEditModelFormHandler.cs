@@ -1,28 +1,27 @@
-﻿using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using Framework.Web.Core.Forms;
+﻿using Framework.Web.Core.Forms;
 using PlantDataMVC.UICore.Helpers;
 using PlantDataMVC.UICore.Models.EditModels.SeedTray;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.UICore.Handlers.Forms.SeedTray
 {
     public class SeedTrayDestroyEditModelFormHandler : IFormHandler<SeedTrayDestroyEditModel, bool>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public SeedTrayDestroyEditModelFormHandler(IHttpClientFactory httpClientFactory)
+        public SeedTrayDestroyEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public async Task<bool> HandleAsync(SeedTrayDestroyEditModel form, CancellationToken cancellationToken)
         {
             try
             {
-                var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
                 var uri = "api/SeedTray/" + form.Id;
-                var httpResponse = await httpClient.DeleteAsync(uri, cancellationToken).ConfigureAwait(false);
+                var httpResponse = await _plantDataApiClient.DeleteAsync(uri, cancellationToken).ConfigureAwait(false);
 
                 return httpResponse.IsSuccessStatusCode;
             }

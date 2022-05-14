@@ -1,22 +1,22 @@
-﻿using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Framework.Web.Core.Forms;
+﻿using Framework.Web.Core.Forms;
 using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Helpers;
 using PlantDataMVC.UICore.Models.EditModels.Site;
+using System.Net.Http;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.UICore.Handlers.Forms.Site
 {
     public class SiteCreateEditModelFormHandler : IFormHandler<SiteCreateEditModel, bool>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public SiteCreateEditModelFormHandler(IHttpClientFactory httpClientFactory)
+        public SiteCreateEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public async Task<bool> HandleAsync(SiteCreateEditModel form, CancellationToken cancellationToken)
@@ -28,9 +28,8 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Site
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
-                var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
                 var uri = "api/Site";
-                var httpResponse = await httpClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var httpResponse = await _plantDataApiClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
 
                 return httpResponse.IsSuccessStatusCode;
             }

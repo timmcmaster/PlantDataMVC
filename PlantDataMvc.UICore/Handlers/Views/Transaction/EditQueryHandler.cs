@@ -5,7 +5,6 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Controllers.Queries.Transaction;
 using PlantDataMVC.UICore.Helpers;
 using PlantDataMVC.UICore.Models.ViewModels.Transaction;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,18 +12,17 @@ namespace PlantDataMVC.UICore.Handlers.Views.Transaction
 {
     public class EditQueryHandler : IQueryHandler<EditQuery, TransactionEditViewModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public EditQueryHandler(IHttpClientFactory httpClientFactory)
+        public EditQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public async Task<TransactionEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             var uri = "api/JournalEntries/" + query.Id;
-            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

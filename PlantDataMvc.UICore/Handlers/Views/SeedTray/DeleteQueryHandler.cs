@@ -5,7 +5,6 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Controllers.Queries.SeedTray;
 using PlantDataMVC.UICore.Helpers;
 using PlantDataMVC.UICore.Models.ViewModels.SeedTray;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,18 +12,17 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
 {
     public class DeleteQueryHandler : IQueryHandler<DeleteQuery, SeedTrayDeleteViewModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public DeleteQueryHandler(IHttpClientFactory httpClientFactory)
+        public DeleteQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public async Task<SeedTrayDeleteViewModel> HandleAsync(DeleteQuery query, CancellationToken cancellationToken)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             var uri = "api/SeedTray/" + query.Id;
-            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

@@ -7,7 +7,6 @@ using PlantDataMVC.UICore.Helpers;
 using PlantDataMVC.UICore.Models.ViewModels;
 using PlantDataMVC.UICore.Models.ViewModels.Genus;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,11 +14,11 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
 {
     public class IndexQueryHandler : IQueryHandler<IndexQuery, ListViewModelStatic<GenusListViewModel>>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public IndexQueryHandler(IHttpClientFactory httpClientFactory)
+        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
 
@@ -39,8 +38,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
                 }
             }
 
-            HttpClient httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
-            var httpResponse = await httpClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
+            var httpResponse = await _plantDataApiClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

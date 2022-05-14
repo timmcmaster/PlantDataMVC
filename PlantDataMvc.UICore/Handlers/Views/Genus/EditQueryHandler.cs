@@ -5,7 +5,6 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Controllers.Queries.Genus;
 using PlantDataMVC.UICore.Helpers;
 using PlantDataMVC.UICore.Models.ViewModels.Genus;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,18 +12,17 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
 {
     public class EditQueryHandler : IQueryHandler<EditQuery, GenusEditViewModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public EditQueryHandler(IHttpClientFactory httpClientFactory)
+        public EditQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public async Task<GenusEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             var uri = "api/Genus/" + query.Id;
-            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

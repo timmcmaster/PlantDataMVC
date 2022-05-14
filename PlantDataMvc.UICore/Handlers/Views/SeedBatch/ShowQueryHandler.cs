@@ -5,7 +5,6 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Controllers.Queries.SeedBatch;
 using PlantDataMVC.UICore.Helpers;
 using PlantDataMVC.UICore.Models.ViewModels.SeedBatch;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,19 +12,18 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
 {
     public class ShowQueryHandler : IQueryHandler<ShowQuery, SeedBatchShowViewModel>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public ShowQueryHandler(IHttpClientFactory httpClientFactory)
+        public ShowQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public async Task<SeedBatchShowViewModel> HandleAsync(ShowQuery query, CancellationToken cancellationToken)
         {
-            var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
             var uri = "api/SeedBatch/" + query.Id;
-            var httpResponse = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
-            //var httpResponse = await httpClient.GetAsync(uri).ConfigureAwait(false);
+            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            //var httpResponse = await _plantDataApiClient.GetAsync(uri).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
             {

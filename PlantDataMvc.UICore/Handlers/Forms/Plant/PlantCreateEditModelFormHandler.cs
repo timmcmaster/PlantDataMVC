@@ -12,11 +12,11 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Plant
 {
     public class PlantCreateEditModelFormHandler : IFormHandler<PlantCreateEditModel, bool>
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public PlantCreateEditModelFormHandler(IHttpClientFactory httpClientFactory)
+        public PlantCreateEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _plantDataApiClient = plantDataApiClient;
         }
 
         public async Task<bool> HandleAsync(PlantCreateEditModel form, CancellationToken cancellationToken)
@@ -28,9 +28,8 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Plant
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
-                var httpClient = _httpClientFactory.CreateClient(NamedHttpClients.PlantDataApi);
                 var uri = "api/Species";
-                var httpResponse = await httpClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var httpResponse = await _plantDataApiClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
 
                 return httpResponse.IsSuccessStatusCode;
             }

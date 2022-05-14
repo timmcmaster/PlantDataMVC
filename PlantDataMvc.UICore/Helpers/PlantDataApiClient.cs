@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.UICore.Helpers
@@ -11,7 +12,10 @@ namespace PlantDataMVC.UICore.Helpers
 
     public interface IPlantDataApiClient
     {
-        Task<string> GetProtectedResources();
+        Task<HttpResponseMessage> GetAsync(string uri, CancellationToken cancellationToken);
+        Task<HttpResponseMessage> PostAsync(string uri, StringContent content, CancellationToken cancellationToken);
+        Task<HttpResponseMessage> PutAsync(string uri, StringContent content, CancellationToken cancellationToken);
+        Task<HttpResponseMessage> DeleteAsync(string uri, CancellationToken cancellationToken);
     }
 
     public class PlantDataApiClient : IPlantDataApiClient
@@ -23,17 +27,12 @@ namespace PlantDataMVC.UICore.Helpers
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
-        public async Task<string> GetProtectedResources()
-        {
-            // TODO: Fix this
-            var response = await _httpClient.GetAsync("/api/protected");
-            if (!response.IsSuccessStatusCode)
-            {
-                Console.WriteLine(response.StatusCode);
-                throw new Exception("Failed to get protected resources.");
-            }
-            return await response.Content.ReadAsStringAsync();
-        }
+        // For now, just wrap httpclient functionality
+
+        public Task<HttpResponseMessage> GetAsync(string uri, CancellationToken cancellationToken) => _httpClient.GetAsync(uri, cancellationToken);
+        public Task<HttpResponseMessage> PostAsync(string uri, StringContent content, CancellationToken cancellationToken) => _httpClient.PostAsync(uri, content, cancellationToken);
+        public Task<HttpResponseMessage> PutAsync(string uri, StringContent content, CancellationToken cancellationToken) => _httpClient.PutAsync(uri, content, cancellationToken);
+        public Task<HttpResponseMessage> DeleteAsync(string uri, CancellationToken cancellationToken) => _httpClient.DeleteAsync(uri, cancellationToken);
     }
 
 }
