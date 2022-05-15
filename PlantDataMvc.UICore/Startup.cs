@@ -48,6 +48,8 @@ namespace PlantDataMVC.UICore
 
             // HttpClientFactory
             // -->
+            
+            // TODO: This tokenrequest singleton shouldn't really be here
             // Add clientcredentialstokenrequest
             services.AddSingleton(new ClientCredentialsTokenRequest
             {
