@@ -1,18 +1,125 @@
-html {
-  font-size: 14px;
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+    color: #ff0000;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.field-validation-valid
+{
+    display: none;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+    padding: 8px;
+    font-style: italic;
 }
 
-body {
-  margin-bottom: 60px;
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+/* Styles for editor and display helpers
+----------------------------------------------------------*/
+fieldset input[type="submit"] 
+{
+    margin: 0.5em 0 0.5em 0;
+    float:left;
+    clear:left
+}
+
+.button
+{
+    clear: left;
+    float:left;
+}
+
+.child-table
+{
+    margin: 0.5em 0 0.5em 0;
+    float:left;
+    clear:left
+}
+
+.child-table table.grid
+{
+    margin: 0 0 0 0;
+}
+
+.display-label,
+.editor-label
+{
+    margin: 0.5em 0 0.5em 0;
+    font-weight: bold;
+    clear: left;
+    float: left;
+}
+
+.display-field,
+.editor-field
+{
+    margin: 0.5em 0 0.5em 0.5em;
+    float: left;
+}
+
+.text-box
+{
+    width: 30em;
+}
+
+.text-box.single-line.narrow
+{
+    width: 10em;
+}
+
+.text-box.single-line.wide
+{
+    width: 50em;
+}
+
+.text-box.multi-line
+{
+    height: 6.5em;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+}
+
+.tri-state
+{
+    width: 6em;
+}
+
+/* Styles for menu items
+----------------------------------------------------------*/
+#sidebar ul.mymenu
+{
+   margin-left:     0.5em;
+}
+
+#sidebar ul.mymenu li
+{
+}
+
+#sidebar ul.mysub-menu
+{
+    list-style-type: square;
+    margin-left:     1.5em;
+    font-size:       90%;
+}
+
+#sidebar ul.mysub-menu li
+{
+   padding-top:     0;
+   padding-bottom:  0;
 }

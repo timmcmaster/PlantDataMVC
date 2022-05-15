@@ -1,49 +1,127 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PlantDataMVC.UICore</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/PlantDataMVC.UICore.styles.css" asp-append-version="true" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+    <!-- TEST: Use CDN versions for external css as well -->
+    <!-- jquery UI (base theme) -->
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    <!--bootstrap-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
+    <!--open layers mapping-->
+    <link href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/css/ol.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PlantDataMVC.UICore</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+    <div id="header">
+        <div class="left">
+            <div id="title">
+                MVC Plant Data Application
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </div>
+        <div class="right">
+            <div id="logindisplay">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("(Logout)", "Logout", "Header")</li>
+                    </ul>
+                }
+            </div>
+        </div>
+        <div class="subheader">
+            <em>Displaying plant info for today's world... :)</em>
+        </div>
+
+
+        <div id="sidebar">
+            <div>
+                <ul id="menu" class="mymenu">
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Genus" asp-action="Index">Genera</a>
+                        <ul class="mysub-menu">
+                            <li>
+                                <a asp-controller="Genus" asp-action="New">New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="Plant" asp-action="Index">Plants</a>
+                        <ul class="mysub-menu">
+                            <li>
+                                <a asp-controller="Plant" asp-action="New">New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="SeedBatch" asp-action="Index">Plant Seeds</a>
+                        <ul class="mysub-menu">
+                            <li>
+                                <a asp-controller="SeedBatch" asp-action="New">New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="Site" asp-action="Index">Sites</a>
+                        <ul class="mysub-menu">
+                            <li>
+                                <a asp-controller="Site" asp-action="New">New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="PlantStock" asp-action="Index">Plant Stock</a>
+                        <ul class="mysub-menu">
+                            <li>
+                                <a asp-controller="PlantStock" asp-action="New">New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="SeedTray" asp-action="Index">Seed Trays</a>
+                        <ul class="mysub-menu">
+                            <li>
+                                <a asp-controller="SeedTray" asp-action="New">New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                </ul>
+                <hr />
+            </div>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - PlantDataMVC.UICore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <div id="main">
+        @RenderBody()
+    </div>
+
+    <div id="footer">
+        A web page by Tim McMaster.
+    </div>
+
+    @*<!-- TEST: Use CDN versions to check that JS is working -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/build/ol.js"></script>*@
+
+    <script type="text/javascript" src="~/Scripts/dist/app.bundle.js"></script>
+
+    @RenderSection("scripts", false)
+
 </body>
 </html>

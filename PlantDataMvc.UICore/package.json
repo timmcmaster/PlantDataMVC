@@ -1,0 +1,33 @@
+{
+  "name": "plantdatamvc",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build:dev": "webpack --config webpack.config.js --mode development",
+    "build:prod": "webpack --config webpack.config.js --mode production",
+    "getNpmVersion": "npm -v",
+    "getNodeVersion": "node -v",
+    "updateNPM": "npm install npm@latest"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "jquery": "^3.3.1",
+    "jquery-ui": "^1.12.1",
+    "jquery-validation": "^1.17.0",
+    "npm": "^6.5.0",
+    "ol": "^5.1.3",
+    "popper.js": "^1.14.3"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "expose-loader": "^0.7.5",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0"
+  },
+  "-vs-binding": {
+    "BeforeBuild": [
+      "build:dev"
+    ]
+  }
+}
