@@ -2,11 +2,22 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet"
+
+    <!-- use full versions of css & scripts when in dev env -->
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/sinorcaish-screen.css" />
+        <link rel="stylesheet" href="~/css/CustomStyles.css" />
+        <link rel="stylesheet" href="~/css/Site.css" />
+    </environment>
+    <!-- use bundled versions when in other envs -->
+    <environment exclude="Development">
+    </environment>
+
+@*    <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
-
+*@
     <!-- TEST: Use CDN versions for external css as well -->
     <!-- jquery UI (base theme) -->
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
