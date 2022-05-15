@@ -6,10 +6,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = [
     {
     entry: {
-        app: "./Scripts/src/main.js"
+        app: "./wwwroot/js/src/main.js"
     },
     plugins: [
-        new CleanWebpackPlugin(['Scripts/dist']),
+        new CleanWebpackPlugin(),
 
         new webpack.ProvidePlugin({
             $: 'jquery',
@@ -18,7 +18,7 @@ module.exports = [
         })
     ],
     output: {
-        path: path.resolve(__dirname, 'Scripts/dist'),
+        path: path.resolve(__dirname, 'wwwroot/js/dist'),
         filename: "[name].bundle.js"
     },
     module: {
@@ -36,13 +36,13 @@ module.exports = [
 
 }, {
     entry: {
-        maplib: "./Scripts/src/maplib.js"
+        maplib: "./wwwroot/js/src/maplib.js"
     },
     plugins: [
-        new CleanWebpackPlugin(['Scripts/lib'])
+        new CleanWebpackPlugin()
     ],
     output: {
-        path: path.resolve(__dirname, 'Scripts/lib'),
+        path: path.resolve(__dirname, 'wwwroot/js/lib'),
         filename: "[name].bundle.js",
         library: 'maplib'
     }
