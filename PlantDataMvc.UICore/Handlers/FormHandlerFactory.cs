@@ -1,22 +1,16 @@
-﻿using System;
-using Autofac;
-using Autofac.Core.Registration;
-using Framework.Web.Core.Forms;
+﻿using Framework.Web.Core.Forms;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace PlantDataMVC.UICore.Handlers
 {
-    // TODO: Work out how to do this with MS Native DI
-    /// <summary>
-    /// TODO: I don't think this class is actually necessary.
-    /// I'm pretty sure I can do the same with Autofac directly, just haven't yet worked out how.
-    /// </summary>
-    public class AutofacFormHandlerFactory : IFormHandlerFactory
+    public class FormHandlerFactory : IFormHandlerFactory
     {
-        private readonly IComponentContext _c;
+        private readonly IServiceProvider _serviceProvider;
 
-        public AutofacFormHandlerFactory(IComponentContext c)
+        public FormHandlerFactory(IServiceProvider serviceProvider)
         {
-            _c = c;
+            _serviceProvider = serviceProvider;
         }
 
         public IFormHandler<TForm, TResult> Create<TForm, TResult>() where TForm : IForm<TResult>
@@ -27,9 +21,9 @@ namespace PlantDataMVC.UICore.Handlers
             {
                 // Create handler by resolving it from context
                 // Data service parameter for formHandler will also be resolved from IoC (I think?)
-                formHandler = _c.Resolve<IFormHandler<TForm, TResult>>();
+                formHandler = _serviceProvider.GetRequiredService<IFormHandler<TForm, TResult>>();
             }
-            catch (ComponentNotRegisteredException)
+            catch (InvalidOperationException)
             {
                 throw new InvalidOperationException(
                     $"Handler was not found for request of type {typeof(IFormHandler<TForm, TResult>)}. Ensure it is registered with the container.");
