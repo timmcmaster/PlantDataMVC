@@ -14,9 +14,9 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog((ctx, lc) => lc
-        .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
+        .ReadFrom.Configuration(ctx.Configuration)
         .Enrich.FromLogContext()
-        .ReadFrom.Configuration(ctx.Configuration));
+        .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}"));
 
     var app = builder
         .ConfigureServices()

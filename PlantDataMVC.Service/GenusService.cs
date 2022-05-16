@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Common.Logging;
+﻿using Common.Logging;
 using Framework.Service;
 using Interfaces.Domain.Repository;
 using Interfaces.Service;

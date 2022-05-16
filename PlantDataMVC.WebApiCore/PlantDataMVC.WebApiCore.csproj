@@ -35,13 +35,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
-    <PackageReference Include="NLog" Version="4.7.15" />
-    <PackageReference Include="NLog.Web.AspNetCore" Version="4.14.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.18" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PlantDataMVC.Constants\PlantDataMVC.Constants.csproj" />
+    <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Repository\PlantDataMVC.Repository.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj" />

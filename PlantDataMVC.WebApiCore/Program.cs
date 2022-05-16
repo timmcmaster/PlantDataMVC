@@ -2,8 +2,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using NLog;
-using NLog.Web;
+using Serilog;
+using Serilog.Events;
 using System;
 
 namespace PlantDataMVC.WebApiCore
@@ -12,33 +12,48 @@ namespace PlantDataMVC.WebApiCore
     {
         public static void Main(string[] args)
         {
-            var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-            logger.Debug("init main");
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .WriteTo.Console()
+                .WriteTo.File("bootstrap-log.txt",
+                    outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+                    rollingInterval: RollingInterval.Day)
+                .CreateBootstrapLogger();
+
+            Log.Information("Starting up");
 
             try
             {
                 CreateHostBuilder(args).Build().Run();
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                // NLog: catch setup errors
-                logger.Error(exception, "Stopped program because of exception");
-                throw;
+                Log.Fatal(ex, "Unhandled exception");
             }
             finally
             {
-                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                NLog.LogManager.Shutdown();
+                Log.Information("Shut down complete");
+                Log.CloseAndFlush();
             }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStartup<Startup>();
-                webBuilder.UseNLog();
-            });
+                .UseSerilog((context, loggerConfig) =>
+                {
+                    loggerConfig
+                    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                    .ReadFrom.Configuration(context.Configuration)
+                    .Enrich.FromLogContext()
+                    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
+                    .WriteTo.File("log.txt",
+                        outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+                        rollingInterval: RollingInterval.Day);
+                })
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
 
         //TODO: Work out split between program and startup files
 

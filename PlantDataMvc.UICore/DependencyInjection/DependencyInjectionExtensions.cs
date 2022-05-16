@@ -3,6 +3,7 @@ using Framework.Web.Core.Mediator;
 using Framework.Web.Core.Views;
 using Microsoft.Extensions.DependencyInjection;
 using PlantDataMVC.UICore.Handlers;
+using Serilog;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -59,7 +60,8 @@ namespace PlantDataMVC.UICore.DependencyInjection
                     if (genericInterfaceType.IsAssignableFrom(implementedInterface.GetGenericTypeDefinition()))
                     {
                         services.AddScoped(implementedInterface, genericType);
-                        //Console.WriteLine($"Adding {genericType.Name} as implementation of {implementedInterface.FullName}"); 
+
+                        Log.Information($"Adding {genericType.GetFriendlyName(useFullName: true)} as implementation of {implementedInterface.GetFriendlyName(useFullName: true)}"); 
                     }
                 }
             }
@@ -67,5 +69,30 @@ namespace PlantDataMVC.UICore.DependencyInjection
             return services;
         }
 
+        public static string GetFriendlyName(this Type type, bool useFullName = false)
+        {
+            if (type == typeof(int))
+                return "int";
+            else if (type == typeof(short))
+                return "short";
+            else if (type == typeof(byte))
+                return "byte";
+            else if (type == typeof(bool))
+                return "bool";
+            else if (type == typeof(long))
+                return "long";
+            else if (type == typeof(float))
+                return "float";
+            else if (type == typeof(double))
+                return "double";
+            else if (type == typeof(decimal))
+                return "decimal";
+            else if (type == typeof(string))
+                return "string";
+            else if (type.IsGenericType)
+                return type.Name.Split('`')[0] + "<" + string.Join(", ", type.GetGenericArguments().Select(x => GetFriendlyName(x)).ToArray()) + ">";
+            else
+                return useFullName? type.FullName: type.Name;
+        }
     }
 }
