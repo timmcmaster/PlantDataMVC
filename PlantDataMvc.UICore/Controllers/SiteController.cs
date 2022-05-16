@@ -24,7 +24,7 @@ namespace PlantDataMVC.UICore.Controllers
 
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
-        [Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
             // resolve parameters
@@ -48,7 +48,7 @@ namespace PlantDataMVC.UICore.Controllers
 
         //
         // GET: /"ControllerName"/Show/5
-        [Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public async Task<ActionResult> Show(int id)
         {
             var query = new ShowQuery(id);
@@ -66,7 +66,7 @@ namespace PlantDataMVC.UICore.Controllers
 
         //
         // GET: /"ControllerName"/New
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public ActionResult New()
         {
             var item = new SiteNewViewModel();
@@ -92,7 +92,7 @@ namespace PlantDataMVC.UICore.Controllers
 
         //
         // GET: /"ControllerName"/Edit/5
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public async Task<ActionResult> Edit(int id)
         {
             var query = new EditQuery(id);
@@ -127,7 +127,7 @@ namespace PlantDataMVC.UICore.Controllers
 
         //
         // GET: /"ControllerName"/Delete/5
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public async Task<ActionResult> Delete(int id)
         {
             var query = new DeleteQuery(id);

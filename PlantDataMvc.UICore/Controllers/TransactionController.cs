@@ -28,7 +28,7 @@ namespace PlantDataMVC.UICore.Controllers
         /// <param name="plantStockId">The Id of the plant stock entry.</param>
         /// <returns></returns>
         //[RequireRequestValue("plantStockId")]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public ActionResult New(int plantStockId)
         {
             var item = new JournalEntryDto { PlantStockId = plantStockId };
@@ -53,7 +53,7 @@ namespace PlantDataMVC.UICore.Controllers
         }
 
         // GET: /"ControllerName"/Edit/5
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public async Task<ActionResult> Edit(int id)
         {
             var query = new EditQuery(id);
@@ -86,7 +86,7 @@ namespace PlantDataMVC.UICore.Controllers
         }
 
         // GET: /"ControllerName"/Delete/5
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public async Task<ActionResult> Delete(int id)
         {
             var query = new DeleteQuery(id);

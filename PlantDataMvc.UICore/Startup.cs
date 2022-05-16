@@ -30,21 +30,21 @@ namespace PlantDataMVC.UICore
         public void ConfigureServices(IServiceCollection services)
         {
             // Authorization
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(AuthorizationPolicies.RequireReadUserRole, policy =>
-                {
-                    policy.RequireRole(AuthorizationRole.WebReadUser);
-                });
-                options.AddPolicy(AuthorizationPolicies.RequireWriteUserRole, policy =>
-                {
-                    policy.RequireRole(AuthorizationRole.WebWriteUser);
-                });
-                options.AddPolicy(AuthorizationPolicies.RequireAdminUserRole, policy =>
-                {
-                    policy.RequireRole(AuthorizationRole.WebAdminUser);
-                });
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy(AuthorizationPolicies.RequireReadUserRole, policy =>
+            //    {
+            //        policy.RequireRole(AuthorizationRole.WebReadUser);
+            //    });
+            //    options.AddPolicy(AuthorizationPolicies.RequireWriteUserRole, policy =>
+            //    {
+            //        policy.RequireRole(AuthorizationRole.WebWriteUser);
+            //    });
+            //    options.AddPolicy(AuthorizationPolicies.RequireAdminUserRole, policy =>
+            //    {
+            //        policy.RequireRole(AuthorizationRole.WebAdminUser);
+            //    });
+            //});
 
             // HttpClientFactory
             // -->
@@ -60,7 +60,7 @@ namespace PlantDataMVC.UICore
                 //ClientCredentialStyle =  ClientCredentialStyle.AuthorizationHeader
 
                 // ClientCredentialsRequest elements
-                Scope = ""
+                Scope = "plantdataapi"
                 //Resource = new List<string>()
             }); ;
 
