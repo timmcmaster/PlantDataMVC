@@ -36,6 +36,9 @@ namespace PlantDataMVC.UICore.DependencyInjection
 
             services.AddScoped<IQueryHandlerFactory, QueryHandlerFactory>();
 
+            // HACK: Before we leave this method, check our registrations
+            services.LogRegisteredServices();
+
             return services;
         }
 
@@ -69,7 +72,18 @@ namespace PlantDataMVC.UICore.DependencyInjection
             return services;
         }
 
-        public static string GetFriendlyName(this Type type, bool useFullName = false)
+        public static IServiceCollection LogRegisteredServices(this IServiceCollection services)
+        {
+            Log.Information($"Total Services Registered: {services.Count}");
+            foreach (var service in services)
+            {
+                Log.Information($"Service: {service.ServiceType.FullName}\nLifetime: { service.Lifetime}\nInstance: { service.ImplementationType?.FullName}");
+            }
+
+            return services;
+        }
+
+            public static string GetFriendlyName(this Type type, bool useFullName = false)
         {
             if (type == typeof(int))
                 return "int";
@@ -92,7 +106,7 @@ namespace PlantDataMVC.UICore.DependencyInjection
             else if (type.IsGenericType)
                 return type.Name.Split('`')[0] + "<" + string.Join(", ", type.GetGenericArguments().Select(x => GetFriendlyName(x)).ToArray()) + ">";
             else
-                return useFullName? type.FullName: type.Name;
+                return useFullName ? type.FullName: type.Name;
         }
     }
 }
