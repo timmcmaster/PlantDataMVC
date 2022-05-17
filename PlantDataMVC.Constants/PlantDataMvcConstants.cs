@@ -2,7 +2,9 @@
 {
     public static class PlantDataMvcConstants
     {
-        public const string PlantDataApi = "https://localhost:6101/";
+        public const string PlantDataApi = "https://localhost:6001/";
+        public const string PlantDataApi_IIS = "https://localhost:6101/";
+
         public const string PlantDataClient = "https://localhost:44390/";
 
         public const string IdSrvIssuerUri = "https://plantdataidsrv3/embedded";

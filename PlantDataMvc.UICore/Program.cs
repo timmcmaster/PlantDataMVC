@@ -12,10 +12,9 @@ namespace PlantDataMVC.UICore
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .WriteTo.Console()
-                .WriteTo.File("bootstrap-log.txt",
-                    outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+                .WriteTo.File("..\\logs\\UICore-bootstrap-log-.txt",
                     rollingInterval: RollingInterval.Day)
                 .CreateBootstrapLogger();
 
@@ -40,13 +39,7 @@ namespace PlantDataMVC.UICore
             Host.CreateDefaultBuilder(args)
                 .UseSerilog((context, loggerConfig) =>
                 {
-                    loggerConfig
-                    .ReadFrom.Configuration(context.Configuration)
-                    .Enrich.FromLogContext()
-                    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
-                    .WriteTo.File("log.txt", 
-                        outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
-                        rollingInterval: RollingInterval.Day);
+                    loggerConfig.ReadFrom.Configuration(context.Configuration);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

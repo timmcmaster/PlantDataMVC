@@ -20,6 +20,8 @@ namespace PlantDataMVC.UICore.Handlers
 
             try
             {
+                var matchingServices = _serviceProvider.GetServices(typeof(IFormHandler<TForm, TResult>));
+
                 // Create handler by resolving it from context
                 // Data service parameter for formHandler will also be resolved from IoC (I think?)
                 formHandler = _serviceProvider.GetRequiredService<IFormHandler<TForm, TResult>>();

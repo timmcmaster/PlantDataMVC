@@ -13,6 +13,7 @@ using PlantDataMVC.Constants;
 using PlantDataMVC.WebApiCore.DependencyInjection;
 using PlantDataMVC.WebApiCore.Helpers;
 using PlantDataMVC.WebApiCore.Mappers;
+using Serilog;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 //using Microsoft.AspNetCore.Mvc.Versioning;
@@ -129,6 +130,7 @@ namespace PlantDataMVC.WebApiCore
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap = new Dictionary<string, string>();
 
             app.UseHttpsRedirection();
+            app.UseSerilogRequestLogging(); // Nicer HTTP request logging than stdd Ms stuff
             app.UseRouting();
             app.UseCors();
             app.UseAuthentication();

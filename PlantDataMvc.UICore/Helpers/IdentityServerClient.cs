@@ -21,12 +21,12 @@ namespace PlantDataMVC.UICore.Helpers
 
         public IdentityServerClient(HttpClient httpClient, 
             ClientCredentialsTokenRequest tokenRequest, 
-            RefreshTokenRequest refreshTokenRequest,
+            //RefreshTokenRequest refreshTokenRequest,
             ILogger<IdentityServerClient> logger)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _tokenRequest = tokenRequest ?? throw new ArgumentNullException(nameof(tokenRequest));
-            _refreshTokenRequest = refreshTokenRequest ?? throw new ArgumentNullException(nameof(refreshTokenRequest));
+            //_refreshTokenRequest = refreshTokenRequest ?? throw new ArgumentNullException(nameof(refreshTokenRequest));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -41,18 +41,20 @@ namespace PlantDataMVC.UICore.Helpers
             }
             return tokenResponse.AccessToken;
         }
+
         public async Task<string> RequestRefreshTokenAsync(string refreshToken)
         {
-            // request the access token
-            _refreshTokenRequest.RefreshToken = refreshToken;   
+            //// request the access token
+            //_refreshTokenRequest.RefreshToken = refreshToken;   
 
-            var tokenResponse = await _httpClient.RequestRefreshTokenAsync(_refreshTokenRequest);
-            if (tokenResponse.IsError)
-            {
-                _logger.LogError(tokenResponse.Error);
-                throw new HttpRequestException("Something went wrong while requesting the refresh token");
-            }
-            return tokenResponse.AccessToken;
+            //var tokenResponse = await _httpClient.RequestRefreshTokenAsync(_refreshTokenRequest);
+            //if (tokenResponse.IsError)
+            //{
+            //    _logger.LogError(tokenResponse.Error);
+            //    throw new HttpRequestException("Something went wrong while requesting the refresh token");
+            //}
+            //return tokenResponse.AccessToken;
+            return "";
         }
     }
 }

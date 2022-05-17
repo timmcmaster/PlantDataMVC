@@ -20,6 +20,8 @@ namespace PlantDataMVC.UICore.Handlers
 
             try
             {
+                var matchingServices = _serviceProvider.GetServices(typeof(IQueryHandler<TQuery, TViewModel>));
+
                 // Create handler by resolving it from context
                 queryHandler = _serviceProvider.GetRequiredService<IQueryHandler<TQuery, TViewModel>>();
 

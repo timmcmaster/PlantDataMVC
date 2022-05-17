@@ -77,7 +77,11 @@ namespace PlantDataMVC.UICore.DependencyInjection
             Log.Information($"Total Services Registered: {services.Count}");
             foreach (var service in services)
             {
-                Log.Information($"Service: {service.ServiceType.FullName}\nLifetime: { service.Lifetime}\nInstance: { service.ImplementationType?.FullName}");
+                Log.Information(
+                    $"Service: {service.ServiceType.FullName}\n" +
+                    $"Service Friendly Name : {service.ServiceType.GetFriendlyName(useFullName: true)}\n" +
+                    $"Lifetime: { service.Lifetime}\n" +
+                    $"Instance: { service.ImplementationType?.FullName}");
             }
 
             return services;

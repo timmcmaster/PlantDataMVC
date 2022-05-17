@@ -10,6 +10,7 @@ using PlantDataMVC.UICore.DependencyInjection;
 using PlantDataMVC.UICore.Helpers;
 using System;
 using System.Net.Http.Headers;
+using Serilog;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace PlantDataMVC.UICore
@@ -95,7 +96,11 @@ namespace PlantDataMVC.UICore
         // here if you need to resolve things from the container.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (!env.IsDevelopment())
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -103,6 +108,9 @@ namespace PlantDataMVC.UICore
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            
+            app.UseSerilogRequestLogging(); // Nicer HTTP request logging than stdd Ms stuff
+            
             app.UseRouting();
 
             app.UseAuthorization();
