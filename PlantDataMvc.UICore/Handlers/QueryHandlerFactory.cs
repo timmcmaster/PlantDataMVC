@@ -1,5 +1,6 @@
 ﻿using Framework.Web.Core.Views;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System;
 
 namespace PlantDataMVC.UICore.Handlers
@@ -21,6 +22,8 @@ namespace PlantDataMVC.UICore.Handlers
             {
                 // Create handler by resolving it from context
                 queryHandler = _serviceProvider.GetRequiredService<IQueryHandler<TQuery, TViewModel>>();
+
+                Log.Information($"Resolved service {typeof(IQueryHandler<TQuery, TViewModel>)} with implementation {queryHandler.GetType()}");
             }
             catch (InvalidOperationException)
             {

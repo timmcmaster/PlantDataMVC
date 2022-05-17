@@ -1,6 +1,7 @@
 ﻿using Framework.Web.Core.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Serilog;
 
 namespace PlantDataMVC.UICore.Handlers
 {
@@ -22,6 +23,8 @@ namespace PlantDataMVC.UICore.Handlers
                 // Create handler by resolving it from context
                 // Data service parameter for formHandler will also be resolved from IoC (I think?)
                 formHandler = _serviceProvider.GetRequiredService<IFormHandler<TForm, TResult>>();
+
+                Log.Information($"Resolved service {typeof(IFormHandler<TForm, TResult>)} with implementation {formHandler.GetType()}");
             }
             catch (InvalidOperationException)
             {
