@@ -32,6 +32,17 @@ namespace PlantDataMVC.UICore.Helpers
 
         public async Task<string> RequestClientCredentialsTokenAsync()
         {
+            // as a first draft, just get the discovery doc every time
+            // want to either cache or store this locally
+            var disco = await _httpClient.GetDiscoveryDocumentAsync();
+            if (disco.IsError)
+            {
+                _logger.LogError(disco.Error);
+                throw new HttpRequestException("Something went wrong while retrieving discovery document");
+            }
+
+            _tokenRequest.Address = disco.TokenEndpoint;
+
             // request the access token
             var tokenResponse = await _httpClient.RequestClientCredentialsTokenAsync(_tokenRequest);
             if (tokenResponse.IsError)

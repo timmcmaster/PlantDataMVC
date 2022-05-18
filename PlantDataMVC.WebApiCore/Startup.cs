@@ -64,7 +64,7 @@ namespace PlantDataMVC.WebApiCore
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.Authority = PlantDataMvcConstants.IdSrv;
+                    options.Authority = PlantDataMvcConstants.IdSrvBase;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateAudience = false,

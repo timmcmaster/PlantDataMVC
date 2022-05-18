@@ -38,7 +38,7 @@ namespace PlantDataMVC.UI
             app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
             {
                 ClientId = "mvc",
-                Authority = PlantDataMvcConstants.IdSrv,
+                Authority = PlantDataMvcConstants.IdSrvBase,
                 RedirectUri = PlantDataMvcConstants.PlantDataClient,
                 PostLogoutRedirectUri = PlantDataMvcConstants.PlantDataClient,
                 SignInAsAuthenticationType = "Cookies",

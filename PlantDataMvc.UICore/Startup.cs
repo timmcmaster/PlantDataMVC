@@ -55,7 +55,6 @@ namespace PlantDataMVC.UICore
             services.AddSingleton(new ClientCredentialsTokenRequest
             {
                 // ProtocolRequest elements
-                Address = PlantDataMvcConstants.IdSrvToken,
                 ClientId = "mvc",
                 ClientSecret = "secret",
                 //ClientCredentialStyle =  ClientCredentialStyle.AuthorizationHeader
@@ -69,7 +68,7 @@ namespace PlantDataMVC.UICore
 
             services.AddHttpClient<IIdentityServerClient, IdentityServerClient>(client =>
             {
-                client.BaseAddress = new Uri(PlantDataMvcConstants.IdSrv);
+                client.BaseAddress = new Uri(PlantDataMvcConstants.IdSrvBase);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             });
 
