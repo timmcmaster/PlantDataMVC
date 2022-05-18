@@ -108,7 +108,7 @@ namespace PlantDataMVC.WebApiCore
             //json.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
             //json.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json-patch+json"));
 
-            // Newtonsoft Jspon provides support for Json Patch
+            // Newtonsoft Json provides support for Json Patch
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                 {
@@ -126,8 +126,8 @@ namespace PlantDataMVC.WebApiCore
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
             // TODO: clean this up - split middleware definitions?
 
-            // Stop trying to map tokens to .Net claim types
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap = new Dictionary<string, string>();
+            // TODO: Stop trying to map tokens to .Net claim types?
+            // JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
             app.UseHttpsRedirection();
             app.UseSerilogRequestLogging(); // Nicer HTTP request logging than stdd Ms stuff

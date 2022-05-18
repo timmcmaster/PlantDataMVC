@@ -11,6 +11,10 @@ using PlantDataMVC.UICore.Helpers;
 using System;
 using System.Net.Http.Headers;
 using Serilog;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using System.IdentityModel.Tokens.Jwt;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace PlantDataMVC.UICore
@@ -30,6 +34,28 @@ namespace PlantDataMVC.UICore
         // ConfigureServices is where you register dependencies.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Authentication 
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = "oidc";
+            })
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddOpenIdConnect("oidc", options =>
+            {
+                options.Authority = PlantDataMvcConstants.IdSrvBase;
+
+                options.ClientId = "mvc-web";
+                options.ClientSecret = "secret";
+                options.ResponseType = OpenIdConnectResponseType.Code;
+                
+                options.Scope.Clear();
+                options.Scope.Add("openid");
+                options.Scope.Add("profile");
+
+                options.SaveTokens = true;
+            });
+
             // Authorization
             //services.AddAuthorization(options =>
             //{
@@ -55,7 +81,7 @@ namespace PlantDataMVC.UICore
             services.AddSingleton(new ClientCredentialsTokenRequest
             {
                 // ProtocolRequest elements
-                ClientId = "mvc",
+                ClientId = "mvc-client",
                 ClientSecret = "secret",
                 //ClientCredentialStyle =  ClientCredentialStyle.AuthorizationHeader
 
@@ -95,6 +121,9 @@ namespace PlantDataMVC.UICore
         // here if you need to resolve things from the container.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Stop trying to map tokens to .Net claim types
+            JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -112,13 +141,16 @@ namespace PlantDataMVC.UICore
             
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}")
+                .RequireAuthorization();
             });
         }
     }

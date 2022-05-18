@@ -1,4 +1,5 @@
-﻿using Duende.IdentityServer.Models;
+﻿using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
 using PlantDataMVC.Constants;
 using System.Collections.Generic;
 
@@ -12,6 +13,16 @@ namespace PlantDataMVC.IdentityServer
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
             };
+
+        /*
+        public static IEnumerable<ApiResource> ApiResources =>
+            new ApiResource[]
+            {
+                // generic scope for api access (not broken down at all)
+                new ApiResource(name: "plantdataapi", displayName: "PlantData API Scope"),
+                new ApiResource(name: "plantdataapi", displayName: "Postman Test Resource")
+            };
+        */
 
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
@@ -42,20 +53,36 @@ namespace PlantDataMVC.IdentityServer
                 //    },
                 //    AllowedScopes = new List<string> () {"plantdataapi"}
                 //},
+                // Interaactive client MVC App
+                new Client
+                {
+                    Enabled = true,
+                    ClientName = "PlantData MVC Client (Code Flow)",
+                    ClientId = "mvc-web",
+                    // Provide secret to allow for refresh tokens
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireConsent = true,
+                    RedirectUris = { PlantDataMvcConstants.PlantDataClient + "/signin-oidc" }, // sign-in page
+                    PostLogoutRedirectUris = { PlantDataMvcConstants.PlantDataClient + "/signout-callback-oidc" }, // sign-out callback page
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    }
+                },
                 // MVC App - client credentials flow
                 new Client
                 {
                     Enabled = true,
                     ClientName = "PlantData MVC Client",
-                    ClientId = "mvc",
+                    ClientId = "mvc-client",
                     // Provide secret to allow for refresh tokens
-                    ClientSecrets = new List<Secret>
-                    {
-                        new Secret("secret".Sha256())
-                    },
+                    ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes = new List<string> () {"plantdataapi"}
-                },
+                }
+                /*,
                 // Postman test client
                 new Client
                 {
@@ -69,16 +96,19 @@ namespace PlantDataMVC.IdentityServer
                     AllowedGrantTypes= GrantTypes.Code,
                     AccessTokenLifetime = 43200, // 12 hours
                     RequireConsent = false,
-                    RedirectUris = new List<string>
+                    RedirectUris = { "https://www.getpostman.com/oauth2/callback" },
+                    PostLogoutRedirectUris = { "http://www.getpostman.com" },
+                    AllowedCorsOrigins = { "http://www.getpostman.com" },
+                    AllowedScopes = 
                     {
-                        "https://www.getpostman.com/oauth2/callback"
-                    },
-                    AllowedCorsOrigins = new List<string>
-                    {
-                        "http://www.getpostman.com"
-                    },
-                    AllowedScopes = new List<string> () {"plantdataapi"}
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "postman_api",
+                        "plantdataapi"
+                    }
                 }
+                */
                 /*
                 ,
                 // m2m client credentials flow client
