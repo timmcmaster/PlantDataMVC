@@ -85,10 +85,10 @@ namespace PlantDataMVC.WebApiCore
             });
 
             // TODO: Investigate versioning using this package
-            services.AddApiVersioning(options =>
-            {
+            //services.AddApiVersioning(options =>
+            //{
 
-            });
+            //});
 
             // TODO: investigate Built-in caching vs CacheCow
             services.AddHttpCachingMvc();
