@@ -8,6 +8,7 @@ using IdentityModel;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Collections.Generic;
+using PlantDataMVC.Constants;
 
 namespace PlantDataMVC.IdentityServer
 {
@@ -19,47 +20,68 @@ namespace PlantDataMVC.IdentityServer
             {
                 var address = new
                 {
-                    street_address = "One Hacker Way",
-                    locality = "Heidelberg",
-                    postal_code = 69118,
-                    country = "Germany"
+                    street_address = "17 Delville St",
+                    locality = "Annerley",
+                    region = "QLD",
+                    postal_code = 4011,
+                    country = "Australia"
                 };
 
                 return new List<TestUser>
-            {
-                new TestUser
                 {
-                    SubjectId = "1",
-                    Username = "alice",
-                    Password = "alice",
-                    Claims =
+                    new TestUser
                     {
-                        new Claim(JwtClaimTypes.Name, "Alice Smith"),
-                        new Claim(JwtClaimTypes.GivenName, "Alice"),
-                        new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                        new Claim(JwtClaimTypes.Email, "AliceSmith@email.com"),
-                        new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                        new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
-                        new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json)
-                    }
-                },
-                new TestUser
-                {
-                    SubjectId = "2",
-                    Username = "bob",
-                    Password = "bob",
-                    Claims =
+                        SubjectId = "1",
+                        Username = "Timmo",
+                        Password = "secret",
+                        Claims =
+                        {
+                            new Claim(JwtClaimTypes.Name, "Tim McMaster"),
+                            new Claim(JwtClaimTypes.GivenName, "Tim"),
+                            new Claim(JwtClaimTypes.FamilyName, "McMaster"),
+                            new Claim(JwtClaimTypes.Email, "Tim.McMaster@email.com"),
+                            new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                            new Claim(JwtClaimTypes.WebSite, "http://timmo.com.au"),
+                            new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json)
+                            //,
+                            // Role claims
+                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebReadUser),
+                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebWriteUser),
+                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebAdminUser)
+                        }
+                    },
+                    new TestUser
                     {
-                        new Claim(JwtClaimTypes.Name, "Bob Smith"),
-                        new Claim(JwtClaimTypes.GivenName, "Bob"),
-                        new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                        new Claim(JwtClaimTypes.Email, "BobSmith@email.com"),
-                        new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                        new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                        new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json)
+                        SubjectId = "2",
+                        Username = "Kerryn",
+                        Password = "secret",
+                        Claims =
+                        {
+                            new Claim(JwtClaimTypes.Name, "Kerryn Plummer"),
+                            new Claim(JwtClaimTypes.GivenName, "Kerryn"),
+                            new Claim(JwtClaimTypes.FamilyName, "Plummer"),
+                            //,
+                            // Role claims
+                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebReadUser),
+                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebWriteUser)
+                       },
+                    },
+                    new TestUser
+                    {
+                        SubjectId = "3",
+                        Username = "Jo",
+                        Password = "secret",
+                        Claims =
+                        {
+                            new Claim(JwtClaimTypes.Name, "Joanne Vayena"),
+                            new Claim(JwtClaimTypes.GivenName, "Joanne"),
+                            new Claim(JwtClaimTypes.FamilyName, "Vayena")
+                            //,
+                            // Role claims
+                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebReadUser)
+                        }
                     }
-                }
-            };
+                };
             }
         }
     }
