@@ -38,7 +38,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("(Logout)", "Logout", "Header")</li>
+                        <li><a asp-controller="Header" asp-action="Logout">"(Logout)"</a></li>
                     </ul>
                 }
             </div>

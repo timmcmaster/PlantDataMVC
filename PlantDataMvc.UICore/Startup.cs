@@ -1,4 +1,5 @@
-﻿using IdentityModel.Client;
+﻿using IdentityModel;
+using IdentityModel.Client;
 using IdentityModel.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,8 +51,10 @@ namespace PlantDataMVC.UICore
                 options.ResponseType = OpenIdConnectResponseType.Code;
                 
                 options.Scope.Clear();
-                options.Scope.Add("openid");
-                options.Scope.Add("profile");
+                options.Scope.Add(OidcConstants.StandardScopes.OpenId);
+                options.Scope.Add(OidcConstants.StandardScopes.Profile);
+                options.Scope.Add("plantdataapi");
+                options.Scope.Add(OidcConstants.StandardScopes.OfflineAccess);
                 options.GetClaimsFromUserInfoEndpoint = true;
 
                 options.SaveTokens = true;

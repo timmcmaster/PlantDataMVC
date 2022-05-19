@@ -65,10 +65,12 @@ namespace PlantDataMVC.IdentityServer
                     RequireConsent = true,
                     RedirectUris = { PlantDataMvcConstants.PlantDataClient + "/signin-oidc" }, // sign-in page
                     PostLogoutRedirectUris = { PlantDataMvcConstants.PlantDataClient + "/signout-callback-oidc" }, // sign-out callback page
+                    AllowOfflineAccess = true,
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "plantdataapi"
                     }
                 },
                 // MVC App - client credentials flow
