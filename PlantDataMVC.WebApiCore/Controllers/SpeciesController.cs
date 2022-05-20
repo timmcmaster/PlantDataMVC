@@ -11,6 +11,7 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApiCore.Helpers;
+using PlantDataMVC.WebApiCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -22,7 +23,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
     [ApiController]
     public class SpeciesController : ControllerBase
     {
-        private const int MaxPageSize = 100;
         private readonly ISpeciesService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
 
@@ -40,13 +40,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
         [Route("Genus/{genusId}/Species", Name = "SpeciesByGenus")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
-            int? genusId = null,
-            string sort = "id",
-            bool? native = null, 
-            string? specificName = null,
-            int page = 1, 
-            int pageSize = MaxPageSize,
-            string? fields = null)
+            [FromQuery] DataShapingParameters dsParams,
+            [FromQuery] PagingParameters pgParams,
+            [FromQuery] SortingParameters sortParams,
+            [FromQuery] int? genusId = null,
+            [FromQuery] bool? native = null,
+            [FromQuery] string? specificName = null)
         {
             try
             {
@@ -56,15 +55,10 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     childDtosToInclude = DataShaping.GetIncludedObjectNames<SpeciesDto>(lstOfFields);
-                }
-
-                if (pageSize > MaxPageSize)
-                {
-                    pageSize = MaxPageSize;
                 }
 
                 var context = _service.Queryable();
@@ -83,7 +77,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 */
                 var dtos = context
                            .ProjectTo<SpeciesDto>(null, childDtosToInclude.ToArray())
-                           .ApplySort(sort)
+                           .ApplySort(sortParams.Sort)
                            .Where(s => native == null || s.Native == native)
                            .Where(s => specificName == null || s.SpecificName == specificName)
                            .Where(s => genusId == null || s.GenusId == genusId);
@@ -101,14 +95,14 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     onSpeciesByGenus ? "SpeciesByGenus" : "SpeciesList",
                     new
                     {
-                        sort,
+                        sortParams.Sort,
                         native,
                         specificName,
                         genusId,
-                        fields
+                        dsParams.Fields
                     },
-                    page,
-                    pageSize);
+                    pgParams.Page,
+                    pgParams.PageSize);
 
                 foreach (var hdr in paginationHeaders)
                 {
@@ -116,7 +110,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 var itemList = dtos
-                               .Paginate(page, pageSize)
+                               .Paginate(pgParams.Page, pgParams.PageSize)
                                .Decompile()
                                .ToList()
                                .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
@@ -131,18 +125,18 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // GET: api/Plant/5
         [HttpCacheFactory(300)]
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult GetById(int id, string? fields = null)
+        public IActionResult GetById([FromQuery] int id, [FromQuery] DataShapingParameters dsParams)
         {
             try
             {
                 //var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     //childDtosToInclude = DataShaping.GetIncludedObjectNames<SpeciesDto>(lstOfFields);
                 }
 

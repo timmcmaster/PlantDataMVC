@@ -11,6 +11,7 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApiCore.Helpers;
+using PlantDataMVC.WebApiCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -37,12 +38,11 @@ namespace PlantDataMVC.WebApiCore.Controllers
         [HttpGet(Name = "PlantStockList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
+            [FromQuery] DataShapingParameters dsParams,
+            [FromQuery] PagingParameters pgParams,
+            [FromQuery] SortingParameters sortParams,
             int? speciesId = null,
-            int? productTypeId = null,
-            string sort = "id",
-            int page = 1, 
-            int pageSize = MaxPageSize,
-            string? fields = null)
+            int? productTypeId = null)
         {
             try
             {
@@ -52,22 +52,18 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     childDtosToInclude = DataShaping.GetIncludedObjectNames<PlantStockDto>(lstOfFields);
                 }
 
-                if (pageSize > MaxPageSize)
-                {
-                    pageSize = MaxPageSize;
-                }
 
                 var context = _service.Queryable();
 
                 var dtos = context
                            .ProjectTo<PlantStockDto>(null, childDtosToInclude.ToArray())
-                           .ApplySort(sort)
+                           .ApplySort(sortParams.Sort)
                            .Where(s => speciesId == null || s.SpeciesId == speciesId)
                            .Where(s => productTypeId == null || s.ProductTypeId == productTypeId);
 
@@ -77,13 +73,13 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     "PlantStockList",
                     new
                     {
-                        sort,
+                        sortParams.Sort,
                         speciesId,
                         productTypeId,
-                        fields
+                        dsParams.Fields
                     },
-                    page,
-                    pageSize);
+                    pgParams.Page,
+                    pgParams.PageSize);
 
                 foreach (var hdr in paginationHeaders)
                 {
@@ -91,7 +87,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 var itemList = dtos
-                               .Paginate(page, pageSize)
+                               .Paginate(pgParams.Page, pgParams.PageSize)
                                .ToList()
                                .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
 
@@ -105,9 +101,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // GET: api/PlantStock/5
         [HttpCacheFactory(300)]
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult GetById(int id, string? fields = null)
+        public IActionResult GetById([FromQuery] int id, [FromQuery] DataShapingParameters dsParams)
         {
             try
             {
@@ -115,9 +111,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 //var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
 
                     var childDtosToInclude =
                         DataShaping.GetIncludedObjectNames<PlantStockDto>(lstOfFields); // needed if using projectTo

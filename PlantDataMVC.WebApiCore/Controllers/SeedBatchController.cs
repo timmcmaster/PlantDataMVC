@@ -11,6 +11,7 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApiCore.Helpers;
+using PlantDataMVC.WebApiCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -37,11 +38,10 @@ namespace PlantDataMVC.WebApiCore.Controllers
         [HttpGet(Name ="SeedBatchList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
-            int? speciesId = null,
-            string sort = "id",
-            int page = 1, 
-            int pageSize = MaxPageSize,
-            string? fields = null)
+            [FromQuery] DataShapingParameters dsParams,
+            [FromQuery] PagingParameters pgParams,
+            [FromQuery] SortingParameters sortParams,
+            int? speciesId = null)
         {
             try
             {
@@ -51,15 +51,10 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     childDtosToInclude = DataShaping.GetIncludedObjectNames<SpeciesDto>(lstOfFields);
-                }
-
-                if (pageSize > MaxPageSize)
-                {
-                    pageSize = MaxPageSize;
                 }
 
                 var context = _service.Queryable();
@@ -71,7 +66,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 var dtos = context
                            .ProjectTo<SeedBatchDto>(null, childDtosToInclude.ToArray())
-                           .ApplySort(sort)
+                           .ApplySort(sortParams.Sort)
                            .Where(s => speciesId == null || s.SpeciesId == speciesId);
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
@@ -80,12 +75,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     "SeedBatchList",
                     new
                     {
-                        sort,
+                        sortParams.Sort,
                         speciesId,
-                        fields
+                        dsParams.Fields
                     },
-                    page,
-                    pageSize);
+                    pgParams.Page,
+                    pgParams.PageSize);
 
                 foreach (var hdr in paginationHeaders)
                 {
@@ -93,7 +88,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 var itemList = dtos
-                               .Paginate(page, pageSize)
+                               .Paginate(pgParams.Page, pgParams.PageSize)
                                .ToList()
                                .Select(seedBatch => DataShaping.CreateDataShapedObject(seedBatch, lstOfFields));
 
@@ -107,18 +102,18 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // GET: api/SeedBatch/5
         [HttpCacheFactory(300)]
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult GetById(int id, string? fields = null)
+        public IActionResult GetById([FromQuery] int id, [FromQuery] DataShapingParameters dsParams)
         {
             try
             {
                 //var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     //childDtosToInclude = DataShaping.GetIncludedObjectNames<SpeciesDto>(lstOfFields);
                 }
 

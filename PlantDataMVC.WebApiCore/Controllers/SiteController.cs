@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using PlantDataMVC.WebApiCore.Models;
 
 namespace PlantDataMVC.WebApiCore.Controllers
 {
@@ -22,7 +23,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
     [ApiController]
     public class SiteController : ControllerBase
     {
-        private const int MaxPageSize = 100;
         private readonly ISiteService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
 
@@ -37,11 +37,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
         [HttpGet(Name = "SiteList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
-            string sort = "id",
-            string? suburb = null,
-            int page = 1, 
-            int pageSize = MaxPageSize,
-            string? fields = null)
+            [FromQuery] DataShapingParameters dsParams,
+            [FromQuery] PagingParameters pgParams,
+            [FromQuery] SortingParameters sortParams,
+            [FromQuery] int? genusId = null,
+            [FromQuery] bool? native = null,
+            [FromQuery] string? suburb = null)
         {
             try
             {
@@ -51,22 +52,17 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     childDtosToInclude = DataShaping.GetIncludedObjectNames<SiteDto>(lstOfFields);
-                }
-
-                if (pageSize > MaxPageSize)
-                {
-                    pageSize = MaxPageSize;
                 }
 
                 var context = _service.Queryable();
 
                 var dtos = context
                            .ProjectTo<SiteDto>(null, childDtosToInclude.ToArray())
-                           .ApplySort(sort)
+                           .ApplySort(sortParams.Sort)
                            .Where(s => suburb == null || s.Suburb == suburb);
 
                 // HACK: use URL content to determine route used to get here
@@ -80,12 +76,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     "SiteList",
                     new
                     {
-                        sort,
+                        sortParams.Sort,
                         suburb,
-                        fields
+                        dsParams.Fields
                     },
-                    page,
-                    pageSize);
+                    pgParams.Page,
+                    pgParams.PageSize);
 
                 foreach (var hdr in paginationHeaders)
                 {
@@ -93,7 +89,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 var itemList = dtos
-                               .Paginate(page, pageSize)
+                               .Paginate(pgParams.Page, pgParams.PageSize)
                                .ToList()
                                .Select(species => DataShaping.CreateDataShapedObject(species, lstOfFields));
 
@@ -107,18 +103,18 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // GET: api/Site/5
         [HttpCacheFactory(300)]
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult GetById(int id, string? fields = null)
+        public IActionResult GetById([FromQuery] int id, [FromQuery] DataShapingParameters dsParams)
         {
             try
             {
                 //var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     //childDtosToInclude = DataShaping.GetIncludedObjectNames<SiteDto>(lstOfFields);
                 }
 

@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using PlantDataMVC.WebApiCore.Models;
 
 namespace PlantDataMVC.WebApiCore.Controllers
 {
@@ -39,10 +40,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
         [HttpGet(Name = "ProductTypeList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
-            string sort = "id",
-            int page = 1, 
-            int pageSize = MaxPageSize,
-            string? fields = null)
+            [FromQuery] DataShapingParameters dsParams,
+            [FromQuery] PagingParameters pgParams,
+            [FromQuery] SortingParameters sortParams)
         {
             try
             {
@@ -52,22 +52,17 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     childDtosToInclude = DataShaping.GetIncludedObjectNames<ProductTypeDto>(lstOfFields);
-                }
-
-                if (pageSize > MaxPageSize)
-                {
-                    pageSize = MaxPageSize;
                 }
 
                 var context = _service.Queryable();
 
                 var dtos = context
                            .ProjectTo<ProductTypeDto>(null, childDtosToInclude.ToArray())
-                           .ApplySort(sort);
+                           .ApplySort(sortParams.Sort);
 
                 // HACK: use URL content to determine route used to get here
                 // better solution is to add name to data tokens, as per following links
@@ -80,11 +75,11 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     "ProductTypeList",
                     new
                     {
-                        sort,
-                        fields
+                        sortParams.Sort,
+                        dsParams.Fields
                     },
-                    page,
-                    pageSize);
+                    pgParams.Page,
+                    pgParams.PageSize);
 
                 foreach (var hdr in paginationHeaders)
                 {
@@ -92,7 +87,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 var itemList = dtos
-                               .Paginate(page, pageSize)
+                               .Paginate(pgParams.Page, pgParams.PageSize)
                                .ToList()
                                .Select(prodType => DataShaping.CreateDataShapedObject(prodType, lstOfFields));
 

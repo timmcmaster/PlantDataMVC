@@ -10,34 +10,22 @@ namespace PlantDataMVC.WebApiCore.Helpers
                                int totalPages)
         {
             // Get next and previous pages, with some routeValues passed in from current request
-            FirstPage = new Uri(urlHelper.Link(routeName, new RouteValueDictionary(routeValues)
-            {
-                {"page", 1},
-                {"pageSize", pageSize}
-            }));
+            var firstPageRvd = new RouteValueDictionary(routeValues) { { "page", 1 }, { "pageSize", pageSize } };
+            FirstPage = new Uri(urlHelper.Link(routeName, firstPageRvd));
 
-            LastPage = new Uri(urlHelper.Link(routeName, new RouteValueDictionary(routeValues)
-            {
-                {"page", totalPages},
-                {"pageSize", pageSize}
-            }));
+            var lastPageRvd = new RouteValueDictionary(routeValues) { { "page", totalPages }, { "pageSize", pageSize } };
+            LastPage = new Uri(urlHelper.Link(routeName, lastPageRvd));
 
             if (page > 1)
             {
-                PreviousPage = new Uri(urlHelper.Link(routeName, new RouteValueDictionary(routeValues)
-                {
-                    {"page", page - 1},
-                    {"pageSize", pageSize}
-                }));
+                var prevPageRvd = new RouteValueDictionary(routeValues) { { "page", page - 1 }, { "pageSize", pageSize } };
+                PreviousPage = new Uri(urlHelper.Link(routeName, prevPageRvd));
             }
 
             if (page < totalPages)
             {
-                NextPage = new Uri(urlHelper.Link(routeName, new RouteValueDictionary(routeValues)
-                {
-                    {"page", page + 1},
-                    {"pageSize", pageSize}
-                }));
+                var nextPageRvd = new RouteValueDictionary(routeValues) { { "page", page - 1 }, { "pageSize", pageSize } };
+                NextPage = new Uri(urlHelper.Link(routeName, nextPageRvd));
             }
         }
 

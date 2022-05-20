@@ -11,6 +11,7 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApiCore.Helpers;
+using PlantDataMVC.WebApiCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -22,7 +23,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
     [ApiController]
     public class GenusController : ControllerBase
     {
-        private const int MaxPageSize = 100;
         private readonly IGenusService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
 
@@ -37,11 +37,11 @@ namespace PlantDataMVC.WebApiCore.Controllers
         [HttpGet(Name = "GenusList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
-            string sort = "id",
-            string? latinName = null,
-            int page = 1, 
-            int pageSize = MaxPageSize,
-            string? fields = null)
+            [FromQuery] DataShapingParameters dsParams,
+            [FromQuery] PagingParameters pgParams,
+            [FromQuery] SortingParameters sortParams,
+            [FromQuery] string? latinName = null
+           )
         {
             try
             {
@@ -50,15 +50,10 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Convert fields to list of fields
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     childDtosToInclude = DataShaping.GetIncludedObjectNames<GenusDto>(lstOfFields);
-                }
-
-                if (pageSize > MaxPageSize)
-                {
-                    pageSize = MaxPageSize;
                 }
 
                 var context = _service.Queryable();
@@ -76,7 +71,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 var dtos = context
                            .ProjectTo<GenusDto>(null, childDtosToInclude.ToArray())
-                           .ApplySort(sort)
+                           .ApplySort(sortParams.Sort)
                            .Where(s => latinName == null || s.LatinName == latinName);
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
@@ -85,10 +80,10 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     "GenusList",
                     new
                     {
-                        sort
+                        sortParams.Sort
                     },
-                    page,
-                    pageSize);
+                    pgParams.Page,
+                    pgParams.PageSize);
 
                 foreach (var hdr in paginationHeaders)
                 {
@@ -96,7 +91,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 var itemList = dtos
-                               .Paginate(page, pageSize)
+                               .Paginate(pgParams.Page, pgParams.PageSize)
                                .Decompile()
                                .ToList()
                                .Select(dto => DataShaping.CreateDataShapedObject(dto, lstOfFields));
@@ -111,18 +106,18 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // GET: api/Genus/5
         [HttpCacheFactory(300)]
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult GetById(int id, string? fields = null)
+        public IActionResult GetById([FromQuery] int id, [FromQuery] DataShapingParameters dsParams)
         {
             try
             {
                 //var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     //childDtosToInclude = DataShaping.GetIncludedObjectNames<SpeciesDto>(lstOfFields);
                 }
 

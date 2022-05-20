@@ -11,6 +11,7 @@ using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApiCore.Helpers;
+using PlantDataMVC.WebApiCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -39,12 +40,11 @@ namespace PlantDataMVC.WebApiCore.Controllers
         [HttpGet(Name = "SeedTrayList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
+            [FromQuery] DataShapingParameters dsParams,
+            [FromQuery] PagingParameters pgParams,
+            [FromQuery] SortingParameters sortParams,
             int? seedBatchId = null,
-            string sort = "id",
-            bool? thrownOut = null,
-            int page = 1, 
-            int pageSize = MaxPageSize,
-            string? fields = null)
+            bool? thrownOut = null)
         {
             try
             {
@@ -54,15 +54,10 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     childDtosToInclude = DataShaping.GetIncludedObjectNames<SeedTrayDto>(lstOfFields);
-                }
-
-                if (pageSize > MaxPageSize)
-                {
-                    pageSize = MaxPageSize;
                 }
 
                 var context = _service.Queryable();
@@ -74,7 +69,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 var dtos = context
                            .ProjectTo<SeedTrayDto>(null, childDtosToInclude.ToArray())
-                           .ApplySort(sort)
+                           .ApplySort(sortParams.Sort)
                            .Where(s => thrownOut == null || s.ThrownOut == thrownOut)
                            .Where(s => seedBatchId == null || s.SeedBatchId == seedBatchId);
 
@@ -89,13 +84,13 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     "SeedTrayList",
                     new
                     {
-                        sort,
+                        sortParams.Sort,
                         thrownOut,
                         seedBatchId,
-                        fields
+                        dsParams.Fields
                     },
-                    page,
-                    pageSize);
+                    pgParams.Page,
+                    pgParams.PageSize);
 
                 foreach (var hdr in paginationHeaders)
                 {
@@ -103,7 +98,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 var itemList = dtos
-                               .Paginate(page, pageSize)
+                               .Paginate(pgParams.Page, pgParams.PageSize)
                                .ToList()
                                .Select(species => DataShaping.CreateDataShapedObject(species, lstOfFields));
 
@@ -117,18 +112,18 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // GET: api/SeedTray/5
         [HttpCacheFactory(300)]
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult GetById(int id, string? fields = null)
+        public IActionResult GetById([FromQuery] int id, [FromQuery] DataShapingParameters dsParams)
         {
             try
             {
                 //var childDtosToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
-                if (fields != null)
+                if (dsParams.Fields != null)
                 {
-                    lstOfFields = fields.Split(',').ToList();
+                    lstOfFields = dsParams.Fields.Split(',').ToList();
                     //childDtosToInclude = DataShaping.GetIncludedObjectNames<SeedTrayDto>(lstOfFields);
                 }
 
