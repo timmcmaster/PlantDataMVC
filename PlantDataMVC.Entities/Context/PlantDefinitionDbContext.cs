@@ -20,7 +20,7 @@ namespace PlantDataMVC.Entities.Context
             _connectionString = connectionString;
         }
 
-        public PlantDefinitionDbContext(DbContextOptions options) : base(options)
+        public PlantDefinitionDbContext(DbContextOptions<PlantDefinitionDbContext> options) : base(options)
         {
         }
 

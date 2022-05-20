@@ -28,7 +28,7 @@ namespace PlantDataMVC.Entities.Context
             _connectionString = connectionString;
         }
 
-        public InventoryDbContext(DbContextOptions options) : base(options)
+        public InventoryDbContext(DbContextOptions<InventoryDbContext> options) : base(options)
         {
         }
 

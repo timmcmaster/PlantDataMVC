@@ -45,21 +45,21 @@ namespace PlantDataMVC.WebApiCore
             // 1. Identity Server setup 
             services.AddMvcCore();
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(AuthorizationPolicies.RequireReadUserRole, policy =>
-                {
-                    policy.RequireRole(AuthorizationRole.WebReadUser);
-                });
-                options.AddPolicy(AuthorizationPolicies.RequireWriteUserRole, policy =>
-                {
-                    policy.RequireRole(AuthorizationRole.WebWriteUser);
-                });
-                options.AddPolicy(AuthorizationPolicies.RequireAdminUserRole, policy =>
-                {
-                    policy.RequireRole(AuthorizationRole.WebAdminUser);
-                });
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy(AuthorizationPolicies.RequireReadUserRole, policy =>
+            //    {
+            //        policy.RequireRole(AuthorizationRole.WebReadUser);
+            //    });
+            //    options.AddPolicy(AuthorizationPolicies.RequireWriteUserRole, policy =>
+            //    {
+            //        policy.RequireRole(AuthorizationRole.WebWriteUser);
+            //    });
+            //    options.AddPolicy(AuthorizationPolicies.RequireAdminUserRole, policy =>
+            //    {
+            //        policy.RequireRole(AuthorizationRole.WebAdminUser);
+            //    });
+            //});
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -101,7 +101,7 @@ namespace PlantDataMVC.WebApiCore
             // Authorization setup
             //services.AddSingleton<IAuthorizationHandler, ResourceAuthorizationHandler>();
 
-            services.AddDomainServices();
+            services.AddDomainServices(Configuration);
 
             // TODO: work out if we need to include supported media types
             //var json = config.Formatters.JsonFormatter;
@@ -129,6 +129,7 @@ namespace PlantDataMVC.WebApiCore
             // TODO: Stop trying to map tokens to .Net claim types?
             // JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
+
             app.UseHttpsRedirection();
             app.UseSerilogRequestLogging(); // Nicer HTTP request logging than stdd Ms stuff
             app.UseRouting();
@@ -138,9 +139,10 @@ namespace PlantDataMVC.WebApiCore
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "api/{controller}/{id?}");
+                endpoints.MapControllers();
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "api/{controller}/{id?}");
             });
 
             AutoMapperBootstrapper.Initialize();

@@ -46,7 +46,7 @@ namespace PlantDataMVC.UICore
             {
                 options.Authority = PlantDataMvcConstants.IdSrvBase;
 
-                options.ClientId = "mvc-web";
+                options.ClientId = "mvc.interactive";
                 options.ClientSecret = "secret";
                 options.ResponseType = OpenIdConnectResponseType.Code;
                 
@@ -85,7 +85,7 @@ namespace PlantDataMVC.UICore
             services.AddSingleton(new ClientCredentialsTokenRequest
             {
                 // ProtocolRequest elements
-                ClientId = "mvc-client",
+                ClientId = "mvc.m2m",
                 ClientSecret = "secret",
                 //ClientCredentialStyle =  ClientCredentialStyle.AuthorizationHeader
 

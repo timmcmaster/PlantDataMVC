@@ -1,6 +1,8 @@
 ﻿using Framework.Domain.EF;
 using Interfaces.Domain.Repository;
 using Interfaces.Domain.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
@@ -15,12 +17,17 @@ namespace PlantDataMVC.WebApiCore.DependencyInjection
         /// <summary>
         /// Configures IOC services for main domain.
         /// </summary>
-        public static IServiceCollection AddDomainServices(this IServiceCollection services)
+        public static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration config)
         {
             //*****************************************
             // Register data context
             // This is passed to UnitOfWork constructor
-            services.AddScoped<IDbContext, PlantDataDbContext>();
+            //services.AddScoped<IDbContext, PlantDataDbContext>();
+            services.AddDbContext<PlantDataDbContext>(options =>
+            {
+                options.UseSqlServer(config.GetConnectionString("PlantDataDbContext"));
+            });
+            services.AddScoped<IDbContext>(provider => provider.GetService<PlantDataDbContext>());
 
             //*****************************************
             // Register unit of work

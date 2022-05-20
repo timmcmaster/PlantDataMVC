@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\ConnectionStrings.config" Link="ConnectionStrings.config">
+    <Content Include="..\ConnectionStrings.json" Link="ConnectionStrings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -46,5 +46,7 @@
     <ProjectReference Include="..\PlantDataMVC.Repository\PlantDataMVC.Repository.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties connectionstrings_1json__JsonSchema="https://json.schemastore.org/appsettings.json" /></VisualStudio></ProjectExtensions>
 
 </Project>

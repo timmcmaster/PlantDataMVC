@@ -37,11 +37,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // GET: api/ProductType
         [HttpCacheFactory(300)]
         [HttpGet(Name = "ProductTypeList")]
-        [Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
             string sort = "id",
-            int page = 1, int pageSize = MaxPageSize,
-            string fields = null)
+            int page = 1, 
+            int pageSize = MaxPageSize,
+            string? fields = null)
         {
             try
             {

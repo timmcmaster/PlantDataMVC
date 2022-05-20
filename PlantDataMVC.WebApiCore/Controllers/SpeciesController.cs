@@ -38,13 +38,15 @@ namespace PlantDataMVC.WebApiCore.Controllers
         [HttpGet]
         [Route("", Name = "SpeciesList")]
         [Route("Genus/{genusId}/Species", Name = "SpeciesByGenus")]
-        [Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
             int? genusId = null,
             string sort = "id",
-            bool? native = null, string specificName = null,
-            int page = 1, int pageSize = MaxPageSize,
-            string fields = null)
+            bool? native = null, 
+            string? specificName = null,
+            int page = 1, 
+            int pageSize = MaxPageSize,
+            string? fields = null)
         {
             try
             {
@@ -130,8 +132,8 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // GET: api/Plant/5
         [HttpCacheFactory(300)]
         [HttpGet("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult GetById(int id, string fields = null)
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public IActionResult GetById(int id, string? fields = null)
         {
             try
             {
@@ -166,7 +168,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // POST: api/Plant
         [HttpPost]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Post([FromBody] CreateUpdateSpeciesDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
@@ -202,7 +204,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // PUT: api/Plant/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [HttpPut("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Put(int id, [FromBody] CreateUpdateSpeciesDto dtoIn)
         {
             try
@@ -252,7 +254,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // PATCH: api/Plant/5
         // Partial update
         [HttpPatch("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateSpeciesDto> itemPatchDoc)
         {
             try
@@ -303,7 +305,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // DELETE: api/Plant/5
         [HttpDelete("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Delete(int id)
         {
             try

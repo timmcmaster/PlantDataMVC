@@ -58,7 +58,7 @@ namespace PlantDataMVC.IdentityServer
                 {
                     Enabled = true,
                     ClientName = "PlantData MVC Client (Code Flow)",
-                    ClientId = "mvc-web",
+                    ClientId = "mvc.interactive",
                     // Provide secret to allow for refresh tokens
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.Code,
@@ -78,7 +78,7 @@ namespace PlantDataMVC.IdentityServer
                 {
                     Enabled = true,
                     ClientName = "PlantData MVC Client",
-                    ClientId = "mvc-client",
+                    ClientId = "mvc.m2m",
                     // Provide secret to allow for refresh tokens
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,

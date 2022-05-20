@@ -15,6 +15,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Solution Items", "0.Solution Items", "{33ADC7C0-A99E-42C6-BB34-E6E255E85B6A}"
 	ProjectSection(SolutionItems) = preProject
 		ConnectionStrings.config = ConnectionStrings.config
+		ConnectionStrings.json = ConnectionStrings.json
 		Directory.Build.props = Directory.Build.props
 		DomainThoughts.md = DomainThoughts.md
 		GeneralLinks.md = GeneralLinks.md
@@ -74,7 +75,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Web.Core", "Frame
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Web", "Framework.Web\Framework.Web.csproj", "{2ACEC3D2-CB25-4B0D-A6BC-E224ECD5248E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.IdentityServer", "PlantDataMVC.IdentityServer\PlantDataMVC.IdentityServer.csproj", "{047F3356-2F93-4EAB-BAAB-754721114A68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.IdentityServer", "PlantDataMVC.IdentityServer\PlantDataMVC.IdentityServer.csproj", "{047F3356-2F93-4EAB-BAAB-754721114A68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

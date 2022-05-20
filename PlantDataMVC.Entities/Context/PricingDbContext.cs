@@ -14,16 +14,12 @@ namespace PlantDataMVC.Entities.Context
         public DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
         public DbSet<ProductType> ProductTypes { get; set; } // ProductType
 
-        public PricingDbContext(): this("Name=PlantDataDbContext")
-        {
-        }
-
         public PricingDbContext(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public PricingDbContext(DbContextOptions options) : base(options)
+        public PricingDbContext(DbContextOptions<PricingDbContext> options) : base(options)
         {
         }
 

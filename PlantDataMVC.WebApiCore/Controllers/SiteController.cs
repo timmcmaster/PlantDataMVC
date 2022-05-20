@@ -35,12 +35,13 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // GET: api/Site
         [HttpCacheFactory(300)]
         [HttpGet(Name = "SiteList")]
-        [Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
             string sort = "id",
-            string suburb = null,
-            int page = 1, int pageSize = MaxPageSize,
-            string fields = null)
+            string? suburb = null,
+            int page = 1, 
+            int pageSize = MaxPageSize,
+            string? fields = null)
         {
             try
             {
@@ -107,8 +108,8 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // GET: api/Site/5
         [HttpCacheFactory(300)]
         [HttpGet("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult GetById(int id, string fields = null)
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public IActionResult GetById(int id, string? fields = null)
         {
             try
             {
@@ -143,7 +144,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // POST: api/Site
         [HttpPost]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Post([FromBody] CreateUpdateSiteDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
@@ -179,7 +180,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // PUT: api/Site/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [HttpPut("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Put(int id, [FromBody] CreateUpdateSiteDto dtoIn)
         {
             try
@@ -229,7 +230,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // PATCH: api/Site/5
         // Partial update
         [HttpPatch("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateSiteDto> itemPatchDoc)
         {
             try
@@ -280,7 +281,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // DELETE: api/Site/5
         [HttpDelete("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Delete(int id)
         {
             try

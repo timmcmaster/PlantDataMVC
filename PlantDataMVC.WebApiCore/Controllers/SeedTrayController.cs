@@ -37,13 +37,14 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // GET: api/SeedTray
         [HttpCacheFactory(300)]
         [HttpGet(Name = "SeedTrayList")]
-        [Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
             int? seedBatchId = null,
             string sort = "id",
             bool? thrownOut = null,
-            int page = 1, int pageSize = MaxPageSize,
-            string fields = null)
+            int page = 1, 
+            int pageSize = MaxPageSize,
+            string? fields = null)
         {
             try
             {
@@ -117,8 +118,8 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // GET: api/SeedTray/5
         [HttpCacheFactory(300)]
         [HttpGet("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult GetById(int id, string fields = null)
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public IActionResult GetById(int id, string? fields = null)
         {
             try
             {
@@ -153,7 +154,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // POST: api/SeedTray
         [HttpPost]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Post([FromBody] CreateUpdateSeedTrayDto dtoIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
@@ -189,7 +190,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // PUT: api/SeedTray/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [HttpPut("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Put(int id, [FromBody] CreateUpdateSeedTrayDto dtoIn)
         {
             try
@@ -239,7 +240,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // PATCH: api/SeedTray/5
         // Partial update
         [HttpPatch("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument<CreateUpdateSeedTrayDto> itemPatchDoc)
         {
             try
@@ -290,7 +291,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
         // DELETE: api/SeedTray/5
         [HttpDelete("{id}")]
-        [Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Delete(int id)
         {
             try

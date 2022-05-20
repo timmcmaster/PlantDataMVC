@@ -7,6 +7,7 @@ using PlantDataMVC.DTO.Mappers;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Models;
 using System;
+using System.Configuration;
 using System.Threading.Tasks;
 using UnitTest.Utils.Domain;
 using Xunit;
@@ -20,6 +21,7 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
         public GenusServiceTests(ITestOutputHelper output)
         {
             _output = output;
+            _plantDataDbConnectionString = ConfigurationManager.ConnectionStrings["PlantDataDbContext"].ConnectionString;
             // Reset Mapper at end of each test
             Mapper.Reset();
             // Configure the mapper at start of each test
@@ -34,11 +36,12 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
         #endregion
 
         private readonly ITestOutputHelper _output;
+        private readonly string _plantDataDbConnectionString;
 
         [Fact]
         public void Add_UsingCreatedRepository_ReturnsIdAfterSaveChanges()
         {
-            using (IDbContext plantDataDbContext = new PlantDataDbContext())
+            using (IDbContext plantDataDbContext = new PlantDataDbContext(_plantDataDbConnectionString))
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 //// Arrange
@@ -62,7 +65,7 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
         [Fact]
         public void Add_UsingUnitOfWorkRepository_ReturnsIdAfterSaveChanges()
         {
-            using (IDbContext plantDataDbContext = new PlantDataDbContext())
+            using (IDbContext plantDataDbContext = new PlantDataDbContext(_plantDataDbConnectionString))
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 //// Arrange

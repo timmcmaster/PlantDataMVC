@@ -28,17 +28,15 @@ namespace PlantDataMVC.Entities.Context
         //    //Database.SetInitializer<PlantDataDbContext>(null);
         //}
 
-        public PlantDataDbContext() : this("Name=PlantDataDbContext")
+        // Constructor for ASP.Net Core
+        public PlantDataDbContext(DbContextOptions<PlantDataDbContext> options) : base(options)
         {
         }
 
+        // Constructor for testing
         public PlantDataDbContext(string connectionString)
         {
             _connectionString = connectionString;
-        }
-
-        public PlantDataDbContext(DbContextOptions options): base(options)
-        {
         }
 
         //public bool IsSqlParameterNull(System.Data.SqlClient.SqlParameter param)
