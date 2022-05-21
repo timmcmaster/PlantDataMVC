@@ -1,21 +1,16 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using CacheCow.Server.Core.Mvc;
-using DelegateDecompiler;
 using Interfaces.Domain.UnitOfWork;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApiCore.Helpers;
+using PlantDataMVC.WebApiCore.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using PlantDataMVC.WebApiCore.Models;
 
 namespace PlantDataMVC.WebApiCore.Controllers
 {
@@ -26,12 +21,14 @@ namespace PlantDataMVC.WebApiCore.Controllers
         private readonly IJournalEntryTypeService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly IMapper _mapper;
+        private readonly ILogger<JournalEntryTypeController> _logger;
 
-        public JournalEntryTypeController(IUnitOfWorkAsync unitOfWorkAsync, IJournalEntryTypeService service, IMapper mapper)
+        public JournalEntryTypeController(IUnitOfWorkAsync unitOfWorkAsync, IJournalEntryTypeService service, IMapper mapper, ILogger<JournalEntryTypeController> logger)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
             _mapper = mapper;
+            _logger = logger;
         }
 
         // GET: api/JournalEntryType
@@ -92,8 +89,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 return Ok(itemList);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }

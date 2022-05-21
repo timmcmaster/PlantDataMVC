@@ -24,6 +24,8 @@ namespace PlantDataMVC.DTO.Mappers
             ConfigureSeedBatchMappings();
             ConfigureSeedTrayMappings();
             ConfigureSiteMappings();
+            ConfigureProductTypeMappings();
+            ConfigureJournalEntryTypeMappings();
         }
 
 
@@ -139,10 +141,24 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(dto => dto.Notes, opt => opt.MapFrom(e => e.Notes)); // explicit and unnecessary
         }
 
+        private void ConfigureJournalEntryTypeMappings()
+        {
+            CreateMap<JournalEntryType, JournalEntryTypeDto>()
+                .ForMember(dto => dto.Id, opt => opt.MapFrom(e => e.Id))
+                .ForMember(dto => dto.Name, opt => opt.MapFrom(e => e.Name))
+                .ForMember(dto => dto.Effect, opt => opt.MapFrom(e => e.Effect));
+        }
+
+        private void ConfigureProductTypeMappings()
+        {
+            CreateMap<ProductType, ProductTypeDto>()
+                .ForMember(dto => dto.Id, opt => opt.MapFrom(e => e.Id))
+                .ForMember(dto => dto.Name, opt => opt.MapFrom(e => e.Name));
+        }
+
         // Not yet mapped objects
         //JournalEntryType => JournalEntryTypeDTO
         //PriceListType => PriceListTypeDTO
         //ProductPrice => ProductPriceDTO
-        //ProductType => ProductTypeDTO
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
@@ -26,12 +27,14 @@ namespace PlantDataMVC.WebApiCore.Controllers
         private readonly ISeedTrayService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly IMapper _mapper;
+        private readonly ILogger<SeedTrayController> _logger;
 
-        public SeedTrayController(IUnitOfWorkAsync unitOfWorkAsync, ISeedTrayService service, IMapper mapper)
+        public SeedTrayController(IUnitOfWorkAsync unitOfWorkAsync, ISeedTrayService service, IMapper mapper, ILogger<SeedTrayController> logger)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
             _mapper = mapper;
+            _logger = logger;
         }
 
         // GET: api/SeedTray
@@ -103,8 +106,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 return Ok(itemList);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
@@ -137,8 +141,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
@@ -175,8 +180,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 return BadRequest();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
@@ -225,8 +231,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 return BadRequest();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
@@ -277,8 +284,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 return BadRequest();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
@@ -308,8 +316,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 //return BadRequest();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Service;
@@ -26,12 +27,14 @@ namespace PlantDataMVC.WebApiCore.Controllers
         private readonly ISpeciesService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly IMapper _mapper;
+        private readonly ILogger<SpeciesController> _logger;
 
-        public SpeciesController(IUnitOfWorkAsync unitOfWorkAsync, ISpeciesService service, IMapper mapper)
+        public SpeciesController(IUnitOfWorkAsync unitOfWorkAsync, ISpeciesService service, IMapper mapper, ILogger<SpeciesController> logger)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
             _mapper = mapper;
+            _logger = logger;
         }
 
         // GET: api/Species
@@ -120,6 +123,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
@@ -152,8 +156,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
@@ -190,8 +195,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 return BadRequest();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
@@ -240,8 +246,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 return BadRequest();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
@@ -292,8 +299,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 return BadRequest();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
@@ -323,8 +331,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 //return BadRequest();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception occurred");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
