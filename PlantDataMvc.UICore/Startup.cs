@@ -16,6 +16,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using System.IdentityModel.Tokens.Jwt;
+using PlantDataMVC.UICore.Mappers;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace PlantDataMVC.UICore
@@ -111,6 +112,22 @@ namespace PlantDataMVC.UICore
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             }).AddHttpMessageHandler<BearerTokenMessageHandler>();
             // <--
+
+            // Acts as follows:
+            // - if config action provided
+            //      - use that as options for configuring
+            // - if assemblies or marker types provided
+            //      - Set mapperConfigurationOptions to add maps from assemblies 
+            //      - Adds all types from assemblies implementing:
+            //          IValueResolver<,,>,
+            //          IMemberValueResolver<,,,>,
+            //          ITypeConverter<,>,
+            //          IValueConverter<,>,
+            //          IMappingAction<,>
+            // Always
+            // - Adds IConfigurationProvider as singleton using MapperConfigurationProvider
+            // - Adds IMapper as Mapper using IConfiguratrionProvider
+            services.AddAutoMapper(AutoMapperWebConfiguration.ConfigAction);
 
             // Main Domain stuff
             services.AddDomainServices();
