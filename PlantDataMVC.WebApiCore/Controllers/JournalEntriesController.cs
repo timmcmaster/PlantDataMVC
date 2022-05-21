@@ -105,7 +105,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         [HttpCacheFactory(300)]
         [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult GetById([FromQuery] int id, [FromQuery] DataShapingParameters dsParams)
+        public IActionResult GetById(int id, [FromQuery] DataShapingParameters dsParams)
         {
             try
             {
