@@ -15,10 +15,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.Site
     public class IndexQueryHandler : IQueryHandler<IndexQuery, ListViewModelStatic<SiteListViewModel>>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<ListViewModelStatic<SiteListViewModel>> HandleAsync(IndexQuery query, CancellationToken cancellationToken)
@@ -47,7 +49,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Site
                 var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<SiteDto>>(content);
-                var modelList = Mapper.Map<IEnumerable<SiteDto>, List<SiteListViewModel>>(dtoList);
+                var modelList = _mapper.Map<IEnumerable<SiteDto>, List<SiteListViewModel>>(dtoList);
 
                 var model = new ListViewModelStatic<SiteListViewModel>(modelList, apiPagingInfo.page,
                                                                         apiPagingInfo.pageSize,

@@ -14,10 +14,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
     public class EditQueryHandler : IQueryHandler<EditQuery, PlantStockEditViewModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public EditQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public EditQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<PlantStockEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
@@ -30,7 +32,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<PlantStockDto>(content);
 
-                var model = Mapper.Map<PlantStockDto, PlantStockEditViewModel>(dto);
+                var model = _mapper.Map<PlantStockDto, PlantStockEditViewModel>(dto);
                 return model;
             }
             else

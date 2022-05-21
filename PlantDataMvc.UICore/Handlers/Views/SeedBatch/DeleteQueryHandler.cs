@@ -13,10 +13,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
     public class DeleteQueryHandler : IQueryHandler<DeleteQuery, SeedBatchDeleteViewModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public DeleteQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public DeleteQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<SeedBatchDeleteViewModel> HandleAsync(DeleteQuery query, CancellationToken cancellationToken)
@@ -29,7 +31,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<SeedBatchDto>(content);
 
-                var model = Mapper.Map<SeedBatchDto, SeedBatchDeleteViewModel>(dto);
+                var model = _mapper.Map<SeedBatchDto, SeedBatchDeleteViewModel>(dto);
                 return model;
             }
             else

@@ -9,8 +9,9 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Genus
     public class GenusDestroyEditModelFormHandler : IFormHandler<GenusDestroyEditModel, bool>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public GenusDestroyEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
+        public GenusDestroyEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
         }

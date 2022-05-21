@@ -13,10 +13,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
     public class ShowQueryHandler : IQueryHandler<ShowQuery, SeedTrayShowViewModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public ShowQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public ShowQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<SeedTrayShowViewModel> HandleAsync(ShowQuery query, CancellationToken cancellationToken)
@@ -29,7 +31,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<SeedTrayDto>(content);
 
-                var model = Mapper.Map<SeedTrayDto, SeedTrayShowViewModel>(dto);
+                var model = _mapper.Map<SeedTrayDto, SeedTrayShowViewModel>(dto);
                 return model;
             }
             else

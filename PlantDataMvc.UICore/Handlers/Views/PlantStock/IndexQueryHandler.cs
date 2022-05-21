@@ -15,10 +15,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
     public class IndexQueryHandler : IQueryHandler<IndexQuery, ListViewModelStatic<PlantStockListViewModel>>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<ListViewModelStatic<PlantStockListViewModel>> HandleAsync(IndexQuery query, CancellationToken cancellationToken)
@@ -48,7 +50,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<PlantStockDto>>(content);
                 List<PlantStockListViewModel> modelList =
-                    Mapper.Map<IEnumerable<PlantStockDto>, List<PlantStockListViewModel>>(dtoList);
+                    _mapper.Map<IEnumerable<PlantStockDto>, List<PlantStockListViewModel>>(dtoList);
 
                 var model = new ListViewModelStatic<PlantStockListViewModel>(modelList,
                                                                              apiPagingInfo.page,

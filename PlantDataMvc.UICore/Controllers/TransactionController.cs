@@ -32,7 +32,7 @@ namespace PlantDataMVC.UICore.Controllers
         public ActionResult New(int plantStockId)
         {
             var item = new JournalEntryDto { PlantStockId = plantStockId };
-            var model = Mapper.Map<JournalEntryDto, TransactionNewViewModel>(item);
+            var model = _mapper.Map<JournalEntryDto, TransactionNewViewModel>(item);
             return View(model);
         }
 

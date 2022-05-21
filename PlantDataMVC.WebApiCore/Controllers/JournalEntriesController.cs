@@ -25,11 +25,13 @@ namespace PlantDataMVC.WebApiCore.Controllers
         private const int MaxPageSize = 100;
         private readonly IJournalEntryService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+        private readonly IMapper _mapper;
 
-        public JournalEntriesController(IUnitOfWorkAsync unitOfWorkAsync, IJournalEntryService service)
+        public JournalEntriesController(IUnitOfWorkAsync unitOfWorkAsync, IJournalEntryService service, IMapper mapper)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
+            _mapper = mapper;
         }
 
         // GET: api/JournalEntries
@@ -119,7 +121,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var itemDto = Mapper.Map<JournalEntry, JournalEntryDto>(item);
+                var itemDto = _mapper.Map<JournalEntry, JournalEntryDto>(item);
 
                 return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
@@ -145,7 +147,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return BadRequest();
                 }
 
-                var entity = Mapper.Map<CreateUpdateJournalEntryDto, JournalEntry>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateJournalEntryDto, JournalEntry>(dtoIn);
                 _service.Add(entity);
 
                 // Save changes before we map back
@@ -154,7 +156,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<JournalEntry, JournalEntryDto>(entity);
+                    var dtoOut = _mapper.Map<JournalEntry, JournalEntryDto>(entity);
 
                     return CreatedAtAction(nameof(GetById), new { id = dtoOut.Id }, dtoOut);
                 }
@@ -194,7 +196,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var entity = Mapper.Map<CreateUpdateJournalEntryDto, JournalEntry>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateJournalEntryDto, JournalEntry>(dtoIn);
                 entity.Id = entityFound.Id;
                 _service.Update(entity);
 
@@ -204,7 +206,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<JournalEntry, JournalEntryDto>(entity);
+                    var dtoOut = _mapper.Map<JournalEntry, JournalEntryDto>(entity);
 
                     return Ok(dtoOut);
                 }
@@ -241,12 +243,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 // Map to dto
-                var dtoFound = Mapper.Map<JournalEntry, CreateUpdateJournalEntryDto>(entityFound);
+                var dtoFound = _mapper.Map<JournalEntry, CreateUpdateJournalEntryDto>(entityFound);
 
                 // Apply changes to dto
                 itemPatchDoc.ApplyTo(dtoFound);
 
-                var updatedEntity = Mapper.Map<CreateUpdateJournalEntryDto, JournalEntry>(dtoFound);
+                var updatedEntity = _mapper.Map<CreateUpdateJournalEntryDto, JournalEntry>(dtoFound);
                 updatedEntity.Id = id;
                 _service.Update(updatedEntity);
 
@@ -256,7 +258,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<JournalEntry, JournalEntryDto>(updatedEntity);
+                    var dtoOut = _mapper.Map<JournalEntry, JournalEntryDto>(updatedEntity);
 
                     return Ok(dtoOut);
                 }

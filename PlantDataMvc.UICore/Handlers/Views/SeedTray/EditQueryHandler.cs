@@ -13,10 +13,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
     public class EditQueryHandler : IQueryHandler<EditQuery, SeedTrayEditViewModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public EditQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public EditQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<SeedTrayEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
@@ -29,7 +31,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<SeedTrayDto>(content);
 
-                var model = Mapper.Map<SeedTrayDto, SeedTrayEditViewModel>(dto);
+                var model = _mapper.Map<SeedTrayDto, SeedTrayEditViewModel>(dto);
                 return model;
             }
             else

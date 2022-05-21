@@ -13,10 +13,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.Plant
     public class DeleteQueryHandler : IQueryHandler<DeleteQuery, PlantDeleteViewModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public DeleteQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public DeleteQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<PlantDeleteViewModel> HandleAsync(DeleteQuery query, CancellationToken cancellationToken)
@@ -29,7 +31,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Plant
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<SpeciesDto>(content);
 
-                var model = Mapper.Map<SpeciesDto, PlantDeleteViewModel>(dto);
+                var model = _mapper.Map<SpeciesDto, PlantDeleteViewModel>(dto);
                 return model;
             }
             else

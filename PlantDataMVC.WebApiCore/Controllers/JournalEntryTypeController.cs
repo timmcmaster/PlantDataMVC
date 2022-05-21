@@ -23,13 +23,10 @@ namespace PlantDataMVC.WebApiCore.Controllers
     [ApiController]
     public class JournalEntryTypeController : ControllerBase
     {
-        private const int MaxPageSize = 100;
         private readonly IJournalEntryTypeService _service;
-
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
 
-        public JournalEntryTypeController(IUnitOfWorkAsync unitOfWorkAsync,
-                                          IJournalEntryTypeService service)
+        public JournalEntryTypeController(IUnitOfWorkAsync unitOfWorkAsync, IJournalEntryTypeService service)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;

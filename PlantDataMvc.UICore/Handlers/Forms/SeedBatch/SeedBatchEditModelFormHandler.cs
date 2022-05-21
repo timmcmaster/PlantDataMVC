@@ -1,4 +1,5 @@
-﻿using Framework.Web.Core.Forms;
+﻿using AutoMapper;
+using Framework.Web.Core.Forms;
 using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Helpers;
@@ -13,10 +14,12 @@ namespace PlantDataMVC.UICore.Handlers.Forms.SeedBatch
     public class SeedBatchEditModelFormHandler : IFormHandler<SeedBatchCreateEditModel, bool>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public SeedBatchEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
+        public SeedBatchEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<bool> HandleAsync(SeedBatchCreateEditModel form, CancellationToken cancellationToken)
@@ -24,7 +27,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.SeedBatch
             try
             {
                 // Map local model to DTO
-                SeedBatchDto item = AutoMapper.Mapper.Map<SeedBatchCreateEditModel, SeedBatchDto>(form);
+                SeedBatchDto item = _mapper.Map<SeedBatchCreateEditModel, SeedBatchDto>(form);
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 

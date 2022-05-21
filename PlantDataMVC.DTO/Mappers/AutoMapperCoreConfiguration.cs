@@ -3,8 +3,13 @@ using AutoMapper;
 
 namespace PlantDataMVC.DTO.Mappers
 {
-    public static class AutoMapperCoreConfiguration
+    public class AutoMapperCoreConfiguration
     {
+        public MapperConfiguration GetMapperConfiguration()
+        {
+            return new MapperConfiguration(ConfigAction);
+        }
+
         public static Action<IMapperConfigurationExpression> ConfigAction
             = cfg =>
             {

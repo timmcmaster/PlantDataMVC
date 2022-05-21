@@ -15,10 +15,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
     public class IndexQueryHandler : IQueryHandler<IndexQuery, ListViewModelStatic<SeedBatchListViewModel>>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<ListViewModelStatic<SeedBatchListViewModel>> HandleAsync(IndexQuery query, CancellationToken cancellationToken)
@@ -49,7 +51,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<SeedBatchDto>>(content);
                 List<SeedBatchListViewModel> modelList =
-                    Mapper.Map<IEnumerable<SeedBatchDto>, List<SeedBatchListViewModel>>(dtoList);
+                    _mapper.Map<IEnumerable<SeedBatchDto>, List<SeedBatchListViewModel>>(dtoList);
 
                 var model = new ListViewModelStatic<SeedBatchListViewModel>(
                     modelList, apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount, query.SortBy,

@@ -15,10 +15,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
     public class IndexQueryHandler : IQueryHandler<IndexQuery, ListViewModelStatic<SeedTrayListViewModel>>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<ListViewModelStatic<SeedTrayListViewModel>> HandleAsync(IndexQuery query, CancellationToken cancellationToken)
@@ -47,7 +49,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
                 var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<SeedTrayDto>>(content);
-                var modelList = Mapper.Map<IEnumerable<SeedTrayDto>, List<SeedTrayListViewModel>>(dtoList);
+                var modelList = _mapper.Map<IEnumerable<SeedTrayDto>, List<SeedTrayListViewModel>>(dtoList);
 
                 var model = new ListViewModelStatic<SeedTrayListViewModel>(modelList, apiPagingInfo.page,
                                                                         apiPagingInfo.pageSize,

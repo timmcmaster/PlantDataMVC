@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Framework.Web.Core.Forms;
 using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
@@ -13,10 +14,12 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Plant
     public class PlantUpdateEditModelFormHandler : IFormHandler<PlantUpdateEditModel, bool>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public PlantUpdateEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
+        public PlantUpdateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<bool> HandleAsync(PlantUpdateEditModel form, CancellationToken cancellationToken)
@@ -24,7 +27,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Plant
             try
             {
                 // Map local model to DTO
-                SpeciesDto item = AutoMapper.Mapper.Map<PlantUpdateEditModel, SpeciesDto>(form);
+                SpeciesDto item = _mapper.Map<PlantUpdateEditModel, SpeciesDto>(form);
 
                 // Update with PUT
                 var serializedItem = JsonConvert.SerializeObject(item);

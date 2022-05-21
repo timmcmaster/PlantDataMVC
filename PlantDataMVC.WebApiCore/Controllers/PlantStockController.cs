@@ -23,14 +23,15 @@ namespace PlantDataMVC.WebApiCore.Controllers
     [ApiController]
     public class PlantStockController : ControllerBase
     {
-        private const int MaxPageSize = 100;
         private readonly IPlantStockService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+        private readonly IMapper _mapper;
 
-        public PlantStockController(IUnitOfWorkAsync unitOfWorkAsync, IPlantStockService service)
+        public PlantStockController(IUnitOfWorkAsync unitOfWorkAsync, IPlantStockService service, IMapper mapper)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
+            _mapper = mapper;
         }
 
         // GET: api/PlantStock
@@ -146,7 +147,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var itemDto = Mapper.Map<PlantStock, PlantStockDto>(item);
+                var itemDto = _mapper.Map<PlantStock, PlantStockDto>(item);
 
                 return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
@@ -172,7 +173,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return BadRequest();
                 }
 
-                var entity = Mapper.Map<CreateUpdatePlantStockDto, PlantStock>(dtoIn);
+                var entity = _mapper.Map<CreateUpdatePlantStockDto, PlantStock>(dtoIn);
                 _service.Add(entity);
 
                 // Save changes before we map back
@@ -181,7 +182,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<PlantStock, PlantStockDto>(entity);
+                    var dtoOut = _mapper.Map<PlantStock, PlantStockDto>(entity);
 
                     return CreatedAtAction(nameof(GetById), new { id = dtoOut.Id }, dtoOut);
                 }
@@ -221,7 +222,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var entity = Mapper.Map<CreateUpdatePlantStockDto, PlantStock>(dtoIn);
+                var entity = _mapper.Map<CreateUpdatePlantStockDto, PlantStock>(dtoIn);
                 entity.Id = entityFound.Id;
                 _service.Update(entity);
 
@@ -231,7 +232,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<PlantStock, PlantStockDto>(entity);
+                    var dtoOut = _mapper.Map<PlantStock, PlantStockDto>(entity);
 
                     return Ok(dtoOut);
                 }
@@ -268,12 +269,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 // Map to dto
-                var dtoFound = Mapper.Map<PlantStock, CreateUpdatePlantStockDto>(entityFound);
+                var dtoFound = _mapper.Map<PlantStock, CreateUpdatePlantStockDto>(entityFound);
 
                 // Apply changes to dto
                 itemPatchDoc.ApplyTo(dtoFound);
 
-                var updatedEntity = Mapper.Map<CreateUpdatePlantStockDto, PlantStock>(dtoFound);
+                var updatedEntity = _mapper.Map<CreateUpdatePlantStockDto, PlantStock>(dtoFound);
                 updatedEntity.Id = id;
                 _service.Update(updatedEntity);
 
@@ -283,7 +284,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<PlantStock, PlantStockDto>(updatedEntity);
+                    var dtoOut = _mapper.Map<PlantStock, PlantStockDto>(updatedEntity);
 
                     return Ok(dtoOut);
                 }

@@ -7,16 +7,19 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace PlantDataMVC.UICore.Handlers.Forms.Genus
 {
     public class GenusCreateEditModelFormHandler : IFormHandler<GenusCreateEditModel, bool>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public GenusCreateEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
+        public GenusCreateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<bool> HandleAsync(GenusCreateEditModel form, CancellationToken cancellationToken)
@@ -24,7 +27,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Genus
             try
             {
                 // Map local model to DTO
-                CreateUpdateGenusDto item = AutoMapper.Mapper.Map<GenusCreateEditModel, CreateUpdateGenusDto>(form);
+                CreateUpdateGenusDto item = _mapper.Map<GenusCreateEditModel, CreateUpdateGenusDto>(form);
                 var serializedItem = JsonConvert.SerializeObject(item);
                 var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 

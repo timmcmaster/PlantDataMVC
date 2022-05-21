@@ -25,7 +25,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
     [ApiController]
     public class ProductTypeController : ControllerBase
     {
-        private const int MaxPageSize = 100;
         private readonly IProductTypeService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
 

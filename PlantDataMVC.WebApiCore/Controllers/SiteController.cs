@@ -25,11 +25,13 @@ namespace PlantDataMVC.WebApiCore.Controllers
     {
         private readonly ISiteService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+        private readonly IMapper _mapper;
 
-        public SiteController(IUnitOfWorkAsync unitOfWorkAsync, ISiteService service)
+        public SiteController(IUnitOfWorkAsync unitOfWorkAsync, ISiteService service, IMapper mapper)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
+            _mapper = mapper;
         }
 
         // GET: api/Site
@@ -125,7 +127,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var itemDto = Mapper.Map<Site, SiteDto>(item);
+                var itemDto = _mapper.Map<Site, SiteDto>(item);
 
                 return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
@@ -151,7 +153,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return BadRequest();
                 }
 
-                var entity = Mapper.Map<CreateUpdateSiteDto, Site>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateSiteDto, Site>(dtoIn);
                 _service.Add(entity);
 
                 // Save changes before we map back
@@ -160,7 +162,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<Site, SiteDto>(entity);
+                    var dtoOut = _mapper.Map<Site, SiteDto>(entity);
 
                     return CreatedAtAction(nameof(GetById), new { id = dtoOut.Id }, dtoOut);
                 }
@@ -200,7 +202,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var entity = Mapper.Map<CreateUpdateSiteDto, Site>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateSiteDto, Site>(dtoIn);
                 entity.Id = entityFound.Id;
                 _service.Update(entity);
 
@@ -210,7 +212,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<Site, SiteDto>(entity);
+                    var dtoOut = _mapper.Map<Site, SiteDto>(entity);
 
                     return Ok(dtoOut);
                 }
@@ -247,12 +249,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 // Map to dto
-                var dtoFound = Mapper.Map<Site, CreateUpdateSiteDto>(entityFound);
+                var dtoFound = _mapper.Map<Site, CreateUpdateSiteDto>(entityFound);
 
                 // Apply changes to dto
                 itemPatchDoc.ApplyTo(dtoFound);
 
-                var updatedEntity = Mapper.Map<CreateUpdateSiteDto, Site>(dtoFound);
+                var updatedEntity = _mapper.Map<CreateUpdateSiteDto, Site>(dtoFound);
                 updatedEntity.Id = id;
                 _service.Update(updatedEntity);
 
@@ -262,7 +264,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<Site, SiteDto>(updatedEntity);
+                    var dtoOut = _mapper.Map<Site, SiteDto>(updatedEntity);
 
                     return Ok(dtoOut);
                 }

@@ -13,10 +13,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.Transaction
     public class EditQueryHandler : IQueryHandler<EditQuery, TransactionEditViewModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public EditQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public EditQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<TransactionEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
@@ -29,7 +31,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Transaction
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<JournalEntryDto>(content);
 
-                var model = Mapper.Map<JournalEntryDto, TransactionEditViewModel>(dto);
+                var model = _mapper.Map<JournalEntryDto, TransactionEditViewModel>(dto);
                 return model;
             }
             else

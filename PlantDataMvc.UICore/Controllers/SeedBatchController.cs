@@ -83,7 +83,7 @@ namespace PlantDataMVC.UICore.Controllers
         public ActionResult New(int speciesId)
         {
             var item = new SeedBatchDto { SpeciesId = speciesId };
-            var model = Mapper.Map<SeedBatchDto, SeedBatchNewViewModel>(item);
+            var model = _mapper.Map<SeedBatchDto, SeedBatchNewViewModel>(item);
             return View(model);
         }
 

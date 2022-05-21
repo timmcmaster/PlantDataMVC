@@ -1,4 +1,5 @@
-﻿using CacheCow.Server.Core.Mvc;
+﻿using AutoMapper;
+using CacheCow.Server.Core.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using PlantDataMVC.Constants;
+using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.WebApiCore.DependencyInjection;
 using PlantDataMVC.WebApiCore.Helpers;
 using PlantDataMVC.WebApiCore.Mappers;
@@ -97,6 +99,10 @@ namespace PlantDataMVC.WebApiCore
 
             //});
 
+            // Add profiles from DTO assembly
+            services.AddAutoMapper(typeof(GenusDto));
+
+            MapperConfiguration.AssertConfigurationIsValid();
 
             // Authorization setup
             //services.AddSingleton<IAuthorizationHandler, ResourceAuthorizationHandler>();

@@ -25,11 +25,13 @@ namespace PlantDataMVC.WebApiCore.Controllers
     {
         private readonly IGenusService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+        private readonly IMapper _mapper;
 
-        public GenusController(IUnitOfWorkAsync unitOfWorkAsync, IGenusService service)
+        public GenusController(IUnitOfWorkAsync unitOfWorkAsync, IGenusService service, IMapper mapper)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
+            _mapper = mapper;
         }
 
         // GET: api/Genus
@@ -61,7 +63,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 /*
                 // Without DelegateDecompiler, we can't use ProjectTo due to calculated field in Species
                 // Less optimal solution means evaluating query then converting list back to queryable
-                IList<GenusDto> dtoList = Mapper.Map<IList<Genus>, IList<GenusDto>>(_service.GetAll().ToList());
+                IList<GenusDto> dtoList = _mapper.Map<IList<Genus>, IList<GenusDto>>(_service.GetAll().ToList());
                 IQueryable<GenusDto> dtoQueryable = dtoList.AsQueryable();
                 
                 var dtos = dtoQueryable
@@ -128,7 +130,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var itemDto = Mapper.Map<Genus, GenusDto>(item);
+                var itemDto = _mapper.Map<Genus, GenusDto>(item);
 
                 return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
@@ -153,7 +155,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return BadRequest();
                 }
 
-                var entity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateGenusDto, Genus>(dtoIn);
 
                 // Check for unique genus
                 if (_service.GetItemByLatinName(entity.LatinName) != null)
@@ -169,7 +171,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<Genus, GenusDto>(entity);
+                    var dtoOut = _mapper.Map<Genus, GenusDto>(entity);
 
                     return CreatedAtAction(nameof(GetById), new { id = dtoOut.Id }, dtoOut);
                 }
@@ -209,7 +211,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var entity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateGenusDto, Genus>(dtoIn);
                 entity.Id = entityFound.Id;
                 _service.Update(entity);
 
@@ -219,7 +221,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<Genus, GenusDto>(entity);
+                    var dtoOut = _mapper.Map<Genus, GenusDto>(entity);
 
                     return Ok(dtoOut);
                 }
@@ -256,12 +258,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 // Map to dto
-                var dtoFound = Mapper.Map<Genus, CreateUpdateGenusDto>(entityFound);
+                var dtoFound = _mapper.Map<Genus, CreateUpdateGenusDto>(entityFound);
 
                 // Apply changes to dto
                 itemPatchDoc.ApplyTo(dtoFound);
 
-                var updatedEntity = Mapper.Map<CreateUpdateGenusDto, Genus>(dtoFound);
+                var updatedEntity = _mapper.Map<CreateUpdateGenusDto, Genus>(dtoFound);
                 updatedEntity.Id = id;
                 _service.Update(updatedEntity);
 
@@ -271,7 +273,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<Genus, GenusDto>(updatedEntity);
+                    var dtoOut = _mapper.Map<Genus, GenusDto>(updatedEntity);
 
                     return Ok(dtoOut);
                 }

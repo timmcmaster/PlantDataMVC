@@ -1,4 +1,5 @@
-﻿using Framework.Web.Core.Forms;
+﻿using AutoMapper;
+using Framework.Web.Core.Forms;
 using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Helpers;
@@ -13,10 +14,12 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Site
     public class SiteUpdateEditModelFormHandler : IFormHandler<SiteUpdateEditModel, bool>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public SiteUpdateEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
+        public SiteUpdateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<bool> HandleAsync(SiteUpdateEditModel form, CancellationToken cancellationToken)
@@ -24,7 +27,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Site
             try
             {
                 // Map local model to DTO
-                SiteDto item = AutoMapper.Mapper.Map<SiteUpdateEditModel, SiteDto>(form);
+                SiteDto item = _mapper.Map<SiteUpdateEditModel, SiteDto>(form);
 
                 // Update with PUT
                 var serializedItem = JsonConvert.SerializeObject(item);

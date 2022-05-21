@@ -23,16 +23,15 @@ namespace PlantDataMVC.WebApiCore.Controllers
     [ApiController]
     public class SeedTrayController : ControllerBase
     {
-        private const int MaxPageSize = 100;
         private readonly ISeedTrayService _service;
-
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+        private readonly IMapper _mapper;
 
-        public SeedTrayController(IUnitOfWorkAsync unitOfWorkAsync,
-                                  ISeedTrayService service)
+        public SeedTrayController(IUnitOfWorkAsync unitOfWorkAsync, ISeedTrayService service, IMapper mapper)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
+            _mapper = mapper;
         }
 
         // GET: api/SeedTray
@@ -134,7 +133,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var itemDto = Mapper.Map<SeedTray, SeedTrayDto>(item);
+                var itemDto = _mapper.Map<SeedTray, SeedTrayDto>(item);
 
                 return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
@@ -160,7 +159,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return BadRequest();
                 }
 
-                var entity = Mapper.Map<CreateUpdateSeedTrayDto, SeedTray>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateSeedTrayDto, SeedTray>(dtoIn);
                 _service.Add(entity);
 
                 // Save changes before we map back
@@ -169,7 +168,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<SeedTray, SeedTrayDto>(entity);
+                    var dtoOut = _mapper.Map<SeedTray, SeedTrayDto>(entity);
 
                     return CreatedAtAction(nameof(GetById), new { id = dtoOut.Id }, dtoOut);
                 }
@@ -209,7 +208,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var entity = Mapper.Map<CreateUpdateSeedTrayDto, SeedTray>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateSeedTrayDto, SeedTray>(dtoIn);
                 entity.Id = entityFound.Id;
                 _service.Update(entity);
 
@@ -219,7 +218,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<SeedTray, SeedTrayDto>(entity);
+                    var dtoOut = _mapper.Map<SeedTray, SeedTrayDto>(entity);
 
                     return Ok(dtoOut);
                 }
@@ -256,12 +255,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 // Map to dto
-                var dtoFound = Mapper.Map<SeedTray, CreateUpdateSeedTrayDto>(entityFound);
+                var dtoFound = _mapper.Map<SeedTray, CreateUpdateSeedTrayDto>(entityFound);
 
                 // Apply changes to dto
                 itemPatchDoc.ApplyTo(dtoFound);
 
-                var updatedEntity = Mapper.Map<CreateUpdateSeedTrayDto, SeedTray>(dtoFound);
+                var updatedEntity = _mapper.Map<CreateUpdateSeedTrayDto, SeedTray>(dtoFound);
                 updatedEntity.Id = id;
                 _service.Update(updatedEntity);
 
@@ -271,7 +270,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = Mapper.Map<SeedTray, SeedTrayDto>(updatedEntity);
+                    var dtoOut = _mapper.Map<SeedTray, SeedTrayDto>(updatedEntity);
 
                     return Ok(dtoOut);
                 }

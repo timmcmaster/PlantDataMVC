@@ -13,10 +13,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
     public class ShowQueryHandler : IQueryHandler<ShowQuery, SeedBatchShowViewModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public ShowQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public ShowQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<SeedBatchShowViewModel> HandleAsync(ShowQuery query, CancellationToken cancellationToken)
@@ -30,7 +32,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<SeedBatchDto>(content);
 
-                var model = Mapper.Map<SeedBatchDto, SeedBatchShowViewModel>(dto);
+                var model = _mapper.Map<SeedBatchDto, SeedBatchShowViewModel>(dto);
                 return model;
             }
             else

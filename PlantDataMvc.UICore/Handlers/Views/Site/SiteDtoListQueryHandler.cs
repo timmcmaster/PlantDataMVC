@@ -11,8 +11,9 @@ namespace PlantDataMVC.UICore.Handlers.Views.Site
     public class SiteDtoListQueryHandler : ListQueryHandler<SiteDto>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public SiteDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public SiteDtoListQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
         }

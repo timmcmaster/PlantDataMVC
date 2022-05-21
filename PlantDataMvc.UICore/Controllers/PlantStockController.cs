@@ -99,7 +99,7 @@ namespace PlantDataMVC.UICore.Controllers
         public ActionResult New(int speciesId)
         {
             var item = new PlantStockDto { SpeciesId = speciesId };
-            var model = Mapper.Map<PlantStockDto, PlantStockNewViewModel>(item);
+            var model = _mapper.Map<PlantStockDto, PlantStockNewViewModel>(item);
             return View(model);
         }
 

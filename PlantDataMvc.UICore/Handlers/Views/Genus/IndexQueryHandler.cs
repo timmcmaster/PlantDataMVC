@@ -15,10 +15,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
     public class IndexQueryHandler : IQueryHandler<IndexQuery, ListViewModelStatic<GenusListViewModel>>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
 
@@ -49,7 +51,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<GenusDto>>(content);
                 List<GenusListViewModel> modelList =
-                    Mapper.Map<IEnumerable<GenusDto>, List<GenusListViewModel>>(dtoList);
+                    _mapper.Map<IEnumerable<GenusDto>, List<GenusListViewModel>>(dtoList);
 
                 var model = new ListViewModelStatic<GenusListViewModel>(modelList, apiPagingInfo.page,
                                                                         apiPagingInfo.pageSize,

@@ -41,7 +41,7 @@ namespace PlantDataMVC.Service.Tests.UnitTests
         //    };
 
         //    // Act
-        //    Genus result = Mapper.Map<Plant, Genus>(plant);
+        //    Genus result = _mapper.Map<Plant, Genus>(plant);
 
         //    // Assert
         //    result.Should().BeEquivalentTo(expectedGenus, options => options
@@ -65,7 +65,7 @@ namespace PlantDataMVC.Service.Tests.UnitTests
         //    };
 
         //    // Act
-        //    Species result = Mapper.Map<Plant, Species>(plant);
+        //    Species result = _mapper.Map<Plant, Species>(plant);
 
         //    // Assert
         //    result.Should().BeEquivalentTo(expectedSpecies, options => options

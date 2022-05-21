@@ -13,10 +13,12 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
     public class ShowQueryHandler : IQueryHandler<ShowQuery, PlantStockShowViewModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
+        private readonly IMapper _mapper;
 
-        public ShowQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public ShowQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<PlantStockShowViewModel> HandleAsync(ShowQuery query, CancellationToken cancellationToken)
@@ -29,7 +31,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var dto = JsonConvert.DeserializeObject<PlantStockDto>(content);
 
-                var model = Mapper.Map<PlantStockDto, PlantStockShowViewModel>(dto);
+                var model = _mapper.Map<PlantStockDto, PlantStockShowViewModel>(dto);
                 return model;
             }
             else
