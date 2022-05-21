@@ -76,8 +76,8 @@ namespace PlantDataMVC.WebApiCore.Controllers
                            .Where(s => specificName == null || s.SpecificName == specificName)
                            .Where(s => genusId == null || s.GenusId == genusId);
                 */
-                var dtos = context
-                           .ProjectTo<SpeciesDto>(null, childDtosToInclude.ToArray())
+                var dtos = _mapper
+                           .ProjectTo<SpeciesDto>(context, childDtosToInclude.ToArray())
                            .ApplySort(sortParams.Sort)
                            .Where(s => native == null || s.Native == native)
                            .Where(s => specificName == null || s.SpecificName == specificName)

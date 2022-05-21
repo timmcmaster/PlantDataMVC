@@ -62,8 +62,8 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 var context = _service.Queryable();
 
-                var dtos = context
-                           .ProjectTo<SiteDto>(null, childDtosToInclude.ToArray())
+                var dtos = _mapper
+                           .ProjectTo<SiteDto>(context, childDtosToInclude.ToArray())
                            .ApplySort(sortParams.Sort)
                            .Where(s => suburb == null || s.Suburb == suburb);
 

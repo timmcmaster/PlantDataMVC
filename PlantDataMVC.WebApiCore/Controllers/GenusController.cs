@@ -71,8 +71,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
                            .Where(s => latinName == null || s.LatinName == latinName);
                 */
 
-                var dtos = context
-                           .ProjectTo<GenusDto>(null, childDtosToInclude.ToArray())
+                //var dtos = context
+                //           .ProjectTo<GenusDto>(null, childDtosToInclude.ToArray())
+                //           .ApplySort(sortParams.Sort)
+                //           .Where(s => latinName == null || s.LatinName == latinName);
+
+                var dtos = _mapper.ProjectTo<GenusDto>(context, childDtosToInclude.ToArray())
                            .ApplySort(sortParams.Sort)
                            .Where(s => latinName == null || s.LatinName == latinName);
 

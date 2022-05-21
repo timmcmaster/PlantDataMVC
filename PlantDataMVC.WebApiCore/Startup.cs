@@ -112,7 +112,7 @@ namespace PlantDataMVC.WebApiCore
             //          IMappingAction<,>
             // Always
             // - Adds IConfigurationProvider as singleton using MapperConfigurationProvider
-            // - Adds IMapper as Mapper using IConfiguratrionProvider
+            // - Adds IMapper as Mapper using IConfigurationProvider
             services.AddAutoMapper(AutoMapperCoreConfiguration.ConfigAction);
 
             //MapperConfiguration.AssertConfigurationIsValid();

@@ -27,11 +27,13 @@ namespace PlantDataMVC.WebApiCore.Controllers
     {
         private readonly IProductTypeService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+        private readonly IMapper _mapper;
 
-        public ProductTypeController(IUnitOfWorkAsync unitOfWorkAsync, IProductTypeService service)
+        public ProductTypeController(IUnitOfWorkAsync unitOfWorkAsync, IProductTypeService service, IMapper mapper)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
+            _mapper = mapper;
         }
 
         // GET: api/ProductType
@@ -59,8 +61,8 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 var context = _service.Queryable();
 
-                var dtos = context
-                           .ProjectTo<ProductTypeDto>(null, childDtosToInclude.ToArray())
+                var dtos = _mapper
+                           .ProjectTo<ProductTypeDto>(context, childDtosToInclude.ToArray())
                            .ApplySort(sortParams.Sort);
 
                 // HACK: use URL content to determine route used to get here

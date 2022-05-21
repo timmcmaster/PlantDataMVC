@@ -66,8 +66,8 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 //    .ApplySort(sort)
                 //    .ToList();
 
-                var dtos = context
-                           .ProjectTo<SeedTrayDto>(null, childDtosToInclude.ToArray())
+                var dtos = _mapper
+                           .ProjectTo<SeedTrayDto>(context, childDtosToInclude.ToArray())
                            .ApplySort(sortParams.Sort)
                            .Where(s => thrownOut == null || s.ThrownOut == thrownOut)
                            .Where(s => seedBatchId == null || s.SeedBatchId == seedBatchId);

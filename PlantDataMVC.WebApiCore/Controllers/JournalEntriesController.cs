@@ -61,8 +61,8 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 var context = _service.Queryable();
 
-                var dtos = context
-                           .ProjectTo<JournalEntryDto>(null, childDtosToInclude.ToArray())
+                var dtos = _mapper
+                           .ProjectTo<JournalEntryDto>(context, childDtosToInclude.ToArray())
                            .ApplySort(sortParams.Sort)
                            .Where(s => s.PlantStockId == plantStockId);
 

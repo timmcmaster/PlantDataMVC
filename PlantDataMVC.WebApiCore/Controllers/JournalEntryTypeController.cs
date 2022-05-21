@@ -25,11 +25,13 @@ namespace PlantDataMVC.WebApiCore.Controllers
     {
         private readonly IJournalEntryTypeService _service;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+        private readonly IMapper _mapper;
 
-        public JournalEntryTypeController(IUnitOfWorkAsync unitOfWorkAsync, IJournalEntryTypeService service)
+        public JournalEntryTypeController(IUnitOfWorkAsync unitOfWorkAsync, IJournalEntryTypeService service, IMapper mapper)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
+            _mapper = mapper;
         }
 
         // GET: api/JournalEntryType
@@ -57,8 +59,8 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 var context = _service.Queryable();
 
-                var dtos = context
-                           .ProjectTo<JournalEntryTypeDto>(null, childDtosToInclude.ToArray())
+                var dtos = _mapper
+                           .ProjectTo<JournalEntryTypeDto>(context, childDtosToInclude.ToArray())
                            .ApplySort(sortParams.Sort);
 
                 // HACK: use URL content to determine route used to get here

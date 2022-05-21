@@ -62,8 +62,8 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 var context = _service.Queryable();
 
-                var dtos = context
-                           .ProjectTo<PlantStockDto>(null, childDtosToInclude.ToArray())
+                var dtos = _mapper
+                           .ProjectTo<PlantStockDto>(context, childDtosToInclude.ToArray())
                            .ApplySort(sortParams.Sort)
                            .Where(s => speciesId == null || s.SpeciesId == speciesId)
                            .Where(s => productTypeId == null || s.ProductTypeId == productTypeId);
