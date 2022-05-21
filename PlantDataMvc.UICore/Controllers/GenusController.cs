@@ -72,8 +72,8 @@ namespace PlantDataMVC.UICore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(GenusCreateEditModel form)
         {
-            var claimsIdentity = this.User.Identity as ClaimsIdentity;
-            var userId = claimsIdentity.FindFirst("unique_user_key").Value;
+            //var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            //var userId = claimsIdentity.FindFirst("unique_user_key").Value;
 
             // TODO: Use userId in submit of form (via mediator)
 
@@ -110,8 +110,8 @@ namespace PlantDataMVC.UICore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(GenusUpdateEditModel form)
         {
-            var claimsIdentity = this.User.Identity as ClaimsIdentity;
-            var userId = claimsIdentity.FindFirst("unique_user_key").Value;
+            //var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            //var userId = claimsIdentity.FindFirst("unique_user_key").Value;
 
             // TODO: Use userId in submit of form (via mediator)
 
@@ -148,8 +148,8 @@ namespace PlantDataMVC.UICore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Destroy(GenusDestroyEditModel form)
         {
-            var claimsIdentity = this.User.Identity as ClaimsIdentity;
-            var userId = claimsIdentity.FindFirst("unique_user_key").Value;
+            //var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            //var userId = claimsIdentity.FindFirst("unique_user_key").Value;
 
             // TODO: Use userId in submit of form (via mediator)
 
