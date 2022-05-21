@@ -9,14 +9,15 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
 {
     public class DbIntegrationTests : IntegrationTestBase, IDisposable
     {
+        private readonly ITestOutputHelper _output;
+        private readonly MapperConfiguration _mapperConfiguration;
+
         #region Setup/Teardown
         public DbIntegrationTests(ITestOutputHelper output)
         {
             _output = output;
-            // Reset Mapper at end of each test
-            Mapper.Reset();
             // Configure the mapper at start of each test
-            AutoMapperCoreConfiguration.Configure();
+            _mapperConfiguration = AutoMapperCoreConfiguration.Configure();
         }
 
         public void Dispose()
@@ -25,8 +26,6 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
             //Mapper.Reset();
         }
         #endregion
-
-        private readonly ITestOutputHelper _output;
 
         [Fact]
         public async Task EmptyTest_ClearDb_Works()

@@ -16,10 +16,12 @@ namespace PlantDataMVC.UICore.Controllers
     public class SeedTrayController : DefaultController
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public SeedTrayController(IMediator mediator)
+        public SeedTrayController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         // GET: /"ControllerName"/Index

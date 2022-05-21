@@ -8,12 +8,12 @@ namespace PlantDataMVC.Service.Tests.UnitTests
     public class DtoToDalMappingFacts : IDisposable
     {
         #region Setup/Teardown
+        private readonly MapperConfiguration _mapperConfiguration;
+
         public DtoToDalMappingFacts()
         {
-            // Reset Mapper before configuring
-            Mapper.Reset();
             // Configure the mapper at start of each test
-            AutoMapperCoreConfiguration.Configure();
+            _mapperConfiguration = AutoMapperCoreConfiguration.Configure();
         }
 
         public void Dispose()
@@ -26,7 +26,7 @@ namespace PlantDataMVC.Service.Tests.UnitTests
         [Fact]
         public void TestMappingConfiguration()
         {
-            Mapper.AssertConfigurationIsValid();
+            _mapperConfiguration.AssertConfigurationIsValid();
         }
 
         //[Fact]

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Controllers.Queries;
 using PlantDataMVC.UICore.Helpers;

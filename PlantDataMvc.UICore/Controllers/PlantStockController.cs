@@ -14,10 +14,12 @@ namespace PlantDataMVC.UICore.Controllers
     public class PlantStockController : DefaultController
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public PlantStockController(IMediator mediator)
+        public PlantStockController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         // GET: /"ControllerName"/Index

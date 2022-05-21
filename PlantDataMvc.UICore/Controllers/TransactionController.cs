@@ -16,10 +16,12 @@ namespace PlantDataMVC.UICore.Controllers
     public class TransactionController : DefaultController
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public TransactionController(IMediator mediator)
+        public TransactionController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         /// <summary>

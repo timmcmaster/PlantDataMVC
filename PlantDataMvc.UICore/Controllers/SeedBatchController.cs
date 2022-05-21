@@ -16,10 +16,12 @@ namespace PlantDataMVC.UICore.Controllers
     public class SeedBatchController : DefaultController
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public SeedBatchController(IMediator mediator)
+        public SeedBatchController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         // GET: /"ControllerName"/Index

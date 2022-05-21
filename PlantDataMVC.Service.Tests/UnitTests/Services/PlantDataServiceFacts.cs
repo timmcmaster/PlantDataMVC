@@ -8,14 +8,13 @@ namespace PlantDataMVC.Service.Tests.UnitTests.Services
     public class PlantDataServiceFacts : IDisposable
     {
         private readonly ITestOutputHelper _output;
+        private readonly MapperConfiguration _mapperConfiguration;
 
         public PlantDataServiceFacts(ITestOutputHelper output)
         {
             _output = output;
-            // Reset mapper before configuring
-            Mapper.Reset();
             // Configure the mapper at start of each test
-            AutoMapperCoreConfiguration.Configure();
+            _mapperConfiguration = AutoMapperCoreConfiguration.Configure();
         }
 
         #region IDisposable Members

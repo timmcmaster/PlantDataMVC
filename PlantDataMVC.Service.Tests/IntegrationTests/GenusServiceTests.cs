@@ -17,15 +17,17 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
 {
     public class GenusServiceTests : IntegrationTestBase, IDisposable
     {
+        private readonly ITestOutputHelper _output;
+        private readonly string _plantDataDbConnectionString;
+        private readonly MapperConfiguration _mapperConfiguration;
+
         #region Setup/Teardown
         public GenusServiceTests(ITestOutputHelper output)
         {
             _output = output;
             _plantDataDbConnectionString = ConfigurationManager.ConnectionStrings["PlantDataDbContext"].ConnectionString;
-            // Reset Mapper at end of each test
-            Mapper.Reset();
             // Configure the mapper at start of each test
-            AutoMapperCoreConfiguration.Configure();
+            _mapperConfiguration = AutoMapperCoreConfiguration.Configure();
         }
 
         public void Dispose()
@@ -34,9 +36,6 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
             //Mapper.Reset();
         }
         #endregion
-
-        private readonly ITestOutputHelper _output;
-        private readonly string _plantDataDbConnectionString;
 
         [Fact]
         public void Add_UsingCreatedRepository_ReturnsIdAfterSaveChanges()

@@ -1,4 +1,5 @@
-﻿using Framework.Web.Core.Forms;
+﻿using AutoMapper;
+using Framework.Web.Core.Forms;
 using PlantDataMVC.UICore.Helpers;
 using PlantDataMVC.UICore.Models.EditModels.Genus;
 using System.Threading;

@@ -12,9 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using PlantDataMVC.Constants;
 using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.DTO.Mappers;
 using PlantDataMVC.WebApiCore.DependencyInjection;
 using PlantDataMVC.WebApiCore.Helpers;
-using PlantDataMVC.WebApiCore.Mappers;
 using Serilog;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -99,10 +99,23 @@ namespace PlantDataMVC.WebApiCore
 
             //});
 
-            // Add profiles from DTO assembly
-            services.AddAutoMapper(typeof(GenusDto));
+            // Acts as follows:
+            // - if config action provided
+            //      - use that as options for configuring
+            // - if assemblies or marker types provided
+            //      - Set mapperConfigurationOptions to add maps from assemblies 
+            //      - Adds all types from assemblies implementing:
+            //          IValueResolver<,,>,
+            //          IMemberValueResolver<,,,>,
+            //          ITypeConverter<,>,
+            //          IValueConverter<,>,
+            //          IMappingAction<,>
+            // Always
+            // - Adds IConfigurationProvider as singleton using MapperConfigurationProvider
+            // - Adds IMapper as Mapper using IConfiguratrionProvider
+            services.AddAutoMapper(AutoMapperCoreConfiguration.ConfigAction);
 
-            MapperConfiguration.AssertConfigurationIsValid();
+            //MapperConfiguration.AssertConfigurationIsValid();
 
             // Authorization setup
             //services.AddSingleton<IAuthorizationHandler, ResourceAuthorizationHandler>();
@@ -150,8 +163,6 @@ namespace PlantDataMVC.WebApiCore
                 //    name: "default",
                 //    pattern: "api/{controller}/{id?}");
             });
-
-            AutoMapperBootstrapper.Initialize();
         }
     }
 }
