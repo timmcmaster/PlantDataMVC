@@ -36,6 +36,7 @@ namespace Framework.Web.Core.Mvc.Sorting
                                                                                    expr) //where TModel : ISortable
         {
             var model = helper.ViewData.Model as ISortable;
+            var currentRequest = helper.ViewContext.HttpContext.Request;
 
             var expressionProvider = new ModelExpressionProvider(helper.MetadataProvider);
             var modelExpression = expressionProvider.CreateModelExpression(helper.ViewData, expr);
@@ -47,14 +48,12 @@ namespace Framework.Web.Core.Mvc.Sorting
             }
 
             // check if current sort is descending on current column
-            var isDescending = string.CompareOrdinal(model.SortBy, metadata.PropertyName) == 0 &&
-                               model.SortAscending;
+            var isDescending = string.CompareOrdinal(model.SortBy, metadata.PropertyName) == 0 && model.SortAscending;
 
-            var routeData = new RouteValueDictionary
-                {{"sortBy", metadata.PropertyName}, {"ascending", !isDescending}};
+            var routeData = new RouteValueDictionary {{"sortBy", metadata.PropertyName}, {"ascending", !isDescending}};
 
             // Add in the querystring parameters *except* for the paging ones (as sorting should send us back to the first page of data)
-            routeData.AddQueryStringParameters().ExceptFor("page", "pageSize");
+            routeData.AddQueryStringParameters(currentRequest).ExceptFor("page", "pageSize");
 
             var htmlAttributes = new Dictionary<string, object>();
 

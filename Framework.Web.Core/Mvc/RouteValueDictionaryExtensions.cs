@@ -1,5 +1,6 @@
 ﻿using System;
 using Framework.Web.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
 namespace Framework.Web.Core.Mvc
@@ -12,18 +13,20 @@ namespace Framework.Web.Core.Mvc
         /// <summary>
         ///     Extension method for copying query string parameters to a RouteValueDictionary.
         /// </summary>
-        public static RouteValueDictionary AddQueryStringParameters(this RouteValueDictionary routeValues)
+        public static RouteValueDictionary AddQueryStringParameters(this RouteValueDictionary routeValues, HttpRequest fromRequest)
         {
-            var query = HttpContextHelper.Current.Request.Query;
-
-            foreach (var key in query.Keys)
+            if ((fromRequest != null) && (fromRequest.Query != null))
             {
-                if (!routeValues.ContainsKey(key))
+                var query = fromRequest.Query;
+
+                foreach (var key in query.Keys)
                 {
-                    routeValues.Add(key, query[key]);
+                    if (!routeValues.ContainsKey(key))
+                    {
+                        routeValues.Add(key, query[key]);
+                    }
                 }
             }
-
             return routeValues;
         }
 

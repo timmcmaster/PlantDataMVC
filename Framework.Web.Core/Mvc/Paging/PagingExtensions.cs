@@ -11,13 +11,12 @@ namespace Framework.Web.Core.Mvc.Paging
     /// </summary>
     public static class PagingExtensions
     {
-        public static HtmlString PagingLinksFor<TModel, TProperty>(this IHtmlHelper<TModel> helper,
-                                                                      Expression<Func<TModel, TProperty>>
-                                                                          expr) //where TModel : IPageable
+        public static HtmlString PagingLinksFor<TModel, TProperty>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr) //where TModel : IPageable
         {
-            var model = helper.ViewData.Model as IPageable;
-
             //ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
+
+            var model = helper.ViewData.Model as IPageable;
+            var currentRequest = helper.ViewContext.HttpContext.Request;
 
             IHtmlContent prevLink = new HtmlString("");
             IHtmlContent separator = new HtmlString("");
@@ -30,7 +29,7 @@ namespace Framework.Web.Core.Mvc.Paging
                     var routeDataPrev = new RouteValueDictionary
                         {{"page", model.PageNumber - 1}, {"pageSize", model.PageSize}};
 
-                    routeDataPrev.AddQueryStringParameters();
+                    routeDataPrev.AddQueryStringParameters(currentRequest);
 
                     prevLink = helper.ActionLink("< Previous Page", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataPrev);
                 }
@@ -48,7 +47,7 @@ namespace Framework.Web.Core.Mvc.Paging
                     var routeDataNext = new RouteValueDictionary
                         {{"page", model.PageNumber + 1}, {"pageSize", model.PageSize}};
 
-                    routeDataNext.AddQueryStringParameters();
+                    routeDataNext.AddQueryStringParameters(currentRequest);
 
                     nextLink = helper.ActionLink("Next Page >", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataNext);
                 }
