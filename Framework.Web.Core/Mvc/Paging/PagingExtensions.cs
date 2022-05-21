@@ -1,8 +1,10 @@
-﻿using System;
-using System.Linq.Expressions;
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
+using System;
+using System.IO;
+using System.Linq.Expressions;
+using System.Text.Encodings.Web;
 
 namespace Framework.Web.Core.Mvc.Paging
 {
@@ -14,6 +16,7 @@ namespace Framework.Web.Core.Mvc.Paging
         public static HtmlString PagingLinksFor<TModel, TProperty>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr) //where TModel : IPageable
         {
             //ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
+            var sw = new StringWriter();
 
             var model = helper.ViewData.Model as IPageable;
             var currentRequest = helper.ViewContext.HttpContext.Request;
@@ -38,8 +41,9 @@ namespace Framework.Web.Core.Mvc.Paging
                 {
                     var builder = new TagBuilder("text");
                     builder.InnerHtml.AppendHtml("&nbsp;|&nbsp;");
+                    builder.WriteTo(sw, HtmlEncoder.Default);
 
-                    separator = new HtmlString(builder.ToString());
+                    separator = new HtmlString(sw.ToString());
                 }
 
                 if (model.HasNextPage)
@@ -53,13 +57,16 @@ namespace Framework.Web.Core.Mvc.Paging
                 }
             }
 
+            sw.GetStringBuilder().Clear();
+
             var divBuilder = new TagBuilder("div");
             divBuilder.AddCssClass("pagination");
             divBuilder.InnerHtml.AppendHtml(prevLink);
             divBuilder.InnerHtml.AppendHtml(separator);
             divBuilder.InnerHtml.AppendHtml(nextLink);
+            divBuilder.WriteTo(sw, HtmlEncoder.Default);
 
-            return new HtmlString(divBuilder.ToString());
+            return new HtmlString(sw.ToString());
         }
     }
 }

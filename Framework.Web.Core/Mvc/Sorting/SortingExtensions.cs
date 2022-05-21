@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq.Expressions;
+using System.Text.Encodings.Web;
 
 namespace Framework.Web.Core.Mvc.Sorting
 {
@@ -15,8 +17,7 @@ namespace Framework.Web.Core.Mvc.Sorting
     {
         // TODO: Perhaps should be TagHelpers? https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/intro?view=aspnetcore-6.0
 
-        public static HtmlString ColumnHeaderFor<TModel, TProperty>(this IHtmlHelper<TModel> helper,
-                                                                       Expression<Func<TModel, TProperty>> expr)
+        public static IHtmlContent ColumnHeaderFor<TModel, TProperty>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr)
         {
             var expressionProvider = new ModelExpressionProvider(helper.MetadataProvider);
             var modelExpression = expressionProvider.CreateModelExpression(helper.ViewData, expr);
@@ -31,9 +32,7 @@ namespace Framework.Web.Core.Mvc.Sorting
             return new HtmlString(metadata.GetDisplayName());
         }
 
-        public static HtmlString SortableColumnHeaderFor<TModel, TProperty>(this IHtmlHelper<TModel> helper,
-                                                                               Expression<Func<TModel, TProperty>>
-                                                                                   expr) //where TModel : ISortable
+        public static IHtmlContent SortableColumnHeaderFor<TModel, TProperty>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr) //where TModel : ISortable
         {
             var model = helper.ViewData.Model as ISortable;
             var currentRequest = helper.ViewContext.HttpContext.Request;
@@ -72,8 +71,11 @@ namespace Framework.Web.Core.Mvc.Sorting
             var builder = new TagBuilder("div");
             builder.AddCssClass("sorting");
             builder.InnerHtml.AppendHtml(actionLink);
+            
+            var sw = new StringWriter();
+            builder.WriteTo(sw, HtmlEncoder.Default);
 
-            return new HtmlString(builder.ToString());
+            return new HtmlString(sw.ToString());
         }
     }
 }
