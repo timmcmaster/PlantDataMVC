@@ -51,16 +51,6 @@ namespace PlantDataMVC.WebApiCore.DependencyInjection
             services.AddTransient<ISpeciesRepository, SpeciesRepository>();
             services.AddTransient<IPlantStockRepository, PlantStockRepository>();
 
-            //services.AddTransient<IRepositoryAsync<Genus>, EFRepository<Genus>>();
-            //services.AddTransient<IRepositoryAsync<JournalEntry>, EFRepository<JournalEntry>>();
-            //services.AddTransient<IRepositoryAsync<JournalEntryType>, EFRepository<JournalEntryType>>();
-            //services.AddTransient<IRepositoryAsync<ProductType>, EFRepository<ProductType>>();
-            //services.AddTransient<IRepositoryAsync<SeedBatch>, EFRepository<SeedBatch>>();
-            //services.AddTransient<IRepositoryAsync<Site>, EFRepository<Site>>();
-            //services.AddTransient<IRepositoryAsync<Species>, EFRepository<Species>>();
-            //services.AddTransient<IRepositoryAsync<SeedTray>, EFRepository<SeedTray>>();
-            //services.AddTransient<IRepositoryAsync<PlantStock>, EFRepository<PlantStock>>();
-
             //*****************************************
             // Register services wrapping repositories
             // These are passed to API controllers
