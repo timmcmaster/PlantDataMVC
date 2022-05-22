@@ -91,7 +91,14 @@ namespace Interfaces.Domain.Repository
         /// <returns></returns>
         IQueryable<TEntity> Queryable();
 
-        
+
+        /// <summary>
+        /// Get the queryable object for this type, used for LINQ queries
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<TEntity> QueryableAsNoTracking();
+
+
         /// <summary>
         /// Function to get repositories for other entity types via UnitOfWork
         /// </summary>

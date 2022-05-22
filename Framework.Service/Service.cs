@@ -47,6 +47,11 @@ namespace Framework.Service
             return _repository.Queryable();
         }
 
+        public virtual IQueryable<TEntity> QueryableAsNoTracking()
+        {
+            return _repository.QueryableAsNoTracking();
+        }
+
         public virtual IQueryFluent<TEntity> Query()
         {
             return _repository.Query();

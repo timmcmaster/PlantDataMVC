@@ -186,6 +186,11 @@ namespace Framework.Domain.EF
             return _dbSet;
         }
 
+        public IQueryable<TEntity> QueryableAsNoTracking()
+        {
+            return _dbSet.AsNoTracking<TEntity>();
+        }
+
         //public IRepository<TOtherEntity> GetRepository<TOtherEntity>() where TOtherEntity : class, IEntity
         //{
         //    return _unitOfWork.Repository<TOtherEntity>();

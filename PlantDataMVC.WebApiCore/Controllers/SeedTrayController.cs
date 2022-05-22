@@ -207,7 +207,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
-                var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+                var entityFound = _service.QueryableAsNoTracking().FirstOrDefault(g => g.Id == id);
 
                 if (entityFound == null)
                 {
@@ -253,7 +253,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 // Get domain entity
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
-                var entityFound = _service.Queryable().AsNoTracking().FirstOrDefault(g => g.Id == id);
+                var entityFound = _service.QueryableAsNoTracking().FirstOrDefault(g => g.Id == id);
 
                 // Check for errors from service
                 if (entityFound == null)
