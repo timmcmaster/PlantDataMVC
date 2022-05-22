@@ -9,7 +9,7 @@ using System.Text.Encodings.Web;
 namespace Framework.Web.Core.Mvc.Paging
 {
     /// <summary>
-    ///     Contains Extension methods for HtmlHelper that implement wrappers for RenderAction method
+    ///     Contains Extension methods for HtmlHelper that implement PagingLinks
     /// </summary>
     public static class PagingExtensions
     {
