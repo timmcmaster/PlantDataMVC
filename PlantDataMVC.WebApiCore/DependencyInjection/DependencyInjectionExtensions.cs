@@ -1,14 +1,14 @@
 ﻿using Framework.Domain.EF;
-using Interfaces.Domain.Repository;
+using Framework.Web.Core.DependencyInjection;
 using Interfaces.Domain.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Interfaces;
 using PlantDataMVC.Repository.Repositories;
 using PlantDataMVC.Service;
+using Serilog;
 
 namespace PlantDataMVC.WebApiCore.DependencyInjection
 {
@@ -37,9 +37,7 @@ namespace PlantDataMVC.WebApiCore.DependencyInjection
             //*****************************************
             // Register repository types as open generics because they are only closed at call time
             // These are passed to Service constructors
-            //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepositoryAsync<>));
 
-            // TODO: Work out which repository style to use, also check scopes
             services.AddTransient<IGenusRepository, GenusRepository>();
             services.AddTransient<IJournalEntryRepository, JournalEntryRepository>();
             services.AddTransient<IJournalEntryTypeRepository, JournalEntryTypeRepository>();
@@ -63,6 +61,9 @@ namespace PlantDataMVC.WebApiCore.DependencyInjection
             services.AddTransient<ISpeciesService, SpeciesService>();
             services.AddTransient<ISeedTrayService, SeedTrayService>();
             services.AddTransient<IPlantStockService, PlantStockService>();
+
+            // Before we leave this method, write our registrations to log file
+            services.LogRegisteredServices(Log.Logger);
 
             return services;
         }
