@@ -17,7 +17,7 @@ namespace PlantDataMVC.UICore.Handlers.Views
             _plantDataApiClient = plantDataApiClient;
         }
 
-        public override async Task<IEnumerable<ProductTypeDto>> HandleAsync(ListQuery<ProductTypeDto> query, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<ProductTypeDto>> Handle(ListQuery<ProductTypeDto> query, CancellationToken cancellationToken)
         {
             var uri = "api/ProductType";
             var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);

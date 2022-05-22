@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Framework.Web.Core.Mediator;
+//using Framework.Web.Core.Mediator;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.DTO.Dtos;
@@ -36,7 +37,7 @@ namespace PlantDataMVC.UICore.Controllers
             var localAscending = ascending ?? true;
 
             var query = new IndexQuery(localPage, localPageSize, localSortBy, localAscending);
-            var model = await _mediator.Request(query);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -54,7 +55,7 @@ namespace PlantDataMVC.UICore.Controllers
         public async Task<ActionResult> Show(int id)
         {
             var query = new ShowQuery(id);
-            var model = await _mediator.Request(query);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -112,7 +113,7 @@ namespace PlantDataMVC.UICore.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var query = new EditQuery(id);
-            var model = await _mediator.Request(query);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {
@@ -147,7 +148,7 @@ namespace PlantDataMVC.UICore.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var query = new DeleteQuery(id);
-            var model = await _mediator.Request(query);
+            var model = await _mediator.Send(query);
 
             if (model == null)
             {

@@ -1,13 +1,13 @@
-﻿using Framework.Web.Core.Forms;
+﻿using AutoMapper;
+using Framework.Web.Core.Forms;
 using Newtonsoft.Json;
-using PlantDataMVC.UICore.Models.EditModels.Genus;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Helpers;
+using PlantDataMVC.UICore.Models.EditModels.Genus;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 
 namespace PlantDataMVC.UICore.Handlers.Forms.Genus
 {
@@ -22,7 +22,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Genus
             _mapper = mapper;
         }
 
-        public async Task<bool> HandleAsync(GenusCreateEditModel form, CancellationToken cancellationToken)
+        public async Task<bool> Handle(GenusCreateEditModel form, CancellationToken cancellationToken)
         {
             try
             {

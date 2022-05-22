@@ -24,7 +24,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
         }
 
 
-        public async Task<ListViewModelStatic<GenusListViewModel>> HandleAsync(IndexQuery query, CancellationToken cancellationToken)
+        public async Task<ListViewModelStatic<GenusListViewModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
         {
             // Get paging part of query string
             var requestUri = "api/Genus?page=" + query.Page + "&pageSize=" + query.PageSize;

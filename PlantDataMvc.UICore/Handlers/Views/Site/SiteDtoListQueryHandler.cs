@@ -19,7 +19,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Site
             _plantDataApiClient = plantDataApiClient;
         }
 
-        public override async Task<IEnumerable<SiteDto>> HandleAsync(ListQuery<SiteDto> query, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<SiteDto>> Handle(ListQuery<SiteDto> query, CancellationToken cancellationToken)
         {
             var uri = "api/Site";
             var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);

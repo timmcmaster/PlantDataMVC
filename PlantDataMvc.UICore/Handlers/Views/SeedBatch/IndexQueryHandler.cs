@@ -23,7 +23,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
             _mapper = mapper;
         }
 
-        public async Task<ListViewModelStatic<SeedBatchListViewModel>> HandleAsync(IndexQuery query, CancellationToken cancellationToken)
+        public async Task<ListViewModelStatic<SeedBatchListViewModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
         {
             // Get paging part of query
             var requestUri = "api/SeedBatch?page=" + query.Page + "&pageSize=" + query.PageSize;

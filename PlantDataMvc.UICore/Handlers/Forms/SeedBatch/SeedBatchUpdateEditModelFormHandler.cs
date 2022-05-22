@@ -22,7 +22,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.SeedBatch
             _mapper = mapper;
         }
 
-        public async Task<bool> HandleAsync(SeedBatchUpdateEditModel form, CancellationToken cancellationToken)
+        public async Task<bool> Handle(SeedBatchUpdateEditModel form, CancellationToken cancellationToken)
         {
             try
             {

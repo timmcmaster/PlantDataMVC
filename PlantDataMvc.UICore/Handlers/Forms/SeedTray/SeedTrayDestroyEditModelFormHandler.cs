@@ -16,7 +16,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.SeedTray
             _plantDataApiClient = plantDataApiClient;
         }
 
-        public async Task<bool> HandleAsync(SeedTrayDestroyEditModel form, CancellationToken cancellationToken)
+        public async Task<bool> Handle(SeedTrayDestroyEditModel form, CancellationToken cancellationToken)
         {
             try
             {

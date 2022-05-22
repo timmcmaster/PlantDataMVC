@@ -19,7 +19,7 @@ namespace Framework.Web.Core.Mediator
             _formHandlerFactory = formHandlerFactory;
         }
 
-        public async Task<TViewModel> Request<TViewModel>(IQuery<TViewModel> query,
+        public async Task<TViewModel> Send<TViewModel>(IQuery<TViewModel> query,
                                                           CancellationToken cancellationToken = default)
         {
             // the actual definitions are not as IQuery<TViewModel> but as a type that implements that (e.g. GenusIndexQuery)
@@ -29,7 +29,7 @@ namespace Framework.Web.Core.Mediator
                     typeof(ViewHandlerWrapperImpl<,>).MakeGenericType(query.GetType(), typeof(TViewModel)));
 
             // call the handler to handle the request (ConfigureAwait(false) means that resumed task does not run on main context)
-            var viewModel = await handler.HandleAsync(query, cancellationToken, _queryHandlerFactory)
+            var viewModel = await handler.Handle(query, cancellationToken, _queryHandlerFactory)
                                                 .ConfigureAwait(false);
 
             // return the model type
@@ -45,7 +45,7 @@ namespace Framework.Web.Core.Mediator
                     typeof(FormHandlerWrapperImpl<,>).MakeGenericType(form.GetType(), typeof(TResult)));
 
             // call the handler to handle the request (ConfigureAwait(false) means that resumed task does not run on main context)
-            var result = await handler.HandleAsync(form, cancellationToken, _formHandlerFactory)
+            var result = await handler.Handle(form, cancellationToken, _formHandlerFactory)
                                           .ConfigureAwait(false);
 
             // return the model type
@@ -55,7 +55,7 @@ namespace Framework.Web.Core.Mediator
 
     internal abstract class ViewHandlerWrapper<TViewModel>
     {
-        public abstract Task<TViewModel> HandleAsync(IQuery<TViewModel> query,
+        public abstract Task<TViewModel> Handle(IQuery<TViewModel> query,
                                                      CancellationToken cancellationToken,
                                                      IQueryHandlerFactory queryHandlerFactory);
     }
@@ -63,7 +63,7 @@ namespace Framework.Web.Core.Mediator
     internal class ViewHandlerWrapperImpl<TQuery, TViewModel> : ViewHandlerWrapper<TViewModel>
         where TQuery : IQuery<TViewModel>
     {
-        public override Task<TViewModel> HandleAsync(IQuery<TViewModel> query,
+        public override Task<TViewModel> Handle(IQuery<TViewModel> query,
                                                            CancellationToken cancellationToken,
                                                            IQueryHandlerFactory queryHandlerFactory)
         {
@@ -71,13 +71,13 @@ namespace Framework.Web.Core.Mediator
 
             // return the task to handle the request
             // If the handle method allows cancellation, pass it in here
-            return handler.HandleAsync((TQuery) query, cancellationToken);
+            return handler.Handle((TQuery) query, cancellationToken);
         }
     }
 
     internal abstract class FormHandlerWrapper<TResult>
     {
-        public abstract Task<TResult> HandleAsync(IForm<TResult> form,
+        public abstract Task<TResult> Handle(IForm<TResult> form,
                                                   CancellationToken cancellationToken,
                                                   IFormHandlerFactory formHandlerFactory);
     }
@@ -85,7 +85,7 @@ namespace Framework.Web.Core.Mediator
     internal class FormHandlerWrapperImpl<TForm, TResult> : FormHandlerWrapper<TResult>
         where TForm : IForm<TResult>
     {
-        public override Task<TResult> HandleAsync(IForm<TResult> form,
+        public override Task<TResult> Handle(IForm<TResult> form,
                                                         CancellationToken cancellationToken,
                                                         IFormHandlerFactory formHandlerFactory)
         {
@@ -93,7 +93,7 @@ namespace Framework.Web.Core.Mediator
 
             // return the task to handle the request
             // If the handle method allows cancellation, pass it in here
-            return handler.HandleAsync((TForm) form, cancellationToken);
+            return handler.Handle((TForm) form, cancellationToken);
         }
     }
 }

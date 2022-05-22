@@ -1,4 +1,5 @@
-﻿using Framework.Web.Core.Mediator;
+﻿//using Framework.Web.Core.Mediator;
+using MediatR;
 using Framework.Web.Core.Views;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -58,7 +59,7 @@ namespace PlantDataMVC.UICore.Helpers
             var mediator = services.GetRequiredService<IMediator>();
 
             // Get list of options via query
-            var requestTask = mediator.Request(query);
+            var requestTask = mediator.Send(query);
             // NOTE: Need to be careful with this, as waiting on async can cause deadlocks.
             // ALSO, lose any exception type management, as it returns AggregateException
             var dtoItems = requestTask.Result;

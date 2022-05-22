@@ -21,7 +21,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
             _mapper = mapper;
         }
 
-        public async Task<SeedBatchEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
+        public async Task<SeedBatchEditViewModel> Handle(EditQuery query, CancellationToken cancellationToken)
         {
             var uri = "api/SeedBatch/" + query.Id;
             var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);

@@ -21,7 +21,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Plant
             _mapper = mapper;
         }
 
-        public async Task<PlantDeleteViewModel> HandleAsync(DeleteQuery query, CancellationToken cancellationToken)
+        public async Task<PlantDeleteViewModel> Handle(DeleteQuery query, CancellationToken cancellationToken)
         {
             var uri = "api/Species/" + query.Id;
             var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);

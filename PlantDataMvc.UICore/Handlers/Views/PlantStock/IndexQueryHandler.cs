@@ -23,7 +23,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
             _mapper = mapper;
         }
 
-        public async Task<ListViewModelStatic<PlantStockListViewModel>> HandleAsync(IndexQuery query, CancellationToken cancellationToken)
+        public async Task<ListViewModelStatic<PlantStockListViewModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
         {
             // Get paging part of query string
             var requestUri = "api/PlantStock?page=" + query.Page + "&pageSize=" + query.PageSize;

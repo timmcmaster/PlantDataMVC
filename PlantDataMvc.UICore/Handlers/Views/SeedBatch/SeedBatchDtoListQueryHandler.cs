@@ -17,7 +17,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
             _plantDataApiClient = plantDataApiClient;
         }
 
-        public override async Task<IEnumerable<SeedBatchDto>> HandleAsync(ListQuery<SeedBatchDto> query, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<SeedBatchDto>> Handle(ListQuery<SeedBatchDto> query, CancellationToken cancellationToken)
         {
             var uri = "api/SeedBatch";
             var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);

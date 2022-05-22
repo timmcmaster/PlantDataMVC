@@ -1,6 +1,7 @@
 ﻿using Framework.Web.Core.Forms;
-using Framework.Web.Core.Mediator;
+//using Framework.Web.Core.Mediator;
 using Framework.Web.Core.Views;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using PlantDataMVC.UICore.Handlers;
 using Serilog;
@@ -20,12 +21,12 @@ namespace PlantDataMVC.UICore.DependencyInjection
             // ****************************************************
             // UI configurations
             // ****************************************************
+            /*
             // Register mediator
-            //builder.RegisterType<Mediator>().As<IMediator>().InstancePerLifetimeScope();
             services.AddScoped<IMediator, Mediator>();
 
             // Register all types that implement IFormHandler<T,U> from given assembly
-            Assembly formAssembly = Assembly.GetAssembly(typeof(Handlers.Forms.Plant.PlantCreateEditModelFormHandler));
+            Assembly formAssembly = Assembly.GetAssembly(typeof(Handlers.Forms.Genus.GenusCreateEditModelFormHandler));
             services.AddImplementedInterfacesFromAssembly(formAssembly, typeof(IFormHandler<,>));
 
             services.AddScoped<IFormHandlerFactory, FormHandlerFactory>();
@@ -35,6 +36,16 @@ namespace PlantDataMVC.UICore.DependencyInjection
             services.AddImplementedInterfacesFromAssembly(viewAssembly, typeof(IQueryHandler<,>)); 
 
             services.AddScoped<IQueryHandlerFactory, QueryHandlerFactory>();
+            */
+
+            /// Extensions to scan for MediatR handlers and registers them.
+            /// - Scans for any handler interface implementations and registers them as <see cref="ServiceLifetime.Transient"/>
+            /// - Scans for any <see cref="IRequestPreProcessor{TRequest}"/> and <see cref="IRequestPostProcessor{TRequest,TResponse}"/> implementations and registers them as transient instances
+            /// Registers <see cref="ServiceFactory"/> and <see cref="IMediator"/> as transient instances
+            /// After calling AddMediatR you can use the container to resolve an <see cref="IMediator"/> instance.
+            /// This does not scan for any <see cref="IPipelineBehavior{TRequest,TResponse}"/> instances including <see cref="RequestPreProcessorBehavior{TRequest,TResponse}"/> and <see cref="RequestPreProcessorBehavior{TRequest,TResponse}"/>.
+            /// To register behaviors, use the <see cref="ServiceCollectionServiceExtensions.AddTransient(IServiceCollection,Type,Type)"/> with the open generic or closed generic types.            
+            services.AddMediatR(typeof(Handlers.Forms.Genus.GenusCreateEditModelFormHandler), typeof(Handlers.Views.Genus.ShowQueryHandler));
 
             // HACK: Before we leave this method, check our registrations
             services.LogRegisteredServices();

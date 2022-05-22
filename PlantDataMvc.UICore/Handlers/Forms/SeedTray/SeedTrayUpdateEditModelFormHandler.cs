@@ -22,7 +22,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.SeedTray
             _mapper = mapper;
         }
 
-        public async Task<bool> HandleAsync(SeedTrayUpdateEditModel form, CancellationToken cancellationToken)
+        public async Task<bool> Handle(SeedTrayUpdateEditModel form, CancellationToken cancellationToken)
         {
             try
             {

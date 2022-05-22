@@ -17,7 +17,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Genus
             _plantDataApiClient = plantDataApiClient;
         }
 
-        public async Task<bool> HandleAsync(GenusDestroyEditModel form, CancellationToken cancellationToken)
+        public async Task<bool> Handle(GenusDestroyEditModel form, CancellationToken cancellationToken)
         {
             try
             {

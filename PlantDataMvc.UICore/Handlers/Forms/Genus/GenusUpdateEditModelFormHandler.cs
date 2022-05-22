@@ -22,7 +22,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.Genus
             _mapper = mapper;
         }
 
-        public async Task<bool> HandleAsync(GenusUpdateEditModel form, CancellationToken cancellationToken)
+        public async Task<bool> Handle(GenusUpdateEditModel form, CancellationToken cancellationToken)
         {
             try
             {

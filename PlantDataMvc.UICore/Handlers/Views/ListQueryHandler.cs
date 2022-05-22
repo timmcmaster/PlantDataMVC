@@ -8,6 +8,6 @@ namespace PlantDataMVC.UICore.Handlers.Views
 {
     public abstract class ListQueryHandler<TItem> : IQueryHandler<ListQuery<TItem>, IEnumerable<TItem>>
     {
-        public abstract Task<IEnumerable<TItem>> HandleAsync(ListQuery<TItem> query, CancellationToken cancellationToken);
+        public abstract Task<IEnumerable<TItem>> Handle(ListQuery<TItem> query, CancellationToken cancellationToken);
     }
 }

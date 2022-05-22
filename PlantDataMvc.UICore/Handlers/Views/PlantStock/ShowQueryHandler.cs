@@ -21,7 +21,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
             _mapper = mapper;
         }
 
-        public async Task<PlantStockShowViewModel> HandleAsync(ShowQuery query, CancellationToken cancellationToken)
+        public async Task<PlantStockShowViewModel> Handle(ShowQuery query, CancellationToken cancellationToken)
         {
             var uri = "api/PlantStock/" + query.Id;
             var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);

@@ -15,7 +15,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.PlantStock
             _plantDataApiClient = plantDataApiClient;
         }
 
-        public async Task<bool> HandleAsync(PlantStockDestroyEditModel form, CancellationToken cancellationToken)
+        public async Task<bool> Handle(PlantStockDestroyEditModel form, CancellationToken cancellationToken)
         {
             try
             {

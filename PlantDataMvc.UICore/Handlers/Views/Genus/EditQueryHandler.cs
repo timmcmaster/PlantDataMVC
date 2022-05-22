@@ -21,7 +21,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
             _mapper = mapper;
         }
 
-        public async Task<GenusEditViewModel> HandleAsync(EditQuery query, CancellationToken cancellationToken)
+        public async Task<GenusEditViewModel> Handle(EditQuery query, CancellationToken cancellationToken)
         {
             var uri = "api/Genus/" + query.Id;
             var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);

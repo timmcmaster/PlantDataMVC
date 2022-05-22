@@ -22,7 +22,7 @@ namespace PlantDataMVC.UICore.Handlers.Forms.PlantStock
             _mapper = mapper;
         }
 
-        public async Task<bool> HandleAsync(PlantStockCreateEditModel form, CancellationToken cancellationToken)
+        public async Task<bool> Handle(PlantStockCreateEditModel form, CancellationToken cancellationToken)
         {
             try
             {

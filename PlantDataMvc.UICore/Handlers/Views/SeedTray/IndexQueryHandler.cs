@@ -23,7 +23,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
             _mapper = mapper;
         }
 
-        public async Task<ListViewModelStatic<SeedTrayListViewModel>> HandleAsync(IndexQuery query, CancellationToken cancellationToken)
+        public async Task<ListViewModelStatic<SeedTrayListViewModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
         {
             // Get paging part of query string
             var requestUri = "api/SeedTray?page=" + query.Page + "&pageSize=" + query.PageSize;

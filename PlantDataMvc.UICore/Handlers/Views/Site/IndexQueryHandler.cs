@@ -23,7 +23,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Site
             _mapper = mapper;
         }
 
-        public async Task<ListViewModelStatic<SiteListViewModel>> HandleAsync(IndexQuery query, CancellationToken cancellationToken)
+        public async Task<ListViewModelStatic<SiteListViewModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
         {
             // Get paging part of query
             var requestUri = "api/Site?page=" + query.Page + "&pageSize=" + query.PageSize;

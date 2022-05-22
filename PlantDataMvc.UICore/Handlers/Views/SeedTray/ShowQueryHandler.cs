@@ -21,7 +21,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
             _mapper = mapper;
         }
 
-        public async Task<SeedTrayShowViewModel> HandleAsync(ShowQuery query, CancellationToken cancellationToken)
+        public async Task<SeedTrayShowViewModel> Handle(ShowQuery query, CancellationToken cancellationToken)
         {
             var uri = "api/SeedTray/" + query.Id;
             var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
