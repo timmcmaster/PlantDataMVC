@@ -1,9 +1,10 @@
-﻿using CommonServiceLocator;
+﻿//using CommonServiceLocator;
 using Interfaces.Domain.Entity;
 using Interfaces.Domain.Repository;
 using Interfaces.Domain.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,21 +13,25 @@ using System.Threading.Tasks;
 
 namespace Framework.Domain.EF
 {
+    // TODO: Fix to use services instead of ServiceLocator
     /// <inheritdoc />
     /// <summary>
     ///     Implements the UnitOfWork pattern
     /// </summary>
     public class UnitOfWork : IUnitOfWorkAsync
     {
-        private IDbContext _dbContext;
         private bool _disposed;
-        private readonly Dictionary<string, dynamic> _repositories;
         private IDbContextTransaction _transaction;
 
-        public UnitOfWork(IDbContext dbContext)
+        private IDbContext _dbContext;
+        private readonly Dictionary<string, dynamic> _repositories;
+        private readonly IServiceProvider _serviceProvider;
+
+        public UnitOfWork(IDbContext dbContext, IServiceProvider serviceProvider)
         {
             _dbContext = dbContext;
             _repositories = new Dictionary<string, dynamic>();
+            _serviceProvider = serviceProvider;
         }
 
         #region IUnitOfWorkAsync Members
@@ -58,23 +63,18 @@ namespace Framework.Domain.EF
         /// <returns></returns>
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class, IEntity
         {
-            // 1. Try to get current instance from IoC?
-            // HACK: want to do constructor injection or delegate factory instead
-            if (ServiceLocator.IsLocationProviderSet)
-            {
-                return ServiceLocator.Current.GetInstance<IRepository<TEntity>>();
-            }
-
-            return RepositoryAsync<TEntity>();
+            IRepository<TEntity> repo = _serviceProvider.GetService<IRepository<TEntity>>();
+            
+            return repo ?? RepositoryAsync<TEntity>();
         }
 
         public IRepositoryAsync<TEntity> RepositoryAsync<TEntity>() where TEntity : class, IEntity
         {
-            // 1. Try to get current instance from IoC?
-            // HACK: want to do constructor injection or delegate factory instead
-            if (ServiceLocator.IsLocationProviderSet)
+            IRepositoryAsync<TEntity> repo = _serviceProvider.GetService<IRepositoryAsync<TEntity>>();
+
+            if (repo != null)
             {
-                return ServiceLocator.Current.GetInstance<IRepositoryAsync<TEntity>>();
+                return repo;
             }
 
             // 2. Try dictionary
