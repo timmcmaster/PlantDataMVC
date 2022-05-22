@@ -34,6 +34,13 @@ namespace Framework.Domain.EF
             _serviceProvider = serviceProvider;
         }
 
+        // TODO: Constructor for testing where no DI used - how do we get repos?
+        public UnitOfWork(IDbContext dbContext)
+        {
+            _dbContext = dbContext;
+            _repositories = new Dictionary<string, dynamic>();
+        }
+
         #region IUnitOfWorkAsync Members
         public int SaveChanges()
         {

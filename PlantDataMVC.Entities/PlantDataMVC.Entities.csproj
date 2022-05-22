@@ -19,7 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DelegateDecompiler" Version="0.30.0" />
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.24" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.24" />

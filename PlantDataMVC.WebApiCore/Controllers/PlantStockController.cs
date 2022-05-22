@@ -12,7 +12,6 @@ using PlantDataMVC.WebApiCore.Helpers;
 using PlantDataMVC.WebApiCore.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace PlantDataMVC.WebApiCore.Controllers

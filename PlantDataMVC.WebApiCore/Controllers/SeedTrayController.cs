@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using CacheCow.Server.Core.Mvc;
-using DelegateDecompiler;
 using Interfaces.Domain.UnitOfWork;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +12,6 @@ using PlantDataMVC.WebApiCore.Helpers;
 using PlantDataMVC.WebApiCore.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace PlantDataMVC.WebApiCore.Controllers
