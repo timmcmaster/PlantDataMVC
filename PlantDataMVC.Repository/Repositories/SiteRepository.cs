@@ -6,11 +6,8 @@ namespace PlantDataMVC.Repository.Repositories
 {
     public class SiteRepository : EFRepository<Site>, ISiteRepository
     {
-        private readonly IDbContext _dbContext;
-
         public SiteRepository(IDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
     }
 }

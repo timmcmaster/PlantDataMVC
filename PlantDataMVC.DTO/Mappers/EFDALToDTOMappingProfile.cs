@@ -120,7 +120,7 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(e => e.SpeciesId)) // explicit and unnecessary
                 .ForMember(dto => dto.GenusName, opt => opt.MapFrom(e => e.Species.Genus.LatinName))
                 .ForMember(dto => dto.SpeciesName, opt => opt.MapFrom(e => e.Species.SpecificName))
-                .ForMember(dto => dto.SpeciesBinomial, opt => opt.Ignore())
+                .ForMember(dto => dto.SpeciesBinomial, opt => opt.Ignore()) // TODO: Check this one
                 .ForMember(dto => dto.ProductTypeId, opt => opt.MapFrom(e => e.ProductTypeId)) // explicit and unnecessary
                 .ForMember(dto => dto.ProductTypeName, opt => opt.MapFrom(e => e.ProductType.Name))
                 .ForMember(dto => dto.QuantityInStock, opt => opt.MapFrom(e => e.QuantityInStock)) // explicit and unnecessary

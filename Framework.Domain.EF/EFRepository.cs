@@ -15,17 +15,16 @@ namespace Framework.Domain.EF
     ///     All public methods are implemented in terms of Entity-derived classes (i.e. non-framework specific).
     /// </summary>
     /// <typeparam name="TEntity">The external Entity-derived type.</typeparam>
-    public class EFRepository<TEntity> : IRepositoryAsync<TEntity>
-        where TEntity : class, IEntity
+    public class EFRepository<TEntity> : IRepositoryAsync<TEntity> where TEntity : class, IEntity
     {
-        private readonly IDbContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        protected IDbContext DbContext { get; set; }
+        protected DbSet<TEntity> DbSet { get; set; }
         //private readonly IUnitOfWorkAsync _unitOfWork;
 
         //public EFRepository(IDbContext context, IUnitOfWorkAsync unitOfWork)
         public EFRepository(IDbContext context)
         {
-            _context = context;
+            DbContext = context;
             //_unitOfWork = unitOfWork;
 
             // HACK: Feels dodgy to need to know which context type it is here
@@ -34,44 +33,44 @@ namespace Framework.Domain.EF
             //switch (context)
             //{
             //    case DbContext dbContext:
-            //        _dbSet = dbContext.Set<TEntity>();
+            //        DbSet = dbContext.Set<TEntity>();
             //        break;
             //    case FakeDbContext fakeContext:
-            //        _dbSet = fakeContext.Set<TEntity>();
+            //        DbSet = fakeContext.Set<TEntity>();
             //        break;
             //}
-            _dbSet = _context.Set<TEntity>();
+            DbSet = DbContext.Set<TEntity>();
         }
 
         #region IRepositoryAsync<TEntity> Members
         public IQueryable<TEntity> GetAllItems()
         {
-            return _dbSet.AsQueryable<TEntity>();
+            return DbSet.AsQueryable<TEntity>();
         }
 
         public IQueryable<TEntity> GetAllItemsAsNoTracking()
         {
-            return _dbSet.AsNoTracking<TEntity>();
+            return DbSet.AsNoTracking<TEntity>();
         }
 
         public virtual TEntity GetItemById(int id)
         {
-            return _dbSet.Find(id);
+            return DbSet.Find(id);
         }
 
         public virtual TEntity GetItemById(string id)
         {
-            return _dbSet.Find(id);
+            return DbSet.Find(id);
         }
 
         public virtual TEntity GetItemById<U>(U id)
         {
-            return _dbSet.Find(id);
+            return DbSet.Find(id);
         }
 
         //public TEntity GetItemById(int id, params Expression<System.Func<TEntity, object>>[] includes)
         //{
-        //    IQueryable<TEntity> query = _dbSet.Where(s => s.Id == id);
+        //    IQueryable<TEntity> query = DbSet.Where(s => s.Id == id);
 
         //    // Do we want to throw an error if we find more than 1 object?
 
@@ -88,43 +87,43 @@ namespace Framework.Domain.EF
 
         public virtual void Add(TEntity item)
         {
-            var entityState = _context.GetState(item);
+            var entityState = DbContext.GetState(item);
             if (entityState != EntityState.Detached)
             {
-                _context.SetState(item, EntityState.Added);
+                DbContext.SetState(item, EntityState.Added);
             }
             else
             {
-                _dbSet.Add(item);
+                DbSet.Add(item);
             }
         }
 
         //public virtual void AddRange(List<TEntity> itemList)
         //{
-        //    _dbSet.AddRange(itemList);
+        //    DbSet.AddRange(itemList);
         //}
 
         public virtual void Update(TEntity item)
         {
-            var entityState = _context.GetState<TEntity>(item);
+            var entityState = DbContext.GetState<TEntity>(item);
             if (entityState == EntityState.Detached)
-                _dbSet.Attach(item);
+                DbSet.Attach(item);
 
             if (entityState != EntityState.Added)
-                _context.SetState(item, EntityState.Modified);
+                DbContext.SetState(item, EntityState.Modified);
         }
 
         public void Delete(TEntity item)
         {
-            var entityState = _context.GetState<TEntity>(item);
+            var entityState = DbContext.GetState<TEntity>(item);
             if (entityState != EntityState.Deleted)
             {
-                _context.SetState(item, EntityState.Deleted);
+                DbContext.SetState(item, EntityState.Deleted);
             }
             else
             {
-                _dbSet.Attach(item);
-                _dbSet.Remove(item);
+                DbSet.Attach(item);
+                DbSet.Remove(item);
             }
         }
 
@@ -154,12 +153,12 @@ namespace Framework.Domain.EF
 
         public virtual void Remove(TEntity item)
         {
-            //var entry = _context.Entry(item);
+            //var entry = DbContext.Entry(item);
             //if (entry != null)
             //{
-            var entityState = _context.GetState(item);
+            var entityState = DbContext.GetState(item);
             if (entityState == EntityState.Added)
-                _context.SetState(item, EntityState.Detached);
+                DbContext.SetState(item, EntityState.Detached);
             else
                 Delete(item);
             //}
@@ -183,12 +182,12 @@ namespace Framework.Domain.EF
 
         public IQueryable<TEntity> Queryable()
         {
-            return _dbSet;
+            return DbSet;
         }
 
         public IQueryable<TEntity> QueryableAsNoTracking()
         {
-            return _dbSet.AsNoTracking<TEntity>();
+            return DbSet.AsNoTracking<TEntity>();
         }
 
         //public IRepository<TOtherEntity> GetRepository<TOtherEntity>() where TOtherEntity : class, IEntity
@@ -200,10 +199,10 @@ namespace Framework.Domain.EF
 
         public virtual void Detach(TEntity item)
         {
-            var entityState = _context.GetState(item);
+            var entityState = DbContext.GetState(item);
             if (entityState != EntityState.Detached)
             {
-                _context.SetState(item,EntityState.Detached);
+                DbContext.SetState(item,EntityState.Detached);
             }
         }
 
@@ -213,7 +212,7 @@ namespace Framework.Domain.EF
         /// <param name="id"></param>
         public virtual void Detach(String id)
         {
-            var entity = _dbSet.Find(id);
+            var entity = DbSet.Find(id);
             if (entity == null)
                 return;
             Detach(entity);
@@ -221,7 +220,7 @@ namespace Framework.Domain.EF
 
         public virtual void Detach<U>(U id)
         {
-            var entity = _dbSet.Find(id);
+            var entity = DbSet.Find(id);
             if (entity == null)
                 return;
             Detach(entity);
@@ -231,7 +230,7 @@ namespace Framework.Domain.EF
                                             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
                                             List<Expression<Func<TEntity, object>>> includes = null)
         {
-            IQueryable<TEntity> query = _dbSet;
+            IQueryable<TEntity> query = DbSet;
 
             if (includes != null)
             {
@@ -267,7 +266,7 @@ namespace Framework.Domain.EF
         // Note: This is same as Queryable() method
         protected virtual IQueryable<TEntity> GetAll()
         {
-            return _dbSet;
+            return DbSet;
         }
 
     }

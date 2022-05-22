@@ -6,11 +6,8 @@ namespace PlantDataMVC.Repository.Repositories
 {
     public class ProductTypeRepository : EFRepository<ProductType>, IProductTypeRepository
     {
-        private readonly IDbContext _dbContext;
-
         public ProductTypeRepository(IDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
     }
 }

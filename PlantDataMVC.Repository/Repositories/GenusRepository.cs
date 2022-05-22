@@ -7,11 +7,8 @@ namespace PlantDataMVC.Repository.Repositories
 {
     public class GenusRepository : EFRepository<Genus>, IGenusRepository
     {
-        private readonly IDbContext _dbContext;
-
         public GenusRepository(IDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public Genus GetItemByLatinName(string latinName)

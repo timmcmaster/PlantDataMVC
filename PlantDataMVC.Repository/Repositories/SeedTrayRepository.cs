@@ -7,11 +7,8 @@ namespace PlantDataMVC.Repository.Repositories
 {
     public class SeedTrayRepository : EFRepository<SeedTray>, ISeedTrayRepository
     {
-        private readonly IDbContext _dbContext;
-
         public SeedTrayRepository(IDbContext dbContext, IUnitOfWorkAsync unitOfWork) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
     }
 }

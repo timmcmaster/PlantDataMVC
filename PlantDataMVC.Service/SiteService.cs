@@ -1,8 +1,8 @@
 ﻿using Common.Logging;
 using Framework.Service;
-using Interfaces.Domain.Repository;
 using Interfaces.Service;
 using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Repository.Interfaces;
 
 namespace PlantDataMVC.Service
 {
@@ -18,7 +18,7 @@ namespace PlantDataMVC.Service
     {
         private static readonly ILog _log = LogManager.GetLogger<SiteService>();
 
-        public SiteService(IRepositoryAsync<Site> repository) : base(repository)
+        public SiteService(ISiteRepository repository) : base(repository)
         {
         }
     }
