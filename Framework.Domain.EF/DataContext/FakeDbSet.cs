@@ -1,6 +1,7 @@
 ﻿using Interfaces.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,6 +22,8 @@ namespace Framework.Domain.EF
         }
 
         #region DbSet<TEntity> Members
+        public override IEntityType EntityType { get; }
+
         // Note: Don't implement find generically - do that with specific derived sets
         public IEnumerator<TEntity> GetEnumerator()
         {
