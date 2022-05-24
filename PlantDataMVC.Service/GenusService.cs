@@ -1,5 +1,4 @@
-﻿using Common.Logging;
-using Framework.Service;
+﻿using Framework.Service;
 using Interfaces.Service;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Interfaces;
@@ -20,7 +19,6 @@ namespace PlantDataMVC.Service
     /// </summary>
     public class GenusService : Service<Genus>, IGenusService
     {
-        private static readonly ILog _log = LogManager.GetLogger<GenusService>();
         private readonly IGenusRepository _repository;
 
         public GenusService(IGenusRepository repository) : base(repository)

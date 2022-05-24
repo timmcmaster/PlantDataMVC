@@ -1,5 +1,4 @@
-﻿using Common.Logging;
-using Framework.Service;
+﻿using Framework.Service;
 using Interfaces.Service;
 using PlantDataMVC.Entities.Models;
 using PlantDataMVC.Repository.Interfaces;
@@ -16,8 +15,6 @@ namespace PlantDataMVC.Service
     /// </summary>
     public class JournalEntryService : Service<JournalEntry>, IJournalEntryService
     {
-        private static readonly ILog _log = LogManager.GetLogger<JournalEntryService>();
-
         public JournalEntryService(IJournalEntryRepository repository) : base(repository)
         {
         }

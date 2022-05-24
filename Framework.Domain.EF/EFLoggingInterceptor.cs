@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Common.Logging;
+using Serilog;
 using System.Threading.Tasks;
 using System.Threading;
 
@@ -13,13 +13,6 @@ namespace Framework.Domain.EF
     /// </summary>
     public class EfLoggingInterceptor : DbCommandInterceptor
     {
-        private static readonly ILog _log = LogManager.GetLogger<EfLoggingInterceptor>();
-
-        private void WriteLog(string format, params object[] args)
-        {
-            _log.Debug(m => m(format, args));
-        }
-
         /// <summary>
         ///     Write SQL command parameter values to debug log/s
         /// </summary>
@@ -31,7 +24,7 @@ namespace Framework.Domain.EF
                 if (cmd.Parameters[i].Value != null)
                 {
                     var i1 = i;
-                    _log.Debug(m => m("Query param {0}: {1}", i1, cmd.Parameters[i1].Value));
+                    Log.Debug($"Query param {i1}: {cmd.Parameters[i1].Value}");
                 }
             }
         }
@@ -40,7 +33,7 @@ namespace Framework.Domain.EF
 
         public override InterceptionResult<DbDataReader> ReaderExecuting(DbCommand command, CommandEventData eventData, InterceptionResult<DbDataReader> result)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return result;
@@ -48,7 +41,7 @@ namespace Framework.Domain.EF
 
         public override InterceptionResult<object> ScalarExecuting(DbCommand command, CommandEventData eventData, InterceptionResult<object> result)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return result;
@@ -56,7 +49,7 @@ namespace Framework.Domain.EF
 
         public override InterceptionResult<int> NonQueryExecuting(DbCommand command, CommandEventData eventData, InterceptionResult<int> result)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return result;
@@ -64,7 +57,7 @@ namespace Framework.Domain.EF
 
         public override ValueTask<InterceptionResult<DbDataReader>> ReaderExecutingAsync(DbCommand command, CommandEventData eventData, InterceptionResult<DbDataReader> result, CancellationToken cancellationToken = default)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return new ValueTask<InterceptionResult<DbDataReader>>(result);
@@ -72,7 +65,7 @@ namespace Framework.Domain.EF
 
         public override ValueTask<InterceptionResult<object>> ScalarExecutingAsync(DbCommand command, CommandEventData eventData, InterceptionResult<object> result, CancellationToken cancellationToken = default)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return new ValueTask<InterceptionResult<object>>(result);
@@ -80,7 +73,7 @@ namespace Framework.Domain.EF
 
         public override ValueTask<InterceptionResult<int>> NonQueryExecutingAsync(DbCommand command, CommandEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return new ValueTask<InterceptionResult<int>>(result);
@@ -88,7 +81,7 @@ namespace Framework.Domain.EF
 
         public override DbDataReader ReaderExecuted(DbCommand command, CommandExecutedEventData eventData, DbDataReader result)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return result;
@@ -96,7 +89,7 @@ namespace Framework.Domain.EF
 
         public override object ScalarExecuted(DbCommand command, CommandExecutedEventData eventData, object result)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return result;
@@ -104,7 +97,7 @@ namespace Framework.Domain.EF
 
         public override int NonQueryExecuted(DbCommand command, CommandExecutedEventData eventData, int result)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return result;
@@ -112,7 +105,7 @@ namespace Framework.Domain.EF
 
         public override ValueTask<DbDataReader> ReaderExecutedAsync(DbCommand command, CommandExecutedEventData eventData, DbDataReader result, CancellationToken cancellationToken = default)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return new ValueTask<DbDataReader>(result);
@@ -120,7 +113,7 @@ namespace Framework.Domain.EF
 
         public override ValueTask<object> ScalarExecutedAsync(DbCommand command, CommandExecutedEventData eventData, object result, CancellationToken cancellationToken = default)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return new ValueTask<object>(() => result);
@@ -128,7 +121,7 @@ namespace Framework.Domain.EF
 
         public override ValueTask<int> NonQueryExecutedAsync(DbCommand command, CommandExecutedEventData eventData, int result, CancellationToken cancellationToken = default)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return new ValueTask<int>(result);
@@ -136,13 +129,13 @@ namespace Framework.Domain.EF
 
         public override void CommandFailed(DbCommand command, CommandErrorEventData eventData)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
         }
 
         public override Task CommandFailedAsync(DbCommand command, CommandErrorEventData eventData, CancellationToken cancellationToken = default)
         {
-            WriteLog("IsAsync: {0}, Command Text: {1}", eventData.IsAsync, command.CommandText);
+            Log.Debug($"IsAsync: {eventData.IsAsync}, Command Text: {command.CommandText}");
             WriteParameters(command);
 
             return new Task(null);
