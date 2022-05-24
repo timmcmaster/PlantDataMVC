@@ -26,6 +26,8 @@ namespace PlantDataMVC.WebApiCore.DependencyInjection
             services.AddDbContext<PlantDataDbContext>(options =>
             {
                 options.UseSqlServer(config.GetConnectionString("PlantDataDbContext"));
+                options.AddInterceptors(new EfLoggingInterceptor());
+
             });
             services.AddScoped<IDbContext>(provider => provider.GetService<PlantDataDbContext>());
 

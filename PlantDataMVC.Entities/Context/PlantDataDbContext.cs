@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Framework.Domain.EF;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Configuration;
 using PlantDataMVC.Entities.Interfaces;
@@ -69,6 +70,7 @@ namespace PlantDataMVC.Entities.Context
             {
                 var conn = new SqlConnection(_connectionString);
                 optionsBuilder.UseSqlServer(conn);
+                optionsBuilder.AddInterceptors(new EfLoggingInterceptor());
             }
         }
 
