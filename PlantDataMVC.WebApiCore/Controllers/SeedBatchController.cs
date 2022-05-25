@@ -17,6 +17,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ResponseCache(CacheProfileName = "Default5mins")]
     public class SeedBatchController : ControllerBase
     {
         private readonly ISeedBatchService _service;
@@ -33,7 +34,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/SeedBatch
-        [ResponseCache(Duration = 300)]
         [HttpGet(Name ="SeedBatchList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
@@ -101,7 +101,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/SeedBatch/5
-        [ResponseCache(Duration = 300)]
         [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult GetById(int id, [FromQuery] DataShapingParameters dsParams)

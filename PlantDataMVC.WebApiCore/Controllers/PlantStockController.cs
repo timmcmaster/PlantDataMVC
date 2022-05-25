@@ -17,6 +17,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ResponseCache(CacheProfileName = "Default5mins")]
     public class PlantStockController : ControllerBase
     {
         private readonly IPlantStockService _service;
@@ -32,7 +33,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/PlantStock
-        [ResponseCache(Duration = 300)]
         [HttpGet(Name = "PlantStockList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
@@ -99,7 +99,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/PlantStock/5
-        [ResponseCache(Duration = 300)]
         [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult GetById(int id, [FromQuery] DataShapingParameters dsParams)

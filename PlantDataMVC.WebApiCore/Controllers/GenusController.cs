@@ -18,6 +18,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ResponseCache(CacheProfileName = "Default5mins")]
     public class GenusController : ControllerBase
     {
         private readonly IGenusService _service;
@@ -34,7 +35,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/Genus
-        [ResponseCache(Duration = 300)]
         [HttpGet(Name = "GenusList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
@@ -111,7 +111,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/Genus/5
-                [ResponseCache(Duration = 300)]
         [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult GetById(int id, [FromQuery] DataShapingParameters dsParams)

@@ -15,6 +15,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ResponseCache(CacheProfileName = "Default5mins")]
     public class JournalEntryTypeController : ControllerBase
     {
         private readonly IJournalEntryTypeService _service;
@@ -31,7 +32,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/JournalEntryType
-        [ResponseCache(Duration = 300)]
         [HttpGet(Name = "JournalEntryTypeList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(

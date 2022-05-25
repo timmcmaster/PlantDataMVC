@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,7 +37,6 @@ namespace PlantDataMVC.WebApiCore
         // ConfigureServices is where you register dependencies.
         public void ConfigureServices(IServiceCollection services)
         {
-            // TODO: clean this up - split services definitions for each middleware app?
             services.AddLogging(builder =>
             {
                 builder.ClearProviders();
@@ -122,7 +122,10 @@ namespace PlantDataMVC.WebApiCore
             //json.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json-patch+json"));
 
             // Newtonsoft Json provides support for Json Patch
-            services.AddControllers()
+            services.AddControllers(options =>
+                {
+                    options.CacheProfiles.Add("Default5mins", new CacheProfile() { Duration = 300 });
+                })
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;

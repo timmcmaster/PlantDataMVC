@@ -17,6 +17,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [ResponseCache(CacheProfileName = "Default5mins")]
     public class ProductTypeController : ControllerBase
     {
         private readonly IProductTypeService _service;
@@ -33,7 +34,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/ProductType
-        [ResponseCache(Duration = 300)]
         [HttpGet(Name = "ProductTypeList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(

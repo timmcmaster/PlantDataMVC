@@ -17,6 +17,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ResponseCache(CacheProfileName = "Default5mins")]
     public class SeedTrayController : ControllerBase
     {
         private readonly ISeedTrayService _service;
@@ -33,7 +34,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/SeedTray
-        [ResponseCache(Duration = 300)]
         [HttpGet(Name = "SeedTrayList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
@@ -109,7 +109,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/SeedTray/5
-        [ResponseCache(Duration = 300)]
         [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult GetById(int id, [FromQuery] DataShapingParameters dsParams)
