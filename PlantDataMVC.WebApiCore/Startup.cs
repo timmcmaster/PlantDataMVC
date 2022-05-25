@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CacheCow.Server.Core.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -92,12 +91,7 @@ namespace PlantDataMVC.WebApiCore
 
             //});
 
-            // TODO: investigate Built-in caching vs CacheCow
-            services.AddHttpCachingMvc();
-            //services.AddResponseCaching(options =>
-            //{
-
-            //});
+            services.AddResponseCaching();
 
             // Acts as follows:
             // - if config action provided
@@ -143,16 +137,18 @@ namespace PlantDataMVC.WebApiCore
         public void Configure(IApplicationBuilder app, IWebHostEnvironment host)
         {
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
-            // TODO: clean this up - split middleware definitions?
 
             // TODO: Stop trying to map tokens to .Net claim types?
             // JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
 
             app.UseHttpsRedirection();
-            app.UseSerilogRequestLogging(); // Nicer HTTP request logging than stdd Ms stuff
+            app.UseSerilogRequestLogging(); // Nicer HTTP request logging than standard MS stuff
             app.UseRouting();
             app.UseCors();
+            
+            app.UseResponseCaching();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

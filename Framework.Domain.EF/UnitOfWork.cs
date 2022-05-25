@@ -1,5 +1,4 @@
-﻿//using CommonServiceLocator;
-using Interfaces.Domain.Entity;
+﻿using Interfaces.Domain.Entity;
 using Interfaces.Domain.Repository;
 using Interfaces.Domain.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace Framework.Domain.EF
 {
-    // TODO: Fix to use services instead of ServiceLocator
     /// <inheritdoc />
     /// <summary>
     ///     Implements the UnitOfWork pattern

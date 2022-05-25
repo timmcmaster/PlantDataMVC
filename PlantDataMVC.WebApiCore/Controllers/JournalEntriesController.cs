@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CacheCow.Server.Core.Mvc;
 using Interfaces.Domain.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -35,7 +34,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/JournalEntries
-        [HttpCacheFactory(300)]
+        [ResponseCache(Duration = 300)]
         [HttpGet(Name = "JournalEntriesList")]
         [Route("PlantStock/{plantStockId}/JournalEntries", Name = "EntriesForStock")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
@@ -99,7 +98,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/JournalEntries/5
-        [HttpCacheFactory(300)]
+        [ResponseCache(Duration = 300)]
         [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult GetById(int id, [FromQuery] DataShapingParameters dsParams)

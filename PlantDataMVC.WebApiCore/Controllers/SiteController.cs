@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CacheCow.Server.Core.Mvc;
 using Interfaces.Domain.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -34,7 +33,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/Site
-        [HttpCacheFactory(300)]
+        [ResponseCache(Duration = 300)]
         [HttpGet(Name = "SiteList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
@@ -104,7 +103,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/Site/5
-        [HttpCacheFactory(300)]
+        [ResponseCache(Duration = 300)]
         [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult GetById(int id, [FromQuery] DataShapingParameters dsParams)

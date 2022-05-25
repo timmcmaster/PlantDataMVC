@@ -29,6 +29,7 @@ namespace PlantDataMVC.DTO.Mappers
         private void ConfigureGenusMappings()
         {
             // TODO: Suggestions from web that it is not good practice to map downwards - read why, then fix
+            // see https://jens.gheerardyn.be/why-using-automapper-for-dto-to-entity-mapping-is-a-bad-idea/
 
             // Note - default behavior for collections is to map null object to empty collection
 

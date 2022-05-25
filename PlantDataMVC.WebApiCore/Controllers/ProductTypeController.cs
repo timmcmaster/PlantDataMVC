@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CacheCow.Server.Core.Mvc;
 using Interfaces.Domain.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +33,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
         }
 
         // GET: api/ProductType
-        [HttpCacheFactory(300)]
+        [ResponseCache(Duration = 300)]
         [HttpGet(Name = "ProductTypeList")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
