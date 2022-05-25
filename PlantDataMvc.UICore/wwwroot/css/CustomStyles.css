@@ -1,14 +1,14 @@
 ﻿/* Sorting UI */
 a.sortAsc {
     padding-right: 16px;
-    background-image: url(images/arrow_up.png);
+    background-image: url(/images/arrow_up.png);
     background-position: right;
     background-repeat: no-repeat;
 }
 
 a.sortDesc {
     padding-right: 16px;
-    background-image: url(images/arrow_down.png);
+    background-image: url(/images/arrow_down.png);
     background-position: right;
     background-repeat: no-repeat;
 }
