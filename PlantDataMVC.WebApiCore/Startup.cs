@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -85,11 +86,24 @@ namespace PlantDataMVC.WebApiCore
                 });
             });
 
-            // TODO: Investigate versioning using this package
-            //services.AddApiVersioning(options =>
-            //{
+            // Add .Net Core api versioning
+            // Example: https://code-maze.com/aspnetcore-api-versioning/
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = ApiVersionReader.Combine(
+                    new QueryStringApiVersionReader("api-version"),
+                    new HeaderApiVersionReader("X-Version"),
+                    new MediaTypeApiVersionReader("ver"));
+            });
 
-            //});
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            });
 
             services.AddResponseCaching();
 
