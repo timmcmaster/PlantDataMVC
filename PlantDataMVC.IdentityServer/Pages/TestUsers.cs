@@ -42,12 +42,11 @@ namespace PlantDataMVC.IdentityServer
                             new Claim(JwtClaimTypes.Email, "Tim.McMaster@email.com"),
                             new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
                             new Claim(JwtClaimTypes.WebSite, "http://timmo.com.au"),
-                            new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json)
-                            //,
+                            new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json),
                             // Role claims
-                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebReadUser),
-                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebWriteUser),
-                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebAdminUser)
+                            new Claim(JwtClaimTypes.Role, AuthorizationRole.WebReadUser),
+                            new Claim(JwtClaimTypes.Role, AuthorizationRole.WebWriteUser),
+                            new Claim(JwtClaimTypes.Role, AuthorizationRole.WebAdminUser)
                         }
                     },
                     new TestUser
@@ -60,10 +59,9 @@ namespace PlantDataMVC.IdentityServer
                             new Claim(JwtClaimTypes.Name, "Kerryn Plummer"),
                             new Claim(JwtClaimTypes.GivenName, "Kerryn"),
                             new Claim(JwtClaimTypes.FamilyName, "Plummer"),
-                            //,
                             // Role claims
-                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebReadUser),
-                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebWriteUser)
+                            new Claim(JwtClaimTypes.Role, AuthorizationRole.WebReadUser),
+                            new Claim(JwtClaimTypes.Role, AuthorizationRole.WebWriteUser)
                        },
                     },
                     new TestUser
@@ -75,10 +73,9 @@ namespace PlantDataMVC.IdentityServer
                         {
                             new Claim(JwtClaimTypes.Name, "Joanne Vayena"),
                             new Claim(JwtClaimTypes.GivenName, "Joanne"),
-                            new Claim(JwtClaimTypes.FamilyName, "Vayena")
-                            //,
+                            new Claim(JwtClaimTypes.FamilyName, "Vayena"),
                             // Role claims
-                            //new Claim(JwtClaimTypes.Role, AuthorizationRole.WebReadUser)
+                            new Claim(JwtClaimTypes.Role, AuthorizationRole.WebReadUser)
                         }
                     }
                 };

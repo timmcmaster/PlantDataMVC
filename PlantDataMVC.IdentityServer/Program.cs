@@ -22,6 +22,7 @@ try
         .WriteTo.File("..\\logs\\IdentityServer-log-.txt",
             outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext} {Message:lj} {Exception}{NewLine}",
             rollingInterval: RollingInterval.Day)
+        .MinimumLevel.Debug()
     );
 
     var app = builder

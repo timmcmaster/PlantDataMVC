@@ -1,5 +1,6 @@
 ﻿using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
+using IdentityModel;
 using PlantDataMVC.Constants;
 using System.Collections.Generic;
 
@@ -12,6 +13,10 @@ namespace PlantDataMVC.IdentityServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResource(
+                    name: "roles",
+                    displayName: "Roles",
+                    userClaims: new[] { JwtClaimTypes.Role })
             };
 
         /*
@@ -53,7 +58,7 @@ namespace PlantDataMVC.IdentityServer
                 //    },
                 //    AllowedScopes = new List<string> () {"plantdataapi"}
                 //},
-                // Interaactive client MVC App
+                // Interactive client MVC App
                 new Client
                 {
                     Enabled = true,
@@ -70,7 +75,8 @@ namespace PlantDataMVC.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "plantdataapi"
+                        "plantdataapi",
+                        "roles"
                     }
                 },
                 // MVC App - client credentials flow

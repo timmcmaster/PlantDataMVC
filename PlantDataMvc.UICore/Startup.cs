@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using System.IdentityModel.Tokens.Jwt;
 using PlantDataMVC.UICore.Mappers;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.IdentityModel.Tokens;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace PlantDataMVC.UICore
@@ -56,31 +58,39 @@ namespace PlantDataMVC.UICore
                 options.Scope.Add(OidcConstants.StandardScopes.Profile);
                 options.Scope.Add("plantdataapi");
                 options.Scope.Add(OidcConstants.StandardScopes.OfflineAccess);
-                options.GetClaimsFromUserInfoEndpoint = true;
+                options.Scope.Add("roles");
 
+                options.GetClaimsFromUserInfoEndpoint = true;
+                options.ClaimActions.MapUniqueJsonKey(JwtClaimTypes.Role, JwtClaimTypes.Role); // results in role claim(s) showing on home index page
                 options.SaveTokens = true;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = JwtClaimTypes.Name,
+                    RoleClaimType = JwtClaimTypes.Role
+                };
             });
 
             // Authorization
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy(AuthorizationPolicies.RequireReadUserRole, policy =>
-            //    {
-            //        policy.RequireRole(AuthorizationRole.WebReadUser);
-            //    });
-            //    options.AddPolicy(AuthorizationPolicies.RequireWriteUserRole, policy =>
-            //    {
-            //        policy.RequireRole(AuthorizationRole.WebWriteUser);
-            //    });
-            //    options.AddPolicy(AuthorizationPolicies.RequireAdminUserRole, policy =>
-            //    {
-            //        policy.RequireRole(AuthorizationRole.WebAdminUser);
-            //    });
-            //});
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(AuthorizationPolicies.RequireReadUserRole, policy =>
+                {
+                    policy.RequireRole(AuthorizationRole.WebReadUser);
+                });
+                options.AddPolicy(AuthorizationPolicies.RequireWriteUserRole, policy =>
+                {
+                    policy.RequireRole(AuthorizationRole.WebWriteUser);
+                });
+                options.AddPolicy(AuthorizationPolicies.RequireAdminUserRole, policy =>
+                {
+                    policy.RequireRole(AuthorizationRole.WebAdminUser);
+                });
+            });
 
             // HttpClientFactory
             // -->
-            
+
             // TODO: This tokenrequest singleton shouldn't really be here
             // Add clientcredentialstokenrequest
             services.AddSingleton(new ClientCredentialsTokenRequest

@@ -37,8 +37,10 @@
             <div id="logindisplay">
                 @if (User.Identity.IsAuthenticated)
                 {
+                    var givenname = User.Claims.FirstOrDefault(c => c.Type == "given_name").Value;
+                    
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a asp-controller="Header" asp-action="Logout">"(Logout)"</a></li>
+                        <li><a asp-controller="Header" asp-action="Logout">Welcome @givenname (Logout)</a></li>
                     </ul>
                 }
             </div>
