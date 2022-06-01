@@ -44,21 +44,34 @@ BEGIN
 	
 	SET @plantStockId = (SELECT ps.Id FROM dbo.PlantStock ps WHERE ps.SpeciesId = @speciesId AND ps.ProductTypeId = @productTypeId);
 
-	-- use plant stock id to insert transaction record
-	INSERT dbo.JournalEntry (PlantStockId, Quantity, JournalEntryTypeId, TransactionDate, [Source], SeedTrayId, Notes)
-	                 VALUES (@plantStockId, @quantity, @journalEntryTypeId, @transactionDate, @source, @seedTrayId, @notes);
+	BEGIN TRANSACTION
+    SAVE TRANSACTION MySavePoint;
+
+	BEGIN TRY
+		-- use plant stock id to insert transaction record
+		INSERT dbo.JournalEntry (PlantStockId, Quantity, JournalEntryTypeId, TransactionDate, [Source], SeedTrayId, Notes)
+						 VALUES (@plantStockId, @quantity, @journalEntryTypeId, @transactionDate, @source, @seedTrayId, @notes);
 	
-	SET @journalEntryId = SCOPE_IDENTITY();
+		SET @journalEntryId = SCOPE_IDENTITY();
 
 
-	-- get effect value from journal entry id
-	-- update quantity of stock (add quantity of transaction * effect)
-	UPDATE dbo.PlantStock
-	SET QuantityInStock = ps.QuantityInStock + (je.Quantity * jet.Effect)
-	FROM dbo.PlantStock ps 
-	INNER JOIN dbo.JournalEntry je ON ps.Id = je.PlantStockId
-	INNER JOIN dbo.JournalEntryType jet ON jet.Id = je.JournalEntryTypeId
-	WHERE je.Id = @journalEntryId;
+		-- get effect value from journal entry id
+		-- update quantity of stock (add quantity of transaction * effect)
+		UPDATE dbo.PlantStock
+		SET QuantityInStock = ps.QuantityInStock + (je.Quantity * jet.Effect)
+		FROM dbo.PlantStock ps 
+		INNER JOIN dbo.JournalEntry je ON ps.Id = je.PlantStockId
+		INNER JOIN dbo.JournalEntryType jet ON jet.Id = je.JournalEntryTypeId
+		WHERE je.Id = @journalEntryId;
 
+		COMMIT TRANSACTION;
+	END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+        BEGIN
+            ROLLBACK TRANSACTION MySavePoint; -- rollback to MySavePoint
+        END
+    END CATCH
+	
 	RETURN @result;
 END
