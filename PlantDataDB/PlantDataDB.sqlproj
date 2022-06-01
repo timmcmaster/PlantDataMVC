@@ -97,6 +97,7 @@
     <None Include="DbDelete.sql" />
     <Build Include="dbo\Stored Procedures\CreateJournalEntry.sql" />
     <Build Include="dbo\Stored Procedures\ChangeProductType.sql" />
+    <Build Include="dbo\Tables\SaleEvent.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FullDataLoad.sql" />
