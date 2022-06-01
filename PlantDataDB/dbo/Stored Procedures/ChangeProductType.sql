@@ -29,7 +29,7 @@ BEGIN
 	END
 
 	DECLARE @RC int;
-	DECLARE @neqQuantity int;
+	DECLARE @negQuantity int;
 	DECLARE @jeResult int;
 	DECLARE @jeErrorMessage nvarchar(256);
 
@@ -40,7 +40,7 @@ BEGIN
 	-- Remove quantity from "from" product 
 	EXECUTE @RC = [dbo].[CreateJournalEntry] 
 	   @journalEntryTypeId
-	  ,@neqQuantity
+	  ,@negQuantity
 	  ,@speciesId
 	  ,@fromProductTypeId
 	  ,@transactionDate
