@@ -18,6 +18,7 @@ namespace PlantDataMVC.Entities.Context
         public DbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
         public DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
         public DbSet<ProductType> ProductTypes { get; set; } // ProductType
+        public DbSet<SaleEvent> SaleEvents { get; set; } // SaleEvent
         public DbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
         public DbSet<SeedTray> SeedTrays { get; set; } // SeedTray
         public DbSet<Site> Sites { get; set; } // Site

@@ -15,6 +15,7 @@ namespace PlantDataMVC.Entities.Context
         public DbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
         public DbSet<PlantStock> PlantStocks { get; set; } // PlantStock
         public DbSet<ProductType> ProductTypes { get; set; } // ProductType
+        public DbSet<SaleEvent> SaleEvents { get; set; } // SaleEvent
         public DbSet<Species> Species { get; set; } // Species
 
         //static InventoryDbContext()

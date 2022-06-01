@@ -63,6 +63,12 @@ namespace PlantDataMVC.Entities.Context
         // TODO: Override FindAsync(CancellationToken cancellationToken, params object[] keyValues)
     }
 
+    public class SaleEventDbSet : FakeDbSet<SaleEvent>
+    {
+        // TODO: Override Find(params object[] keyValues)
+        // TODO: Override FindAsync(CancellationToken cancellationToken, params object[] keyValues)
+    }
+
     public class SeedBatchDbSet : FakeDbSet<SeedBatch>
     {
         // TODO: Override Find(params object[] keyValues)

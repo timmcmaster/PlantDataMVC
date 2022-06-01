@@ -14,6 +14,7 @@ namespace PlantDataMVC.Entities.Interfaces
         DbSet<PlantStock> PlantStocks { get; set; } // PlantStock
         DbSet<ProductType> ProductTypes { get; set; } // ProductType
         DbSet<Species> Species { get; set; } // Species
+        DbSet<SaleEvent> SaleEvents { get; set; } // SaleEvent
 
         //int SaveChanges();
         //Task<int> SaveChangesAsync();

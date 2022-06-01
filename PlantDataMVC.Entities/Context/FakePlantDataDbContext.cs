@@ -25,6 +25,7 @@ namespace PlantDataMVC.Entities.Context
             AddFakeDbSet<PriceListType, PriceListTypeDbSet>();
             AddFakeDbSet<ProductPrice, ProductPriceDbSet>();
             AddFakeDbSet<ProductType, ProductTypeDbSet>();
+            AddFakeDbSet<SaleEvent, SaleEventDbSet>();
             AddFakeDbSet<SeedBatch, SeedBatchDbSet>();
             AddFakeDbSet<SeedTray, SeedTrayDbSet>();
             AddFakeDbSet<Site, SiteDbSet>();
@@ -71,6 +72,12 @@ namespace PlantDataMVC.Entities.Context
         public DbSet<ProductType> ProductTypes
         {
             get => Set<ProductType>();
+            set => throw new NotImplementedException();
+        }
+
+        public DbSet<SaleEvent> SaleEvents
+        {
+            get => Set<SaleEvent>();
             set => throw new NotImplementedException();
         }
 
