@@ -2,11 +2,13 @@
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Models.ViewModels.SeedBatch;
 using PlantDataMVC.UICore.Models.ViewModels.SeedTray;
+using System;
 using Genus = PlantDataMVC.UICore.Models.ViewModels.Genus;
 using Plant = PlantDataMVC.UICore.Models.ViewModels.Plant;
 using PlantStock = PlantDataMVC.UICore.Models.ViewModels.PlantStock;
 using Site = PlantDataMVC.UICore.Models.ViewModels.Site;
 using Transaction = PlantDataMVC.UICore.Models.ViewModels.Transaction;
+using SaleEvent = PlantDataMVC.UICore.Models.ViewModels.SaleEvent;
 
 namespace PlantDataMVC.UICore.Mappers
 {
@@ -35,6 +37,7 @@ namespace PlantDataMVC.UICore.Mappers
             ConfigurePlantStockViewModels();
             ConfigureTransactionViewModels();
             ConfigureSiteViewModels();
+            ConfigureSaleEventViewModels();
         }
 
         #region Configure View Models
@@ -326,6 +329,39 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dto => dto.SeedBatchId))
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dto => dto.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dto => dto.Treatment));
+        }
+
+        private void ConfigureSaleEventViewModels()
+        {
+            // SaleEvent
+            CreateMap<SaleEventDto, SaleEvent.SaleEventDeleteViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dto => dto.Name))
+                .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dto => dto.SaleDate))
+                .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location));
+
+            CreateMap<SaleEventDto, SaleEvent.SaleEventEditViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dto => dto.Name))
+                .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dto => dto.SaleDate))
+                .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location));
+
+            CreateMap<SaleEventDto, SaleEvent.SaleEventListViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dto => dto.Name))
+                .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dto => dto.SaleDate))
+                .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location));
+
+            CreateMap<SaleEventDto, SaleEvent.SaleEventNewViewModel>()
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dto => dto.Name))
+                .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dto => dto.SaleDate))
+                .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location));
+
+            CreateMap<SaleEventDto, SaleEvent.SaleEventShowViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dto => dto.Name))
+                .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dto => dto.SaleDate))
+                .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location));
         }
 
         #endregion Configure View Models

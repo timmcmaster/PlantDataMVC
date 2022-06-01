@@ -2,11 +2,13 @@
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Models.EditModels.SeedBatch;
 using PlantDataMVC.UICore.Models.EditModels.SeedTray;
+using System;
 using Genus = PlantDataMVC.UICore.Models.EditModels.Genus;
 using Plant = PlantDataMVC.UICore.Models.EditModels.Plant;
 using PlantStock = PlantDataMVC.UICore.Models.EditModels.PlantStock;
 using Site = PlantDataMVC.UICore.Models.EditModels.Site;
 using Transaction = PlantDataMVC.UICore.Models.EditModels.Transaction;
+using SaleEvent = PlantDataMVC.UICore.Models.EditModels.SaleEvent;
 
 namespace PlantDataMVC.UICore.Mappers
 {
@@ -29,6 +31,7 @@ namespace PlantDataMVC.UICore.Mappers
             ConfigurePlantStockEditModels();
             ConfigureTransactionEditModels();
             ConfigureSiteEditModels();
+            ConfigureSaleEventEditModels();
             // Maps from UI edit models to domain
         }
 
@@ -154,7 +157,7 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(dto => dto.Longitude, opt => opt.Ignore())
                 .ForMember(dto => dto.SeedBatches, opt => opt.Ignore());
 
-        CreateMap<Site.SiteUpdateEditModel, SiteDto>()
+            CreateMap<Site.SiteUpdateEditModel, SiteDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForMember(dto => dto.Latitude, opt => opt.MapFrom(uio => uio.Latitude))
                 .ForMember(dto => dto.Longitude, opt => opt.MapFrom(uio => uio.Longitude))
@@ -262,6 +265,29 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(dto => dto.SeedBatchId, opt => opt.MapFrom(uio => uio.SeedBatchId))
                 .ForMember(dto => dto.ThrownOut, opt => opt.MapFrom(uio => uio.ThrownOut))
                 .ForMember(dto => dto.Treatment, opt => opt.MapFrom(uio => uio.Treatment));
+        }
+
+        private void ConfigureSaleEventEditModels()
+        {
+            // SaleEventDTO
+            CreateMap<SaleEvent.SaleEventCreateEditModel, SaleEventDto>()
+                .ForMember(dto => dto.Id, opt => opt.Ignore()) // Id on create will come back from DB
+                .ForMember(dto => dto.Name, opt => opt.MapFrom(uio => uio.Name))
+                .ForMember(dto => dto.SaleDate, opt => opt.MapFrom(uio => uio.SaleDate))
+                .ForMember(dto => dto.Location, opt => opt.MapFrom(uio => uio.Location));
+
+
+            CreateMap<SaleEvent.SaleEventDestroyEditModel, SaleEventDto>()
+                .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dto => dto.Name, opt => opt.Ignore())
+                .ForMember(dto => dto.SaleDate, opt => opt.Ignore())
+                .ForMember(dto => dto.Location, opt => opt.Ignore());
+
+            CreateMap<SaleEvent.SaleEventUpdateEditModel, SaleEventDto>()
+                .ForMember(dto => dto.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dto => dto.Name, opt => opt.MapFrom(uio => uio.Name))
+                .ForMember(dto => dto.SaleDate, opt => opt.MapFrom(uio => uio.SaleDate))
+                .ForMember(dto => dto.Location, opt => opt.MapFrom(uio => uio.Location));
         }
 
         #endregion Configure Edit Models
