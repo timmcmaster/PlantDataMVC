@@ -95,6 +95,7 @@
     <Build Include="dbo\Stored Procedures\UpdateSpecies.sql" />
     <None Include="AdminOnlyDataLoad.sql" />
     <None Include="DbDelete.sql" />
+    <Build Include="dbo\Stored Procedures\CreateJournalEntry.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FullDataLoad.sql" />
