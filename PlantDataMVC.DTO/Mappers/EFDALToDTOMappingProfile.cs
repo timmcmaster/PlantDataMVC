@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
+using System;
 
 namespace PlantDataMVC.DTO.Mappers
 {
@@ -26,8 +27,8 @@ namespace PlantDataMVC.DTO.Mappers
             ConfigureSiteMappings();
             ConfigureProductTypeMappings();
             ConfigureJournalEntryTypeMappings();
+            ConfigureSaleEventMappings();
         }
-
 
         private void ConfigureGenusMappings()
         {
@@ -154,6 +155,15 @@ namespace PlantDataMVC.DTO.Mappers
             CreateMap<ProductType, ProductTypeDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(e => e.Id))
                 .ForMember(dto => dto.Name, opt => opt.MapFrom(e => e.Name));
+        }
+
+        private void ConfigureSaleEventMappings()
+        {
+            CreateMap<SaleEvent, SaleEventDto>()
+                .ForMember(dto => dto.Id, opt => opt.MapFrom(e => e.Id)) // explicit and unnecessary
+                .ForMember(dto => dto.Name, opt => opt.MapFrom(e => e.Name)) // explicit and unnecessary
+                .ForMember(dto => dto.SaleDate, opt => opt.MapFrom(e => e.SaleDate)) // explicit and unnecessary
+                .ForMember(dto => dto.Location, opt => opt.MapFrom(e => e.Location)); // explicit and unnecessary
         }
 
         // Not yet mapped objects

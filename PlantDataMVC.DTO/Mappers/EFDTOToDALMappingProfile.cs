@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
+using System;
 
 namespace PlantDataMVC.DTO.Mappers
 {
@@ -24,6 +25,7 @@ namespace PlantDataMVC.DTO.Mappers
             ConfigureSeedBatchMappings();
             ConfigureSeedTrayMappings();
             ConfigureSiteMappings();
+            ConfigureSaleEventMappings();
         }
 
         private void ConfigureGenusMappings()
@@ -185,6 +187,21 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(e => e.JournalEntryType, opt => opt.Ignore())
                 .ForMember(e => e.PlantStock, opt => opt.Ignore())
                 .ForMember(e => e.SeedTray, opt => opt.Ignore());
+        }
+
+        private void ConfigureSaleEventMappings()
+        {
+            CreateMap<CreateUpdateSaleEventDto, SaleEvent>()
+                .ForMember(e => e.Id, opt => opt.Ignore())
+                .ForMember(e => e.Name, opt => opt.MapFrom(dto => dto.Name)) // explicit and unnecessary
+                .ForMember(e => e.SaleDate, opt => opt.MapFrom(dto => dto.SaleDate)) // explicit and unnecessary
+                .ForMember(e => e.Location, opt => opt.MapFrom(dto => dto.Location)); // explicit and unnecessary
+
+            CreateMap<SaleEventDto, SaleEvent>()
+                .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id)) // explicit and unnecessary
+                .ForMember(e => e.Name, opt => opt.MapFrom(dto => dto.Name)) // explicit and unnecessary
+                .ForMember(e => e.SaleDate, opt => opt.MapFrom(dto => dto.SaleDate)) // explicit and unnecessary
+                .ForMember(e => e.Location, opt => opt.MapFrom(dto => dto.Location)); // explicit and unnecessary
         }
 
         // Not yet mapped objects
