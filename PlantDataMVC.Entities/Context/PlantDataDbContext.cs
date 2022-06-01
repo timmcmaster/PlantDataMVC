@@ -88,6 +88,7 @@ namespace PlantDataMVC.Entities.Context
             modelBuilder.ApplyConfiguration(new SeedTrayConfiguration());
             modelBuilder.ApplyConfiguration(new SiteConfiguration());
             modelBuilder.ApplyConfiguration(new SpeciesConfiguration());
+            modelBuilder.ApplyConfiguration(new SaleEventConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

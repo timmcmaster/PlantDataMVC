@@ -50,6 +50,7 @@ namespace PlantDataMVC.Entities.Context
             modelBuilder.ApplyConfiguration(new PlantStockConfiguration());
             modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SpeciesConfiguration());
+            modelBuilder.ApplyConfiguration(new SaleEventConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
