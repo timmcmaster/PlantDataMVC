@@ -98,6 +98,7 @@
     <Build Include="dbo\Stored Procedures\CreateJournalEntry.sql" />
     <Build Include="dbo\Stored Procedures\ChangeProductType.sql" />
     <Build Include="dbo\Tables\SaleEvent.sql" />
+    <Build Include="dbo\Tables\SaleEventStock.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FullDataLoad.sql" />
@@ -116,5 +117,8 @@
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="PlantDataDB.refactorlog" />
   </ItemGroup>
 </Project>
