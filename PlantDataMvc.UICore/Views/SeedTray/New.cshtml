@@ -21,7 +21,7 @@
                 model => model.SeedBatchId,
                 new ListQuery<SeedBatchDto>(),
                 p => p.Id,
-                p => string.Concat(p.SpeciesId, p.Location, p.DateCollected))
+                p => string.Concat(p.SpeciesId, ",", p.Location, ",", p.DateCollected.ToShortDateString()))
         </div>
 
         <div class="editor-label">
