@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Controllers.Queries;
 using PlantDataMVC.UICore.Helpers;
@@ -8,22 +9,22 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Views.Plant
+namespace PlantDataMVC.UICore.Handlers.Views.SaleEvent
 {
-    public class SpeciesDtoListQueryHandler : ListQueryHandler<SpeciesDto>
+    public class SaleEventDtoListQueryHandler : ListQueryHandler<SaleEventDto>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public SpeciesDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public SaleEventDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
             _plantDataApiClient = plantDataApiClient;
         }
 
-        public override async Task<IEnumerable<SpeciesDto>> Handle(ListQuery<SpeciesDto> query, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<SaleEventDto>> Handle(ListQuery<SaleEventDto> query, CancellationToken cancellationToken)
         {
             bool success = true;
-            string? uri = "api/Species";
-            IEnumerable<SpeciesDto> fullDtoList = Enumerable.Empty<SpeciesDto>();
+            string? uri = "api/SaleEvent";
+            IEnumerable<SaleEventDto> fullDtoList = Enumerable.Empty<SaleEventDto>();
 
             while (!String.IsNullOrEmpty(uri))
             {
@@ -36,10 +37,10 @@ namespace PlantDataMVC.UICore.Handlers.Views.Plant
                     var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                     var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                    var dtoList = JsonConvert.DeserializeObject<IEnumerable<SpeciesDto>>(content);
-                    
+                    var dtoList = JsonConvert.DeserializeObject<IEnumerable<SaleEventDto>>(content);
+
                     // Concatenate page to full list
-                    fullDtoList = (fullDtoList ?? Enumerable.Empty<SpeciesDto>()).Concat(dtoList ?? Enumerable.Empty<SpeciesDto>());
+                    fullDtoList = (fullDtoList ?? Enumerable.Empty<SaleEventDto>()).Concat(dtoList ?? Enumerable.Empty<SaleEventDto>());
 
                     // if we haven't got all the items, follow paging links (link will be null if no next page)
                     uri = linkInfo.NextPageLink?.ToString();
@@ -56,7 +57,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Plant
                 return fullDtoList;
             }
             else
-            { 
+            {
                 // TODO: better way needed to handle failure response
                 return null;
             }

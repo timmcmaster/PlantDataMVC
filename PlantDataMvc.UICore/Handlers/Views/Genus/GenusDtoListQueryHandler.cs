@@ -2,7 +2,9 @@
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Controllers.Queries;
 using PlantDataMVC.UICore.Helpers;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,19 +21,39 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
 
         public override async Task<IEnumerable<GenusDto>> Handle(ListQuery<GenusDto> query, CancellationToken cancellationToken)
         {
-            var uri = "api/Genus";
-            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            bool success = true;
+            string? uri = "api/Genus";
+            IEnumerable<GenusDto> fullDtoList = Enumerable.Empty<GenusDto>();
 
-            if (httpResponse.IsSuccessStatusCode)
+            while (!String.IsNullOrEmpty(uri))
             {
-                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
-                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                var dtoList = JsonConvert.DeserializeObject<IEnumerable<GenusDto>>(content);
+                    var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
+                    var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                return dtoList;
+                    var dtoList = JsonConvert.DeserializeObject<IEnumerable<GenusDto>>(content);
+
+                    // Concatenate page to full list
+                    fullDtoList = (fullDtoList ?? Enumerable.Empty<GenusDto>()).Concat(dtoList ?? Enumerable.Empty<GenusDto>());
+
+                    // if we haven't got all the items, follow paging links (link will be null if no next page)
+                    uri = linkInfo.NextPageLink?.ToString();
+                }
+                else
+                {
+                    success = false;
+                    break;
+                }
+            }
+
+            if (success)
+            {
+                return fullDtoList;
             }
             else
             {

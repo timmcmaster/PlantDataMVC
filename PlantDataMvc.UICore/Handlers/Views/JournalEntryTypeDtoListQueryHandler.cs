@@ -2,7 +2,9 @@
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.UICore.Controllers.Queries;
 using PlantDataMVC.UICore.Helpers;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,7 +21,12 @@ namespace PlantDataMVC.UICore.Handlers.Views
 
         public override async Task<IEnumerable<JournalEntryTypeDto>> Handle(ListQuery<JournalEntryTypeDto> query, CancellationToken cancellationToken)
         {
-            var uri = "api/JournalEntryType";
+            bool success = true;
+            string? uri = "api/JournalEntryType";
+            IEnumerable<JournalEntryTypeDto> fullDtoList = Enumerable.Empty<JournalEntryTypeDto>();
+
+            while (!String.IsNullOrEmpty(uri))
+            {
             var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
             if (httpResponse.IsSuccessStatusCode)
@@ -31,7 +38,22 @@ namespace PlantDataMVC.UICore.Handlers.Views
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<JournalEntryTypeDto>>(content);
 
-                return dtoList;
+                    // Concatenate page to full list
+                    fullDtoList = (fullDtoList ?? Enumerable.Empty<JournalEntryTypeDto>()).Concat(dtoList ?? Enumerable.Empty<JournalEntryTypeDto>());
+
+                    // if we haven't got all the items, follow paging links (link will be null if no next page)
+                    uri = linkInfo.NextPageLink?.ToString();
+                }
+                else
+                {
+                    success = false;
+                    break;
+                }
+            }
+
+            if (success)
+            {
+                return fullDtoList;
             }
             else
             {
