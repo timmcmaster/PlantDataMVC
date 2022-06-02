@@ -24,7 +24,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
             if (page < totalPages)
             {
-                var nextPageRvd = new RouteValueDictionary(routeValues) { { "page", page - 1 }, { "pageSize", pageSize } };
+                var nextPageRvd = new RouteValueDictionary(routeValues) { { "page", page + 1 }, { "pageSize", pageSize } };
                 NextPage = new Uri(urlHelper.Link(routeName, nextPageRvd));
             }
         }

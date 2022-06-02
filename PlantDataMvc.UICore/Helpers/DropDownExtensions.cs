@@ -62,13 +62,13 @@ namespace PlantDataMVC.UICore.Helpers
             var requestTask = mediator.Send(query);
             // NOTE: Need to be careful with this, as waiting on async can cause deadlocks.
             // ALSO, lose any exception type management, as it returns AggregateException
-            var dtoItems = requestTask.Result;
+            var dtoItems = requestTask.Result.OrderBy(x => displayValueSelector(x));
 
             IEnumerable<SelectListItem> selectListItems = dtoItems.Select(x => new SelectListItem
             {
                 Text = displayValueSelector(x),
                 Value = dataValueSelector(x).ToString(),
-                Selected = dataValueSelector(x).Equals(selectedDataValue)
+                Selected = dataValueSelector(x).Equals(selectedDataValue),
             });
 
             return htmlHelper.DropDownList(saveFieldNameFunc(), selectListItems, "Select an option");

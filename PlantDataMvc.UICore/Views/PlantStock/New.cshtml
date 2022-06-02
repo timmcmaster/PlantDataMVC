@@ -18,13 +18,12 @@
             <label asp-for="SpeciesId"></label>
         </div>
         <div class="editor-field">
-            @*TODO: Should be using genus and species for display value*@
             @Html.QueryDropDownFor(
                 () => nameof(Model.SpeciesId),
                 model => model.SpeciesId,
                 new ListQuery<SpeciesDto>(),
                 p => p.Id,
-                p => p.SpecificName)
+                p => p.Binomial)
             <span asp-validation-for="SpeciesId"></span>
         </div>
 
