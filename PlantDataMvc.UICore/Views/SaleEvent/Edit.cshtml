@@ -1,0 +1,25 @@
+﻿@model PlantDataMVC.UICore.Models.ViewModels.SaleEvent.SaleEventEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Update" asp-controller="SaleEvent">
+    <div asp-validation-summary="ModelOnly"></div>
+    <fieldset>
+        <legend>Sale</legend>
+
+        @Html.EditorForModel()
+
+        <p>
+            <input type="submit" value="Update" />
+        </p>
+    </fieldset>
+</form>
+
+<div>
+    <a asp-controller="SaleEvent" asp-action="Index">Back to Index</a>
+</div>
+

@@ -1,0 +1,10 @@
+﻿@model ListViewModelStatic<PlantDataMVC.UICore.Models.ViewModels.SaleEvent.SaleEventListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<partial name="SaleEventListTable" for="@Model" />
+@Html.PagingLinksFor(m => Model)

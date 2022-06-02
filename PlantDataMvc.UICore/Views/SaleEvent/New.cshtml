@@ -1,0 +1,25 @@
+﻿@model PlantDataMVC.UICore.Models.ViewModels.SaleEvent.SaleEventNewViewModel
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+
+<form asp-action="Create" asp-controller="SaleEvent">
+    <div asp-validation-summary="ModelOnly"></div>
+    <fieldset>
+        <legend>Sale</legend>
+
+        @Html.EditorForModel()
+
+        <p>
+            <input type="submit" value="Create"/>
+        </p>
+    </fieldset>
+</form>
+
+<div>
+    <a asp-controller="SaleEvent" asp-action="Index">Back to Index</a>
+</div>
+

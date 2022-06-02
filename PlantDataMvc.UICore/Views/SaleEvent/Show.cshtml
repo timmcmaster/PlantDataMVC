@@ -1,0 +1,26 @@
+﻿@model PlantDataMVC.UICore.Models.ViewModels.SaleEvent.SaleEventShowViewModel
+
+<style>
+    .map {
+        height: 400px;
+        width: 400px;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+<fieldset>
+    <legend>SaleEvent</legend>
+
+    @Html.DisplayForModel()
+</fieldset>
+
+<p>
+    <a asp-controller="SaleEvent" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-controller="SaleEvent" asp-action="Index">Back to Index</a>
+</p>
+

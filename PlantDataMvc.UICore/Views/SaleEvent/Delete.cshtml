@@ -1,0 +1,23 @@
+﻿@model PlantDataMVC.UICore.Models.ViewModels.SaleEvent.SaleEventDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<form asp-action="Destroy" asp-controller="SaleEvent">
+    <fieldset>
+        <legend>Sale</legend>
+        @*Add hidden, as display for model doesn't show hidden input needed for submit*@
+        <input asp-for="Id" type="hidden"/>
+        @Html.DisplayForModel()
+    </fieldset>
+    <p>
+        <input type="submit" value="Delete" /> |
+        <a asp-controller="SaleEvent" asp-action="Index">Back to Index</a>
+    </p>
+</form>
+
+
