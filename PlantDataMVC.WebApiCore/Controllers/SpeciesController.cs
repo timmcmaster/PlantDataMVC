@@ -37,13 +37,13 @@ namespace PlantDataMVC.WebApiCore.Controllers
         // GET: api/Species
         [HttpGet]
         [Route("", Name = "SpeciesList")]
-        [Route("Genus/{genusId}/Species", Name = "SpeciesByGenus")]
+        [Route("~/api/Genus/{genusId}/Species", Name = "SpeciesByGenus")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
             [FromQuery] DataShapingParameters dsParams,
             [FromQuery] PagingParameters pgParams,
             [FromQuery] SortingParameters sortParams,
-            [FromQuery] int? genusId = null,
+            int? genusId = null,
             [FromQuery] bool? native = null,
             [FromQuery] string? specificName = null)
         {
