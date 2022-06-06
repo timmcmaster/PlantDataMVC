@@ -15,7 +15,7 @@
             <label asp-for="PlantStockId"></label>
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.PlantStockId)
+            @Html.DisplayFor(model => model.PlantStockId)
             <span asp-validation-for="PlantStockId"></span>
         </div>
 
@@ -52,7 +52,12 @@
             <label asp-for="SeedTrayId"></label>
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.SeedTrayId)
+            @Html.QueryDropDownFor(
+                () => nameof(Model.SeedTrayId),
+                model => model.SeedTrayId,
+                new ListQuery<SeedTrayDto>(),
+                p => p.Id,
+                p => $"{p.Id}, {p.DatePlanted}")
             <span asp-validation-for="SeedTrayId"></span>
         </div>
 

@@ -274,7 +274,7 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dto => dto.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
                 .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dto => dto.Source))
-                .ForMember(uio => uio.TransactionTypeId, opt => opt.Ignore());   // TODO: Map transaction type in transaction object
+                .ForMember(uio => uio.TransactionTypeId, opt => opt.MapFrom(dto => dto.JournalEntryTypeId));
 
             CreateMap<JournalEntryDto, Transaction.TransactionListViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
@@ -290,7 +290,7 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dto => dto.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dto => dto.TransactionDate))
                 .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dto => dto.Source))
-                .ForMember(uio => uio.TransactionTypeId, opt => opt.Ignore());   // TODO: Map transaction type in transaction object
+                .ForMember(uio => uio.TransactionTypeId, opt => opt.MapFrom(dto => dto.JournalEntryTypeId));
         }
 
         private void ConfigureSeedTrayViewModels()
