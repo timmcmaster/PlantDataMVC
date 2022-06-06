@@ -212,7 +212,7 @@ namespace PlantDataMVC.UICore.Mappers
 
             CreateMap<PlantStockDto, PlantStock.PlantStockEditViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
-                .ForMember(uio => uio.ProductTypeId, opt => opt.Ignore())         // TODO: Map product type in plant stock object
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dto => dto.ProductTypeId))
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
                 .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
