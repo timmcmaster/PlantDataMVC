@@ -59,6 +59,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 var context = _service.Queryable();
 
+                // TODO: Need to identify if sort field from DTO is in entity or not
+                //       to determine if we can sort on projection or need to sort after list is materialised
+
                 /*
                 // Without DelegateDecompiler, we can't use ProjectTo due to calculated field in Species
                 // Less optimal solution means evaluating query then converting list back to queryable

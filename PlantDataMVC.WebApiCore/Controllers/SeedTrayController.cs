@@ -64,6 +64,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 //    .ApplySort(sort)
                 //    .ToList();
 
+                // TODO: Need to identify if sort field from DTO is in entity or not
+                //       to determine if we can sort on projection or need to sort after list is materialised
+
                 var dtos = _mapper
                            .ProjectTo<SeedTrayDto>(context, childDtosToInclude.ToArray())
                            .ApplySort(sortParams.Sort)

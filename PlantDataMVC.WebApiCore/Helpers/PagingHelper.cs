@@ -10,9 +10,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
 {
     public static class PagingHelper
     {
-        public static IHeaderDictionary GetPaginationHeaders(IUrlHelper urlHelper, int sourceCount,
-                                                                  string routeName,
-                                                                  object routeValues, int page, int pageSize)
+        public static IHeaderDictionary GetPaginationHeaders(IUrlHelper urlHelper, int sourceCount, string routeName, object routeValues, int page, int pageSize)
         {
             const string linkHeaderTemplate = "<{0}>; rel=\"{1}\"";
 

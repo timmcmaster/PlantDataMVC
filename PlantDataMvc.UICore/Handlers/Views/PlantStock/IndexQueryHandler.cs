@@ -92,7 +92,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
             }
             else if (querySortBy == nameof(PlantStockListViewModel.SpeciesBinomial))
             {
-                sortField = ""; // TODO: solve problem of sort by species binomial
+                sortField = nameof(PlantStockDto.SpeciesBinomial); // TODO: solve problem of sort by species binomial (calculated field)
             }
             else if (querySortBy == nameof(PlantStockListViewModel.SpeciesId))
             {

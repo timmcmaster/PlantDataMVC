@@ -55,6 +55,9 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 var context = _service.Queryable();
 
+                // TODO: Need to identify if sort field from DTO is in entity or not
+                //       to determine if we can sort on projection or need to sort after list is materialised
+
                 var dtos = _mapper
                            .ProjectTo<JournalEntryTypeDto>(context, childDtosToInclude.ToArray())
                            .ApplySort(sortParams.Sort);

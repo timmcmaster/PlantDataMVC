@@ -50,8 +50,8 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
                 LinkHeader linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
                 var dtoList = JsonConvert.DeserializeObject<IEnumerable<SeedBatchDto>>(content);
-                List<SeedBatchListViewModel> modelList =
-                    _mapper.Map<IEnumerable<SeedBatchDto>, List<SeedBatchListViewModel>>(dtoList);
+
+                List<SeedBatchListViewModel> modelList = _mapper.Map<IEnumerable<SeedBatchDto>, List<SeedBatchListViewModel>>(dtoList);
 
                 var model = new ListViewModelStatic<SeedBatchListViewModel>(
                     modelList, apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount, query.SortBy,
@@ -89,11 +89,11 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
             }
             else if (querySortBy == nameof(SeedBatchListViewModel.SiteName))
             {
-                sortField = ""; // TODO: solve problem of sort by site name
+                sortField = nameof(SeedBatchDto.SiteName); // TODO: solve problem of sort by site name
             }
             else if (querySortBy == nameof(SeedBatchListViewModel.SpeciesBinomial))
             {
-                sortField = nameof(SeedBatchDto.SpeciesBinomial);
+                sortField = nameof(SeedBatchDto.SpeciesBinomial); // TODO: solve problem of sort by species binomial
             }
             else if (querySortBy == nameof(SeedBatchListViewModel.SpeciesId))
             {
