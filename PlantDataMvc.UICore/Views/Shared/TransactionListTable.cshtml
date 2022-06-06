@@ -6,9 +6,9 @@
 }
 <table class="grid">
     <tr>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.Id)</th>
+@*        <th>@Html.ColumnHeaderFor(m => sampleElement.Id)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.PlantStockId)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.TransactionTypeName)</th>
+*@        <th>@Html.ColumnHeaderFor(m => sampleElement.TransactionTypeName)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.TransactionDate)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.Quantity)</th>
         <th></th>
@@ -19,9 +19,9 @@
 int count = 0;
 foreach (var entry in Model) {
     <tr>
-        <td>@Html.DisplayFor(m => m.ElementAt(count).Id)</td>
+@*        <td>@Html.DisplayFor(m => m.ElementAt(count).Id)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).PlantStockId)</td>
-        <td>@Html.DisplayFor(m => m.ElementAt(count).TransactionTypeName)</td>
+*@        <td>@Html.DisplayFor(m => m.ElementAt(count).TransactionTypeName)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).TransactionDate)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).Quantity)</td>
         <td><a asp-controller="Transaction" asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
