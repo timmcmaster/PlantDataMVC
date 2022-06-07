@@ -9,6 +9,7 @@ using PlantStock = PlantDataMVC.UICore.Models.ViewModels.PlantStock;
 using Site = PlantDataMVC.UICore.Models.ViewModels.Site;
 using Transaction = PlantDataMVC.UICore.Models.ViewModels.Transaction;
 using SaleEvent = PlantDataMVC.UICore.Models.ViewModels.SaleEvent;
+using PlantDataMVC.DTO.DomainFunctions;
 
 namespace PlantDataMVC.UICore.Mappers
 {
@@ -74,7 +75,7 @@ namespace PlantDataMVC.UICore.Mappers
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
                .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => dto.GenusName))
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
-               .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => dto.Binomial))        
+               .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpecificName)))
                .ForMember(uio => uio.Native, opt => opt.MapFrom(dto => dto.Native))
                .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dto => dto.PropagationTime))
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
@@ -89,7 +90,7 @@ namespace PlantDataMVC.UICore.Mappers
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
             CreateMap<SpeciesDto, Plant.PlantListViewModel>()
-               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => dto.Binomial))
+               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpecificName)))
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id));
 
@@ -102,7 +103,7 @@ namespace PlantDataMVC.UICore.Mappers
                .ForMember(uio => uio.Species, opt => opt.MapFrom(dto => dto.SpecificName));
 
             CreateMap<SpeciesDto, Plant.PlantShowViewModel>()
-               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => dto.Binomial))
+               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpecificName)))
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dto => dto.CommonName))
                .ForMember(uio => uio.Description, opt => opt.MapFrom(dto => dto.Description))
                .ForMember(uio => uio.Genus, opt => opt.MapFrom(dto => dto.GenusName))
@@ -123,7 +124,7 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dto => dto.SiteId))
                 .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => dto.SiteName))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial));
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpeciesName)));
 
             CreateMap<SeedBatchDto, SeedBatchEditViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dto => dto.DateCollected))
@@ -133,7 +134,7 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dto => dto.SiteId))
                 .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => dto.SiteName))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial));
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpeciesName)));
 
             CreateMap<SeedBatchDto, SeedBatchListViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dto => dto.DateCollected))
@@ -141,7 +142,7 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dto => dto.Location))
                 .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => dto.SiteName))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial));
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpeciesName)));
 
             CreateMap<SeedBatchDto, SeedBatchNewViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dto => dto.DateCollected))
@@ -158,7 +159,7 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dto => dto.SiteId))
                 .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dto => dto.SiteName))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial));
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpeciesName)));
         }
 
         private void ConfigureSiteViewModels()
@@ -206,7 +207,7 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => dto.ProductTypeName))
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpeciesName)))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
                 // TODO: What about ProductTypeId from dto?
 
@@ -214,15 +215,15 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dto => dto.ProductTypeId))
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpeciesName)))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
-                // TODO: What about ProductTypeId from dto?
+                // TODO: What about ProductTypeName from dto?
 
             CreateMap<PlantStockDto, PlantStock.PlantStockListViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => dto.ProductTypeName))
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpeciesName)))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
             // TODO: What about ProductTypeId from dto?
 
@@ -231,13 +232,13 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(uio => uio.ProductTypeId, opt => opt.Ignore())   // TODO: Map product type in plant stock object
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock));
                 // TODO: What about SpeciesId from dto?
-                // TODO: What about ProductTypeId from dto?
+                // TODO: What about ProductTypeName from dto?
 
             CreateMap<PlantStockDto, PlantStock.PlantStockShowViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => dto.ProductTypeName))
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpeciesName)))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId));
             // TODO: What about ProductTypeId from dto?
 
@@ -246,10 +247,10 @@ namespace PlantDataMVC.UICore.Mappers
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dto => dto.Id))
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dto => dto.ProductTypeName))
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dto => dto.QuantityInStock))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => dto.SpeciesBinomial))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dto => SpeciesFunctions.GetBinomial(dto.GenusName, dto.SpeciesName)))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId))
-                .ForMember(uio => uio.Transactions, opt => opt.MapFrom(dto => dto.JournalEntries))
-                ;
+                .ForMember(uio => uio.Transactions, opt => opt.MapFrom(dto => dto.JournalEntries));
+            // TODO: What about ProductTypeId from dto?
 
         }
 

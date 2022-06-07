@@ -83,8 +83,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
             }
             else if (querySortBy == nameof(PlantStockListViewModel.ProductTypeName))
             {
-                sortField = ""; // TODO: solve problem of sort by product type
-                //sortField = nameof(PlantStockDto.ProductTypeId);
+                sortField = nameof(PlantStockDto.ProductTypeName); // TODO: solve problem of sort by product type
             }
             else if (querySortBy == nameof(PlantStockListViewModel.QuantityInStock))
             {
@@ -92,7 +91,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
             }
             else if (querySortBy == nameof(PlantStockListViewModel.SpeciesBinomial))
             {
-                sortField = nameof(PlantStockDto.SpeciesBinomial); // TODO: solve problem of sort by species binomial (calculated field)
+                sortField = ""; // nameof(PlantStockDto.SpeciesBinomial); // TODO: solve problem of sort by species binomial (calculated field)
             }
             else if (querySortBy == nameof(PlantStockListViewModel.SpeciesId))
             {

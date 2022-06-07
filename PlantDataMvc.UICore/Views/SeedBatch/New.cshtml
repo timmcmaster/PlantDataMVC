@@ -20,7 +20,7 @@
                 model => model.SpeciesId,
                 new ListQuery<SpeciesDto>(),
                 p => p.Id,
-                p => p.Binomial)
+                p => PlantDataMVC.DTO.DomainFunctions.SpeciesFunctions.GetBinomial(p.GenusName, p.SpecificName))
             <span asp-validation-for="SpeciesId"></span>
         </div>
 

@@ -51,7 +51,6 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(dto => dto.GenusId, opt => opt.MapFrom(e => e.GenusId)) // explicit and unnecessary
                 .ForMember(dto => dto.GenusName, opt => opt.MapFrom(e => e.Genus.LatinName))
                 .ForMember(dto => dto.SpecificName, opt => opt.MapFrom(e => e.SpecificName)) // explicit and unnecessary
-                .ForMember(dto => dto.Binomial, opt => opt.Ignore()) // explicit and unnecessary
                 .ForMember(dto => dto.CommonName, opt => opt.MapFrom(e => e.CommonName)) // explicit and unnecessary
                 .ForMember(dto => dto.Description, opt => opt.MapFrom(e => e.Description)) // explicit and unnecessary
                 .ForMember(dto => dto.Native, opt => opt.MapFrom(e => e.Native)) // explicit and unnecessary
@@ -83,7 +82,6 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(e => e.SpeciesId)) // explicit and unnecessary
                 .ForMember(dto => dto.GenusName, opt => opt.MapFrom(e => e.Species.Genus.LatinName))
                 .ForMember(dto => dto.SpeciesName, opt => opt.MapFrom(e => e.Species.SpecificName))
-                .ForMember(dto => dto.SpeciesBinomial, opt => opt.Ignore())
                 .ForMember(dto => dto.DateCollected, opt => opt.MapFrom(e => e.DateCollected)) // explicit and unnecessary
                 .ForMember(dto => dto.Location, opt => opt.MapFrom(e => e.Location)) // explicit and unnecessary
                 .ForMember(dto => dto.Notes, opt => opt.MapFrom(e => e.Notes)) // explicit and unnecessary
@@ -121,7 +119,6 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(dto => dto.SpeciesId, opt => opt.MapFrom(e => e.SpeciesId)) // explicit and unnecessary
                 .ForMember(dto => dto.GenusName, opt => opt.MapFrom(e => e.Species.Genus.LatinName))
                 .ForMember(dto => dto.SpeciesName, opt => opt.MapFrom(e => e.Species.SpecificName))
-                .ForMember(dto => dto.SpeciesBinomial, opt => opt.Ignore()) // TODO: Check if we should map species binomial
                 .ForMember(dto => dto.ProductTypeId, opt => opt.MapFrom(e => e.ProductTypeId)) // explicit and unnecessary
                 .ForMember(dto => dto.ProductTypeName, opt => opt.MapFrom(e => e.ProductType.Name))
                 .ForMember(dto => dto.QuantityInStock, opt => opt.MapFrom(e => e.QuantityInStock)) // explicit and unnecessary

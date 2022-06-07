@@ -9,13 +9,6 @@ namespace PlantDataMVC.DTO.Dtos
         public int SpeciesId { get; set; }
         public string GenusName { get; set; }
         public string SpeciesName { get; set; }
-        public string SpeciesBinomial
-        {
-            get
-            {
-                return SpeciesFunctions.GetBinomial(GenusName, SpeciesName);
-            }
-        }
         public int ProductTypeId { get; set; }
         public string ProductTypeName { get; set; }
         public int QuantityInStock { get; set; }

@@ -68,7 +68,7 @@ namespace Framework.Domain.EF
         /// <returns></returns>
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class, IEntity
         {
-            // TODO: Effectively servicelocator pattern - can I do it better
+            // TODO: Effectively servicelocator pattern - can I do it better?
             IRepository<TEntity> repo = _serviceProvider.GetService<IRepository<TEntity>>();
             
             return repo ?? RepositoryAsync<TEntity>();
@@ -76,7 +76,7 @@ namespace Framework.Domain.EF
 
         public IRepositoryAsync<TEntity> RepositoryAsync<TEntity>() where TEntity : class, IEntity
         {
-            // TODO: Effectively servicelocator pattern - can I do it better
+            // TODO: Effectively servicelocator pattern - can I do it better?
             IRepositoryAsync<TEntity> repo = _serviceProvider.GetService<IRepositoryAsync<TEntity>>();
 
             if (repo != null)
