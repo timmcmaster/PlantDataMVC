@@ -71,7 +71,7 @@ namespace PlantDataMVC.WebApiCore.Tests.UnitTests
         [Fact]
         public void TestGetRelatedObjects()
         {
-            var relatedObjs = DataShaping.GetRelatedDtoPropInfos<SpeciesDto>();
+            var relatedObjs = DataShaping.GetRelatedDtoProperties<SpeciesDto>();
         }
     }
 }

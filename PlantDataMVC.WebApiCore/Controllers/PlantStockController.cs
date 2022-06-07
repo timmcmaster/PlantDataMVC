@@ -3,6 +3,7 @@ using Interfaces.Domain.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.Entities.Models;
@@ -12,6 +13,7 @@ using PlantDataMVC.WebApiCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 
 namespace PlantDataMVC.WebApiCore.Controllers
 {
@@ -128,10 +130,16 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 {
                     try
                     {
-                        item = _service.Query(s => s.Id == id).Include(p => p.JournalEntries).Select().Single();
+                        item = _service
+                            .Queryable()
+                            .Include(p => p.Species).ThenInclude(m => m.Genus)
+                            .Include(p => p.ProductType)
+                            .Include(p => p.JournalEntries)
+                            .Where(s => s.Id == id)
+                            //.Select()
+                            .Single();
                     }
-                    catch (InvalidOperationException
-                    ) // thrown by single if more than one element, no elements, or empty list
+                    catch (InvalidOperationException) // thrown by single if more than one element, no elements, or empty list
                     {
                         // treat as a not found result
                         item = null;

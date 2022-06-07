@@ -9,6 +9,8 @@ namespace PlantDataMVC.WebApiCore.Helpers
 {
     public static class DataShaping
     {
+        // Simplification in progress, referring to https://code-maze.com/data-shaping-aspnet-core-webapi/
+
         /// <summary>
         ///     Creates the data shaped object.
         /// </summary>
@@ -26,26 +28,27 @@ namespace PlantDataMVC.WebApiCore.Helpers
                 return mainDto;
             }
 
-            // Get PropertyInfo objects of child DTOs or collections for given type of Dto
-            var dtoPropInfos = GetRelatedDtoPropInfos<TDto>();
+            var mainDtoProperties = typeof(TDto).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+
+            // Get PropertyInfo objects describing child DTOs or DTO collections for current main Dto
+            var propertiesUsingDto = mainDtoProperties.WhereUsingDto();
 
             // create a new ExpandoObject & dynamically create the properties for this object
             var objectToReturn = new ExpandoObject();
 
             // Determine fields for each specific child object
-            foreach (var propInfo in dtoPropInfos)
+            foreach (var propertyUsingDto in propertiesUsingDto)
             {
                 // get fields for just this object (start with property name)
-                var childDtoFields =
-                    fieldsToWorkWith.Where(f => f.ToLower().StartsWith(propInfo.Name.ToLower())).ToList();
+                var childDtoFields = fieldsToWorkWith.Where(f => f.ToLower().StartsWith(propertyUsingDto.Name.ToLower())).ToList();
 
                 // if fields contains name of full child object, return full object by keeping property in main list
-                var returnFullObject = childDtoFields.Any(f => f.ToLower().Equals(propInfo.Name.ToLower()));
+                var returnFullObject = childDtoFields.Any(f => f.ToLower().Equals(propertyUsingDto.Name.ToLower()));
 
                 if (returnFullObject)
                 {
                     // Remove all fields but full object from main list
-                    var fullDtoField = childDtoFields.Where(f => f.ToLower().Equals(propInfo.Name.ToLower())).ToList();
+                    var fullDtoField = childDtoFields.Where(f => f.ToLower().Equals(propertyUsingDto.Name.ToLower())).ToList();
                     childDtoFields = childDtoFields.Except(fullDtoField).ToList();
                     fieldsToWorkWith.RemoveItems(childDtoFields);
                 }
@@ -58,7 +61,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
                     childDtoFields = childDtoFields.Select(f => f.Substring(f.IndexOf(".") + 1)).ToList();
 
                     // Get DTO for child object or collection
-                    if (propInfo.GetValue(mainDto, null) is IEnumerable<IDto> dtoCollection)
+                    if (propertyUsingDto.GetValue(mainDto, null) is IEnumerable<IDto> dtoCollection)
                     {
                         var outputCollection = new List<object>();
 
@@ -69,16 +72,16 @@ namespace PlantDataMVC.WebApiCore.Helpers
                             outputCollection.Add(childShapedObject);
                         }
 
-                        ((IDictionary<string, object>) objectToReturn).Add(propInfo.Name, outputCollection);
+                        ((IDictionary<string, object>) objectToReturn).Add(propertyUsingDto.Name, outputCollection);
                     }
-                    else if (propInfo.GetValue(mainDto, null) is IDto)
+                    else if (propertyUsingDto.GetValue(mainDto, null) is IDto)
                     {
-                        var childDto = propInfo.GetValue(mainDto, null) as IDto;
+                        var childDto = propertyUsingDto.GetValue(mainDto, null) as IDto;
 
                         // Create data shaped object for child and add to corresponding collection for this object
                         var childShapedObject = CreateDataShapedObject(childDto, childDtoFields);
 
-                        ((IDictionary<string, object>) objectToReturn).Add(propInfo.Name, childShapedObject);
+                        ((IDictionary<string, object>) objectToReturn).Add(propertyUsingDto.Name, childShapedObject);
                     }
                 }
             }
@@ -111,7 +114,12 @@ namespace PlantDataMVC.WebApiCore.Helpers
         /// <returns></returns>
         public static List<string> GetIncludedObjectNames<TDto>(List<string> lstOfFields) where TDto : IDto
         {
-            var dtoNames = GetRelatedDtoPropInfos<TDto>().Select(p => p.Name);
+            var mainDtoProperties = typeof(TDto).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+
+            // Get PropertyInfo objects describing child DTOs or DTO collections for current main Dto
+            var propertiesUsingDto = mainDtoProperties.WhereUsingDto();
+
+            var dtoNames = propertiesUsingDto.Select(p => p.Name);
 
             var childObjectsToInclude = new List<string>();
 
@@ -131,36 +139,29 @@ namespace PlantDataMVC.WebApiCore.Helpers
         ///     Gets the child objects to include
         /// </summary>
         /// <returns></returns>
-        public static List<PropertyInfo> GetRelatedDtoPropInfos<TDto>() where TDto : IDto
+        private static List<PropertyInfo> WhereUsingDto(this IEnumerable<PropertyInfo> properties)
         {
-            var relatedDtoObjects = new List<PropertyInfo>();
+            return properties.Where(pi => typeof(IDto).IsAssignableFrom(pi.PropertyType) || IsDtoEnumerable(pi.PropertyType);
+        }
 
-            // Scan all properties and get those which implement IDto or ICollection of IDto
-            var fieldType = typeof(TDto);
-
-            foreach (var propInfo in fieldType.GetProperties())
+        private static IEnumerable<PropertyInfo> GetRequiredProperties(IEnumerable<string> fields)
+        {
+            foreach (var field in fields)
             {
-                // if property implements IDto
-                if (typeof(IDto).IsAssignableFrom(propInfo.PropertyType))
-                {
-                    relatedDtoObjects.Add(propInfo);
-                }
+                // need to include public and instance, b/c specifying a binding flag overwrites the
+                // already-existing binding flags.
+                var fieldPropInfo = mainDto.GetType().GetProperty(field,
+                                                                  BindingFlags.IgnoreCase | BindingFlags.Public |
+                                                                  BindingFlags.Instance);
 
-                // if property is IEnumerable of type that implements IDto
-                bool IsDtoEnumerable(Type t)
-                {
-                    return t.IsGenericType &&
-                           t.GetInterface(typeof(IEnumerable<>).FullName) != null &&
-                           t.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a));
-                }
-
-                if (IsDtoEnumerable(propInfo.PropertyType))
-                {
-                    relatedDtoObjects.Add(propInfo);
-                }
             }
-
-            return relatedDtoObjects;
+        }
+            // if property is IEnumerable of type that implements IDto
+            private static bool IsDtoEnumerable(Type t)
+        {
+            return t.IsGenericType &&
+                   t.GetInterface(typeof(IEnumerable<>).FullName) != null &&
+                   t.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a));
         }
     }
 }
