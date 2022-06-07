@@ -28,22 +28,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
                 return mainDto;
             }
 
-            // Trim the field list to remove any fields that are redundant
-            fieldsToWorkWith = GetTrimmedFieldList(fieldsToWorkWith);
-
             var mainDtoProperties = typeof(TDto).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-
-
-            // Get Properties from main Dto
-            var requiredProperties = GetRequiredProperties(mainDtoProperties, fieldsToWorkWith);
-
-            // Get values
-            var shapedObject = FetchDataForEntity(mainDto, requiredProperties);
-
-            return shapedObject;
-
-
-            // Child Dto/collection handling
 
             // Get PropertyInfo objects describing child DTOs or DTO collections for current main Dto
             var propertiesUsingDto = mainDtoProperties.WhereUsingDto();
@@ -101,54 +86,24 @@ namespace PlantDataMVC.WebApiCore.Helpers
                 }
             }
 
-
-
-
-        }
-
-        private static List<string> GetTrimmedFieldList(List<string> fieldList)
-        {
-            // Take a new copy of fields to manipulate
-            var trimmedFieldList = new List<string>(fieldList);
-
-            // Trim the field list (which allows for shaping sub-objects)
-            // so that if we have an item for the entire object, ignore items for individual fields of that object
-            var objectPropertyFields = trimmedFieldList.Where(s => s.Contains('.'));
-            var fullObjectFields = trimmedFieldList.Where(s => !s.Contains('.'));
-
-            if (!objectPropertyFields.Any())
+            foreach (var field in fieldsToWorkWith)
             {
-                return trimmedFieldList;
-            }
-            else
-            {
-                foreach (var fullObjectField in fullObjectFields) 
+                // need to include public and instance, b/c specifying a binding flag overwrites the
+                // already-existing binding flags.
+                var fieldPropInfo = mainDto.GetType().GetProperty(field,
+                                                                  BindingFlags.IgnoreCase | BindingFlags.Public |
+                                                                  BindingFlags.Instance);
+
+                if (fieldPropInfo != null)
                 {
-                    // Get any property fields for this object
-                    var myObjectPropertyFields = objectPropertyFields.Where(f => f.ToLower().StartsWith($"{fullObjectField.ToLower()}.")).ToList(); 
-                    // if any, remove from list
-                    if (myObjectPropertyFields.Any())
-                    {
-                        trimmedFieldList.RemoveItems(myObjectPropertyFields);
-                    }
+                    var fieldValue = fieldPropInfo.GetValue(mainDto, null);
+
+                    // add the field to the ExpandoObject with the actual property name from the object
+                    ((IDictionary<string, object>) objectToReturn).Add(fieldPropInfo.Name, fieldValue);
                 }
             }
 
-            return trimmedFieldList;
-        }
-        private static ExpandoObject FetchDataForEntity<TDto>(TDto entity, IEnumerable<PropertyInfo> requiredProperties) where TDto : IDto
-        {
-            var shapedObject = new ExpandoObject();
-
-            foreach (var property in requiredProperties)
-            {
-                var propertyValue = property.GetValue(entity, null);
-
-                // add the field to the ExpandoObject with the actual property name from the object
-                ((IDictionary<string, object>)shapedObject).Add(property.Name, propertyValue);
-            }
-
-            return shapedObject;
+            return objectToReturn;
         }
 
         /// <summary>
@@ -184,31 +139,25 @@ namespace PlantDataMVC.WebApiCore.Helpers
         ///     Gets the child objects to include
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<PropertyInfo> WhereUsingDto(this IEnumerable<PropertyInfo> properties)
+        private static List<PropertyInfo> WhereUsingDto(this IEnumerable<PropertyInfo> properties)
         {
-            return properties.Where(pi => typeof(IDto).IsAssignableFrom(pi.PropertyType) || IsDtoEnumerable(pi.PropertyType));
+            return properties.Where(pi => typeof(IDto).IsAssignableFrom(pi.PropertyType) || IsDtoEnumerable(pi.PropertyType);
         }
 
-        private static IEnumerable<PropertyInfo> GetRequiredProperties(IEnumerable<PropertyInfo> mainDtoProperties, IEnumerable<string> fieldsToWorkWith)
+        private static IEnumerable<PropertyInfo> GetRequiredProperties(IEnumerable<string> fields)
         {
-            // Get Properties 
-            var requiredProperties = new List<PropertyInfo>();
-
-            foreach (var field in fieldsToWorkWith)
+            foreach (var field in fields)
             {
-                var property = mainDtoProperties.FirstOrDefault(pi => pi.Name == field);
-                if (property != null)
-                {
-                    requiredProperties.Add(property);
-                }
-            }
+                // need to include public and instance, b/c specifying a binding flag overwrites the
+                // already-existing binding flags.
+                var fieldPropInfo = mainDto.GetType().GetProperty(field,
+                                                                  BindingFlags.IgnoreCase | BindingFlags.Public |
+                                                                  BindingFlags.Instance);
 
-            return requiredProperties;
+            }
         }
- 
-        
-        // if property is IEnumerable of type that implements IDto
-        private static bool IsDtoEnumerable(Type t)
+            // if property is IEnumerable of type that implements IDto
+            private static bool IsDtoEnumerable(Type t)
         {
             return t.IsGenericType &&
                    t.GetInterface(typeof(IEnumerable<>).FullName) != null &&
