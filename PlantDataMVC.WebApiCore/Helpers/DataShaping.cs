@@ -31,6 +31,29 @@ namespace PlantDataMVC.WebApiCore.Helpers
             // Trim the field list to remove any fields that are redundant
             fieldsToWorkWith = GetTrimmedFieldList(fieldsToWorkWith);
 
+            // Convert field list to tree
+            var rootNode = new TreeNode<string>("root");
+            foreach (var field in fieldsToWorkWith)
+            {
+                var levels = field.Split('.');
+                var node = rootNode;
+
+                for(int i=0; i < levels.Length; i++)
+                {
+                    if (string.IsNullOrEmpty(levels[i]))
+                        break;
+                    // get node matching field
+                    var childNode = node.Children.FirstOrDefault(n => n.Value == levels[i]);
+                    // or add it
+                    node = childNode ?? node.AddChild(levels[i]);
+                }
+            }
+
+
+
+
+
+
             var mainDtoProperties = typeof(TDto).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
 
@@ -104,6 +127,32 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
 
 
+        }
+
+        private static TreeNode<string> GetFieldTree(List<string> fieldList)
+        {
+            // Trim the field list to remove any fields that are redundant
+            var trimmedFields = GetTrimmedFieldList(fieldList);
+
+            // Convert field list to tree
+            var rootNode = new TreeNode<string>("root");
+            foreach (var field in trimmedFields)
+            {
+                var levels = field.Split('.');
+                var node = rootNode;
+
+                for (int i = 0; i < levels.Length; i++)
+                {
+                    if (string.IsNullOrEmpty(levels[i]))
+                        break;
+                    // get node matching field
+                    var childNode = node.Children.FirstOrDefault(n => n.Value == levels[i]);
+                    // or add it
+                    node = childNode ?? node.AddChild(levels[i]);
+                }
+            }
+
+            return rootNode;
         }
 
         private static List<string> GetTrimmedFieldList(List<string> fieldList)
