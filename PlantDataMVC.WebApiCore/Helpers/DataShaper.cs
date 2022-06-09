@@ -7,8 +7,31 @@ using PlantDataMVC.DTO;
 
 namespace PlantDataMVC.WebApiCore.Helpers
 {
-    public static class DataShaping
+    public interface IDataShaper<TDto>
     {
+        IEnumerable<ExpandoObject> ShapeData(IEnumerable<TDto> dtos, List<string> fieldList);
+        ExpandoObject ShapeData(TDto dto, List<string> fieldList);
+    }
+
+    public class DataShaper<TDto> : IDataShaper<TDto>
+    {
+        public PropertyInfo[] Properties { get; set; }
+
+        public DataShaper()
+        {
+            Properties = typeof(TDto).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+        }
+
+        public IEnumerable<ExpandoObject> ShapeData(IEnumerable<TDto> dtos, List<string> fieldList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ExpandoObject ShapeData(TDto dto, List<string> fieldList)
+        {
+            throw new NotImplementedException();
+        }
+    }
         // Simplification in progress, referring to https://code-maze.com/data-shaping-aspnet-core-webapi/
 
         /// <summary>
