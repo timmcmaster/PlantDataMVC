@@ -35,6 +35,9 @@ namespace PlantDataMVC.WebApiCore.Helpers
             get { return _children.AsReadOnly(); }
         }
 
+        public bool IsLeafNode => Children.Count == 0;
+
+
         public TreeNode<T> AddChild(T value)
         {
             var node = new TreeNode<T>(value) { Parent = this };
@@ -53,10 +56,10 @@ namespace PlantDataMVC.WebApiCore.Helpers
         }
 
 
-        // Preorder traversal (Parent first)
+        // Preorder traversal = Parent first, Inorder = children first
         public void Traverse(TraversalMode mode, Action<T> action)
         {
-            if (mode == TraversalMode.Preorder) 
+            if (mode == TraversalMode.Preorder)
                 action(Value);
 
             foreach (var child in _children)
@@ -64,7 +67,48 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
             if (mode == TraversalMode.Inorder)
                 action(Value);
+        }
 
+        public TreeNode<T> Clone()
+        {
+            var clone = CloneChildren(new TreeNode<T>(Value));
+
+            return clone;
+        }
+
+        private TreeNode<T> CloneChildren(TreeNode<T> cloneTo)
+        {
+            foreach (var child in _children)
+            {
+                var newChild = cloneTo.AddChild(child.Value);
+                if (!child.IsLeafNode)
+                {
+                    child.CloneChildren(newChild);
+                }
+            }
+
+            return cloneTo;
+        }
+
+        public TreeNode<U> CloneAndTransform<U>(Func<T, TreeNode<U>, U> dataFunction)
+        {
+            var clone = CloneAndTransformChildren(new TreeNode<U>(dataFunction(Value, null)), dataFunction);
+
+            return clone;
+        }
+
+        private TreeNode<U> CloneAndTransformChildren<U>(TreeNode<U> cloneTo, Func<T, TreeNode<U>, U> dataFunction)
+        {
+            foreach (var child in _children)
+            {
+                var newChild = cloneTo.AddChild(dataFunction(Value, cloneTo));
+                if (!child.IsLeafNode)
+                {
+                    child.CloneAndTransformChildren(newChild, dataFunction);
+                }
+            }
+
+            return cloneTo;
         }
 
         public IEnumerable<T> Flatten()

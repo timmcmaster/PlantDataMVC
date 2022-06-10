@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using PlantDataMVC.DTO;
 
 namespace PlantDataMVC.WebApiCore.Helpers
 {
+    public class PropertyData
+    { 
+        public Type Type { get; set; }
+
+        public PropertyInfo? PropertyInfo { get; set; }
+    }
+
     public static class DataShaping
     {
         // Simplification in progress, referring to https://code-maze.com/data-shaping-aspnet-core-webapi/
@@ -28,29 +36,8 @@ namespace PlantDataMVC.WebApiCore.Helpers
                 return mainDto;
             }
 
-            // Trim the field list to remove any fields that are redundant
-            fieldsToWorkWith = GetTrimmedFieldList(fieldsToWorkWith);
-
             // Convert field list to tree
-            var rootNode = new TreeNode<string>("root");
-            foreach (var field in fieldsToWorkWith)
-            {
-                var levels = field.Split('.');
-                var node = rootNode;
-
-                for(int i=0; i < levels.Length; i++)
-                {
-                    if (string.IsNullOrEmpty(levels[i]))
-                        break;
-                    // get node matching field
-                    var childNode = node.Children.FirstOrDefault(n => n.Value == levels[i]);
-                    // or add it
-                    node = childNode ?? node.AddChild(levels[i]);
-                }
-            }
-
-
-
+            var fieldNameTree = GetFieldTree(fieldList);
 
 
 
@@ -110,7 +97,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
                             outputCollection.Add(childShapedObject);
                         }
 
-                        ((IDictionary<string, object>) objectToReturn).Add(propertyUsingDto.Name, outputCollection);
+                        ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDto.Name, outputCollection);
                     }
                     else if (propertyUsingDto.GetValue(mainDto, null) is IDto)
                     {
@@ -119,7 +106,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
                         // Create data shaped object for child and add to corresponding collection for this object
                         var childShapedObject = CreateDataShapedObject(childDto, childDtoFields);
 
-                        ((IDictionary<string, object>) objectToReturn).Add(propertyUsingDto.Name, childShapedObject);
+                        ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDto.Name, childShapedObject);
                     }
                 }
             }
@@ -129,13 +116,37 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
         }
 
+        private static TreeNode<PropertyData> GetPropertyTree<TDto>(TDto startingObject, TreeNode<string> fieldNameTree)
+        {
+
+            // Traverse the field tree and provided the current node is a Dto or IEnumerable<dto>, add property definitions
+            var propertyTree = fieldNameTree.CloneAndTransform((field, parentPropertyNode) =>
+            {
+                var propertyData = new PropertyData() { Type = typeof(TDto) };
+
+                // blank field name = root node
+                if ((fieldNode.Value != "") && (parentPropertyNode?.Value?.Type != null))
+                {
+                    // find property by name
+                    var parentProperties = parentPropertyNode.Value.Type.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                    var property = parentProperties.FirstOrDefault(pi => pi.Name == fieldNode.Value);
+                    if (property != null)
+                    {
+                        // add PropertyInfo to new tree 
+                        propertyData = new PropertyData() { Type = property.PropertyType, PropertyInfo = property };
+                    }
+                }
+                return propertyData;
+            });
+        }
+
         private static TreeNode<string> GetFieldTree(List<string> fieldList)
         {
             // Trim the field list to remove any fields that are redundant
             var trimmedFields = GetTrimmedFieldList(fieldList);
 
             // Convert field list to tree
-            var rootNode = new TreeNode<string>("root");
+            var rootNode = new TreeNode<string>("");
             foreach (var field in trimmedFields)
             {
                 var levels = field.Split('.');
@@ -162,8 +173,8 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
             // Trim the field list (which allows for shaping sub-objects)
             // so that if we have an item for the entire object, ignore items for individual fields of that object
-            var objectPropertyFields = trimmedFieldList.Where(s => s.Contains('.'));
-            var fullObjectFields = trimmedFieldList.Where(s => !s.Contains('.'));
+            var objectPropertyFields = trimmedFieldList.Where(s => s.Contains('.')).ToList();
+            var fullObjectFields = trimmedFieldList.Where(s => !s.Contains('.')).ToList();
 
             if (!objectPropertyFields.Any())
             {
