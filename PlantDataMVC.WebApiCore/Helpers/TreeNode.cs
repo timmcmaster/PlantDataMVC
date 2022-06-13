@@ -101,7 +101,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
         {
             foreach (var child in _children)
             {
-                var newChild = cloneTo.AddChild(dataFunction(Value, cloneTo));
+                var newChild = cloneTo.AddChild(dataFunction(child.Value, cloneTo));
                 if (!child.IsLeafNode)
                 {
                     child.CloneAndTransformChildren(newChild, dataFunction);

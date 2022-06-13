@@ -10,7 +10,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
 {
     public class PropertyData
     { 
-        public Type Type { get; set; }
+        public Type? Type { get; set; }
 
         public PropertyInfo? PropertyInfo { get; set; }
     }
@@ -38,6 +38,20 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
             // Convert field list to tree
             var fieldNameTree = GetFieldTree(fieldList);
+
+            // Convert field tree to PropertyData tree
+            var propertyTree = GetPropertyTree<TDto>(fieldNameTree);
+
+            // Traverse tree to get data
+
+
+
+
+
+
+
+
+
 
 
 
@@ -116,28 +130,35 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
         }
 
-        private static TreeNode<PropertyData> GetPropertyTree<TDto>(TDto startingObject, TreeNode<string> fieldNameTree)
+        private static List<string> GetTrimmedFieldList(List<string> fieldList)
         {
+            // Take a new copy of fields to manipulate
+            var trimmedFieldList = new List<string>(fieldList);
 
-            // Traverse the field tree and provided the current node is a Dto or IEnumerable<dto>, add property definitions
-            var propertyTree = fieldNameTree.CloneAndTransform((field, parentPropertyNode) =>
+            // Trim the field list (which allows for shaping sub-objects)
+            // so that if we have an item for the entire object, ignore items for individual fields of that object
+            var objectPropertyFields = trimmedFieldList.Where(s => s.Contains('.')).ToList();
+            var fullObjectFields = trimmedFieldList.Where(s => !s.Contains('.')).ToList();
+
+            if (!objectPropertyFields.Any())
             {
-                var propertyData = new PropertyData() { Type = typeof(TDto) };
-
-                // blank field name = root node
-                if ((fieldNode.Value != "") && (parentPropertyNode?.Value?.Type != null))
+                return trimmedFieldList;
+            }
+            else
+            {
+                foreach (var fullObjectField in fullObjectFields)
                 {
-                    // find property by name
-                    var parentProperties = parentPropertyNode.Value.Type.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-                    var property = parentProperties.FirstOrDefault(pi => pi.Name == fieldNode.Value);
-                    if (property != null)
+                    // Get any property fields for this object
+                    var myObjectPropertyFields = objectPropertyFields.Where(f => f.ToLower().StartsWith($"{fullObjectField.ToLower()}.")).ToList();
+                    // if any, remove from list
+                    if (myObjectPropertyFields.Any())
                     {
-                        // add PropertyInfo to new tree 
-                        propertyData = new PropertyData() { Type = property.PropertyType, PropertyInfo = property };
+                        trimmedFieldList.RemoveItems(myObjectPropertyFields);
                     }
                 }
-                return propertyData;
-            });
+            }
+
+            return trimmedFieldList;
         }
 
         private static TreeNode<string> GetFieldTree(List<string> fieldList)
@@ -166,36 +187,31 @@ namespace PlantDataMVC.WebApiCore.Helpers
             return rootNode;
         }
 
-        private static List<string> GetTrimmedFieldList(List<string> fieldList)
+        private static TreeNode<PropertyData> GetPropertyTree<TDto>(TreeNode<string> fieldNameTree)
         {
-            // Take a new copy of fields to manipulate
-            var trimmedFieldList = new List<string>(fieldList);
-
-            // Trim the field list (which allows for shaping sub-objects)
-            // so that if we have an item for the entire object, ignore items for individual fields of that object
-            var objectPropertyFields = trimmedFieldList.Where(s => s.Contains('.')).ToList();
-            var fullObjectFields = trimmedFieldList.Where(s => !s.Contains('.')).ToList();
-
-            if (!objectPropertyFields.Any())
+            // Traverse the field tree and provided the current node is a Dto or IEnumerable<dto>, add property definitions
+            var propertyTree = fieldNameTree.CloneAndTransform<PropertyData>((field, parentPropertyNode) =>
             {
-                return trimmedFieldList;
-            }
-            else
-            {
-                foreach (var fullObjectField in fullObjectFields) 
+                var propertyData = new PropertyData() { Type = typeof(TDto) };
+
+                // blank field name = root node
+                if ((field != "") && (parentPropertyNode?.Value?.Type != null))
                 {
-                    // Get any property fields for this object
-                    var myObjectPropertyFields = objectPropertyFields.Where(f => f.ToLower().StartsWith($"{fullObjectField.ToLower()}.")).ToList(); 
-                    // if any, remove from list
-                    if (myObjectPropertyFields.Any())
+                    // find property by name
+                    var parentProperties = parentPropertyNode.Value.Type.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                    var property = parentProperties.FirstOrDefault(pi => pi.Name.ToLower() == field.ToLower());
+                    if (property != null)
                     {
-                        trimmedFieldList.RemoveItems(myObjectPropertyFields);
+                        // add PropertyInfo to new tree 
+                        propertyData = new PropertyData() { Type = property.PropertyType, PropertyInfo = property };
                     }
                 }
-            }
+                return propertyData;
+            });
 
-            return trimmedFieldList;
+            return propertyTree;
         }
+
         private static ExpandoObject FetchDataForEntity<TDto>(TDto entity, IEnumerable<PropertyInfo> requiredProperties) where TDto : IDto
         {
             var shapedObject = new ExpandoObject();
