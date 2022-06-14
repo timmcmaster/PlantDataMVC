@@ -69,6 +69,18 @@ namespace PlantDataMVC.WebApiCore.Helpers
                 action(Value);
         }
 
+        public void TraverseFn(TraversalMode mode, Action<TreeNode<T>,T> action)
+        {
+            if (mode == TraversalMode.Preorder)
+                action(this, Value);
+
+            foreach (var child in _children)
+                child.TraverseFn(mode, action);
+
+            if (mode == TraversalMode.Inorder)
+                action(this, Value);
+        }
+
         public TreeNode<T> Clone()
         {
             var clone = CloneChildren(new TreeNode<T>(Value));
