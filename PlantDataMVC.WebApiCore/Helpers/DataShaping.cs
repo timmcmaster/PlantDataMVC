@@ -235,6 +235,8 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
         private static TreeNode<PropertyData> GetPropertyTree<TDto>(TDto mainDto, TreeNode<string> fieldNameTree)
         {
+            // TODO: Issue here if Ienumerable<Dto> as the field names are for the elements, not the collection
+
             // Traverse the field tree and provided the current node is a Dto or IEnumerable<dto>, add property definitions
             var propertyTree = fieldNameTree.CloneAndTransform<PropertyData>((field, parentPropertyNode) =>
             {
@@ -258,6 +260,27 @@ namespace PlantDataMVC.WebApiCore.Helpers
             return propertyTree;
         }
 
+        private PropertyData ConvertFieldNameToProperty(string field, TreeNode<PropertyData> parentPropertyNode)
+        {
+            var propertyData = new PropertyData() { Type = typeof(TDto), Object = mainDto };
+
+            // blank field name = root node
+            if ((field != "") && (parentPropertyNode?.Value?.Type != null))
+            {
+                // find property by name
+                var parentProperties = parentPropertyNode.Value.Type.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                var property = parentProperties.FirstOrDefault(pi => pi.Name.ToLower() == field.ToLower());
+                if (property != null)
+                {
+                    // add PropertyInfo to new tree 
+                    propertyData = new PropertyData() { Type = property.PropertyType, PropertyInfo = property, Object = property.GetValue(parentPropertyNode.Value.Object) };
+                }
+            }
+            return propertyData;
+
+        }
+
+
         private static ExpandoObject FetchData<TDto>(TDto mainDto, TreeNode<string> startingFieldNode)
         {
             var shapedObject = new ExpandoObject();
@@ -266,7 +289,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
             {
                 // Get ALL node properties (except virtual ones?)
 
-                var propData = startingNode.Value;
+                var propData = startingFieldNode.Value;
                 // add object to expando
                 ((IDictionary<string, object>)shapedObject).Add(propData.PropertyInfo.Name, propData.Object);
             }

@@ -104,7 +104,8 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
         public TreeNode<U> CloneAndTransform<U>(Func<T, TreeNode<U>, U> dataFunction)
         {
-            var clone = CloneAndTransformChildren(new TreeNode<U>(dataFunction(Value, null)), dataFunction);
+            var newRootNode = new TreeNode<U>(dataFunction(Value, null));
+            var clone = CloneAndTransformChildren(newRootNode, dataFunction);
 
             return clone;
         }
