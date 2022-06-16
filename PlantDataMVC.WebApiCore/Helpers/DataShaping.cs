@@ -9,7 +9,11 @@ using PlantDataMVC.DTO;
 namespace PlantDataMVC.WebApiCore.Helpers
 {
     public class PropertyData
-    {
+    {   
+        public bool IsDto { get; set; }
+
+        public bool IsDtoCollection { get; set; }
+
         public Type? Type { get; set; }
 
         public object? Object { get; set; }
@@ -46,6 +50,8 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
             // Traverse tree to get data
             var dataShapedObject = new ExpandoObject();
+
+            return dataShapedObject;
 
             propertyTree.TraverseFn(TraversalMode.Inorder, (currentNode, propertyData) =>
             {
@@ -104,13 +110,13 @@ namespace PlantDataMVC.WebApiCore.Helpers
             var mainDtoProperties = typeof(TDto).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
 
-            // Get Properties from main Dto
-            var requiredProperties = GetRequiredProperties(mainDtoProperties, fieldsToWorkWith);
+            //// Get Properties from main Dto
+            //var requiredProperties = GetRequiredProperties(mainDtoProperties, fieldsToWorkWith);
 
             // Get values
-            var shapedObject = FetchDataForEntity(mainDto, requiredProperties);
+            //var shapedObject = FetchDataForEntity(mainDto, requiredProperties);
 
-            return shapedObject;
+            //return shapedObject;
 
 
             // Child Dto/collection handling
@@ -235,23 +241,52 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
         private static TreeNode<PropertyData> GetPropertyTree<TDto>(TDto mainDto, TreeNode<string> fieldNameTree)
         {
-            // TODO: Issue here if Ienumerable<Dto> as the field names are for the elements, not the collection
-
             // Traverse the field tree and provided the current node is a Dto or IEnumerable<dto>, add property definitions
             var propertyTree = fieldNameTree.CloneAndTransform<PropertyData>((field, parentPropertyNode) =>
             {
-                var propertyData = new PropertyData() { Type = typeof(TDto), Object = mainDto};
+                var propertyData = new PropertyData() { Type = typeof(TDto), Object = mainDto, IsDto = true, IsDtoCollection = false };
 
                 // blank field name = root node
                 if ((field != "") && (parentPropertyNode?.Value?.Type != null))
                 {
-                    // find property by name
-                    var parentProperties = parentPropertyNode.Value.Type.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-                    var property = parentProperties.FirstOrDefault(pi => pi.Name.ToLower() == field.ToLower());
-                    if (property != null)
+                    //var isDto = 
+                    var parentPropertyType = parentPropertyNode.Value.Type;
+                    // if type is Ienumerable<> where defined generic is of type IDto
+                    var iEnumerables = parentPropertyType.GetInterfaces().Where(
+                        i => i.IsGenericType
+                        && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+                    
+                    var iEnumerableOfIDto = iEnumerables.FirstOrDefault(
+                        i => i.GetGenericArguments().Count() == 1
+                        && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a)));
+
+                    // if parent is IEnumerable<IDto>
+                    if (iEnumerableOfIDto != null)
                     {
-                        // add PropertyInfo to new tree 
-                        propertyData = new PropertyData() { Type = property.PropertyType, PropertyInfo = property, Object = property.GetValue(parentPropertyNode.Value.Object) };
+                        // Property does not come from parent node but from elements of parent node collection
+                        var genericArgument = iEnumerableOfIDto.GetGenericArguments().First(a => typeof(IDto).IsAssignableFrom(a));
+                        var itemProperties = genericArgument.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                        var property = itemProperties.FirstOrDefault(pi => pi.Name.ToLower() == field.ToLower());
+                        if (property != null)
+                        {
+                            // add PropertyInfo to new tree 
+                            propertyData = new PropertyData() { 
+                                Type = property.PropertyType, 
+                                PropertyInfo = property 
+                                //, Object = property.GetValue(parentPropertyNode.Value.Object)
+                            };
+                        }
+                    }
+                    else
+                    {
+                        // find property by name
+                        var parentProperties = parentPropertyNode.Value.Type.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                        var property = parentProperties.FirstOrDefault(pi => pi.Name.ToLower() == field.ToLower());
+                        if (property != null)
+                        {
+                            // add PropertyInfo to new tree 
+                            propertyData = new PropertyData() { Type = property.PropertyType, PropertyInfo = property, Object = property.GetValue(parentPropertyNode.Value.Object) };
+                        }
                     }
                 }
                 return propertyData;
@@ -260,27 +295,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
             return propertyTree;
         }
 
-        private PropertyData ConvertFieldNameToProperty(string field, TreeNode<PropertyData> parentPropertyNode)
-        {
-            var propertyData = new PropertyData() { Type = typeof(TDto), Object = mainDto };
-
-            // blank field name = root node
-            if ((field != "") && (parentPropertyNode?.Value?.Type != null))
-            {
-                // find property by name
-                var parentProperties = parentPropertyNode.Value.Type.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-                var property = parentProperties.FirstOrDefault(pi => pi.Name.ToLower() == field.ToLower());
-                if (property != null)
-                {
-                    // add PropertyInfo to new tree 
-                    propertyData = new PropertyData() { Type = property.PropertyType, PropertyInfo = property, Object = property.GetValue(parentPropertyNode.Value.Object) };
-                }
-            }
-            return propertyData;
-
-        }
-
-
+/*
         private static ExpandoObject FetchData<TDto>(TDto mainDto, TreeNode<string> startingFieldNode)
         {
             var shapedObject = new ExpandoObject();
@@ -387,7 +402,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
             return shapedObject;
         }
-
+*/
         /// <summary>
         ///     Gets the included object names.
         /// </summary>
