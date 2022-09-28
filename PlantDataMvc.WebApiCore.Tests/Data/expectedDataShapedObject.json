@@ -1,0 +1,39 @@
+{
+	"SeedBatches": [
+		{
+			"DateCollected": "2016-01-30T00:00:00",
+			"Location": "Home"
+		},
+		{
+			"DateCollected": "2018-11-03T00:00:00",
+			"Location": "Grandchester"
+		},
+		{
+			"DateCollected": "2017-07-23T00:00:00",
+			"Location": "Tingalpa"
+		}
+	],
+	"CommonName": "Brisbane wattle",
+	"PlantStocks": [
+		{
+			"Id": 2,
+			"SpeciesId": 1,
+			"GenusName": null,
+			"SpeciesName": null,
+			"ProductTypeId": 1,
+			"ProductTypeName": null,
+			"QuantityInStock": 10,
+			"JournalEntries": null
+		},
+		{
+			"Id": 3,
+			"SpeciesId": 1,
+			"GenusName": null,
+			"SpeciesName": null,
+			"ProductTypeId": 2,
+			"ProductTypeName": null,
+			"QuantityInStock": 5,
+			"JournalEntries": null
+		}
+	]
+}

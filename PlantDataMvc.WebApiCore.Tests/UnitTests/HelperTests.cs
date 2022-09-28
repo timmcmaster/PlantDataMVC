@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using FluentAssertions;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.WebApiCore.Helpers;
 using Xunit;
@@ -60,12 +65,19 @@ namespace PlantDataMVC.WebApiCore.Tests.UnitTests
 
             var fieldList = fields.Split(',').ToList();
 
+            var expectedJson = LoadJson("expectedDataShapedObject.json");
+            var expected = JToken.Parse(expectedJson);
+
             // Act
+
+            //var dataShapedObject = DataShaping_Original.CreateDataShapedObject(species, fieldList);
             var dataShapedObject = DataShaping.CreateDataShapedObject(species, fieldList);
 
-            var x = JsonConvert.SerializeObject(dataShapedObject);
+            var actualJson = JsonConvert.SerializeObject(dataShapedObject);
+            var actual = JToken.Parse(actualJson);
 
             // Assert
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -73,5 +85,17 @@ namespace PlantDataMVC.WebApiCore.Tests.UnitTests
         {
             //var relatedObjs = DataShaping.GetRelatedDtoProperties<SpeciesDto>();
         }
+
+        private string LoadJson(string filename)
+        {
+            var path = Path.Combine(
+                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                "Resources",
+                filename);
+
+            return File.ReadAllText(path);
+        }
+
+
     }
 }
