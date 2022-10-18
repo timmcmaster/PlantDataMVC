@@ -47,7 +47,7 @@ namespace UnitTest.Utils.Domain
 
         public JournalEntryBuilder withId()
         {
-            _id = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
             return this;
         }
 
@@ -95,8 +95,8 @@ namespace UnitTest.Utils.Domain
 
         public JournalEntryBuilder withRandomValues()
         {
-            _id = CommonTestData.GeneratRandomInt();
-            _quantity = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
+            _quantity = CommonTestData.GenerateRandomInt();
             _source = CommonTestData.GenerateRandomString(30);
             _transactionDate = CommonTestData.GenerateRandomDateInThePast();
             _notes = CommonTestData.GenerateRandomString(100);

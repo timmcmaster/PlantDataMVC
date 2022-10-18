@@ -36,7 +36,7 @@ namespace UnitTest.Utils.Domain
 
         public ProductTypeBuilder withId()
         {
-            _id = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
             return this;
         }
 
@@ -48,7 +48,7 @@ namespace UnitTest.Utils.Domain
 
         public ProductTypeBuilder withRandomValues()
         {
-            _id = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
             _name = CommonTestData.GenerateRandomAlphabetString(10);
             return this;
         }

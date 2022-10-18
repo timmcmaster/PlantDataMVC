@@ -38,7 +38,7 @@ namespace UnitTest.Utils.Domain
 
         public PlantStockBuilder withId()
         {
-            _id = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
             return this;
         }
 
@@ -62,8 +62,8 @@ namespace UnitTest.Utils.Domain
 
         public PlantStockBuilder withRandomValues()
         {
-            _id = CommonTestData.GeneratRandomInt();
-            _quantity = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
+            _quantity = CommonTestData.GenerateRandomInt();
             return this;
         }
 

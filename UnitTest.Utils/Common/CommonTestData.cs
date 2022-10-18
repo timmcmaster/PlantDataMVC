@@ -38,7 +38,7 @@ namespace UnitTest.Utils.Common
         /// Generates a random integer. The value is simply within int range.
         /// </summary>
         /// <returns></returns>
-        public static int GeneratRandomInt()
+        public static int GenerateRandomInt()
         {
             var rnd = SeedRandom();
             return rnd.Next();

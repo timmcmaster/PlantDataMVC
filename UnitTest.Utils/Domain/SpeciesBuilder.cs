@@ -45,7 +45,7 @@ namespace UnitTest.Utils.Domain
 
         public SpeciesBuilder withId()
         {
-            _id = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
             return this;
         }
 
@@ -87,11 +87,11 @@ namespace UnitTest.Utils.Domain
 
         public SpeciesBuilder withRandomValues()
         {
-            _id = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
             //_genus = GenusBuilder.aGenus().withId().Build();
             _commonName = CommonTestData.GenerateRandomAlphabetString(50);
             _description = CommonTestData.GenerateRandomAlphabetString(200);
-            _propagationTime = CommonTestData.GeneratRandomInt();
+            _propagationTime = CommonTestData.GenerateRandomInt();
             _native = CommonTestData.GenerateRandomBoolean();
             _specificName = CommonTestData.GenerateRandomAlphabetString(10);
 

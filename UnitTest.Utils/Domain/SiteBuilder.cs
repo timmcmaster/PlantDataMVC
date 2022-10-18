@@ -42,7 +42,7 @@ namespace UnitTest.Utils.Domain
 
         public SiteBuilder withId()
         {
-            _id = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
             return this;
         }
 
@@ -72,7 +72,7 @@ namespace UnitTest.Utils.Domain
 
         public SiteBuilder withRandomValues()
         {
-            _id = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
             _siteName = CommonTestData.GenerateRandomAlphabetString(20);
             _suburb = CommonTestData.GenerateRandomAlphabetString(20);
             _latitude = CommonTestData.GenerateRandomLatitude();

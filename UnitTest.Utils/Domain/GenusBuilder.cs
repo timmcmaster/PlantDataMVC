@@ -36,7 +36,7 @@ namespace UnitTest.Utils.Domain
 
         public GenusBuilder withId()
         {
-            _id = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
             return this;
         }
 
@@ -48,7 +48,7 @@ namespace UnitTest.Utils.Domain
 
         public GenusBuilder withRandomValues()
         {
-            _id = CommonTestData.GeneratRandomInt();
+            _id = CommonTestData.GenerateRandomInt();
             _latinName = CommonTestData.GenerateRandomAlphabetString(10);
             return this;
         }
