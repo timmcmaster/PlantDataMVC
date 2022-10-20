@@ -1,15 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Interfaces.Domain.Repository;
+﻿using Interfaces.Domain.Repository;
 using PlantDataMVC.Entities.Models;
+using System;
+using System.Linq;
 
 // This file provides classes & interfaces to allow extension methods 
 // for <code>IRepository<Genus></code> to be mocked via a mocking framework.
 // <see href="http://blogs.clariusconsulting.net/kzu/making-extension-methods-amenable-to-mocking/"/>
-
-// Allow test assembly to be friend assembly for unit testing
-[assembly: InternalsVisibleTo("PlantDataMVC.Tests.Core")]
 
 namespace PlantDataMVC.Repository.Repositories
 {
@@ -52,7 +48,7 @@ namespace PlantDataMVC.Repository.Repositories
             GenusExtensionsFactory = gr => new GenusExtensions(gr);
         }
 
-        // use a friend class when testing to set this
+        // use a friend class/assembly when testing to set this
         internal static Func<IRepository<Genus>, IGenusExtensions> GenusExtensionsFactory { get; set; }
 
         public static IGenusExtensions GenusExtensions(this IRepository<Genus> target)
