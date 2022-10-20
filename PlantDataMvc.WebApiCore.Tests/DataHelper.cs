@@ -1,0 +1,89 @@
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using PlantDataMVC.DTO.Dtos;
+using PlantDataMVC.WebApiCore.Classes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PlantDataMvc.WebApiCore.Tests
+{
+    public static class DataHelper
+    {
+        public static SpeciesDto GetSpeciesDtoTest1()
+        {
+            var species = new SpeciesDto
+            {
+                CommonName = "Brisbane wattle",
+                Description = "Small tree to 10m",
+                GenusId = 1,
+                GenusName = "Acacia",
+                Id = 1,
+                Native = true,
+                PropagationTime = 17,
+                SpecificName = "fimbriata",
+                PlantStocks = new List<PlantStockDto>
+                {
+                    new PlantStockDto
+                    {
+                        Id = 2, ProductTypeId = 1, SpeciesId = 1, QuantityInStock = 10
+                    },
+                    new PlantStockDto
+                    {
+                        Id = 3, ProductTypeId = 2, SpeciesId = 1, QuantityInStock = 5
+                    }
+                },
+                SeedBatches = new List<SeedBatchDto>
+                {
+                    new SeedBatchDto
+                    {
+                        Id = 6, DateCollected = new DateTime(2016, 1, 30), SpeciesId = 1, Location = "Home",
+                        Notes = "Notes 1"
+                    },
+                    new SeedBatchDto
+                    {
+                        Id = 3, DateCollected = new DateTime(2018, 11, 3), SpeciesId = 1, Location = "Grandchester",
+                        Notes = "Notes 2"
+                    },
+                    new SeedBatchDto
+                    {
+                        Id = 11, DateCollected = new DateTime(2017, 7, 23), SpeciesId = 1, Location = "Tingalpa",
+                        Notes = "Notes 3"
+                    }
+                }
+            };
+
+            return species;
+        }
+
+        public static TreeNode<string> GetFixedFieldTree(string fieldList)
+        {
+            TreeNode<string> tree = new TreeNode<string>("(root)");
+
+            switch (fieldList)
+            {
+                case "":
+                    break;
+                case "commonName":
+                    tree.AddChild("commonName");
+                    break;
+                case "commonName,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location":
+                    tree.AddChild("commonName");
+                    tree.AddChild("plantStocks").AddChild("quantityInStock");
+                    tree.AddChild("seedBatches").AddChildren(new string[] { "DateCollected", "location" });
+                    break;
+                case "emaNnommoc":
+                    tree.AddChild("emaNnommoc");
+                    break;
+                case "emaNnommoc,skcotStnalp.kcotSnIytitnauq,sehctaBdees.detcelloCetaD,sehctaBdees.noitacol":
+                    tree.AddChild("emaNnommoc");
+                    tree.AddChild("skcotStnalp").AddChild("kcotSnIytitnauq");
+                    tree.AddChild("sehctaBdees").AddChildren(new string[] { "detcelloCetaD", "noitacol" });
+                    break;
+            }
+
+            return tree;
+        }
+    }
+}

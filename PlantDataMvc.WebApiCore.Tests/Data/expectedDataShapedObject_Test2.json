@@ -1,0 +1,25 @@
+{
+	"CommonName": "Brisbane wattle",
+	"PlantStocks": [
+		{
+			"QuantityInStock": 10
+		},
+		{
+			"QuantityInStock": 5
+		}
+	],
+	"SeedBatches": [
+		{
+			"DateCollected": "2016-01-30T00:00:00",
+			"Location": "Home"
+		},
+		{
+			"DateCollected": "2018-11-03T00:00:00",
+			"Location": "Grandchester"
+		},
+		{
+			"DateCollected": "2017-07-23T00:00:00",
+			"Location": "Tingalpa"
+		}
+	]
+}

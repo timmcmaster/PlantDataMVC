@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using PlantDataMVC.DTO;
+using PlantDataMVC.WebApiCore.Classes;
 
 namespace PlantDataMVC.WebApiCore.Helpers
 {
@@ -49,52 +50,11 @@ namespace PlantDataMVC.WebApiCore.Helpers
             var propertyTree = GetPropertyTree(mainDto, fieldNameTree);
 
             // Traverse tree to get data
-            var dataShapedObject = new ExpandoObject();
+            //var dataShapedObject = new ExpandoObject();
+            var dataShapedObject = propertyTree.TraverseWithObject(GetKVPFromProperty);
 
             return dataShapedObject;
 
-            propertyTree.TraverseFn(TraversalMode.Inorder, (currentNode, propertyData) =>
-            {
-                if (propertyData.Type != null)
-                { }
-
-                if (propertyData.PropertyInfo != null)
-                {
-                    var parentObject = currentNode?.Parent?.Value?.Object;
-
-                    // Get property value against parent object
-                    //var propValue = propertyData.PropertyInfo.GetValue(parentObject)
-                }
-/*
-                // If is leaf node, add property value
-
-                // If is enumerable of DTO type
-
-                // If is single dto type
-                if (propertyUsingDto.GetValue(mainDto, null) is IEnumerable<IDto> dtoCollection)
-                {
-                    var outputCollection = new List<object>();
-
-                    foreach (var childDto in dtoCollection)
-                    {
-                        // Create data shaped object for child and add to corresponding collection for this object
-                        var childShapedObject = CreateDataShapedObject(childDto, childDtoFields);
-                        outputCollection.Add(childShapedObject);
-                    }
-
-                    ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDto.Name, outputCollection);
-                }
-                else if (propertyUsingDto.GetValue(mainDto, null) is IDto)
-                {
-                    var childDto = propertyUsingDto.GetValue(mainDto, null) as IDto;
-
-                    // Create data shaped object for child and add to corresponding collection for this object
-                    var childShapedObject = CreateDataShapedObject(childDto, childDtoFields);
-
-                    ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDto.Name, childShapedObject);
-                }
-*/
-            });
 
 
 
@@ -182,7 +142,71 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
         }
 
-        private static List<string> GetTrimmedFieldList(List<string> fieldList)
+        public static KeyValuePair<string, object> GetKVPFromProperty(PropertyData propertyData)
+        {
+            if (propertyData.Type != null)
+            {
+                var name = propertyData?.PropertyInfo?.Name ?? "(unnamed)";
+                Console.WriteLine($"Called GetKVPFromProperty for {name}");
+
+                if (propertyData.IsDto)
+                {
+                    return new KeyValuePair<string, object>("dto", "");
+                }
+                else if (propertyData.IsDtoCollection)
+                {
+                    return new KeyValuePair<string, object>("dtoCollection", "");
+                }
+                else
+                {
+                    return new KeyValuePair<string, object>(propertyData.PropertyInfo.Name, propertyData.Object);
+                }
+            }
+
+            return new KeyValuePair<string, object>();
+            /*
+            if (propertyData.Type != null)
+            { }
+
+            if (propertyData.PropertyInfo != null)
+            {
+                var parentObject = currentNode?.Parent?.Value?.Object;
+
+                // Get property value against parent object
+                //var propValue = propertyData.PropertyInfo.GetValue(parentObject)
+            }
+                            // If is leaf node, add property value
+
+                            // If is enumerable of DTO type
+
+                            // If is single dto type
+                            if (propertyUsingDto.GetValue(mainDto, null) is IEnumerable<IDto> dtoCollection)
+                            {
+                                var outputCollection = new List<object>();
+
+                                foreach (var childDto in dtoCollection)
+                                {
+                                    // Create data shaped object for child and add to corresponding collection for this object
+                                    var childShapedObject = CreateDataShapedObject(childDto, childDtoFields);
+                                    outputCollection.Add(childShapedObject);
+                                }
+
+                                ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDto.Name, outputCollection);
+                            }
+                            else if (propertyUsingDto.GetValue(mainDto, null) is IDto)
+                            {
+                                var childDto = propertyUsingDto.GetValue(mainDto, null) as IDto;
+
+                                // Create data shaped object for child and add to corresponding collection for this object
+                                var childShapedObject = CreateDataShapedObject(childDto, childDtoFields);
+
+                                ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDto.Name, childShapedObject);
+                            }
+            */
+
+        }
+
+        internal static List<string> GetTrimmedFieldList(List<string> fieldList)
         {
             // Take a new copy of fields to manipulate
             var trimmedFieldList = new List<string>(fieldList);
@@ -213,7 +237,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
             return trimmedFieldList;
         }
 
-        private static TreeNode<string> GetFieldTree(List<string> fieldList)
+        internal static TreeNode<string> GetFieldTree(List<string> fieldList)
         {
             // Trim the field list to remove any fields that are redundant
             var trimmedFields = GetTrimmedFieldList(fieldList);
@@ -239,7 +263,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
             return rootNode;
         }
 
-        private static TreeNode<PropertyData> GetPropertyTree<TDto>(TDto mainDto, TreeNode<string> fieldNameTree)
+        internal static TreeNode<PropertyData> GetPropertyTree<TDto>(TDto mainDto, TreeNode<string> fieldNameTree)
         {
             // Traverse the field tree and provided the current node is a Dto or IEnumerable<dto>, add property definitions
             var propertyTree = fieldNameTree.CloneAndTransform<PropertyData>((field, parentPropertyNode) =>
@@ -249,7 +273,6 @@ namespace PlantDataMVC.WebApiCore.Helpers
                 // blank field name = root node
                 if ((field != "") && (parentPropertyNode?.Value?.Type != null))
                 {
-                    //var isDto = 
                     var parentPropertyType = parentPropertyNode.Value.Type;
                     // if type is Ienumerable<> where defined generic is of type IDto
                     var iEnumerables = parentPropertyType.GetInterfaces().Where(
@@ -295,31 +318,44 @@ namespace PlantDataMVC.WebApiCore.Helpers
             return propertyTree;
         }
 
-/*
-        private static ExpandoObject FetchData<TDto>(TDto mainDto, TreeNode<string> startingFieldNode)
+        /*
+        internal static TreeNode<PropertyData> FieldToPropertyDataTransform(string field, TreeNode<PropertyData> parentPropertyNode)
         {
-            var shapedObject = new ExpandoObject();
+            var propertyData = new PropertyData() { Type = typeof(TDto), Object = mainDto, IsDto = true, IsDtoCollection = false };
 
-            if (startingFieldNode.IsLeafNode)
+            // blank field name = root node
+            if ((field != "") && (parentPropertyNode?.Value?.Type != null))
             {
-                // Get ALL node properties (except virtual ones?)
+                //var isDto = 
+                var parentPropertyType = parentPropertyNode.Value.Type;
+                // if type is Ienumerable<> where defined generic is of type IDto
+                var iEnumerables = parentPropertyType.GetInterfaces().Where(
+                    i => i.IsGenericType
+                    && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
 
-                var propData = startingFieldNode.Value;
-                // add object to expando
-                ((IDictionary<string, object>)shapedObject).Add(propData.PropertyInfo.Name, propData.Object);
-            }
-            if (startingFieldNode.IsLeafNode)
-            { 
-            
-            }
+                var iEnumerableOfIDto = iEnumerables.FirstOrDefault(
+                    i => i.GetGenericArguments().Count() == 1
+                    && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a)));
 
-            // Traverse the field tree and provided the current node is a Dto or IEnumerable<dto>, add property definitions
-            var propertyTree = fieldNameTree.CloneAndTransform<PropertyData>((field, parentPropertyNode) =>
-            {
-                var propertyData = new PropertyData() { Type = typeof(TDto), Object = mainDto };
-
-                // blank field name = root node
-                if ((field != "") && (parentPropertyNode?.Value?.Type != null))
+                // if parent is IEnumerable<IDto>
+                if (iEnumerableOfIDto != null)
+                {
+                    // Property does not come from parent node but from elements of parent node collection
+                    var genericArgument = iEnumerableOfIDto.GetGenericArguments().First(a => typeof(IDto).IsAssignableFrom(a));
+                    var itemProperties = genericArgument.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                    var property = itemProperties.FirstOrDefault(pi => pi.Name.ToLower() == field.ToLower());
+                    if (property != null)
+                    {
+                        // add PropertyInfo to new tree 
+                        propertyData = new PropertyData()
+                        {
+                            Type = property.PropertyType,
+                            PropertyInfo = property
+                            //, Object = property.GetValue(parentPropertyNode.Value.Object)
+                        };
+                    }
+                }
+                else
                 {
                     // find property by name
                     var parentProperties = parentPropertyNode.Value.Type.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
@@ -330,79 +366,121 @@ namespace PlantDataMVC.WebApiCore.Helpers
                         propertyData = new PropertyData() { Type = property.PropertyType, PropertyInfo = property, Object = property.GetValue(parentPropertyNode.Value.Object) };
                     }
                 }
-                return propertyData;
-            });
-
-            return propertyTree;
-        }
-
-        private static ExpandoObject FetchDataForEntity<TDto>(TDto entity, TreeNode<PropertyData> startingNode) where TDto : IDto
-        {
-            var shapedObject = new ExpandoObject();
-
-            if (startingNode.IsLeafNode)
-            {
-                // Get ALL node properties (except virtual ones?)
-                
-                var propData = startingNode.Value;
-                // add object to expando
-                ((IDictionary<string, object>)shapedObject).Add(propData.PropertyInfo.Name, propData.Object);
             }
-            else
-            {
-                // Only get defined child node properties
+            return propertyData;
+        }
+        */
 
-                var propData = startingNode.Value;
 
-                // If this is enumerable, recognise child fields as properties of the ELEMENTS of enumerable, not enumerable itself
-                if (propData.Object is IEnumerable<IDto> dtoCollection)
+
+        /*
+                private static ExpandoObject FetchData<TDto>(TDto mainDto, TreeNode<string> startingFieldNode)
                 {
-                    FetchData
+                    var shapedObject = new ExpandoObject();
+
+                    if (startingFieldNode.IsLeafNode)
+                    {
+                        // Get ALL node properties (except virtual ones?)
+
+                        var propData = startingFieldNode.Value;
+                        // add object to expando
+                        ((IDictionary<string, object>)shapedObject).Add(propData.PropertyInfo.Name, propData.Object);
+                    }
+                    if (startingFieldNode.IsLeafNode)
+                    { 
+
+                    }
+
+                    // Traverse the field tree and provided the current node is a Dto or IEnumerable<dto>, add property definitions
+                    var propertyTree = fieldNameTree.CloneAndTransform<PropertyData>((field, parentPropertyNode) =>
+                    {
+                        var propertyData = new PropertyData() { Type = typeof(TDto), Object = mainDto };
+
+                        // blank field name = root node
+                        if ((field != "") && (parentPropertyNode?.Value?.Type != null))
+                        {
+                            // find property by name
+                            var parentProperties = parentPropertyNode.Value.Type.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                            var property = parentProperties.FirstOrDefault(pi => pi.Name.ToLower() == field.ToLower());
+                            if (property != null)
+                            {
+                                // add PropertyInfo to new tree 
+                                propertyData = new PropertyData() { Type = property.PropertyType, PropertyInfo = property, Object = property.GetValue(parentPropertyNode.Value.Object) };
+                            }
+                        }
+                        return propertyData;
+                    });
+
+                    return propertyTree;
                 }
-            }
+
+                private static ExpandoObject FetchDataForEntity<TDto>(TDto entity, TreeNode<PropertyData> startingNode) where TDto : IDto
+                {
+                    var shapedObject = new ExpandoObject();
+
+                    if (startingNode.IsLeafNode)
+                    {
+                        // Get ALL node properties (except virtual ones?)
+
+                        var propData = startingNode.Value;
+                        // add object to expando
+                        ((IDictionary<string, object>)shapedObject).Add(propData.PropertyInfo.Name, propData.Object);
+                    }
+                    else
+                    {
+                        // Only get defined child node properties
+
+                        var propData = startingNode.Value;
+
+                        // If this is enumerable, recognise child fields as properties of the ELEMENTS of enumerable, not enumerable itself
+                        if (propData.Object is IEnumerable<IDto> dtoCollection)
+                        {
+                            FetchData
+                        }
+                    }
 
 
-            foreach (var property in requiredProperties)
-            {
-                var propertyValue = property.GetValue(entity, null);
+                    foreach (var property in requiredProperties)
+                    {
+                        var propertyValue = property.GetValue(entity, null);
 
-                // add the field to the ExpandoObject with the actual property name from the object
-                ((IDictionary<string, object>)shapedObject).Add(property.Name, propertyValue);
-            }
+                        // add the field to the ExpandoObject with the actual property name from the object
+                        ((IDictionary<string, object>)shapedObject).Add(property.Name, propertyValue);
+                    }
 
-            return shapedObject;
-        }
+                    return shapedObject;
+                }
 
-        private static ExpandoObject FetchData<TDto>(IEnumerable<TDto> entities, TreeNode<PropertyData> startingNode) where TDto : IDto
-        {
-            var shapedData = new List<ExpandoObject>();
+                private static ExpandoObject FetchData<TDto>(IEnumerable<TDto> entities, TreeNode<PropertyData> startingNode) where TDto : IDto
+                {
+                    var shapedData = new List<ExpandoObject>();
 
-            foreach (var entity in entities)
-            {
-                var propertyValue = property.GetValue(entity, null);
+                    foreach (var entity in entities)
+                    {
+                        var propertyValue = property.GetValue(entity, null);
 
-                // add the field to the ExpandoObject with the actual property name from the object
-                ((IDictionary<string, object>)shapedObject).Add(property.Name, propertyValue);
-            }
+                        // add the field to the ExpandoObject with the actual property name from the object
+                        ((IDictionary<string, object>)shapedObject).Add(property.Name, propertyValue);
+                    }
 
-            return shapedObject;
-        }
+                    return shapedObject;
+                }
 
-        private static ExpandoObject FetchDataForEntity<TDto>(TDto entity, IEnumerable<PropertyInfo> requiredProperties) where TDto : IDto
-        {
-            var shapedObject = new ExpandoObject();
+                private static ExpandoObject FetchDataForEntity<TDto>(TDto entity, IEnumerable<PropertyInfo> requiredProperties) where TDto : IDto
+                {
+                    var shapedObject = new ExpandoObject();
 
-            foreach (var property in requiredProperties)
-            {
-                var propertyValue = property.GetValue(entity, null);
+                    foreach (var property in requiredProperties)
+                    {
+                        var propertyValue = property.GetValue(entity, null);
 
-                // add the field to the ExpandoObject with the actual property name from the object
-                ((IDictionary<string, object>)shapedObject).Add(property.Name, propertyValue);
-            }
+                        // add the field to the ExpandoObject with the actual property name from the object
+                        ((IDictionary<string, object>)shapedObject).Add(property.Name, propertyValue);
+                    }
 
-            return shapedObject;
-        }
-*/
+                    return shapedObject;
+                }
+        */
         /// <summary>
         ///     Gets the included object names.
         /// </summary>

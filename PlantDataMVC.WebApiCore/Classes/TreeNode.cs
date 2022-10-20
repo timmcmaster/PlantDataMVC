@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Dynamic;
 using System.Linq;
+using PlantDataMVC.WebApiCore.Helpers;
 
-namespace PlantDataMVC.WebApiCore.Helpers
+namespace PlantDataMVC.WebApiCore.Classes
 {
-    public enum TraversalMode
-    {
-        Preorder = 0,
-        Inorder
-    }
-
-    public class TreeNode<T>
+    public class TreeNode<T> : ITreeNode<T>
     {
         private readonly T _value;
         private readonly List<TreeNode<T>> _children = new List<TreeNode<T>>();
@@ -26,6 +22,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
             get { return _children[i]; }
         }
 
+        #region Properties
         public TreeNode<T> Parent { get; private set; }
 
         public T Value { get { return _value; } }
@@ -34,9 +31,17 @@ namespace PlantDataMVC.WebApiCore.Helpers
         {
             get { return _children.AsReadOnly(); }
         }
+        #endregion
 
+        #region Methods
         public bool IsLeafNode => Children.Count == 0;
 
+        public bool IsRootNode => Parent == null;
+
+        public void Accept(ITreeVisitor<T> visitor)
+        {
+            visitor.Visit(this);
+        }
 
         public TreeNode<T> AddChild(T value)
         {
@@ -56,51 +61,29 @@ namespace PlantDataMVC.WebApiCore.Helpers
         }
 
 
-        // Preorder traversal = Parent first, Inorder = children first
-        public void Traverse(TraversalMode mode, Action<T> action)
+        public object TraverseWithObject(Func<T, KeyValuePair<string, object>> propertyFunc)
         {
-            if (mode == TraversalMode.Preorder)
-                action(Value);
+            // HACK: check type to get name/info to identify node
+            var propData = Value as PropertyData;
+            var name = propData?.PropertyInfo?.Name ?? "(unnamed)";
 
-            foreach (var child in _children)
-                child.Traverse(mode, action);
+            Console.WriteLine($"Called TraverseWithObject {name}");
 
-            if (mode == TraversalMode.Inorder)
-                action(Value);
-        }
+            ExpandoObject o = new ExpandoObject();
 
-        public void TraverseFn(TraversalMode mode, Action<TreeNode<T>,T> action)
-        {
-            if (mode == TraversalMode.Preorder)
-                action(this, Value);
-
-            foreach (var child in _children)
-                child.TraverseFn(mode, action);
-
-            if (mode == TraversalMode.Inorder)
-                action(this, Value);
-        }
-
-        public TreeNode<T> Clone()
-        {
-            var clone = CloneChildren(new TreeNode<T>(Value));
-
-            return clone;
-        }
-
-        private TreeNode<T> CloneChildren(TreeNode<T> cloneTo)
-        {
             foreach (var child in _children)
             {
-                var newChild = cloneTo.AddChild(child.Value);
-                if (!child.IsLeafNode)
-                {
-                    child.CloneChildren(newChild);
-                }
+                var childObj = child.TraverseWithObject(propertyFunc);
+                bool x = true;
             }
 
-            return cloneTo;
+            var myKvp = propertyFunc(Value);
+
+            ((IDictionary<string, object>)o).Add(myKvp);
+
+            return o;
         }
+
 
         public TreeNode<U> CloneAndTransform<U>(Func<T, TreeNode<U>, U> dataFunction)
         {
@@ -128,5 +111,6 @@ namespace PlantDataMVC.WebApiCore.Helpers
         {
             return new[] { Value }.Concat(_children.SelectMany(x => x.Flatten()));
         }
+        #endregion
     }
 }

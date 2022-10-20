@@ -52,7 +52,12 @@
     <ProjectReference Include="..\PlantDataMVC.Repository\PlantDataMVC.Repository.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(MSBuildProjectName).Test</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties connectionstrings_1json__JsonSchema="https://json.schemastore.org/appsettings.json" /></VisualStudio></ProjectExtensions>
 
 </Project>
