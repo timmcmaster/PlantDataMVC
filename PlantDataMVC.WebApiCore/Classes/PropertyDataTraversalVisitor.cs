@@ -1,38 +1,88 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
+using PlantDataMVC.DTO;
 using PlantDataMVC.WebApiCore.Helpers;
 
 namespace PlantDataMVC.WebApiCore.Classes
 {
-    public class PropertyDataTraversalVisitor : TraversalVisitor<PropertyData>
+    public class PropertyDataTraversalVisitor : ITreeVisitor<PropertyData>
     {
+        //private Stack<IDictionary<string, object>> _dictionaryStack;
         private IDictionary<string, object> _currentDict = null;
 
         public IDictionary<string, object> RootDictionary { get; set; }
 
-        public PropertyDataTraversalVisitor(TraversalMode mode) : base(mode)
+        public PropertyDataTraversalVisitor()
         {
         }
 
-        public override void VisitAction(TreeNode<PropertyData> node)
+        public void Visit(TreeNode<PropertyData> node)
         {
             if (node.IsRootNode)
             {
-                ExpandoObject o = new ExpandoObject();
-                RootDictionary = o;
+                RootDictionary = new ExpandoObject();
                 _currentDict = RootDictionary;
-            }
 
-            if (node.IsLeafNode)
+                foreach (var child in node.Children)
+                    child.Accept(this);
+            }
+            else if (node.IsLeafNode)
             {
-                var kvp = GetKVPFromPropertyLeafNode(node.Value);
+                var kvp = GetKVPFromPropertyLeafNode(node);
                 _currentDict.Add(kvp);
+            }
+            else
+            {
+                // If not a leaf node, it must be Dto or DtoCollection
+                var nodeValue = node.Value;
+                if (nodeValue.IsDto)
+                {
+                    var propertyName = node.Value.PropertyInfo.Name;
+                    var propertyValue = new ExpandoObject();
+
+                    _currentDict.Add(propertyName, propertyValue);
+                    _currentDict = propertyValue;
+
+                    foreach (var child in node.Children)
+                        child.Accept(this);
+                }
+                else if (nodeValue.IsDtoCollection)
+                {
+                    var propertyName = node.Value.PropertyInfo.Name;
+                    var propertyValueList = new List<ExpandoObject>();
+
+                    _currentDict.Add(propertyName, propertyValueList);
+                    // Visit child node for each item in value of object
+                    // Get collection type from 
+                    //var propEnumerables = nodeValue.Type.GetInterfaces().Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+                    //var genericType = propEnumerables.Where(
+                    //    i => i.GetGenericArguments().Count() == 1
+                    //    && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a))
+                    //    ).SelectMany(x => x.GetGenericArguments()).FirstOrDefault();
+
+                    foreach (var item in nodeValue.Object as IEnumerable<object>)
+                    {
+                        var itemValue = new ExpandoObject();
+                        propertyValueList.Add(itemValue);
+                        _currentDict = itemValue;
+
+                        // Visit children to get property values
+                        foreach (var child in node.Children)
+                            child.Accept(this);
+
+                    }
+
+                }
             }
         }
 
-        private static KeyValuePair<string, object> GetKVPFromPropertyLeafNode(PropertyData propertyData)
+        private static KeyValuePair<string, object> GetKVPFromPropertyLeafNode(TreeNode<PropertyData> node)
         {
+            var propertyData = node.Value;
+            var propertyName = propertyData.PropertyInfo.Name;
+
             if (propertyData.Type != null)
             {
                 var name = propertyData?.PropertyInfo?.Name ?? "(unnamed)";
@@ -48,7 +98,7 @@ namespace PlantDataMVC.WebApiCore.Classes
                     //    dtoProperties.Add(kvpfromproperty(property))
                     //}
                     // return collection
-                    return new KeyValuePair<string, object>(propertyData.PropertyInfo.Name, dtoProperties);
+                    return new KeyValuePair<string, object>(propertyName, dtoProperties);
                 }
                 else if (propertyData.IsDtoCollection)
                 {
@@ -67,12 +117,19 @@ namespace PlantDataMVC.WebApiCore.Classes
                     dtoCollection.Add(propertyCollection);
                     //}
                     // Get array of all properties of all items in the collection
-                    return new KeyValuePair<string, object>(propertyData.PropertyInfo.Name, dtoCollection);
+                    return new KeyValuePair<string, object>(propertyName, dtoCollection);
                 }
                 else
                 {
-                    // Get this property
-                    return new KeyValuePair<string, object>(propertyData.PropertyInfo.Name, propertyData.Object);
+                    if (node.Parent.Value.IsDtoCollection) 
+                    {
+                        
+                    }
+                    else 
+                    {
+                        // Get this property
+                        return new KeyValuePair<string, object>(propertyName, propertyData.Object);
+                    }
                 }
             }
 

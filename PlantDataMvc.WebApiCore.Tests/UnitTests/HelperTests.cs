@@ -30,6 +30,32 @@ namespace PlantDataMVC.WebApiCore.Tests.UnitTests
         }
 
         [Fact]
+        public void TestOriginalDataShapedObject()
+        {
+            // Arrange
+            var species = DataHelper.GetSpeciesDtoTest1();
+
+            var fields =
+                "commonName,plantStocks,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location";
+
+            var fieldList = fields.Split(',').ToList();
+
+            var expectedJson = LoadJson("expectedDataShapedObject_Test1.json");
+            var expected = JToken.Parse(expectedJson);
+
+            // Act
+
+            var dataShapedObject = DataShaping_Original.CreateDataShapedObject(species, fieldList);
+
+            var actualJson = JsonConvert.SerializeObject(dataShapedObject);
+            var actual = JToken.Parse(actualJson);
+
+            // Assert
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+
+        [Fact]
         public void TestDataShapedObject()
         {
             // Arrange
@@ -184,54 +210,11 @@ namespace PlantDataMVC.WebApiCore.Tests.UnitTests
             //var relatedObjs = DataShaping.GetRelatedDtoProperties<SpeciesDto>();
         }
 
+        
         [Theory]
-        [InlineData("")]
-        [InlineData("commonName")]
-        [InlineData("commonName,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location")]
-        public void TestClone(string trimmedFieldList)
-        {
-            // Arrange
-            var expectedFieldTree = DataHelper.GetFixedFieldTree(trimmedFieldList);
-            var expectedFlattenedTree = expectedFieldTree.Flatten();
-
-            // Act
-            var clonedTree = expectedFieldTree.Clone();
-
-            // Assert
-            // HACK: test should really compare structure, not just list of node values
-            var actualFlattenedTree = ((TreeNode<string>)clonedTree).Flatten();
-            actualFlattenedTree.Should().BeEquivalentTo(expectedFlattenedTree);
-        }
-
-        [Theory]
-        [InlineData("","")]
-        [InlineData("commonName", "emaNnommoc")]
-        [InlineData("commonName,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location", "emaNnommoc,skcotStnalp.kcotSnIytitnauq,sehctaBdees.detcelloCetaD,sehctaBdees.noitacol")]
-        public void TestCloneAndTransform(string trimmedFieldList, string reversedFieldList)
-        {
-            // Arrange
-            var sourceFieldTree = DataHelper.GetFixedFieldTree(trimmedFieldList);
-            var expectedFieldTree = DataHelper.GetFixedFieldTree(reversedFieldList);
-            var expectedFlattenedTree = expectedFieldTree.Flatten();
-
-            // Act
-            var transformedTree = sourceFieldTree.CloneAndTransform<string>((field, parentNode) =>
-            {
-                var charArray = field.ToCharArray();
-                Array.Reverse(charArray);
-                return new string(charArray);
-            });
-
-            // Assert
-            // HACK: test should really compare structure, not just list of node values
-            var actualFlattenedTree = ((TreeNode<string>)transformedTree).Flatten();
-            actualFlattenedTree.Should().BeEquivalentTo(expectedFlattenedTree);
-        }
-
-        [Theory]
-        [InlineData("", "(root)")]
-        [InlineData("commonName", "(root)[commonName]")]
-        [InlineData("commonName,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location", "(root)[commonName,plantStocks[quantityInStock],seedBatches[DateCollected,location]]")]
+        [InlineData("", "")]
+        [InlineData("commonName", "[commonName]")]
+        [InlineData("commonName,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location", "[commonName,plantStocks[quantityInStock],seedBatches[DateCollected,location]]")]
         public void TestStringTraversalVisitor(string trimmedFieldList, string expectedTraversalList)
         {
             // Arrange
@@ -261,7 +244,7 @@ namespace PlantDataMVC.WebApiCore.Tests.UnitTests
             var generic = myMethod.MakeGenericMethod(typeof(SpeciesDto));
             var actualPropertyTree = (TreeNode<PropertyData>)generic.Invoke(null, methodParams);
 
-            var visitor = new PropertyDataTraversalVisitor(TraversalMode.Preorder);
+            var visitor = new PropertyDataTraversalVisitor();
             actualPropertyTree.Accept(visitor);
 
             // Assert
@@ -274,9 +257,9 @@ namespace PlantDataMVC.WebApiCore.Tests.UnitTests
         }
 
         [Theory]
-        [InlineData("", "(root)")]
-        [InlineData("commonName", "(root)[commonName]")]
-        [InlineData("commonName,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location", "(root)[commonName,plantStocks[quantityInStock],seedBatches[DateCollected,location]]")]
+        [InlineData("", "")]
+        [InlineData("commonName", "[commonName]")]
+        [InlineData("commonName,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location", "[commonName,plantStocks[quantityInStock],seedBatches[DateCollected,location]]")]
         public void TestCloneVisitor(string trimmedFieldList, string expectedTraversalList)
         {
             // Arrange
@@ -297,18 +280,45 @@ namespace PlantDataMVC.WebApiCore.Tests.UnitTests
             traversalList.Should().Be(expectedTraversalList);
         }
 
+        [Theory]
+        [InlineData("", "")]
+        [InlineData("commonName", "emaNnommoc")]
+        [InlineData("commonName,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location", "emaNnommoc,skcotStnalp.kcotSnIytitnauq,sehctaBdees.detcelloCetaD,sehctaBdees.noitacol")]
+        public void TestCloneAndTransformVisitor(string trimmedFieldList, string reversedFieldList)
+        {
+            // Arrange
+            var sourceFieldTree = DataHelper.GetFixedFieldTree(trimmedFieldList);
+            var expectedFieldTree = DataHelper.GetFixedFieldTree(reversedFieldList);
+            var expectedFlattenedTree = expectedFieldTree.Flatten();
+
+            // Act
+            var transformVisitor = new CloneAndTransformVisitor<string,string>(ReverseFieldName);
+            sourceFieldTree.Accept(transformVisitor);
+            var transformedTree = transformVisitor.CloneRoot;
+
+            // Assert
+            // HACK: test should really compare structure, not just list of node values
+            var actualFlattenedTree = ((TreeNode<string>)transformedTree).Flatten();
+            actualFlattenedTree.Should().BeEquivalentTo(expectedFlattenedTree);
+        }
 
 
         private string LoadJson(string filename)
         {
             var path = Path.Combine(
                 Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                "Resources",
+                "Data",
                 filename);
 
             return File.ReadAllText(path);
         }
 
+        private string ReverseFieldName(TreeNode<string> fieldNode, TreeNode<string> targetParent)
+        {
+            var charArray = fieldNode.Value.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
 
     }
 }

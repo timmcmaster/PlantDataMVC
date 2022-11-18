@@ -1,26 +1,13 @@
-﻿using System;
+﻿using PlantDataMVC.DTO;
+using PlantDataMVC.WebApiCore.Classes;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using PlantDataMVC.DTO;
-using PlantDataMVC.WebApiCore.Classes;
 
 namespace PlantDataMVC.WebApiCore.Helpers
 {
-    public class PropertyData
-    {   
-        public bool IsDto { get; set; }
-
-        public bool IsDtoCollection { get; set; }
-
-        public Type? Type { get; set; }
-
-        public object? Object { get; set; }
-
-        public PropertyInfo? PropertyInfo { get; set; }
-    }
 
     public static class DataShaping
     {
@@ -263,22 +250,104 @@ namespace PlantDataMVC.WebApiCore.Helpers
             return rootNode;
         }
 
+
         internal static TreeNode<PropertyData> GetPropertyTree<TDto>(TDto mainDto, TreeNode<string> fieldNameTree)
         {
-            // Traverse the field tree and provided the current node is a Dto or IEnumerable<dto>, add property definitions
-            var propertyTree = fieldNameTree.CloneAndTransform<PropertyData>((field, parentPropertyNode) =>
+            var transformVisitor = new CloneAndTransformVisitor<string, PropertyData>((fieldNode, parentPropertyNode) =>
+            {
+                if (fieldNode.IsRootNode)
+                    return new PropertyData(typeof(TDto)) { Object = mainDto };
+                else 
+                    return ConvertFieldToPropertyData(fieldNode, parentPropertyNode);
+            });
+
+            fieldNameTree.Accept(transformVisitor);
+            var transformedTree = transformVisitor.CloneRoot;
+
+            return transformedTree;
+        }
+
+        public static PropertyData ConvertFieldToPropertyData(TreeNode<string> fieldNode, TreeNode<PropertyData> targetParent)
+        {
+            // blank field name = root node
+            //if (fieldNode.IsRootNode)
+            //{
+            //    // TODO : Fix getting root node object
+            //    return new PropertyData(typeof(string));
+            //    //return new PropertyData() { Type = typeof(TDto), Object = mainDto, IsDto = true, IsDtoCollection = false };
+            //}
+            //else
+            {
+                PropertyData propertyData = null;
+
+                // if parent is IEnumerable<IDto>
+                if (targetParent.Value.IsDtoCollection)
+                {
+                    var parentPropertyType = targetParent.Value.Type;
+                    var iEnumerables = parentPropertyType.GetInterfaces().Where(
+                        i => i.IsGenericType
+                        && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+
+                    var iEnumerableOfIDto = iEnumerables.FirstOrDefault(
+                        i => i.GetGenericArguments().Count() == 1
+                        && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a)));
+
+                    // Property does not come from parent node but from elements of parent node collection
+                    var genericArgument = iEnumerableOfIDto.GetGenericArguments().First(a => typeof(IDto).IsAssignableFrom(a));
+                    var itemProperties = genericArgument.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                    var property = itemProperties.FirstOrDefault(pi => pi.Name.ToLower() == fieldNode.Value.ToLower());
+                    if (property != null)
+                    {
+                        var propertyType = property.PropertyType;
+                        //var propertyValue = property.GetValue(targetParent.Value.Object);
+                        
+                        // add PropertyInfo to new tree 
+                        propertyData = new PropertyData(propertyType)
+                        {
+                            PropertyInfo = property//,
+                            //Object = propertyValue
+                        };
+                    }
+                }
+                else
+                {
+                    // find property by name
+                    var parentProperties = targetParent.Value.Type.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                    var property = parentProperties.FirstOrDefault(pi => pi.Name.ToLower() == fieldNode.Value.ToLower());
+                    if (property != null)
+                    {
+                        var propEnumerables = property.PropertyType.GetInterfaces().Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+                        bool isDtoCollection = propEnumerables.Any(
+                            i => i.GetGenericArguments().Count() == 1
+                            && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a)));
+
+                        propertyData = new PropertyData(property.PropertyType) 
+                        { 
+                            PropertyInfo = property, 
+                            Object = property.GetValue(targetParent.Value.Object)        
+                        };
+                    }
+                }
+
+                return propertyData;
+            }
+        }
+
+        /*
+            internal static TreeNode<PropertyData> FieldToPropertyDataTransform(string field, TreeNode<PropertyData> parentPropertyNode)
             {
                 var propertyData = new PropertyData() { Type = typeof(TDto), Object = mainDto, IsDto = true, IsDtoCollection = false };
 
                 // blank field name = root node
                 if ((field != "") && (parentPropertyNode?.Value?.Type != null))
                 {
+                    //var isDto = 
                     var parentPropertyType = parentPropertyNode.Value.Type;
                     // if type is Ienumerable<> where defined generic is of type IDto
                     var iEnumerables = parentPropertyType.GetInterfaces().Where(
                         i => i.IsGenericType
                         && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
-                    
+
                     var iEnumerableOfIDto = iEnumerables.FirstOrDefault(
                         i => i.GetGenericArguments().Count() == 1
                         && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a)));
@@ -293,9 +362,10 @@ namespace PlantDataMVC.WebApiCore.Helpers
                         if (property != null)
                         {
                             // add PropertyInfo to new tree 
-                            propertyData = new PropertyData() { 
-                                Type = property.PropertyType, 
-                                PropertyInfo = property 
+                            propertyData = new PropertyData()
+                            {
+                                Type = property.PropertyType,
+                                PropertyInfo = property
                                 //, Object = property.GetValue(parentPropertyNode.Value.Object)
                             };
                         }
@@ -313,63 +383,8 @@ namespace PlantDataMVC.WebApiCore.Helpers
                     }
                 }
                 return propertyData;
-            });
-
-            return propertyTree;
-        }
-
-        /*
-        internal static TreeNode<PropertyData> FieldToPropertyDataTransform(string field, TreeNode<PropertyData> parentPropertyNode)
-        {
-            var propertyData = new PropertyData() { Type = typeof(TDto), Object = mainDto, IsDto = true, IsDtoCollection = false };
-
-            // blank field name = root node
-            if ((field != "") && (parentPropertyNode?.Value?.Type != null))
-            {
-                //var isDto = 
-                var parentPropertyType = parentPropertyNode.Value.Type;
-                // if type is Ienumerable<> where defined generic is of type IDto
-                var iEnumerables = parentPropertyType.GetInterfaces().Where(
-                    i => i.IsGenericType
-                    && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
-
-                var iEnumerableOfIDto = iEnumerables.FirstOrDefault(
-                    i => i.GetGenericArguments().Count() == 1
-                    && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a)));
-
-                // if parent is IEnumerable<IDto>
-                if (iEnumerableOfIDto != null)
-                {
-                    // Property does not come from parent node but from elements of parent node collection
-                    var genericArgument = iEnumerableOfIDto.GetGenericArguments().First(a => typeof(IDto).IsAssignableFrom(a));
-                    var itemProperties = genericArgument.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-                    var property = itemProperties.FirstOrDefault(pi => pi.Name.ToLower() == field.ToLower());
-                    if (property != null)
-                    {
-                        // add PropertyInfo to new tree 
-                        propertyData = new PropertyData()
-                        {
-                            Type = property.PropertyType,
-                            PropertyInfo = property
-                            //, Object = property.GetValue(parentPropertyNode.Value.Object)
-                        };
-                    }
-                }
-                else
-                {
-                    // find property by name
-                    var parentProperties = parentPropertyNode.Value.Type.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-                    var property = parentProperties.FirstOrDefault(pi => pi.Name.ToLower() == field.ToLower());
-                    if (property != null)
-                    {
-                        // add PropertyInfo to new tree 
-                        propertyData = new PropertyData() { Type = property.PropertyType, PropertyInfo = property, Object = property.GetValue(parentPropertyNode.Value.Object) };
-                    }
-                }
             }
-            return propertyData;
-        }
-        */
+            */
 
 
 
@@ -535,8 +550,8 @@ namespace PlantDataMVC.WebApiCore.Helpers
 
             return requiredProperties;
         }
- 
-        
+
+
         // if property is IEnumerable of type that implements IDto
         private static bool IsDtoEnumerable(Type t)
         {

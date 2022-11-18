@@ -8,7 +8,6 @@
 
         public CloneVisitor()
         {
-
         }
 
         public void Visit(TreeNode<T> sourceNode)

@@ -59,7 +59,7 @@ namespace PlantDataMvc.WebApiCore.Tests
 
         public static TreeNode<string> GetFixedFieldTree(string fieldList)
         {
-            TreeNode<string> tree = new TreeNode<string>("(root)");
+            TreeNode<string> tree = new TreeNode<string>("");
 
             switch (fieldList)
             {

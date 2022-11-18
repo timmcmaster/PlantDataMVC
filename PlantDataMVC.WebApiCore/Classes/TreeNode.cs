@@ -85,28 +85,6 @@ namespace PlantDataMVC.WebApiCore.Classes
         }
 
 
-        public TreeNode<U> CloneAndTransform<U>(Func<T, TreeNode<U>, U> dataFunction)
-        {
-            var newRootNode = new TreeNode<U>(dataFunction(Value, null));
-            var clone = CloneAndTransformChildren(newRootNode, dataFunction);
-
-            return clone;
-        }
-
-        private TreeNode<U> CloneAndTransformChildren<U>(TreeNode<U> cloneTo, Func<T, TreeNode<U>, U> dataFunction)
-        {
-            foreach (var child in _children)
-            {
-                var newChild = cloneTo.AddChild(dataFunction(child.Value, cloneTo));
-                if (!child.IsLeafNode)
-                {
-                    child.CloneAndTransformChildren(newChild, dataFunction);
-                }
-            }
-
-            return cloneTo;
-        }
-
         public IEnumerable<T> Flatten()
         {
             return new[] { Value }.Concat(_children.SelectMany(x => x.Flatten()));
