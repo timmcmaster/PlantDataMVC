@@ -11,8 +11,8 @@ namespace PlantDataMVC.UICore.Models.EditModels.Transaction
         public JournalEntryTypeDto TransactionType { get; set; }
         public DateTime TransactionDate { get; set; }
         public int Quantity { get; set; }
-        public int SeedTrayId { get; set; }
-        public string TransactionSource { get; set; }
-        public string Notes { get; set; }
+        public int? SeedTrayId { get; set; }
+        public string? TransactionSource { get; set; }
+        public string? Notes { get; set; }
     }
 }
