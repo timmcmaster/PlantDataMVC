@@ -58,7 +58,7 @@ namespace PlantDataMVC.WebApiCore.Helpers
                 }
             }
 
-            var sortExpression = string.Join(",", sortFields);
+            var sortExpression = string.Join(", ", sortFields);
 
             return source.OrderBy(sortExpression);
         }

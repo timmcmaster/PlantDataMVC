@@ -1,4 +1,6 @@
-﻿namespace PlantDataMVC.UICore.Helpers
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+
+namespace PlantDataMVC.UICore.Helpers
 {
     public static class ApiSorting
     {
@@ -13,9 +15,17 @@
         {
             var sortString = sortField;
 
+            // NB: If sort is by multi fields, ascending applies to all fields
             if (sortString != "" && !sortAscending)
             {
-                sortString = "-" + sortString;
+                var fields = sortString.Split(',');
+
+                for (int i=0; i < fields.Length; i++)
+                {
+                    fields[i] = "-" + fields[i];
+                }
+
+                sortString = string.Join(",", fields);
             }
 
             return sortString;

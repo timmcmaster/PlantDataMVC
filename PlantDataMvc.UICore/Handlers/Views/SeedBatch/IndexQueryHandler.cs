@@ -89,11 +89,11 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
             }
             else if (querySortBy == nameof(SeedBatchListViewModel.SiteName))
             {
-                sortField = nameof(SeedBatchDto.SiteName); // TODO: solve problem of sort by site name
+                sortField = nameof(SeedBatchDto.SiteName);
             }
             else if (querySortBy == nameof(SeedBatchListViewModel.SpeciesBinomial))
             {
-                sortField = ""; // nameof(SeedBatchDto.SpeciesBinomial); // TODO: solve problem of sort by species binomial
+                sortField = $"{nameof(SeedBatchDto.GenusName)},{nameof(SeedBatchDto.SpeciesName)}";
             }
             else if (querySortBy == nameof(SeedBatchListViewModel.SpeciesId))
             {
