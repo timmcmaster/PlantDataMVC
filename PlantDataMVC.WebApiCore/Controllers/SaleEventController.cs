@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApiCore.Helpers;
 using PlantDataMVC.WebApiCore.Models;
@@ -126,7 +126,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var itemDto = _mapper.Map<SaleEvent, SaleEventDto>(item);
+                var itemDto = _mapper.Map<SaleEventEntityModel, SaleEventDto>(item);
 
                 return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
@@ -153,7 +153,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return BadRequest();
                 }
 
-                var entity = _mapper.Map<CreateUpdateSaleEventDto, SaleEvent>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateSaleEventDto, SaleEventEntityModel>(dtoIn);
                 _service.Add(entity);
 
                 // Save changes before we map back
@@ -162,7 +162,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<SaleEvent, SaleEventDto>(entity);
+                    var dtoOut = _mapper.Map<SaleEventEntityModel, SaleEventDto>(entity);
 
                     return CreatedAtAction(nameof(GetById), new { id = dtoOut.Id }, dtoOut);
                 }
@@ -203,7 +203,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var entity = _mapper.Map<CreateUpdateSaleEventDto, SaleEvent>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateSaleEventDto, SaleEventEntityModel>(dtoIn);
                 entity.Id = entityFound.Id;
                 _service.Update(entity);
 
@@ -213,7 +213,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<SaleEvent, SaleEventDto>(entity);
+                    var dtoOut = _mapper.Map<SaleEventEntityModel, SaleEventDto>(entity);
 
                     return Ok(dtoOut);
                 }
@@ -251,12 +251,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 // Map to dto
-                var dtoFound = _mapper.Map<SaleEvent, CreateUpdateSaleEventDto>(entityFound);
+                var dtoFound = _mapper.Map<SaleEventEntityModel, CreateUpdateSaleEventDto>(entityFound);
 
                 // Apply changes to dto
                 itemPatchDoc.ApplyTo(dtoFound);
 
-                var updatedEntity = _mapper.Map<CreateUpdateSaleEventDto, SaleEvent>(dtoFound);
+                var updatedEntity = _mapper.Map<CreateUpdateSaleEventDto, SaleEventEntityModel>(dtoFound);
                 updatedEntity.Id = id;
                 _service.Update(updatedEntity);
 
@@ -266,7 +266,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<SaleEvent, SaleEventDto>(updatedEntity);
+                    var dtoOut = _mapper.Map<SaleEventEntityModel, SaleEventDto>(updatedEntity);
 
                     return Ok(dtoOut);
                 }

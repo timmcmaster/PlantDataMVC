@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Entities.Configuration
 {
-    public class SiteConfiguration : IEntityTypeConfiguration<Site>
+    public class SiteConfiguration : IEntityTypeConfiguration<SiteEntityModel>
     {
         private string _schema;
 
@@ -18,7 +18,7 @@ namespace PlantDataMVC.Entities.Configuration
             _schema = schema;
         }
 
-        public void Configure(EntityTypeBuilder<Site> builder)
+        public void Configure(EntityTypeBuilder<SiteEntityModel> builder)
         {
             // Primary key 
             builder.HasKey(x => x.Id);

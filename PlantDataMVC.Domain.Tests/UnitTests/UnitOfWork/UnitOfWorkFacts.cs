@@ -3,7 +3,7 @@ using Framework.Domain.EF;
 using Interfaces.Domain.Repository;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.Repository.Repositories;
 using UnitTest.Utils.Domain;
 using Xunit;

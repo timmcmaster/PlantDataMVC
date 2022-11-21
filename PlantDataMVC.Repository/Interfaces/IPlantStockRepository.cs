@@ -1,9 +1,9 @@
 ﻿using Interfaces.Domain.Repository;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Repository.Interfaces
 {
-    public interface IPlantStockRepository : IRepositoryAsync<PlantStock>
+    public interface IPlantStockRepository : IRepositoryAsync<PlantStockEntityModel>
     {
     }
 }

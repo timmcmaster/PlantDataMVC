@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Entities.Configuration
 {
-    public class SeedTrayConfiguration : IEntityTypeConfiguration<SeedTray>
+    public class SeedTrayConfiguration : IEntityTypeConfiguration<SeedTrayEntityModel>
     {
         private string _schema;
 
@@ -17,7 +17,7 @@ namespace PlantDataMVC.Entities.Configuration
             _schema = schema;
         }
 
-        public void Configure(EntityTypeBuilder<SeedTray> builder)
+        public void Configure(EntityTypeBuilder<SeedTrayEntityModel> builder)
         {
             // Primary key 
             builder.HasKey(x => x.Id);

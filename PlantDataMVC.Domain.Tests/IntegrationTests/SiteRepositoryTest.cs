@@ -4,7 +4,7 @@ using Interfaces.Domain.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.Interfaces;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using System.Configuration;
 using UnitTest.Utils.Domain;
 using Xunit;
@@ -33,7 +33,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             {
                 // Arrange
                 var requestSite = SiteBuilder.aSite().withNoId().Build();
-                var repository = unitOfWork.Repository<Site>();
+                var repository = unitOfWork.Repository<SiteEntityModel>();
 
                 // Act
                 repository.Add(requestSite);
@@ -59,7 +59,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 var requestSite = SiteBuilder.aSite().withNoId().Build();
-                var repository = unitOfWork.Repository<Site>();
+                var repository = unitOfWork.Repository<SiteEntityModel>();
 
                 // Act
                 repository.Add(requestSite);
@@ -74,7 +74,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
-                var repository = unitOfWork.Repository<Site>();
+                var repository = unitOfWork.Repository<SiteEntityModel>();
                 var site = repository.GetItemById(addedSiteId);
 
                 // Act
@@ -95,7 +95,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             using (IDbContext plantDataDbContext = new PlantDataDbContext(_plantDataDbConnectionString))
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
-                var repository = unitOfWork.Repository<Site>();
+                var repository = unitOfWork.Repository<SiteEntityModel>();
                 var retrievedSite = repository.GetItemById(addedSiteId);
 
                 // Assert
@@ -117,7 +117,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 var requestSite = SiteBuilder.aSite().withNoId().Build();
-                var repository = unitOfWork.Repository<Site>();
+                var repository = unitOfWork.Repository<SiteEntityModel>();
 
                 // Act
                 repository.Add(requestSite);
@@ -131,7 +131,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataDbContext))
             {
                 // Arrange
-                var repository = unitOfWork.Repository<Site>();
+                var repository = unitOfWork.Repository<SiteEntityModel>();
                 var site = repository.GetItemById(addedSiteId);
 
                 // Act

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.Entities.Models
+namespace PlantDataMVC.Entities.EntityModels
 {
-    public class Site : IEntity
+    public class SiteEntityModel : IEntity
     {
         [Required]
         [Display(Name = "Id")]
@@ -31,11 +31,11 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child SeedBatches where [SeedBatch].[SiteId] point to this entity (FK_SeedBatch_Site)
         /// </summary>
-        public virtual ICollection<SeedBatch> SeedBatches { get; set; } // SeedBatch.FK_SeedBatch_Site
+        public virtual ICollection<SeedBatchEntityModel> SeedBatches { get; set; } // SeedBatch.FK_SeedBatch_Site
 
-        public Site()
+        public SiteEntityModel()
         {
-            SeedBatches = new List<SeedBatch>();
+            SeedBatches = new List<SeedBatchEntityModel>();
         }
     }
 

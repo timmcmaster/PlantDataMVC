@@ -1,4 +1,4 @@
-﻿using PlantDataMVC.Entities.Models;
+﻿using PlantDataMVC.Entities.EntityModels;
 using UnitTest.Utils.Common;
 
 namespace UnitTest.Utils.Domain
@@ -61,9 +61,9 @@ namespace UnitTest.Utils.Domain
             return this;
         }
 
-        public JournalEntryType Build()
+        public JournalEntryTypeEntityModel Build()
         {
-            return new JournalEntryType()
+            return new JournalEntryTypeEntityModel()
             {
                 Id = _id,
                 Name = _name,

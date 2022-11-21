@@ -1,9 +1,9 @@
 ﻿using Interfaces.Domain.Repository;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Repository.Interfaces
 {
-    public interface ISiteRepository : IRepositoryAsync<Site>
+    public interface ISiteRepository : IRepositoryAsync<SiteEntityModel>
     {
     }
 }

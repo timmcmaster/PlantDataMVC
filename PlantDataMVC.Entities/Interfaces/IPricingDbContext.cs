@@ -1,6 +1,6 @@
 ﻿using Framework.Domain.EF;
 using Microsoft.EntityFrameworkCore;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using System;
 
 namespace PlantDataMVC.Entities.Interfaces
@@ -8,9 +8,9 @@ namespace PlantDataMVC.Entities.Interfaces
 
     public interface IPricingDbContext : IDbContext, IDisposable
     {
-        DbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
-        DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
-        DbSet<ProductType> ProductTypes { get; set; } // ProductType
+        DbSet<PriceListTypeEntityModel> PriceListTypes { get; set; } // PriceListType
+        DbSet<ProductPriceEntityModel> ProductPrices { get; set; } // ProductPrice
+        DbSet<ProductTypeEntityModel> ProductTypes { get; set; } // ProductType
 
         //int SaveChanges();
         //Task<int> SaveChangesAsync();

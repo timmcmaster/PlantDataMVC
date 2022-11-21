@@ -1,6 +1,6 @@
 ﻿using Framework.Service;
 using Interfaces.Service;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.Repository.Interfaces;
 
 namespace PlantDataMVC.Service
@@ -8,16 +8,16 @@ namespace PlantDataMVC.Service
     /// <summary>
     ///     Add custom business logic (method definitions) here
     /// </summary>
-    public interface IGenusService : IService<Genus>
+    public interface IGenusService : IService<GenusEntityModel>
     {
-        Genus GetItemByLatinName(string latinName);
+        GenusEntityModel GetItemByLatinName(string latinName);
     }
 
     /// <summary>
     ///     All methods that are exposed from Repository in Service are overridable to add business logic,
     ///     business logic should be in the Service layer and not in repository for separation of concerns.
     /// </summary>
-    public class GenusService : Service<Genus>, IGenusService
+    public class GenusService : Service<GenusEntityModel>, IGenusService
     {
         private readonly IGenusRepository _repository;
 
@@ -26,12 +26,12 @@ namespace PlantDataMVC.Service
             _repository = repository;
         }
 
-        public Genus GetItemByLatinName(string latinName)
+        public GenusEntityModel GetItemByLatinName(string latinName)
         {
             return _repository.GetItemByLatinName(latinName);
         }
 
-        public Genus GetItemWithAllSpecies(int id)
+        public GenusEntityModel GetItemWithAllSpecies(int id)
         {
             return _repository.GetItemWithAllSpecies(id);
         }

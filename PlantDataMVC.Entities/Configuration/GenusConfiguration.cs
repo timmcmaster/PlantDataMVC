@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Entities.Configuration
 {
 
     // Genus
-    public class GenusConfiguration : IEntityTypeConfiguration<Genus>
+    public class GenusConfiguration : IEntityTypeConfiguration<GenusEntityModel>
     {
         private string _schema; 
 
@@ -19,7 +19,7 @@ namespace PlantDataMVC.Entities.Configuration
             _schema = schema;
         }
 
-        public void Configure(EntityTypeBuilder<Genus> builder)
+        public void Configure(EntityTypeBuilder<GenusEntityModel> builder)
         {
             // Primary key 
             builder.HasKey(x => x.Id);

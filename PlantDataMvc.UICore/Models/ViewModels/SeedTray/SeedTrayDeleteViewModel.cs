@@ -12,6 +12,9 @@ namespace PlantDataMVC.UICore.Models.ViewModels.SeedTray
         [Display(Name = "Seed Batch Id")]
         public int SeedBatchId { get; set; }
 
+        [Display(Name = "Species Name")]
+        public string SpeciesBinomial { get; private set; }
+
         [Display(Name = "Date Planted")]
         public DateTime DatePlanted { get; set; }
 

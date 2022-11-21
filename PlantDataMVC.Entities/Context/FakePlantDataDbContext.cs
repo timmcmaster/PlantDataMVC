@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Framework.Domain.EF;
 using PlantDataMVC.Entities.Interfaces;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
@@ -18,90 +18,90 @@ namespace PlantDataMVC.Entities.Context
 
         public FakePlantDataDbContext()
         {
-            AddFakeDbSet<Genus, GenusDbSet>();
-            AddFakeDbSet<JournalEntry, JournalEntryDbSet>();
-            AddFakeDbSet<JournalEntryType, JournalEntryTypeDbSet>();
-            AddFakeDbSet<PlantStock, PlantStockDbSet>();
-            AddFakeDbSet<PriceListType, PriceListTypeDbSet>();
-            AddFakeDbSet<ProductPrice, ProductPriceDbSet>();
-            AddFakeDbSet<ProductType, ProductTypeDbSet>();
-            AddFakeDbSet<SaleEvent, SaleEventDbSet>();
-            AddFakeDbSet<SeedBatch, SeedBatchDbSet>();
-            AddFakeDbSet<SeedTray, SeedTrayDbSet>();
-            AddFakeDbSet<Site, SiteDbSet>();
-            AddFakeDbSet<Species, SpeciesDbSet>();
+            AddFakeDbSet<GenusEntityModel, GenusDbSet>();
+            AddFakeDbSet<JournalEntryEntityModel, JournalEntryDbSet>();
+            AddFakeDbSet<JournalEntryTypeEntityModel, JournalEntryTypeDbSet>();
+            AddFakeDbSet<PlantStockEntityModel, PlantStockDbSet>();
+            AddFakeDbSet<PriceListTypeEntityModel, PriceListTypeDbSet>();
+            AddFakeDbSet<ProductPriceEntityModel, ProductPriceDbSet>();
+            AddFakeDbSet<ProductTypeEntityModel, ProductTypeDbSet>();
+            AddFakeDbSet<SaleEventEntityModel, SaleEventDbSet>();
+            AddFakeDbSet<SeedBatchEntityModel, SeedBatchDbSet>();
+            AddFakeDbSet<SeedTrayEntityModel, SeedTrayDbSet>();
+            AddFakeDbSet<SiteEntityModel, SiteDbSet>();
+            AddFakeDbSet<SpeciesEntityModel, SpeciesDbSet>();
         }
 
         #region IPlantDataDbContext Members
-        public DbSet<Genus> Genus
+        public DbSet<GenusEntityModel> Genus
         {
-            get => Set<Genus>();
+            get => Set<GenusEntityModel>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<JournalEntry> JournalEntries
+        public DbSet<JournalEntryEntityModel> JournalEntries
         {
-            get => Set<JournalEntry>();
+            get => Set<JournalEntryEntityModel>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<JournalEntryType> JournalEntryTypes
+        public DbSet<JournalEntryTypeEntityModel> JournalEntryTypes
         {
-            get => Set<JournalEntryType>();
+            get => Set<JournalEntryTypeEntityModel>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<PlantStock> PlantStocks
+        public DbSet<PlantStockEntityModel> PlantStocks
         {
-            get => Set<PlantStock>();
+            get => Set<PlantStockEntityModel>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<PriceListType> PriceListTypes
+        public DbSet<PriceListTypeEntityModel> PriceListTypes
         {
-            get => Set<PriceListType>();
+            get => Set<PriceListTypeEntityModel>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<ProductPrice> ProductPrices
+        public DbSet<ProductPriceEntityModel> ProductPrices
         {
-            get => Set<ProductPrice>();
+            get => Set<ProductPriceEntityModel>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<ProductType> ProductTypes
+        public DbSet<ProductTypeEntityModel> ProductTypes
         {
-            get => Set<ProductType>();
+            get => Set<ProductTypeEntityModel>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<SaleEvent> SaleEvents
+        public DbSet<SaleEventEntityModel> SaleEvents
         {
-            get => Set<SaleEvent>();
+            get => Set<SaleEventEntityModel>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<SeedBatch> SeedBatches
+        public DbSet<SeedBatchEntityModel> SeedBatches
         {
-            get => Set<SeedBatch>();
+            get => Set<SeedBatchEntityModel>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<SeedTray> SeedTrays
+        public DbSet<SeedTrayEntityModel> SeedTrays
         {
-            get => Set<SeedTray>();
+            get => Set<SeedTrayEntityModel>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<Site> Sites
+        public DbSet<SiteEntityModel> Sites
         {
-            get => Set<Site>();
+            get => Set<SiteEntityModel>();
             set => throw new NotImplementedException();
         }
 
-        public DbSet<Species> Species
+        public DbSet<SpeciesEntityModel> Species
         {
-            get => Set<Species>();
+            get => Set<SpeciesEntityModel>();
             set => throw new NotImplementedException();
         }
 

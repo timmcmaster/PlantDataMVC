@@ -1,4 +1,4 @@
-﻿using PlantDataMVC.Entities.Models;
+﻿using PlantDataMVC.Entities.EntityModels;
 using UnitTest.Utils.Common;
 
 namespace UnitTest.Utils.Domain
@@ -81,9 +81,9 @@ namespace UnitTest.Utils.Domain
             return this;
         }
 
-        public Site Build()
+        public SiteEntityModel Build()
         {
-            return new Site()
+            return new SiteEntityModel()
             {
                 Id = _id,
                 SiteName = _siteName,

@@ -2,7 +2,7 @@
 using Framework.Domain.EF;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using System.Configuration;
 using UnitTest.Utils.Domain;
 using Xunit;
@@ -31,7 +31,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             {
                 // Arrange
                 var requestGenus = GenusBuilder.aGenus().withNoId().Build();
-                var repository = new EFRepository<Genus>(plantDataDbContext);
+                var repository = new EFRepository<GenusEntityModel>(plantDataDbContext);
 
                 // Act
                 repository.Add(requestGenus);
@@ -53,7 +53,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
             {
                 // Arrange
                 var requestGenus = GenusBuilder.aGenus().withNoId().Build();
-                var repository = unitOfWork.Repository<Genus>();
+                var repository = unitOfWork.Repository<GenusEntityModel>();
 
                 // Act
                 repository.Add(requestGenus);

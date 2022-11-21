@@ -5,7 +5,7 @@ using Interfaces.Domain.Repository;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.DTO.Mappers;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using System;
 using System.Configuration;
 using System.Threading.Tasks;

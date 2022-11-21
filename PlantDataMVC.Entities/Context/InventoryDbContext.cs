@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Configuration;
 using PlantDataMVC.Entities.Interfaces;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Entities.Context
 {
@@ -10,13 +10,13 @@ namespace PlantDataMVC.Entities.Context
     {
         private string _connectionString;
 
-        public DbSet<Genus> Genus { get; set; } // Genus
-        public DbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
-        public DbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
-        public DbSet<PlantStock> PlantStocks { get; set; } // PlantStock
-        public DbSet<ProductType> ProductTypes { get; set; } // ProductType
-        public DbSet<SaleEvent> SaleEvents { get; set; } // SaleEvent
-        public DbSet<Species> Species { get; set; } // Species
+        public DbSet<GenusEntityModel> Genus { get; set; } // Genus
+        public DbSet<JournalEntryEntityModel> JournalEntries { get; set; } // JournalEntry
+        public DbSet<JournalEntryTypeEntityModel> JournalEntryTypes { get; set; } // JournalEntryType
+        public DbSet<PlantStockEntityModel> PlantStocks { get; set; } // PlantStock
+        public DbSet<ProductTypeEntityModel> ProductTypes { get; set; } // ProductType
+        public DbSet<SaleEventEntityModel> SaleEvents { get; set; } // SaleEvent
+        public DbSet<SpeciesEntityModel> Species { get; set; } // Species
 
         //static InventoryDbContext()
         //{

@@ -4,9 +4,9 @@ using Interfaces.Domain.Entity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.Entities.Models
+namespace PlantDataMVC.Entities.EntityModels
 {
-    public class Genus : IEntity
+    public class GenusEntityModel: IEntity
     {
         [Required]
         [Display(Name = "Id")]
@@ -23,11 +23,11 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child Species where [Species].[GenusId] point to this entity (FK_Species_Genus)
         /// </summary>
-        public virtual ICollection<Species> Species { get; set; } // Species.FK_Species_Genus
+        public virtual ICollection<SpeciesEntityModel> Species { get; set; } // Species.FK_Species_Genus
 
-        public Genus()
+        public GenusEntityModel()
         {
-            Species = new List<Species>();
+            Species = new List<SpeciesEntityModel>();
         }
     }
 

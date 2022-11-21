@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApiCore.Helpers;
 using PlantDataMVC.WebApiCore.Models;
@@ -123,7 +123,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var itemDto = _mapper.Map<JournalEntry, JournalEntryDto>(item);
+                var itemDto = _mapper.Map<JournalEntryEntityModel, JournalEntryDto>(item);
 
                 return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
@@ -150,7 +150,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return BadRequest();
                 }
 
-                var entity = _mapper.Map<CreateUpdateJournalEntryDto, JournalEntry>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateJournalEntryDto, JournalEntryEntityModel>(dtoIn);
                 _service.Add(entity);
 
                 // Save changes before we map back
@@ -159,7 +159,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<JournalEntry, JournalEntryDto>(entity);
+                    var dtoOut = _mapper.Map<JournalEntryEntityModel, JournalEntryDto>(entity);
 
                     return CreatedAtAction(nameof(GetById), new { id = dtoOut.Id }, dtoOut);
                 }
@@ -200,7 +200,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var entity = _mapper.Map<CreateUpdateJournalEntryDto, JournalEntry>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateJournalEntryDto, JournalEntryEntityModel>(dtoIn);
                 entity.Id = entityFound.Id;
                 _service.Update(entity);
 
@@ -210,7 +210,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<JournalEntry, JournalEntryDto>(entity);
+                    var dtoOut = _mapper.Map<JournalEntryEntityModel, JournalEntryDto>(entity);
 
                     return Ok(dtoOut);
                 }
@@ -248,12 +248,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 // Map to dto
-                var dtoFound = _mapper.Map<JournalEntry, CreateUpdateJournalEntryDto>(entityFound);
+                var dtoFound = _mapper.Map<JournalEntryEntityModel, CreateUpdateJournalEntryDto>(entityFound);
 
                 // Apply changes to dto
                 itemPatchDoc.ApplyTo(dtoFound);
 
-                var updatedEntity = _mapper.Map<CreateUpdateJournalEntryDto, JournalEntry>(dtoFound);
+                var updatedEntity = _mapper.Map<CreateUpdateJournalEntryDto, JournalEntryEntityModel>(dtoFound);
                 updatedEntity.Id = id;
                 _service.Update(updatedEntity);
 
@@ -263,7 +263,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<JournalEntry, JournalEntryDto>(updatedEntity);
+                    var dtoOut = _mapper.Map<JournalEntryEntityModel, JournalEntryDto>(updatedEntity);
 
                     return Ok(dtoOut);
                 }

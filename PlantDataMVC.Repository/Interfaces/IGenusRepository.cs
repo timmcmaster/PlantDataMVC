@@ -1,11 +1,11 @@
 ﻿using Interfaces.Domain.Repository;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Repository.Interfaces
 {
-    public interface IGenusRepository : IRepositoryAsync<Genus>
+    public interface IGenusRepository : IRepositoryAsync<GenusEntityModel>
     {
-        Genus GetItemByLatinName(string latinName);
-        Genus GetItemWithAllSpecies(int id);
+        GenusEntityModel GetItemByLatinName(string latinName);
+        GenusEntityModel GetItemWithAllSpecies(int id);
     }
 }

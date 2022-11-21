@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 
 namespace PlantDataMVC.Entities.Configuration
 {
     // JournalEntry
-    public class JournalEntryConfiguration : IEntityTypeConfiguration<JournalEntry>
+    public class JournalEntryConfiguration : IEntityTypeConfiguration<JournalEntryEntityModel>
     {
         private string _schema;
 
@@ -18,7 +18,7 @@ namespace PlantDataMVC.Entities.Configuration
         {
             _schema = schema;
         }
-        public void Configure(EntityTypeBuilder<JournalEntry> builder)
+        public void Configure(EntityTypeBuilder<JournalEntryEntityModel> builder)
         {
             // Primary key 
             builder.HasKey(x => x.Id);

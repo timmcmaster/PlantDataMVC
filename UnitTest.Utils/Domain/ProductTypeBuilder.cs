@@ -1,4 +1,4 @@
-﻿using PlantDataMVC.Entities.Models;
+﻿using PlantDataMVC.Entities.EntityModels;
 using UnitTest.Utils.Common;
 
 namespace UnitTest.Utils.Domain
@@ -53,9 +53,9 @@ namespace UnitTest.Utils.Domain
             return this;
         }
 
-        public ProductType Build()
+        public ProductTypeEntityModel Build()
         {
-            return new ProductType()
+            return new ProductTypeEntityModel()
             {
                 Id = _id,
                 Name = _name

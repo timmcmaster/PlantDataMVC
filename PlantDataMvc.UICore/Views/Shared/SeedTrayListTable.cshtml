@@ -7,6 +7,7 @@
 <table class="grid">
     <tr>
         <th>@Html.ColumnHeaderFor(m => sampleElement.SeedBatchId)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.DatePlanted)</th>
         <th></th>
         <th></th>
@@ -17,6 +18,7 @@ int count = 0;
 foreach (var entry in Model) {
     <tr>
         <td><a asp-controller="SeedTray" asp-action="Show" asp-route-id="@entry.Id">@entry.SeedBatchId.ToString()</a></td>
+        <td>@Html.DisplayFor(m => m.ElementAt(count).SpeciesBinomial)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).DatePlanted)</td>
         <td><a asp-controller="SeedTray" asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
         <td><a asp-controller="SeedTray" asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>

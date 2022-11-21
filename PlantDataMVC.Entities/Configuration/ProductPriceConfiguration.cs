@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Entities.Configuration
 {
-    public class ProductPriceConfiguration : IEntityTypeConfiguration<ProductPrice>
+    public class ProductPriceConfiguration : IEntityTypeConfiguration<ProductPriceEntityModel>
     {
         private string _schema;
 
@@ -17,7 +17,7 @@ namespace PlantDataMVC.Entities.Configuration
             _schema = schema;
         }
 
-        public void Configure(EntityTypeBuilder<ProductPrice> builder)
+        public void Configure(EntityTypeBuilder<ProductPriceEntityModel> builder)
         {
             // Primary key 
             builder.HasKey(x => new { x.PriceListTypeId, x.ProductTypeId, x.DateEffective });

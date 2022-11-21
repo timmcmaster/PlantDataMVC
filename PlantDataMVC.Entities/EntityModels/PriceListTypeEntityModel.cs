@@ -4,9 +4,9 @@ using Interfaces.Domain.Entity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.Entities.Models
+namespace PlantDataMVC.Entities.EntityModels
 {
-    public class PriceListType: IEntity
+    public class PriceListTypeEntityModel: IEntity
     {
         [Required]
         [Display(Name = "Id")]
@@ -29,11 +29,11 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child ProductPrices where [ProductPrice].[PriceListTypeId] point to this entity (FK_ProductPrices_PriceListType)
         /// </summary>
-        public virtual ICollection<ProductPrice> ProductPrices { get; set; } // ProductPrice.FK_ProductPrices_PriceListType
+        public virtual ICollection<ProductPriceEntityModel> ProductPrices { get; set; } // ProductPrice.FK_ProductPrices_PriceListType
 
-        public PriceListType()
+        public PriceListTypeEntityModel()
         {
-            ProductPrices = new List<ProductPrice>();
+            ProductPrices = new List<ProductPriceEntityModel>();
         }
 
     }

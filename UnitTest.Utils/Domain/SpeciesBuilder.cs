@@ -1,4 +1,4 @@
-﻿using PlantDataMVC.Entities.Models;
+﻿using PlantDataMVC.Entities.EntityModels;
 using UnitTest.Utils.Common;
 
 namespace UnitTest.Utils.Domain
@@ -17,7 +17,7 @@ namespace UnitTest.Utils.Domain
 
         // private members (for object properties)
         private int _id;
-        private Genus _genus;
+        private GenusEntityModel _genus;
         private string _specificName = DEFAULT_SPECIES;
         private string _commonName = DEFAULT_COMMON_NAME;
         private string _description = DEFAULT_DESCRIPTION;
@@ -49,7 +49,7 @@ namespace UnitTest.Utils.Domain
             return this;
         }
 
-        public SpeciesBuilder withGenus(Genus genus)
+        public SpeciesBuilder withGenus(GenusEntityModel genus)
         {
             _genus = genus;
             return this;
@@ -98,9 +98,9 @@ namespace UnitTest.Utils.Domain
             return this;
         }
 
-        public Species Build()
+        public SpeciesEntityModel Build()
         {
-            return new Species()
+            return new SpeciesEntityModel()
             {
                 Id = _id,
                 CommonName = _commonName,

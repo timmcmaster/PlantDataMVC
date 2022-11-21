@@ -4,9 +4,9 @@ using Interfaces.Domain.Entity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.Entities.Models
+namespace PlantDataMVC.Entities.EntityModels
 {
-    public partial class JournalEntryType: IEntity
+    public partial class JournalEntryTypeEntityModel: IEntity
     {
         [Required]
         [Display(Name = "Id")]
@@ -27,11 +27,11 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child JournalEntries where [JournalEntry].[JournalEntryTypeId] point to this entity (FK_Transactions_TransactionType)
         /// </summary>
-        public virtual ICollection<JournalEntry> JournalEntries { get; set; } // JournalEntry.FK_Transactions_TransactionType
+        public virtual ICollection<JournalEntryEntityModel> JournalEntries { get; set; } // JournalEntry.FK_Transactions_TransactionType
 
-        public JournalEntryType()
+        public JournalEntryTypeEntityModel()
         {
-            JournalEntries = new List<JournalEntry>();
+            JournalEntries = new List<JournalEntryEntityModel>();
         }
     }
 

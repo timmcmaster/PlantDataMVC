@@ -1,11 +1,11 @@
 ﻿using Framework.Service;
 using Interfaces.Service;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.Repository.Interfaces;
 
 namespace PlantDataMVC.Service
 {
-    public interface IProductTypeService : IService<ProductType>
+    public interface IProductTypeService : IService<ProductTypeEntityModel>
     {
     }
 
@@ -13,7 +13,7 @@ namespace PlantDataMVC.Service
     ///     All methods that are exposed from Repository in Service are overridable to add business logic,
     ///     business logic should be in the Service layer and not in repository for separation of concerns.
     /// </summary>
-    public class ProductTypeService : Service<ProductType>, IProductTypeService
+    public class ProductTypeService : Service<ProductTypeEntityModel>, IProductTypeService
     {
         public ProductTypeService(IProductTypeRepository repository) : base(repository)
         {

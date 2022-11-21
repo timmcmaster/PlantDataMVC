@@ -3,7 +3,7 @@ using Framework.Domain.EF;
 using Interfaces.Domain.Repository;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.Repository.Repositories;
 using UnitTest.Utils.Domain;
 using Xunit;
@@ -19,7 +19,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange
-                IRepositoryAsync<Genus> genusRepository = new EFRepository<Genus>(plantDataFakeDbContext);
+                IRepositoryAsync<GenusEntityModel> genusRepository = new EFRepository<GenusEntityModel>(plantDataFakeDbContext);
 
                 var genus = GenusBuilder.aGenus().withId().withLatinName("Eremophila").Build();
 
@@ -43,7 +43,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange
-                var repository = unitOfWork.Repository<Genus>();
+                var repository = unitOfWork.Repository<GenusEntityModel>();
                 var genus = GenusBuilder.aGenus().withNoId().withLatinName("Eremophila").Build();
 
                 // Act
@@ -65,7 +65,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(plantDataFakeDbContext))
             {
                 // Arrange
-                var repository = unitOfWork.Repository<Genus>();
+                var repository = unitOfWork.Repository<GenusEntityModel>();
                 var genus = GenusBuilder.aGenus().withNoId().withLatinName("Eremophila").Build();
 
                 repository.Add(genus);
@@ -78,7 +78,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
 
                 // Assert
                 entity.Should().NotBeNull();
-                entity.Should().BeOfType<Genus>();
+                entity.Should().BeOfType<GenusEntityModel>();
                 entity.Should().BeEquivalentTo(genus);
             }
         }
@@ -92,7 +92,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                 var latinName = "Eremophila";
 
                 // Arrange
-                var repository = unitOfWork.Repository<Genus>();
+                var repository = unitOfWork.Repository<GenusEntityModel>();
                 var genus = GenusBuilder.aGenus().withNoId().withLatinName(latinName).Build();
 
                 repository.Add(genus);
@@ -105,7 +105,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
 
                 // Assert
                 entity.Should().NotBeNull();
-                entity.Should().BeOfType<Genus>();
+                entity.Should().BeOfType<GenusEntityModel>();
                 entity.Should().BeEquivalentTo(genus);
             }
         }

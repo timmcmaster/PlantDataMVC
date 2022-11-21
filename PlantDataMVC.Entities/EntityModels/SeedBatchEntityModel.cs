@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.Entities.Models
+namespace PlantDataMVC.Entities.EntityModels
 {
-    public class SeedBatch : IEntity
+    public class SeedBatchEntityModel : IEntity
     {
         [Required]
         [Display(Name = "Id")]
@@ -37,23 +37,23 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child SeedTrays where [SeedTray].[SeedBatchId] point to this entity (FK_SeedTray_SeedBatch)
         /// </summary>
-        public virtual ICollection<SeedTray> SeedTrays { get; set; } // SeedTray.FK_SeedTray_SeedBatch
+        public virtual ICollection<SeedTrayEntityModel> SeedTrays { get; set; } // SeedTray.FK_SeedTray_SeedBatch
 
         // Foreign keys
 
         /// <summary>
         /// Parent Site pointed by [SeedBatch].([SiteId]) (FK_SeedBatch_Site)
         /// </summary>
-        public virtual Site Site { get; set; } // FK_SeedBatch_Site
+        public virtual SiteEntityModel Site { get; set; } // FK_SeedBatch_Site
 
         /// <summary>
         /// Parent Species pointed by [SeedBatch].([SpeciesId]) (FK_SeedBatch_Species)
         /// </summary>
-        public virtual Species Species { get; set; } // FK_SeedBatch_Species
+        public virtual SpeciesEntityModel Species { get; set; } // FK_SeedBatch_Species
 
-        public SeedBatch()
+        public SeedBatchEntityModel()
         {
-            SeedTrays = new List<SeedTray>();
+            SeedTrays = new List<SeedTrayEntityModel>();
         }
     }
 }

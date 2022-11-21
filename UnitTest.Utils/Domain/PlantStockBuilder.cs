@@ -1,4 +1,4 @@
-﻿using PlantDataMVC.Entities.Models;
+﻿using PlantDataMVC.Entities.EntityModels;
 using UnitTest.Utils.Common;
 
 namespace UnitTest.Utils.Domain
@@ -13,8 +13,8 @@ namespace UnitTest.Utils.Domain
 
         // private members (for object properties)
         private int _id;
-        private ProductType _productType;
-        private Species _species;
+        private ProductTypeEntityModel _productType;
+        private SpeciesEntityModel _species;
         private int _quantity;
 
         private PlantStockBuilder()
@@ -48,13 +48,13 @@ namespace UnitTest.Utils.Domain
             return this;
         }
 
-        public PlantStockBuilder withSpecies(Species species)
+        public PlantStockBuilder withSpecies(SpeciesEntityModel species)
         {
             _species = species;
             return this;
         }
 
-        public PlantStockBuilder withProductType(ProductType productType)
+        public PlantStockBuilder withProductType(ProductTypeEntityModel productType)
         {
             _productType = productType;
             return this;
@@ -67,9 +67,9 @@ namespace UnitTest.Utils.Domain
             return this;
         }
 
-        public PlantStock Build()
+        public PlantStockEntityModel Build()
         {
-            return new PlantStock()
+            return new PlantStockEntityModel()
             {
                 Id = _id,
                 ProductType = _productType,

@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using Interfaces.Domain.Entity;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using Xunit;
 
 namespace PlantDataMVC.Domain.Tests.UnitTests.Entity
@@ -15,12 +15,12 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Entity
         public void CanConstructEmptyObject()
         {
             // Act
-            var genus = new Genus();
+            var genus = new GenusEntityModel();
 
             // Assert
             // can I assign species object to IEntity?
             genus.Should().BeAssignableTo<IEntity>();
-            genus.Should().BeOfType<Genus>();
+            genus.Should().BeOfType<GenusEntityModel>();
             genus.Should().NotBeNull();
 
             // Check default values
@@ -36,7 +36,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Entity
         public void CanConstructWithProperties()
         {
             // Act
-            var genus = new Genus
+            var genus = new GenusEntityModel
             {
                 Id = 1,
                 LatinName = "Eremophila"
@@ -45,7 +45,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Entity
             // Assert
             // can I assign species object to IEntity?
             genus.Should().BeAssignableTo<IEntity>();
-            genus.Should().BeOfType<Genus>();
+            genus.Should().BeOfType<GenusEntityModel>();
             genus.Should().NotBeNull();
 
             // Check default values

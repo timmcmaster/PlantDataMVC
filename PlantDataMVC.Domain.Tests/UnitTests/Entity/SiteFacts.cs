@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using Interfaces.Domain.Entity;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using Xunit;
 
 namespace PlantDataMVC.Domain.Tests.UnitTests.Entity
@@ -11,12 +11,12 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Entity
         public void CanConstructEmptyObject()
         {
             // Act
-            var site = new Site();
+            var site = new SiteEntityModel();
 
             // Assert
             // can I assign object to IEntity?
             site.Should().BeAssignableTo<IEntity>();
-            site.Should().BeOfType<Site>();
+            site.Should().BeOfType<SiteEntityModel>();
             site.Should().NotBeNull();
 
             // Check default values
@@ -31,7 +31,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Entity
         public void CanConstructWithProperties()
         {
             // Act
-            var site = new Site
+            var site = new SiteEntityModel
             {
                 Id = 1,
                 SiteName = "Home",
@@ -43,7 +43,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Entity
             // Assert
             // can I assign object to IEntity?
             site.Should().BeAssignableTo<IEntity>();
-            site.Should().BeOfType<Site>();
+            site.Should().BeOfType<SiteEntityModel>();
             site.Should().NotBeNull();
 
             // Check default values

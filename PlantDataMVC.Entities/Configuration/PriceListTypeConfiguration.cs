@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Entities.Configuration
 {
     // PriceListType
-    public class PriceListTypeConfiguration : IEntityTypeConfiguration<PriceListType>
+    public class PriceListTypeConfiguration : IEntityTypeConfiguration<PriceListTypeEntityModel>
     {
         private string _schema;
 
@@ -18,7 +18,7 @@ namespace PlantDataMVC.Entities.Configuration
             _schema = schema;
         }
 
-        public void Configure(EntityTypeBuilder<PriceListType> builder)
+        public void Configure(EntityTypeBuilder<PriceListTypeEntityModel> builder)
         {
             // Primary key 
             builder.HasKey(x => x.Id);

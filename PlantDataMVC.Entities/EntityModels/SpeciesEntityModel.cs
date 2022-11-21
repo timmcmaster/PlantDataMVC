@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PlantDataMVC.Entities.Models
+namespace PlantDataMVC.Entities.EntityModels
 {
-    public class Species : IEntity
+    public class SpeciesEntityModel : IEntity
     {
         [Required]
         [Display(Name = "Id")]
@@ -46,23 +46,23 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child PlantStocks where [PlantStock].[SpeciesId] point to this entity (FK_PlantStock_Species)
         /// </summary>
-        public virtual ICollection<PlantStock> PlantStocks { get; set; } // PlantStock.FK_PlantStock_Species
+        public virtual ICollection<PlantStockEntityModel> PlantStocks { get; set; } // PlantStock.FK_PlantStock_Species
         /// <summary>
         /// Child SeedBatches where [SeedBatch].[SpeciesId] point to this entity (FK_SeedBatch_Species)
         /// </summary>
-        public virtual ICollection<SeedBatch> SeedBatches { get; set; } // SeedBatch.FK_SeedBatch_Species
+        public virtual ICollection<SeedBatchEntityModel> SeedBatches { get; set; } // SeedBatch.FK_SeedBatch_Species
 
         // Foreign keys
 
         /// <summary>
         /// Parent Genus pointed by [Species].([GenusId]) (FK_Species_Genus)
         /// </summary>
-        public virtual Genus Genus { get; set; } // FK_Species_Genus
+        public virtual GenusEntityModel Genus { get; set; } // FK_Species_Genus
 
-        public Species()
+        public SpeciesEntityModel()
         {
-            PlantStocks = new List<PlantStock>();
-            SeedBatches = new List<SeedBatch>();
+            PlantStocks = new List<PlantStockEntityModel>();
+            SeedBatches = new List<SeedBatchEntityModel>();
         }
 
     }

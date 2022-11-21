@@ -1,9 +1,9 @@
 ﻿using Interfaces.Domain.Repository;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Repository.Interfaces
 {
-    public interface IPriceListTypeRepository : IRepositoryAsync<PriceListType>
+    public interface IPriceListTypeRepository : IRepositoryAsync<PriceListTypeEntityModel>
     {
     }
 }

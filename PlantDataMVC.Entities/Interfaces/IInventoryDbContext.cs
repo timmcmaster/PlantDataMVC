@@ -1,4 +1,4 @@
-﻿using PlantDataMVC.Entities.Models;
+﻿using PlantDataMVC.Entities.EntityModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Framework.Domain.EF;
@@ -8,13 +8,13 @@ namespace PlantDataMVC.Entities.Interfaces
 
     public interface IInventoryDbContext : IDbContext, IDisposable
     {
-        DbSet<Genus> Genus { get; set; } // Genus
-        DbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
-        DbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
-        DbSet<PlantStock> PlantStocks { get; set; } // PlantStock
-        DbSet<ProductType> ProductTypes { get; set; } // ProductType
-        DbSet<Species> Species { get; set; } // Species
-        DbSet<SaleEvent> SaleEvents { get; set; } // SaleEvent
+        DbSet<GenusEntityModel> Genus { get; set; } // Genus
+        DbSet<JournalEntryEntityModel> JournalEntries { get; set; } // JournalEntry
+        DbSet<JournalEntryTypeEntityModel> JournalEntryTypes { get; set; } // JournalEntryType
+        DbSet<PlantStockEntityModel> PlantStocks { get; set; } // PlantStock
+        DbSet<ProductTypeEntityModel> ProductTypes { get; set; } // ProductType
+        DbSet<SpeciesEntityModel> Species { get; set; } // Species
+        DbSet<SaleEventEntityModel> SaleEvents { get; set; } // SaleEvent
 
         //int SaveChanges();
         //Task<int> SaveChangesAsync();

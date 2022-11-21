@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.Entities.Models
+namespace PlantDataMVC.Entities.EntityModels
 {
-    public class PlantStock: IEntity
+    public class PlantStockEntityModel: IEntity
     {
         [Required]
         [Display(Name = "Id")]
@@ -27,23 +27,23 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child JournalEntries where [JournalEntry].[PlantStockId] point to this entity (FK_Transactions_PlantStock)
         /// </summary>
-        public virtual ICollection<JournalEntry> JournalEntries { get; set; } // JournalEntry.FK_Transactions_PlantStock
+        public virtual ICollection<JournalEntryEntityModel> JournalEntries { get; set; } // JournalEntry.FK_Transactions_PlantStock
 
         // Foreign keys
 
         /// <summary>
         /// Parent ProductType pointed by [PlantStock].([ProductTypeId]) (FK_PlantStock_ProductType)
         /// </summary>
-        public virtual ProductType ProductType { get; set; } // FK_PlantStock_ProductType
+        public virtual ProductTypeEntityModel ProductType { get; set; } // FK_PlantStock_ProductType
 
         /// <summary>
         /// Parent Species pointed by [PlantStock].([SpeciesId]) (FK_PlantStock_Species)
         /// </summary>
-        public virtual Species Species { get; set; } // FK_PlantStock_Species
+        public virtual SpeciesEntityModel Species { get; set; } // FK_PlantStock_Species
 
-        public PlantStock()
+        public PlantStockEntityModel()
         {
-            JournalEntries = new List<JournalEntry>();
+            JournalEntries = new List<JournalEntryEntityModel>();
         }
     }
 

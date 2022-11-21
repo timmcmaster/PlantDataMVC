@@ -3,11 +3,11 @@
 using Interfaces.Domain.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.Entities.Models
+namespace PlantDataMVC.Entities.EntityModels
 {
 
     // JournalEntry
-    public class JournalEntry: IEntity
+    public class JournalEntryEntityModel: IEntity
     {
         [Required]
         [Display(Name = "Id")]
@@ -48,19 +48,19 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Parent JournalEntryType pointed by [JournalEntry].([JournalEntryTypeId]) (FK_Transactions_TransactionType)
         /// </summary>
-        public virtual JournalEntryType JournalEntryType { get; set; } // FK_Transactions_TransactionType
+        public virtual JournalEntryTypeEntityModel JournalEntryType { get; set; } // FK_Transactions_TransactionType
 
         /// <summary>
         /// Parent PlantStock pointed by [JournalEntry].([PlantStockId]) (FK_Transactions_PlantStock)
         /// </summary>
-        public virtual PlantStock PlantStock { get; set; } // FK_Transactions_PlantStock
+        public virtual PlantStockEntityModel PlantStock { get; set; } // FK_Transactions_PlantStock
 
         /// <summary>
         /// Parent SeedTray pointed by [JournalEntry].([SeedTrayId]) (FK_Transactions_SeedTray)
         /// </summary>
-        public virtual SeedTray SeedTray { get; set; } // FK_Transactions_SeedTray
+        public virtual SeedTrayEntityModel SeedTray { get; set; } // FK_Transactions_SeedTray
 
-        public JournalEntry()
+        public JournalEntryEntityModel()
         {
         }
     }

@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Entities.Configuration
 {
-    public class SeedBatchConfiguration : IEntityTypeConfiguration<SeedBatch>
+    public class SeedBatchConfiguration : IEntityTypeConfiguration<SeedBatchEntityModel>
     {
         private string _schema;
 
@@ -17,7 +17,7 @@ namespace PlantDataMVC.Entities.Configuration
             _schema = schema;
         }
 
-        public void Configure(EntityTypeBuilder<SeedBatch> builder)
+        public void Configure(EntityTypeBuilder<SeedBatchEntityModel> builder)
         {
             // Primary key 
             builder.HasKey(x => x.Id);

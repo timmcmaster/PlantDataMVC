@@ -11,18 +11,32 @@
     <fieldset>
         <legend>Seed Tray</legend>
 
-        <div class="editor-label">
-            <label asp-for="SeedBatchId"></label>
-        </div>
-        <div class="editor-field">
-            @*TODO: Want better representation for display value*@
-            @Html.QueryDropDownFor(
-                () => nameof(Model.SeedBatchId),
-                model => model.SeedBatchId,
-                new ListQuery<SeedBatchDto>(),
-                p => p.Id,
-                p => string.Concat(p.SpeciesId, ",", p.Location, ",", p.DateCollected.ToShortDateString()))
-        </div>
+        <fieldset>
+            <legend>Seed Batch Info</legend>
+
+            <input asp-for="SeedBatchId" type="hidden" />
+
+            <div class="editor-label">
+                <label asp-for="SeedBatchSpeciesBinomial"></label>
+            </div>
+            <div class="editor-field">
+                @Html.DisplayFor(model => model.SeedBatchSpeciesBinomial)
+            </div>
+        
+            <div class="editor-label">
+                <label asp-for="SeedBatchLocation"></label>
+            </div>
+            <div class="editor-field">
+                @Html.DisplayFor(model => model.SeedBatchLocation)
+            </div>
+
+            <div class="editor-label">
+                <label asp-for="SeedBatchDateCollected"></label>
+            </div>
+            <div class="editor-field">
+                @Html.DisplayFor(model => model.SeedBatchDateCollected)
+            </div>
+        </fieldset>
 
         <div class="editor-label">
             <label asp-for="DatePlanted"></label>

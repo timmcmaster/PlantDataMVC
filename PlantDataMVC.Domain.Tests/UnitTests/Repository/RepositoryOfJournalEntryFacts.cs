@@ -2,7 +2,7 @@
 using Framework.Domain.EF;
 using Interfaces.Domain.UnitOfWork;
 using PlantDataMVC.Entities.Context;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.Repository.Interfaces;
 using System;
 using UnitTest.Utils.Domain;
@@ -21,7 +21,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                 // Arrange
                 // Add genus and species
                 var genus = GenusBuilder.aGenus().withLatinName("Acacia").withId().Build();
-                unitOfWork.Repository<Genus>().Add(genus);
+                unitOfWork.Repository<GenusEntityModel>().Add(genus);
 
                 var species = SpeciesBuilder
                               .aSpecies()
@@ -30,16 +30,16 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                               .withId()
                               .Build();
 
-                unitOfWork.Repository<Species>().Add(species);
-                var addedSpecies = unitOfWork.Repository<Species>().GetItemById(species.Id);
+                unitOfWork.Repository<SpeciesEntityModel>().Add(species);
+                var addedSpecies = unitOfWork.Repository<SpeciesEntityModel>().GetItemById(species.Id);
                 // Add product type and stock record
                 var productType = ProductTypeBuilder
                                   .aProductType()
                                   .withId()
                                   .Build();
 
-                unitOfWork.Repository<ProductType>().Add(productType);
-                var addedProductType = unitOfWork.Repository<ProductType>().GetItemById(productType.Id);
+                unitOfWork.Repository<ProductTypeEntityModel>().Add(productType);
+                var addedProductType = unitOfWork.Repository<ProductTypeEntityModel>().GetItemById(productType.Id);
 
                 var plantStock = PlantStockBuilder
                                  .aStockItem()
@@ -49,8 +49,8 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                                  .withQuantity(0)
                                  .Build();
 
-                unitOfWork.Repository<PlantStock>().Add(plantStock);
-                var addedStock = unitOfWork.Repository<PlantStock>().GetItemById(plantStock.Id);
+                unitOfWork.Repository<PlantStockEntityModel>().Add(plantStock);
+                var addedStock = unitOfWork.Repository<PlantStockEntityModel>().GetItemById(plantStock.Id);
 
                 // Add transaction types
                 var jeTypeAdd = JournalEntryTypeBuilder
@@ -60,8 +60,8 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                                 .withEffect(1)
                                 .Build();
 
-                unitOfWork.Repository<JournalEntryType>().Add(jeTypeAdd);
-                var addedTypeAdd = unitOfWork.Repository<JournalEntryType>().GetItemById(jeTypeAdd.Id);
+                unitOfWork.Repository<JournalEntryTypeEntityModel>().Add(jeTypeAdd);
+                var addedTypeAdd = unitOfWork.Repository<JournalEntryTypeEntityModel>().GetItemById(jeTypeAdd.Id);
 
                 var jeTypeSale = JournalEntryTypeBuilder
                                  .aJournalEntryType()
@@ -70,8 +70,8 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                                  .withEffect(-1)
                                  .Build();
 
-                unitOfWork.Repository<JournalEntryType>().Add(jeTypeSale);
-                var addedTypeSale = unitOfWork.Repository<JournalEntryType>().GetItemById(jeTypeSale.Id);
+                unitOfWork.Repository<JournalEntryTypeEntityModel>().Add(jeTypeSale);
+                var addedTypeSale = unitOfWork.Repository<JournalEntryTypeEntityModel>().GetItemById(jeTypeSale.Id);
 
                 // Add transactions
                 var add27Plants5DaysAgo = JournalEntryBuilder
@@ -101,7 +101,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                                        .withQuantity(7)
                                        .Build();
 
-                var jnlEntryRepository = unitOfWork.Repository<JournalEntry>() as IJournalEntryRepository;
+                var jnlEntryRepository = unitOfWork.Repository<JournalEntryEntityModel>() as IJournalEntryRepository;
                 jnlEntryRepository.Add(add27Plants5DaysAgo);
                 jnlEntryRepository.Add(sell12Plants2DaysAgo);
                 jnlEntryRepository.Add(sell7PlantsToday);

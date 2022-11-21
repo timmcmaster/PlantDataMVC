@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.Entities.Models
+namespace PlantDataMVC.Entities.EntityModels
 {
-    public class SeedTray : IEntity
+    public class SeedTrayEntityModel : IEntity
     {
         [Required]
         [Display(Name = "Id")]
@@ -33,18 +33,18 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Child JournalEntries where [JournalEntry].[SeedTrayId] point to this entity (FK_Transactions_SeedTray)
         /// </summary>
-        public virtual ICollection<JournalEntry> JournalEntries { get; set; } // JournalEntry.FK_Transactions_SeedTray
+        public virtual ICollection<JournalEntryEntityModel> JournalEntries { get; set; } // JournalEntry.FK_Transactions_SeedTray
 
         // Foreign keys
 
         /// <summary>
         /// Parent SeedBatch pointed by [SeedTray].([SeedBatchId]) (FK_SeedTray_SeedBatch)
         /// </summary>
-        public virtual SeedBatch SeedBatch { get; set; } // FK_SeedTray_SeedBatch
+        public virtual SeedBatchEntityModel SeedBatch { get; set; } // FK_SeedTray_SeedBatch
 
-        public SeedTray()
+        public SeedTrayEntityModel()
         {
-            JournalEntries = new List<JournalEntry>();
+            JournalEntries = new List<JournalEntryEntityModel>();
         }
     }
 

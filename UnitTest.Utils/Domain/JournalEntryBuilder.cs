@@ -1,5 +1,5 @@
 ﻿using System;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using UnitTest.Utils.Common;
 
 namespace UnitTest.Utils.Domain
@@ -20,9 +20,9 @@ namespace UnitTest.Utils.Domain
         private int _id;
         private string _notes = DEFAULT_NOTES;
         private int _quantity = DEFAULT_QUANTITY;
-        private JournalEntryType _journalEntryType;
-        private PlantStock _plantStock;
-        private SeedTray _seedTray;
+        private JournalEntryTypeEntityModel _journalEntryType;
+        private PlantStockEntityModel _plantStock;
+        private SeedTrayEntityModel _seedTray;
         private string _source = DEFAULT_SOURCE;
         private DateTime _transactionDate = DEFAULT_DATE;
 
@@ -75,19 +75,19 @@ namespace UnitTest.Utils.Domain
             return this;
         }
 
-        public JournalEntryBuilder withPlantStock(PlantStock plantStock)
+        public JournalEntryBuilder withPlantStock(PlantStockEntityModel plantStock)
         {
             _plantStock = plantStock;
             return this;
         }
 
-        public JournalEntryBuilder withJournalEntryType(JournalEntryType journalEntryType)
+        public JournalEntryBuilder withJournalEntryType(JournalEntryTypeEntityModel journalEntryType)
         {
             _journalEntryType = journalEntryType;
             return this;
         }
 
-        public JournalEntryBuilder withSeedTray(SeedTray seedTray)
+        public JournalEntryBuilder withSeedTray(SeedTrayEntityModel seedTray)
         {
             _seedTray = seedTray;
             return this;
@@ -103,9 +103,9 @@ namespace UnitTest.Utils.Domain
             return this;
         }
 
-        public JournalEntry Build()
+        public JournalEntryEntityModel Build()
         {
-            return new JournalEntry()
+            return new JournalEntryEntityModel()
             {
                 Id = _id,
                 Notes = _notes,

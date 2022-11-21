@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Interfaces.Domain.Repository;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Repository.Repositories
 {
@@ -9,12 +9,12 @@ namespace PlantDataMVC.Repository.Repositories
     /// </summary>
     public static class GenusRepositoryOld
     {
-        public static Genus GetItemByLatinName(this IRepository<Genus> repository, string latinName)
+        public static GenusEntityModel GetItemByLatinName(this IRepository<GenusEntityModel> repository, string latinName)
         {
             return repository.Queryable().FirstOrDefault(p => p.LatinName == latinName);
         }
 
-        public static Genus GetItemWithAllSpecies(this IRepository<Genus> repository, int id)
+        public static GenusEntityModel GetItemWithAllSpecies(this IRepository<GenusEntityModel> repository, int id)
         {
             return repository.Query(g => g.Id == id).Include(g => g.Species).Select().SingleOrDefault();
         }

@@ -1,17 +1,17 @@
 ﻿using Framework.Domain.EF;
 using Microsoft.EntityFrameworkCore;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.Repository.Interfaces;
 using System.Linq;
 
 namespace PlantDataMVC.Repository.Repositories
 {
-    public class PlantStockRepository : EFRepository<PlantStock>, IPlantStockRepository
+    public class PlantStockRepository : EFRepository<PlantStockEntityModel>, IPlantStockRepository
     {
         public PlantStockRepository(IDbContext dbContext) : base(dbContext)
         {
         }
-        public override PlantStock GetItemById(int id)
+        public override PlantStockEntityModel GetItemById(int id)
         {
             var result = DbSet
                 .Include(m => m.Species).ThenInclude(m => m.Genus)

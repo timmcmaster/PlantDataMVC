@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Configuration;
 using PlantDataMVC.Entities.Interfaces;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Entities.Context
 {
@@ -10,9 +10,9 @@ namespace PlantDataMVC.Entities.Context
     {
         private string _connectionString;
 
-        public DbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
-        public DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
-        public DbSet<ProductType> ProductTypes { get; set; } // ProductType
+        public DbSet<PriceListTypeEntityModel> PriceListTypes { get; set; } // PriceListType
+        public DbSet<ProductPriceEntityModel> ProductPrices { get; set; } // ProductPrice
+        public DbSet<ProductTypeEntityModel> ProductTypes { get; set; } // ProductType
 
         public PricingDbContext(string connectionString)
         {

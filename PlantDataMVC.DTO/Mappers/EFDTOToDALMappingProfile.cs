@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using System;
 
 namespace PlantDataMVC.DTO.Mappers
@@ -35,12 +35,12 @@ namespace PlantDataMVC.DTO.Mappers
 
             // Note - default behavior for collections is to map null object to empty collection
 
-            CreateMap<CreateUpdateGenusDto, Genus>()
+            CreateMap<CreateUpdateGenusDto, GenusEntityModel>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
                 .ForMember(e => e.LatinName, opt => opt.MapFrom(dto => dto.LatinName)) // explicit and unnecessary
                 .ForMember(e => e.Species, opt => opt.Ignore());
 
-            CreateMap<GenusDto, Genus>()
+            CreateMap<GenusDto, GenusEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id)) // explicit and unnecessary
                 .ForMember(e => e.LatinName, opt => opt.MapFrom(dto => dto.LatinName)) // explicit and unnecessary
                 .ForMember(e => e.Species, opt => opt.MapFrom(dto => dto.Species)); // ICollection, explicit and unnecessary 
@@ -48,7 +48,7 @@ namespace PlantDataMVC.DTO.Mappers
 
         private void ConfigureSpeciesMappings()
         {
-            CreateMap<CreateUpdateSpeciesDto, Species>()
+            CreateMap<CreateUpdateSpeciesDto, SpeciesEntityModel>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
                 .ForMember(e => e.GenusId, opt => opt.MapFrom(dto => dto.GenusId)) // explicit and unnecessary
                 .ForMember(e => e.SpecificName, opt => opt.MapFrom(dto => dto.SpecificName)) // explicit and unnecessary
@@ -60,7 +60,7 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(e => e.SeedBatches, opt => opt.Ignore())
                 .ForMember(e => e.Genus, opt => opt.Ignore());
 
-            CreateMap<SpeciesDto, Species>()
+            CreateMap<SpeciesDto, SpeciesEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id)) // explicit and unnecessary
                 .ForMember(e => e.GenusId, opt => opt.MapFrom(dto => dto.GenusId)) // explicit and unnecessary
                 .ForMember(e => e.SpecificName, opt => opt.MapFrom(dto => dto.SpecificName)) // explicit and unnecessary
@@ -75,7 +75,7 @@ namespace PlantDataMVC.DTO.Mappers
 
         private void ConfigureSeedBatchMappings()
         {
-            CreateMap<CreateUpdateSeedBatchDto, SeedBatch>()
+            CreateMap<CreateUpdateSeedBatchDto, SeedBatchEntityModel>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
                 .ForMember(e => e.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId)) // explicit and unnecessary
                 .ForMember(e => e.DateCollected, opt => opt.MapFrom(dto => dto.DateCollected)) // explicit and unnecessary
@@ -86,7 +86,7 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(e => e.Site, opt => opt.Ignore())
                 .ForMember(e => e.Species, opt => opt.Ignore());
 
-            CreateMap<SeedBatchDto, SeedBatch>()
+            CreateMap<SeedBatchDto, SeedBatchEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id)) // explicit and unnecessary
                 .ForMember(e => e.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId)) // explicit and unnecessary
                 .ForMember(e => e.DateCollected, opt => opt.MapFrom(dto => dto.DateCollected)) // explicit and unnecessary
@@ -101,7 +101,7 @@ namespace PlantDataMVC.DTO.Mappers
 
         private void ConfigureSiteMappings()
         {
-            CreateMap<CreateUpdateSiteDto, Site>()
+            CreateMap<CreateUpdateSiteDto, SiteEntityModel>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
                 .ForMember(e => e.SiteName, opt => opt.MapFrom(dto => dto.SiteName)) // explicit and unnecessary
                 .ForMember(e => e.Suburb, opt => opt.MapFrom(dto => dto.Suburb)) // explicit and unnecessary
@@ -109,7 +109,7 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(e => e.Longitude, opt => opt.MapFrom(dto => dto.Longitude)) // explicit and unnecessary
                 .ForMember(e => e.SeedBatches, opt => opt.Ignore());
 
-            CreateMap<SiteDto, Site>()
+            CreateMap<SiteDto, SiteEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id)) // explicit and unnecessary
                 .ForMember(e => e.SiteName, opt => opt.MapFrom(dto => dto.SiteName)) // explicit and unnecessary
                 .ForMember(e => e.Suburb, opt => opt.MapFrom(dto => dto.Suburb)) // explicit and unnecessary
@@ -120,7 +120,7 @@ namespace PlantDataMVC.DTO.Mappers
 
         private void ConfigureSeedTrayMappings()
         {
-            CreateMap<CreateUpdateSeedTrayDto, SeedTray>()
+            CreateMap<CreateUpdateSeedTrayDto, SeedTrayEntityModel>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
                 .ForMember(e => e.SeedBatchId, opt => opt.MapFrom(dto => dto.SeedBatchId)) // explicit and unnecessary
                 .ForMember(e => e.DatePlanted, opt => opt.MapFrom(dto => dto.DatePlanted)) // explicit and unnecessary
@@ -129,7 +129,7 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(e => e.JournalEntries, opt => opt.Ignore())
                 .ForMember(e => e.SeedBatch, opt => opt.Ignore());
 
-            CreateMap<SeedTrayDto, SeedTray>()
+            CreateMap<SeedTrayDto, SeedTrayEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id)) // explicit and unnecessary
                 .ForMember(e => e.SeedBatchId, opt => opt.MapFrom(dto => dto.SeedBatchId)) // explicit and unnecessary
                 .ForMember(e => e.DatePlanted, opt => opt.MapFrom(dto => dto.DatePlanted)) // explicit and unnecessary
@@ -141,7 +141,7 @@ namespace PlantDataMVC.DTO.Mappers
 
         private void ConfigurePlantStockMappings()
         {
-            CreateMap<CreateUpdatePlantStockDto, PlantStock>()
+            CreateMap<CreateUpdatePlantStockDto, PlantStockEntityModel>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
                 .ForMember(e => e.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId)) // explicit and unnecessary
                 .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dto => dto.ProductTypeId)) // explicit and unnecessary
@@ -150,7 +150,7 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(e => e.ProductType, opt => opt.Ignore())
                 .ForMember(e => e.Species, opt => opt.Ignore());
 
-            CreateMap<PlantStockDto, PlantStock>()
+            CreateMap<PlantStockDto, PlantStockEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id)) // explicit and unnecessary
                 .ForMember(e => e.SpeciesId, opt => opt.MapFrom(dto => dto.SpeciesId)) // explicit and unnecessary
                 .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dto => dto.ProductTypeId)) // explicit and unnecessary
@@ -162,7 +162,7 @@ namespace PlantDataMVC.DTO.Mappers
 
         private void ConfigureJournalEntryMappings()
         {
-            CreateMap<CreateUpdateJournalEntryDto, JournalEntry>()
+            CreateMap<CreateUpdateJournalEntryDto, JournalEntryEntityModel>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
                 .ForMember(e => e.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId)) // explicit and unnecessary
                 .ForMember(e => e.Quantity, opt => opt.MapFrom(dto => dto.Quantity)) // explicit and unnecessary
@@ -175,7 +175,7 @@ namespace PlantDataMVC.DTO.Mappers
                 .ForMember(e => e.PlantStock, opt => opt.Ignore())
                 .ForMember(e => e.SeedTray, opt => opt.Ignore());
 
-            CreateMap<JournalEntryDto, JournalEntry>()
+            CreateMap<JournalEntryDto, JournalEntryEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id)) // explicit and unnecessary
                 .ForMember(e => e.PlantStockId, opt => opt.MapFrom(dto => dto.PlantStockId)) // explicit and unnecessary
                 .ForMember(e => e.Quantity, opt => opt.MapFrom(dto => dto.Quantity)) // explicit and unnecessary
@@ -191,13 +191,13 @@ namespace PlantDataMVC.DTO.Mappers
 
         private void ConfigureSaleEventMappings()
         {
-            CreateMap<CreateUpdateSaleEventDto, SaleEvent>()
+            CreateMap<CreateUpdateSaleEventDto, SaleEventEntityModel>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
                 .ForMember(e => e.Name, opt => opt.MapFrom(dto => dto.Name)) // explicit and unnecessary
                 .ForMember(e => e.SaleDate, opt => opt.MapFrom(dto => dto.SaleDate)) // explicit and unnecessary
                 .ForMember(e => e.Location, opt => opt.MapFrom(dto => dto.Location)); // explicit and unnecessary
 
-            CreateMap<SaleEventDto, SaleEvent>()
+            CreateMap<SaleEventDto, SaleEventEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dto => dto.Id)) // explicit and unnecessary
                 .ForMember(e => e.Name, opt => opt.MapFrom(dto => dto.Name)) // explicit and unnecessary
                 .ForMember(e => e.SaleDate, opt => opt.MapFrom(dto => dto.SaleDate)) // explicit and unnecessary

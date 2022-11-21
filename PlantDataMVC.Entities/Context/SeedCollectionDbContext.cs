@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Configuration;
 using PlantDataMVC.Entities.Interfaces;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Entities.Context
 {
@@ -10,11 +10,11 @@ namespace PlantDataMVC.Entities.Context
     {
         private string _connectionString;
 
-        public DbSet<Genus> Genus { get; set; } // Genus
-        public DbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
-        public DbSet<SeedTray> SeedTrays { get; set; } // SeedTray
-        public DbSet<Site> Sites { get; set; } // Site
-        public DbSet<Species> Species { get; set; } // Species
+        public DbSet<GenusEntityModel> Genus { get; set; } // Genus
+        public DbSet<SeedBatchEntityModel> SeedBatches { get; set; } // SeedBatch
+        public DbSet<SeedTrayEntityModel> SeedTrays { get; set; } // SeedTray
+        public DbSet<SiteEntityModel> Sites { get; set; } // Site
+        public DbSet<SpeciesEntityModel> Species { get; set; } // Species
 
         public SeedCollectionDbContext() : this("Name=PlantDataDbContext")
         {

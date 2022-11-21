@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PlantDataMVC.DTO.Dtos;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.Service;
 using PlantDataMVC.WebApiCore.Helpers;
 using PlantDataMVC.WebApiCore.Models;
@@ -58,11 +58,6 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 var context = _service.Queryable();
-
-                //IList<SeedTrayInListDto> itemList = context
-                //    .ProjectTo<SeedTrayInListDto>()
-                //    .ApplySort(sort)
-                //    .ToList();
 
                 // TODO: Need to identify if sort field from DTO is in entity or not
                 //       to determine if we can sort on projection or need to sort after list is materialised
@@ -134,7 +129,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var itemDto = _mapper.Map<SeedTray, SeedTrayDto>(item);
+                var itemDto = _mapper.Map<SeedTrayEntityModel, SeedTrayDto>(item);
 
                 return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
             }
@@ -161,7 +156,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return BadRequest();
                 }
 
-                var entity = _mapper.Map<CreateUpdateSeedTrayDto, SeedTray>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateSeedTrayDto, SeedTrayEntityModel>(dtoIn);
                 _service.Add(entity);
 
                 // Save changes before we map back
@@ -170,7 +165,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<SeedTray, SeedTrayDto>(entity);
+                    var dtoOut = _mapper.Map<SeedTrayEntityModel, SeedTrayDto>(entity);
 
                     return CreatedAtAction(nameof(GetById), new { id = dtoOut.Id }, dtoOut);
                 }
@@ -211,7 +206,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     return NotFound();
                 }
 
-                var entity = _mapper.Map<CreateUpdateSeedTrayDto, SeedTray>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateSeedTrayDto, SeedTrayEntityModel>(dtoIn);
                 entity.Id = entityFound.Id;
                 _service.Update(entity);
 
@@ -221,7 +216,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<SeedTray, SeedTrayDto>(entity);
+                    var dtoOut = _mapper.Map<SeedTrayEntityModel, SeedTrayDto>(entity);
 
                     return Ok(dtoOut);
                 }
@@ -259,12 +254,12 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 // Map to dto
-                var dtoFound = _mapper.Map<SeedTray, CreateUpdateSeedTrayDto>(entityFound);
+                var dtoFound = _mapper.Map<SeedTrayEntityModel, CreateUpdateSeedTrayDto>(entityFound);
 
                 // Apply changes to dto
                 itemPatchDoc.ApplyTo(dtoFound);
 
-                var updatedEntity = _mapper.Map<CreateUpdateSeedTrayDto, SeedTray>(dtoFound);
+                var updatedEntity = _mapper.Map<CreateUpdateSeedTrayDto, SeedTrayEntityModel>(dtoFound);
                 updatedEntity.Id = id;
                 _service.Update(updatedEntity);
 
@@ -274,7 +269,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<SeedTray, SeedTrayDto>(updatedEntity);
+                    var dtoOut = _mapper.Map<SeedTrayEntityModel, SeedTrayDto>(updatedEntity);
 
                     return Ok(dtoOut);
                 }

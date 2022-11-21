@@ -3,9 +3,9 @@
 using Interfaces.Domain.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.Entities.Models
+namespace PlantDataMVC.Entities.EntityModels
 {
-    public class ProductPrice : IEntity
+    public class ProductPriceEntityModel : IEntity
     {
         //// HACK: Putting Id in just to meet interface requirements
         //public override int Id
@@ -36,14 +36,14 @@ namespace PlantDataMVC.Entities.Models
         /// <summary>
         /// Parent PriceListType pointed by [ProductPrice].([PriceListTypeId]) (FK_ProductPrices_PriceListType)
         /// </summary>
-        public virtual PriceListType PriceListType { get; set; } // FK_ProductPrices_PriceListType
+        public virtual PriceListTypeEntityModel PriceListType { get; set; } // FK_ProductPrices_PriceListType
 
         /// <summary>
         /// Parent ProductType pointed by [ProductPrice].([ProductTypeId]) (FK_ProductPrices_ProductType)
         /// </summary>
-        public virtual ProductType ProductType { get; set; } // FK_ProductPrices_ProductType
+        public virtual ProductTypeEntityModel ProductType { get; set; } // FK_ProductPrices_ProductType
 
-        public ProductPrice()
+        public ProductPriceEntityModel()
         {
         }
     }

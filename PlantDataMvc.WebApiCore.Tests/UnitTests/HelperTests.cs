@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 using PlantDataMvc.WebApiCore.Tests;
 using PlantDataMVC.DTO.Dtos;
 using PlantDataMVC.DTO.Mappers;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.WebApiCore.Classes;
 using PlantDataMVC.WebApiCore.Helpers;
 using Xunit;

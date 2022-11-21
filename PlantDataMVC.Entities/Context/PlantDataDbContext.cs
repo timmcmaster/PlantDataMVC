@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Configuration;
 using PlantDataMVC.Entities.Interfaces;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Entities.Context
 {
@@ -11,18 +11,18 @@ namespace PlantDataMVC.Entities.Context
     {
         private string _connectionString;
 
-        public DbSet<Genus> Genus { get; set; } // Genus
-        public DbSet<JournalEntry> JournalEntries { get; set; } // JournalEntry
-        public DbSet<JournalEntryType> JournalEntryTypes { get; set; } // JournalEntryType
-        public DbSet<PlantStock> PlantStocks { get; set; } // PlantStock
-        public DbSet<PriceListType> PriceListTypes { get; set; } // PriceListType
-        public DbSet<ProductPrice> ProductPrices { get; set; } // ProductPrice
-        public DbSet<ProductType> ProductTypes { get; set; } // ProductType
-        public DbSet<SaleEvent> SaleEvents { get; set; } // SaleEvent
-        public DbSet<SeedBatch> SeedBatches { get; set; } // SeedBatch
-        public DbSet<SeedTray> SeedTrays { get; set; } // SeedTray
-        public DbSet<Site> Sites { get; set; } // Site
-        public DbSet<Species> Species { get; set; } // Species
+        public DbSet<GenusEntityModel> Genus { get; set; } // Genus
+        public DbSet<JournalEntryEntityModel> JournalEntries { get; set; } // JournalEntry
+        public DbSet<JournalEntryTypeEntityModel> JournalEntryTypes { get; set; } // JournalEntryType
+        public DbSet<PlantStockEntityModel> PlantStocks { get; set; } // PlantStock
+        public DbSet<PriceListTypeEntityModel> PriceListTypes { get; set; } // PriceListType
+        public DbSet<ProductPriceEntityModel> ProductPrices { get; set; } // ProductPrice
+        public DbSet<ProductTypeEntityModel> ProductTypes { get; set; } // ProductType
+        public DbSet<SaleEventEntityModel> SaleEvents { get; set; } // SaleEvent
+        public DbSet<SeedBatchEntityModel> SeedBatches { get; set; } // SeedBatch
+        public DbSet<SeedTrayEntityModel> SeedTrays { get; set; } // SeedTray
+        public DbSet<SiteEntityModel> Sites { get; set; } // Site
+        public DbSet<SpeciesEntityModel> Species { get; set; } // Species
 
         //static PlantDataDbContext()
         //{

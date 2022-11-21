@@ -1,6 +1,6 @@
 ﻿using Framework.Domain.EF;
 using Microsoft.EntityFrameworkCore;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using System;
 
 namespace PlantDataMVC.Entities.Interfaces
@@ -8,8 +8,8 @@ namespace PlantDataMVC.Entities.Interfaces
 
     public interface IPlantDefinitionDbContext : IDbContext, IDisposable
     {
-        DbSet<Genus> Genus { get; set; } // Genus
-        DbSet<Species> Species { get; set; } // Species
+        DbSet<GenusEntityModel> Genus { get; set; } // Genus
+        DbSet<SpeciesEntityModel> Species { get; set; } // Species
 
         //int SaveChanges();
         //Task<int> SaveChangesAsync();

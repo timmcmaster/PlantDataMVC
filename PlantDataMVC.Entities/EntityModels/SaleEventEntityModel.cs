@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.Entities.Models
+namespace PlantDataMVC.Entities.EntityModels
 {
-    public class SaleEvent : IEntity
+    public class SaleEventEntityModel : IEntity
     {
         [Required]
         [Display(Name = "Id")]

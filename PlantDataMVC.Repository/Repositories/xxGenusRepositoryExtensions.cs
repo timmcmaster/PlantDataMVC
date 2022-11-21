@@ -1,5 +1,5 @@
 ﻿using Interfaces.Domain.Repository;
-using PlantDataMVC.Entities.Models;
+using PlantDataMVC.Entities.EntityModels;
 using System;
 using System.Linq;
 
@@ -11,8 +11,8 @@ namespace PlantDataMVC.Repository.Repositories
 {
     public interface IGenusExtensions
     {
-        Genus GetItemByLatinName(string latinName);
-        Genus GetItemWithAllSpecies(int id);
+        GenusEntityModel GetItemByLatinName(string latinName);
+        GenusEntityModel GetItemWithAllSpecies(int id);
     }
 
     /// <summary>
@@ -21,20 +21,20 @@ namespace PlantDataMVC.Repository.Repositories
     /// <seealso cref="PlantDataMVC.Repository.Repositories.IGenusExtensions" />
     internal class GenusExtensions : IGenusExtensions
     {
-        private readonly IRepository<Genus> _repository;
+        private readonly IRepository<GenusEntityModel> _repository;
 
-        public GenusExtensions(IRepository<Genus> genusRepository)
+        public GenusExtensions(IRepository<GenusEntityModel> genusRepository)
         {
             _repository = genusRepository;
         }
 
         #region IGenusExtensions Members
-        public Genus GetItemByLatinName(string latinName)
+        public GenusEntityModel GetItemByLatinName(string latinName)
         {
             return _repository.Queryable().FirstOrDefault(g => g.LatinName == latinName);
         }
 
-        public Genus GetItemWithAllSpecies(int id)
+        public GenusEntityModel GetItemWithAllSpecies(int id)
         {
             return _repository.Query(g => g.Id == id).Include(g => g.Species).Select().SingleOrDefault();
         }
@@ -49,9 +49,9 @@ namespace PlantDataMVC.Repository.Repositories
         }
 
         // use a friend class/assembly when testing to set this
-        internal static Func<IRepository<Genus>, IGenusExtensions> GenusExtensionsFactory { get; set; }
+        internal static Func<IRepository<GenusEntityModel>, IGenusExtensions> GenusExtensionsFactory { get; set; }
 
-        public static IGenusExtensions GenusExtensions(this IRepository<Genus> target)
+        public static IGenusExtensions GenusExtensions(this IRepository<GenusEntityModel> target)
         {
             return GenusExtensionsFactory(target);
         }
