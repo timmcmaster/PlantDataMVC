@@ -13,7 +13,7 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
         private readonly MapperConfiguration _mapperConfiguration;
 
         #region Setup/Teardown
-        public DbIntegrationTests(ITestOutputHelper output)
+        public DbIntegrationTests(ITestOutputHelper output, DbFixture dbFixture) : base(dbFixture)
         {
             _output = output;
             // Configure the mapper at start of each test

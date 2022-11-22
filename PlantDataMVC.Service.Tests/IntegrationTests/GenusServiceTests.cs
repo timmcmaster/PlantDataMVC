@@ -22,7 +22,7 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
         private readonly MapperConfiguration _mapperConfiguration;
 
         #region Setup/Teardown
-        public GenusServiceTests(ITestOutputHelper output)
+        public GenusServiceTests(ITestOutputHelper output, DbFixture dbFixture) : base(dbFixture)
         {
             _output = output;
             _plantDataDbConnectionString = ConfigurationManager.ConnectionStrings["PlantDataDbContext"].ConnectionString;

@@ -9,10 +9,17 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
     ///     <P>This class will clear the database using the Respawn package at beginning of every test.</P>
     ///     Implements Xunit.IAsyncLifetime to manage cleaning up after async tasks.
     /// </summary>
-    public abstract class IntegrationTestBase : IAsyncLifetime
+    public abstract class IntegrationTestBase : IAsyncLifetime, IClassFixture<DbFixture>
     {
         //private static bool _initialized;
         private static readonly AsyncLock _mutex = new AsyncLock();
+
+        private DbFixture _dbFixture;
+
+        public IntegrationTestBase(DbFixture dbFixture) 
+        {
+            _dbFixture = dbFixture;  
+        }
 
         #region IAsyncLifetime Members
         ///// <summary>
@@ -41,7 +48,7 @@ namespace PlantDataMVC.Service.Tests.IntegrationTests
         {
             using (await _mutex.LockAsync())
             {
-                await DbFixture.ResetCheckpoint();
+                await _dbFixture.ResetCheckpoint();
             }
         }
 

@@ -13,7 +13,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
     public class GenusRepositoryTests : IntegrationTestBase
     {
         #region Setup/Teardown
-        public GenusRepositoryTests(ITestOutputHelper output)
+        public GenusRepositoryTests(ITestOutputHelper output, DbFixture dbFixture) : base(dbFixture) 
         {
             _output = output;
             _plantDataDbConnectionString = ConfigurationManager.ConnectionStrings["PlantDataDbContext"].ConnectionString;

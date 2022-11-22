@@ -15,7 +15,7 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
     public class SiteRepositoryTest : IntegrationTestBase
     {
         #region Setup/Teardown
-        public SiteRepositoryTest(ITestOutputHelper output)
+        public SiteRepositoryTest(ITestOutputHelper output, DbFixture dbFixture) : base(dbFixture)
         {
             _output = output;
             _plantDataDbConnectionString = ConfigurationManager.ConnectionStrings["PlantDataDbContext"].ConnectionString;

@@ -9,33 +9,46 @@ namespace PlantDataMVC.Domain.Tests.IntegrationTests
     ///     <P>This class will clear the database using the Respawn package at beginning of every test.</P>
     ///     Implements Xunit.IAsyncLifetime to manage cleaning up after async tasks.
     /// </summary>
-    public abstract class IntegrationTestBase : IAsyncLifetime
+    public abstract class IntegrationTestBase : IAsyncLifetime, IClassFixture<DbFixture>
     {
-        private static bool _initialized;
+        //private static bool _initialized;
         private static readonly AsyncLock _mutex = new AsyncLock();
 
+        private DbFixture _dbFixture;
+
+        public IntegrationTestBase(DbFixture dbFixture)
+        {
+            _dbFixture = dbFixture;
+        }
+
         #region IAsyncLifetime Members
-        /// <summary>
-        ///     Called immediately after the class has been created, before it is used.
-        /// </summary>
-        /// <returns></returns>
+        ///// <summary>
+        ///// Version for reset only at creation of class
+        ///// Called immediately after the class has been created, before it is used.
+        ///// </summary>
+        ///// <returns></returns>
+        //public virtual async Task InitializeAsync()
+        //{
+        //    if (_initialized)
+        //        return;
+
+        //    using (await _mutex.LockAsync())
+        //    {
+        //        if (_initialized)
+        //            return;
+
+        //        await DBFixture.ResetCheckpoint();
+
+        //        _initialized = true;
+        //    }
+        //}
+
+        // Version for reset every test
         public virtual async Task InitializeAsync()
         {
-            if (_initialized)
-            {
-                return;
-            }
-
             using (await _mutex.LockAsync())
             {
-                if (_initialized)
-                {
-                    return;
-                }
-
-                await DbFixture.ResetCheckpoint();
-
-                _initialized = true;
+                await _dbFixture.ResetCheckpoint();
             }
         }
 
