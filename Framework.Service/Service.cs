@@ -17,9 +17,9 @@ namespace Framework.Service
         }
 
         #region IService<TEntity> Members
-        public virtual IQueryable<TEntity> GetAll(bool useTracking)
+        public virtual IQueryable<TEntity> GetAll()
         {
-            return _repository.GetAllItems(useTracking);
+            return _repository.GetAllItems(useTracking: true);
         }
 
         public virtual TEntity GetItemById(int id)
