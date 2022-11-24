@@ -11,7 +11,7 @@ namespace PlantDataMVC.Repository.Repositories
     {
         public static GenusEntityModel GetItemByLatinName(this IRepository<GenusEntityModel> repository, string latinName)
         {
-            return repository.Queryable().FirstOrDefault(p => p.LatinName == latinName);
+            return repository.Queryable(useTracking: true).FirstOrDefault(p => p.LatinName == latinName);
         }
 
         public static GenusEntityModel GetItemWithAllSpecies(this IRepository<GenusEntityModel> repository, int id)

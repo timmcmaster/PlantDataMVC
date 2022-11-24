@@ -13,7 +13,7 @@ namespace PlantDataMVC.Repository.Repositories
 
         public GenusEntityModel GetItemByLatinName(string latinName)
         {
-            return this.Queryable().FirstOrDefault(g => g.LatinName == latinName);
+            return this.Queryable(useTracking: true).FirstOrDefault(g => g.LatinName == latinName);
 
         }
 

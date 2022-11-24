@@ -53,7 +53,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     childDtosToInclude = DataShaping.GetIncludedObjectNames<JournalEntryTypeDto>(lstOfFields);
                 }
 
-                var context = _service.Queryable();
+                var context = _service.Queryable(useTracking: true);
 
                 // TODO: Need to identify if sort field from DTO is in entity or not
                 //       to determine if we can sort on projection or need to sort after list is materialised

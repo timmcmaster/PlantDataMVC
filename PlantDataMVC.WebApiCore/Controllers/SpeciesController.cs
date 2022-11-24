@@ -61,7 +61,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                     childDtosToInclude = DataShaping.GetIncludedObjectNames<SpeciesDto>(lstOfFields);
                 }
 
-                var context = _service.Queryable();
+                var context = _service.Queryable(useTracking: true);
 
                 /*
                 // Without DelegateDecompiler, we can't use ProjectTo due to calculated field
@@ -217,7 +217,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
                 }
 
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
-                var entityFound = _service.QueryableAsNoTracking().FirstOrDefault(g => g.Id == id);
+                var entityFound = _service.Queryable(useTracking: false).FirstOrDefault(g => g.Id == id);
 
                 if (entityFound == null)
                 {
@@ -263,7 +263,7 @@ namespace PlantDataMVC.WebApiCore.Controllers
 
                 // Get domain entity
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
-                var entityFound = _service.QueryableAsNoTracking().FirstOrDefault(g => g.Id == id);
+                var entityFound = _service.Queryable(useTracking: false).FirstOrDefault(g => g.Id == id);
 
                 // Check for errors from service
                 if (entityFound == null)

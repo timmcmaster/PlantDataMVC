@@ -17,9 +17,9 @@ namespace Framework.Service
         }
 
         #region IService<TEntity> Members
-        public virtual IQueryable<TEntity> GetAll()
+        public virtual IQueryable<TEntity> GetAll(bool useTracking)
         {
-            return _repository.GetAllItems();
+            return _repository.GetAllItems(useTracking);
         }
 
         public virtual TEntity GetItemById(int id)
@@ -42,14 +42,9 @@ namespace Framework.Service
             _repository.Delete(item);
         }
 
-        public virtual IQueryable<TEntity> Queryable()
+        public virtual IQueryable<TEntity> Queryable(bool useTracking)
         {
-            return _repository.Queryable();
-        }
-
-        public virtual IQueryable<TEntity> QueryableAsNoTracking()
-        {
-            return _repository.QueryableAsNoTracking();
+            return _repository.Queryable(useTracking);
         }
 
         public virtual IQueryFluent<TEntity> Query()

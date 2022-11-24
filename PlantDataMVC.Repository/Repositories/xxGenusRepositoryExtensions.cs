@@ -31,7 +31,7 @@ namespace PlantDataMVC.Repository.Repositories
         #region IGenusExtensions Members
         public GenusEntityModel GetItemByLatinName(string latinName)
         {
-            return _repository.Queryable().FirstOrDefault(g => g.LatinName == latinName);
+            return _repository.Queryable(useTracking: true).FirstOrDefault(g => g.LatinName == latinName);
         }
 
         public GenusEntityModel GetItemWithAllSpecies(int id)

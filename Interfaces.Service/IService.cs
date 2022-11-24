@@ -26,8 +26,6 @@ namespace Interfaces.Service
 
         IQueryFluent<TEntity> Query(Expression<Func<TEntity, bool>> query);
 
-        IQueryable<TEntity> Queryable();
-
-        IQueryable<TEntity> QueryableAsNoTracking();
+        IQueryable<TEntity> Queryable(bool useTracking);
     }
 }

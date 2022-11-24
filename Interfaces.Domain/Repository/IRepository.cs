@@ -18,9 +18,9 @@ namespace Interfaces.Domain.Repository
         /// Get list of items 
         /// </summary>
         /// <returns></returns>
-        IQueryable<TEntity> GetAllItems();
+        IQueryable<TEntity> GetAllItems(bool useTracking);
 
-        IQueryable<TEntity> GetAllItemsAsNoTracking();
+        //IQueryable<TEntity> GetAllItemsAsNoTracking();
 
         /// <summary>
         /// Get single item 
@@ -89,14 +89,14 @@ namespace Interfaces.Domain.Repository
         /// Get the queryable object for this type, used for LINQ queries
         /// </summary>
         /// <returns></returns>
-        IQueryable<TEntity> Queryable();
+        IQueryable<TEntity> Queryable(bool useTracking);
 
 
         /// <summary>
         /// Get the queryable object for this type, used for LINQ queries
         /// </summary>
         /// <returns></returns>
-        IQueryable<TEntity> QueryableAsNoTracking();
+        //IQueryable<TEntity> QueryableAsNoTracking();
 
 
         /// <summary>

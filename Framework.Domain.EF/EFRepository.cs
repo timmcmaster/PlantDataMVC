@@ -43,15 +43,18 @@ namespace Framework.Domain.EF
         }
 
         #region IRepositoryAsync<TEntity> Members
-        public IQueryable<TEntity> GetAllItems()
+        public IQueryable<TEntity> GetAllItems(bool useTracking)
         {
-            return DbSet.AsQueryable<TEntity>();
+            if (useTracking)
+                return DbSet.AsQueryable<TEntity>();
+            else
+                return DbSet.AsNoTracking();
         }
 
-        public IQueryable<TEntity> GetAllItemsAsNoTracking()
-        {
-            return DbSet.AsNoTracking<TEntity>();
-        }
+        //public IQueryable<TEntity> GetAllItemsAsNoTracking()
+        //{
+        //    return DbSet.AsNoTracking<TEntity>();
+        //}
 
         public virtual TEntity GetItemById(int id)
         {
@@ -180,15 +183,18 @@ namespace Framework.Domain.EF
             return new QueryFluent<TEntity>(this, query);
         }
 
-        public IQueryable<TEntity> Queryable()
+        public IQueryable<TEntity> Queryable(bool useTracking)
         {
-            return DbSet;
+            if (useTracking)
+                return DbSet;
+            else
+                return DbSet.AsNoTracking();
         }
 
-        public IQueryable<TEntity> QueryableAsNoTracking()
-        {
-            return DbSet.AsNoTracking<TEntity>();
-        }
+        //public IQueryable<TEntity> QueryableAsNoTracking()
+        //{
+        //    return DbSet.AsNoTracking<TEntity>();
+        //}
 
         //public IRepository<TOtherEntity> GetRepository<TOtherEntity>() where TOtherEntity : class, IEntity
         //{

@@ -21,7 +21,7 @@ namespace PlantDataMVC.Repository.Repositories
         public int GetStockCountForProduct(int plantStockId)
         {
             return this
-                   .Queryable()
+                   .Queryable(useTracking: true)
                    .Where(je => je.PlantStockId == plantStockId)
                    .Select(je => je.Quantity * je.JournalEntryType.Effect)
                    .Sum();
