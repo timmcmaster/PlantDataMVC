@@ -4,13 +4,13 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Controllers.Queries.Site;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.Site;
-using PlantDataMVC.UICore.Models.ViewModels.Site;
+using PlantDataMVC.Web.Controllers.Queries.Site;
+using PlantDataMVC.Web.Helpers;
+using PlantDataMVC.Web.Models.EditModels.Site;
+using PlantDataMVC.Web.Models.ViewModels.Site;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Controllers
+namespace PlantDataMVC.Web.Controllers
 {
     // TODO: Use userId in posts having ValidateAntiForgeryToken (as per GenusController)
 

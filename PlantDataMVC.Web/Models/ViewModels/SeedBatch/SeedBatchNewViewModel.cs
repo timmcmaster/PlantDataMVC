@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.UICore.Models.ViewModels.SeedBatch
+namespace PlantDataMVC.Web.Models.ViewModels.SeedBatch
 {
     public class SeedBatchNewViewModel
     {

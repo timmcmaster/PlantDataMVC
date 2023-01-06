@@ -2,14 +2,14 @@
 using Framework.Web.Forms;
 using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.Genus;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Models.EditModels.Genus;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Forms.Genus
+namespace PlantDataMVC.Web.Handlers.Forms.Genus
 {
     public class GenusCreateEditModelFormHandler : IFormHandler<GenusCreateEditModel, bool>
     {

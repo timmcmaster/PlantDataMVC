@@ -1,8 +1,8 @@
 ﻿using Framework.Web.Views;
-using PlantDataMVC.UICore.Models.ViewModels;
-using PlantDataMVC.UICore.Models.ViewModels.Genus;
+using PlantDataMVC.Web.Models.ViewModels;
+using PlantDataMVC.Web.Models.ViewModels.Genus;
 
-namespace PlantDataMVC.UICore.Controllers.Queries.Genus
+namespace PlantDataMVC.Web.Controllers.Queries.Genus
 {
     public class IndexQuery : IQuery<ListViewModelStatic<GenusListViewModel>>
     {

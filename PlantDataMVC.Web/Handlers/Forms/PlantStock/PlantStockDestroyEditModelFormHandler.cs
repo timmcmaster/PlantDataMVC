@@ -1,10 +1,10 @@
 ﻿using Framework.Web.Forms;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.PlantStock;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Models.EditModels.PlantStock;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Forms.PlantStock
+namespace PlantDataMVC.Web.Handlers.Forms.PlantStock
 {
     public class PlantStockDestroyEditModelFormHandler : IFormHandler<PlantStockDestroyEditModel, bool>
     {

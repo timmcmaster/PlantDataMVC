@@ -2,13 +2,14 @@
 using Framework.Web.Views;
 using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Controllers.Queries.SaleEvent;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.ViewModels.SaleEvent;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Controllers.Queries.SaleEvent;
+using PlantDataMVC.Web.Helpers;
+using PlantDataMVC.Web.Models.ViewModels.SaleEvent;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Views.SaleEvent
+namespace PlantDataMVC.Web.Handlers.Views.SaleEvent
 {
     public class DeleteQueryHandler : IQueryHandler<DeleteQuery, SaleEventDeleteViewModel>
     {

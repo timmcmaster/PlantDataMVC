@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PlantDataMVC.UICore.Models.ViewModels.SeedBatch
+namespace PlantDataMVC.Web.Models.ViewModels.SeedBatch
 {
     public class SeedBatchDeleteViewModel
     {

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
 
-namespace PlantDataMVC.UICore.Handlers
+namespace PlantDataMVC.Web.Handlers
 {
     public class QueryHandlerFactory : IQueryHandlerFactory
     {

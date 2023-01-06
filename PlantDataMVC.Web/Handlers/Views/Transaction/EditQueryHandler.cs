@@ -2,13 +2,13 @@
 using Framework.Web.Views;
 using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Controllers.Queries.Transaction;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.ViewModels.Transaction;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Controllers.Queries.Transaction;
+using PlantDataMVC.Web.Models.ViewModels.Transaction;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Views.Transaction
+namespace PlantDataMVC.Web.Handlers.Views.Transaction
 {
     public class EditQueryHandler : IQueryHandler<EditQuery, TransactionEditViewModel>
     {

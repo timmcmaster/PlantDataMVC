@@ -5,7 +5,7 @@ using Serilog;
 using Serilog.Events;
 using System;
 
-namespace PlantDataMVC.UICore
+namespace PlantDataMVC.Web
 {
     public class Program
     {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PlantDataMVC.UICore.Models.ViewModels;
+using PlantDataMVC.Web.Models.ViewModels;
 using System.Diagnostics;
 
-namespace PlantDataMVC.UICore.Controllers
+namespace PlantDataMVC.Web.Controllers
 {
     public class HomeController : Controller
     {

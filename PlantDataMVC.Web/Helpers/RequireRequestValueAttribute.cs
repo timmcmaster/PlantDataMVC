@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Routing;
 
-namespace PlantDataMVC.UICore.Helpers
+namespace PlantDataMVC.Web.Helpers
 {
     /// <summary>
     /// Implements method overloading via attribute based on parameter name in request

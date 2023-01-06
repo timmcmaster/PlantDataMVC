@@ -1,4 +1,4 @@
-namespace PlantDataMVC.UICore.Models.ViewModels
+namespace PlantDataMVC.Web.Models.ViewModels
 {
     public class ErrorViewModel
     {

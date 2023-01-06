@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PlantDataMVC.UICore.Models.ViewModels.SaleEvent
+namespace PlantDataMVC.Web.Models.ViewModels.SaleEvent
 {
     public class SaleEventShowViewModel
     {

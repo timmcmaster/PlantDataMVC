@@ -1,6 +1,6 @@
 ﻿using Framework.Web.Forms;
 
-namespace PlantDataMVC.UICore.Models.EditModels.Plant
+namespace PlantDataMVC.Web.Models.EditModels.Plant
 {
     public class PlantUpdateEditModel : IForm<bool>
     {

@@ -1,14 +1,15 @@
 ﻿using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Controllers.Queries;
-using PlantDataMVC.UICore.Helpers;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Controllers.Queries;
+using PlantDataMVC.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Views
+namespace PlantDataMVC.Web.Handlers.Views
 {
     public class JournalEntryTypeDataModelListQueryHandler : ListQueryHandler<JournalEntryTypeDataModel>
     {

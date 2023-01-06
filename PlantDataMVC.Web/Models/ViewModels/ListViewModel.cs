@@ -2,7 +2,7 @@
 using Framework.Web.Mvc.Sorting;
 using System.Linq;
 
-namespace PlantDataMVC.UICore.Models.ViewModels
+namespace PlantDataMVC.Web.Models.ViewModels
 {
     public class ListViewModel<T> : PageableList<T>, ISortable
     {

@@ -2,7 +2,7 @@
 using Framework.Web.Forms;
 using PlantDataMVC.Api.Models.DataModels;
 
-namespace PlantDataMVC.UICore.Models.EditModels.Transaction
+namespace PlantDataMVC.Web.Models.EditModels.Transaction
 {
     public class TransactionCreateEditModel : IForm<bool>
     {

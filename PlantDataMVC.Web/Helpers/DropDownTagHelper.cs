@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Helpers
+namespace PlantDataMVC.Web.Helpers
 {
     // TODO: Can we do it this way instead of via HtmlHelper
     [HtmlTargetElement("select", Attributes = "x,y,z", TagStructure = TagStructure.NormalOrSelfClosing)]

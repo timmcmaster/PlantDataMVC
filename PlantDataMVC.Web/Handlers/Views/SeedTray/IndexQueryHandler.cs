@@ -2,15 +2,16 @@
 using Framework.Web.Views;
 using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Controllers.Queries.SeedTray;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.ViewModels;
-using PlantDataMVC.UICore.Models.ViewModels.SeedTray;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Controllers.Queries.SeedTray;
+using PlantDataMVC.Web.Helpers;
+using PlantDataMVC.Web.Models.ViewModels;
+using PlantDataMVC.Web.Models.ViewModels.SeedTray;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
+namespace PlantDataMVC.Web.Handlers.Views.SeedTray
 {
     public class IndexQueryHandler : IQueryHandler<IndexQuery, ListViewModelStatic<SeedTrayListViewModel>>
     {

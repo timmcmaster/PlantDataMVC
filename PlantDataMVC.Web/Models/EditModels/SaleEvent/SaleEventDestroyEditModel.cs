@@ -1,6 +1,6 @@
 ﻿using Framework.Web.Forms;
 
-namespace PlantDataMVC.UICore.Models.EditModels.SaleEvent
+namespace PlantDataMVC.Web.Models.EditModels.SaleEvent
 {
     public class SaleEventDestroyEditModel : IForm<bool>
     {

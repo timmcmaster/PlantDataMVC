@@ -1,8 +1,8 @@
 ﻿using Framework.Web.Views;
-using PlantDataMVC.UICore.Models.ViewModels;
-using PlantDataMVC.UICore.Models.ViewModels.Plant;
+using PlantDataMVC.Web.Models.ViewModels;
+using PlantDataMVC.Web.Models.ViewModels.Plant;
 
-namespace PlantDataMVC.UICore.Controllers.Queries.Plant
+namespace PlantDataMVC.Web.Controllers.Queries.Plant
 {
     public class IndexQuery : IQuery<ListViewModelStatic<PlantListViewModel>>
     {

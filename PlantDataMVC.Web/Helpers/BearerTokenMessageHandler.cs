@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Helpers
+namespace PlantDataMVC.Web.Helpers
 {
     public class BearerTokenMessageHandler : DelegatingHandler
     {

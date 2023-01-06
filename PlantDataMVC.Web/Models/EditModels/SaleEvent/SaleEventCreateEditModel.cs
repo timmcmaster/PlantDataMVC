@@ -1,7 +1,7 @@
 ﻿using Framework.Web.Forms;
 using System;
 
-namespace PlantDataMVC.UICore.Models.EditModels.SaleEvent
+namespace PlantDataMVC.Web.Models.EditModels.SaleEvent
 {
     public class SaleEventCreateEditModel : IForm<bool>
     {

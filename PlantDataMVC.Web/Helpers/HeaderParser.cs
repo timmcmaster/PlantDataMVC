@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 
-namespace PlantDataMVC.UICore.Helpers
+namespace PlantDataMVC.Web.Helpers
 {
     public static class HeaderParser
     {

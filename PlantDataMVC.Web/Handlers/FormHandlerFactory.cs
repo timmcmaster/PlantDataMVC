@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using Serilog;
 
-namespace PlantDataMVC.UICore.Handlers
+namespace PlantDataMVC.Web.Handlers
 {
     public class FormHandlerFactory : IFormHandlerFactory
     {

@@ -7,8 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PlantDataMVC.Constants;
-using PlantDataMVC.UICore.DependencyInjection;
-using PlantDataMVC.UICore.Helpers;
+using PlantDataMVC.Web.DependencyInjection;
+using PlantDataMVC.Web.Helpers;
 using System;
 using System.Net.Http.Headers;
 using Serilog;
@@ -16,12 +16,13 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using System.IdentityModel.Tokens.Jwt;
-using PlantDataMVC.UICore.Mappers;
+using PlantDataMVC.Web.Mappers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
+using PlantDataMVC.Common.Client;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 
-namespace PlantDataMVC.UICore
+namespace PlantDataMVC.Web
 {
     public class Startup
     {

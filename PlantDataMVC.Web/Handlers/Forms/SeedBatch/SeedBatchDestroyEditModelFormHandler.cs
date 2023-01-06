@@ -1,10 +1,10 @@
 ﻿using Framework.Web.Forms;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.SeedBatch;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Models.EditModels.SeedBatch;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Forms.SeedBatch
+namespace PlantDataMVC.Web.Handlers.Forms.SeedBatch
 {
     public class SeedBatchDestroyEditModelFormHandler : IFormHandler<SeedBatchDestroyEditModel, bool>
     {

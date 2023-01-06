@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using IdentityModel.Client;
 using Microsoft.Extensions.Logging;
 
-namespace PlantDataMVC.UICore.Helpers
+namespace PlantDataMVC.Web.Helpers
 {
     public interface IIdentityServerClient
     {

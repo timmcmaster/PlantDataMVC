@@ -2,14 +2,14 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PlantDataMVC.UICore.Controllers.Queries.Genus;
-using PlantDataMVC.UICore.Helpers;
+using PlantDataMVC.Web.Controllers.Queries.Genus;
+using PlantDataMVC.Web.Helpers;
 using System.Threading.Tasks;
-using PlantDataMVC.UICore.Models.EditModels.Genus;
-using PlantDataMVC.UICore.Models.ViewModels.Genus;
+using PlantDataMVC.Web.Models.EditModels.Genus;
+using PlantDataMVC.Web.Models.ViewModels.Genus;
 using System.Security.Claims;
 
-namespace PlantDataMVC.UICore.Controllers
+namespace PlantDataMVC.Web.Controllers
 {
     public class GenusController : DefaultController
     {

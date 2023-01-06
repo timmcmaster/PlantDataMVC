@@ -4,13 +4,13 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Controllers.Queries.SaleEvent;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.SaleEvent;
-using PlantDataMVC.UICore.Models.ViewModels.SaleEvent;
+using PlantDataMVC.Web.Controllers.Queries.SaleEvent;
+using PlantDataMVC.Web.Helpers;
+using PlantDataMVC.Web.Models.EditModels.SaleEvent;
+using PlantDataMVC.Web.Models.ViewModels.SaleEvent;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Controllers
+namespace PlantDataMVC.Web.Controllers
 {
     // TODO: Use userId in posts having ValidateAntiForgeryToken (as per GenusController)
 

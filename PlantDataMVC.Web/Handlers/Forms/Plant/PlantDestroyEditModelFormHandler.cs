@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Framework.Web.Forms;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.Plant;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Models.EditModels.Plant;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Forms.Plant
+namespace PlantDataMVC.Web.Handlers.Forms.Plant
 {
     public class PlantDestroyEditModelFormHandler : IFormHandler<PlantDestroyEditModel, bool>
     {

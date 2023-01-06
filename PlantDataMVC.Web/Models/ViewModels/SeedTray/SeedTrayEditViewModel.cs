@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PlantDataMVC.UICore.Models.ViewModels.SeedTray
+namespace PlantDataMVC.Web.Models.ViewModels.SeedTray
 {
     public class SeedTrayEditViewModel
     {

@@ -4,13 +4,13 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Controllers.Queries.PlantStock;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.PlantStock;
-using PlantDataMVC.UICore.Models.ViewModels.PlantStock;
+using PlantDataMVC.Web.Controllers.Queries.PlantStock;
+using PlantDataMVC.Web.Helpers;
+using PlantDataMVC.Web.Models.EditModels.PlantStock;
+using PlantDataMVC.Web.Models.ViewModels.PlantStock;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Controllers
+namespace PlantDataMVC.Web.Controllers
 {
     public class PlantStockController : DefaultController
     {

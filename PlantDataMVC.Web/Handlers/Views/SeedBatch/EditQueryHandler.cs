@@ -2,13 +2,14 @@
 using Framework.Web.Views;
 using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Controllers.Queries.SeedBatch;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.ViewModels.SeedBatch;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Controllers.Queries.SeedBatch;
+using PlantDataMVC.Web.Helpers;
+using PlantDataMVC.Web.Models.ViewModels.SeedBatch;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
+namespace PlantDataMVC.Web.Handlers.Views.SeedBatch
 {
     public class EditQueryHandler : IQueryHandler<EditQuery, SeedBatchEditViewModel>
     {

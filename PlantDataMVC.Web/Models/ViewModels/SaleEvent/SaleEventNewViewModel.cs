@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.UICore.Models.ViewModels.SaleEvent
+namespace PlantDataMVC.Web.Models.ViewModels.SaleEvent
 {
     public class SaleEventNewViewModel
     {

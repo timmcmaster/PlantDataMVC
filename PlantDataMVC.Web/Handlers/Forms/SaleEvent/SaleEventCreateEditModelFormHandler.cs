@@ -2,14 +2,14 @@
 using Framework.Web.Forms;
 using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.SaleEvent;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Models.EditModels.SaleEvent;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Forms.SaleEvent
+namespace PlantDataMVC.Web.Handlers.Forms.SaleEvent
 {
     public class SaleEventCreateEditModelFormHandler : IFormHandler<SaleEventCreateEditModel, bool>
     {

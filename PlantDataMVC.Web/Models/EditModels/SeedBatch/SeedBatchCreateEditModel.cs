@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Framework.Web.Forms;
 
-namespace PlantDataMVC.UICore.Models.EditModels.SeedBatch
+namespace PlantDataMVC.Web.Models.EditModels.SeedBatch
 {
     public class SeedBatchCreateEditModel : IForm<bool>
     {

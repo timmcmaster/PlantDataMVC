@@ -1,10 +1,10 @@
 ﻿using Framework.Web.Forms;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.Site;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Models.EditModels.Site;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Forms.Site
+namespace PlantDataMVC.Web.Handlers.Forms.Site
 {
     public class SiteDestroyEditModelFormHandler : IFormHandler<SiteDestroyEditModel, bool>
     {

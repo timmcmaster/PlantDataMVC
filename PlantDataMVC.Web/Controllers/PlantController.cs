@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PlantDataMVC.UICore.Controllers.Queries.Plant;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.Plant;
-using PlantDataMVC.UICore.Models.ViewModels.Plant;
+using PlantDataMVC.Web.Controllers.Queries.Plant;
+using PlantDataMVC.Web.Helpers;
+using PlantDataMVC.Web.Models.EditModels.Plant;
+using PlantDataMVC.Web.Models.ViewModels.Plant;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Controllers
+namespace PlantDataMVC.Web.Controllers
 {
     public class PlantController : DefaultController
     {

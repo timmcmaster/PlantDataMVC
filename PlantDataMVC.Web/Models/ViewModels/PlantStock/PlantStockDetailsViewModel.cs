@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using PlantDataMVC.UICore.Models.ViewModels.Transaction;
+using PlantDataMVC.Web.Models.ViewModels.Transaction;
 
-namespace PlantDataMVC.UICore.Models.ViewModels.PlantStock
+namespace PlantDataMVC.Web.Models.ViewModels.PlantStock
 {
     public class PlantStockDetailsViewModel
     {

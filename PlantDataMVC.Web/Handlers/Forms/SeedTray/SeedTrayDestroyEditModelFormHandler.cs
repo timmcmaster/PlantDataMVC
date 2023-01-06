@@ -1,11 +1,10 @@
 ﻿using Framework.Web.Forms;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.SeedTray;
-using System.Net.Http;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Models.EditModels.SeedTray;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Forms.SeedTray
+namespace PlantDataMVC.Web.Handlers.Forms.SeedTray
 {
     public class SeedTrayDestroyEditModelFormHandler : IFormHandler<SeedTrayDestroyEditModel, bool>
     {

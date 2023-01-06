@@ -1,4 +1,4 @@
-﻿namespace PlantDataMVC.UICore.Helpers
+﻿namespace PlantDataMVC.Web.Helpers
 {
     public class ApiPagingInfo
     {

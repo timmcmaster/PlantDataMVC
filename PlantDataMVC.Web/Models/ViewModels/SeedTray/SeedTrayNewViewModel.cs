@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.UICore.Models.ViewModels.SeedTray
+namespace PlantDataMVC.Web.Models.ViewModels.SeedTray
 {
     public class SeedTrayNewViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PlantDataMVC.UICore.Models.ViewModels.PlantStock
+namespace PlantDataMVC.Web.Models.ViewModels.PlantStock
 {
     public class PlantStockEditViewModel
     {

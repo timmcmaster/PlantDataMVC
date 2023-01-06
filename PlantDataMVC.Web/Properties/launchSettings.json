@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "PlantDataMVC.UICore": {
+    "PlantDataMVC.Web": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System;
 
-namespace PlantDataMVC.UICore.Mappers
+namespace PlantDataMVC.Web.Mappers
 {
     public static class AutoMapperWebConfiguration
     {

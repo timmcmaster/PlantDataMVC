@@ -1,10 +1,10 @@
 ﻿using Framework.Web.Forms;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.SaleEvent;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Models.EditModels.SaleEvent;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Forms.SaleEvent
+namespace PlantDataMVC.Web.Handlers.Forms.SaleEvent
 {
     public class SaleEventDestroyEditModelFormHandler : IFormHandler<SaleEventDestroyEditModel, bool>
     {

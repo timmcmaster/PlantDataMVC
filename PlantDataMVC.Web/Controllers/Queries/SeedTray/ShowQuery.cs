@@ -1,7 +1,7 @@
 ﻿using Framework.Web.Views;
-using PlantDataMVC.UICore.Models.ViewModels.SeedTray;
+using PlantDataMVC.Web.Models.ViewModels.SeedTray;
 
-namespace PlantDataMVC.UICore.Controllers.Queries.SeedTray
+namespace PlantDataMVC.Web.Controllers.Queries.SeedTray
 {
     public class ShowQuery : IQuery<SeedTrayShowViewModel>
     {

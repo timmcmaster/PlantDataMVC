@@ -1,7 +1,7 @@
 ﻿using Framework.Web.Views;
-using PlantDataMVC.UICore.Models.ViewModels.Transaction;
+using PlantDataMVC.Web.Models.ViewModels.Transaction;
 
-namespace PlantDataMVC.UICore.Controllers.Queries.Transaction
+namespace PlantDataMVC.Web.Controllers.Queries.Transaction
 {
     public class DeleteQuery : IQuery<TransactionDeleteViewModel>
     {

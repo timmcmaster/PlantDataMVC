@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PlantDataMVC.UICore.Models.ViewModels.Genus
+namespace PlantDataMVC.Web.Models.ViewModels.Genus
 {
     public class GenusListViewModel
     {

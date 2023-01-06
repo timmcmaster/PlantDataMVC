@@ -2,13 +2,13 @@
 using Framework.Web.Views;
 using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Controllers.Queries.PlantStock;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.ViewModels.PlantStock;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Controllers.Queries.PlantStock;
+using PlantDataMVC.Web.Models.ViewModels.PlantStock;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
+namespace PlantDataMVC.Web.Handlers.Views.PlantStock
 {
     public class ShowQueryHandler : IQueryHandler<ShowQuery, PlantStockShowViewModel>
     {

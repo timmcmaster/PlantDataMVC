@@ -2,7 +2,7 @@
 using Framework.Web.Mvc.Sorting;
 using System.Collections.Generic;
 
-namespace PlantDataMVC.UICore.Models.ViewModels
+namespace PlantDataMVC.Web.Models.ViewModels
 {
     public class ListViewModelStatic<T> : StaticPageableList<T>, ISortable
     {

@@ -1,8 +1,8 @@
 ﻿using Framework.Web.Views;
-using PlantDataMVC.UICore.Models.ViewModels;
-using PlantDataMVC.UICore.Models.ViewModels.SeedBatch;
+using PlantDataMVC.Web.Models.ViewModels;
+using PlantDataMVC.Web.Models.ViewModels.SeedBatch;
 
-namespace PlantDataMVC.UICore.Controllers.Queries.SeedBatch
+namespace PlantDataMVC.Web.Controllers.Queries.SeedBatch
 {
     public class IndexQuery : IQuery<ListViewModelStatic<SeedBatchListViewModel>>
     {

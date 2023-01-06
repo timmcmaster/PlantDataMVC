@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.UICore.Models.ViewModels.Transaction
+namespace PlantDataMVC.Web.Models.ViewModels.Transaction
 {
     public class TransactionNewViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Framework.Web.Forms;
 
-namespace PlantDataMVC.UICore.Models.EditModels.SeedTray
+namespace PlantDataMVC.Web.Models.EditModels.SeedTray
 {
     public class SeedTrayCreateEditModel : IForm<bool>
     {

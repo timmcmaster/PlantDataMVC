@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PlantDataMVC.UICore.Helpers
+namespace PlantDataMVC.Web.Helpers
 {
     public class LinkHeader
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Framework.Web.Views;
 
-namespace PlantDataMVC.UICore.Controllers.Queries
+namespace PlantDataMVC.Web.Controllers.Queries
 {
     /// <summary>
     /// Generic query, currently used for dropdown lists

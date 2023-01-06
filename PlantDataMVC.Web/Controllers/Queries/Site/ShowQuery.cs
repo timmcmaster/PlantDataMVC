@@ -1,7 +1,7 @@
 ﻿using Framework.Web.Views;
-using PlantDataMVC.UICore.Models.ViewModels.Site;
+using PlantDataMVC.Web.Models.ViewModels.Site;
 
-namespace PlantDataMVC.UICore.Controllers.Queries.Site
+namespace PlantDataMVC.Web.Controllers.Queries.Site
 {
     public class ShowQuery : IQuery<SiteShowViewModel>
     {

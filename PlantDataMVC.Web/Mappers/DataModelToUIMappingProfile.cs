@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using PlantDataMVC.UICore.Models.ViewModels.SeedBatch;
-using PlantDataMVC.UICore.Models.ViewModels.SeedTray;
+using PlantDataMVC.Web.Models.ViewModels.SeedBatch;
+using PlantDataMVC.Web.Models.ViewModels.SeedTray;
 using System;
-using Genus = PlantDataMVC.UICore.Models.ViewModels.Genus;
-using Plant = PlantDataMVC.UICore.Models.ViewModels.Plant;
-using PlantStock = PlantDataMVC.UICore.Models.ViewModels.PlantStock;
-using Site = PlantDataMVC.UICore.Models.ViewModels.Site;
-using Transaction = PlantDataMVC.UICore.Models.ViewModels.Transaction;
-using SaleEvent = PlantDataMVC.UICore.Models.ViewModels.SaleEvent;
+using Genus = PlantDataMVC.Web.Models.ViewModels.Genus;
+using Plant = PlantDataMVC.Web.Models.ViewModels.Plant;
+using PlantStock = PlantDataMVC.Web.Models.ViewModels.PlantStock;
+using Site = PlantDataMVC.Web.Models.ViewModels.Site;
+using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction;
+using SaleEvent = PlantDataMVC.Web.Models.ViewModels.SaleEvent;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Api.Models.DomainFunctions;
 
-namespace PlantDataMVC.UICore.Mappers
+namespace PlantDataMVC.Web.Mappers
 {
     /// <inheritdoc />
     /// <summary>

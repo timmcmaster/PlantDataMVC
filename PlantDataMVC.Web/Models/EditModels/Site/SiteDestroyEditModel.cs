@@ -1,6 +1,6 @@
 ﻿using Framework.Web.Forms;
 
-namespace PlantDataMVC.UICore.Models.EditModels.Site
+namespace PlantDataMVC.Web.Models.EditModels.Site
 {
     public class SiteDestroyEditModel : IForm<bool>
     {

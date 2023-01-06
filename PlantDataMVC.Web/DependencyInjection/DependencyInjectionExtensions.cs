@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace PlantDataMVC.UICore.DependencyInjection
+namespace PlantDataMVC.Web.DependencyInjection
 {
     public static class DependencyInjectionExtensions
     {

@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
-using PlantDataMVC.UICore.Models.EditModels.SeedBatch;
-using PlantDataMVC.UICore.Models.EditModels.SeedTray;
+using PlantDataMVC.Web.Models.EditModels.SeedBatch;
+using PlantDataMVC.Web.Models.EditModels.SeedTray;
 using System;
-using Genus = PlantDataMVC.UICore.Models.EditModels.Genus;
-using Plant = PlantDataMVC.UICore.Models.EditModels.Plant;
-using PlantStock = PlantDataMVC.UICore.Models.EditModels.PlantStock;
-using Site = PlantDataMVC.UICore.Models.EditModels.Site;
-using Transaction = PlantDataMVC.UICore.Models.EditModels.Transaction;
-using SaleEvent = PlantDataMVC.UICore.Models.EditModels.SaleEvent;
+using Genus = PlantDataMVC.Web.Models.EditModels.Genus;
+using Plant = PlantDataMVC.Web.Models.EditModels.Plant;
+using PlantStock = PlantDataMVC.Web.Models.EditModels.PlantStock;
+using Site = PlantDataMVC.Web.Models.EditModels.Site;
+using Transaction = PlantDataMVC.Web.Models.EditModels.Transaction;
+using SaleEvent = PlantDataMVC.Web.Models.EditModels.SaleEvent;
 using PlantDataMVC.Api.Models.DataModels;
 
-namespace PlantDataMVC.UICore.Mappers
+namespace PlantDataMVC.Web.Mappers
 {
     public class UIToDataModelMappingProfile : Profile
     {

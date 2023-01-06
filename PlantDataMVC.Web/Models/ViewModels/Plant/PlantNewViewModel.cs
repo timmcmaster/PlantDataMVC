@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PlantDataMVC.UICore.Models.ViewModels.Plant
+namespace PlantDataMVC.Web.Models.ViewModels.Plant
 {
     public class PlantNewViewModel
     {

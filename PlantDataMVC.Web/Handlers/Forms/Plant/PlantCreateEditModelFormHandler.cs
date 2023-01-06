@@ -1,15 +1,15 @@
-﻿using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Framework.Web.Forms;
 using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.Plant;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Models.EditModels.Plant;
+using System.Net.Http;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Forms.Plant
+namespace PlantDataMVC.Web.Handlers.Forms.Plant
 {
     public class PlantCreateEditModelFormHandler : IFormHandler<PlantCreateEditModel, bool>
     {

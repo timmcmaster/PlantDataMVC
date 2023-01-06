@@ -1,6 +1,6 @@
 ﻿using Framework.Web.Forms;
 
-namespace PlantDataMVC.UICore.Models.EditModels.Genus
+namespace PlantDataMVC.Web.Models.EditModels.Genus
 {
     public class GenusCreateEditModel : IForm<bool>
     {

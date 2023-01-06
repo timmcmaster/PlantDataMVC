@@ -1,7 +1,7 @@
 ﻿using Framework.Web.Views;
-using PlantDataMVC.UICore.Models.ViewModels.SaleEvent;
+using PlantDataMVC.Web.Models.ViewModels.SaleEvent;
 
-namespace PlantDataMVC.UICore.Controllers.Queries.SaleEvent
+namespace PlantDataMVC.Web.Controllers.Queries.SaleEvent
 {
     public class DeleteQuery : IQuery<SaleEventDeleteViewModel>
     {

@@ -1,10 +1,10 @@
 ﻿using Framework.Web.Forms;
-using PlantDataMVC.UICore.Helpers;
-using PlantDataMVC.UICore.Models.EditModels.Transaction;
+using PlantDataMVC.Common.Client;
+using PlantDataMVC.Web.Models.EditModels.Transaction;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.UICore.Handlers.Forms.Transaction
+namespace PlantDataMVC.Web.Handlers.Forms.Transaction
 {
     public class TransactionDestroyEditModelFormHandler : IFormHandler<TransactionDestroyEditModel, bool>
     {

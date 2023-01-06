@@ -1,6 +1,6 @@
 ﻿using Framework.Web.Forms;
 
-namespace PlantDataMVC.UICore.Models.EditModels.SeedBatch
+namespace PlantDataMVC.Web.Models.EditModels.SeedBatch
 {
     public class SeedBatchDestroyEditModel : IForm<bool>
     {
