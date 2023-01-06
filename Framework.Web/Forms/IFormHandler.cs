@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Framework.Web.Forms
+﻿namespace Framework.Web.Forms
 {
     /// <summary>
     /// The form is bound to the result type it returns, so that forms aren't used against the wrong result type
@@ -10,8 +7,7 @@ namespace Framework.Web.Forms
     /// </summary>
     /// <typeparam name="TForm">The type of the form.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
-    public interface IFormHandler<in TForm, TResult> where TForm : IForm<TResult>
+    public interface IFormHandler<in TForm, TResult>: MediatR.IRequestHandler<TForm,TResult> where TForm : IForm<TResult>
     {
-        Task<TResult> HandleAsync(TForm form, CancellationToken cancellationToken);
     }
 }

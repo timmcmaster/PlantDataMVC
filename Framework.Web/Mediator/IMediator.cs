@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Framework.Web.Forms;
-using Framework.Web.Views;
+using Framework.Web.Core.Forms;
+using Framework.Web.Core.Views;
 
-namespace Framework.Web.Mediator
+namespace Framework.Web.Core.Mediator
 {
     public interface IMediator
     {
@@ -14,7 +14,7 @@ namespace Framework.Web.Mediator
         /// <param name="query">The query request.</param>
         /// <param name="cancellationToken">Optional cancellation token.</param>
         /// <returns>A task that represents the request operation</returns>
-        Task<TViewModel> Request<TViewModel>(IQuery<TViewModel> query, CancellationToken cancellationToken = default);
+        Task<TViewModel> Send<TViewModel>(IQuery<TViewModel> query, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Asynchronously sends the specified form.

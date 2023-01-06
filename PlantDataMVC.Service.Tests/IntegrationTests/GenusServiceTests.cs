@@ -3,7 +3,7 @@ using FluentAssertions;
 using Framework.Domain.EF;
 using Interfaces.Domain.Repository;
 using Interfaces.Domain.UnitOfWork;
-using PlantDataMVC.DTO.Mappers;
+using PlantDataMVC.Api.Models.Mappers;
 using PlantDataMVC.Entities.Context;
 using PlantDataMVC.Entities.EntityModels;
 using System;

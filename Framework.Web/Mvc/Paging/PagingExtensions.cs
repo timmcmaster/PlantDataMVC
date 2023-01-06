@@ -1,27 +1,29 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
+using System;
+using System.IO;
 using System.Linq.Expressions;
-using System.Web.Mvc;
-using System.Web.Mvc.Html;
-using System.Web.Routing;
+using System.Text.Encodings.Web;
 
 namespace Framework.Web.Mvc.Paging
 {
     /// <summary>
-    ///     Contains Extension methods for HtmlHelper that implement wrappers for RenderAction method
+    ///     Contains Extension methods for HtmlHelper that implement PagingLinks
     /// </summary>
     public static class PagingExtensions
     {
-        public static MvcHtmlString PagingLinksFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
-                                                                      Expression<Func<TModel, TProperty>>
-                                                                          expr) //where TModel : IPageable
+        public static HtmlString PagingLinksFor<TModel, TProperty>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr) //where TModel : IPageable
         {
-            var model = helper.ViewData.Model as IPageable;
-
             //ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
+            var sw = new StringWriter();
 
-            var prevLink = new MvcHtmlString("");
-            var separator = new MvcHtmlString("");
-            var nextLink = new MvcHtmlString("");
+            var model = helper.ViewData.Model as IPageable;
+            var currentRequest = helper.ViewContext.HttpContext.Request;
+
+            IHtmlContent prevLink = new HtmlString("");
+            IHtmlContent separator = new HtmlString("");
+            IHtmlContent nextLink = new HtmlString("");
 
             if (model != null)
             {
@@ -30,19 +32,18 @@ namespace Framework.Web.Mvc.Paging
                     var routeDataPrev = new RouteValueDictionary
                         {{"page", model.PageNumber - 1}, {"pageSize", model.PageSize}};
 
-                    routeDataPrev.AddQueryStringParameters();
+                    routeDataPrev.AddQueryStringParameters(currentRequest);
 
-                    prevLink = helper.ActionLink("< Previous Page",
-                                                 helper.ViewContext.RouteData.Values["action"].ToString(),
-                                                 routeDataPrev);
+                    prevLink = helper.ActionLink("< Previous Page", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataPrev);
                 }
 
                 if (model.HasPreviousPage && model.HasNextPage)
                 {
                     var builder = new TagBuilder("text");
-                    builder.InnerHtml = "&nbsp;|&nbsp;";
+                    builder.InnerHtml.AppendHtml("&nbsp;|&nbsp;");
+                    builder.WriteTo(sw, HtmlEncoder.Default);
 
-                    separator = MvcHtmlString.Create(builder.ToString());
+                    separator = new HtmlString(sw.ToString());
                 }
 
                 if (model.HasNextPage)
@@ -50,19 +51,22 @@ namespace Framework.Web.Mvc.Paging
                     var routeDataNext = new RouteValueDictionary
                         {{"page", model.PageNumber + 1}, {"pageSize", model.PageSize}};
 
-                    routeDataNext.AddQueryStringParameters();
+                    routeDataNext.AddQueryStringParameters(currentRequest);
 
-                    nextLink = helper.ActionLink("Next Page >",
-                                                 helper.ViewContext.RouteData.Values["action"].ToString(),
-                                                 routeDataNext);
+                    nextLink = helper.ActionLink("Next Page >", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataNext);
                 }
             }
 
+            sw.GetStringBuilder().Clear();
+
             var divBuilder = new TagBuilder("div");
             divBuilder.AddCssClass("pagination");
-            divBuilder.InnerHtml = prevLink.ToHtmlString() + separator.ToHtmlString() + nextLink.ToHtmlString();
+            divBuilder.InnerHtml.AppendHtml(prevLink);
+            divBuilder.InnerHtml.AppendHtml(separator);
+            divBuilder.InnerHtml.AppendHtml(nextLink);
+            divBuilder.WriteTo(sw, HtmlEncoder.Default);
 
-            return MvcHtmlString.Create(divBuilder.ToString());
+            return new HtmlString(sw.ToString());
         }
     }
 }

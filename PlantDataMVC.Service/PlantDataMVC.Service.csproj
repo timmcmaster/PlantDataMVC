@@ -11,7 +11,7 @@
     <ProjectReference Include="..\Framework.Service\Framework.Service.csproj" />
     <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj" />
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj" />
-    <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj" />
+    <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.Api.Models.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Repository\PlantDataMVC.Repository.csproj" />
   </ItemGroup>

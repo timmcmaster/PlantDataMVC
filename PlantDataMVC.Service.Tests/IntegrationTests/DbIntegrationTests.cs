@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using PlantDataMVC.DTO.Mappers;
+using PlantDataMVC.Api.Models.Mappers;
 using Xunit;
 using Xunit.Abstractions;
 

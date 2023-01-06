@@ -1,6 +1,6 @@
 ﻿using System;
 using AutoMapper;
-using PlantDataMVC.DTO.Mappers;
+using PlantDataMVC.Api.Models.Mappers;
 using Xunit.Abstractions;
 
 namespace PlantDataMVC.Service.Tests.UnitTests.Services

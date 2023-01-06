@@ -1,0 +1,61 @@
+﻿@model PlantDataMVC.UICore.Models.ViewModels.SeedTray.SeedTrayNewViewModel
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+
+<form asp-action="Create" asp-controller="SeedTray">
+   <div asp-validation-summary="ModelOnly"></div>
+    <fieldset>
+        <legend>Seed Tray</legend>
+
+        <div class="editor-label">
+            <label asp-for="SeedBatchId"></label>
+        </div>
+        <div class="editor-field">
+            @*TODO: Want better representation for display value*@
+            @Html.QueryDropDownFor(
+                () => nameof(Model.SeedBatchId),
+                model => model.SeedBatchId,
+                new ListQuery<SeedBatchDataModel>(),
+                p => p.Id,
+                p => string.Concat(p.SpeciesId, ",", p.Location, ",", p.DateCollected.ToShortDateString()))
+        </div>
+
+        <div class="editor-label">
+            <label asp-for="DatePlanted"></label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DatePlanted)
+            <span asp-validation-for="DatePlanted"></span>
+        </div>
+
+        <div class="editor-label">
+            <label asp-for="Treatment"></label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Treatment)
+            <span asp-validation-for="Treatment"></span>
+        </div>
+
+        <div class="editor-label">
+            <label asp-for="ThrownOut"></label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ThrownOut)
+            <span asp-validation-for="ThrownOut"></span>
+        </div>
+
+        <p>
+            <input type="submit" value="Create"/>
+        </p>
+    </fieldset>
+</form>
+
+<div>
+    <a asp-controller="SeedTray" asp-action="Index">Back to Index</a>
+    @Html.ActionLink("Back to Index", "Index")
+</div>
+

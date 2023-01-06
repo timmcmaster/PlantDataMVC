@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Interfaces.Domain.Entity;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Interfaces.Domain.Entity;
 
 namespace Interfaces.Domain.Repository
 {

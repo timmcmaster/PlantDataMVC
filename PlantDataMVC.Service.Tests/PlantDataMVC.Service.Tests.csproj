@@ -10,7 +10,7 @@
     <ProjectReference Include="..\Framework.Domain.EF\Framework.Domain.EF.csproj" />
     <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj" />
     <ProjectReference Include="..\Interfaces.Service\Interfaces.Service.csproj" />
-    <ProjectReference Include="..\PlantDataMVC.DTO\PlantDataMVC.DTO.csproj" />
+    <ProjectReference Include="..\PlantDataMVC.Api.Models\PlantDataMVC.Api.Models.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj" />
     <ProjectReference Include="..\UnitTest.Utils\UnitTest.Utils.csproj" />
