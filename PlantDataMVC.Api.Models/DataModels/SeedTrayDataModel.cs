@@ -1,5 +1,4 @@
-﻿using PlantDataMVC.Api.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace PlantDataMVC.Api.Models.DataModels

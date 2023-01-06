@@ -1,6 +1,4 @@
-﻿using PlantDataMVC.Api.Models;
-
-namespace PlantDataMVC.Api.Models.DataModels
+﻿namespace PlantDataMVC.Api.Models.DataModels
 {
     public class SpeciesInListDataModel : IDataModel
     {
