@@ -11,13 +11,13 @@ namespace PlantDataMVC.Api.Helpers
         public PropertyData(Type type)
         {
             Type = type;
-            IsDto = type.GetInterfaces().Contains(typeof(IDto));
-            IsDtoCollection = CheckDtoCollection(type);
+            IsDataModel = type.GetInterfaces().Contains(typeof(IDataModel));
+            IsDataModelCollection = CheckDataModelCollection(type);
         }
 
-        public bool IsDto { get; }
+        public bool IsDataModel { get; }
 
-        public bool IsDtoCollection { get; }
+        public bool IsDataModelCollection { get; }
 
         public Type? Type { get;  }
 
@@ -25,14 +25,14 @@ namespace PlantDataMVC.Api.Helpers
 
         public PropertyInfo? PropertyInfo { get; set; }
 
-        public bool CheckDtoCollection(Type type)
+        public bool CheckDataModelCollection(Type type)
         {
             var propEnumerables = type.GetInterfaces().Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
-            bool isDtoCollection = propEnumerables.Any(
+            bool isDataModelCollection = propEnumerables.Any(
                 i => i.GetGenericArguments().Count() == 1
-                && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a)));
+                && i.GetGenericArguments().Any(a => typeof(IDataModel).IsAssignableFrom(a)));
 
-            return isDtoCollection;
+            return isDataModelCollection;
         }
     }
 }

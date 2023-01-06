@@ -14,7 +14,7 @@ namespace PlantDataMVC.UICore
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .WriteTo.Console()
-                .WriteTo.File("..\\logs\\UICore-bootstrap-log-.txt",
+                .WriteTo.File("..\\logs\\Web-bootstrap-log-.txt",
                     rollingInterval: RollingInterval.Day)
                 .CreateBootstrapLogger();
 

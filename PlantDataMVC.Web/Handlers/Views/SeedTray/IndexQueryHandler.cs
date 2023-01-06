@@ -48,8 +48,8 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
                 var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                 var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                var dtoList = JsonConvert.DeserializeObject<IEnumerable<SeedTrayDataModel>>(content);
-                var modelList = _mapper.Map<IEnumerable<SeedTrayDataModel>, List<SeedTrayListViewModel>>(dtoList);
+                var dataModelList = JsonConvert.DeserializeObject<IEnumerable<SeedTrayDataModel>>(content);
+                var modelList = _mapper.Map<IEnumerable<SeedTrayDataModel>, List<SeedTrayListViewModel>>(dataModelList);
 
                 var model = new ListViewModelStatic<SeedTrayListViewModel>(modelList, apiPagingInfo.page,
                                                                         apiPagingInfo.pageSize,
@@ -67,7 +67,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
         }
 
         /// <summary>
-        /// Maps the sort field from display field column to dto field as used by API
+        /// Maps the sort field from display field column to dataModel field as used by API
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>

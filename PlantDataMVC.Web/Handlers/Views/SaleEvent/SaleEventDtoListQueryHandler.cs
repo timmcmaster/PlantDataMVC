@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.UICore.Handlers.Views.SaleEvent
 {
-    public class SaleEventDtoListQueryHandler : ListQueryHandler<SaleEventDataModel>
+    public class SaleEventDataModelListQueryHandler : ListQueryHandler<SaleEventDataModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public SaleEventDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public SaleEventDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
             _plantDataApiClient = plantDataApiClient;
         }
@@ -24,7 +24,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SaleEvent
         {
             bool success = true;
             string? uri = "api/SaleEvent";
-            IEnumerable<SaleEventDataModel> fullDtoList = Enumerable.Empty<SaleEventDataModel>();
+            IEnumerable<SaleEventDataModel> fullDataModelList = Enumerable.Empty<SaleEventDataModel>();
 
             while (!String.IsNullOrEmpty(uri))
             {
@@ -37,10 +37,10 @@ namespace PlantDataMVC.UICore.Handlers.Views.SaleEvent
                     var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                     var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                    var dtoList = JsonConvert.DeserializeObject<IEnumerable<SaleEventDataModel>>(content);
+                    var dataModelList = JsonConvert.DeserializeObject<IEnumerable<SaleEventDataModel>>(content);
 
                     // Concatenate page to full list
-                    fullDtoList = (fullDtoList ?? Enumerable.Empty<SaleEventDataModel>()).Concat(dtoList ?? Enumerable.Empty<SaleEventDataModel>());
+                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<SaleEventDataModel>()).Concat(dataModelList ?? Enumerable.Empty<SaleEventDataModel>());
 
                     // if we haven't got all the items, follow paging links (link will be null if no next page)
                     uri = linkInfo.NextPageLink?.ToString();
@@ -54,7 +54,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SaleEvent
 
             if (success)
             {
-                return fullDtoList;
+                return fullDataModelList;
             }
             else
             {

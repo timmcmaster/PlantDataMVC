@@ -3,7 +3,7 @@ using System;
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
-    public class CreateUpdateJournalEntryDataModel : IDto
+    public class CreateUpdateJournalEntryDataModel : IDataModel
     {
         public int PlantStockId { get; set; }
         public int JournalEntryTypeId { get; set; }

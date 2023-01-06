@@ -2,7 +2,7 @@
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
-    public class CreateUpdatePlantStockDataModel : IDto
+    public class CreateUpdatePlantStockDataModel : IDataModel
     {
         public int SpeciesId { get; set; }
         public int ProductTypeId { get; set; }

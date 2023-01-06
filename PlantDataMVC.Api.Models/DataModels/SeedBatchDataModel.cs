@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
-    public class SeedBatchDataModel : IDto
+    public class SeedBatchDataModel : IDataModel
     {
         public int Id { get; set; }
         public int SpeciesId { get; set; }

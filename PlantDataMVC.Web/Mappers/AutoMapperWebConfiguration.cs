@@ -13,8 +13,8 @@ namespace PlantDataMVC.UICore.Mappers
         public static Action<IMapperConfigurationExpression> ConfigAction
             = cfg =>
             {
-                cfg.AddProfile<UiToDtoMappingProfile>();
-                cfg.AddProfile<DtoToUiMappingProfile>();
+                cfg.AddProfile<UIToDataModelMappingProfile>();
+                cfg.AddProfile<DataModelToUIMappingProfile>();
             };
     }
 }

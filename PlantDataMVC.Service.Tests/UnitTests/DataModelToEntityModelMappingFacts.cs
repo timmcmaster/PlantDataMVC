@@ -5,12 +5,12 @@ using Xunit;
 
 namespace PlantDataMVC.Service.Tests.UnitTests
 {
-    public class DtoToDalMappingFacts : IDisposable
+    public class DataModelToDalMappingFacts : IDisposable
     {
         #region Setup/Teardown
         private readonly MapperConfiguration _mapperConfiguration;
 
-        public DtoToDalMappingFacts()
+        public DataModelToDalMappingFacts()
         {
             // Configure the mapper at start of each test
             _mapperConfiguration = AutoMapperCoreConfiguration.Configure();

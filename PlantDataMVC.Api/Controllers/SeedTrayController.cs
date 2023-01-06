@@ -48,13 +48,13 @@ namespace PlantDataMVC.Api.Controllers
                 // TODO: Current state doesn't return children by default, can only get with "fields" option
                 // need to determine expected behaviour
 
-                var childDtosToInclude = new List<string>();
+                var childDataModelsToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
                 if (dsParams.Fields != null)
                 {
                     lstOfFields = dsParams.Fields.Split(',').ToList();
-                    childDtosToInclude = DataShaping.GetIncludedObjectNames<SeedTrayDataModel>(lstOfFields);
+                    childDataModelsToInclude = DataShaping.GetIncludedObjectNames<SeedTrayDataModel>(lstOfFields);
                 }
 
                 var context = _service.Queryable(useTracking: true);
@@ -62,8 +62,8 @@ namespace PlantDataMVC.Api.Controllers
                 // TODO: Need to identify if sort field from DTO is in entity or not
                 //       to determine if we can sort on projection or need to sort after list is materialised
 
-                var dtos = _mapper
-                           .ProjectTo<SeedTrayDataModel>(context, childDtosToInclude.ToArray())
+                var dataModels = _mapper
+                           .ProjectTo<SeedTrayDataModel>(context, childDataModelsToInclude.ToArray())
                            .ApplySort(sortParams.Sort)
                            .Where(s => thrownOut == null || s.ThrownOut == thrownOut)
                            .Where(s => seedBatchId == null || s.SeedBatchId == seedBatchId);
@@ -75,7 +75,7 @@ namespace PlantDataMVC.Api.Controllers
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
-                    dtos.Count(),
+                    dataModels.Count(),
                     "SeedTrayList",
                     new
                     {
@@ -92,7 +92,7 @@ namespace PlantDataMVC.Api.Controllers
                     HttpContext.Response.Headers.Add(hdr);
                 }
 
-                var itemList = dtos
+                var itemList = dataModels
                                .Paginate(pgParams.Page, pgParams.PageSize)
                                .ToList()
                                .Select(species => DataShaping.CreateDataShapedObject(species, lstOfFields));
@@ -113,13 +113,13 @@ namespace PlantDataMVC.Api.Controllers
         {
             try
             {
-                //var childDtosToInclude = new List<string>();
+                //var childDataModelsToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
                 if (dsParams.Fields != null)
                 {
                     lstOfFields = dsParams.Fields.Split(',').ToList();
-                    //childDtosToInclude = DataShaping.GetIncludedObjectNames<SeedTrayDto>(lstOfFields);
+                    //childDataModelsToInclude = DataShaping.GetIncludedObjectNames<SeedTrayDataModel>(lstOfFields);
                 }
 
                 var item = _service.GetItemById(id);
@@ -129,9 +129,9 @@ namespace PlantDataMVC.Api.Controllers
                     return NotFound();
                 }
 
-                var itemDto = _mapper.Map<SeedTrayEntityModel, SeedTrayDataModel>(item);
+                var itemDataModel = _mapper.Map<SeedTrayEntityModel, SeedTrayDataModel>(item);
 
-                return Ok(DataShaping.CreateDataShapedObject(itemDto, lstOfFields));
+                return Ok(DataShaping.CreateDataShapedObject(itemDataModel, lstOfFields));
             }
             catch (Exception e)
             {
@@ -146,17 +146,17 @@ namespace PlantDataMVC.Api.Controllers
         // POST: api/SeedTray
         [HttpPost]
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public IActionResult Post([FromBody] CreateUpdateSeedTrayDataModel dtoIn)
+        public IActionResult Post([FromBody] CreateUpdateSeedTrayDataModel dataModelIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
             try
             {
-                if (dtoIn == null)
+                if (dataModelIn == null)
                 {
                     return BadRequest();
                 }
 
-                var entity = _mapper.Map<CreateUpdateSeedTrayDataModel, SeedTrayEntityModel>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateSeedTrayDataModel, SeedTrayEntityModel>(dataModelIn);
                 _service.Add(entity);
 
                 // Save changes before we map back
@@ -165,9 +165,9 @@ namespace PlantDataMVC.Api.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<SeedTrayEntityModel, SeedTrayDataModel>(entity);
+                    var dataModelOut = _mapper.Map<SeedTrayEntityModel, SeedTrayDataModel>(entity);
 
-                    return CreatedAtAction(nameof(GetById), new { id = dtoOut.Id }, dtoOut);
+                    return CreatedAtAction(nameof(GetById), new { id = dataModelOut.Id }, dataModelOut);
                 }
 
                 return BadRequest();
@@ -183,17 +183,17 @@ namespace PlantDataMVC.Api.Controllers
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
         [HttpPut("{id}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public IActionResult Put(int id, [FromBody] CreateUpdateSeedTrayDataModel dtoIn)
+        public IActionResult Put(int id, [FromBody] CreateUpdateSeedTrayDataModel dataModelIn)
         {
             try
             {
-                // Handle mapping failure - where dto is not in right format
+                // Handle mapping failure - where dataModel is not in right format
                 if (!ModelState.IsValid)
                 {
                     return BadRequest();
                 }
 
-                if (dtoIn == null)
+                if (dataModelIn == null)
                 {
                     return BadRequest();
                 }
@@ -206,7 +206,7 @@ namespace PlantDataMVC.Api.Controllers
                     return NotFound();
                 }
 
-                var entity = _mapper.Map<CreateUpdateSeedTrayDataModel, SeedTrayEntityModel>(dtoIn);
+                var entity = _mapper.Map<CreateUpdateSeedTrayDataModel, SeedTrayEntityModel>(dataModelIn);
                 entity.Id = entityFound.Id;
                 _service.Update(entity);
 
@@ -216,9 +216,9 @@ namespace PlantDataMVC.Api.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<SeedTrayEntityModel, SeedTrayDataModel>(entity);
+                    var dataModelOut = _mapper.Map<SeedTrayEntityModel, SeedTrayDataModel>(entity);
 
-                    return Ok(dtoOut);
+                    return Ok(dataModelOut);
                 }
 
                 return BadRequest();
@@ -253,13 +253,13 @@ namespace PlantDataMVC.Api.Controllers
                     return NotFound();
                 }
 
-                // Map to dto
-                var dtoFound = _mapper.Map<SeedTrayEntityModel, CreateUpdateSeedTrayDataModel>(entityFound);
+                // Map to dataModel
+                var dataModelFound = _mapper.Map<SeedTrayEntityModel, CreateUpdateSeedTrayDataModel>(entityFound);
 
-                // Apply changes to dto
-                itemPatchDoc.ApplyTo(dtoFound);
+                // Apply changes to dataModel
+                itemPatchDoc.ApplyTo(dataModelFound);
 
-                var updatedEntity = _mapper.Map<CreateUpdateSeedTrayDataModel, SeedTrayEntityModel>(dtoFound);
+                var updatedEntity = _mapper.Map<CreateUpdateSeedTrayDataModel, SeedTrayEntityModel>(dataModelFound);
                 updatedEntity.Id = id;
                 _service.Update(updatedEntity);
 
@@ -269,9 +269,9 @@ namespace PlantDataMVC.Api.Controllers
                 // Check for errors from service
                 if (changes > 0)
                 {
-                    var dtoOut = _mapper.Map<SeedTrayEntityModel, SeedTrayDataModel>(updatedEntity);
+                    var dataModelOut = _mapper.Map<SeedTrayEntityModel, SeedTrayDataModel>(updatedEntity);
 
-                    return Ok(dtoOut);
+                    return Ok(dataModelOut);
                 }
 
                 return BadRequest();

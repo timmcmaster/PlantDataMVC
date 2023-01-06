@@ -49,9 +49,9 @@ namespace PlantDataMVC.UICore.Handlers.Views.Plant
                 ApiPagingInfo apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                 LinkHeader linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                var dtoList = JsonConvert.DeserializeObject<IEnumerable<SpeciesDataModel>>(content);
+                var dataModelList = JsonConvert.DeserializeObject<IEnumerable<SpeciesDataModel>>(content);
                 List<PlantListViewModel> modelList =
-                    _mapper.Map<IEnumerable<SpeciesDataModel>, List<PlantListViewModel>>(dtoList);
+                    _mapper.Map<IEnumerable<SpeciesDataModel>, List<PlantListViewModel>>(dataModelList);
 
                 var model = new ListViewModelStatic<PlantListViewModel>(modelList, apiPagingInfo.page,
                                                                         apiPagingInfo.pageSize,
@@ -66,7 +66,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Plant
         }
 
         /// <summary>
-        /// Maps the sort field from display field column to dto field as used by API
+        /// Maps the sort field from display field column to dataModel field as used by API
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>

@@ -15,7 +15,7 @@ namespace PlantDataMVC.Api
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .WriteTo.Console()
-                .WriteTo.File("..\\logs\\WebApiCore-bootstrap-log-.txt",
+                .WriteTo.File("..\\logs\\Api-bootstrap-log-.txt",
                     rollingInterval: RollingInterval.Day)
                 .CreateBootstrapLogger();
 

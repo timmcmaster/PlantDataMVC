@@ -30,9 +30,9 @@ namespace PlantDataMVC.UICore.Handlers.Views.Transaction
             if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dto = JsonConvert.DeserializeObject<JournalEntryDataModel>(content);
+                var dataModel = JsonConvert.DeserializeObject<JournalEntryDataModel>(content);
 
-                var model = _mapper.Map<JournalEntryDataModel, TransactionDeleteViewModel>(dto);
+                var model = _mapper.Map<JournalEntryDataModel, TransactionDeleteViewModel>(dataModel);
                 return model;
             }
             else

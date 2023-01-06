@@ -29,9 +29,9 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
             if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dto = JsonConvert.DeserializeObject<SeedTrayDataModel>(content);
+                var dataModel = JsonConvert.DeserializeObject<SeedTrayDataModel>(content);
 
-                var model = _mapper.Map<SeedTrayDataModel, SeedTrayEditViewModel>(dto);
+                var model = _mapper.Map<SeedTrayDataModel, SeedTrayEditViewModel>(dataModel);
                 return model;
             }
             else

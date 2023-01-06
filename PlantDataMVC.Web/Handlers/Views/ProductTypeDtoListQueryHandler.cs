@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.UICore.Handlers.Views
 {
-    public class ProductTypeDtoListQueryHandler : ListQueryHandler<ProductTypeDataModel>
+    public class ProductTypeDataModelListQueryHandler : ListQueryHandler<ProductTypeDataModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public ProductTypeDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public ProductTypeDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
             _plantDataApiClient = plantDataApiClient;
         }
@@ -23,7 +23,7 @@ namespace PlantDataMVC.UICore.Handlers.Views
         {
             bool success = true;
             string? uri = "api/ProductType";
-            IEnumerable<ProductTypeDataModel> fullDtoList = Enumerable.Empty<ProductTypeDataModel>();
+            IEnumerable<ProductTypeDataModel> fullDataModelList = Enumerable.Empty<ProductTypeDataModel>();
 
             while (!String.IsNullOrEmpty(uri))
             {
@@ -36,10 +36,10 @@ namespace PlantDataMVC.UICore.Handlers.Views
                 var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                 var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                var dtoList = JsonConvert.DeserializeObject<IEnumerable<ProductTypeDataModel>>(content);
+                var dataModelList = JsonConvert.DeserializeObject<IEnumerable<ProductTypeDataModel>>(content);
 
                     // Concatenate page to full list
-                    fullDtoList = (fullDtoList ?? Enumerable.Empty<ProductTypeDataModel>()).Concat(dtoList ?? Enumerable.Empty<ProductTypeDataModel>());
+                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<ProductTypeDataModel>()).Concat(dataModelList ?? Enumerable.Empty<ProductTypeDataModel>());
 
                     // if we haven't got all the items, follow paging links (link will be null if no next page)
                     uri = linkInfo.NextPageLink?.ToString();
@@ -53,7 +53,7 @@ namespace PlantDataMVC.UICore.Handlers.Views
 
             if (success)
             {
-                return fullDtoList;
+                return fullDataModelList;
             }
             else
             {

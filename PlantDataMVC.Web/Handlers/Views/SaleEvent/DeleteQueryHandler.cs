@@ -29,9 +29,9 @@ namespace PlantDataMVC.UICore.Handlers.Views.SaleEvent
             if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dto = JsonConvert.DeserializeObject<SaleEventDataModel>(content);
+                var dataModel = JsonConvert.DeserializeObject<SaleEventDataModel>(content);
 
-                var model = _mapper.Map<SaleEventDataModel, SaleEventDeleteViewModel>(dto);
+                var model = _mapper.Map<SaleEventDataModel, SaleEventDeleteViewModel>(dataModel);
                 return model;
             }
             else

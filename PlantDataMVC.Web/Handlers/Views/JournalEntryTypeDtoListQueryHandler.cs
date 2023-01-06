@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.UICore.Handlers.Views
 {
-    public class JournalEntryTypeDtoListQueryHandler : ListQueryHandler<JournalEntryTypeDataModel>
+    public class JournalEntryTypeDataModelListQueryHandler : ListQueryHandler<JournalEntryTypeDataModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public JournalEntryTypeDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public JournalEntryTypeDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
             _plantDataApiClient = plantDataApiClient;
         }
@@ -23,7 +23,7 @@ namespace PlantDataMVC.UICore.Handlers.Views
         {
             bool success = true;
             string? uri = "api/JournalEntryType";
-            IEnumerable<JournalEntryTypeDataModel> fullDtoList = Enumerable.Empty<JournalEntryTypeDataModel>();
+            IEnumerable<JournalEntryTypeDataModel> fullDataModelList = Enumerable.Empty<JournalEntryTypeDataModel>();
 
             while (!String.IsNullOrEmpty(uri))
             {
@@ -36,10 +36,10 @@ namespace PlantDataMVC.UICore.Handlers.Views
                 var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                 var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                var dtoList = JsonConvert.DeserializeObject<IEnumerable<JournalEntryTypeDataModel>>(content);
+                var dataModelList = JsonConvert.DeserializeObject<IEnumerable<JournalEntryTypeDataModel>>(content);
 
                     // Concatenate page to full list
-                    fullDtoList = (fullDtoList ?? Enumerable.Empty<JournalEntryTypeDataModel>()).Concat(dtoList ?? Enumerable.Empty<JournalEntryTypeDataModel>());
+                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<JournalEntryTypeDataModel>()).Concat(dataModelList ?? Enumerable.Empty<JournalEntryTypeDataModel>());
 
                     // if we haven't got all the items, follow paging links (link will be null if no next page)
                     uri = linkInfo.NextPageLink?.ToString();
@@ -53,7 +53,7 @@ namespace PlantDataMVC.UICore.Handlers.Views
 
             if (success)
             {
-                return fullDtoList;
+                return fullDataModelList;
             }
             else
             {

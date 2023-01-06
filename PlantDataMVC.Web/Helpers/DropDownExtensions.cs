@@ -25,7 +25,7 @@ namespace PlantDataMVC.UICore.Helpers
          @Html.QueryDropDownFor(
                 () => "GenusId",
                 model => model.GenusId,
-                new ListQuery<GenusDto>(),
+                new ListQuery<GenusDataModel>(),
                 p => p.Id,
                 p => p.LatinName)
 
@@ -69,12 +69,12 @@ namespace PlantDataMVC.UICore.Helpers
             var requestTask = mediator.Send(query);
             // NOTE: Need to be careful with this, as waiting on async can cause deadlocks.
             // ALSO, lose any exception type management, as it returns AggregateException
-            var dtoItems = requestTask.Result.OrderBy(x => displayValueSelector(x));
+            var dataModelItems = requestTask.Result.OrderBy(x => displayValueSelector(x));
 
             // Compile expression to use against model
             var selectedDataValue = selectedDataValueExpr.Compile();
 
-            IEnumerable<SelectListItem> selectListItems = dtoItems.Select(x => new SelectListItem
+            IEnumerable<SelectListItem> selectListItems = dataModelItems.Select(x => new SelectListItem
             {
                 Text = displayValueSelector(x),
                 Value = dataValueSelector(x).ToString(),

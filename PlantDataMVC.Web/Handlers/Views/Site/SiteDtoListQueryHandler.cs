@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.UICore.Handlers.Views.Site
 {
-    public class SiteDtoListQueryHandler : ListQueryHandler<SiteDataModel>
+    public class SiteDataModelListQueryHandler : ListQueryHandler<SiteDataModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public SiteDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public SiteDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
             _plantDataApiClient = plantDataApiClient;
         }
@@ -24,7 +24,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Site
         {
             bool success = true;
             string? uri = "api/Site";
-            IEnumerable<SiteDataModel> fullDtoList = Enumerable.Empty<SiteDataModel>();
+            IEnumerable<SiteDataModel> fullDataModelList = Enumerable.Empty<SiteDataModel>();
 
             while (!String.IsNullOrEmpty(uri))
             {
@@ -37,10 +37,10 @@ namespace PlantDataMVC.UICore.Handlers.Views.Site
                     var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                     var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                    var dtoList = JsonConvert.DeserializeObject<IEnumerable<SiteDataModel>>(content);
+                    var dataModelList = JsonConvert.DeserializeObject<IEnumerable<SiteDataModel>>(content);
 
                     // Concatenate page to full list
-                    fullDtoList = (fullDtoList ?? Enumerable.Empty<SiteDataModel>()).Concat(dtoList ?? Enumerable.Empty<SiteDataModel>());
+                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<SiteDataModel>()).Concat(dataModelList ?? Enumerable.Empty<SiteDataModel>());
 
                     // if we haven't got all the items, follow paging links (link will be null if no next page)
                     uri = linkInfo.NextPageLink?.ToString();
@@ -54,7 +54,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Site
 
             if (success)
             {
-                return fullDtoList;
+                return fullDataModelList;
             }
             else
             {

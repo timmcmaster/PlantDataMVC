@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.UICore.Handlers.Views.Genus
 {
-    public class GenusDtoListQueryHandler : ListQueryHandler<GenusDataModel>
+    public class GenusDataModelListQueryHandler : ListQueryHandler<GenusDataModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public GenusDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public GenusDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
             _plantDataApiClient = plantDataApiClient;
         }
@@ -23,7 +23,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
         {
             bool success = true;
             string? uri = "api/Genus";
-            IEnumerable<GenusDataModel> fullDtoList = Enumerable.Empty<GenusDataModel>();
+            IEnumerable<GenusDataModel> fullDataModelList = Enumerable.Empty<GenusDataModel>();
 
             while (!String.IsNullOrEmpty(uri))
             {
@@ -36,10 +36,10 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
                     var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                     var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                    var dtoList = JsonConvert.DeserializeObject<IEnumerable<GenusDataModel>>(content);
+                    var dataModelList = JsonConvert.DeserializeObject<IEnumerable<GenusDataModel>>(content);
 
                     // Concatenate page to full list
-                    fullDtoList = (fullDtoList ?? Enumerable.Empty<GenusDataModel>()).Concat(dtoList ?? Enumerable.Empty<GenusDataModel>());
+                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<GenusDataModel>()).Concat(dataModelList ?? Enumerable.Empty<GenusDataModel>());
 
                     // if we haven't got all the items, follow paging links (link will be null if no next page)
                     uri = linkInfo.NextPageLink?.ToString();
@@ -53,7 +53,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
 
             if (success)
             {
-                return fullDtoList;
+                return fullDataModelList;
             }
             else
             {

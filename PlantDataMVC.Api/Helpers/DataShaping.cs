@@ -16,25 +16,25 @@ namespace PlantDataMVC.Api.Helpers
         /// <summary>
         ///     Creates the data shaped object.
         /// </summary>
-        /// <typeparam name="TDto">The type of the dto.</typeparam>
-        /// <param name="mainDto">The main dto.</param>
+        /// <typeparam name="TDataModel">The type of the dataModel.</typeparam>
+        /// <param name="mainDataModel">The main dataModel.</param>
         /// <param name="fieldList">The field list.</param>
         /// <returns></returns>
-        public static object CreateDataShapedObject<TDto>(TDto mainDto, List<string> fieldList) where TDto : IDto
+        public static object CreateDataShapedObject<TDataModel>(TDataModel mainDataModel, List<string> fieldList) where TDataModel : IDataModel
         {
             // Take a new copy of fields to manipulate
             var fieldsToWorkWith = new List<string>(fieldList);
 
             if (!fieldsToWorkWith.Any())
             {
-                return mainDto;
+                return mainDataModel;
             }
 
             // Convert field list to tree
             var fieldNameTree = GetFieldTree(fieldList);
 
             // Convert field tree to PropertyData tree
-            var propertyTree = GetPropertyTree(mainDto, fieldNameTree);
+            var propertyTree = GetPropertyTree(mainDataModel, fieldNameTree);
 
             // Traverse tree to get data
             //var dataShapedObject = new ExpandoObject();
@@ -54,72 +54,72 @@ namespace PlantDataMVC.Api.Helpers
 
 
 
-            var mainDtoProperties = typeof(TDto).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+            var mainDataModelProperties = typeof(TDataModel).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
 
-            //// Get Properties from main Dto
-            //var requiredProperties = GetRequiredProperties(mainDtoProperties, fieldsToWorkWith);
+            //// Get Properties from main DataModel
+            //var requiredProperties = GetRequiredProperties(mainDataModelProperties, fieldsToWorkWith);
 
             // Get values
-            //var shapedObject = FetchDataForEntity(mainDto, requiredProperties);
+            //var shapedObject = FetchDataForEntity(mainDataModel, requiredProperties);
 
             //return shapedObject;
 
 
-            // Child Dto/collection handling
+            // Child DataModel/collection handling
 
-            // Get PropertyInfo objects describing child DTOs or DTO collections for current main Dto
-            var propertiesUsingDto = mainDtoProperties.WhereUsingDto();
+            // Get PropertyInfo objects describing child DTOs or DTO collections for current main DataModel
+            var propertiesUsingDataModel = mainDataModelProperties.WhereUsingDataModel();
 
             // create a new ExpandoObject & dynamically create the properties for this object
             var objectToReturn = new ExpandoObject();
 
             // Determine fields for each specific child object
-            foreach (var propertyUsingDto in propertiesUsingDto)
+            foreach (var propertyUsingDataModel in propertiesUsingDataModel)
             {
                 // get fields for just this object (start with property name)
-                var childDtoFields = fieldsToWorkWith.Where(f => f.ToLower().StartsWith(propertyUsingDto.Name.ToLower())).ToList();
+                var childDataModelFields = fieldsToWorkWith.Where(f => f.ToLower().StartsWith(propertyUsingDataModel.Name.ToLower())).ToList();
 
                 // if fields contains name of full child object, return full object by keeping property in main list
-                var returnFullObject = childDtoFields.Any(f => f.ToLower().Equals(propertyUsingDto.Name.ToLower()));
+                var returnFullObject = childDataModelFields.Any(f => f.ToLower().Equals(propertyUsingDataModel.Name.ToLower()));
 
                 if (returnFullObject)
                 {
                     // Remove all fields but full object from main list
-                    var fullDtoField = childDtoFields.Where(f => f.ToLower().Equals(propertyUsingDto.Name.ToLower())).ToList();
-                    childDtoFields = childDtoFields.Except(fullDtoField).ToList();
-                    fieldsToWorkWith.RemoveItems(childDtoFields);
+                    var fullDataModelField = childDataModelFields.Where(f => f.ToLower().Equals(propertyUsingDataModel.Name.ToLower())).ToList();
+                    childDataModelFields = childDataModelFields.Except(fullDataModelField).ToList();
+                    fieldsToWorkWith.RemoveItems(childDataModelFields);
                 }
                 else
                 {
                     // Remove all fields from main list and deal with them in child object
-                    fieldsToWorkWith.RemoveItems(childDtoFields);
+                    fieldsToWorkWith.RemoveItems(childDataModelFields);
 
                     // Strip childName and "." from list of fields
-                    childDtoFields = childDtoFields.Select(f => f.Substring(f.IndexOf(".") + 1)).ToList();
+                    childDataModelFields = childDataModelFields.Select(f => f.Substring(f.IndexOf(".") + 1)).ToList();
 
                     // Get DTO for child object or collection
-                    if (propertyUsingDto.GetValue(mainDto, null) is IEnumerable<IDto> dtoCollection)
+                    if (propertyUsingDataModel.GetValue(mainDataModel, null) is IEnumerable<IDataModel> dataModelCollection)
                     {
                         var outputCollection = new List<object>();
 
-                        foreach (var childDto in dtoCollection)
+                        foreach (var childDataModel in dataModelCollection)
                         {
                             // Create data shaped object for child and add to corresponding collection for this object
-                            var childShapedObject = CreateDataShapedObject(childDto, childDtoFields);
+                            var childShapedObject = CreateDataShapedObject(childDataModel, childDataModelFields);
                             outputCollection.Add(childShapedObject);
                         }
 
-                        ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDto.Name, outputCollection);
+                        ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDataModel.Name, outputCollection);
                     }
-                    else if (propertyUsingDto.GetValue(mainDto, null) is IDto)
+                    else if (propertyUsingDataModel.GetValue(mainDataModel, null) is IDataModel)
                     {
-                        var childDto = propertyUsingDto.GetValue(mainDto, null) as IDto;
+                        var childDataModel = propertyUsingDataModel.GetValue(mainDataModel, null) as IDataModel;
 
                         // Create data shaped object for child and add to corresponding collection for this object
-                        var childShapedObject = CreateDataShapedObject(childDto, childDtoFields);
+                        var childShapedObject = CreateDataShapedObject(childDataModel, childDataModelFields);
 
-                        ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDto.Name, childShapedObject);
+                        ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDataModel.Name, childShapedObject);
                     }
                 }
             }
@@ -136,13 +136,13 @@ namespace PlantDataMVC.Api.Helpers
                 var name = propertyData?.PropertyInfo?.Name ?? "(unnamed)";
                 Console.WriteLine($"Called GetKVPFromProperty for {name}");
 
-                if (propertyData.IsDto)
+                if (propertyData.IsDataModel)
                 {
-                    return new KeyValuePair<string, object>("dto", "");
+                    return new KeyValuePair<string, object>("dataModel", "");
                 }
-                else if (propertyData.IsDtoCollection)
+                else if (propertyData.IsDataModelCollection)
                 {
-                    return new KeyValuePair<string, object>("dtoCollection", "");
+                    return new KeyValuePair<string, object>("dataModelCollection", "");
                 }
                 else
                 {
@@ -166,28 +166,28 @@ namespace PlantDataMVC.Api.Helpers
 
                             // If is enumerable of DTO type
 
-                            // If is single dto type
-                            if (propertyUsingDto.GetValue(mainDto, null) is IEnumerable<IDto> dtoCollection)
+                            // If is single dataModel type
+                            if (propertyUsingDataModel.GetValue(mainDataModel, null) is IEnumerable<IDataModel> dataModelCollection)
                             {
                                 var outputCollection = new List<object>();
 
-                                foreach (var childDto in dtoCollection)
+                                foreach (var childDataModel in dataModelCollection)
                                 {
                                     // Create data shaped object for child and add to corresponding collection for this object
-                                    var childShapedObject = CreateDataShapedObject(childDto, childDtoFields);
+                                    var childShapedObject = CreateDataShapedObject(childDataModel, childDataModelFields);
                                     outputCollection.Add(childShapedObject);
                                 }
 
-                                ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDto.Name, outputCollection);
+                                ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDataModel.Name, outputCollection);
                             }
-                            else if (propertyUsingDto.GetValue(mainDto, null) is IDto)
+                            else if (propertyUsingDataModel.GetValue(mainDataModel, null) is IDataModel)
                             {
-                                var childDto = propertyUsingDto.GetValue(mainDto, null) as IDto;
+                                var childDataModel = propertyUsingDataModel.GetValue(mainDataModel, null) as IDataModel;
 
                                 // Create data shaped object for child and add to corresponding collection for this object
-                                var childShapedObject = CreateDataShapedObject(childDto, childDtoFields);
+                                var childShapedObject = CreateDataShapedObject(childDataModel, childDataModelFields);
 
-                                ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDto.Name, childShapedObject);
+                                ((IDictionary<string, object>)objectToReturn).Add(propertyUsingDataModel.Name, childShapedObject);
                             }
             */
 
@@ -251,12 +251,12 @@ namespace PlantDataMVC.Api.Helpers
         }
 
 
-        internal static TreeNode<PropertyData> GetPropertyTree<TDto>(TDto mainDto, TreeNode<string> fieldNameTree)
+        internal static TreeNode<PropertyData> GetPropertyTree<TDataModel>(TDataModel mainDataModel, TreeNode<string> fieldNameTree)
         {
             var transformVisitor = new CloneAndTransformVisitor<string, PropertyData>((fieldNode, parentPropertyNode) =>
             {
                 if (fieldNode.IsRootNode)
-                    return new PropertyData(typeof(TDto)) { Object = mainDto };
+                    return new PropertyData(typeof(TDataModel)) { Object = mainDataModel };
                 else 
                     return ConvertFieldToPropertyData(fieldNode, parentPropertyNode);
             });
@@ -274,26 +274,26 @@ namespace PlantDataMVC.Api.Helpers
             //{
             //    // TODO : Fix getting root node object
             //    return new PropertyData(typeof(string));
-            //    //return new PropertyData() { Type = typeof(TDto), Object = mainDto, IsDto = true, IsDtoCollection = false };
+            //    //return new PropertyData() { Type = typeof(TDataModel), Object = mainDataModel, IsDataModel = true, IsDataModelCollection = false };
             //}
             //else
             {
                 PropertyData propertyData = null;
 
-                // if parent is IEnumerable<IDto>
-                if (targetParent.Value.IsDtoCollection)
+                // if parent is IEnumerable<IDataModel>
+                if (targetParent.Value.IsDataModelCollection)
                 {
                     var parentPropertyType = targetParent.Value.Type;
                     var iEnumerables = parentPropertyType.GetInterfaces().Where(
                         i => i.IsGenericType
                         && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
 
-                    var iEnumerableOfIDto = iEnumerables.FirstOrDefault(
+                    var iEnumerableOfIDataModel = iEnumerables.FirstOrDefault(
                         i => i.GetGenericArguments().Count() == 1
-                        && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a)));
+                        && i.GetGenericArguments().Any(a => typeof(IDataModel).IsAssignableFrom(a)));
 
                     // Property does not come from parent node but from elements of parent node collection
-                    var genericArgument = iEnumerableOfIDto.GetGenericArguments().First(a => typeof(IDto).IsAssignableFrom(a));
+                    var genericArgument = iEnumerableOfIDataModel.GetGenericArguments().First(a => typeof(IDataModel).IsAssignableFrom(a));
                     var itemProperties = genericArgument.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
                     var property = itemProperties.FirstOrDefault(pi => pi.Name.ToLower() == fieldNode.Value.ToLower());
                     if (property != null)
@@ -317,9 +317,9 @@ namespace PlantDataMVC.Api.Helpers
                     if (property != null)
                     {
                         var propEnumerables = property.PropertyType.GetInterfaces().Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
-                        bool isDtoCollection = propEnumerables.Any(
+                        bool isDataModelCollection = propEnumerables.Any(
                             i => i.GetGenericArguments().Count() == 1
-                            && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a)));
+                            && i.GetGenericArguments().Any(a => typeof(IDataModel).IsAssignableFrom(a)));
 
                         propertyData = new PropertyData(property.PropertyType) 
                         { 
@@ -336,27 +336,27 @@ namespace PlantDataMVC.Api.Helpers
         /*
             internal static TreeNode<PropertyData> FieldToPropertyDataTransform(string field, TreeNode<PropertyData> parentPropertyNode)
             {
-                var propertyData = new PropertyData() { Type = typeof(TDto), Object = mainDto, IsDto = true, IsDtoCollection = false };
+                var propertyData = new PropertyData() { Type = typeof(TDataModel), Object = mainDataModel, IsDataModel = true, IsDataModelCollection = false };
 
                 // blank field name = root node
                 if ((field != "") && (parentPropertyNode?.Value?.Type != null))
                 {
-                    //var isDto = 
+                    //var isDataModel = 
                     var parentPropertyType = parentPropertyNode.Value.Type;
-                    // if type is Ienumerable<> where defined generic is of type IDto
+                    // if type is Ienumerable<> where defined generic is of type IDataModel
                     var iEnumerables = parentPropertyType.GetInterfaces().Where(
                         i => i.IsGenericType
                         && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
 
-                    var iEnumerableOfIDto = iEnumerables.FirstOrDefault(
+                    var iEnumerableOfIDataModel = iEnumerables.FirstOrDefault(
                         i => i.GetGenericArguments().Count() == 1
-                        && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a)));
+                        && i.GetGenericArguments().Any(a => typeof(IDataModel).IsAssignableFrom(a)));
 
-                    // if parent is IEnumerable<IDto>
-                    if (iEnumerableOfIDto != null)
+                    // if parent is IEnumerable<IDataModel>
+                    if (iEnumerableOfIDataModel != null)
                     {
                         // Property does not come from parent node but from elements of parent node collection
-                        var genericArgument = iEnumerableOfIDto.GetGenericArguments().First(a => typeof(IDto).IsAssignableFrom(a));
+                        var genericArgument = iEnumerableOfIDataModel.GetGenericArguments().First(a => typeof(IDataModel).IsAssignableFrom(a));
                         var itemProperties = genericArgument.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
                         var property = itemProperties.FirstOrDefault(pi => pi.Name.ToLower() == field.ToLower());
                         if (property != null)
@@ -389,7 +389,7 @@ namespace PlantDataMVC.Api.Helpers
 
 
         /*
-                private static ExpandoObject FetchData<TDto>(TDto mainDto, TreeNode<string> startingFieldNode)
+                private static ExpandoObject FetchData<TDataModel>(TDataModel mainDataModel, TreeNode<string> startingFieldNode)
                 {
                     var shapedObject = new ExpandoObject();
 
@@ -406,10 +406,10 @@ namespace PlantDataMVC.Api.Helpers
 
                     }
 
-                    // Traverse the field tree and provided the current node is a Dto or IEnumerable<dto>, add property definitions
+                    // Traverse the field tree and provided the current node is a DataModel or IEnumerable<dataModel>, add property definitions
                     var propertyTree = fieldNameTree.CloneAndTransform<PropertyData>((field, parentPropertyNode) =>
                     {
-                        var propertyData = new PropertyData() { Type = typeof(TDto), Object = mainDto };
+                        var propertyData = new PropertyData() { Type = typeof(TDataModel), Object = mainDataModel };
 
                         // blank field name = root node
                         if ((field != "") && (parentPropertyNode?.Value?.Type != null))
@@ -429,7 +429,7 @@ namespace PlantDataMVC.Api.Helpers
                     return propertyTree;
                 }
 
-                private static ExpandoObject FetchDataForEntity<TDto>(TDto entity, TreeNode<PropertyData> startingNode) where TDto : IDto
+                private static ExpandoObject FetchDataForEntity<TDataModel>(TDataModel entity, TreeNode<PropertyData> startingNode) where TDataModel : IDataModel
                 {
                     var shapedObject = new ExpandoObject();
 
@@ -448,7 +448,7 @@ namespace PlantDataMVC.Api.Helpers
                         var propData = startingNode.Value;
 
                         // If this is enumerable, recognise child fields as properties of the ELEMENTS of enumerable, not enumerable itself
-                        if (propData.Object is IEnumerable<IDto> dtoCollection)
+                        if (propData.Object is IEnumerable<IDataModel> dataModelCollection)
                         {
                             FetchData
                         }
@@ -466,7 +466,7 @@ namespace PlantDataMVC.Api.Helpers
                     return shapedObject;
                 }
 
-                private static ExpandoObject FetchData<TDto>(IEnumerable<TDto> entities, TreeNode<PropertyData> startingNode) where TDto : IDto
+                private static ExpandoObject FetchData<TDataModel>(IEnumerable<TDataModel> entities, TreeNode<PropertyData> startingNode) where TDataModel : IDataModel
                 {
                     var shapedData = new List<ExpandoObject>();
 
@@ -481,7 +481,7 @@ namespace PlantDataMVC.Api.Helpers
                     return shapedObject;
                 }
 
-                private static ExpandoObject FetchDataForEntity<TDto>(TDto entity, IEnumerable<PropertyInfo> requiredProperties) where TDto : IDto
+                private static ExpandoObject FetchDataForEntity<TDataModel>(TDataModel entity, IEnumerable<PropertyInfo> requiredProperties) where TDataModel : IDataModel
                 {
                     var shapedObject = new ExpandoObject();
 
@@ -499,22 +499,22 @@ namespace PlantDataMVC.Api.Helpers
         /// <summary>
         ///     Gets the included object names.
         /// </summary>
-        /// <typeparam name="TDto">The type of the dto.</typeparam>
+        /// <typeparam name="TDataModel">The type of the dataModel.</typeparam>
         /// <param name="lstOfFields">The LST of fields.</param>
         /// <returns></returns>
-        public static List<string> GetIncludedObjectNames<TDto>(List<string> lstOfFields) where TDto : IDto
+        public static List<string> GetIncludedObjectNames<TDataModel>(List<string> lstOfFields) where TDataModel : IDataModel
         {
-            var mainDtoProperties = typeof(TDto).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+            var mainDataModelProperties = typeof(TDataModel).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
-            // Get PropertyInfo objects describing child DTOs or DTO collections for current main Dto
-            var propertiesUsingDto = mainDtoProperties.WhereUsingDto();
+            // Get PropertyInfo objects describing child DTOs or DTO collections for current main DataModel
+            var propertiesUsingDataModel = mainDataModelProperties.WhereUsingDataModel();
 
-            var dtoNames = propertiesUsingDto.Select(p => p.Name);
+            var dataModelNames = propertiesUsingDataModel.Select(p => p.Name);
 
             var childObjectsToInclude = new List<string>();
 
             // quick check for included child DTOs
-            foreach (var childName in dtoNames)
+            foreach (var childName in dataModelNames)
             {
                 if (lstOfFields.Any(f => f.ToLower().Contains(childName.ToLower())))
                 {
@@ -529,19 +529,19 @@ namespace PlantDataMVC.Api.Helpers
         ///     Gets the child objects to include
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<PropertyInfo> WhereUsingDto(this IEnumerable<PropertyInfo> properties)
+        private static IEnumerable<PropertyInfo> WhereUsingDataModel(this IEnumerable<PropertyInfo> properties)
         {
-            return properties.Where(pi => typeof(IDto).IsAssignableFrom(pi.PropertyType) || IsDtoEnumerable(pi.PropertyType));
+            return properties.Where(pi => typeof(IDataModel).IsAssignableFrom(pi.PropertyType) || IsDataModelEnumerable(pi.PropertyType));
         }
 
-        private static IEnumerable<PropertyInfo> GetRequiredProperties(IEnumerable<PropertyInfo> mainDtoProperties, IEnumerable<string> fieldsToWorkWith)
+        private static IEnumerable<PropertyInfo> GetRequiredProperties(IEnumerable<PropertyInfo> mainDataModelProperties, IEnumerable<string> fieldsToWorkWith)
         {
             // Get Properties 
             var requiredProperties = new List<PropertyInfo>();
 
             foreach (var field in fieldsToWorkWith)
             {
-                var property = mainDtoProperties.FirstOrDefault(pi => pi.Name == field);
+                var property = mainDataModelProperties.FirstOrDefault(pi => pi.Name == field);
                 if (property != null)
                 {
                     requiredProperties.Add(property);
@@ -552,12 +552,12 @@ namespace PlantDataMVC.Api.Helpers
         }
 
 
-        // if property is IEnumerable of type that implements IDto
-        private static bool IsDtoEnumerable(Type t)
+        // if property is IEnumerable of type that implements IDataModel
+        private static bool IsDataModelEnumerable(Type t)
         {
             return t.IsGenericType &&
                    t.GetInterface(typeof(IEnumerable<>).FullName) != null &&
-                   t.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a));
+                   t.GetGenericArguments().Any(a => typeof(IDataModel).IsAssignableFrom(a));
         }
     }
 }

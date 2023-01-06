@@ -46,13 +46,13 @@ namespace PlantDataMVC.Api.Controllers
                 // TODO: Current state doesn't return children by default, can only get with "fields" option
                 // need to determine expected behaviour
 
-                var childDtosToInclude = new List<string>();
+                var childDataModelsToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
                 if (dsParams.Fields != null)
                 {
                     lstOfFields = dsParams.Fields.Split(',').ToList();
-                    childDtosToInclude = DataShaping.GetIncludedObjectNames<ProductTypeDataModel>(lstOfFields);
+                    childDataModelsToInclude = DataShaping.GetIncludedObjectNames<ProductTypeDataModel>(lstOfFields);
                 }
 
                 var context = _service.Queryable(useTracking: true);
@@ -60,8 +60,8 @@ namespace PlantDataMVC.Api.Controllers
                 // TODO: Need to identify if sort field from DTO is in entity or not
                 //       to determine if we can sort on projection or need to sort after list is materialised
 
-                var dtos = _mapper
-                           .ProjectTo<ProductTypeDataModel>(context, childDtosToInclude.ToArray())
+                var dataModels = _mapper
+                           .ProjectTo<ProductTypeDataModel>(context, childDataModelsToInclude.ToArray())
                            .ApplySort(sortParams.Sort);
 
                 // HACK: use URL content to determine route used to get here
@@ -71,7 +71,7 @@ namespace PlantDataMVC.Api.Controllers
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
-                    dtos.Count(),
+                    dataModels.Count(),
                     "ProductTypeList",
                     new
                     {
@@ -86,7 +86,7 @@ namespace PlantDataMVC.Api.Controllers
                     HttpContext.Response.Headers.Add(hdr);
                 }
 
-                var itemList = dtos
+                var itemList = dataModels
                                .Paginate(pgParams.Page, pgParams.PageSize)
                                .ToList()
                                .Select(prodType => DataShaping.CreateDataShapedObject(prodType, lstOfFields));

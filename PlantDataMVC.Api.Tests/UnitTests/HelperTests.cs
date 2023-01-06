@@ -33,7 +33,7 @@ namespace PlantDataMVC.Api.Tests.UnitTests
         public void TestOriginalDataShapedObject()
         {
             // Arrange
-            var species = DataHelper.GetSpeciesDtoTest1();
+            var species = DataHelper.GetSpeciesDataModelTest1();
 
             var fields =
                 "commonName,plantStocks,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location";
@@ -59,7 +59,7 @@ namespace PlantDataMVC.Api.Tests.UnitTests
         public void TestDataShapedObject()
         {
             // Arrange
-            var species = DataHelper.GetSpeciesDtoTest1();
+            var species = DataHelper.GetSpeciesDataModelTest1();
 
             var fields =
                 "commonName,plantStocks,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location";
@@ -133,7 +133,7 @@ namespace PlantDataMVC.Api.Tests.UnitTests
             var myMethod = typeof(DataShaping).GetMethod("GetFieldTree", BindingFlags.Static | BindingFlags.NonPublic);
             var actualFieldTree = myMethod?.Invoke(null, methodParams);
             
-            methodParams = new object[] { DataHelper.GetSpeciesDtoTest1(),actualFieldTree };
+            methodParams = new object[] { DataHelper.GetSpeciesDataModelTest1(),actualFieldTree };
             myMethod = typeof(DataShaping).GetMethod("GetPropertyTree", BindingFlags.Static | BindingFlags.NonPublic);
             var generic = myMethod.MakeGenericMethod(typeof(SpeciesDataModel));
             var actualPropertyTree = (TreeNode<PropertyData>)generic.Invoke(null, methodParams);
@@ -158,7 +158,7 @@ namespace PlantDataMVC.Api.Tests.UnitTests
             var myMethod = typeof(DataShaping).GetMethod("GetFieldTree", BindingFlags.Static | BindingFlags.NonPublic);
             var actualFieldTree = myMethod?.Invoke(null, methodParams);
 
-            methodParams = new object[] { DataHelper.GetSpeciesDtoTest1(), actualFieldTree };
+            methodParams = new object[] { DataHelper.GetSpeciesDataModelTest1(), actualFieldTree };
             myMethod = typeof(DataShaping).GetMethod("GetPropertyTree", BindingFlags.Static | BindingFlags.NonPublic);
             var generic = myMethod.MakeGenericMethod(typeof(SpeciesDataModel));
             var actualPropertyTree = (TreeNode<PropertyData>)generic.Invoke(null, methodParams);
@@ -189,7 +189,7 @@ namespace PlantDataMVC.Api.Tests.UnitTests
             var myMethod = typeof(DataShaping).GetMethod("GetFieldTree", BindingFlags.Static | BindingFlags.NonPublic);
             var actualFieldTree = myMethod?.Invoke(null, methodParams);
 
-            methodParams = new object[] { DataHelper.GetSpeciesDtoTest1(), actualFieldTree };
+            methodParams = new object[] { DataHelper.GetSpeciesDataModelTest1(), actualFieldTree };
             myMethod = typeof(DataShaping).GetMethod("GetPropertyTree", BindingFlags.Static | BindingFlags.NonPublic);
             var generic = myMethod.MakeGenericMethod(typeof(SpeciesDataModel));
             var actualPropertyTree = (TreeNode<PropertyData>)generic.Invoke(null, methodParams);
@@ -207,7 +207,7 @@ namespace PlantDataMVC.Api.Tests.UnitTests
         [Fact]
         public void TestGetRelatedObjects()
         {
-            //var relatedObjs = DataShaping.GetRelatedDtoProperties<SpeciesDto>();
+            //var relatedObjs = DataShaping.GetRelatedDataModelProperties<SpeciesDataModel>();
         }
 
         
@@ -239,7 +239,7 @@ namespace PlantDataMVC.Api.Tests.UnitTests
             var sourceFieldTree = DataHelper.GetFixedFieldTree(trimmedFieldList);
 
             // Act
-            var methodParams = new object[] { DataHelper.GetSpeciesDtoTest1(), sourceFieldTree };
+            var methodParams = new object[] { DataHelper.GetSpeciesDataModelTest1(), sourceFieldTree };
             var myMethod = typeof(DataShaping).GetMethod("GetPropertyTree", BindingFlags.Static | BindingFlags.NonPublic);
             var generic = myMethod.MakeGenericMethod(typeof(SpeciesDataModel));
             var actualPropertyTree = (TreeNode<PropertyData>)generic.Invoke(null, methodParams);

@@ -35,9 +35,9 @@ namespace PlantDataMVC.Api.Classes
             }
             else
             {
-                // If not a leaf node, it must be Dto or DtoCollection
+                // If not a leaf node, it must be DataModel or DataModelCollection
                 var nodeValue = node.Value;
-                if (nodeValue.IsDto)
+                if (nodeValue.IsDataModel)
                 {
                     var propertyName = node.Value.PropertyInfo.Name;
                     var propertyValue = new ExpandoObject();
@@ -48,7 +48,7 @@ namespace PlantDataMVC.Api.Classes
                     foreach (var child in node.Children)
                         child.Accept(this);
                 }
-                else if (nodeValue.IsDtoCollection)
+                else if (nodeValue.IsDataModelCollection)
                 {
                     var propertyName = node.Value.PropertyInfo.Name;
                     var propertyValueList = new List<ExpandoObject>();
@@ -59,7 +59,7 @@ namespace PlantDataMVC.Api.Classes
                     //var propEnumerables = nodeValue.Type.GetInterfaces().Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
                     //var genericType = propEnumerables.Where(
                     //    i => i.GetGenericArguments().Count() == 1
-                    //    && i.GetGenericArguments().Any(a => typeof(IDto).IsAssignableFrom(a))
+                    //    && i.GetGenericArguments().Any(a => typeof(IDataModel).IsAssignableFrom(a))
                     //    ).SelectMany(x => x.GetGenericArguments()).FirstOrDefault();
 
                     foreach (var item in nodeValue.Object as IEnumerable<object>)
@@ -88,40 +88,40 @@ namespace PlantDataMVC.Api.Classes
                 var name = propertyData?.PropertyInfo?.Name ?? "(unnamed)";
                 Console.WriteLine($"Called GetKVPFromProperty for {name}");
 
-                if (propertyData.IsDto)
+                if (propertyData.IsDataModel)
                 {
-                    // Get all properties of the dto
-                    var dtoProperties = new ExpandoObject();
+                    // Get all properties of the dataModel
+                    var dataModelProperties = new ExpandoObject();
                     // for each property, add key value pair
                     //foreach (var property in propertyData.PropertyInfo)
                     //{
-                    //    dtoProperties.Add(kvpfromproperty(property))
+                    //    dataModelProperties.Add(kvpfromproperty(property))
                     //}
                     // return collection
-                    return new KeyValuePair<string, object>(propertyName, dtoProperties);
+                    return new KeyValuePair<string, object>(propertyName, dataModelProperties);
                 }
-                else if (propertyData.IsDtoCollection)
+                else if (propertyData.IsDataModelCollection)
                 {
-                    var dtoCollection = new List<ExpandoObject>();
+                    var dataModelCollection = new List<ExpandoObject>();
 
                     // for each item get property collection
                     //foreach (var item in propertyData)
                     //{
-                    // Get all properties of the dto
+                    // Get all properties of the dataModel
                     var propertyCollection = new ExpandoObject();
                     // for each property, add key value pair
                     //foreach (var property in propertyData.PropertyInfo)
                     //{
-                    //    dtoProperties.Add(kvpfromproperty(property))
+                    //    dataModelProperties.Add(kvpfromproperty(property))
                     //}
-                    dtoCollection.Add(propertyCollection);
+                    dataModelCollection.Add(propertyCollection);
                     //}
                     // Get array of all properties of all items in the collection
-                    return new KeyValuePair<string, object>(propertyName, dtoCollection);
+                    return new KeyValuePair<string, object>(propertyName, dataModelCollection);
                 }
                 else
                 {
-                    if (node.Parent.Value.IsDtoCollection) 
+                    if (node.Parent.Value.IsDataModelCollection) 
                     {
                         
                     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
-    public class SaleEventDataModel : IDto
+    public class SaleEventDataModel : IDataModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

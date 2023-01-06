@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
-    public class SeedTrayDataModel : IDto
+    public class SeedTrayDataModel : IDataModel
     {
         public int Id { get; set; }
         public int SeedBatchId { get; set; }

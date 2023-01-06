@@ -29,9 +29,9 @@ namespace PlantDataMVC.UICore.Handlers.Views.Genus
             if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dto = JsonConvert.DeserializeObject<GenusDataModel>(content);
+                var dataModel = JsonConvert.DeserializeObject<GenusDataModel>(content);
 
-                var model = _mapper.Map<GenusDataModel, GenusShowViewModel>(dto);
+                var model = _mapper.Map<GenusDataModel, GenusShowViewModel>(dataModel);
                 return model;
             }
             else

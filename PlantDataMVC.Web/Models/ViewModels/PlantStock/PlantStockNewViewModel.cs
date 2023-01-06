@@ -5,13 +5,13 @@ namespace PlantDataMVC.UICore.Models.ViewModels.PlantStock
     public class PlantStockNewViewModel
     {
         //[Display(Name = "Species Name")]
-        //public SpeciesDto PlantSpecies { get; set; }
+        //public SpeciesDataModel PlantSpecies { get; set; }
 
         [Display(Name = "Species Name")]
         public int SpeciesId { get; set; }
 
         //[Display(Name = "Product Type")]
-        //public ProductTypeDto ProductType { get; set; }
+        //public ProductTypeDataModel ProductType { get; set; }
 
         [Display(Name = "Product Type")]
         public int ProductTypeId { get; set; }
@@ -22,8 +22,8 @@ namespace PlantDataMVC.UICore.Models.ViewModels.PlantStock
 
         public PlantStockNewViewModel()
         {
-            //PlantSpecies = new SpeciesDto();
-            //ProductType = new ProductTypeDto();
+            //PlantSpecies = new SpeciesDataModel();
+            //ProductType = new ProductTypeDataModel();
         }
     }
 }

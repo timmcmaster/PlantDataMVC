@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
-    public class PriceListTypeDataModel : IDto
+    public class PriceListTypeDataModel : IDataModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

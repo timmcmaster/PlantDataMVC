@@ -6,7 +6,7 @@ namespace PlantDataMVC.UICore.Models.ViewModels.SeedBatch
     public class SeedBatchNewViewModel
     {
         //[Display(Name = "Species Name")]
-        //public SpeciesDto PlantSpecies { get; set; }
+        //public SpeciesDataModel PlantSpecies { get; set; }
 
         [Display(Name = "Species")]
         public int SpeciesId { get; set; }
@@ -21,16 +21,16 @@ namespace PlantDataMVC.UICore.Models.ViewModels.SeedBatch
         public string Notes { get; set; }
 
         //[Display(Name = "Site Name")]
-        //public SiteDto Site { get; set; }
+        //public SiteDataModel Site { get; set; }
 
         [Display(Name = "Site")]
         public int SiteId { get; set; }
 
         public SeedBatchNewViewModel()
         {
-            //PlantSpecies = new SpeciesDto();
+            //PlantSpecies = new SpeciesDataModel();
             DateCollected = new DateTime();
-            //Site = new SiteDto();
+            //Site = new SiteDataModel();
         }
     }
 }

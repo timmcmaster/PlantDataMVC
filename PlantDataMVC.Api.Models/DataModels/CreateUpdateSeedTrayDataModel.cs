@@ -3,7 +3,7 @@ using System;
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
-    public class CreateUpdateSeedTrayDataModel : IDto
+    public class CreateUpdateSeedTrayDataModel : IDataModel
     {
         public int SeedBatchId { get; set; }
         public DateTime DatePlanted { get; set; }

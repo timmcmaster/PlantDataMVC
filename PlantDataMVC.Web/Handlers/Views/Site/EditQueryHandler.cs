@@ -29,9 +29,9 @@ namespace PlantDataMVC.UICore.Handlers.Views.Site
             if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dto = JsonConvert.DeserializeObject<SiteDataModel>(content);
+                var dataModel = JsonConvert.DeserializeObject<SiteDataModel>(content);
 
-                var model = _mapper.Map<SiteDataModel, SiteEditViewModel>(dto);
+                var model = _mapper.Map<SiteDataModel, SiteEditViewModel>(dataModel);
                 return model;
             }
             else

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
-    public class CreateUpdateGenusDataModel : IDto
+    public class CreateUpdateGenusDataModel : IDataModel
     {
         [Required]
         [MaxLength(30, ErrorMessage = "Name is too long")]

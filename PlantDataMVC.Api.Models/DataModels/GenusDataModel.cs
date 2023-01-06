@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
-    public class GenusDataModel : IDto
+    public class GenusDataModel : IDataModel
     {
         public int Id { get; set; }
         public string LatinName { get; set; }

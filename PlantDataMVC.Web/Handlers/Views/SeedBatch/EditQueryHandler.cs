@@ -29,9 +29,9 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
             if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dto = JsonConvert.DeserializeObject<SeedBatchDataModel>(content);
+                var dataModel = JsonConvert.DeserializeObject<SeedBatchDataModel>(content);
 
-                var model = _mapper.Map<SeedBatchDataModel, SeedBatchEditViewModel>(dto);
+                var model = _mapper.Map<SeedBatchDataModel, SeedBatchEditViewModel>(dataModel);
                 return model;
             }
             else

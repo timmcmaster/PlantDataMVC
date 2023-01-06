@@ -2,7 +2,7 @@
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
-    public class CreateUpdateSiteDataModel : IDto
+    public class CreateUpdateSiteDataModel : IDataModel
     {
         public string SiteName { get; set; }
         public string Suburb { get; set; }

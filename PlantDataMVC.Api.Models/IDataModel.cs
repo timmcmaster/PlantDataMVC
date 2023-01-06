@@ -1,6 +1,6 @@
 ﻿namespace PlantDataMVC.Api.Models
 {
-    public interface IDto
+    public interface IDataModel
     {
     }
 }

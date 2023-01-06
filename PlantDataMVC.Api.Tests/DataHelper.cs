@@ -11,7 +11,7 @@ namespace PlantDataMvc.WebApiCore.Tests
 {
     public static class DataHelper
     {
-        public static SpeciesDataModel GetSpeciesDtoTest1()
+        public static SpeciesDataModel GetSpeciesDataModelTest1()
         {
             var species = new SpeciesDataModel
             {

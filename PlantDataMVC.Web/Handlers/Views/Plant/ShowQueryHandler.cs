@@ -29,9 +29,9 @@ namespace PlantDataMVC.UICore.Handlers.Views.Plant
             if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dto = JsonConvert.DeserializeObject<SpeciesDataModel>(content);
+                var dataModel = JsonConvert.DeserializeObject<SpeciesDataModel>(content);
 
-                var model = _mapper.Map<SpeciesDataModel, PlantShowViewModel>(dto);
+                var model = _mapper.Map<SpeciesDataModel, PlantShowViewModel>(dataModel);
                 return model;
             }
             else

@@ -6,7 +6,7 @@ namespace PlantDataMVC.UICore.Models.ViewModels.SeedTray
     public class SeedTrayNewViewModel
     {
         //[Display(Name = "Seed Batch")]
-        //public SeedBatchDto SeedBatch { get; set; }
+        //public SeedBatchDataModel SeedBatch { get; set; }
 
         [Display(Name = "Seed Batch")]
         public int SeedBatchId { get; set; }
@@ -23,7 +23,7 @@ namespace PlantDataMVC.UICore.Models.ViewModels.SeedTray
 
         public SeedTrayNewViewModel()
         {
-            //SeedBatch = new SeedBatchDto();
+            //SeedBatch = new SeedBatchDataModel();
             DatePlanted = new DateTime();
         }
     }

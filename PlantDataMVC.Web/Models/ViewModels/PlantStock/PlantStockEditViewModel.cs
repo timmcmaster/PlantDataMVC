@@ -23,7 +23,7 @@ namespace PlantDataMVC.UICore.Models.ViewModels.PlantStock
 
         public PlantStockEditViewModel()
         {
-            //ProductType = new ProductTypeDto();
+            //ProductType = new ProductTypeDataModel();
         }
     }
 }

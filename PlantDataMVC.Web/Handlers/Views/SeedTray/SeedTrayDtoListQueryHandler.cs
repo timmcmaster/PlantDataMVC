@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
 {
-    public class SeedTrayDtoListQueryHandler : ListQueryHandler<SeedTrayDataModel>
+    public class SeedTrayDataModelListQueryHandler : ListQueryHandler<SeedTrayDataModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public SeedTrayDtoListQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public SeedTrayDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
             _plantDataApiClient = plantDataApiClient;
         }
@@ -23,7 +23,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
         {
             bool success = true;
             string? uri = "api/SeedTray";
-            IEnumerable<SeedTrayDataModel> fullDtoList = Enumerable.Empty<SeedTrayDataModel>();
+            IEnumerable<SeedTrayDataModel> fullDataModelList = Enumerable.Empty<SeedTrayDataModel>();
 
             while (!String.IsNullOrEmpty(uri))
             {
@@ -36,10 +36,10 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
                     var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                     var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                    var dtoList = JsonConvert.DeserializeObject<IEnumerable<SeedTrayDataModel>>(content);
+                    var dataModelList = JsonConvert.DeserializeObject<IEnumerable<SeedTrayDataModel>>(content);
 
                     // Concatenate page to full list
-                    fullDtoList = (fullDtoList ?? Enumerable.Empty<SeedTrayDataModel>()).Concat(dtoList ?? Enumerable.Empty<SeedTrayDataModel>());
+                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<SeedTrayDataModel>()).Concat(dataModelList ?? Enumerable.Empty<SeedTrayDataModel>());
 
                     // if we haven't got all the items, follow paging links (link will be null if no next page)
                     uri = linkInfo.NextPageLink?.ToString();
@@ -53,7 +53,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedTray
 
             if (success)
             {
-                return fullDtoList;
+                return fullDataModelList;
             }
             else
             {

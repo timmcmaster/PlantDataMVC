@@ -30,9 +30,9 @@ namespace PlantDataMVC.UICore.Handlers.Views.PlantStock
             if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dto = JsonConvert.DeserializeObject<PlantStockDataModel>(content);
+                var dataModel = JsonConvert.DeserializeObject<PlantStockDataModel>(content);
 
-                var model = _mapper.Map<PlantStockDataModel, PlantStockEditViewModel>(dto);
+                var model = _mapper.Map<PlantStockDataModel, PlantStockEditViewModel>(dataModel);
                 return model;
             }
             else

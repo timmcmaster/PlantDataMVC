@@ -49,9 +49,9 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
                 ApiPagingInfo apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
                 LinkHeader linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
 
-                var dtoList = JsonConvert.DeserializeObject<IEnumerable<SeedBatchDataModel>>(content);
+                var dataModelList = JsonConvert.DeserializeObject<IEnumerable<SeedBatchDataModel>>(content);
 
-                List<SeedBatchListViewModel> modelList = _mapper.Map<IEnumerable<SeedBatchDataModel>, List<SeedBatchListViewModel>>(dtoList);
+                List<SeedBatchListViewModel> modelList = _mapper.Map<IEnumerable<SeedBatchDataModel>, List<SeedBatchListViewModel>>(dataModelList);
 
                 var model = new ListViewModelStatic<SeedBatchListViewModel>(
                     modelList, apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount, query.SortBy,
@@ -65,7 +65,7 @@ namespace PlantDataMVC.UICore.Handlers.Views.SeedBatch
         }
 
         /// <summary>
-        /// Maps the sort field from display field column to dto field as used by API
+        /// Maps the sort field from display field column to dataModel field as used by API
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
