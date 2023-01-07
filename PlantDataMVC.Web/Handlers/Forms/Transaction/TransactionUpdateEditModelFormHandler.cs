@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Models.EditModels.Transaction;
+using System.Net;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -30,13 +32,16 @@ namespace PlantDataMVC.Web.Handlers.Forms.Transaction
                 JournalEntryDataModel item = _mapper.Map<TransactionUpdateEditModel, JournalEntryDataModel>(form);
 
                 // Update with PUT
-                var serializedItem = JsonConvert.SerializeObject(item);
-                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
-
                 var uri = "api/JournalEntries/" + form.Id;
-                var httpResponse = await _plantDataApiClient.PutAsync(uri, content, cancellationToken).ConfigureAwait(false);
-
-                return httpResponse.IsSuccessStatusCode;
+                var response = await _plantDataApiClient.PutAsync<JournalEntryDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else
+                {
+                    return response.Success;
+                }
             }
             catch
             {

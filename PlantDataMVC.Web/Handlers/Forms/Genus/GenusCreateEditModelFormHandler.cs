@@ -26,15 +26,13 @@ namespace PlantDataMVC.Web.Handlers.Forms.Genus
         {
             try
             {
-                // Map local model to DTO
+                // Map local model to dataModel
                 CreateUpdateGenusDataModel item = _mapper.Map<GenusCreateEditModel, CreateUpdateGenusDataModel>(form);
-                var serializedItem = JsonConvert.SerializeObject(item);
-                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
                 var uri = "api/Genus";
-                var httpResponse = await _plantDataApiClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<CreateUpdateGenusDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
-                return httpResponse.IsSuccessStatusCode;
+                return response.Success;
             }
             catch
             {

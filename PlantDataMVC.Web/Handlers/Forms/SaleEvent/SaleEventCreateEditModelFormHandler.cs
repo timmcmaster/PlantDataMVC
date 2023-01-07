@@ -28,13 +28,11 @@ namespace PlantDataMVC.Web.Handlers.Forms.SaleEvent
             {
                 // Map local model to DTO
                 SaleEventDataModel item = _mapper.Map<SaleEventCreateEditModel, SaleEventDataModel>(form);
-                var serializedItem = JsonConvert.SerializeObject(item);
-                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
                 var uri = "api/SaleEvent";
-                var httpResponse = await _plantDataApiClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<SaleEventDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
-                return httpResponse.IsSuccessStatusCode;
+                return response.Success;
             }
             catch
             {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using Framework.Web.Views;
 using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
@@ -7,7 +8,9 @@ using PlantDataMVC.Web.Controllers.Queries.Site;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.Site;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,17 +43,18 @@ namespace PlantDataMVC.Web.Handlers.Views.Site
                 }
             }
 
-            var httpResponse = await _plantDataApiClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
+            var response = await _plantDataApiClient.GetAsync<IEnumerable<SiteDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                throw new UnauthorizedAccessException();
+            }
+            else if (response.Success && response.Content != null)
+            {
+                var apiPagingInfo = response.PagingInfo;
+                var linkInfo = response.LinkInfo;
 
-                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
-
-                var dataModelList = JsonConvert.DeserializeObject<IEnumerable<SiteDataModel>>(content);
-                var modelList = _mapper.Map<IEnumerable<SiteDataModel>, List<SiteListViewModel>>(dataModelList);
+                var modelList = _mapper.Map<IEnumerable<SiteDataModel>, List<SiteListViewModel>>(response.Content);
 
                 var model = new ListViewModelStatic<SiteListViewModel>(modelList, apiPagingInfo.page,
                                                                         apiPagingInfo.pageSize,

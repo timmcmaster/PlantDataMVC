@@ -28,13 +28,11 @@ namespace PlantDataMVC.Web.Handlers.Forms.Plant
             {
                 // Map local model to DTO
                 SpeciesDataModel item = _mapper.Map<PlantCreateEditModel, SpeciesDataModel>(form);
-                var serializedItem = JsonConvert.SerializeObject(item);
-                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
                 var uri = "api/Species";
-                var httpResponse = await _plantDataApiClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<SpeciesDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
-                return httpResponse.IsSuccessStatusCode;
+                return response.Success;
             }
             catch
             {

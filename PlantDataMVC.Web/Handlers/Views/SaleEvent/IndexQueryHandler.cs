@@ -7,7 +7,9 @@ using PlantDataMVC.Web.Controllers.Queries.SaleEvent;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.SaleEvent;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,17 +42,18 @@ namespace PlantDataMVC.Web.Handlers.Views.SaleEvent
                 }
             }
 
-            var httpResponse = await _plantDataApiClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
+            var response = await _plantDataApiClient.GetAsync<IEnumerable<SaleEventDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                throw new UnauthorizedAccessException();
+            }
+            else if (response.Success && response.Content != null)
+            {
+                var apiPagingInfo = response.PagingInfo;
+                var linkInfo = response.LinkInfo;
 
-                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
-
-                var dataModelList = JsonConvert.DeserializeObject<IEnumerable<SaleEventDataModel>>(content);
-                var modelList = _mapper.Map<IEnumerable<SaleEventDataModel>, List<SaleEventListViewModel>>(dataModelList);
+                var modelList = _mapper.Map<IEnumerable<SaleEventDataModel>, List<SaleEventListViewModel>>(response.Content);
 
                 var model = new ListViewModelStatic<SaleEventListViewModel>(modelList, apiPagingInfo.page,
                                                                         apiPagingInfo.pageSize,

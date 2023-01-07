@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Framework.Web.Views;
-using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Controllers.Queries.SeedTray;
 using PlantDataMVC.Web.Models.ViewModels.SeedTray;
+using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,14 +25,15 @@ namespace PlantDataMVC.Web.Handlers.Views.SeedTray
         public async Task<SeedTrayShowViewModel> Handle(ShowQuery query, CancellationToken cancellationToken)
         {
             var uri = "api/SeedTray/" + query.Id;
-            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            var response = await _plantDataApiClient.GetAsync<SeedTrayDataModel>(uri, cancellationToken).ConfigureAwait(false);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dataModel = JsonConvert.DeserializeObject<SeedTrayDataModel>(content);
-
-                var model = _mapper.Map<SeedTrayDataModel, SeedTrayShowViewModel>(dataModel);
+                throw new UnauthorizedAccessException();
+            }
+            else if (response.Success && response.Content != null)
+            {
+                var model = _mapper.Map<SeedTrayDataModel, SeedTrayShowViewModel>(response.Content);
                 return model;
             }
             else

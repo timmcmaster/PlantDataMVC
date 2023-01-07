@@ -6,6 +6,7 @@ using PlantDataMVC.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,22 +29,23 @@ namespace PlantDataMVC.Web.Handlers.Views
 
             while (!String.IsNullOrEmpty(uri))
             {
-            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.GetAsync<IEnumerable<ProductTypeDataModel>>(uri, cancellationToken).ConfigureAwait(false);
 
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                else if (response.Success && response.Content != null)
+                {
+                    //var apiPagingInfo = response.PagingInfo;
 
-                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
-
-                var dataModelList = JsonConvert.DeserializeObject<IEnumerable<ProductTypeDataModel>>(content);
+                    var dataModelList = response.Content;
 
                     // Concatenate page to full list
                     fullDataModelList = (fullDataModelList ?? Enumerable.Empty<ProductTypeDataModel>()).Concat(dataModelList ?? Enumerable.Empty<ProductTypeDataModel>());
 
                     // if we haven't got all the items, follow paging links (link will be null if no next page)
-                    uri = linkInfo.NextPageLink?.ToString();
+                    uri = response.LinkInfo?.NextPageLink?.ToString();
                 }
                 else
                 {

@@ -28,13 +28,11 @@ namespace PlantDataMVC.Web.Handlers.Forms.PlantStock
             {
                 // Map local model to DTO
                 PlantStockDataModel item = _mapper.Map<PlantStockCreateEditModel, PlantStockDataModel>(form);
-                var serializedItem = JsonConvert.SerializeObject(item);
-                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
                 var uri = "api/PlantStock";
-                var httpResponse = await _plantDataApiClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<PlantStockDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
-                return httpResponse.IsSuccessStatusCode;
+                return response.Success;
             }
             catch
             {

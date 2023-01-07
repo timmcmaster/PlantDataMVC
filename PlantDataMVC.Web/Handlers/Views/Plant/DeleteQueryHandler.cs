@@ -4,9 +4,13 @@ using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Controllers.Queries.Plant;
+using PlantDataMVC.Web.Models.ViewModels.Genus;
 using PlantDataMVC.Web.Models.ViewModels.Plant;
+using System.Net;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
+using PlantDataMVC.Api.Models;
 
 namespace PlantDataMVC.Web.Handlers.Views.Plant
 {
@@ -24,14 +28,15 @@ namespace PlantDataMVC.Web.Handlers.Views.Plant
         public async Task<PlantDeleteViewModel> Handle(DeleteQuery query, CancellationToken cancellationToken)
         {
             var uri = "api/Species/" + query.Id;
-            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            var response = await _plantDataApiClient.GetAsync<SpeciesDataModel>(uri, cancellationToken).ConfigureAwait(false);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dataModel = JsonConvert.DeserializeObject<SpeciesDataModel>(content);
-
-                var model = _mapper.Map<SpeciesDataModel, PlantDeleteViewModel>(dataModel);
+                throw new UnauthorizedAccessException();
+            }
+            else if (response.Success && response.Content != null)
+            {
+                var model = _mapper.Map<SpeciesDataModel, PlantDeleteViewModel>(response.Content);
                 return model;
             }
             else

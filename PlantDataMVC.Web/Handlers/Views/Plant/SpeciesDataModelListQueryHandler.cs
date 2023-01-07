@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
-using PlantDataMVC.Api.Models.DataModels;
+﻿using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Controllers.Queries;
-using PlantDataMVC.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,22 +27,23 @@ namespace PlantDataMVC.Web.Handlers.Views.Plant
 
             while (!String.IsNullOrEmpty(uri))
             {
-                var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.GetAsync<IEnumerable<SpeciesDataModel>>(uri, cancellationToken).ConfigureAwait(false);
 
-                if (httpResponse.IsSuccessStatusCode)
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new UnauthorizedAccessException();
+                }
+                else if (response.Success && response.Content != null)
+                {
+                    //var apiPagingInfo = response.PagingInfo;
 
-                    var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                    var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
+                    var dataModelList = response.Content;
 
-                    var dataModelList = JsonConvert.DeserializeObject<IEnumerable<SpeciesDataModel>>(content);
-                    
                     // Concatenate page to full list
                     fullDataModelList = (fullDataModelList ?? Enumerable.Empty<SpeciesDataModel>()).Concat(dataModelList ?? Enumerable.Empty<SpeciesDataModel>());
 
                     // if we haven't got all the items, follow paging links (link will be null if no next page)
-                    uri = linkInfo.NextPageLink?.ToString();
+                    uri = response.LinkInfo?.NextPageLink?.ToString();
                 }
                 else
                 {

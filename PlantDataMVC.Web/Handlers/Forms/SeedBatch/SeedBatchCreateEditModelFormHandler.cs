@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Handlers.Forms.SeedBatch
 {
-    public class SeedBatchEditModelFormHandler : IFormHandler<SeedBatchCreateEditModel, bool>
+    public class SeedBatchCreateEditModelFormHandler : IFormHandler<SeedBatchCreateEditModel, bool>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
         private readonly IMapper _mapper;
 
-        public SeedBatchEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
+        public SeedBatchCreateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
             _mapper = mapper;
@@ -28,13 +28,11 @@ namespace PlantDataMVC.Web.Handlers.Forms.SeedBatch
             {
                 // Map local model to DTO
                 SeedBatchDataModel item = _mapper.Map<SeedBatchCreateEditModel, SeedBatchDataModel>(form);
-                var serializedItem = JsonConvert.SerializeObject(item);
-                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
                 var uri = "api/SeedBatch";
-                var httpResponse = await _plantDataApiClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<SeedBatchDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
-                return httpResponse.IsSuccessStatusCode;
+                return response.Success;
             }
             catch
             {

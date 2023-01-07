@@ -6,6 +6,8 @@ using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Controllers.Queries.Genus;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.ViewModels.Genus;
+using System.Net;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,13 +27,15 @@ namespace PlantDataMVC.Web.Handlers.Views.Genus
         public async Task<GenusEditViewModel> Handle(EditQuery query, CancellationToken cancellationToken)
         {
             var uri = "api/Genus/" + query.Id;
-            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+            var response = await _plantDataApiClient.GetAsync<GenusDataModel>(uri, cancellationToken).ConfigureAwait(false);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dataModel = JsonConvert.DeserializeObject<GenusDataModel>(content);
-                var model = _mapper.Map<GenusDataModel, GenusEditViewModel>(dataModel);
+                throw new UnauthorizedAccessException();
+            }
+            else if (response.Success && response.Content != null)
+            {
+                var model = _mapper.Map<GenusDataModel, GenusEditViewModel>(response.Content);
                 return model;
             }
             else
@@ -39,7 +43,6 @@ namespace PlantDataMVC.Web.Handlers.Views.Genus
                 // TODO: better way needed to handle failure response
                 return null;
             }
-
         }
     }
 }

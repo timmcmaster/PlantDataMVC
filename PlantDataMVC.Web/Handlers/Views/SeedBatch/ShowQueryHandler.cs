@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Framework.Web.Views;
-using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Controllers.Queries.SeedBatch;
 using PlantDataMVC.Web.Models.ViewModels.SeedBatch;
+using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,15 +25,15 @@ namespace PlantDataMVC.Web.Handlers.Views.SeedBatch
         public async Task<SeedBatchShowViewModel> Handle(ShowQuery query, CancellationToken cancellationToken)
         {
             var uri = "api/SeedBatch/" + query.Id;
-            var httpResponse = await _plantDataApiClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
-            //var httpResponse = await _plantDataApiClient.GetAsync(uri).ConfigureAwait(false);
+            var response = await _plantDataApiClient.GetAsync<SeedBatchDataModel>(uri, cancellationToken).ConfigureAwait(false);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var dataModel = JsonConvert.DeserializeObject<SeedBatchDataModel>(content);
-
-                var model = _mapper.Map<SeedBatchDataModel, SeedBatchShowViewModel>(dataModel);
+                throw new UnauthorizedAccessException();
+            }
+            else if (response.Success && response.Content != null)
+            {
+                var model = _mapper.Map<SeedBatchDataModel, SeedBatchShowViewModel>(response.Content);
                 return model;
             }
             else

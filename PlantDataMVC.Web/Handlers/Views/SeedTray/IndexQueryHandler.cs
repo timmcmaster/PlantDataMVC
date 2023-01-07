@@ -7,7 +7,9 @@ using PlantDataMVC.Web.Controllers.Queries.SeedTray;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.SeedTray;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,17 +42,18 @@ namespace PlantDataMVC.Web.Handlers.Views.SeedTray
                 }
             }
 
-            var httpResponse = await _plantDataApiClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
+            var response = await _plantDataApiClient.GetAsync<IEnumerable<SeedTrayDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                string content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                throw new UnauthorizedAccessException();
+            }
+            else if (response.Success && response.Content != null)
+            {
+                var apiPagingInfo = response.PagingInfo;
+                var linkInfo = response.LinkInfo;
 
-                var apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                var linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
-
-                var dataModelList = JsonConvert.DeserializeObject<IEnumerable<SeedTrayDataModel>>(content);
-                var modelList = _mapper.Map<IEnumerable<SeedTrayDataModel>, List<SeedTrayListViewModel>>(dataModelList);
+                var modelList = _mapper.Map<IEnumerable<SeedTrayDataModel>, List<SeedTrayListViewModel>>(response.Content);
 
                 var model = new ListViewModelStatic<SeedTrayListViewModel>(modelList, apiPagingInfo.page,
                                                                         apiPagingInfo.pageSize,

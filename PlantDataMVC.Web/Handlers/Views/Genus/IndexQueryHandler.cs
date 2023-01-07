@@ -7,7 +7,9 @@ using PlantDataMVC.Web.Controllers.Queries.Genus;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.Genus;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -41,18 +43,18 @@ namespace PlantDataMVC.Web.Handlers.Views.Genus
                 }
             }
 
-            var httpResponse = await _plantDataApiClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
+            var response = await _plantDataApiClient.GetAsync<IEnumerable<GenusDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                var content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                throw new UnauthorizedAccessException();
+            }
+            else if (response.Success && response.Content != null)
+            {
+                var apiPagingInfo = response.PagingInfo;
+                var linkInfo = response.LinkInfo;
 
-                ApiPagingInfo apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                LinkHeader linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
-
-                var dataModelList = JsonConvert.DeserializeObject<IEnumerable<GenusDataModel>>(content);
-                List<GenusListViewModel> modelList =
-                    _mapper.Map<IEnumerable<GenusDataModel>, List<GenusListViewModel>>(dataModelList);
+                var modelList = _mapper.Map<IEnumerable<GenusDataModel>, List<GenusListViewModel>>(response.Content);
 
                 var model = new ListViewModelStatic<GenusListViewModel>(modelList, apiPagingInfo.page,
                                                                         apiPagingInfo.pageSize,

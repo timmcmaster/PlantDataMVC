@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using Framework.Web.Views;
 using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
@@ -7,7 +8,9 @@ using PlantDataMVC.Web.Controllers.Queries.PlantStock;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.PlantStock;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,18 +43,18 @@ namespace PlantDataMVC.Web.Handlers.Views.PlantStock
                 }
             }
 
-            var httpResponse = await _plantDataApiClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
+            var response = await _plantDataApiClient.GetAsync<IEnumerable<PlantStockDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                var content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                throw new UnauthorizedAccessException();
+            }
+            else if (response.Success && response.Content != null)
+            {
+                var apiPagingInfo = response.PagingInfo;
+                var linkInfo = response.LinkInfo;
 
-                ApiPagingInfo apiPagingInfo = HeaderParser.FindAndParsePagingInfo(httpResponse.Headers);
-                LinkHeader linkInfo = HeaderParser.FindAndParseLinkInfo(httpResponse.Headers);
-
-                var dataModelList = JsonConvert.DeserializeObject<IEnumerable<PlantStockDataModel>>(content);
-                List<PlantStockListViewModel> modelList =
-                    _mapper.Map<IEnumerable<PlantStockDataModel>, List<PlantStockListViewModel>>(dataModelList);
+                var modelList = _mapper.Map<IEnumerable<PlantStockDataModel>, List<PlantStockListViewModel>>(response.Content);
 
                 var model = new ListViewModelStatic<PlantStockListViewModel>(modelList,
                                                                              apiPagingInfo.page,

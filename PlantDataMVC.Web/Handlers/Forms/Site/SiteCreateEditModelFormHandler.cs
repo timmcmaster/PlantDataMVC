@@ -28,13 +28,11 @@ namespace PlantDataMVC.Web.Handlers.Forms.Site
             {
                 // Map local model to DTO
                 SiteDataModel item = _mapper.Map<SiteCreateEditModel, SiteDataModel>(form);
-                var serializedItem = JsonConvert.SerializeObject(item);
-                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
                 var uri = "api/Site";
-                var httpResponse = await _plantDataApiClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<SiteDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
-                return httpResponse.IsSuccessStatusCode;
+                return response.Success;
             }
             catch
             {

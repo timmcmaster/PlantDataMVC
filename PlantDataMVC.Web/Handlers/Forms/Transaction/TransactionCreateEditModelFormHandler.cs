@@ -28,13 +28,11 @@ namespace PlantDataMVC.Web.Handlers.Forms.Transaction
             {
                 // Map local model to DTO
                 JournalEntryDataModel item = _mapper.Map<TransactionCreateEditModel, JournalEntryDataModel>(form);
-                var serializedItem = JsonConvert.SerializeObject(item);
-                var content = new StringContent(serializedItem, Encoding.Unicode, "application/json");
 
                 var uri = "api/JournalEntries";
-                var httpResponse = await _plantDataApiClient.PostAsync(uri, content, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<JournalEntryDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
-                return httpResponse.IsSuccessStatusCode;
+                return response.Success;
             }
             catch
             {
