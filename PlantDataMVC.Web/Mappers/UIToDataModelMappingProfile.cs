@@ -240,7 +240,7 @@ namespace PlantDataMVC.Web.Mappers
         {
             // SeedTray
             CreateMap<SeedTrayCreateEditModel, SeedTrayDataModel>()
-                .ForMember(dm => dm.DatePlanted, opt => opt.MapFrom(uio => uio.DatePlanted))
+                .ForMember(dm => dm.DateSown, opt => opt.MapFrom(uio => uio.DateSown))
                 .ForMember(dm => dm.Id, opt => opt.Ignore())                                  // Id on create will come back from DB
                 .ForMember(dm => dm.JournalEntries, opt => opt.Ignore())                      // TODO: check about mapping back collection
                 .ForMember(dm => dm.SeedBatchId, opt => opt.MapFrom(uio => uio.SeedBatchId))
@@ -250,13 +250,13 @@ namespace PlantDataMVC.Web.Mappers
             CreateMap<SeedTrayDestroyEditModel, SeedTrayDataModel>()
                 .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForMember(dm => dm.SeedBatchId, opt => opt.Ignore())
-                .ForMember(dm => dm.DatePlanted, opt => opt.Ignore())
+                .ForMember(dm => dm.DateSown, opt => opt.Ignore())
                 .ForMember(dm => dm.Treatment, opt => opt.Ignore())
                 .ForMember(dm => dm.ThrownOut, opt => opt.Ignore())
                 .ForMember(dm => dm.JournalEntries, opt => opt.Ignore());
 
         CreateMap<SeedTrayUpdateEditModel, SeedTrayDataModel>()
-                .ForMember(dm => dm.DatePlanted, opt => opt.MapFrom(uio => uio.DatePlanted))
+                .ForMember(dm => dm.DateSown, opt => opt.MapFrom(uio => uio.DatePlanted))
                 .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForMember(dm => dm.JournalEntries, opt => opt.Ignore())                      // TODO: check about mapping back collection
                 .ForMember(dm => dm.SeedBatchId, opt => opt.MapFrom(uio => uio.SeedBatchId))

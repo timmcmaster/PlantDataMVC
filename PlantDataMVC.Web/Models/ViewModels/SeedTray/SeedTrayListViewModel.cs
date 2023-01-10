@@ -15,8 +15,8 @@ namespace PlantDataMVC.Web.Models.ViewModels.SeedTray
         [Display(Name = "Species Name")]
         public string SpeciesBinomial { get; private set; }
 
-        [Display(Name = "Date Planted")]
-        public DateTime DatePlanted { get; set; }
+        [Display(Name = "Date Sown")]
+        public DateTime DateSown { get; set; }
 
         public string Treatment { get; set; }
 
@@ -26,7 +26,7 @@ namespace PlantDataMVC.Web.Models.ViewModels.SeedTray
 
         public SeedTrayListViewModel()
         {
-            DatePlanted = new DateTime();
+            DateSown = new DateTime();
         }
     }
 }

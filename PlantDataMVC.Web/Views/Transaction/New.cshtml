@@ -57,7 +57,7 @@
                 model => model.SeedTrayId,
                 new ListQuery<SeedTrayDataModel>(),
                 p => p.Id,
-                p => $"{p.Id}, {p.DatePlanted}")
+                p => $"{p.Id}, {p.DateSown}")
             <span asp-validation-for="SeedTrayId"></span>
         </div>
 

@@ -9,7 +9,54 @@
 <fieldset>
     <legend>Seed Tray</legend>
 
-    @Html.DisplayForModel()
+    <fieldset>
+        <legend>Seed Batch Info</legend>
+
+        <input asp-for="SeedBatchId" type="hidden" />
+
+        <div class="editor-label">
+            <label asp-for="SeedBatchSpeciesBinomial"></label>
+        </div>
+        <div class="editor-field">
+        @Html.DisplayFor(model => model.SeedBatchSpeciesBinomial)
+        </div>
+
+        <div class="editor-label">
+            <label asp-for="SeedBatchLocation"></label>
+        </div>
+        <div class="editor-field">
+        @Html.DisplayFor(model => model.SeedBatchLocation)
+        </div>
+
+        <div class="editor-label">
+            <label asp-for="SeedBatchDateCollected"></label>
+        </div>
+        <div class="editor-field">
+        @Html.DisplayFor(model => model.SeedBatchDateCollected)
+        </div>
+    </fieldset>
+
+    <div class="editor-label">
+        <label asp-for="DateSown"></label>
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => model.DateSown)
+    </div>
+
+    <div class="editor-label">
+        <label asp-for="Treatment"></label>
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => model.Treatment)
+    </div>
+
+    <div class="editor-label">
+        <label asp-for="ThrownOut"></label>
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => model.ThrownOut)
+    </div>
+
 </fieldset>
 
 <p>

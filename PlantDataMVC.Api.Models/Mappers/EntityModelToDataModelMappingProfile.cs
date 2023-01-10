@@ -106,9 +106,11 @@ namespace PlantDataMVC.Api.Models.Mappers
             CreateMap<SeedTrayEntityModel, SeedTrayDataModel>()
                 .ForMember(dm => dm.Id, opt => opt.MapFrom(e => e.Id)) // explicit and unnecessary
                 .ForMember(dm => dm.SeedBatchId, opt => opt.MapFrom(e => e.SeedBatchId)) // explicit and unnecessary
-                .ForMember(dm => dm.GenusName, opt => opt.MapFrom(e => e.SeedBatch.Species.Genus.LatinName))
-                .ForMember(dm => dm.SpeciesName, opt => opt.MapFrom(e => e.SeedBatch.Species.SpecificName))
-                .ForMember(dm => dm.DatePlanted, opt => opt.MapFrom(e => e.DatePlanted)) // explicit and unnecessary
+                .ForMember(dm => dm.SeedBatchGenusName, opt => opt.MapFrom(e => e.SeedBatch.Species.Genus.LatinName))
+                .ForMember(dm => dm.SeedBatchSpeciesName, opt => opt.MapFrom(e => e.SeedBatch.Species.SpecificName))
+                .ForMember(dm => dm.SeedBatchDateCollected, opt => opt.MapFrom(e => e.SeedBatch.DateCollected))
+                .ForMember(dm => dm.SeedBatchLocation, opt => opt.MapFrom(e => e.SeedBatch.Location))
+                .ForMember(dm => dm.DateSown, opt => opt.MapFrom(e => e.DatePlanted)) // explicit and unnecessary
                 .ForMember(dm => dm.Treatment, opt => opt.MapFrom(e => e.Treatment)) // explicit and unnecessary
                 .ForMember(dm => dm.ThrownOut, opt => opt.MapFrom(e => e.ThrownOut)) // explicit and unnecessary
                 .ForMember(dm => dm.JournalEntries, opt => opt.MapFrom(e => e.JournalEntries)); // ICollection, explicit and unnecessary

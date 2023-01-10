@@ -85,9 +85,9 @@ namespace PlantDataMVC.Web.Handlers.Views.SeedTray
             {
                 sortField = nameof(SeedTrayDataModel.Id);
             }
-            else if (querySortBy == nameof(SeedTrayListViewModel.DatePlanted))
+            else if (querySortBy == nameof(SeedTrayListViewModel.DateSown))
             {
-                sortField = nameof(SeedTrayDataModel.DatePlanted);
+                sortField = nameof(SeedTrayDataModel.DateSown);
             }
             else if (querySortBy == nameof(SeedTrayListViewModel.SeedBatchId))
             {

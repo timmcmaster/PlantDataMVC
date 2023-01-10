@@ -9,14 +9,21 @@ namespace PlantDataMVC.Web.Models.ViewModels.SeedTray
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        [Display(Name = "Seed Batch Id")]
+        // From SeedBatch
+        [HiddenInput(DisplayValue = false)]
         public int SeedBatchId { get; set; }
 
         [Display(Name = "Species Name")]
-        public string SpeciesBinomial { get; private set; }
+        public string SeedBatchSpeciesBinomial { get; private set; }
 
-        [Display(Name = "Date Planted")]
-        public DateTime DatePlanted { get; set; }
+        [Display(Name = "Location")]
+        public string SeedBatchLocation { get; private set; }
+
+        [Display(Name = "Date Collected")]
+        public DateTime SeedBatchDateCollected { get; private set; }
+
+        [Display(Name = "Date Sown")]
+        public DateTime DateSown { get; set; }
 
         public string Treatment { get; set; }
 
@@ -25,7 +32,7 @@ namespace PlantDataMVC.Web.Models.ViewModels.SeedTray
 
         public SeedTrayShowViewModel()
         {
-            DatePlanted = new DateTime();
+            DateSown = new DateTime();
         }
     }
 }

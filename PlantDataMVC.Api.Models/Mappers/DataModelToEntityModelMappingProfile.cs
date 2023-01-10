@@ -132,7 +132,7 @@ namespace PlantDataMVC.Api.Models.Mappers
             CreateMap<SeedTrayDataModel, SeedTrayEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dm => dm.Id)) // explicit and unnecessary
                 .ForMember(e => e.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId)) // explicit and unnecessary
-                .ForMember(e => e.DatePlanted, opt => opt.MapFrom(dm => dm.DatePlanted)) // explicit and unnecessary
+                .ForMember(e => e.DatePlanted, opt => opt.MapFrom(dm => dm.DateSown)) // explicit and unnecessary
                 .ForMember(e => e.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut)) // explicit and unnecessary
                 .ForMember(e => e.Treatment, opt => opt.MapFrom(dm => dm.Treatment)) // explicit and unnecessary
                 .ForMember(e => e.JournalEntries, opt => opt.MapFrom(dm => dm.JournalEntries)) // ICollection, explicit and unnecessary

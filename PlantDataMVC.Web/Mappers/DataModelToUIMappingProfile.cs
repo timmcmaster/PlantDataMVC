@@ -298,42 +298,45 @@ namespace PlantDataMVC.Web.Mappers
         {
             // SeedTray
             CreateMap<SeedTrayDataModel, SeedTrayDeleteViewModel>()
-                .ForMember(uio => uio.DatePlanted, opt => opt.MapFrom(dm => dm.DatePlanted))
+                .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.SeedBatchGenusName, dm.SeedBatchSpeciesName)))
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
 
             CreateMap<SeedTrayDataModel, SeedTrayEditViewModel>()
-                .ForMember(uio => uio.DatePlanted, opt => opt.MapFrom(dm => dm.DatePlanted))
+                .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
-                //.ForMember(uio => uio.SeedBatchSpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
-                //.ForMember(uio => uio.SeedBatchLocation, opt => opt.MapFrom(dm => dm.))
-                //.ForMember(uio => uio.SeedBatchDateCollected, opt => opt.MapFrom(dm => dm.))
+                .ForMember(uio => uio.SeedBatchSpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.SeedBatchGenusName, dm.SeedBatchSpeciesName)))
+                .ForMember(uio => uio.SeedBatchLocation, opt => opt.MapFrom(dm => dm.SeedBatchLocation))
+                .ForMember(uio => uio.SeedBatchDateCollected, opt => opt.MapFrom(dm => dm.SeedBatchDateCollected))
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
 
             CreateMap<SeedTrayDataModel, SeedTrayListViewModel>()
-                .ForMember(uio => uio.DatePlanted, opt => opt.MapFrom(dm => dm.DatePlanted))
+                .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.SeedBatchGenusName, dm.SeedBatchSpeciesName)))
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
 
             CreateMap<SeedTrayDataModel, SeedTrayNewViewModel>()
-                .ForMember(uio => uio.DatePlanted, opt => opt.MapFrom(dm => dm.DatePlanted))
+                .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.Ignore())  // don't need to map seed batch up for new seed tray (TODO: Check this)
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
 
             CreateMap<SeedTrayDataModel, SeedTrayShowViewModel>()
-                .ForMember(uio => uio.DatePlanted, opt => opt.MapFrom(dm => dm.DatePlanted))
+                .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
+                .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
+                .ForMember(uio => uio.SeedBatchSpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.SeedBatchGenusName, dm.SeedBatchSpeciesName)))
+                .ForMember(uio => uio.SeedBatchLocation, opt => opt.MapFrom(dm => dm.SeedBatchLocation))
+                .ForMember(uio => uio.SeedBatchDateCollected, opt => opt.MapFrom(dm => dm.SeedBatchDateCollected))
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
         }

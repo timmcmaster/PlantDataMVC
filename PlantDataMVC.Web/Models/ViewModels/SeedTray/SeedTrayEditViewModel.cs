@@ -22,8 +22,8 @@ namespace PlantDataMVC.Web.Models.ViewModels.SeedTray
         [Display(Name = "Date Collected")]
         public DateTime SeedBatchDateCollected { get; private set; }
 
-        [Display(Name = "Date Planted")]
-        public DateTime DatePlanted { get; set; }
+        [Display(Name = "Date Sown")]
+        public DateTime DateSown { get; set; }
 
         [StringLength(50), DataType("CustomString")]
         public string Treatment { get; set; }
@@ -34,7 +34,7 @@ namespace PlantDataMVC.Web.Models.ViewModels.SeedTray
 
         public SeedTrayEditViewModel()
         {
-            DatePlanted = new DateTime();
+            DateSown = new DateTime();
         }
     }
 }
