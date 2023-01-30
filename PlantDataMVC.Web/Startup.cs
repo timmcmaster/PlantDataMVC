@@ -153,6 +153,8 @@ namespace PlantDataMVC.Web
         // here if you need to resolve things from the container.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBaFt/QHRqVVhjVFpFdEBBXHxAd1p/VWJYdVt5flBPcDwsT3RfQF5jSH9TdkJiUX5Wc3JWQg==;Mgo+DSMBPh8sVXJ0S0J+XE9HflRDX3xKf0x/TGpQb19xflBPallYVBYiSV9jS31Td0RjWXhfeHVdRWdVVQ==;ORg4AjUWIQA/Gnt2VVhkQlFadVdJXGFWfVJpTGpQdk5xdV9DaVZUTWY/P1ZhSXxQdkRiWX9ZcXxUTmNVVkA=;OTEwODg0QDMyMzAyZTM0MmUzMGlBdkh1Q25xS3VRWnlTWGNrNzlVUzhSWWdsamJ1amRIaUZUNGtHZ1FkZDg9;OTEwODg1QDMyMzAyZTM0MmUzMFdIZnBCeWVkcTIwcmNJT25DSzFrejlZem45blNraUphRXVjY08rMGNmWU09;NRAiBiAaIQQuGjN/V0Z+WE9EaFxKVmJLYVB3WmpQdldgdVRMZVVbQX9PIiBoS35RdUViWH9ed3VdR2hYVkdy;OTEwODg3QDMyMzAyZTM0MmUzMElON042c3EwNi85cFE3aFF6SU9EOXJWU0oxTEFzUFlacDlLalhpSE9LQXc9;OTEwODg4QDMyMzAyZTM0MmUzMGNSaTByUXNRMldSaDJUcjZseFVCSUI2bE1JdkNwT3EwZFJoWFFIVTVCakk9;Mgo+DSMBMAY9C3t2VVhkQlFadVdJXGFWfVJpTGpQdk5xdV9DaVZUTWY/P1ZhSXxQdkRiWX9ZcXxUTmVYUEA=;OTEwODkwQDMyMzAyZTM0MmUzMFFQNGNDeHpHMmx3OE1jZ2syVmhiZWxLeHRRVkptYzBYVTJ5Zm9RbXNHRmM9;OTEwODkxQDMyMzAyZTM0MmUzMG5iTUlsNWhVOWU5YS9LT3JXNGdMNzNkckV2azB4UlU3UHFrU3lyTzRkOTg9;OTEwODkyQDMyMzAyZTM0MmUzMElON042c3EwNi85cFE3aFF6SU9EOXJWU0oxTEFzUFlacDlLalhpSE9LQXc9");
+
             // Stop trying to map tokens to .Net claim types
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 

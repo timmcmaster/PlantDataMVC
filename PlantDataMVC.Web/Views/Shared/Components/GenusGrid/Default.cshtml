@@ -1,0 +1,12 @@
+﻿@{
+    string url = Url.Action("UrlDatasource", "GenusGrid");
+    string stringUrl = "/GenusGrid/UrlDatasource";
+}
+<ejs-grid id="GenusGrid">
+    <e-data-manager url="@Url.Action("UrlDatasource", "GenusGrid")" adaptor="UrlAdaptor"></e-data-manager>
+    <e-grid-editsettings allowEditing="true" allowDeleting="true"></e-grid-editsettings>
+    <e-grid-columns>
+        <e-grid-column field="ID" isPrimaryKey="true" visible="true"></e-grid-column>
+        <e-grid-column field="LatinName" headerText="Latin Name"></e-grid-column>
+    </e-grid-columns>
+</ejs-grid>

@@ -65,7 +65,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Web", "Framework.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.Web", "PlantDataMVC.Web\PlantDataMVC.Web.csproj", "{1D9FB366-7D61-4CF7-9083-6781D513B3DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMVC.Common.Client", "PlantDataMVC.common.Client\PlantDataMVC.Common.Client.csproj", "{49DAD686-0BDD-403B-A2A3-D013BF7AF380}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.Common.Client", "PlantDataMVC.common.Client\PlantDataMVC.Common.Client.csproj", "{49DAD686-0BDD-403B-A2A3-D013BF7AF380}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

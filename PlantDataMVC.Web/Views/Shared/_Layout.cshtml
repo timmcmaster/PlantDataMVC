@@ -20,116 +20,100 @@
 *@
     <!-- TEST: Use CDN versions for external css as well -->
     <!-- jquery UI (base theme) -->
-    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+@*    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
     <!--bootstrap-->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
     <!--open layers mapping-->
     <link href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/css/ol.css" rel="stylesheet" type="text/css">
+*@    <!-- Syncfusion ASP.NET Core controls styles -->
+    <link href="https://cdn.syncfusion.com/ej2/20.4.38/material.css" rel="stylesheet" />
+    <!-- Syncfusion ASP.NET Core controls scripts -->
+    <script src="https://cdn.syncfusion.com/ej2/20.4.38/dist/ej2.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            sidebarObj = document.getElementById("menuSidebar").ej2_instances[0];
+        });
+        function toolbarClicked(args) {
+            if (args.item.tooltipText == "Menu") {
+                sidebarObj.toggle();
+            }
+        }
+    </script>
+
+
 </head>
 <body>
-    <div id="header">
-        <div class="left">
-            <div id="title">
-                MVC Plant Data Application
-            </div>
+    @{
+        Dictionary<string, object> HtmlAttribute = new Dictionary<string, object>() { { "class", "sidebar-menu" } };
+
+        var folderTemplate = "<div class='e-folder'><div class='e-folder-name'>MVC Plant Data Application</div></div>";
+
+        bool userAuthenticated = User?.Identity?.IsAuthenticated ?? false;
+        if (userAuthenticated)
+        {
+            var givenname = User.Claims.FirstOrDefault(c => c.Type == "given_name").Value;
+        };
+    }
+    <div id="wrapper">
+        @*header-section declaration*@
+        <div>
+            <ejs-toolbar id="menuToolbar" Clicked="toolbarClicked">
+                <e-toolbar-items>
+                    <e-toolbar-item PrefixIcon="e-icons menu" TooltipText="Menu"></e-toolbar-item>
+                    <e-toolbar-item template="folderTemplate"></e-toolbar-item>
+                </e-toolbar-items>
+            </ejs-toolbar>
+
         </div>
-        <div class="right">
-            <div id="logindisplay">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    var givenname = User.Claims.FirstOrDefault(c => c.Type == "given_name").Value;
+
+    @*    <div id="header">
+            <div class="left">
+                <div id="title">
+                    MVC Plant Data Application
+                </div>
+            </div>
+            <div class="right">
+                <div id="logindisplay">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        var givenname = User.Claims.FirstOrDefault(c => c.Type == "given_name").Value;
                     
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a asp-controller="Header" asp-action="Logout">Welcome @givenname (Logout)</a></li>
-                    </ul>
-                }
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a asp-controller="Header" asp-action="Logout">Welcome @givenname (Logout)</a></li>
+                        </ul>
+                    }
+                </div>
+            </div>
+            <div id="sidebar">
+                <div>
+                    @await Component.InvokeAsync("MainMenu")
+                </div>
+
             </div>
         </div>
-        <div class="subheader">
-            <em>Displaying plant info for today's world... :)</em>
+        *@
+
+        @*main content declaration*@
+        <div id="maintext" class="main-content">
+            @RenderBody()
         </div>
 
+        @*sidebar element declaration*@
+        <ejs-sidebar id="menuSidebar" htmlAttributes="HtmlAttribute" enableDock="true" dockSize="50px" width="220px" target=".main-content" isOpen="true" type="Auto">
+            <e-content-template>
+                <div class="main-menu">
+                    <div>
+                        @await Component.InvokeAsync("MainMenu")
+                    </div>
+                </div>
+            </e-content-template>
+        </ejs-sidebar>
 
-        <div id="sidebar">
-            <div>
-                <ul id="menu" class="mymenu">
-                    <li>
-                        <a asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li>
-                        <a asp-controller="Genus" asp-action="Index">Genera</a>
-                        <ul class="mysub-menu">
-                            <li>
-                                <a asp-controller="Genus" asp-action="New">New</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-controller="Plant" asp-action="Index">Plants</a>
-                        <ul class="mysub-menu">
-                            <li>
-                                <a asp-controller="Plant" asp-action="New">New</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-controller="SeedBatch" asp-action="Index">Plant Seeds</a>
-                        <ul class="mysub-menu">
-                            <li>
-                                <a asp-controller="SeedBatch" asp-action="New">New</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-controller="Site" asp-action="Index">Sites</a>
-                        <ul class="mysub-menu">
-                            <li>
-                                <a asp-controller="Site" asp-action="New">New</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-controller="PlantStock" asp-action="Index">Plant Stock</a>
-                        <ul class="mysub-menu">
-                            <li>
-                                <a asp-controller="PlantStock" asp-action="New">New</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-controller="SeedTray" asp-action="Index">Seed Trays</a>
-                        <ul class="mysub-menu">
-                            <li>
-                                <a asp-controller="SeedTray" asp-action="New">New</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-controller="SaleEvent" asp-action="Index">Sales</a>
-                        <ul class="mysub-menu">
-                            <li>
-                                <a asp-controller="SaleEvent" asp-action="New">New</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-controller="Home" asp-action="About">About</a>
-                    </li>
-                    <li>
-                        <a asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                </ul>
-                <hr />
-            </div>
+        @*footer-section  declaration*@
+        <div id="footer">
+            A web page by Tim McMaster.
         </div>
-    </div>
-
-    <div id="main">
-        @RenderBody()
-    </div>
-
-    <div id="footer">
-        A web page by Tim McMaster.
     </div>
 
     @*<!-- TEST: Use CDN versions to check that JS is working -->
@@ -142,7 +126,120 @@
 
     <script type="text/javascript" src="~/Scripts/dist/app.bundle.js"></script>
 
+    <!-- Syncfusion Script Manager -->
+    <ejs-scripts></ejs-scripts>
+
     @RenderSection("scripts", false)
 
+    <style>
+        /* general sidebar stuff ? */
+        #wrapper .menu {
+            font-size: 24px;
+        }
+
+        #wrapper .menu:before {
+            content: '\e99a';
+            font-family: 'e-icons'
+        }
+
+        #wrapper .sidebar-menu {
+            z-index: 20 !important;
+        }
+
+        #wrapper .dock-menu.e-menu-wrapper {
+            border: 0px;
+        }
+
+        #maintext.main-content {
+            height: 800px;
+        }
+
+        #wrapper .sidebar-menu .e-menu-wrapper {
+            border: 0px;
+            height: 800px;
+        }
+
+        #maintext .content {
+            padding: 15px;
+        }
+
+        #maintext .sidebar-heading {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* vertical-menu styles */
+        .sidebar-menu .e-menu-wrapper ul .e-menu-item.e-menu-caret-icon {
+            width: 220px;
+        }
+
+        .e-close .e-menu-wrapper ul .e-menu-item {
+            width: 50px;
+        }
+
+        .e-close ul .e-menu-item.e-menu-caret-icon {
+            padding-right: 12px;
+        }
+
+        .sidebar-menu.e-dock.e-close .e-menu-wrapper ul .e-menu-item .e-caret {
+            display: none;
+        }
+
+        .sidebar-menu.e-dock.e-close .e-menu-wrapper ul .e-menu-item.e-menu-caret-icon,
+        .sidebar-menu.e-dock.e-close .e-menu-wrapper ul.e-vertical {
+            min-width: 0;
+            width: 50px !important;
+        }
+
+        .sidebar-menu.e-dock.e-close .e-menu-wrapper ul.e-menu {
+            font-size: 0;
+        }
+
+        .sidebar-menu.e-dock.e-close .e-menu-item .e-menu-icon {
+            font-size: 20px;
+            padding: 0;
+        }
+
+        .sidebar-menu,
+        .e-menu-wrapper,
+        .e-menu-wrapper ul {
+            overflow: hidden;
+        }
+
+        /* Specifies the level styles for sidebar for dock & closed state */
+        #wrapper .sidebar-menu.e-dock.e-close .e-menu-wrapper ul .e-menu-item {
+            padding: 0 12px;
+        }
+
+        /* Specifies the level styles for sidebar for dock & opened state */
+        #wrapper .sidebar-menu .e-menu-wrapper ul .e-menu-item .e-menu-icon {
+            margin: 0 8px 0 2px;
+        }
+
+        /* Specifies the border bottom styles for toolbar in light theme*/
+        #wrapper .e-toolbar {
+            border-bottom: 1px solid #eaeaeae0;
+        }
+
+        /* Specifies the border right color for the sidebar in light theme */
+        .sidebar-menu {
+            border-right: 1px solid #eaeaeae0;
+        }
+
+        /* Specifies the level styles for toolbar */
+        #wrapper .e-toolbar .e-toolbar-items:not(.e-tbar-pos) .e-toolbar-item:first-child {
+            margin-left: 10px;
+        }
+
+        .e-folder {
+            text-align: center;
+            font-weight: 500;
+            font-size: 16px
+        }
+
+        .e-folder-name {
+            margin-top: 1px;
+        }
+    </style>
 </body>
 </html>
