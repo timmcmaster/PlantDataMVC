@@ -1,8 +1,13 @@
-﻿@{
-    string url = Url.Action("UrlDatasource", "GenusGrid");
-    string stringUrl = "/GenusGrid/UrlDatasource";
-}
-<ejs-grid id="GenusGrid">
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Genus.GenusListViewModel>
+
+<ejs-grid id="GenusGrid" dataSource="@Model">
+    <e-grid-editsettings allowEditing="true" allowDeleting="true"></e-grid-editsettings>
+    <e-grid-columns>
+        <e-grid-column field="LatinName" headerText="Latin Name"></e-grid-column>
+    </e-grid-columns>
+</ejs-grid>
+
+@*<ejs-grid id="GenusGrid">
     <e-data-manager url="@Url.Action("UrlDatasource", "GenusGrid")" adaptor="UrlAdaptor"></e-data-manager>
     <e-grid-editsettings allowEditing="true" allowDeleting="true"></e-grid-editsettings>
     <e-grid-columns>
@@ -10,3 +15,12 @@
         <e-grid-column field="LatinName" headerText="Latin Name"></e-grid-column>
     </e-grid-columns>
 </ejs-grid>
+*@
+<style>
+
+    .e-grid .e-row .e-rowcell {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
+</style>
