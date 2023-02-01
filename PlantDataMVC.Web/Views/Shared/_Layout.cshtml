@@ -101,15 +101,12 @@
         </div>
 
         @*sidebar element declaration*@
-        <ejs-sidebar id="menuSidebar" htmlAttributes="HtmlAttribute" enableDock="true" dockSize="50px" width="220px" target=".main-content" isOpen="true" type="Auto">
-            <e-content-template>
-                <div class="main-menu">
-                    <div>
-                        @await Component.InvokeAsync("MainMenu")
-                    </div>
-                </div>
-            </e-content-template>
-        </ejs-sidebar>
+        @await Component.InvokeAsync("SidebarMenu",
+                         new { 
+                             targetCss = ".main-content",
+                             dockWidth = "50px",
+                             width = "220px" }
+                         )
 
         @*footer-section  declaration*@
         <div id="footer">

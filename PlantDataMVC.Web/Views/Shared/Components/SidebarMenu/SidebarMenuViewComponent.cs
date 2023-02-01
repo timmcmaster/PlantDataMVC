@@ -7,23 +7,36 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Shared.Components.MainMenu
 {
-    public class MainMenuViewComponent : ViewComponent
+    public class SidebarMenuViewComponent : ViewComponent
     {
-        public MainMenuViewComponent()
+        public SidebarMenuViewComponent()
         {
             Console.WriteLine("Called VC constructor");
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string targetCss, string width, string dockWidth)
         {
-            var model = GetMenuModel();
+            var model = GetModel(targetCss, width, dockWidth);
 
             return View(model);
         }
 
-        private MenuViewModel GetMenuModel()
+        private SidebarMenuViewModel GetModel(string targetCss, string width, string dockWidth)
         {
-            var menuModel = new MenuViewModel();
+            var sidebarMenuModel = new SidebarMenuViewModel()
+            {
+                TargetCss = targetCss,
+                Width = width,
+                DockWidth = dockWidth
+            };
+            
+            LoadMenuModel(sidebarMenuModel);
+
+            return sidebarMenuModel;
+        }
+        private void LoadMenuModel(SidebarMenuViewModel model)
+        {
+            var menuModel = model.Menu;
 
             var menuItems = new List<MenuItemViewModel>()
             {
@@ -56,8 +69,6 @@ namespace PlantDataMVC.Web.Shared.Components.MainMenu
 
             menuModel.MenuItems = menuItems;
             menuModel.MenuFields = new MenuFieldSettings() { ItemId = "Id", Text = "Text", ParentId = "ParentId", Url = "Url", IconCss = "IconCss" };
-
-            return menuModel;
         }
     }
 }
