@@ -60,11 +60,10 @@
         <div>
             <ejs-toolbar id="menuToolbar" Clicked="toolbarClicked">
                 <e-toolbar-items>
-                    <e-toolbar-item PrefixIcon="e-icons menu" TooltipText="Menu"></e-toolbar-item>
+                    <e-toolbar-item PrefixIcon="icon-menu" TooltipText="Menu"></e-toolbar-item>
                     <e-toolbar-item template="folderTemplate"></e-toolbar-item>
                 </e-toolbar-items>
             </ejs-toolbar>
-
         </div>
 
     @*    <div id="header">
@@ -132,16 +131,32 @@
     @RenderSection("scripts", false)
 
     <style>
-        /* general sidebar stuff ? */
-        #wrapper .menu {
+        /* top toolbar styles */
+        #wrapper .icon-menu {
             font-size: 24px;
         }
 
-        #wrapper .menu:before {
+        #wrapper .icon-menu:before {
             content: '\e99a';
             font-family: 'e-icons'
         }
 
+        .e-folder {
+            text-align: center;
+            font-weight: 500;
+            font-size: 16px
+        }
+
+        .e-folder-name {
+            margin-top: 1px;
+        }
+
+        /* Specifies the level styles for toolbar */
+        #wrapper .e-toolbar .e-toolbar-items:not(.e-tbar-pos) .e-toolbar-item:first-child {
+            margin-left: 10px;
+        }
+
+        /* general sidebar stuff ? */
         #wrapper .sidebar-menu {
             z-index: 20 !important;
         }
@@ -157,15 +172,6 @@
         #wrapper .sidebar-menu .e-menu-wrapper {
             border: 0px;
             height: 800px;
-        }
-
-        #maintext .content {
-            padding: 15px;
-        }
-
-        #maintext .sidebar-heading {
-            font-size: 16px;
-            font-weight: 500;
         }
 
         /* vertical-menu styles */
@@ -226,19 +232,17 @@
             border-right: 1px solid #eaeaeae0;
         }
 
-        /* Specifies the level styles for toolbar */
-        #wrapper .e-toolbar .e-toolbar-items:not(.e-tbar-pos) .e-toolbar-item:first-child {
-            margin-left: 10px;
+        /* menu icons */
+        .dock-menu .icon {
+            font-family: 'e-icons';
         }
 
-        .e-folder {
-            text-align: center;
-            font-weight: 500;
-            font-size: 16px
+        .dock-menu .icon-home:before {
+            content: '\e92b';
         }
 
-        .e-folder-name {
-            margin-top: 1px;
+        .dock-menu .icon-plus:before {
+            content: '\e7f9';
         }
     </style>
 </body>
