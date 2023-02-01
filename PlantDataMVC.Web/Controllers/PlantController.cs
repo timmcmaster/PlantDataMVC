@@ -17,6 +17,7 @@ namespace PlantDataMVC.Web.Controllers
         {
             _mediator = mediator;
         }
+
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         ////[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
@@ -39,6 +40,27 @@ namespace PlantDataMVC.Web.Controllers
             return View(model);
         }
 
+        // GET: /"ControllerName"/Index
+        // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
+        ////[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public async Task<ActionResult> IndexVC(int? page, int? pageSize, string sortBy, bool? ascending)
+        {
+            // resolve parameters
+            var localPage = page ?? 1;
+            var localPageSize = pageSize ?? 20;
+            var localSortBy = sortBy ?? string.Empty;
+            var localAscending = ascending ?? true;
+
+            var query = new IndexQuery(localPage, localPageSize, localSortBy, localAscending);
+            var model = await _mediator.Send(query);
+
+            if (model == null)
+            {
+                return Content("An error occurred");
+            }
+
+            return View(model);
+        }
         //
         // GET: /"ControllerName"/Show/5
         ////[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]

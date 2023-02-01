@@ -1,9 +1,10 @@
-﻿@model IEnumerable<PlantDataMVC.Web.Models.ViewModels.Genus.GenusListViewModel>
+﻿@model IEnumerable<PlantDataMVC.Web.Models.ViewModels.Plant.PlantListViewModel>
 
-<ejs-grid id="GenusGrid" dataSource="@Model">
+<ejs-grid id="PlantGrid" dataSource="@Model">
     <e-grid-editsettings allowEditing="true" allowDeleting="true"></e-grid-editsettings>
     <e-grid-columns>
-        <e-grid-column field="LatinName" headerText="Latin Name"></e-grid-column>
+        <e-grid-column field="Binomial" headerText="Species Name"></e-grid-column>
+        <e-grid-column field="CommonName" headerText="Common Name"></e-grid-column>
     </e-grid-columns>
 </ejs-grid>
 

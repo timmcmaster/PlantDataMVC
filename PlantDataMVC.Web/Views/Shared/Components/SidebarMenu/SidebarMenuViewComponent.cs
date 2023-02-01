@@ -57,9 +57,8 @@ namespace PlantDataMVC.Web.Shared.Components.MainMenu
 
                 // Syncusion Controls Views menu 
                 new MenuItemViewModel(id:"item3", text:"Syncfusion Views", parentId:"null", string.Empty, iconCss:"icon-plus icon"),
-                new MenuItemViewModel(id:"item3.1", text:"Genera", parentId:"item3", url:Url.Action("IndexVC", "Genus") ?? string.Empty)
-                //,
-                //new MenuItemViewModel(id:"item3.2", text:"Plant", parentId:"item3", url:Url.Action("Index", "Plant") ?? string.Empty),
+                new MenuItemViewModel(id:"item3.1", text:"Genera", parentId:"item3", url:Url.Action("IndexVC", "Genus") ?? string.Empty),
+                new MenuItemViewModel(id:"item3.2", text:"Plant", parentId:"item3", url:Url.Action("IndexVC", "Plant") ?? string.Empty) //,
                 //new MenuItemViewModel(id:"item3.3", text:"Plant Seeds", parentId:"item3", url:Url.Action("Index", "SeedBatch") ?? string.Empty),
                 //new MenuItemViewModel(id:"item3.4", text:"Sites", parentId:"item3", url:Url.Action("Index", "Site") ?? string.Empty),
                 //new MenuItemViewModel(id:"item3.5", text:"Plant Stock", parentId:"item3", url:Url.Action("Index", "PlantStock") ?? string.Empty),
