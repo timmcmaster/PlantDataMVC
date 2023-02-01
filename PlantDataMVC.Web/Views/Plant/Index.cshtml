@@ -7,8 +7,10 @@
 <h2>My Plant List</h2>
 <p>This is a list of all plant descriptions</p>
 
+
 @*
 // TODO: Convert views to TagHelpers/use built-in taghelpers
 *@
+<a asp-action="New">Add New Item</a>
 <partial name="PlantListTable" for="@Model" />
 @Html.PagingLinksFor(m => Model)
