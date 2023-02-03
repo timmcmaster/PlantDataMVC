@@ -20,6 +20,7 @@ using PlantDataMVC.Web.Mappers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using PlantDataMVC.Common.Client;
+using System.Text.Json;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace PlantDataMVC.Web
@@ -144,7 +145,8 @@ namespace PlantDataMVC.Web
             services.AddDomainServices();
 
             // MVC
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddJsonOptions(jsonOptions => jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null); // Don't convert property names to camelCase
         }
 
 

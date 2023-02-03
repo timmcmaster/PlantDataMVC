@@ -1,22 +1,17 @@
 ﻿@model IEnumerable<PlantDataMVC.Web.Models.ViewModels.Plant.PlantListViewModel>
 
-<ejs-grid id="PlantGrid" dataSource="@Model">
+@using Plant = PlantDataMVC.Web.Models.ViewModels.Plant
+@{
+    Plant.PlantListViewModel sampleElement = new Plant.PlantListViewModel();
+}
+<ejs-grid id="PlantGrid" dataSource="@Model" allowSorting="true">
     <e-grid-editsettings allowEditing="true" allowDeleting="true"></e-grid-editsettings>
     <e-grid-columns>
-        <e-grid-column field="Binomial" headerText="Species Name"></e-grid-column>
-        <e-grid-column field="CommonName" headerText="Common Name"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.Binomial)" headerText="@Html.DisplayNameFor(x => sampleElement.Binomial)"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.CommonName)" headerText="@Html.DisplayNameFor(x => sampleElement.CommonName)"></e-grid-column>
     </e-grid-columns>
 </ejs-grid>
 
-@*<ejs-grid id="GenusGrid">
-    <e-data-manager url="@Url.Action("UrlDatasource", "GenusGrid")" adaptor="UrlAdaptor"></e-data-manager>
-    <e-grid-editsettings allowEditing="true" allowDeleting="true"></e-grid-editsettings>
-    <e-grid-columns>
-        <e-grid-column field="ID" isPrimaryKey="true" visible="true"></e-grid-column>
-        <e-grid-column field="LatinName" headerText="Latin Name"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
-*@
 <style>
 
     .e-grid .e-row .e-rowcell {

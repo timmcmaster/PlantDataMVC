@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Web.Models.ViewModels;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Shared.Components.GenusGrid

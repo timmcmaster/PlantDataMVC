@@ -1,21 +1,24 @@
-﻿@model IEnumerable<PlantDataMVC.Web.Models.ViewModels.Genus.GenusListViewModel>
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Genus.GenusListViewModel>
 
-<ejs-grid id="GenusGrid" dataSource="@Model">
-    <e-grid-editsettings allowEditing="true" allowDeleting="true"></e-grid-editsettings>
+@using Genus = PlantDataMVC.Web.Models.ViewModels.Genus
+@{
+    Genus.GenusListViewModel sampleElement = new Genus.GenusListViewModel();
+
+    List<object> cols = new List<object>();
+    cols.Add(new { field = Model.SortBy, direction = (Model.SortAscending ? "Ascending": "Descending") });
+}
+
+<ejs-grid id="GenusGrid" allowSorting="true">
+    <e-data-manager url="@Url.Action("UrlDatasource", "GenusGrid", new { page = Model.PageNumber, pageSize = Model.PageSize, sortBy = Model.SortBy, ascending = Model.SortAscending })" adaptor="UrlAdaptor"></e-data-manager>
+@*    <e-grid-pagesettings pageSize="@Model.PageSize"></e-grid-pagesettings>*@    
+    <e-grid-sortsettings columns="cols"></e-grid-sortsettings>
+    <e-grid-editsettings allowEditing="false" allowDeleting="false"></e-grid-editsettings>
     <e-grid-columns>
-        <e-grid-column field="LatinName" headerText="Latin Name"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.LatinName)" headerText="@Html.DisplayNameFor(x => sampleElement.LatinName)"></e-grid-column>
     </e-grid-columns>
 </ejs-grid>
 
-@*<ejs-grid id="GenusGrid">
-    <e-data-manager url="@Url.Action("UrlDatasource", "GenusGrid")" adaptor="UrlAdaptor"></e-data-manager>
-    <e-grid-editsettings allowEditing="true" allowDeleting="true"></e-grid-editsettings>
-    <e-grid-columns>
-        <e-grid-column field="ID" isPrimaryKey="true" visible="true"></e-grid-column>
-        <e-grid-column field="LatinName" headerText="Latin Name"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
-*@
 <style>
 
     .e-grid .e-row .e-rowcell {
