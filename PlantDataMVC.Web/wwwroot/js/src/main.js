@@ -5,6 +5,8 @@ import 'jquery-ui';
 import 'jquery-validation';
 import 'popper.js';
 import 'bootstrap';
+//import '@syncfusion/ej2';
+//import '@syncfusion/ej2-grids';
 
 // ECMA5 version
 //var $ = require('jquery');

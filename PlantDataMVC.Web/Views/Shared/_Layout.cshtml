@@ -1,49 +1,80 @@
-﻿<!DOCTYPE html>
+﻿@functions {
+    enum CssSource { FromCdn, FromBundledLocal, FromFullLocal };
+    enum JsSource { FromCdn, FromBundledLocal, FromFullLocal };
+}
+@{
+    // Set up as for non-dev
+    CssSource PackageCss = CssSource.FromCdn;
+    CssSource CustomCss = CssSource.FromFullLocal;
+
+    JsSource PackageJs = JsSource.FromCdn;
+    JsSource CustomJs = JsSource.FromBundledLocal;
+
+    string environmentName = "";
+}
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
 
     <!-- use full versions of css & scripts when in dev env -->
     <environment include="Development">
-        <link rel="stylesheet" href="~/css/sinorcaish-screen.css" />
-        <link rel="stylesheet" href="~/css/CustomStyles.css" />
-        <link rel="stylesheet" href="~/css/Site.css" />
-    </environment>
-    <!-- use bundled versions when in other envs -->
-    <environment exclude="Development">
-    </environment>
+        @{
+            environmentName = "Development";
 
-@*    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
-*@
-    <!-- TEST: Use CDN versions for external css as well -->
-    <!-- jquery UI (base theme) -->
-@*    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
-    <!--bootstrap-->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
-    <!--open layers mapping-->
-    <link href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/css/ol.css" rel="stylesheet" type="text/css">
-*@    <!-- Syncfusion ASP.NET Core controls styles -->
-    <link href="https://cdn.syncfusion.com/ej2/20.4.38/material.css" rel="stylesheet" />
-    <!-- Syncfusion ASP.NET Core controls scripts -->
-    <script src="https://cdn.syncfusion.com/ej2/20.4.38/dist/ej2.min.js"></script>
+            // Set up for dev
+            PackageCss = CssSource.FromCdn;
+            CustomCss = CssSource.FromFullLocal;
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            sidebarObj = document.getElementById("menuSidebar").ej2_instances[0];
-        });
-        function toolbarClicked(args) {
-            if (args.item.tooltipText == "Menu") {
-                sidebarObj.toggle();
-            }
+            PackageJs = JsSource.FromCdn;
+            CustomJs = JsSource.FromFullLocal;
         }
-    </script>
+    </environment>
 
-    @RenderSection("scripts", false)
+    <!-- use bundled and/or minified versions when in other envs -->
+    <environment exclude="Development">
+        @{
+            environmentName = "Non-Development";
+        }
+    </environment>
 
+    @{
+        switch (PackageCss)
+        {
+            case (CssSource.FromCdn):
+                //<!-- jquery UI (base theme) -->
+                //<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+                //<!--bootstrap-->
+                //<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
+                //<!--open layers mapping-->
+                //<link href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/css/ol.css" rel="stylesheet" type="text/css">
+                <!-- Syncfusion ASP.NET Core controls styles -->
+                <link href="https://cdn.syncfusion.com/ej2/20.4.48/material.css" rel="stylesheet" />
+                break;
+            case (CssSource.FromBundledLocal):
+                // Not done yet (uses webpack and npm)
+                break;
+            case (CssSource.FromFullLocal):
+                // Not done yet (need to get full css to local wwwroot?)
+                break;
+        }
 
+        switch (CustomCss)
+        {
+            case (CssSource.FromCdn):
+                break;
+            case (CssSource.FromBundledLocal):
+                // Not done yet (uses webpack and npm)
+                break;
+            case (CssSource.FromFullLocal):
+                <link href="~/css/sinorcaish-screen.css" rel="stylesheet" />
+                <link href="~/css/CustomStyles.css" rel="stylesheet" />
+                <link href="~/css/Site.css" rel="stylesheet" />
+                break;
+        }
+    }
 </head>
 <body>
     @{
@@ -57,6 +88,7 @@
             var givenname = User.Claims.FirstOrDefault(c => c.Type == "given_name").Value;
         };
     }
+
     <div id="wrapper">
         @*header-section declaration*@
         <div>
@@ -67,33 +99,6 @@
                 </e-toolbar-items>
             </ejs-toolbar>
         </div>
-
-    @*    <div id="header">
-            <div class="left">
-                <div id="title">
-                    MVC Plant Data Application
-                </div>
-            </div>
-            <div class="right">
-                <div id="logindisplay">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        var givenname = User.Claims.FirstOrDefault(c => c.Type == "given_name").Value;
-                    
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a asp-controller="Header" asp-action="Logout">Welcome @givenname (Logout)</a></li>
-                        </ul>
-                    }
-                </div>
-            </div>
-            <div id="sidebar">
-                <div>
-                    @await Component.InvokeAsync("MainMenu")
-                </div>
-
-            </div>
-        </div>
-        *@
 
         @*main content declaration*@
         <div id="maintext" class="main-content">
@@ -116,15 +121,56 @@
         </div>
     </div>
 
-    @*<!-- TEST: Use CDN versions to check that JS is working -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/build/ol.js"></script>*@
 
-    <script type="text/javascript" src="~/Scripts/dist/app.bundle.js"></script>
+    @{
+        switch (PackageJs)
+        {
+            case (JsSource.FromCdn):
+                //<!-- TEST: Use CDN versions to check that JS is working -->
+                //<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                //<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+                //<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+                //<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+                //<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+                //<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/build/ol.js"></script>
+
+                <!-- Syncfusion ASP.NET Core controls scripts -->
+                <script src="https://cdn.syncfusion.com/ej2/20.4.48/dist/ej2.min.js"></script>
+                break;
+            case (JsSource.FromBundledLocal):
+                // Not done yet (uses webpack and npm)
+                break;
+            case (JsSource.FromFullLocal):
+                // Not done yet (need to get full js to local wwwroot?)
+                break;
+        }
+
+        switch (CustomJs)
+        {
+            case (JsSource.FromCdn):
+                // Not possible - no cdn for my js
+                break;
+            case (JsSource.FromBundledLocal):
+                // Uses webpack and npm
+                //<script type="text/javascript" src="~/js/dist/app.bundle.js"></script>
+                break;
+            case (JsSource.FromFullLocal):
+                break;
+        }
+    }
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            sidebarObj = document.getElementById("menuSidebar").ej2_instances[0];
+        });
+        function toolbarClicked(args) {
+            if (args.item.tooltipText == "Menu") {
+                sidebarObj.toggle();
+            }
+        }
+    </script>
+
+    @RenderSection("scripts", false)
 
     <!-- Syncfusion Script Manager -->
     <ejs-scripts></ejs-scripts>
