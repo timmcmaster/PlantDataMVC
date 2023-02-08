@@ -38,13 +38,15 @@
             // get siteModel in JSON encoded format
             var latitude = @Html.Raw(Json.Serialize(Model.Latitude));
             var longitude = @Html.Raw(Json.Serialize(Model.Longitude));
+            var siteName = @Html.Raw(Json.Serialize(Model.SiteName));
             var centreLat = latitude;
             var centreLong = longitude;
             var zoomLevel = 4;
 
             // TODO: Need some sort of error on invalid coordinates
             var map = maplib.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
-            maplib.addMarker('@Url.Content("~/images/place-marker.png")', map, centreLat, centreLong);
+            maplib.addMarker('@Url.Content("~/images/place-marker.png")', map, centreLat, centreLong, siteName);
+            maplib.addMarker('@Url.Content("~/images/place-marker.png")', map, centreLat + 1, centreLong + 1, 'Test');
         };
     </script>
 }

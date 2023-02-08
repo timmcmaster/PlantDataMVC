@@ -8,6 +8,7 @@ import Point from 'ol/geom/Point.js';
 import { Icon, Style } from 'ol/style.js';
 import VectorSource from 'ol/source/Vector.js';
 import Overlay from 'ol/Overlay.js';
+import Collection from 'ol/Collection.js';
 
 export function createMap(mapElement, latitude, longitude, zoomLevel) {
 
@@ -38,77 +39,106 @@ export function createMap(mapElement, latitude, longitude, zoomLevel) {
 //    return mapDiv;
 //}
 
-export function addMarker(imageSrc, map, latitude, longitude) {
+export function addMarker(imageSrc, map, latitude, longitude, siteName) {
     var iconFeature = new Feature({
-            geometry: new Point(fromLonLat([longitude, latitude])),
-            name: 'My Location'
+        geometry: new Point(fromLonLat([longitude, latitude])),
+        name: siteName
+    });
+
+    // define style and image
+    var iconStyle = new Style({
+        image: new Icon(/** @type {module:ol/style/Icon~Options} */({
+            anchor: [0.5, 1.0],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'fraction',
+            scale: 0.1,
+            src: imageSrc
+        }))
+    });
+
+    // Set style for feature
+    iconFeature.setStyle(iconStyle);
+
+    var markerLayerName = 'MarkerLayer';
+
+    var foundLayer = findVectorLayerByName(map, markerLayerName)
+    if (foundLayer == null) {
+        let vectorFeatures = new Collection([iconFeature]);
+
+        let vectorSource = new VectorSource({
+            features: vectorFeatures
         });
 
-        // define style and image
-        var iconStyle = new Style({
-            image: new Icon(/** @type {module:ol/style/Icon~Options} */({
-                anchor: [0.5, 1.0],
-                anchorXUnits: 'fraction',
-                anchorYUnits: 'fraction',
-                scale: 0.1,
-                src: imageSrc
-            }))
+        let vectorLayer = new VectorLayer({
+            source: vectorSource,
+            name: markerLayerName
         });
 
-        // Set style for feature
-        iconFeature.setStyle(iconStyle);
-
-    var vectorSource = new VectorSource({
-            features: [iconFeature]
-        });
-
-        var vectorLayer = new VectorLayer({
-            source: vectorSource
-        });
-
-        // initial case we can addLayer, but really should try and get it first
         map.addLayer(vectorLayer);
+    }
+    else
+    {
+        let vectorSource = foundLayer.getSource();
+        let vectorFeaturesCollection = vectorSource.getFeaturesCollection();
+        vectorFeaturesCollection.extend([iconFeature]);
+    }
 
-        // Set up popup for icon
-        var element = document.getElementById('popup');
+    // Set up popup for icon
+    var element = document.getElementById('popup');
 
-        var popup = new Overlay({
-            element: element,
-            positioning: 'bottom-center',
-            stopEvent: false,
-            offset: [0, -50]
-        });
-        map.addOverlay(popup);
+    var popup = new Overlay({
+        element: element,
+        positioning: 'bottom-center',
+        stopEvent: false,
+        offset: [0, -50]
+    });
+    map.addOverlay(popup);
 
-        // display popup on click
-        map.on('click', function (evt) {
-            var feature = map.forEachFeatureAtPixel(evt.pixel,
-                function (feature) {
-                    return feature;
-                });
-            if (feature) {
-                var coordinates = feature.getGeometry().getCoordinates();
-                popup.setPosition(coordinates);
-                $(element).popover({
-                    'placement': 'top',
-                    'html': true,
-                    'content': feature.get('name')
-                });
-                $(element).popover('show');
-            } else {
-                $(element).popover('dispose');
-            }
-        });
+    // display popup on click
+    map.on('click', function (evt) {
+        var feature = map.forEachFeatureAtPixel(evt.pixel,
+            function (feature) {
+                return feature;
+            });
+        if (feature) {
+            var coordinates = feature.getGeometry().getCoordinates();
+            popup.setPosition(coordinates);
+            $(element).popover({
+                'placement': 'top',
+                'html': true,
+                'content': feature.get('name')
+            });
+            $(element).popover('show');
+        } else {
+            $(element).popover('dispose');
+        }
+    });
 
-        // change mouse cursor when over marker
-        map.on('pointermove', function (e) {
-            if (e.dragging) {
-                $(element).popover('dispose');
-                return;
-            }
-            var pixel = map.getEventPixel(e.originalEvent);
-            var hit = map.hasFeatureAtPixel(pixel);
-            map.getTarget().style.cursor = hit ? 'pointer' : '';
-        });
-
+    // change mouse cursor when over marker
+    map.on('pointermove', function (e) {
+        if (e.dragging) {
+            $(element).popover('dispose');
+            return;
+        }
+        var pixel = map.getEventPixel(e.originalEvent);
+        var hit = map.hasFeatureAtPixel(pixel);
+        map.getTarget().style.cursor = hit ? 'pointer' : '';
+    });
 }
+
+function findVectorLayerByName(map, requiredLayerName) {
+    var vectorLayer = null;
+    let mapLayers = map.getLayers();
+    for (let i = 0; i < mapLayers.getLength(); i++) {
+        let currentLayer = map.getLayers().item(i);
+        let layerName = currentLayer.get('name');
+        if ((currentLayer instanceof VectorLayer) && layerName == requiredLayerName)
+        {
+            vectorLayer = currentLayer;
+            break;
+        }
+    }
+
+    return vectorLayer;
+}
+
