@@ -41,7 +41,7 @@
             var siteName = @Html.Raw(Json.Serialize(Model.SiteName));
             var centreLat = latitude;
             var centreLong = longitude;
-            var zoomLevel = 4;
+            var zoomLevel = 12;
 
             // TODO: Need some sort of error on invalid coordinates
             var map = maplib.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);

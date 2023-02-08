@@ -1,18 +1,17 @@
-﻿import Map from 'ol/Map.js';
-import View from 'ol/View.js';
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer.js';
-import OSM from 'ol/source/OSM.js';
-import { fromLonLat } from 'ol/proj.js';
+﻿import Collection from 'ol/Collection.js';
 import Feature from 'ol/Feature.js';
-import Point from 'ol/geom/Point.js';
-import { Icon, Style } from 'ol/style.js';
-import VectorSource from 'ol/source/Vector.js';
+import Map from 'ol/Map.js';
+import OSM from 'ol/source/OSM.js';
 import Overlay from 'ol/Overlay.js';
-import Collection from 'ol/Collection.js';
+import Point from 'ol/geom/Point.js';
+import VectorSource from 'ol/source/Vector.js';
+import View from 'ol/View.js';
+import { fromLonLat } from 'ol/proj.js';
+import { Icon, Style } from 'ol/style.js';
+import { Modify } from 'ol/interaction.js';
+import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer.js';
 
 export function createMap(mapElement, latitude, longitude, zoomLevel) {
-
-    //var mapElement = addMapDivToDocument('map','map');
 
     var map = new Map({
         target: mapElement,
@@ -30,23 +29,14 @@ export function createMap(mapElement, latitude, longitude, zoomLevel) {
     return map;
 }
 
-//export function addMapDivToDocument(id, className) {
-//    var mapDiv = document.createElement('div');
-//    mapDiv.id = id;
-//    mapDiv.className = className;
-//    document.body.appendChild(mapDiv);
-
-//    return mapDiv;
-//}
-
-export function addMarker(imageSrc, map, latitude, longitude, siteName) {
-    var iconFeature = new Feature({
+export function addMarker(imageSrc, map, latitude, longitude, siteName, allowModify=false) {
+    const iconFeature = new Feature({
         geometry: new Point(fromLonLat([longitude, latitude])),
         name: siteName
     });
 
     // define style and image
-    var iconStyle = new Style({
+    const iconStyle = new Style({
         image: new Icon(/** @type {module:ol/style/Icon~Options} */({
             anchor: [0.5, 1.0],
             anchorXUnits: 'fraction',
@@ -59,17 +49,17 @@ export function addMarker(imageSrc, map, latitude, longitude, siteName) {
     // Set style for feature
     iconFeature.setStyle(iconStyle);
 
-    var markerLayerName = 'MarkerLayer';
+    const markerLayerName = 'MarkerLayer';
 
-    var foundLayer = findVectorLayerByName(map, markerLayerName)
-    if (foundLayer == null) {
-        let vectorFeatures = new Collection([iconFeature]);
+    var vectorLayer = findVectorLayerByName(map, markerLayerName)
+    var vectorFeaturesCollection = new Collection([iconFeature]);
+    var vectorSource = new VectorSource({
+        features: vectorFeaturesCollection
+    });
 
-        let vectorSource = new VectorSource({
-            features: vectorFeatures
-        });
+    if (vectorLayer == null) {
 
-        let vectorLayer = new VectorLayer({
+        vectorLayer = new VectorLayer({
             source: vectorSource,
             name: markerLayerName
         });
@@ -78,11 +68,36 @@ export function addMarker(imageSrc, map, latitude, longitude, siteName) {
     }
     else
     {
-        let vectorSource = foundLayer.getSource();
-        let vectorFeaturesCollection = vectorSource.getFeaturesCollection();
+        vectorSource = vectorLayer.getSource();
+        vectorFeaturesCollection = vectorSource.getFeaturesCollection();
         vectorFeaturesCollection.extend([iconFeature]);
     }
 
+    if (allowModify)
+    {
+        const modify = new Modify({
+            hitDetection: vectorLayer,
+            source: vectorSource,
+        });
+
+        //modify.on(['modifystart'], function (evt) {
+        //    map.target.style.cursor = 'grabbing';
+        //});
+        //modify.on(['modifyend'], function (evt) {
+        //    map.target.style.cursor = 'pointer';
+        //});
+
+        //const overlaySource = modify.getOverlay().getSource();
+        //overlaySource.on(['addfeature'], function (evt) {
+        //    map.target.style.cursor = 'pointer';
+        //});
+        //overlaySource.on(['removefeature'], function (evt) {
+        //    map.target.style.cursor = '';
+        //});
+
+        map.addInteraction(modify);
+    }
+/*
     // Set up popup for icon
     var element = document.getElementById('popup');
 
@@ -124,6 +139,7 @@ export function addMarker(imageSrc, map, latitude, longitude, siteName) {
         var hit = map.hasFeatureAtPixel(pixel);
         map.getTarget().style.cursor = hit ? 'pointer' : '';
     });
+*/
 }
 
 function findVectorLayerByName(map, requiredLayerName) {
