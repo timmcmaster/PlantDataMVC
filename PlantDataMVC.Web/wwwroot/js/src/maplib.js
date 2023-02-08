@@ -11,7 +11,7 @@ import Overlay from 'ol/Overlay.js';
 
 export function createMap(mapElement, latitude, longitude, zoomLevel) {
 
-    var mapElement = addMapDivToDocument('map','map');
+    //var mapElement = addMapDivToDocument('map','map');
 
     var map = new Map({
         target: mapElement,
@@ -29,14 +29,14 @@ export function createMap(mapElement, latitude, longitude, zoomLevel) {
     return map;
 }
 
-export function addMapDivToDocument(id, className) {
-    var mapDiv = document.createElement('div');
-    mapDiv.id = id;
-    mapDiv.className = className;
-    document.body.appendChild(mapDiv);
+//export function addMapDivToDocument(id, className) {
+//    var mapDiv = document.createElement('div');
+//    mapDiv.id = id;
+//    mapDiv.className = className;
+//    document.body.appendChild(mapDiv);
 
-    return mapDiv;
-}
+//    return mapDiv;
+//}
 
 export function addMarker(imageSrc, map, latitude, longitude) {
     var iconFeature = new Feature({

@@ -19,7 +19,7 @@
 <head>
     <title>@ViewBag.Title</title>
 
-    <!-- use full versions of css & scripts when in dev env -->
+    @* use full versions of css & scripts when in dev env *@
     <environment include="Development">
         @{
             environmentName = "Development";
@@ -29,11 +29,11 @@
             CustomCss = CssSource.FromFullLocal;
 
             PackageJs = JsSource.FromCdn;
-            CustomJs = JsSource.FromFullLocal;
+            CustomJs = JsSource.FromBundledLocal;
         }
     </environment>
 
-    <!-- use bundled and/or minified versions when in other envs -->
+    @* use bundled and/or minified versions when in other envs *@
     <environment exclude="Development">
         @{
             environmentName = "Non-Development";
@@ -49,7 +49,7 @@
                 //<!--bootstrap-->
                 //<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
                 //<!--open layers mapping-->
-                <link href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/css/ol.css" rel="stylesheet" type="text/css">
+                <link href="https://cdn.jsdelivr.net/npm/ol@v7.2.2/ol.css" rel="stylesheet">
                 <!-- Syncfusion ASP.NET Core controls styles -->
                 <link href="https://cdn.syncfusion.com/ej2/20.4.48/bootstrap5.css" rel="stylesheet" />
                 break;
@@ -122,7 +122,21 @@
     </div>
 
 
+    <!-- Script area start -->
     @{
+        switch (CustomJs)
+        {
+            case (JsSource.FromCdn):
+                // Not possible - no cdn for my js
+                break;
+            case (JsSource.FromBundledLocal):
+                // Uses webpack and npm
+                <script src="~/js/dist/app.bundle.js"></script>
+                break;
+            case (JsSource.FromFullLocal):
+                break;
+        }
+
         switch (PackageJs)
         {
             case (JsSource.FromCdn):
@@ -144,19 +158,6 @@
                 // Not done yet (need to get full js to local wwwroot?)
                 break;
         }
-
-        switch (CustomJs)
-        {
-            case (JsSource.FromCdn):
-                // Not possible - no cdn for my js
-                break;
-            case (JsSource.FromBundledLocal):
-                // Uses webpack and npm
-                //<script type="text/javascript" src="~/js/dist/app.bundle.js"></script>
-                break;
-            case (JsSource.FromFullLocal):
-                break;
-        }
     }
 
     <script>
@@ -170,10 +171,12 @@
         }
     </script>
 
-    @RenderSection("scripts", false)
+    @RenderSection("Scripts", false)
 
     <!-- Syncfusion Script Manager -->
     <ejs-scripts></ejs-scripts>
+    
+    <!-- Script area end -->
 
     <style>
         /* top toolbar styles */

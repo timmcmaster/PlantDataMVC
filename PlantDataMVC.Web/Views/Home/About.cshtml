@@ -18,12 +18,11 @@
 </p>
 
 <!-- This is the div that will contain the map -->
-@*<div id="map" class="map"></div>
-*@
-<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
-@section scripts{
-    <script type="text/javascript" src="~/js/src/maplib.js"></script>
-@*    <script type="text/javascript" src="~/js/lib/maplib.bundle.js"></script>*@
+<div id="map" class="map"></div>
+
+@* Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc *@
+@section Scripts{
+    <script type="text/javascript" src="~/js/lib/maplib.bundle.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
