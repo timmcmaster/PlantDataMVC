@@ -6,10 +6,12 @@ import Overlay from 'ol/Overlay.js';
 import Point from 'ol/geom/Point.js';
 import VectorSource from 'ol/source/Vector.js';
 import View from 'ol/View.js';
-import { fromLonLat } from 'ol/proj.js';
+import { fromLonLat, toLonLat } from 'ol/proj.js';
 import { Icon, Style } from 'ol/style.js';
 import { Modify } from 'ol/interaction.js';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer.js';
+
+export { toLonLat } from 'ol/proj.js';
 
 export function createMap(mapElement, latitude, longitude, zoomLevel) {
     var map = new Map({
@@ -28,7 +30,7 @@ export function createMap(mapElement, latitude, longitude, zoomLevel) {
     return map;
 }
 
-export function addMarker(imageSrc, map, latitude, longitude, siteName, allowModify=false) {
+export function addMarker(imageSrc, map, latitude, longitude, siteName, allowModify=false, modifyListener = null) {
     const iconFeature = new Feature({
         geometry: new Point(fromLonLat([longitude, latitude])),
         name: siteName
@@ -83,6 +85,7 @@ export function addMarker(imageSrc, map, latitude, longitude, siteName, allowMod
             const targetElement = map.getTargetElement();
             targetElement.style.cursor = evt.type === 'modifystart' ? 'grabbing' : 'pointer';
         });
+        modify.on(['modifyend'], modifyListener);
 
         const overlaySource = modify.getOverlay().getSource();
         overlaySource.on(['addfeature', 'removefeature'], function (evt) {
@@ -92,7 +95,7 @@ export function addMarker(imageSrc, map, latitude, longitude, siteName, allowMod
 
         map.addInteraction(modify);
     }
-/*
+
     // Set up popup for icon
     var element = document.getElementById('popup');
 
@@ -134,7 +137,6 @@ export function addMarker(imageSrc, map, latitude, longitude, siteName, allowMod
         var hit = map.hasFeatureAtPixel(pixel);
         map.getTarget().style.cursor = hit ? 'pointer' : '';
     });
-*/
 }
 
 function findVectorLayerByName(map, requiredLayerName) {
