@@ -12,7 +12,6 @@ import { Modify } from 'ol/interaction.js';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer.js';
 
 export function createMap(mapElement, latitude, longitude, zoomLevel) {
-
     var map = new Map({
         target: mapElement,
         layers: [
@@ -80,20 +79,16 @@ export function addMarker(imageSrc, map, latitude, longitude, siteName, allowMod
             source: vectorSource,
         });
 
-        //modify.on(['modifystart'], function (evt) {
-        //    map.target.style.cursor = 'grabbing';
-        //});
-        //modify.on(['modifyend'], function (evt) {
-        //    map.target.style.cursor = 'pointer';
-        //});
+        modify.on(['modifystart', 'modifyend'], function (evt) {
+            const targetElement = map.getTargetElement();
+            targetElement.style.cursor = evt.type === 'modifystart' ? 'grabbing' : 'pointer';
+        });
 
-        //const overlaySource = modify.getOverlay().getSource();
-        //overlaySource.on(['addfeature'], function (evt) {
-        //    map.target.style.cursor = 'pointer';
-        //});
-        //overlaySource.on(['removefeature'], function (evt) {
-        //    map.target.style.cursor = '';
-        //});
+        const overlaySource = modify.getOverlay().getSource();
+        overlaySource.on(['addfeature', 'removefeature'], function (evt) {
+            const targetElement = map.getTargetElement();
+            targetElement.style.cursor = evt.type === 'addfeature' ? 'pointer' : '';
+        });
 
         map.addInteraction(modify);
     }
