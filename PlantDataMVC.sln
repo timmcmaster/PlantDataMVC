@@ -5,11 +5,6 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.Utils", "UnitTest.Utils\UnitTest.Utils.csproj", "{1A3A2975-AB2E-468B-914C-27D87A9E3804}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FDD2BEF9-ADC5-4899-87A0-4E6E5CA3FA3E}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Solution Items", "0.Solution Items", "{33ADC7C0-A99E-42C6-BB34-E6E255E85B6A}"
 	ProjectSection(SolutionItems) = preProject
 		ConnectionStrings.config = ConnectionStrings.config
