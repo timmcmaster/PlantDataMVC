@@ -2,7 +2,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Web.Controllers.Queries.Genus;
+using PlantDataMVC.Web.Models.EditModels.Genus;
+using PlantDataMVC.Web.Models.ViewModels.Genus;
 using Syncfusion.EJ2.Base;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 //using System.Collections.Generic;
 
@@ -61,5 +65,53 @@ namespace PlantDataMVC.Web.Controllers
             }
         }
 
+        public async Task<ActionResult> Insert([FromBody] ICRUDModel<GenusCreateEditModel> x)
+        {
+            var form = x.value;
+
+            var result = await _mediator.Send(form);
+
+            return Json(form);
+        }
+
+        public async Task<ActionResult> Update([FromBody] ICRUDModel<GenusUpdateEditModel> x)
+        {
+            var form = x.value;
+
+            var result = await _mediator.Send(form);
+
+            return Json(form);
+        }
+
+        public async Task<ActionResult> Delete([FromBody] ICRUDModel<GenusListViewModel> x)
+        {
+            var id = Convert.ToInt32(x.key.ToString());
+            var form = new GenusDestroyEditModel() { Id = id };
+            
+            var result = await _mediator.Send(form);
+
+            return Json(form);
+        }
+
+        public class ICRUDModel<T> where T : class
+        {
+            public string action { get; set; }
+
+            public string table { get; set; }
+
+            public string keyColumn { get; set; }
+
+            public object key { get; set; }
+
+            public T value { get; set; }
+
+            public List<T> added { get; set; }
+
+            public List<T> changed { get; set; }
+
+            public List<T> deleted { get; set; }
+
+            public IDictionary<string, object> @params { get; set; }
+        }
     }
 }
