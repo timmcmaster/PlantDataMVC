@@ -5,53 +5,34 @@
 @{
     Genus.GenusListViewModel sampleElement = new Genus.GenusListViewModel();
 
-    List<object> cols = new List<object>();
-    cols.Add(new { field = Model.SortBy, direction = (Model.SortAscending ? "Ascending": "Descending") });
+    //List<object> cols = new List<object>();
+    //cols.Add(new { field = Model.SortBy, direction = (Model.SortAscending ? "Ascending": "Descending") });
 }
 
-<ejs-grid id="GenusGrid" 
-          allowSorting="true" 
-          actionBegin="beginSort" 
-          actionComplete="completeSort"
+<ejs-grid id="GenusGrid"
+          allowPaging="true"
+          allowSorting="true"
+          height="550" width="800"        
           toolbar="@(new List<string>() { "Add", "Edit", "Delete","Update","Cancel" })">
     <e-data-manager 
-        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.GenusGrid, new { page = Model.PageNumber, pageSize = Model.PageSize, sortBy = Model.SortBy, ascending = Model.SortAscending })" 
+        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.GenusGrid)" 
         adaptor="UrlAdaptor"
         insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.GenusGrid)"
         updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.GenusGrid)"
         removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.GenusGrid)">
     </e-data-manager>
-@*    <e-grid-pagesettings pageSize="@Model.PageSize"></e-grid-pagesettings>*@    
-    <e-grid-sortsettings columns="cols"></e-grid-sortsettings>
+    <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+    @*<e-grid-sortsettings columns="cols"></e-grid-sortsettings>*@
     <e-grid-editsettings allowAdding="true" allowEditing="true" allowDeleting="true"></e-grid-editsettings>
     <e-grid-columns>
-        <e-grid-column isPrimaryKey="true" isIdentity="true" field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
         <e-grid-column field="@nameof(sampleElement.LatinName)" headerText="@Html.DisplayNameFor(x => sampleElement.LatinName)"></e-grid-column>
     </e-grid-columns>
 </ejs-grid>
 
-<script>
-    function beginSort(args) {
-        if (args.requestType === "sorting")
-        {
-            // Get sort column name
-            alert(args.requestType + ' ' + args.type); //custom Action
-
-            // And sort type
-        }
-    }
-    function completeSort(args) {
-        if (args.requestType === "sorting")
-        {
-        alert(args.requestType + ' ' + args.type); //custom Action
-        }
-    }
-</script>
 <style>
-
     .e-grid .e-row .e-rowcell {
-        padding-top: 3px;
-        padding-bottom: 3px;
+        padding-top: 2px;
+        padding-bottom: 2px;
     }
-
 </style>

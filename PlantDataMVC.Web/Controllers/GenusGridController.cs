@@ -1,12 +1,14 @@
 ﻿//using Framework.Web.Mediator;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Configuration;
 using PlantDataMVC.Web.Controllers.Queries.Genus;
 using PlantDataMVC.Web.Models.EditModels.Genus;
 using PlantDataMVC.Web.Models.ViewModels.Genus;
 using Syncfusion.EJ2.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 //using System.Collections.Generic;
 
@@ -36,19 +38,16 @@ namespace PlantDataMVC.Web.Controllers
         // GET: /"ControllerName"/Index
         // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public async Task<ActionResult> UrlDatasource([FromBody]DataManagerRequest request, int? page, int? pageSize, string? sortBy, bool? ascending)
+        public async Task<ActionResult> UrlDatasource([FromBody]DataManagerRequest request)
         {
 
-            var localPage = page ?? 1;
-            var localPageSize = pageSize ?? 20;
-            var localSortBy = sortBy ?? string.Empty;
-            var localAscending = ascending ?? true;
+            // Convert operation to appropriate api call
+            var localPage = request.Skip != 0 ? (request.Skip / request.Take) + 1 : 1;
+            var localPageSize = request.Take != 0 ? request.Take : 20;
 
-            // Convert operation to appropriate api call ?
-            //var localPage = request.Skip != 0 ? request.Skip / request.Take : 1;
-            //var localPageSize = request.Take != 0 ? request.Take : 20;
-            //var localSortBy = string.Empty;
-            //var localAscending = true;
+            var firstSort = request.Sorted?.FirstOrDefault(); 
+            var localSortBy = firstSort == null ? String.Empty : firstSort.Name;
+            var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
 
             var query = new IndexQuery(localPage, localPageSize, localSortBy, localAscending);
             var model = await _mediator.Send(query);
@@ -59,7 +58,7 @@ namespace PlantDataMVC.Web.Controllers
             }
             else
             {
-                var jsonResult = request.RequiresCounts ? Json(new { result = model, count = model.Count }) : Json(model);
+                var jsonResult = request.RequiresCounts ? Json(new { result = model, count = model.TotalCount }) : Json(model);
 
                 return jsonResult;
             }
@@ -83,7 +82,7 @@ namespace PlantDataMVC.Web.Controllers
             return Json(form);
         }
 
-        public async Task<ActionResult> Delete([FromBody] CRUDModel<GenusListViewModel> x)
+        public async Task<ActionResult> Delete([FromBody] CRUDModel<GenusDestroyEditModel> x)
         {
             var id = Convert.ToInt32(x.Key.ToString());
             var form = new GenusDestroyEditModel() { Id = id };
