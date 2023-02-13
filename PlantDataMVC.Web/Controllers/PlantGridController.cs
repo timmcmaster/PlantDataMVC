@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PlantDataMVC.Web.Controllers.Queries.Genus;
-using PlantDataMVC.Web.Models.EditModels.Genus;
+using PlantDataMVC.Web.Controllers.Queries.Plant;
+using PlantDataMVC.Web.Models.EditModels.Plant;
 using Syncfusion.EJ2.Base;
 using System;
 using System.Linq;
@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Controllers
 {
-    public class GenusGridController : Controller
+    public class PlantGridController : DefaultController
     {
         private readonly IMediator _mediator;
 
-        public GenusGridController(IMediator mediator)
+        public PlantGridController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -59,7 +59,17 @@ namespace PlantDataMVC.Web.Controllers
             }
         }
 
-        public async Task<ActionResult> Insert([FromBody] CRUDModel<GenusCreateEditModel> x)
+        public async Task<ActionResult> Insert([FromBody] CRUDModel<PlantCreateEditModel> x)
+        {
+            // TODO: won't be correct, as we can't select the parent genus from the grid
+            var form = x.Value;
+
+            var result = await _mediator.Send(form);
+
+            return Json(form);
+        }
+
+        public async Task<ActionResult> Update([FromBody] CRUDModel<PlantUpdateEditModel> x)
         {
             var form = x.Value;
 
@@ -68,19 +78,10 @@ namespace PlantDataMVC.Web.Controllers
             return Json(form);
         }
 
-        public async Task<ActionResult> Update([FromBody] CRUDModel<GenusUpdateEditModel> x)
-        {
-            var form = x.Value;
-
-            var result = await _mediator.Send(form);
-
-            return Json(form);
-        }
-
-        public async Task<ActionResult> Delete([FromBody] CRUDModel<GenusDestroyEditModel> x)
+        public async Task<ActionResult> Delete([FromBody] CRUDModel<PlantDestroyEditModel> x)
         {
             var id = Convert.ToInt32(x.Key.ToString());
-            var form = new GenusDestroyEditModel() { Id = id };
+            var form = new PlantDestroyEditModel() { Id = id };
             
             var result = await _mediator.Send(form);
 

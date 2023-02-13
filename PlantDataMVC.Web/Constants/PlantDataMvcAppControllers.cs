@@ -15,5 +15,6 @@
         public const string Transaction = "Transaction";
 
         public const string GenusGrid = "GenusGrid";
+        public const string PlantGrid = "PlantGrid";
     }
 }

@@ -4,9 +4,6 @@
 @using PlantDataMVC.Web.Constants;
 @{
     Genus.GenusListViewModel sampleElement = new Genus.GenusListViewModel();
-
-    //List<object> cols = new List<object>();
-    //cols.Add(new { field = Model.SortBy, direction = (Model.SortAscending ? "Ascending": "Descending") });
 }
 
 <ejs-grid id="GenusGrid"
@@ -14,15 +11,13 @@
           allowSorting="true"
           height="550" width="800"        
           toolbar="@(new List<string>() { "Add", "Edit", "Delete","Update","Cancel" })">
-    <e-data-manager 
-        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.GenusGrid)" 
-        adaptor="UrlAdaptor"
-        insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.GenusGrid)"
-        updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.GenusGrid)"
-        removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.GenusGrid)">
+    <e-data-manager adaptor="UrlAdaptor"
+                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.GenusGrid)" 
+                    insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.GenusGrid)"
+                    updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.GenusGrid)"
+                    removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.GenusGrid)">
     </e-data-manager>
     <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
-    @*<e-grid-sortsettings columns="cols"></e-grid-sortsettings>*@
     <e-grid-editsettings allowAdding="true" allowEditing="true" allowDeleting="true"></e-grid-editsettings>
     <e-grid-columns>
         <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>

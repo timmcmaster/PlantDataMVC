@@ -12,8 +12,7 @@ namespace PlantDataMVC.Web.Shared.Components.GenusGrid
             Console.WriteLine("Called VC constructor");
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(//ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Genus.GenusListViewModel> model
-                                                           )
+        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Plant.PlantListViewModel> model)
         {
             return View();
         }
