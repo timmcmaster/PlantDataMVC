@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.SeedBatch.SeedBatchShowViewModel
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.SeedBatch.SeedBatchShowViewModel
 
 @{
     ViewBag.Title = "Show";
@@ -12,11 +13,11 @@
     @Html.DisplayForModel()
     
     @*<div class="child-table">@Html.Partial("SeedTrayListTable", Model.SeedTrays)</div>
-    <div class="button">@Html.ActionLink("New", "New", "SeedTray", new { seedBatchId = Model.Id }, null)</div>*@
+    <div class="button"><a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
 </fieldset>
 
 <p>
-    <a asp-controller="SeedBatch" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-controller="SeedBatch" asp-action="Index">Back to Index</a>
+    <a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Index">Back to Index</a>
 </p>
 

@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.Plant.PlantShowViewModel
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.Plant.PlantShowViewModel
 
 @{
     ViewBag.Title = "Show";
@@ -13,17 +14,16 @@
 
     @*<div class="display-label">@Html.LabelFor(model => model.Seeds)</div>
     <div class="child-table">@Html.Partial("SeedBatchListTable", Model.Seeds)</div>
-    <div class="button">@Html.ActionLink("New", "New", "SeedBatch", new { speciesId = Model.Id }, null)</div>*@
+    <div class="button"><a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
     @*<p></p>*@
     @*<div class="display-label">@Html.LabelFor(model => model.Stock)</div>
     <div class="child-table">@Html.Partial("PlantStockListTable", Model.Stock)</div>
-    <div class="button">@Html.ActionLink("New", "New", "PlantStock", new { speciesId = Model.Id }, null)</div>*@
+    <div class="button"><a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
 </fieldset>
 
 <p>
 <p>
-    <a asp-controller="Plant" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-controller="Plant" asp-action="Index">Back to Index</a>
+    <a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Index">Back to Index</a>
 </p>
 </p>
-

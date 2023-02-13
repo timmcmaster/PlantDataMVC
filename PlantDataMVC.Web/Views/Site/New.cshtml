@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.Site.SiteNewViewModel
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.Site.SiteNewViewModel
 
 @{
     ViewBag.Title = "New";
@@ -6,7 +7,7 @@
 
 <h2>New</h2>
 
-<form asp-action="Create" asp-controller="Site">
+<form asp-controller=@PlantDataMvcAppControllers.Site asp-action="Create">
     <div asp-validation-summary="ModelOnly"></div>
     <fieldset>
         <legend>Site</legend>
@@ -14,12 +15,12 @@
         @Html.EditorForModel()
 
         <p>
-            <input type="submit" value="Create"/>
+            <input type="submit" value="Create" />
         </p>
     </fieldset>
 </form>
 
 <div>
-    <a asp-controller="Site" asp-action="Index">Back to Index</a>
+    <a asp-controller=@PlantDataMvcAppControllers.Site asp-action="Index">Back to Index</a>
 </div>
 

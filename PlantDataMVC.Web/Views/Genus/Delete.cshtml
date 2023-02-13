@@ -1,4 +1,6 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.Genus.GenusDeleteViewModel
+﻿@using PlantDataMVC.Web.Constants
+
+@model PlantDataMVC.Web.Models.ViewModels.Genus.GenusDeleteViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -7,7 +9,7 @@
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
-<form asp-action="Destroy" asp-controller="Genus">
+<form asp-controller=@PlantDataMvcAppControllers.Genus asp-action="Destroy">
     <fieldset>
         <legend>Genus</legend>
         @*Add hidden, as display for model doesn't show hidden input needed for submit*@
@@ -16,6 +18,6 @@
     </fieldset>
     <p>
         <input type="submit" value="Delete" /> |
-        <a asp-controller="Genus" asp-action="Index">Back to Index</a>
+        <a asp-controller=@PlantDataMvcAppControllers.Genus asp-action="Index">Back to Index</a>
     </p>
 </form>

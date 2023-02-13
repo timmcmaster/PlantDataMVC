@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.Transaction.TransactionNewViewModel
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.Transaction.TransactionNewViewModel
 
 @{
     ViewBag.Title = "New";
@@ -6,7 +7,7 @@
 
 <h2>New</h2>
 
-<form asp-action="Create" asp-controller="Transaction">
+<form asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="Create">
     <div asp-validation-summary="ModelOnly"></div>
     <fieldset>
         <legend>Transaction</legend>

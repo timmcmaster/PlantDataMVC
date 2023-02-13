@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.SeedTray.SeedTrayShowViewModel
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.SeedTray.SeedTrayShowViewModel
 
 @{
     ViewBag.Title = "Show";
@@ -18,21 +19,21 @@
             <label asp-for="SeedBatchSpeciesBinomial"></label>
         </div>
         <div class="editor-field">
-        @Html.DisplayFor(model => model.SeedBatchSpeciesBinomial)
+            @Html.DisplayFor(model => model.SeedBatchSpeciesBinomial)
         </div>
 
         <div class="editor-label">
             <label asp-for="SeedBatchLocation"></label>
         </div>
         <div class="editor-field">
-        @Html.DisplayFor(model => model.SeedBatchLocation)
+            @Html.DisplayFor(model => model.SeedBatchLocation)
         </div>
 
         <div class="editor-label">
             <label asp-for="SeedBatchDateCollected"></label>
         </div>
         <div class="editor-field">
-        @Html.DisplayFor(model => model.SeedBatchDateCollected)
+            @Html.DisplayFor(model => model.SeedBatchDateCollected)
         </div>
     </fieldset>
 
@@ -60,7 +61,7 @@
 </fieldset>
 
 <p>
-    <a asp-controller="SeedTray" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-controller="SeedTray" asp-action="Index">Back to Index</a>
+    <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Index">Back to Index</a>
 </p>
 

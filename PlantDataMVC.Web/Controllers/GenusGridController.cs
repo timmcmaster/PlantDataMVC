@@ -65,53 +65,32 @@ namespace PlantDataMVC.Web.Controllers
             }
         }
 
-        public async Task<ActionResult> Insert([FromBody] ICRUDModel<GenusCreateEditModel> x)
+        public async Task<ActionResult> Insert([FromBody] CRUDModel<GenusCreateEditModel> x)
         {
-            var form = x.value;
+            var form = x.Value;
 
             var result = await _mediator.Send(form);
 
             return Json(form);
         }
 
-        public async Task<ActionResult> Update([FromBody] ICRUDModel<GenusUpdateEditModel> x)
+        public async Task<ActionResult> Update([FromBody] CRUDModel<GenusUpdateEditModel> x)
         {
-            var form = x.value;
+            var form = x.Value;
 
             var result = await _mediator.Send(form);
 
             return Json(form);
         }
 
-        public async Task<ActionResult> Delete([FromBody] ICRUDModel<GenusListViewModel> x)
+        public async Task<ActionResult> Delete([FromBody] CRUDModel<GenusListViewModel> x)
         {
-            var id = Convert.ToInt32(x.key.ToString());
+            var id = Convert.ToInt32(x.Key.ToString());
             var form = new GenusDestroyEditModel() { Id = id };
             
             var result = await _mediator.Send(form);
 
             return Json(form);
-        }
-
-        public class ICRUDModel<T> where T : class
-        {
-            public string action { get; set; }
-
-            public string table { get; set; }
-
-            public string keyColumn { get; set; }
-
-            public object key { get; set; }
-
-            public T value { get; set; }
-
-            public List<T> added { get; set; }
-
-            public List<T> changed { get; set; }
-
-            public List<T> deleted { get; set; }
-
-            public IDictionary<string, object> @params { get; set; }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.SeedTray.SeedTrayDeleteViewModel
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.SeedTray.SeedTrayDeleteViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -7,7 +8,7 @@
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
-<form asp-action="Destroy" asp-controller="SeedTray">
+<form asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Destroy">
     <fieldset>
         <legend>Seed Tray</legend>
         @*Add hidden, as display for model doesn't show hidden input needed for submit*@
@@ -16,7 +17,7 @@
     </fieldset>
     <p>
         <input type="submit" value="Delete" /> |
-        <a asp-controller="SeedTray" asp-action="Index">Back to Index</a>
+        <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Index">Back to Index</a>
     </p>
 </form>
 

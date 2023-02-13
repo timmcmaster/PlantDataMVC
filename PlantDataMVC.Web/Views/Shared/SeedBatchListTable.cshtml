@@ -1,4 +1,5 @@
 ﻿@model IList<PlantDataMVC.Web.Models.ViewModels.SeedBatch.SeedBatchListViewModel>
+@using PlantDataMVC.Web.Constants;
 @using SeedBatch = PlantDataMVC.Web.Models.ViewModels.SeedBatch
 
 @{
@@ -18,12 +19,12 @@
 int count = 0;
 foreach (var entry in Model) {
     <tr>
-        <td><a asp-controller="SeedBatch" asp-action="Show" asp-route-id="@entry.Id">@entry.SpeciesBinomial</a></td>
+        <td><a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Show" asp-route-id="@entry.Id">@entry.SpeciesBinomial</a></td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).DateCollected)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).SiteName)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).Location)</td>
-        <td><a asp-controller="SeedBatch" asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
-        <td><a asp-controller="SeedBatch" asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
+        <td><a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
+        <td><a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
     </tr>
     count++;
 }

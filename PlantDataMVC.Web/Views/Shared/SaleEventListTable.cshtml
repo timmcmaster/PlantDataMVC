@@ -1,4 +1,5 @@
 ﻿@model IList<PlantDataMVC.Web.Models.ViewModels.SaleEvent.SaleEventListViewModel>
+@using PlantDataMVC.Web.Constants;
 @using SaleEvent = PlantDataMVC.Web.Models.ViewModels.SaleEvent
 
 @{
@@ -17,11 +18,11 @@
 int count = 0;
 foreach (var entry in Model) {
     <tr>
-        <td><a asp-controller="SaleEvent" asp-action="Show" asp-route-id="@entry.Id">@entry.Name</a></td>
+        <td><a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="Show" asp-route-id="@entry.Id">@entry.Name</a></td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).SaleDate)</td>
         <td>@Html.DisplayFor(m => m.ElementAt(count).Location)</td>
-        <td><a asp-controller="SaleEvent" asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
-        <td><a asp-controller="SaleEvent" asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
+        <td><a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
+        <td><a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
     </tr>
     count++;
 }

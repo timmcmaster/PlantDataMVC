@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.PlantStock.PlantStockShowViewModel
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.PlantStock.PlantStockShowViewModel
 
 @{
     ViewBag.Title = "Show";
@@ -13,10 +14,10 @@
 
     @*<div class="display-label">@Html.LabelFor(model => model.Transactions)</div>*@
     @*<div class="child-table">@Html.Partial("TransactionListTable", Model.Transactions)</div>*@
-    @*<div class="button">@Html.ActionLink("New", "New", "Transaction", new { plantStockId = Model.Id }, null)</div>*@
+    @*<div class="button"><a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
 </fieldset>
 <p>
-    <a asp-controller="PlantStock" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-controller="PlantStock" asp-action="Index">Back to Index</a>
+    <a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Index">Back to Index</a>
 </p>
 

@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.Site.SiteDeleteViewModel
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.Site.SiteDeleteViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -7,16 +8,16 @@
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
-<form asp-action="Destroy" asp-controller="Site">
+<form asp-controller=@PlantDataMvcAppControllers.Site asp-action="Destroy">
     <fieldset>
         <legend>Site</legend>
         @*Add hidden, as display for model doesn't show hidden input needed for submit*@
-        <input asp-for="Id" type="hidden"/>
+        <input asp-for="Id" type="hidden" />
         @Html.DisplayForModel()
     </fieldset>
     <p>
         <input type="submit" value="Delete" /> |
-        <a asp-controller="Site" asp-action="Index">Back to Index</a>
+        <a asp-controller=@PlantDataMvcAppControllers.Site asp-action="Index">Back to Index</a>
     </p>
 </form>
 

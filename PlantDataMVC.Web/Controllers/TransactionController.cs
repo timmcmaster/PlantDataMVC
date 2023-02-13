@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Api.Models.DataModels;
+using PlantDataMVC.Web.Constants;
 using PlantDataMVC.Web.Controllers.Queries.Transaction;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.EditModels.Transaction;
@@ -44,7 +45,7 @@ namespace PlantDataMVC.Web.Controllers
         public async Task<ActionResult> Create(int plantStockId, TransactionCreateEditModel form)
         {
             var failureResult = DefaultFormFailureResult();
-            var successResult = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
+            var successResult = RedirectToAction("Details", PlantDataMvcAppControllers.PlantStock, new { id = plantStockId });
 
             if (!ModelState.IsValid)
             {
@@ -78,7 +79,7 @@ namespace PlantDataMVC.Web.Controllers
         public async Task<ActionResult> Update(int plantStockId, TransactionUpdateEditModel form)
         {
             var failureResult = DefaultFormFailureResult();
-            var successResult = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
+            var successResult = RedirectToAction("Details", @PlantDataMvcAppControllers.PlantStock, new { id = plantStockId });
 
             if (!ModelState.IsValid)
             {
@@ -112,7 +113,7 @@ namespace PlantDataMVC.Web.Controllers
         public async Task<ActionResult> Destroy(int plantStockId, TransactionDestroyEditModel form)
         {
             var failureResult = DefaultFormFailureResult();
-            var successResult = RedirectToAction("Details", "PlantStock", new { id = plantStockId });
+            var successResult = RedirectToAction("Details", @PlantDataMvcAppControllers.PlantStock, new { id = plantStockId });
 
             if (!ModelState.IsValid)
             {

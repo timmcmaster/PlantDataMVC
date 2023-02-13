@@ -1,6 +1,7 @@
 ﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Genus.GenusListViewModel>
 
 @using Genus = PlantDataMVC.Web.Models.ViewModels.Genus
+@using PlantDataMVC.Web.Constants;
 @{
     Genus.GenusListViewModel sampleElement = new Genus.GenusListViewModel();
 
@@ -14,11 +15,11 @@
           actionComplete="completeSort"
           toolbar="@(new List<string>() { "Add", "Edit", "Delete","Update","Cancel" })">
     <e-data-manager 
-        url="@Url.Action("UrlDatasource", "GenusGrid", new { page = Model.PageNumber, pageSize = Model.PageSize, sortBy = Model.SortBy, ascending = Model.SortAscending })" 
+        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.GenusGrid, new { page = Model.PageNumber, pageSize = Model.PageSize, sortBy = Model.SortBy, ascending = Model.SortAscending })" 
         adaptor="UrlAdaptor"
-        insertUrl="@Url.Action("Insert", "GenusGrid")"
-        updateUrl="@Url.Action("Update", "GenusGrid")"
-        removeUrl="@Url.Action("Delete", "GenusGrid")">
+        insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.GenusGrid)"
+        updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.GenusGrid)"
+        removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.GenusGrid)">
     </e-data-manager>
 @*    <e-grid-pagesettings pageSize="@Model.PageSize"></e-grid-pagesettings>*@    
     <e-grid-sortsettings columns="cols"></e-grid-sortsettings>

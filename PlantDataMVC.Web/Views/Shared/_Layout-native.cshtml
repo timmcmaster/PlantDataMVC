@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using PlantDataMVC.Web.Constants;
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
@@ -13,11 +14,11 @@
     <environment exclude="Development">
     </environment>
 
-@*    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
-*@
+    @*    <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+    *@
     <!-- TEST: Use CDN versions for external css as well -->
     <!-- jquery UI (base theme) -->
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
@@ -42,9 +43,9 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     var givenname = User.Claims.FirstOrDefault(c => c.Type == "given_name").Value;
-                    
+
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a asp-controller="Header" asp-action="Logout">Welcome @givenname (Logout)</a></li>
+                        <li><a asp-controller=@PlantDataMvcAppControllers.Header asp-action="Logout">Welcome @givenname (Logout)</a></li>
                     </ul>
                 }
             </div>
@@ -58,69 +59,69 @@
             <div>
                 <ul id="menu" class="mymenu">
                     <li>
-                        <a asp-controller="Home" asp-action="Index">Home</a>
+                        <a asp-controller=@PlantDataMvcAppControllers.Home asp-action="Index">Home</a>
                     </li>
                     <li>
-                        <a asp-controller="Genus" asp-action="IndexVC">Genera</a>
+                        <a asp-controller=@PlantDataMvcAppControllers.Genus asp-action="IndexVC">Genera</a>
                         <ul class="mysub-menu">
                             <li>
-                                <a asp-controller="Genus" asp-action="New">New</a>
+                                <a asp-controller=@PlantDataMvcAppControllers.Genus asp-action="New">New</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a asp-controller="Plant" asp-action="Index">Plants</a>
+                        <a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Index">Plants</a>
                         <ul class="mysub-menu">
                             <li>
-                                <a asp-controller="Plant" asp-action="New">New</a>
+                                <a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="New">New</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a asp-controller="SeedBatch" asp-action="Index">Plant Seeds</a>
+                        <a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Index">Plant Seeds</a>
                         <ul class="mysub-menu">
                             <li>
-                                <a asp-controller="SeedBatch" asp-action="New">New</a>
+                                <a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="New">New</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a asp-controller="Site" asp-action="Index">Sites</a>
+                        <a asp-controller=@PlantDataMvcAppControllers.Site asp-action="Index">Sites</a>
                         <ul class="mysub-menu">
                             <li>
-                                <a asp-controller="Site" asp-action="New">New</a>
+                                <a asp-controller=@PlantDataMvcAppControllers.Site asp-action="New">New</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a asp-controller="PlantStock" asp-action="Index">Plant Stock</a>
+                        <a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Index">Plant Stock</a>
                         <ul class="mysub-menu">
                             <li>
-                                <a asp-controller="PlantStock" asp-action="New">New</a>
+                                <a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="New">New</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a asp-controller="SeedTray" asp-action="Index">Seed Trays</a>
+                        <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Index">Seed Trays</a>
                         <ul class="mysub-menu">
                             <li>
-                                <a asp-controller="SeedTray" asp-action="New">New</a>
+                                <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="New">New</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a asp-controller="SaleEvent" asp-action="Index">Sales</a>
+                        <a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="Index">Sales</a>
                         <ul class="mysub-menu">
                             <li>
-                                <a asp-controller="SaleEvent" asp-action="New">New</a>
+                                <a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="New">New</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a asp-controller="Home" asp-action="About">About</a>
+                        <a asp-controller=@PlantDataMvcAppControllers.Home asp-action="About">About</a>
                     </li>
                     <li>
-                        <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <a asp-controller=@PlantDataMvcAppControllers.Home asp-action="Privacy">Privacy</a>
                     </li>
                 </ul>
                 <hr />

@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.Plant.PlantEditViewModel
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.Plant.PlantEditViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -6,7 +7,7 @@
 
 <h2>Edit</h2>
 
-<form asp-action="Update" asp-controller="Plant">
+<form asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Update">
     <div asp-validation-summary="ModelOnly"></div>
     <fieldset>
         <legend>Plant</legend>
@@ -74,5 +75,5 @@
 </form>
 
 <div>
-    <a asp-controller="Plant" asp-action="Index">Back to List</a>
+    <a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Index">Back to List</a>
 </div>

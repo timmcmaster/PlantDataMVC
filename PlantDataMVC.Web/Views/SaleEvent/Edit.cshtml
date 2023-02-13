@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.SaleEvent.SaleEventEditViewModel
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.SaleEvent.SaleEventEditViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -6,7 +7,7 @@
 
 <h2>Edit</h2>
 
-<form asp-action="Update" asp-controller="SaleEvent">
+<form asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action ="Update">
     <div asp-validation-summary="ModelOnly"></div>
     <fieldset>
         <legend>Sale</legend>
@@ -20,6 +21,6 @@
 </form>
 
 <div>
-    <a asp-controller="SaleEvent" asp-action="Index">Back to Index</a>
+    <a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="Index">Back to Index</a>
 </div>
 

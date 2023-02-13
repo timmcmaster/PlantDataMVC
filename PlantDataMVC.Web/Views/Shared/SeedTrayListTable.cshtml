@@ -1,8 +1,9 @@
 ﻿@model IList<PlantDataMVC.Web.Models.ViewModels.SeedTray.SeedTrayListViewModel>
+@using PlantDataMVC.Web.Constants;
 @using SeedTray = PlantDataMVC.Web.Models.ViewModels.SeedTray
 
 @{
-    SeedTray.SeedTrayListViewModel sampleElement = new SeedTray.SeedTrayListViewModel();   
+    SeedTray.SeedTrayListViewModel sampleElement = new SeedTray.SeedTrayListViewModel();
 }
 <table class="grid">
     <tr>
@@ -14,18 +15,19 @@
         <th></th>
     </tr>
 
-@{
-int count = 0;
-foreach (var entry in Model) {
-    <tr>
-        <td><a asp-controller="SeedTray" asp-action="Show" asp-route-id="@entry.Id">@entry.Id.ToString()</a></td>
-        <td><a asp-controller="SeedBatch" asp-action="Show" asp-route-id="@entry.SeedBatchId">@entry.SeedBatchId.ToString()</a></td>
-        <td>@Html.DisplayFor(m => m.ElementAt(count).SpeciesBinomial)</td>
-        <td>@Html.DisplayFor(m => m.ElementAt(count).DateSown)</td>
-        <td><a asp-controller="SeedTray" asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
-        <td><a asp-controller="SeedTray" asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
-    </tr>
-    count++;
-}
-}
+    @{
+        int count = 0;
+        foreach (var entry in Model)
+        {
+            <tr>
+                <td><a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Show" asp-route-id="@entry.Id">@entry.Id.ToString()</a></td>
+                <td><a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Show" asp-route-id="@entry.SeedBatchId">@entry.SeedBatchId.ToString()</a></td>
+                <td>@Html.DisplayFor(m => m.ElementAt(count).SpeciesBinomial)</td>
+                <td>@Html.DisplayFor(m => m.ElementAt(count).DateSown)</td>
+                <td><a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
+                <td><a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
+            </tr>
+            count++;
+        }
+    }
 </table>
