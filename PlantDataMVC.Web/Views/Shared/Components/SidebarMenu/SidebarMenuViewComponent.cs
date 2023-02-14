@@ -59,8 +59,8 @@ namespace PlantDataMVC.Web.Shared.Components.MainMenu
                 // Syncusion Controls Views menu 
                 new MenuItemViewModel(id:"item3", text:"Syncfusion Views", parentId:"null", string.Empty, iconCss:"icon-plus icon"),
                 new MenuItemViewModel(id:"item3.1", text:"Genera", parentId:"item3", url:Url.Action("IndexVC", PlantDataMvcAppControllers.Genus) ?? string.Empty),
-                new MenuItemViewModel(id:"item3.2", text:"Plant", parentId:"item3", url:Url.Action("IndexVC", PlantDataMvcAppControllers.Plant) ?? string.Empty) //,
-                //new MenuItemViewModel(id:"item3.3", text:"Plant Seeds", parentId:"item3", url:Url.Action("Index", PlantDataMvcAppControllers.SeedBatch) ?? string.Empty),
+                new MenuItemViewModel(id:"item3.2", text:"Plant", parentId:"item3", url:Url.Action("IndexVC", PlantDataMvcAppControllers.Plant) ?? string.Empty),
+                new MenuItemViewModel(id:"item3.3", text:"Plant Seeds", parentId:"item3", url:Url.Action("IndexVC", PlantDataMvcAppControllers.SeedBatch) ?? string.Empty)//,
                 //new MenuItemViewModel(id:"item3.4", text:"Sites", parentId:"item3", url:Url.Action("Index", PlantDataMvcAppControllers.Site) ?? string.Empty),
                 //new MenuItemViewModel(id:"item3.5", text:"Plant Stock", parentId:"item3", url:Url.Action("Index", @PlantDataMvcAppControllers.PlantStock) ?? string.Empty),
                 //new MenuItemViewModel(id:"item3.6", text:"Seed Trays", parentId:"item3", url:Url.Action("Index", PlantDataMvcAppControllers.SeedTray) ?? string.Empty),
