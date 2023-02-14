@@ -17,6 +17,7 @@
         public const string GenusGrid = "GenusGrid";
         public const string PlantGrid = "PlantGrid";
         public const string SeedBatchGrid = "SeedBatchGrid";
+        public const string SeedTrayGrid = "SeedTrayGrid";
         public const string SiteGrid = "SiteGrid";
     }
 }
