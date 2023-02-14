@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PlantDataMVC.Web.Controllers.Queries.Plant;
-using PlantDataMVC.Web.Models.EditModels.Plant;
+using PlantDataMVC.Web.Controllers.Queries.Site;
+using PlantDataMVC.Web.Models.EditModels.Site;
 using Syncfusion.EJ2.Base;
 using System;
 using System.Linq;
@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Controllers
 {
-    public class PlantGridController : Controller
+    public class SiteGridController : Controller
     {
         private readonly IMediator _mediator;
 
-        public PlantGridController(IMediator mediator)
+        public SiteGridController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -59,7 +59,7 @@ namespace PlantDataMVC.Web.Controllers
             }
         }
 
-        public async Task<ActionResult> Insert([FromBody] CRUDModel<PlantCreateEditModel> x)
+        public async Task<ActionResult> Insert([FromBody] CRUDModel<SiteCreateEditModel> x)
         {
             // TODO: won't be correct, as we can't select the parent genus from the grid
             var form = x.Value;
@@ -69,7 +69,7 @@ namespace PlantDataMVC.Web.Controllers
             return Json(form);
         }
 
-        public async Task<ActionResult> Update([FromBody] CRUDModel<PlantUpdateEditModel> x)
+        public async Task<ActionResult> Update([FromBody] CRUDModel<SiteUpdateEditModel> x)
         {
             var form = x.Value;
 
@@ -78,10 +78,10 @@ namespace PlantDataMVC.Web.Controllers
             return Json(form);
         }
 
-        public async Task<ActionResult> Delete([FromBody] CRUDModel<PlantDestroyEditModel> x)
+        public async Task<ActionResult> Delete([FromBody] CRUDModel<SiteDestroyEditModel> x)
         {
             var id = Convert.ToInt32(x.Key.ToString());
-            var form = new PlantDestroyEditModel() { Id = id };
+            var form = new SiteDestroyEditModel() { Id = id };
             
             var result = await _mediator.Send(form);
 

@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Shared.Components.GenusGrid
 {
-    public class PlantGridViewComponent : ViewComponent
+    public class GenusGrid: ViewComponent
     {
-        public PlantGridViewComponent()
+        public GenusGrid()
         {
             Console.WriteLine("Called VC constructor");
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Plant.PlantListViewModel> model)
+        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Genus.GenusListViewModel> model)
         {
-            return View();
+            return View(model);
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Controllers
 {
-    public class SeedBatchGridController : DefaultController
+    public class SeedBatchGridController : Controller
     {
         private readonly IMediator _mediator;
 

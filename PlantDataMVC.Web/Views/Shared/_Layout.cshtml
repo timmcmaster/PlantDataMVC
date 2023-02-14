@@ -1,4 +1,6 @@
-﻿@functions {
+﻿@using PlantDataMVC.Web.Shared.Components.MainMenu;
+
+@functions {
     enum CssSource { FromCdn, FromBundledLocal, FromFullLocal };
     enum JsSource { FromCdn, FromBundledLocal, FromFullLocal };
 }
@@ -110,7 +112,7 @@
         </div>
 
         @*sidebar element declaration*@
-        @await Component.InvokeAsync("SidebarMenu",
+        @await Component.InvokeAsync(nameof(SidebarMenu),
                          new { 
                              targetCss = ".main-content",
                              dockWidth = "50px",

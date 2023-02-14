@@ -1,0 +1,36 @@
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Site.SiteListViewModel>
+
+@using Site = PlantDataMVC.Web.Models.ViewModels.Site
+@using PlantDataMVC.Web.Constants;
+@{
+    Site.SiteListViewModel sampleElement = new Site.SiteListViewModel();
+}
+
+<ejs-grid id="SiteGrid"
+          allowPaging="true"
+          allowSorting="true"
+          height="550" width="1000"        
+          toolbar="@(new List<string>() { "Add", "Edit", "Delete","Update","Cancel" })">
+    <e-data-manager adaptor="UrlAdaptor"
+                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.SiteGrid)"
+                    insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.SiteGrid)"
+                    updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.SiteGrid)"
+                    removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.SiteGrid)">
+    </e-data-manager>
+    <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+    <e-grid-editsettings allowAdding="true" allowEditing="true" allowDeleting="true"></e-grid-editsettings>
+    <e-grid-columns>
+        <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.SiteName)" headerText="@Html.DisplayNameFor(x => sampleElement.SiteName)"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.Suburb)" headerText="@Html.DisplayNameFor(x => sampleElement.Suburb)"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.Latitude)" headerText="@Html.DisplayNameFor(x => sampleElement.Latitude)"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.Longitude)" headerText="@Html.DisplayNameFor(x => sampleElement.Longitude)"></e-grid-column>
+    </e-grid-columns>
+</ejs-grid>
+
+<style>
+    .e-grid .e-row .e-rowcell {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+</style>

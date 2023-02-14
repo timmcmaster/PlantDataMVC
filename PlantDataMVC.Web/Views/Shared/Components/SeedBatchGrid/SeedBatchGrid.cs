@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Shared.Components.SeedBatchGrid
 {
-    public class SeedBatchGridViewComponent : ViewComponent
+    public class SeedBatchGrid : ViewComponent
     {
-        public SeedBatchGridViewComponent()
+        public SeedBatchGrid()
         {
             Console.WriteLine("Called VC constructor");
         }
