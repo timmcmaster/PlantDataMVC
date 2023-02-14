@@ -92,7 +92,8 @@ namespace PlantDataMVC.Web.Mappers
             CreateMap<SpeciesDataModel, Plant.PlantListViewModel>()
                .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
-               .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id));
+               .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+               .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native));
 
             CreateMap<SpeciesDataModel, Plant.PlantNewViewModel>()
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))

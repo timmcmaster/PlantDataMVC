@@ -91,6 +91,10 @@ namespace PlantDataMVC.Web.Handlers.Views.Plant
             {
                 sortField = nameof(SpeciesDataModel.CommonName);
             }
+            else if (querySortBy == nameof(PlantListViewModel.Native))
+            {
+                sortField = nameof(SpeciesDataModel.Native);
+            }
 
             return sortField;
         }

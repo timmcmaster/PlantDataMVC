@@ -13,5 +13,8 @@ namespace PlantDataMVC.Web.Models.ViewModels.Plant
 
         [Display(Name = "Common Name")]
         public string CommonName { get; set; }
+
+        [Display(Name = "Native")]
+        public bool Native { get; set; }
     }
 }
