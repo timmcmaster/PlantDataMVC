@@ -3,7 +3,7 @@ using PlantDataMVC.Web.Models.ViewModels;
 using System;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.Web.Shared.Components.GenusGrid
+namespace PlantDataMVC.Web.Shared.Components.PlantGrid
 {
     public class PlantGrid : ViewComponent
     {

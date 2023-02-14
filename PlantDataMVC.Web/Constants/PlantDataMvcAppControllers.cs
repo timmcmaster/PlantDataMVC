@@ -20,5 +20,6 @@
         public const string SeedTrayGrid = "SeedTrayGrid";
         public const string SiteGrid = "SiteGrid";
         public const string SaleEventGrid = "SaleEventGrid";
+        public const string PlantStockGrid = "PlantStockGrid";
     }
 }
