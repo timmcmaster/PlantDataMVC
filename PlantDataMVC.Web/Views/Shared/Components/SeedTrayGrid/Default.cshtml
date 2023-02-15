@@ -4,6 +4,7 @@
 @using PlantDataMVC.Web.Constants;
 @{
     SeedTray.SeedTrayListViewModel sampleElement = new SeedTray.SeedTrayListViewModel();
+    var dpParams = (new { @params = new { format = "dd/MM/yyyy" } });
 }
 
 <ejs-grid id="SeedBatchGrid"
@@ -23,7 +24,7 @@
         <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
         <e-grid-column field="@nameof(sampleElement.SeedBatchId)" headerText="@Html.DisplayNameFor(x => sampleElement.SeedBatchId)" visible="false" isPrimaryKey="true"></e-grid-column>
         <e-grid-column field="@nameof(sampleElement.SpeciesBinomial)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.DateSown)" headerText="@Html.DisplayNameFor(x => sampleElement.DateSown)" type="date" format="dd/MM/yyyy"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.DateSown)" headerText="@Html.DisplayNameFor(x => sampleElement.DateSown)" type="date" format="dd/MM/yyyy" editType="datepickeredit" edit="dpParams"></e-grid-column>
     </e-grid-columns>
 </ejs-grid>
 
