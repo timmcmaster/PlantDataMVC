@@ -149,7 +149,6 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(e => e.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId)) // explicit and unnecessary
                 .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId)) // explicit and unnecessary
                 .ForMember(e => e.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock)) // explicit and unnecessary
-                .ForMember(e => e.JournalEntries, opt => opt.Ignore())
                 .ForMember(e => e.ProductType, opt => opt.Ignore())
                 .ForMember(e => e.Species, opt => opt.Ignore());
 
@@ -158,7 +157,6 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(e => e.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId)) // explicit and unnecessary
                 .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId)) // explicit and unnecessary
                 .ForMember(e => e.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock)) // explicit and unnecessary
-                .ForMember(e => e.JournalEntries, opt => opt.MapFrom(dm => dm.JournalEntries)) // ICollection, explicit and unnecessary
                 .ForMember(e => e.ProductType, opt => opt.Ignore())
                 .ForMember(e => e.Species, opt => opt.Ignore());
         }
@@ -167,20 +165,23 @@ namespace PlantDataMVC.Api.Models.Mappers
         {
             CreateMap<CreateUpdateJournalEntryDataModel, JournalEntryEntityModel>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
-                .ForMember(e => e.PlantStockId, opt => opt.MapFrom(dm => dm.PlantStockId)) // explicit and unnecessary
+                .ForMember(e => e.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId)) // explicit and unnecessary
+                .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId)) // explicit and unnecessary
                 .ForMember(e => e.Quantity, opt => opt.MapFrom(dm => dm.Quantity)) // explicit and unnecessary
                 .ForMember(e => e.JournalEntryTypeId, opt => opt.MapFrom(dm => dm.JournalEntryTypeId)) // explicit and unnecessary
                 .ForMember(e => e.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate)) // explicit and unnecessary
                 .ForMember(e => e.Source, opt => opt.MapFrom(dm => dm.Source)) // explicit and unnecessary
                 .ForMember(e => e.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId)) // explicit and unnecessary
                 .ForMember(e => e.Notes, opt => opt.MapFrom(dm => dm.Notes)) // explicit and unnecessary
+                .ForMember(e => e.Species, opt => opt.Ignore())
+                .ForMember(e => e.ProductType, opt => opt.Ignore())
                 .ForMember(e => e.JournalEntryType, opt => opt.Ignore())
-                .ForMember(e => e.PlantStock, opt => opt.Ignore())
                 .ForMember(e => e.SeedTray, opt => opt.Ignore());
 
             CreateMap<JournalEntryDataModel, JournalEntryEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dm => dm.Id)) // explicit and unnecessary
-                .ForMember(e => e.PlantStockId, opt => opt.MapFrom(dm => dm.PlantStockId)) // explicit and unnecessary
+                .ForMember(e => e.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId)) // explicit and unnecessary
+                .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId)) // explicit and unnecessary
                 .ForMember(e => e.Quantity, opt => opt.MapFrom(dm => dm.Quantity)) // explicit and unnecessary
                 .ForMember(e => e.JournalEntryTypeId, opt => opt.MapFrom(dm => dm.JournalEntryTypeId)) // explicit and unnecessary
                 .ForMember(e => e.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate)) // explicit and unnecessary
@@ -188,7 +189,8 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(e => e.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId)) // explicit and unnecessary
                 .ForMember(e => e.Notes, opt => opt.MapFrom(dm => dm.Notes)) // explicit and unnecessary
                 .ForMember(e => e.JournalEntryType, opt => opt.Ignore())
-                .ForMember(e => e.PlantStock, opt => opt.Ignore())
+                .ForMember(e => e.Species, opt => opt.Ignore())
+                .ForMember(e => e.ProductType, opt => opt.Ignore())
                 .ForMember(e => e.SeedTray, opt => opt.Ignore());
         }
 

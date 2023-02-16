@@ -252,8 +252,7 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock))
                 .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
-                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
-                .ForMember(uio => uio.Transactions, opt => opt.MapFrom(dm => dm.JournalEntries));
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId));
             // TODO: What about ProductTypeId from dm?
 
         }
@@ -264,7 +263,8 @@ namespace PlantDataMVC.Web.Mappers
             CreateMap<JournalEntryDataModel, Transaction.TransactionDeleteViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes))
-                .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dm => dm.PlantStockId))
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
@@ -274,7 +274,8 @@ namespace PlantDataMVC.Web.Mappers
             CreateMap<JournalEntryDataModel, Transaction.TransactionEditViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes))
-                .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dm => dm.PlantStockId))
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
@@ -283,14 +284,16 @@ namespace PlantDataMVC.Web.Mappers
 
             CreateMap<JournalEntryDataModel, Transaction.TransactionListViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-                .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dm => dm.PlantStockId))
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
                 .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dm => dm.JournalEntryTypeName));
 
             CreateMap<JournalEntryDataModel, Transaction.TransactionNewViewModel>()
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes))
-                .ForMember(uio => uio.PlantStockId, opt => opt.MapFrom(dm => dm.PlantStockId))
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))

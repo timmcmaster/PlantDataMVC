@@ -22,13 +22,6 @@ namespace PlantDataMVC.Entities.EntityModels
         [Display(Name = "Quantity in stock")]
         public int QuantityInStock { get; set; } // QuantityInStock
 
-        // Reverse navigation
-
-        /// <summary>
-        /// Child JournalEntries where [JournalEntry].[PlantStockId] point to this entity (FK_Transactions_PlantStock)
-        /// </summary>
-        public virtual ICollection<JournalEntryEntityModel> JournalEntries { get; set; } // JournalEntry.FK_Transactions_PlantStock
-
         // Foreign keys
 
         /// <summary>
@@ -43,7 +36,6 @@ namespace PlantDataMVC.Entities.EntityModels
 
         public PlantStockEntityModel()
         {
-            JournalEntries = new List<JournalEntryEntityModel>();
         }
     }
 

@@ -160,8 +160,7 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(dm => dm.SpeciesName, opt => opt.Ignore())
                 .ForMember(dm => dm.ProductTypeId, opt => opt.Ignore())
                 .ForMember(dm => dm.ProductTypeName, opt => opt.Ignore())
-                .ForMember(dm => dm.QuantityInStock, opt => opt.Ignore())
-                .ForMember(dm => dm.JournalEntries, opt => opt.Ignore());
+                .ForMember(dm => dm.QuantityInStock, opt => opt.Ignore());
 
             CreateMap<PlantStock.PlantStockUpdateEditModel, CreateUpdatePlantStockDataModel>()
                 .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductTypeId))
@@ -175,7 +174,8 @@ namespace PlantDataMVC.Web.Mappers
             CreateMap<Transaction.TransactionCreateEditModel, CreateUpdateJournalEntryDataModel>()
                 .ForMember(dm => dm.JournalEntryTypeId, opt => opt.MapFrom(uio => uio.TransactionType.Id))
                 .ForMember(dm => dm.Notes, opt => opt.MapFrom(uio => uio.Notes))
-                .ForMember(dm => dm.PlantStockId, opt => opt.MapFrom(uio => uio.PlantStockId))
+                .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId))
+                .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductTypeId))
                 .ForMember(dm => dm.Quantity, opt => opt.MapFrom(uio => uio.Quantity))
                 .ForMember(dm => dm.SeedTrayId, opt => opt.MapFrom(uio => uio.SeedTrayId))
                 .ForMember(dm => dm.Source, opt => opt.MapFrom(uio => uio.TransactionSource))
@@ -183,7 +183,8 @@ namespace PlantDataMVC.Web.Mappers
 
             CreateMap<Transaction.TransactionDestroyEditModel, JournalEntryDataModel>()
                 .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
-                .ForMember(dm => dm.PlantStockId, opt => opt.Ignore())
+                .ForMember(dm => dm.SpeciesId, opt => opt.Ignore())
+                .ForMember(dm => dm.ProductTypeId, opt => opt.Ignore())
                 .ForMember(dm => dm.JournalEntryTypeId, opt => opt.Ignore())
                 .ForMember(dm => dm.JournalEntryTypeName, opt => opt.Ignore())
                 .ForMember(dm => dm.TransactionDate, opt => opt.Ignore())
@@ -195,7 +196,8 @@ namespace PlantDataMVC.Web.Mappers
             CreateMap<Transaction.TransactionUpdateEditModel, CreateUpdateJournalEntryDataModel>()
                 .ForMember(dm => dm.JournalEntryTypeId, opt => opt.MapFrom(uio => uio.TransactionType.Id))
                 .ForMember(dm => dm.Notes, opt => opt.MapFrom(uio => uio.Notes))
-                .ForMember(dm => dm.PlantStockId, opt => opt.MapFrom(uio => uio.PlantStockId))
+                .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId))
+                .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductTypeId))
                 .ForMember(dm => dm.Quantity, opt => opt.MapFrom(uio => uio.Quantity))
                 .ForMember(dm => dm.SeedTrayId, opt => opt.MapFrom(uio => uio.SeedTrayId))
                 .ForMember(dm => dm.Source, opt => opt.MapFrom(uio => uio.TransactionSource))

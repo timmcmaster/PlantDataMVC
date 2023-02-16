@@ -8,6 +8,7 @@ using PlantDataMVC.Web.Controllers.Queries.Transaction;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.EditModels.Transaction;
 using PlantDataMVC.Web.Models.ViewModels.Transaction;
+using PlantDataMVC.Web.Shared.Components.PlantStockGrid;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Controllers
@@ -32,19 +33,20 @@ namespace PlantDataMVC.Web.Controllers
         /// <returns></returns>
         //[RequireRequestValue("plantStockId")]
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public ActionResult New(int plantStockId)
+        public ActionResult New(int speciesId, int productTypeId)
         {
-            var item = new JournalEntryDataModel { PlantStockId = plantStockId };
+            var item = new JournalEntryDataModel { SpeciesId = speciesId, ProductTypeId = productTypeId };
             var model = _mapper.Map<JournalEntryDataModel, TransactionNewViewModel>(item);
             return View(model);
         }
 
         // POST: /"ControllerName"/Create
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(int plantStockId, TransactionCreateEditModel form)
+        public async Task<ActionResult> Create(TransactionCreateEditModel form)
         {
             var failureResult = DefaultFormFailureResult();
-            var successResult = RedirectToAction("Details", PlantDataMvcAppControllers.PlantStock, new { id = plantStockId });
+            //var successResult = RedirectToAction("Details", PlantDataMvcAppControllers.PlantStock, new { id = plantStockId });
+            var successResult = RedirectToAction("About", PlantDataMvcAppControllers.Home); // TODO: fix redirect
 
             if (!ModelState.IsValid)
             {

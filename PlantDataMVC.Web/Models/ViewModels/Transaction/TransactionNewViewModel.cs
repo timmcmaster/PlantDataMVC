@@ -5,8 +5,11 @@ namespace PlantDataMVC.Web.Models.ViewModels.Transaction
 {
     public class TransactionNewViewModel
     {
-        [Display(Name = "Plant Stock Id")]
-        public int PlantStockId { get; set; }
+        [Display(Name = "Species Id")]
+        public int SpeciesId { get; set; }
+
+        [Display(Name = "Product Type Id")]
+        public int ProductTypeId { get; set; }
 
         [Display(Name = "Transaction Type")]
         public int TransactionTypeId { get; set; }

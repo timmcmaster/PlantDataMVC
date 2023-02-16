@@ -42,7 +42,8 @@ namespace PlantDataMVC.Api.Controllers
             [FromQuery] DataShapingParameters dsParams,
             [FromQuery] PagingParameters pgParams,
             [FromQuery] SortingParameters sortParams,
-            [FromQuery] int plantStockId)
+            [FromQuery] int speciesId,
+            [FromQuery] int productTypeId)
         {
             try
             {
@@ -66,7 +67,7 @@ namespace PlantDataMVC.Api.Controllers
                 var dataModels = _mapper
                            .ProjectTo<JournalEntryDataModel>(context, childDataModelsToInclude.ToArray())
                            .ApplySort(sortParams.Sort)
-                           .Where(s => s.PlantStockId == plantStockId);
+                           .Where(s => s.SpeciesId == speciesId && s.ProductTypeId == productTypeId);
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
@@ -75,7 +76,8 @@ namespace PlantDataMVC.Api.Controllers
                     new
                     {
                         sortParams.Sort,
-                        plantStockId,
+                        speciesId,
+                        productTypeId,
                         dsParams.Fields
                     },
                     pgParams.Page,

@@ -134,7 +134,6 @@ namespace PlantDataMVC.Api.Controllers
                             .Queryable(useTracking: true)
                             .Include(p => p.Species).ThenInclude(m => m.Genus)
                             .Include(p => p.ProductType)
-                            .Include(p => p.JournalEntries)
                             .Where(s => s.Id == id)
                             //.Select()
                             .Single();

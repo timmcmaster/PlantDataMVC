@@ -5,6 +5,6 @@ namespace PlantDataMVC.Repository.Interfaces
 {
     public interface IJournalEntryRepository : IRepositoryAsync<JournalEntryEntityModel>
     {
-        int GetStockCountForProduct(int plantStockId);
+        int GetStockCountForSpeciesAndProduct(int speciesId, int productTypeId);
     }
 }

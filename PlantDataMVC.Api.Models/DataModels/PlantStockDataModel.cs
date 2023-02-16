@@ -11,6 +11,5 @@ namespace PlantDataMVC.Api.Models.DataModels
         public int ProductTypeId { get; set; }
         public string ProductTypeName { get; set; }
         public int QuantityInStock { get; set; }
-        public ICollection<JournalEntryDataModel> JournalEntries { get; set; }
     }
 }

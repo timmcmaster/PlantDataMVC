@@ -5,7 +5,8 @@ namespace PlantDataMVC.Api.Models.DataModels
     public class JournalEntryDataModel : IDataModel
     {
         public int Id { get; set; }
-        public int PlantStockId { get; set; }
+        public int SpeciesId { get; set; }
+        public int ProductTypeId { get; set; }
         public int JournalEntryTypeId { get; set; }
         public string JournalEntryTypeName { get; set; }
         public DateTime TransactionDate { get; set; }

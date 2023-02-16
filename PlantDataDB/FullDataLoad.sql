@@ -546,7 +546,7 @@ INSERT INTO [dbo].[JournalEntryType] ([Id],[Name],[Effect]) VALUES (8, N'POTTED 
 INSERT INTO [dbo].[JournalEntryType] ([Id],[Name],[Effect]) VALUES (9, N'STOCK ADJUSTMENT', 1)
 SET IDENTITY_INSERT [dbo].[JournalEntryType] OFF
 
--- sample plant stock entries
+-- sample plant stock (summary) entries
 SET IDENTITY_INSERT [dbo].[PlantStock] ON
 INSERT INTO [dbo].[PlantStock] ([Id], [SpeciesId], [ProductTypeId], [QuantityInStock]) VALUES (1, 140, 1, 0)
 INSERT INTO [dbo].[PlantStock] ([Id], [SpeciesId], [ProductTypeId], [QuantityInStock]) VALUES (2, 141, 1, 7)
@@ -555,12 +555,11 @@ SET IDENTITY_INSERT [dbo].[PlantStock] OFF
 
 -- sample transaction entries
 SET IDENTITY_INSERT [dbo].[JournalEntry] ON
-INSERT INTO [dbo].JournalEntry ([Id],[PlantStockId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(1,1,10,3,N'2019-01-07',NULL,1,NULL)
-INSERT INTO [dbo].JournalEntry ([Id],[PlantStockId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(2,1,10,1,N'2019-01-21',N'January Sale',NULL,N'Notes')
-INSERT INTO [dbo].JournalEntry ([Id],[PlantStockId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(3,2,10,3,N'2019-01-07',NULL,2,NULL)
-INSERT INTO [dbo].JournalEntry ([Id],[PlantStockId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(4,2,3,1,N'2019-01-21',N'January Sale',NULL,N'Notes')
-INSERT INTO [dbo].JournalEntry ([Id],[PlantStockId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(5,3,10,3,N'2019-01-07',NULL,3,NULL)
-INSERT INTO [dbo].JournalEntry ([Id],[PlantStockId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(6,3,3,1,N'2019-01-21',N'January Sale',NULL,N'Notes')
-INSERT INTO [dbo].JournalEntry ([Id],[PlantStockId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(7,3,2,2,N'2019-01-21',NULL,NULL,N'Died in January heatwave')
+INSERT INTO [dbo].JournalEntry ([Id],[SpeciesId],[ProductTypeId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(1,140,1,10,3,N'2019-01-07',NULL,1,NULL)
+INSERT INTO [dbo].JournalEntry ([Id],[SpeciesId],[ProductTypeId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(2,140,1,10,1,N'2019-01-21',N'January Sale',NULL,N'Notes')
+INSERT INTO [dbo].JournalEntry ([Id],[SpeciesId],[ProductTypeId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(3,141,1,10,3,N'2019-01-07',NULL,2,NULL)
+INSERT INTO [dbo].JournalEntry ([Id],[SpeciesId],[ProductTypeId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(4,141,1,3,1,N'2019-01-21',N'January Sale',NULL,N'Notes')
+INSERT INTO [dbo].JournalEntry ([Id],[SpeciesId],[ProductTypeId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(5,142,1,10,3,N'2019-01-07',NULL,3,NULL)
+INSERT INTO [dbo].JournalEntry ([Id],[SpeciesId],[ProductTypeId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(6,142,1,3,1,N'2019-01-21',N'January Sale',NULL,N'Notes')
+INSERT INTO [dbo].JournalEntry ([Id],[SpeciesId],[ProductTypeId],[Quantity],[JournalEntryTypeId],[TransactionDate],[Source],[SeedTrayId],[Notes]) VALUES(7,142,1,2,2,N'2019-01-21',NULL,NULL,N'Died in January heatwave')
 SET IDENTITY_INSERT [dbo].[JournalEntry] OFF
-

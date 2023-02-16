@@ -21,7 +21,8 @@ namespace UnitTest.Utils.Domain
         private string _notes = DEFAULT_NOTES;
         private int _quantity = DEFAULT_QUANTITY;
         private JournalEntryTypeEntityModel _journalEntryType;
-        private PlantStockEntityModel _plantStock;
+        private SpeciesEntityModel _species;
+        private ProductTypeEntityModel _productType;
         private SeedTrayEntityModel _seedTray;
         private string _source = DEFAULT_SOURCE;
         private DateTime _transactionDate = DEFAULT_DATE;
@@ -75,9 +76,15 @@ namespace UnitTest.Utils.Domain
             return this;
         }
 
-        public JournalEntryBuilder withPlantStock(PlantStockEntityModel plantStock)
+        public JournalEntryBuilder withSpecies(SpeciesEntityModel species)
         {
-            _plantStock = plantStock;
+            _species = species;
+            return this;
+        }
+
+        public JournalEntryBuilder withProductType(ProductTypeEntityModel productType)
+        {
+            _productType = productType;
             return this;
         }
 
@@ -111,8 +118,10 @@ namespace UnitTest.Utils.Domain
                 Notes = _notes,
                 JournalEntryType = _journalEntryType,
                 JournalEntryTypeId = _journalEntryType.Id,
-                PlantStock = _plantStock,
-                PlantStockId = _plantStock.Id,
+                Species = _species,
+                SpeciesId = _species.Id,
+                ProductType = _productType,
+                ProductTypeId = _productType.Id,
                 Quantity = _quantity,
                 SeedTray = _seedTray,
                 SeedTrayId = (_seedTray != null) ? _seedTray.Id : (int?)null,

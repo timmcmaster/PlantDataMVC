@@ -18,11 +18,11 @@ namespace PlantDataMVC.Repository.Repositories
             return result;
         }
 
-        public int GetStockCountForProduct(int plantStockId)
+        public int GetStockCountForSpeciesAndProduct(int speciesId, int productTypeId)
         {
             return this
                    .Queryable(useTracking: false)
-                   .Where(je => je.PlantStockId == plantStockId)
+                   .Where(je => (je.SpeciesId == speciesId && je.ProductTypeId == productTypeId))
                    .Select(je => je.Quantity * je.JournalEntryType.Effect)
                    .Sum();
         }

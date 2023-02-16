@@ -127,15 +127,15 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(dm => dm.SpeciesName, opt => opt.MapFrom(e => e.Species.SpecificName))
                 .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(e => e.ProductTypeId)) // explicit and unnecessary
                 .ForMember(dm => dm.ProductTypeName, opt => opt.MapFrom(e => e.ProductType.Name))
-                .ForMember(dm => dm.QuantityInStock, opt => opt.MapFrom(e => e.QuantityInStock)) // explicit and unnecessary
-                .ForMember(dm => dm.JournalEntries, opt => opt.MapFrom(e => e.JournalEntries)); // ICollection, explicit and unnecessary
+                .ForMember(dm => dm.QuantityInStock, opt => opt.MapFrom(e => e.QuantityInStock)); // explicit and unnecessary
         }
 
         private void ConfigureJournalEntryMappings()
         {
             CreateMap<JournalEntryEntityModel, JournalEntryDataModel>()
                 .ForMember(dm => dm.Id, opt => opt.MapFrom(e => e.Id)) // explicit and unnecessary
-                .ForMember(dm => dm.PlantStockId, opt => opt.MapFrom(e => e.PlantStockId)) // explicit and unnecessary
+                .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(e => e.SpeciesId)) // explicit and unnecessary
+                .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(e => e.ProductTypeId)) // explicit and unnecessary
                 .ForMember(dm => dm.JournalEntryTypeId, opt => opt.MapFrom(e => e.JournalEntryTypeId)) // explicit and unnecessary
                 .ForMember(dm => dm.JournalEntryTypeName, opt => opt.MapFrom(e => e.JournalEntryType.Name)) // explicit and unnecessary
                 .ForMember(dm => dm.TransactionDate, opt => opt.MapFrom(e => e.TransactionDate)) // explicit and unnecessary

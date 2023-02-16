@@ -6,7 +6,8 @@ namespace PlantDataMVC.Web.Models.EditModels.Transaction
 {
     public class TransactionCreateEditModel : IForm<bool>
     {
-        public int PlantStockId { get; set; }
+        public int SpeciesId { get; set; }
+        public int ProductTypeId { get; set; }
         public JournalEntryTypeDataModel TransactionType { get; set; }
         public DateTime TransactionDate { get; set; }
         public int Quantity { get; set; }

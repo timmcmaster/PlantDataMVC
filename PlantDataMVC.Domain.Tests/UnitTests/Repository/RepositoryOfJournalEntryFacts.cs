@@ -78,7 +78,8 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                                           .aJournalEntry()
                                           .withId()
                                           .withJournalEntryType(addedTypeAdd)
-                                          .withPlantStock(addedStock)
+                                          .withProductType(addedProductType)
+                                          .withSpecies(addedSpecies)
                                           .withTransactionDate(DateTime.Today.AddDays(-5))
                                           .withQuantity(27)
                                           .Build();
@@ -87,7 +88,8 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                                            .aJournalEntry()
                                            .withId()
                                            .withJournalEntryType(addedTypeSale)
-                                           .withPlantStock(addedStock)
+                                           .withProductType(addedProductType)
+                                           .withSpecies(addedSpecies)
                                            .withTransactionDate(DateTime.Today.AddDays(-2))
                                            .withQuantity(12)
                                            .Build();
@@ -96,7 +98,8 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                                        .aJournalEntry()
                                        .withId()
                                        .withJournalEntryType(addedTypeSale)
-                                       .withPlantStock(addedStock)
+                                       .withProductType(addedProductType)
+                                       .withSpecies(addedSpecies)
                                        .withTransactionDate(DateTime.Today)
                                        .withQuantity(7)
                                        .Build();
@@ -107,7 +110,7 @@ namespace PlantDataMVC.Domain.Tests.UnitTests.Repository
                 jnlEntryRepository.Add(sell7PlantsToday);
 
                 // Act
-                var stockCount = jnlEntryRepository.GetStockCountForProduct(addedStock.Id);
+                var stockCount = jnlEntryRepository.GetStockCountForSpeciesAndProduct(addedSpecies.Id, addedProductType.Id);
 
                 // Assert
                 stockCount.Should().Be(8);

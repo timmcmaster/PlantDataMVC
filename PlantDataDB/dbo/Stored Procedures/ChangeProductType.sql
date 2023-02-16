@@ -38,28 +38,11 @@ BEGIN
 	--TODO: Should be a transaction around these two, manage error handling
 
 	-- Remove quantity from "from" product 
-	EXECUTE @RC = [dbo].[CreateJournalEntry] 
-	   @journalEntryTypeId
-	  ,@negQuantity
-	  ,@speciesId
-	  ,@fromProductTypeId
-	  ,@transactionDate
-	  ,@source
-	  ,@notes
-	  ,@jeResult OUTPUT
-	  ,@jeErrorMessage OUTPUT
-
+	INSERT dbo.JournalEntry (SpeciesId, ProductTypeId, Quantity, JournalEntryTypeId, TransactionDate, [Source], Notes)
+	VALUES (@speciesId, @fromProductTypeId, @negQuantity, @journalEntryTypeId, @transactionDate, @source, @notes);
+	
 	-- Add quantity to "to" product 
-	EXECUTE @RC = [dbo].[CreateJournalEntry] 
-	   @journalEntryTypeId
-	  ,@quantity
-	  ,@speciesId
-	  ,@toProductTypeId
-	  ,@transactionDate
-	  ,@source
-	  ,@notes
-	  ,@jeResult OUTPUT
-	  ,@jeErrorMessage OUTPUT
+	INSERT dbo.JournalEntry (SpeciesId, ProductTypeId, Quantity, JournalEntryTypeId, TransactionDate, [Source], Notes)
+	VALUES (@speciesId, @fromProductTypeId, @quantity, @journalEntryTypeId, @transactionDate, @source, @notes);
 
-	RETURN @jeResult;
 END

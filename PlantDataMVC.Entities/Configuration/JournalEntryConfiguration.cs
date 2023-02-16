@@ -25,7 +25,8 @@ namespace PlantDataMVC.Entities.Configuration
 
             // Properties
             builder.Property(x => x.Id).IsRequired();
-            builder.Property(x => x.PlantStockId).IsRequired();
+            builder.Property(x => x.SpeciesId).IsRequired();
+            builder.Property(x => x.ProductTypeId).IsRequired();
             builder.Property(x => x.Quantity).IsRequired();
             builder.Property(x => x.JournalEntryTypeId).IsRequired();
             builder.Property(x => x.TransactionDate).IsRequired();
@@ -39,7 +40,8 @@ namespace PlantDataMVC.Entities.Configuration
             builder.ToTable("JournalEntry", _schema);
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").UseIdentityColumn();
-            builder.Property(x => x.PlantStockId).HasColumnName(@"PlantStockId").HasColumnType("int");
+            builder.Property(x => x.SpeciesId).HasColumnName(@"SpeciesId").HasColumnType("int");
+            builder.Property(x => x.ProductTypeId).HasColumnName(@"ProductTypeId").HasColumnType("int");
             builder.Property(x => x.Quantity).HasColumnName(@"Quantity").HasColumnType("int");
             builder.Property(x => x.JournalEntryTypeId).HasColumnName(@"JournalEntryTypeId").HasColumnType("int");
             builder.Property(x => x.TransactionDate).HasColumnName(@"TransactionDate").HasColumnType("date");
@@ -50,7 +52,8 @@ namespace PlantDataMVC.Entities.Configuration
             // Foreign keys
             builder.HasOne(a => a.SeedTray).WithMany(b => b.JournalEntries).HasForeignKey(c => c.SeedTrayId).OnDelete(DeleteBehavior.NoAction); // FK_Transactions_SeedTray
             builder.HasOne(a => a.JournalEntryType).WithMany(b => b.JournalEntries).HasForeignKey(c => c.JournalEntryTypeId).OnDelete(DeleteBehavior.NoAction); // FK_Transactions_TransactionType
-            builder.HasOne(a => a.PlantStock).WithMany(b => b.JournalEntries).HasForeignKey(c => c.PlantStockId).OnDelete(DeleteBehavior.NoAction); // FK_Transactions_PlantStock
+            // TODO: Do we need FK to Species?
+            // TODO: Do we need FK to ProductType?
         }
     }
 

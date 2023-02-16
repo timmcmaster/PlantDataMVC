@@ -13,11 +13,18 @@
         <legend>Transaction</legend>
 
         <div class="editor-label">
-            <label asp-for="PlantStockId"></label>
+            <label asp-for="SpeciesId"></label>
         </div>
         <div class="editor-field">
-            @Html.DisplayFor(model => model.PlantStockId)
-            <span asp-validation-for="PlantStockId"></span>
+            @Html.EditorFor(model => model.SpeciesId)
+            <span asp-validation-for="SpeciesId"></span>
+        </div>
+        <div class="editor-label">
+            <label asp-for="ProductTypeId"></label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProductTypeId)
+            <span asp-validation-for="ProductTypeId"></span>
         </div>
 
         <div class="editor-label">

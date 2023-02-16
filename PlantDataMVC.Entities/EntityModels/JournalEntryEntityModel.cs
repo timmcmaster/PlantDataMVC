@@ -14,8 +14,12 @@ namespace PlantDataMVC.Entities.EntityModels
         public int Id { get; set; } // Id (Primary key)
 
         [Required]
-        [Display(Name = "Plant stock ID")]
-        public int PlantStockId { get; set; } // PlantStockId
+        [Display(Name = "Species ID")]
+        public int SpeciesId { get; set; } // SpeciesId
+
+        [Required]
+        [Display(Name = "Product Type ID")]
+        public int ProductTypeId { get; set; } // ProductTypeId
 
         [Required]
         [Display(Name = "Quantity")]
@@ -51,9 +55,14 @@ namespace PlantDataMVC.Entities.EntityModels
         public virtual JournalEntryTypeEntityModel JournalEntryType { get; set; } // FK_Transactions_TransactionType
 
         /// <summary>
-        /// Parent PlantStock pointed by [JournalEntry].([PlantStockId]) (FK_Transactions_PlantStock)
+        /// Parent ProductType pointed by [JournalEntry].([SpeciesId]) (FK_Transactions_Species)
         /// </summary>
-        public virtual PlantStockEntityModel PlantStock { get; set; } // FK_Transactions_PlantStock
+        public virtual SpeciesEntityModel Species { get; set; } // FK_Transactions_Species
+
+        /// <summary>
+        /// Parent ProductType pointed by [JournalEntry].([ProductTypeId]) (FK_Transactions_ProductType)
+        /// </summary>
+        public virtual ProductTypeEntityModel ProductType { get; set; } // FK_Transactions_ProductType
 
         /// <summary>
         /// Parent SeedTray pointed by [JournalEntry].([SeedTrayId]) (FK_Transactions_SeedTray)
