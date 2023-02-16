@@ -1,31 +1,26 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.Web.Controllers.Queries.SeedTray;
+using PlantDataMVC.Web.Controllers.Queries.PriceListType;
 using PlantDataMVC.Web.Helpers;
-using PlantDataMVC.Web.Models.EditModels.SeedTray;
-using PlantDataMVC.Web.Models.ViewModels.SeedTray;
 using System.Threading.Tasks;
+using PlantDataMVC.Web.Models.EditModels.PriceListType;
+using PlantDataMVC.Web.Models.ViewModels.PriceListType;
+using System.Security.Claims;
 
 namespace PlantDataMVC.Web.Controllers
 {
-    // TODO: Use userId in posts having ValidateAntiForgeryToken (as per GenusController)
-
-    public class SeedTrayController : DefaultController
+    public class PriceListTypeController : DefaultController
     {
         private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
 
-        public SeedTrayController(IMediator mediator, IMapper mapper)
+        public PriceListTypeController(IMediator mediator)
         {
             _mediator = mediator;
-            _mapper = mapper;
         }
 
         // GET: /"ControllerName"/Index
-        // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
+        // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=ProductType&ascending=True
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
@@ -42,12 +37,14 @@ namespace PlantDataMVC.Web.Controllers
             {
                 return Content("An error occurred");
             }
-
-            return View(model);
+            else
+            {
+                return View(model);
+            }
         }
 
         // GET: /"ControllerName"/IndexVC
-        // GET: /"ControllerName"/IndexVC?page=4&pageSize=20&sortBy=Genus&ascending=True
+        // GET: /"ControllerName"/IndexVC?page=4&pageSize=20&sortBy=ProductType&ascending=True
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public async Task<ActionResult> IndexVC(int? page, int? pageSize, string sortBy, bool? ascending)
         {
@@ -64,10 +61,12 @@ namespace PlantDataMVC.Web.Controllers
             {
                 return Content("An error occurred");
             }
-
-            return View(model);
+            else
+            {
+                return View(model);
+            }
         }
-        //
+
         // GET: /"ControllerName"/Show/5
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public async Task<ActionResult> Show(int id)
@@ -79,38 +78,29 @@ namespace PlantDataMVC.Web.Controllers
             {
                 return Content("An error occurred");
             }
-
-            return View(model);
+            else
+            {
+                return View(model);
+            }
         }
 
-        //
         // GET: /"ControllerName"/New
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public ActionResult New()
         {
-            var item = new SeedTrayNewViewModel();
+            var item = new PriceListTypeNewViewModel();
             return View(item);
         }
 
-        /// <summary>
-        ///     Additional action for creating a new seed tray entry for a given seed batch.
-        /// </summary>
-        /// <param name="seedBatchId">The Id of the seed batch.</param>
-        /// <returns></returns>
-        [RequireRequestValue("seedBatchId")]
-        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public ActionResult New(int seedBatchId)
-        {
-            var item = new SeedTrayDataModel { SeedBatchId = seedBatchId };
-            var model = _mapper.Map<SeedTrayDataModel, SeedTrayNewViewModel>(item);
-            return View(model);
-        }
-
-        //
         // POST: /"ControllerName"/Create
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(SeedTrayCreateEditModel form)
+        public async Task<ActionResult> Create(PriceListTypeCreateEditModel form)
         {
+            //var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            //var userId = claimsIdentity.FindFirst("unique_user_key").Value;
+
+            // TODO: Use userId in submit of form (via mediator)
+
             var failureResult = DefaultFormFailureResult();
             var successResult = RedirectToAction("Index");
 
@@ -124,8 +114,7 @@ namespace PlantDataMVC.Web.Controllers
             return result ? successResult : failureResult;
         }
 
-        //
-        // GET: /"ControllerName"/Edit/5
+        // Display prior to POST via Update 
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public async Task<ActionResult> Edit(int id)
         {
@@ -136,15 +125,21 @@ namespace PlantDataMVC.Web.Controllers
             {
                 return Content("An error occurred");
             }
-
-            return View(model);
+            else
+            {
+                return View(model);
+            }
         }
 
-        //
         // POST: /"ControllerName"/Update/5
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Update(SeedTrayUpdateEditModel form)
+        public async Task<ActionResult> Update(PriceListTypeUpdateEditModel form)
         {
+            //var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            //var userId = claimsIdentity.FindFirst("unique_user_key").Value;
+
+            // TODO: Use userId in submit of form (via mediator)
+
             var failureResult = DefaultFormFailureResult();
             var successResult = RedirectToAction("Show", new { id = form.Id });
 
@@ -158,7 +153,6 @@ namespace PlantDataMVC.Web.Controllers
             return result ? successResult : failureResult;
         }
 
-        //
         // GET: /"ControllerName"/Delete/5
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public async Task<ActionResult> Delete(int id)
@@ -170,15 +164,21 @@ namespace PlantDataMVC.Web.Controllers
             {
                 return Content("An error occurred");
             }
-
-            return View(model);
+            else
+            {
+                return View(model);
+            }
         }
 
-        //
-        // POST: /SeedTrayDTO/Delete/5
+        // POST: /"ControllerName"/Delete/5
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Destroy(SeedTrayDestroyEditModel form)
+        public async Task<ActionResult> Destroy(PriceListTypeDestroyEditModel form)
         {
+            //var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            //var userId = claimsIdentity.FindFirst("unique_user_key").Value;
+
+            // TODO: Use userId in submit of form (via mediator)
+
             var failureResult = DefaultFormFailureResult();
             var successResult = RedirectToAction("Index");
 

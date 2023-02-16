@@ -43,6 +43,7 @@ namespace PlantDataMVC.Api.DependencyInjection
             services.AddTransient<IGenusRepository, GenusRepository>();
             services.AddTransient<IJournalEntryRepository, JournalEntryRepository>();
             services.AddTransient<IJournalEntryTypeRepository, JournalEntryTypeRepository>();
+            services.AddTransient<IPriceListTypeRepository, PriceListTypeRepository>();
             services.AddTransient<IProductTypeRepository, ProductTypeRepository>();
             services.AddTransient<ISeedBatchRepository, SeedBatchRepository>();
             services.AddTransient<ISiteRepository, SiteRepository>();
@@ -58,6 +59,7 @@ namespace PlantDataMVC.Api.DependencyInjection
             services.AddTransient<IGenusService, GenusService>();
             services.AddTransient<IJournalEntryService, JournalEntryService>();
             services.AddTransient<IJournalEntryTypeService, JournalEntryTypeService>();
+            services.AddTransient<IPriceListTypeService, PriceListTypeService>();
             services.AddTransient<IProductTypeService, ProductTypeService>();
             services.AddTransient<ISeedBatchService, SeedBatchService>();
             services.AddTransient<ISiteService, SiteService>();

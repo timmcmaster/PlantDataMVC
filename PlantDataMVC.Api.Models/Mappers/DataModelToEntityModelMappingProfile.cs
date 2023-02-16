@@ -2,6 +2,7 @@
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Entities.EntityModels;
 using System;
+using System.Reflection.Emit;
 
 namespace PlantDataMVC.Api.Models.Mappers
 {
@@ -27,6 +28,7 @@ namespace PlantDataMVC.Api.Models.Mappers
             ConfigureSiteMappings();
             ConfigureSaleEventMappings();
             ConfigureProductTypeMappings();
+            ConfigurePriceListTypeMappings();
         }
 
         private void ConfigureGenusMappings()
@@ -209,15 +211,34 @@ namespace PlantDataMVC.Api.Models.Mappers
         {
             CreateMap<CreateUpdateProductTypeDataModel, ProductTypeEntityModel>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
-                .ForMember(e => e.Name, opt => opt.MapFrom(dm => dm.Name)); // explicit and unnecessary
+                .ForMember(e => e.Name, opt => opt.MapFrom(dm => dm.Name)) // explicit and unnecessary
+                .ForMember(e => e.ProductPrices, opt => opt.Ignore())
+                .ForMember(e => e.PlantStocks, opt => opt.Ignore());
 
             CreateMap<ProductTypeDataModel, ProductTypeEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dm => dm.Id)) // explicit and unnecessary
-                .ForMember(e => e.Name, opt => opt.MapFrom(dm => dm.Name)); // explicit and unnecessary
+                .ForMember(e => e.Name, opt => opt.MapFrom(dm => dm.Name)) // explicit and unnecessary
+                .ForMember(e => e.ProductPrices, opt => opt.Ignore())
+                .ForMember(e => e.PlantStocks, opt => opt.Ignore());
         }
+
+        private void ConfigurePriceListTypeMappings()
+        {
+            CreateMap<CreateUpdatePriceListTypeDataModel, PriceListTypeEntityModel>()
+                .ForMember(e => e.Id, opt => opt.Ignore())
+                .ForMember(e => e.Name, opt => opt.MapFrom(dm => dm.Name)) // explicit and unnecessary
+                .ForMember(e => e.Kind, opt => opt.MapFrom(dm => dm.Kind)) // explicit and unnecessary
+                .ForMember(e => e.ProductPrices, opt => opt.Ignore());
+
+            CreateMap<PriceListTypeDataModel, PriceListTypeEntityModel>()
+                .ForMember(e => e.Id, opt => opt.MapFrom(dm => dm.Id)) // explicit and unnecessary
+                .ForMember(e => e.Name, opt => opt.MapFrom(dm => dm.Name)) // explicit and unnecessary
+                .ForMember(e => e.Kind, opt => opt.MapFrom(dm => dm.Kind)) // explicit and unnecessary
+                .ForMember(e => e.ProductPrices, opt => opt.Ignore());
+        }
+
         // Not yet mapped objects
         //JournalEntryTypeDataModel => JournalEntryTypeEntityModel
-        //PriceListTypeDataModel => PriceListTypeEntityModel
         //ProductPriceDataModel => ProductPriceEntityModel
     }
 }

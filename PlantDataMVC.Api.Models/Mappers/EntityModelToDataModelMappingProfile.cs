@@ -9,13 +9,13 @@ namespace PlantDataMVC.Api.Models.Mappers
     {
         public EntityModelToDataModelMappingProfile()
         {
-            ConfigureEnitiyModelToDataModel();
+            ConfigureEntityModelToDataModel();
         }
 
         /// <summary>
         ///     Configure the mappings from the DAL objects to the DTOs
         /// </summary>
-        private void ConfigureEnitiyModelToDataModel()
+        private void ConfigureEntityModelToDataModel()
         {
             // Maps from Data Layer entities to DTO
             ConfigureGenusMappings();
@@ -28,6 +28,8 @@ namespace PlantDataMVC.Api.Models.Mappers
             ConfigureProductTypeMappings();
             ConfigureJournalEntryTypeMappings();
             ConfigureSaleEventMappings();
+            ConfigurePriceListTypeMappings();
+            ConfigureProductPriceMappings();
         }
 
         private void ConfigureGenusMappings()
@@ -167,9 +169,23 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(dm => dm.Location, opt => opt.MapFrom(e => e.Location)); // explicit and unnecessary
         }
 
+        private void ConfigurePriceListTypeMappings()
+        {
+            CreateMap<PriceListTypeEntityModel, PriceListTypeDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(e => e.Id))
+                .ForMember(dm => dm.Name, opt => opt.MapFrom(e => e.Name))
+                .ForMember(dm => dm.Kind, opt => opt.MapFrom(e => e.Kind))
+                .ForMember(dm => dm.ProductPrices, opt => opt.MapFrom(e => e.ProductPrices));  // ICollection, explicit and unnecessary
+        }
+
+        private void ConfigureProductPriceMappings()
+        {
+            CreateMap<ProductPriceEntityModel, ProductPriceDataModel>()
+                .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(e => e.ProductTypeId))
+                .ForMember(dm => dm.PriceListTypeId, opt => opt.MapFrom(e => e.PriceListTypeId))
+                .ForMember(dm => dm.Price, opt => opt.MapFrom(e => e.Price))
+                .ForMember(dm => dm.DateEffective, opt => opt.MapFrom(e => e.DateEffective));
+        }
         // Not yet mapped objects
-        //JournalEntryType => JournalEntryTypeDTO
-        //PriceListType => PriceListTypeDTO
-        //ProductPrice => ProductPriceDTO
     }
 }

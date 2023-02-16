@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-//using Framework.Web.Mediator;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

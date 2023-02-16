@@ -4,6 +4,7 @@ using Genus = PlantDataMVC.Web.Models.EditModels.Genus;
 using Plant = PlantDataMVC.Web.Models.EditModels.Plant;
 using PlantStock = PlantDataMVC.Web.Models.EditModels.PlantStock;
 using ProductType = PlantDataMVC.Web.Models.EditModels.ProductType;
+using PriceListType = PlantDataMVC.Web.Models.EditModels.PriceListType;
 using SaleEvent = PlantDataMVC.Web.Models.EditModels.SaleEvent;
 using SeedBatch = PlantDataMVC.Web.Models.EditModels.SeedBatch;
 using SeedTray = PlantDataMVC.Web.Models.EditModels.SeedTray;
@@ -33,6 +34,7 @@ namespace PlantDataMVC.Web.Mappers
             ConfigureTransactionEditModels();
             ConfigureSiteEditModels();
             ConfigureSaleEventEditModels();
+            ConfigurePriceListTypeEditModels();
             // Maps from UI edit models to domain
         }
 
@@ -257,6 +259,23 @@ namespace PlantDataMVC.Web.Mappers
 
             CreateMap<ProductType.ProductTypeUpdateEditModel, CreateUpdateProductTypeDataModel>()
                 .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name));
+        }
+
+        private void ConfigurePriceListTypeEditModels()
+        {
+            // Price list
+            CreateMap<PriceListType.PriceListTypeCreateEditModel, CreateUpdatePriceListTypeDataModel>()
+                .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name))
+                .ForMember(dm => dm.Kind, opt => opt.MapFrom(uio => uio.Kind));
+
+            CreateMap<PriceListType.PriceListTypeDestroyEditModel, PriceListTypeDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dm => dm.Name, opt => opt.Ignore())
+                .ForMember(dm => dm.Kind, opt => opt.Ignore());
+
+            CreateMap<PriceListType.PriceListTypeUpdateEditModel, CreateUpdatePriceListTypeDataModel>()
+                .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name))
+                .ForMember(dm => dm.Kind, opt => opt.MapFrom(uio => uio.Kind));
         }
 
         #endregion Configure Edit Models

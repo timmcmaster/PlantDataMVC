@@ -4,6 +4,7 @@ using PlantDataMVC.Api.Models.DomainFunctions;
 using Genus = PlantDataMVC.Web.Models.ViewModels.Genus;
 using Plant = PlantDataMVC.Web.Models.ViewModels.Plant;
 using PlantStock = PlantDataMVC.Web.Models.ViewModels.PlantStock;
+using PriceListType = PlantDataMVC.Web.Models.ViewModels.PriceListType;
 using ProductType = PlantDataMVC.Web.Models.ViewModels.ProductType;
 using SaleEvent = PlantDataMVC.Web.Models.ViewModels.SaleEvent;
 using SeedBatch = PlantDataMVC.Web.Models.ViewModels.SeedBatch;
@@ -40,6 +41,7 @@ namespace PlantDataMVC.Web.Mappers
             ConfigureSiteViewModels();
             ConfigureSaleEventViewModels();
             ConfigureProductTypeViewModels();
+            ConfigurePriceListTypeViewModels();
         }
 
         #region Configure View Models
@@ -399,6 +401,28 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
         }
 
+        private void ConfigurePriceListTypeViewModels()
+        {
+            // PriceListType
+            CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeDeleteViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
+
+            CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeEditViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
+
+            CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeListViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
+
+            CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeNewViewModel>()
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
+
+            CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeShowViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
+        }
         #endregion Configure View Models
     }
 }

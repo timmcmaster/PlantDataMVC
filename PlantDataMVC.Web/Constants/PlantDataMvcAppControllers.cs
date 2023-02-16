@@ -8,7 +8,7 @@
         public const string Home = "Home";
         public const string Plant = "Plant";
         public const string PlantStock = "PlantStock";
-        public const string PriceList = "PriceList";
+        public const string PriceListType = "PriceListType";
         public const string ProductType = "ProductType";
         public const string SaleEvent = "SaleEvent";
         public const string SeedBatch = "SeedBatch";
@@ -24,5 +24,6 @@
         public const string SaleEventGrid = "SaleEventGrid";
         public const string PlantStockGrid = "PlantStockGrid";
         public const string ProductTypeGrid = "ProductTypeGrid";
+        public const string PriceListTypeGrid = "PriceListTypeGrid";
     }
 }

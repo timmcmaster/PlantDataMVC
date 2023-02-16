@@ -61,7 +61,7 @@ namespace PlantDataMVC.Web.Shared.Components.MainMenu
 
                 new MenuItemViewModel(id:"basicItem3", text:"Maintenance", parentId:"null", url:string.Empty, iconCss:"icon-settings icon"),
                 new MenuItemViewModel(id:"basicItem3.1", text:"Products", parentId:"basicItem3", url:Url.Action("Index", PlantDataMvcAppControllers.ProductType) ?? string.Empty),
-                new MenuItemViewModel(id:"basicItem3.2", text:"Price Lists", parentId:"basicItem3", url:Url.Action("Index", PlantDataMvcAppControllers.PriceList) ?? string.Empty),
+                new MenuItemViewModel(id:"basicItem3.2", text:"Price Lists", parentId:"basicItem3", url:Url.Action("Index", PlantDataMvcAppControllers.PriceListType) ?? string.Empty),
 
                 MenuItemViewModel.CreateSeparator(id:"item4", parentId:"null"),
 
@@ -85,7 +85,7 @@ namespace PlantDataMVC.Web.Shared.Components.MainMenu
 
                 new MenuItemViewModel(id:"sfItem3", text:"Maintenance", parentId:"null", url:string.Empty, iconCss:"icon-settings icon"),
                 new MenuItemViewModel(id:"sfItem3.1", text:"Products", parentId:"sfItem3", url:Url.Action("IndexVC", PlantDataMvcAppControllers.ProductType) ?? string.Empty),
-                new MenuItemViewModel(id:"sfItem3.2", text:"Price Lists", parentId:"sfItem3", url:Url.Action("IndexVC", PlantDataMvcAppControllers.PriceList) ?? string.Empty),
+                new MenuItemViewModel(id:"sfItem3.2", text:"Price Lists", parentId:"sfItem3", url:Url.Action("IndexVC", PlantDataMvcAppControllers.PriceListType) ?? string.Empty),
             };
 
             menuModel.MenuItems = menuItems;

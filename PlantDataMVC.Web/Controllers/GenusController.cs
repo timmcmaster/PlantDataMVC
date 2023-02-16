@@ -1,5 +1,4 @@
-﻿//using Framework.Web.Mediator;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Web.Controllers.Queries.Genus;

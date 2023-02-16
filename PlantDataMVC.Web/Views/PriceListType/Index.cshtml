@@ -1,0 +1,15 @@
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.PriceListType.PriceListTypeListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Price Lists</h2>
+<p>This is a list of all Price Lists</p>
+
+@*
+// TODO: Convert views to TagHelpers/use built-in taghelpers
+*@
+<a asp-action="New">Add New Item</a>
+<partial name="PriceListTypeListTable" for="@Model" />
+@Html.PagingLinksFor(m => Model)
