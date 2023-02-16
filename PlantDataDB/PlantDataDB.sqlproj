@@ -78,21 +78,8 @@
     <Build Include="dbo\Tables\PlantStock.sql" />
     <Build Include="dbo\Tables\JournalEntryType.sql" />
     <Build Include="dbo\Tables\JournalEntry.sql" />
-    <Build Include="dbo\Tables\TubeInfo.sql" />
     <Build Include="dbo\Tables\Site.sql" />
-    <Build Include="dbo\Functions\GetGenusId.sql" />
     <Build Include="dbo\Functions\GetPrice.sql" />
-    <Build Include="dbo\Functions\GetSeedBatchIdFromSpeciesIdDateCollected.sql" />
-    <Build Include="dbo\Functions\GetSeedTrayIdFromSeedBatchIdDatePlanted.sql" />
-    <Build Include="dbo\Functions\GetSpeciesIdFromGenusIdSpeciesName.sql" />
-    <Build Include="dbo\Functions\GetSpeciesByGenus.sql" />
-    <Build Include="dbo\Stored Procedures\InsertSeedBatch.sql" />
-    <Build Include="dbo\Stored Procedures\InsertSeedBatchBySpeciesId.sql" />
-    <Build Include="dbo\Stored Procedures\InsertSeedTray.sql" />
-    <Build Include="dbo\Stored Procedures\InsertSeedTrayByBatchId.sql" />
-    <Build Include="dbo\Stored Procedures\InsertSpecies.sql" />
-    <Build Include="dbo\Stored Procedures\InsertTubeInfo.sql" />
-    <Build Include="dbo\Stored Procedures\UpdateSpecies.sql" />
     <None Include="AdminOnlyDataLoad.sql" />
     <None Include="DbDelete.sql" />
     <Build Include="dbo\Stored Procedures\CreateJournalEntry.sql" />
@@ -113,12 +100,8 @@
     <None Include="Scripts\dbo.SeedTray.data.sql" />
     <None Include="Scripts\dbo.Site.data.sql" />
     <None Include="Scripts\dbo.Species.data.sql" />
-    <None Include="Scripts\dbo.TubeInfo.data.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="PlantDataDB.refactorlog" />
   </ItemGroup>
 </Project>
