@@ -27,10 +27,10 @@ namespace PlantDataMVC.Web.Handlers.Forms.SeedBatch
             try
             {
                 // Map local model to DTO
-                SeedBatchDataModel item = _mapper.Map<SeedBatchCreateEditModel, SeedBatchDataModel>(form);
+                CreateUpdateSeedBatchDataModel item = _mapper.Map<SeedBatchCreateEditModel, CreateUpdateSeedBatchDataModel>(form);
 
                 var uri = "api/SeedBatch";
-                var response = await _plantDataApiClient.PostAsync<SeedBatchDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<CreateUpdateSeedBatchDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
                 return response.Success;
             }

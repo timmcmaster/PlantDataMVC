@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using PlantDataMVC.Web.Models.ViewModels.SeedBatch;
-using PlantDataMVC.Web.Models.ViewModels.SeedTray;
-using System;
+using PlantDataMVC.Api.Models.DataModels;
+using PlantDataMVC.Api.Models.DomainFunctions;
 using Genus = PlantDataMVC.Web.Models.ViewModels.Genus;
 using Plant = PlantDataMVC.Web.Models.ViewModels.Plant;
 using PlantStock = PlantDataMVC.Web.Models.ViewModels.PlantStock;
+using ProductType = PlantDataMVC.Web.Models.ViewModels.ProductType;
+using SaleEvent = PlantDataMVC.Web.Models.ViewModels.SaleEvent;
+using SeedBatch = PlantDataMVC.Web.Models.ViewModels.SeedBatch;
+using SeedTray = PlantDataMVC.Web.Models.ViewModels.SeedTray;
 using Site = PlantDataMVC.Web.Models.ViewModels.Site;
 using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction;
-using SaleEvent = PlantDataMVC.Web.Models.ViewModels.SaleEvent;
-using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.Api.Models.DomainFunctions;
 
 namespace PlantDataMVC.Web.Mappers
 {
@@ -39,6 +39,7 @@ namespace PlantDataMVC.Web.Mappers
             ConfigureTransactionViewModels();
             ConfigureSiteViewModels();
             ConfigureSaleEventViewModels();
+            ConfigureProductTypeViewModels();
         }
 
         #region Configure View Models
@@ -117,7 +118,7 @@ namespace PlantDataMVC.Web.Mappers
         private void ConfigureSeedBatchViewModels()
         {
             // SeedBatchDTO
-            CreateMap<SeedBatchDataModel, SeedBatchDeleteViewModel>()
+            CreateMap<SeedBatchDataModel, SeedBatch.SeedBatchDeleteViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dm => dm.DateCollected))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location))
@@ -127,7 +128,7 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
                 .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)));
 
-            CreateMap<SeedBatchDataModel, SeedBatchEditViewModel>()
+            CreateMap<SeedBatchDataModel, SeedBatch.SeedBatchEditViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dm => dm.DateCollected))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location))
@@ -137,7 +138,7 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
                 .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)));
 
-            CreateMap<SeedBatchDataModel, SeedBatchListViewModel>()
+            CreateMap<SeedBatchDataModel, SeedBatch.SeedBatchListViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dm => dm.DateCollected))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location))
@@ -145,14 +146,14 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
                 .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)));
 
-            CreateMap<SeedBatchDataModel, SeedBatchNewViewModel>()
+            CreateMap<SeedBatchDataModel, SeedBatch.SeedBatchNewViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dm => dm.DateCollected))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
                 .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dm => dm.SiteId));
 
-            CreateMap<SeedBatchDataModel, SeedBatchShowViewModel>()
+            CreateMap<SeedBatchDataModel, SeedBatch.SeedBatchShowViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dm => dm.DateCollected))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location))
@@ -298,7 +299,7 @@ namespace PlantDataMVC.Web.Mappers
         private void ConfigureSeedTrayViewModels()
         {
             // SeedTray
-            CreateMap<SeedTrayDataModel, SeedTrayDeleteViewModel>()
+            CreateMap<SeedTrayDataModel, SeedTray.SeedTrayDeleteViewModel>()
                 .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
@@ -306,7 +307,7 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
 
-            CreateMap<SeedTrayDataModel, SeedTrayEditViewModel>()
+            CreateMap<SeedTrayDataModel, SeedTray.SeedTrayEditViewModel>()
                 .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
@@ -316,7 +317,7 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
 
-            CreateMap<SeedTrayDataModel, SeedTrayListViewModel>()
+            CreateMap<SeedTrayDataModel, SeedTray.SeedTrayListViewModel>()
                 .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
@@ -324,13 +325,13 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
 
-            CreateMap<SeedTrayDataModel, SeedTrayNewViewModel>()
+            CreateMap<SeedTrayDataModel, SeedTray.SeedTrayNewViewModel>()
                 .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.Ignore())  // don't need to map seed batch up for new seed tray (TODO: Check this)
                 .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
                 .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
 
-            CreateMap<SeedTrayDataModel, SeedTrayShowViewModel>()
+            CreateMap<SeedTrayDataModel, SeedTray.SeedTrayShowViewModel>()
                 .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
@@ -373,6 +374,29 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
                 .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dm => dm.SaleDate))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location));
+        }
+
+        private void ConfigureProductTypeViewModels()
+        {
+            // ProductType
+            CreateMap<ProductTypeDataModel, ProductType.ProductTypeDeleteViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
+
+            CreateMap<ProductTypeDataModel, ProductType.ProductTypeEditViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
+
+            CreateMap<ProductTypeDataModel, ProductType.ProductTypeListViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
+
+            CreateMap<ProductTypeDataModel, ProductType.ProductTypeNewViewModel>()
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
+
+            CreateMap<ProductTypeDataModel, ProductType.ProductTypeShowViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
         }
 
         #endregion Configure View Models

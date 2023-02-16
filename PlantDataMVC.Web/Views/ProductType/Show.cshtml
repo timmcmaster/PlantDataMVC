@@ -1,0 +1,20 @@
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.ProductType.ProductTypeShowViewModel
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+<fieldset>
+    <legend>Product Type</legend>
+
+    @Html.DisplayForModel()
+</fieldset>
+
+<p>
+    <a asp-controller=@PlantDataMvcAppControllers.ProductType asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a asp-controller=@PlantDataMvcAppControllers.ProductType asp-action="Index">Back to Index</a>
+</p>
+

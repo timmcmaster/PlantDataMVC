@@ -27,10 +27,10 @@ namespace PlantDataMVC.Web.Handlers.Forms.Site
             try
             {
                 // Map local model to DTO
-                SiteDataModel item = _mapper.Map<SiteCreateEditModel, SiteDataModel>(form);
+                CreateUpdateSiteDataModel item = _mapper.Map<SiteCreateEditModel, CreateUpdateSiteDataModel>(form);
 
                 var uri = "api/Site";
-                var response = await _plantDataApiClient.PostAsync<SiteDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<CreateUpdateSiteDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
                 return response.Success;
             }

@@ -29,11 +29,11 @@ namespace PlantDataMVC.Web.Handlers.Forms.SeedBatch
             try
             {
                 // Map local model to DTO
-                SeedBatchDataModel item = _mapper.Map<SeedBatchUpdateEditModel, SeedBatchDataModel>(form);
+                CreateUpdateSeedBatchDataModel item = _mapper.Map<SeedBatchUpdateEditModel, CreateUpdateSeedBatchDataModel>(form);
 
                 // Update with PUT
                 var uri = "api/SeedBatch/" + form.Id;
-                var response = await _plantDataApiClient.PutAsync<SeedBatchDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PutAsync<CreateUpdateSeedBatchDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     throw new UnauthorizedAccessException();

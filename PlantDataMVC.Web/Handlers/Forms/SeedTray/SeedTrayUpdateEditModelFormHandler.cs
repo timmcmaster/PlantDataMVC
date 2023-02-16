@@ -29,11 +29,11 @@ namespace PlantDataMVC.Web.Handlers.Forms.SeedTray
             try
             {
                 // Map local model to DTO
-                SeedTrayDataModel item = _mapper.Map<SeedTrayUpdateEditModel, SeedTrayDataModel>(form);
+                CreateUpdateSeedTrayDataModel item = _mapper.Map<SeedTrayUpdateEditModel, CreateUpdateSeedTrayDataModel>(form);
 
                 // Update with PUT
                 var uri = "api/SeedTray/" + form.Id;
-                var response = await _plantDataApiClient.PutAsync<SeedTrayDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PutAsync<CreateUpdateSeedTrayDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     throw new UnauthorizedAccessException();

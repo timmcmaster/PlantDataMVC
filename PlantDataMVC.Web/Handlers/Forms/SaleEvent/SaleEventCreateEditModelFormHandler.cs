@@ -27,10 +27,10 @@ namespace PlantDataMVC.Web.Handlers.Forms.SaleEvent
             try
             {
                 // Map local model to DTO
-                SaleEventDataModel item = _mapper.Map<SaleEventCreateEditModel, SaleEventDataModel>(form);
+                CreateUpdateSaleEventDataModel item = _mapper.Map<SaleEventCreateEditModel, CreateUpdateSaleEventDataModel>(form);
 
                 var uri = "api/SaleEvent";
-                var response = await _plantDataApiClient.PostAsync<SaleEventDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<CreateUpdateSaleEventDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
                 return response.Success;
             }

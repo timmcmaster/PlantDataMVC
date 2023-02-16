@@ -27,10 +27,10 @@ namespace PlantDataMVC.Web.Handlers.Forms.SeedTray
             try
             {
                 // Map local model to DTO
-                SeedTrayDataModel item = _mapper.Map<SeedTrayCreateEditModel, SeedTrayDataModel>(form);
+                CreateUpdateSeedTrayDataModel item = _mapper.Map<SeedTrayCreateEditModel, CreateUpdateSeedTrayDataModel>(form);
 
                 var uri = "api/SeedTray";
-                var response = await _plantDataApiClient.PostAsync<SeedTrayDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<CreateUpdateSeedTrayDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
                 return response.Success;
             }

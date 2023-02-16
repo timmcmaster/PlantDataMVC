@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Framework.Web.Views;
-using Newtonsoft.Json;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Controllers.Queries.SaleEvent;

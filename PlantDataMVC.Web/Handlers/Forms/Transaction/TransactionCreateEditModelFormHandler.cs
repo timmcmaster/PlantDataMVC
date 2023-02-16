@@ -27,10 +27,10 @@ namespace PlantDataMVC.Web.Handlers.Forms.Transaction
             try
             {
                 // Map local model to DTO
-                JournalEntryDataModel item = _mapper.Map<TransactionCreateEditModel, JournalEntryDataModel>(form);
+                CreateUpdateJournalEntryDataModel item = _mapper.Map<TransactionCreateEditModel, CreateUpdateJournalEntryDataModel>(form);
 
                 var uri = "api/JournalEntries";
-                var response = await _plantDataApiClient.PostAsync<JournalEntryDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<CreateUpdateJournalEntryDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
                 return response.Success;
             }

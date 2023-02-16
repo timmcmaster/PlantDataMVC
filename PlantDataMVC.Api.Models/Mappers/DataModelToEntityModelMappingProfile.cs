@@ -26,6 +26,7 @@ namespace PlantDataMVC.Api.Models.Mappers
             ConfigureSeedTrayMappings();
             ConfigureSiteMappings();
             ConfigureSaleEventMappings();
+            ConfigureProductTypeMappings();
         }
 
         private void ConfigureGenusMappings()
@@ -123,7 +124,7 @@ namespace PlantDataMVC.Api.Models.Mappers
             CreateMap<CreateUpdateSeedTrayDataModel, SeedTrayEntityModel>()
                 .ForMember(e => e.Id, opt => opt.Ignore())
                 .ForMember(e => e.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId)) // explicit and unnecessary
-                .ForMember(e => e.DatePlanted, opt => opt.MapFrom(dm => dm.DatePlanted)) // explicit and unnecessary
+                .ForMember(e => e.DatePlanted, opt => opt.MapFrom(dm => dm.DateSown)) // explicit and unnecessary
                 .ForMember(e => e.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut)) // explicit and unnecessary
                 .ForMember(e => e.Treatment, opt => opt.MapFrom(dm => dm.Treatment)) // explicit and unnecessary
                 .ForMember(e => e.JournalEntries, opt => opt.Ignore())
@@ -204,10 +205,19 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(e => e.Location, opt => opt.MapFrom(dm => dm.Location)); // explicit and unnecessary
         }
 
+        private void ConfigureProductTypeMappings()
+        {
+            CreateMap<CreateUpdateProductTypeDataModel, ProductTypeEntityModel>()
+                .ForMember(e => e.Id, opt => opt.Ignore())
+                .ForMember(e => e.Name, opt => opt.MapFrom(dm => dm.Name)); // explicit and unnecessary
+
+            CreateMap<ProductTypeDataModel, ProductTypeEntityModel>()
+                .ForMember(e => e.Id, opt => opt.MapFrom(dm => dm.Id)) // explicit and unnecessary
+                .ForMember(e => e.Name, opt => opt.MapFrom(dm => dm.Name)); // explicit and unnecessary
+        }
         // Not yet mapped objects
         //JournalEntryTypeDataModel => JournalEntryTypeEntityModel
         //PriceListTypeDataModel => PriceListTypeEntityModel
         //ProductPriceDataModel => ProductPriceEntityModel
-        //ProductTypeDataModel => ProductTypeEntityModel
     }
 }

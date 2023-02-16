@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-using PlantDataMVC.Api.Models.DataModels;
+﻿using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Controllers.Queries;
-using PlantDataMVC.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +8,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.Web.Handlers.Views
+namespace PlantDataMVC.Web.Handlers.Views.ProductType
 {
     public class ProductTypeDataModelListQueryHandler : ListQueryHandler<ProductTypeDataModel>
     {
@@ -27,7 +25,7 @@ namespace PlantDataMVC.Web.Handlers.Views
             string? uri = "api/ProductType";
             IEnumerable<ProductTypeDataModel> fullDataModelList = Enumerable.Empty<ProductTypeDataModel>();
 
-            while (!String.IsNullOrEmpty(uri))
+            while (!string.IsNullOrEmpty(uri))
             {
                 var response = await _plantDataApiClient.GetAsync<IEnumerable<ProductTypeDataModel>>(uri, cancellationToken).ConfigureAwait(false);
 

@@ -29,11 +29,11 @@ namespace PlantDataMVC.Web.Handlers.Forms.PlantStock
             try
             {
                 // Map local model to DTO
-                PlantStockDataModel item = _mapper.Map<PlantStockUpdateEditModel, PlantStockDataModel>(form);
+                CreateUpdatePlantStockDataModel item = _mapper.Map<PlantStockUpdateEditModel, CreateUpdatePlantStockDataModel>(form);
 
                 // Update with PUT
                 var uri = "api/PlantStock/" + form.Id;
-                var response = await _plantDataApiClient.PutAsync<PlantStockDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PutAsync<CreateUpdatePlantStockDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     throw new UnauthorizedAccessException();
