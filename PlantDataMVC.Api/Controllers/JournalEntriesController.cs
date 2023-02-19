@@ -12,6 +12,7 @@ using PlantDataMVC.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PlantDataMVC.Repository.Models;
 
 namespace PlantDataMVC.Api.Controllers
 {
@@ -92,6 +93,63 @@ namespace PlantDataMVC.Api.Controllers
                                .Paginate(pgParams.Page, pgParams.PageSize)
                                .ToList()
                                .Select(dataModel => DataShaping.CreateDataShapedObject(dataModel, lstOfFields));
+
+                return Ok(itemList);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Exception occurred");
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        // GET: api/JournalEntries
+        [HttpGet(Name = "JournalEntriesStockSummary")]
+        [Route("StockSummary")]
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public IActionResult Get(
+            [FromQuery] PagingParameters pgParams,
+            [FromQuery] SortingParameters sortParams,
+            [FromQuery] int? speciesId = null,
+            [FromQuery] int? productTypeId = null)
+        {
+            try
+            {
+                // TODO: Current state doesn't return children by default, can only get with "fields" option
+                // need to determine expected behaviour
+
+                var context = _service.GetStockCounts(speciesId, productTypeId).AsQueryable();
+
+                var dataModels = _mapper.ProjectTo<JournalEntryStockSummaryDataModel>(context)
+                           .ApplySort(sortParams.Sort);
+
+                if (speciesId != null)
+                    dataModels = dataModels.Where(s => s.SpeciesId == speciesId);
+
+                if (productTypeId != null)
+                    dataModels = dataModels.Where(s => s.ProductTypeId == productTypeId);
+
+                var paginationHeaders = PagingHelper.GetPaginationHeaders(
+                    Url,
+                    dataModels.Count(),
+                    "JournalEntriesStockSummary",
+                    new
+                    {
+                        sortParams.Sort,
+                        speciesId,
+                        productTypeId
+                    },
+                    pgParams.Page,
+                    pgParams.PageSize);
+
+                foreach (var hdr in paginationHeaders)
+                {
+                    HttpContext.Response.Headers.Add(hdr);
+                }
+
+                var itemList = dataModels
+                               .Paginate(pgParams.Page, pgParams.PageSize)
+                               .ToList();
 
                 return Ok(itemList);
             }

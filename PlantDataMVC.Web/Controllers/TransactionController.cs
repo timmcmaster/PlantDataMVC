@@ -8,7 +8,6 @@ using PlantDataMVC.Web.Controllers.Queries.Transaction;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.EditModels.Transaction;
 using PlantDataMVC.Web.Models.ViewModels.Transaction;
-using PlantDataMVC.Web.Shared.Components.PlantStockGrid;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Controllers
@@ -25,6 +24,31 @@ namespace PlantDataMVC.Web.Controllers
             _mediator = mediator;
             _mapper = mapper;
         }
+
+        // GET: /"ControllerName"/StockSummary
+        // GET: /"ControllerName"/StockSummary?page=4&pageSize=20&sortBy=Genus&ascending=True
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public async Task<ActionResult> StockSummary(int? page, int? pageSize, string sortBy, bool? ascending)
+        {
+            // resolve parameters
+            var localPage = page ?? 1;
+            var localPageSize = pageSize ?? 20;
+            var localSortBy = sortBy ?? "SpeciesId";
+            var localAscending = ascending ?? true;
+
+            var query = new StockSummaryQuery(localPage, localPageSize, localSortBy, localAscending);
+            var model = await _mediator.Send(query);
+
+            if (model == null)
+            {
+                return Content("An error occurred");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
 
         /// <summary>
         /// Additional action for creating a new entry for a given plant stock entry.

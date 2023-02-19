@@ -1,0 +1,10 @@
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Transaction.TransactionStockSummaryListViewModel>
+@{
+    ViewBag.Title = "Stock Summary";
+}
+
+<h2>Index</h2>
+
+<a asp-action="New">Add New Item</a>
+<partial name="TransactionStockSummaryListTable" for="@Model" />
+@Html.PagingLinksFor(m => Model)

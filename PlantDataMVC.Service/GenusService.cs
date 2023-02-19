@@ -11,6 +11,7 @@ namespace PlantDataMVC.Service
     public interface IGenusService : IService<GenusEntityModel>
     {
         GenusEntityModel GetItemByLatinName(string latinName);
+        GenusEntityModel GetItemWithAllSpecies(int id);
     }
 
     /// <summary>

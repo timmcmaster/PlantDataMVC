@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Entities.EntityModels;
-using System;
+using PlantDataMVC.Repository.Models;
 
 namespace PlantDataMVC.Api.Models.Mappers
 {
@@ -143,6 +143,15 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(dm => dm.SeedTrayId, opt => opt.MapFrom(e => e.SeedTrayId)) // explicit and unnecessary
                 .ForMember(dm => dm.Source, opt => opt.MapFrom(e => e.Source)) // explicit and unnecessary
                 .ForMember(dm => dm.Notes, opt => opt.MapFrom(e => e.Notes)); // explicit and unnecessary
+
+            CreateMap<JournalEntryStockSummaryModel, JournalEntryStockSummaryDataModel>()
+                .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(e => e.SpeciesId)) // explicit and unnecessary
+                .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(e => e.ProductTypeId)) // explicit and unnecessary
+                .ForMember(dm => dm.ProductTypeName, opt => opt.MapFrom(e => e.ProductTypeName)) // explicit and unnecessary
+                .ForMember(dm => dm.GenusName, opt => opt.MapFrom(e => e.GenusName)) // explicit and unnecessary
+                .ForMember(dm => dm.SpeciesName, opt => opt.MapFrom(e => e.SpeciesName)) // explicit and unnecessary
+                .ForMember(dm => dm.QuantityInStock, opt => opt.MapFrom(e => e.QuantityInStock)); // explicit and unnecessary
+
         }
 
         private void ConfigureJournalEntryTypeMappings()

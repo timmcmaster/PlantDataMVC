@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Api.Models.DomainFunctions;
+using PlantDataMVC.Repository.Models;
 using Genus = PlantDataMVC.Web.Models.ViewModels.Genus;
 using Plant = PlantDataMVC.Web.Models.ViewModels.Plant;
 using PlantStock = PlantDataMVC.Web.Models.ViewModels.PlantStock;
@@ -299,6 +300,13 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
                 .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dm => dm.Source))
                 .ForMember(uio => uio.TransactionTypeId, opt => opt.MapFrom(dm => dm.JournalEntryTypeId));
+
+            CreateMap<JournalEntryStockSummaryDataModel, Transaction.TransactionStockSummaryListViewModel>()
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
+                .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)));
         }
 
         private void ConfigureSeedTrayViewModels()
