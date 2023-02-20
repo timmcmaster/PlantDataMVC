@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PlantDataMVC.Api.Models.DataModels;
+using System.Collections.Generic;
 
 namespace PlantDataMVC.Repository.Models
 {
@@ -10,5 +11,7 @@ namespace PlantDataMVC.Repository.Models
         public string SpeciesName { get; set; }
         public string ProductTypeName { get; set; }
         public int QuantityInStock { get; set; }
+        //public ICollection<JournalEntryDataModel> JournalEntries { get; set; }
+
     }
 }

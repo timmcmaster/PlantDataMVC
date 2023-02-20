@@ -1,0 +1,28 @@
+﻿@using PlantDataMVC.Web.Constants;
+@model PlantDataMVC.Web.Models.ViewModels.Transaction.TransactionStockSummaryDetailsViewModel
+
+@{
+    ViewBag.Title = "Stock Summary Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Stock Summary with Transactions </legend>
+
+    @Html.DisplayForModel()
+
+    <div class="display-label">
+        <label asp-for="Transactions"></label>
+    </div>
+@*    <div class="button">
+        <a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="New" asp-route-plantStockId="@Model.Id">New</a>
+    </div>
+*@    <div class="child-table">
+        <partial name="TransactionListTable" for="Transactions" />
+    </div>
+</fieldset>
+<p>
+    <a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="StockSummary">Back to Stock Summary</a>
+</p>
+

@@ -11,7 +11,6 @@
         <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.QuantityInStock)</th>
-        @*@       <th></th> *@
         <th></th>
         <th></th>
     </tr>
@@ -24,7 +23,6 @@
                 <td><a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Show" asp-route-id="@entry.Id">@entry.SpeciesBinomial</a></td>
                 <td>@Html.DisplayFor(m => m.ElementAt(count).ProductTypeName)</td>
                 <td>@Html.DisplayFor(m => m.ElementAt(count).QuantityInStock)</td>
-                @*<td><a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td> *@
                 <td><a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Details" asp-route-id="@entry.Id">Details</a></td>
                 <td><a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
             </tr>

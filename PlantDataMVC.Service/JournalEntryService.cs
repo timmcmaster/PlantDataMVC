@@ -11,7 +11,7 @@ namespace PlantDataMVC.Service
     public interface IJournalEntryService : IService<JournalEntryEntityModel>
     {
         int GetStockCountForSpeciesAndProduct(int speciesId, int productTypeId);
-        IEnumerable<JournalEntryStockSummaryModel> GetStockCounts(int? speciesId, int? productTypeId);
+        IEnumerable<JournalEntryStockSummaryModel> GetStockCounts(int? speciesId, int? productTypeId, bool includeEntries = false);
     }
 
     /// <summary>
@@ -26,9 +26,9 @@ namespace PlantDataMVC.Service
             _repository = repository;
         }
 
-        public IEnumerable<JournalEntryStockSummaryModel> GetStockCounts(int? speciesId, int? productTypeId)
+        public IEnumerable<JournalEntryStockSummaryModel> GetStockCounts(int? speciesId, int? productTypeId, bool includeEntries = false)
         {
-            return _repository.GetStockCounts(speciesId,productTypeId);
+            return _repository.GetStockCounts(speciesId, productTypeId, includeEntries);
         }
 
         public int GetStockCountForSpeciesAndProduct(int speciesId, int productTypeId)

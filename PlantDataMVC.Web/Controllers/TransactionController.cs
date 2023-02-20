@@ -49,6 +49,23 @@ namespace PlantDataMVC.Web.Controllers
             }
         }
 
+        // GET: /"ControllerName"/StockSummaryDetails
+        // GET: /"ControllerName"/StockSummary?page=4&pageSize=20&sortBy=Genus&ascending=True
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public async Task<ActionResult> StockSummaryDetails(int speciesId, int productTypeId)
+        {
+            var query = new StockSummaryDetailsQuery(speciesId, productTypeId);
+            var model = await _mediator.Send(query);
+
+            if (model == null)
+            {
+                return Content("An error occurred");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
 
         /// <summary>
         /// Additional action for creating a new entry for a given plant stock entry.

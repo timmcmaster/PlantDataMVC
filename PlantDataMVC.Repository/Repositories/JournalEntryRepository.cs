@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.Repository.Interfaces;
 using PlantDataMVC.Repository.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,7 +27,7 @@ namespace PlantDataMVC.Repository.Repositories
             return stockCount?.QuantityInStock ?? 0;
         }
 
-        public List<JournalEntryStockSummaryModel> GetStockCounts(int? speciesId, int? productTypeId)
+        public List<JournalEntryStockSummaryModel> GetStockCounts(int? speciesId, int? productTypeId, bool includeEntries = false)
         {
             var stockSummaries = new List<JournalEntryStockSummaryModel>();
 
@@ -42,16 +43,21 @@ namespace PlantDataMVC.Repository.Repositories
                     GenusName = g.FirstOrDefault().Species.Genus.LatinName,
                     SpeciesName = g.FirstOrDefault().Species.SpecificName,
                     ProductTypeName = g.FirstOrDefault().ProductType.Name,
-                    QuantityInStock = g.Sum(je => je.Quantity * je.JournalEntryType.Effect)
+                    QuantityInStock = g.Sum(je => je.Quantity * je.JournalEntryType.Effect),
+                    JournalEntries = includeEntries ? g.ToList(): null
                 });
 
             if (speciesId.HasValue)
-                groups = groups.Where(g => g.SpeciesId == speciesId.Value);
-
+            { 
+                groups = groups.Where(x => x.ProductTypeId == speciesId.Value); 
+            }
+            
             if (productTypeId.HasValue)
-                groups = groups.Where(g => g.ProductTypeId == productTypeId.Value);
-
-            stockSummaries.AddRange( groups.ToList());
+            {
+                groups = groups.Where(x => x.ProductTypeId == productTypeId.Value); 
+            }
+            
+            stockSummaries.AddRange(groups.ToList());
 
             return stockSummaries;
         }

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using PlantDataMVC.Repository.Models;
+using DelegateDecompiler;
 
 namespace PlantDataMVC.Api.Controllers
 {
@@ -107,7 +108,7 @@ namespace PlantDataMVC.Api.Controllers
         [HttpGet(Name = "JournalEntriesStockSummary")]
         [Route("StockSummary")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult Get(
+        public IActionResult StockSummary(
             [FromQuery] PagingParameters pgParams,
             [FromQuery] SortingParameters sortParams,
             [FromQuery] int? speciesId = null,
@@ -118,20 +119,21 @@ namespace PlantDataMVC.Api.Controllers
                 // TODO: Current state doesn't return children by default, can only get with "fields" option
                 // need to determine expected behaviour
 
-                var context = _service.GetStockCounts(speciesId, productTypeId).AsQueryable();
+                var dataListIn = _service.GetStockCounts(speciesId, productTypeId);
 
-                var dataModels = _mapper.ProjectTo<JournalEntryStockSummaryDataModel>(context)
-                           .ApplySort(sortParams.Sort);
+                var dataModelList = _mapper.Map<IEnumerable<JournalEntryStockSummaryModel>, IEnumerable<JournalEntryStockSummaryDataModel>>(dataListIn);
+                
+                var dataModelListSorted = dataModelList.AsQueryable().ApplySort(sortParams.Sort);
 
                 if (speciesId != null)
-                    dataModels = dataModels.Where(s => s.SpeciesId == speciesId);
+                    dataModelListSorted = dataModelListSorted.Where(s => s.SpeciesId == speciesId);
 
                 if (productTypeId != null)
-                    dataModels = dataModels.Where(s => s.ProductTypeId == productTypeId);
+                    dataModelListSorted = dataModelListSorted.Where(s => s.ProductTypeId == productTypeId);
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
-                    dataModels.Count(),
+                    dataModelListSorted.Count(),
                     "JournalEntriesStockSummary",
                     new
                     {
@@ -147,11 +149,39 @@ namespace PlantDataMVC.Api.Controllers
                     HttpContext.Response.Headers.Add(hdr);
                 }
 
-                var itemList = dataModels
+                var itemList = dataModelListSorted
                                .Paginate(pgParams.Page, pgParams.PageSize)
                                .ToList();
 
                 return Ok(itemList);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Exception occurred");
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        // GET: api/JournalEntries
+        [HttpGet(Name = "JournalEntriesStockSummaryDetails")]
+        [Route("StockSummaryDetails")]
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public IActionResult StockSummaryDetails(
+            [FromQuery] int speciesId,
+            [FromQuery] int productTypeId)
+        {
+            try
+            {
+                var item = _service.GetStockCounts(speciesId, productTypeId, includeEntries: true).FirstOrDefault();
+
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                var itemDataModel = _mapper.Map<JournalEntryStockSummaryModel, JournalEntryStockSummaryDataModel>(item);
+
+                return Ok(itemDataModel);
             }
             catch (Exception e)
             {
