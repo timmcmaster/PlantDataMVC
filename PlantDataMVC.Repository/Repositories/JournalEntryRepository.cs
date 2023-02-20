@@ -45,9 +45,9 @@ namespace PlantDataMVC.Repository.Repositories
                 context = context.Where(x => x.ProductTypeId == productTypeId.Value);
             }
 
-            var groups = context.GroupBy(je => new { je.SpeciesId, je.ProductTypeId });
-
-            var selectionList = groups.Select(g => new JournalEntryStockSummaryModel()
+            var selectionList = context
+                .GroupBy(je => new { je.SpeciesId, je.ProductTypeId })
+                .Select(g => new JournalEntryStockSummaryModel()
                 {
                     SpeciesId = g.Key.SpeciesId,
                     ProductTypeId = g.Key.ProductTypeId,
@@ -55,7 +55,7 @@ namespace PlantDataMVC.Repository.Repositories
                     SpeciesName = g.FirstOrDefault().Species.SpecificName,
                     ProductTypeName = g.FirstOrDefault().ProductType.Name,
                     QuantityInStock = g.Sum(je => je.Quantity * je.JournalEntryType.Effect),
-                    JournalEntries = includeEntries ? new List<JournalEntryEntityModel>(g.ToList()) : new List<JournalEntryEntityModel>()
+                    JournalEntries = includeEntries ? g.ToList() : new List<JournalEntryEntityModel>()
                 })
                 .ToList();
 
