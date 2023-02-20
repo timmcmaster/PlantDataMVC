@@ -10,6 +10,6 @@ namespace PlantDataMVC.Repository.Models
         public string SpeciesName { get; set; } = string.Empty;
         public string ProductTypeName { get; set; } = string.Empty;
         public int QuantityInStock { get; set; }
-        public ICollection<JournalEntryEntityModel> JournalEntries { get; set; } = new List<JournalEntryEntityModel>();
+        public IEnumerable<JournalEntryEntityModel> JournalEntries { get; set; } = new List<JournalEntryEntityModel>();
     }
 }

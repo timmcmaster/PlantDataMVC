@@ -22,6 +22,6 @@ namespace PlantDataMVC.Web.Models.ViewModels.Transaction
         public int QuantityInStock { get; set; }
 
         [Display(Name = "Transactions")]
-        public IList<TransactionListViewModel> Transactions { get; set; } = new List<TransactionListViewModel>();
+        public IEnumerable<TransactionListViewModel> Transactions { get; set; } = new List<TransactionListViewModel>();
     }
 }

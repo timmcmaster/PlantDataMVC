@@ -29,14 +29,25 @@ namespace PlantDataMVC.Repository.Repositories
 
         public List<JournalEntryStockSummaryModel> GetStockCounts(int? speciesId, int? productTypeId, bool includeEntries = false)
         {
-            var stockSummaries = new List<JournalEntryStockSummaryModel>();
-
-            var groups = DbSet
+            var context = DbSet
                 .Include(m => m.Species).ThenInclude(m => m.Genus)
                 .Include(m => m.ProductType)
                 .Include(m => m.JournalEntryType)
-                .GroupBy(je => new { je.SpeciesId, je.ProductTypeId })
-                .Select(g => new JournalEntryStockSummaryModel()
+                .AsQueryable();
+
+            if (speciesId.HasValue)
+            {
+                context = context.Where(x => x.SpeciesId == speciesId.Value);
+            }
+
+            if (productTypeId.HasValue)
+            {
+                context = context.Where(x => x.ProductTypeId == productTypeId.Value);
+            }
+
+            var groups = context.GroupBy(je => new { je.SpeciesId, je.ProductTypeId });
+
+            var selectionList = groups.Select(g => new JournalEntryStockSummaryModel()
                 {
                     SpeciesId = g.Key.SpeciesId,
                     ProductTypeId = g.Key.ProductTypeId,
@@ -44,22 +55,11 @@ namespace PlantDataMVC.Repository.Repositories
                     SpeciesName = g.FirstOrDefault().Species.SpecificName,
                     ProductTypeName = g.FirstOrDefault().ProductType.Name,
                     QuantityInStock = g.Sum(je => je.Quantity * je.JournalEntryType.Effect),
-                    JournalEntries = includeEntries ? g.ToList(): null
-                });
+                    JournalEntries = includeEntries ? new List<JournalEntryEntityModel>(g.ToList()) : new List<JournalEntryEntityModel>()
+                })
+                .ToList();
 
-            if (speciesId.HasValue)
-            { 
-                groups = groups.Where(x => x.ProductTypeId == speciesId.Value); 
-            }
-            
-            if (productTypeId.HasValue)
-            {
-                groups = groups.Where(x => x.ProductTypeId == productTypeId.Value); 
-            }
-            
-            stockSummaries.AddRange(groups.ToList());
-
-            return stockSummaries;
+            return selectionList;
         }
     }
 }

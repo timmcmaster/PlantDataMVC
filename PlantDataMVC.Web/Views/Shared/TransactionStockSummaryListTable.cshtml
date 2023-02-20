@@ -21,7 +21,7 @@
                 <td>@Html.DisplayFor(m => m.ElementAt(count).SpeciesBinomial)</td>
                 <td>@Html.DisplayFor(m => m.ElementAt(count).ProductTypeName)</td>
                 <td>@Html.DisplayFor(m => m.ElementAt(count).QuantityInStock)</td>
-                <td><a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="StockSummaryDetails" asp-route-speciesid="@sampleElement.SpeciesId" asp-route-producttypeid="@sampleElement.ProductTypeId">Details</a></td>
+                <td><a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="StockSummaryDetails" asp-route-speciesid="@entry.SpeciesId" asp-route-producttypeid="@entry.ProductTypeId">Details</a></td>
             </tr>
             count++;
         }

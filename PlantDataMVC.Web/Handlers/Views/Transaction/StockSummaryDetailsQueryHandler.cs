@@ -25,6 +25,7 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
         public async Task<TransactionStockSummaryDetailsViewModel> Handle(StockSummaryDetailsQuery query, CancellationToken cancellationToken)
         {
             var uri = $"api/JournalEntries/StockSummaryDetails?speciesId={query.SpeciesId}&productTypeId={query.ProductTypeId}";
+
             var response = await _plantDataApiClient.GetAsync<JournalEntryStockSummaryDataModel>(uri, cancellationToken).ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)

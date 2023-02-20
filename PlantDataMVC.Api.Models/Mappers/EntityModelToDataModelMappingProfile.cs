@@ -150,8 +150,8 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(dm => dm.ProductTypeName, opt => opt.MapFrom(e => e.ProductTypeName)) // explicit and unnecessary
                 .ForMember(dm => dm.GenusName, opt => opt.MapFrom(e => e.GenusName)) // explicit and unnecessary
                 .ForMember(dm => dm.SpeciesName, opt => opt.MapFrom(e => e.SpeciesName)) // explicit and unnecessary
-                .ForMember(dm => dm.QuantityInStock, opt => opt.MapFrom(e => e.QuantityInStock)); // explicit and unnecessary
-                //.ForMember(dm => dm.JournalEntries, opt => opt.MapFrom(e => e.JournalEntries)); // ICollection, explicit and unnecessary
+                .ForMember(dm => dm.QuantityInStock, opt => opt.MapFrom(e => e.QuantityInStock)) // explicit and unnecessary
+                .ForMember(dm => dm.JournalEntries, opt => opt.MapFrom(e => e.JournalEntries)); // ICollection, explicit and unnecessary
 
         }
 
