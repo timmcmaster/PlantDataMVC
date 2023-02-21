@@ -6,12 +6,13 @@
     Transaction.TransactionStockSummaryListViewModel sampleElement = new Transaction.TransactionStockSummaryListViewModel();
 }
 <ejs-grid id="TransactionStockSummaryGrid"
+          dataSource="@Model"
           allowPaging="true"
           allowSorting="true"
           height="550" width="800">
-    <e-data-manager adaptor="UrlAdaptor" 
+    @*<e-data-manager adaptor="UrlAdaptor" 
                     url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.TransactionStockSummaryGrid)">
-    </e-data-manager>
+    </e-data-manager>*@
     <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
     <e-grid-columns>
         <e-grid-column field="@nameof(sampleElement.SpeciesBinomial)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)"></e-grid-column>
@@ -22,9 +23,12 @@
 </ejs-grid>
 
 <script id="detailsTemplate" type="text/x-template">
-    <a href=@Url.Action("StockSummaryDetailsVC", PlantDataMvcAppControllers.Transaction, new { speciesId="${SpeciesId}", productTypeId="${ProductTypeId}"})>Details</a>
+    <div>
+        <a href="/Transaction/StockSummaryDetailsVC?speciesId=${SpeciesId}&productTypeId=${ProductTypeId}">Details</a>
+    </div>
 </script>
-
+@*        <a href="@Url.Action("StockSummaryDetailsVC", PlantDataMvcAppControllers.Transaction, new { speciesId="${SpeciesId}", productTypeId="${ProductTypeId}"})">Details</a>
+*@
 <style>
     .e-grid .e-row .e-rowcell {
         padding-top: 2px;

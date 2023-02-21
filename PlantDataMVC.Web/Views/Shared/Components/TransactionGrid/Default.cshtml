@@ -6,12 +6,14 @@
     Transaction.TransactionListViewModel sampleElement = new Transaction.TransactionListViewModel();
 }
 <ejs-grid id="TransactionGrid"
+          dataSource="@Model.Transactions"  
           allowPaging="true"
           allowSorting="true"
           height="550" width="800">
-    <e-data-manager adaptor="UrlAdaptor" 
+@*    <e-data-manager adaptor="UrlAdaptor" 
                     url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.TransactionGrid, new {speciesId = $"{Model.SpeciesId}",productTypeId = $"{Model.ProductTypeId}"})">
-    </e-data-manager>
+    </e-data-manager>*@
+
     <e-grid-pagesettings></e-grid-pagesettings>
     <e-grid-columns>
         <e-grid-column field="@nameof(sampleElement.TransactionTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.TransactionTypeName)"></e-grid-column>
