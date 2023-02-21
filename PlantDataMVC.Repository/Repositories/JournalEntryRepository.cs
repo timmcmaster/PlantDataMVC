@@ -33,17 +33,8 @@ namespace PlantDataMVC.Repository.Repositories
                 .Include(m => m.Species).ThenInclude(m => m.Genus)
                 .Include(m => m.ProductType)
                 .Include(m => m.JournalEntryType)
-                .AsQueryable();
-
-            if (speciesId.HasValue)
-            {
-                context = context.Where(x => x.SpeciesId == speciesId.Value);
-            }
-
-            if (productTypeId.HasValue)
-            {
-                context = context.Where(x => x.ProductTypeId == productTypeId.Value);
-            }
+                .Where(s => speciesId == null || s.SpeciesId == speciesId)
+                .Where(s => productTypeId == null || s.ProductTypeId == productTypeId);
 
             var selectionList = context
                 .GroupBy(je => new { je.SpeciesId, je.ProductTypeId })
