@@ -16,10 +16,10 @@
         <label asp-for="Transactions"></label>
     </div>
     <div class="child-table">
-        <partial name="TransactionListTable" for="Transactions" />
+        <vc:transaction-grid model="@Model.Transactions" species-id="@Model.SpeciesId" product-type-id="@Model.ProductTypeId"></vc:transaction-grid>
     </div>
 </fieldset>
 <p>
-    <a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="StockSummary">Back to Stock Summary</a>
+    <a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="StockSummaryVC">Back to Stock Summary</a>
 </p>
 

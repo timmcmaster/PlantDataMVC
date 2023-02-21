@@ -83,6 +83,7 @@ namespace PlantDataMVC.Web.Shared.Components.MainMenu
                 new MenuItemViewModel(id:"sfItem2.5", text:"Plant Stock", parentId:"sfItem2", url:Url.Action("IndexVC", @PlantDataMvcAppControllers.PlantStock) ?? string.Empty),
                 new MenuItemViewModel(id:"sfItem2.6", text:"Seed Trays", parentId:"sfItem2", url:Url.Action("IndexVC", PlantDataMvcAppControllers.SeedTray) ?? string.Empty),
                 new MenuItemViewModel(id:"sfItem2.7", text:"Sales", parentId:"sfItem2", url:Url.Action("IndexVC", PlantDataMvcAppControllers.SaleEvent) ?? string.Empty),
+                new MenuItemViewModel(id:"sfItem2.8", text:"Transaction Stock Summary", parentId:"sfItem2", url:Url.Action("StockSummaryVC", PlantDataMvcAppControllers.Transaction) ?? string.Empty),
 
                 new MenuItemViewModel(id:"sfItem3", text:"Maintenance", parentId:"null", url:string.Empty, iconCss:"icon-settings icon"),
                 new MenuItemViewModel(id:"sfItem3.1", text:"Products", parentId:"sfItem3", url:Url.Action("IndexVC", PlantDataMvcAppControllers.ProductType) ?? string.Empty),

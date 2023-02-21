@@ -5,7 +5,6 @@ namespace PlantDataMVC.Web.Controllers.Queries.Transaction
 {
     public class DeleteQuery : IQuery<TransactionDeleteViewModel>
     {
-
         public DeleteQuery(int id)
         {
             Id = id;

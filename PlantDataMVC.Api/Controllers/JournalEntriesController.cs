@@ -38,14 +38,13 @@ namespace PlantDataMVC.Api.Controllers
 
         // GET: api/JournalEntries
         [HttpGet(Name = "JournalEntriesList")]
-        [Route("PlantStock/{plantStockId}/JournalEntries", Name = "EntriesForStock")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public IActionResult Get(
             [FromQuery] DataShapingParameters dsParams,
             [FromQuery] PagingParameters pgParams,
             [FromQuery] SortingParameters sortParams,
-            [FromQuery] int speciesId,
-            [FromQuery] int productTypeId)
+            [FromQuery] int? speciesId,
+            [FromQuery] int? productTypeId)
         {
             try
             {
@@ -69,12 +68,13 @@ namespace PlantDataMVC.Api.Controllers
                 var dataModels = _mapper
                            .ProjectTo<JournalEntryDataModel>(context, childDataModelsToInclude.ToArray())
                            .ApplySort(sortParams.Sort)
-                           .Where(s => s.SpeciesId == speciesId && s.ProductTypeId == productTypeId);
+                           .Where(s => speciesId == null || s.SpeciesId == speciesId)
+                           .Where(s => productTypeId == null || s.ProductTypeId == productTypeId);
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
                     dataModels.Count(),
-                    "EntriesForStock",
+                    "JournalEntriesList",
                     new
                     {
                         sortParams.Sort,

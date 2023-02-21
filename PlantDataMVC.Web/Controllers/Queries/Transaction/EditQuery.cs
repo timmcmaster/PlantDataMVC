@@ -5,7 +5,6 @@ namespace PlantDataMVC.Web.Controllers.Queries.Transaction
 {
     public class EditQuery : IQuery<TransactionEditViewModel>
     {
-
         public EditQuery(int id)
         {
             Id = id;
