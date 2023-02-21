@@ -16,7 +16,7 @@
         <label asp-for="Transactions"></label>
     </div>
     <div class="child-table">
-        <vc:transaction-grid model="@Model.Transactions" species-id="@Model.SpeciesId" product-type-id="@Model.ProductTypeId"></vc:transaction-grid>
+        <vc:transaction-grid transactions="@Model.Transactions" species-id="@Model.SpeciesId" product-type-id="@Model.ProductTypeId"></vc:transaction-grid>
     </div>
 </fieldset>
 <p>
