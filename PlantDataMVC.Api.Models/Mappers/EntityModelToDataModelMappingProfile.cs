@@ -140,6 +140,7 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(dm => dm.JournalEntryTypeName, opt => opt.MapFrom(e => e.JournalEntryType.Name)) // explicit and unnecessary
                 .ForMember(dm => dm.TransactionDate, opt => opt.MapFrom(e => e.TransactionDate)) // explicit and unnecessary
                 .ForMember(dm => dm.Quantity, opt => opt.MapFrom(e => e.Quantity)) // explicit and unnecessary
+                .ForMember(dm => dm.EffectiveQuantity, opt => opt.MapFrom(e => e.Quantity * e.JournalEntryType.Effect)) // explicit and unnecessary
                 .ForMember(dm => dm.SeedTrayId, opt => opt.MapFrom(e => e.SeedTrayId)) // explicit and unnecessary
                 .ForMember(dm => dm.Source, opt => opt.MapFrom(e => e.Source)) // explicit and unnecessary
                 .ForMember(dm => dm.Notes, opt => opt.MapFrom(e => e.Notes)); // explicit and unnecessary

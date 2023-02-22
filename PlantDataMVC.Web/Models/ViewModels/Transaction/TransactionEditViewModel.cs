@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,9 @@ namespace PlantDataMVC.Web.Models.ViewModels.Transaction
         public DateTime TransactionDate { get; set; }
 
         public int Quantity { get; set; }
+
+        [Display(Name = "Effective Quantity"), ReadOnly(true)]
+        public int EffectiveQuantity { get; set; }
 
         [Display(Name = "Seed Tray Id")]
         public int SeedTrayId { get; set; }

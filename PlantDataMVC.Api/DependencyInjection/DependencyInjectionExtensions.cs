@@ -29,7 +29,7 @@ namespace PlantDataMVC.Api.DependencyInjection
                 options.AddInterceptors(new EfLoggingInterceptor());
 
             });
-            services.AddScoped<IDbContext>(provider => provider.GetService<PlantDataDbContext>());
+            services.AddScoped<IDbContext>(provider => provider.GetRequiredService<PlantDataDbContext>());
 
             //*****************************************
             // Register unit of work

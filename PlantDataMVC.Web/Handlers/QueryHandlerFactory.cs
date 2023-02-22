@@ -20,6 +20,7 @@ namespace PlantDataMVC.Web.Handlers
 
             try
             {
+                // TODO: Effectively servicelocator pattern - can I do it better?
                 var matchingServices = _serviceProvider.GetServices(typeof(IQueryHandler<TQuery, TViewModel>));
 
                 // Create handler by resolving it from context

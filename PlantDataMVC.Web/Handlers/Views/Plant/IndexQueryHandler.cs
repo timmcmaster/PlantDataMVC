@@ -29,7 +29,7 @@ namespace PlantDataMVC.Web.Handlers.Views.Plant
         public async Task<ListViewModelStatic<PlantListViewModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
         {
             // Get paging part of query
-            // TODO: really want to sort by genus name and species name (if showing details by plant)
+            // TODO: really want to sort by genus name AND species name (if showing details by plant)
             var requestUri = "api/Species?page=" + query.Page + "&pageSize=" + query.PageSize;
 
             // add sorting if it maps ok

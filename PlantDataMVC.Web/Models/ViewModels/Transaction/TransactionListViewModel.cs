@@ -23,6 +23,8 @@ namespace PlantDataMVC.Web.Models.ViewModels.Transaction
 
         public int Quantity { get; set; }
 
+        [Display(Name = "Effective Quantity")]
+        public int EffectiveQuantity { get; set; }
 
         public TransactionListViewModel()
         {

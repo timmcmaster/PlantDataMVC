@@ -7,13 +7,6 @@ namespace PlantDataMVC.Entities.EntityModels
 {
     public class ProductPriceEntityModel : IEntity
     {
-        //// HACK: Putting Id in just to meet interface requirements
-        //public override int Id
-        //{
-        //    get => -1;
-        //    set { }
-        //}
-
         [Required]
         [Display(Name = "Price list type ID")]
         public int PriceListTypeId { get; set; } // PriceListTypeId (Primary key)
@@ -47,6 +40,4 @@ namespace PlantDataMVC.Entities.EntityModels
         {
         }
     }
-
 }
-// </auto-generated>

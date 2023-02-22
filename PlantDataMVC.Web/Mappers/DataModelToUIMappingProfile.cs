@@ -267,6 +267,7 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
                 .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
+                .ForMember(uio => uio.EffectiveQuantity, opt => opt.MapFrom(dm => dm.EffectiveQuantity))
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
                 .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dm => dm.Source))
@@ -278,6 +279,7 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
                 .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
+                .ForMember(uio => uio.EffectiveQuantity, opt => opt.MapFrom(dm => dm.EffectiveQuantity))
                 .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
                 .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dm => dm.Source))
@@ -288,6 +290,7 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
                 .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
                 .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
+                .ForMember(uio => uio.EffectiveQuantity, opt => opt.MapFrom(dm => dm.EffectiveQuantity))
                 .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
                 .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dm => dm.JournalEntryTypeName));
 
