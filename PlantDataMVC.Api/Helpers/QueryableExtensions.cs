@@ -24,7 +24,7 @@ namespace PlantDataMVC.Api.Helpers
                 throw new ArgumentNullException(nameof(source));
             }
 
-            if (sort == null)
+            if (string.IsNullOrWhiteSpace(sort))
             {
                 return source;
             }

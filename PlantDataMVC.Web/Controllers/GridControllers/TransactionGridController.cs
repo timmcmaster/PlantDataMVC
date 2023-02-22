@@ -39,8 +39,8 @@ namespace PlantDataMVC.Web.Controllers
             var localPage = request.Skip != 0 ? (request.Skip / request.Take) + 1 : 1;
             var localPageSize = request.Take != 0 ? request.Take : 20;
 
-            var firstSort = request.Sorted?.FirstOrDefault(); 
-            var localSortBy = firstSort == null ? "SpeciesId" : firstSort.Name; // HACK: only setting to this to override default in sortParams of "id"
+            var firstSort = request.Sorted?.FirstOrDefault();
+            var localSortBy = firstSort == null ? String.Empty : firstSort.Name;
             var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
 
             var query = new IndexQuery(localPage, localPageSize, localSortBy, localAscending);

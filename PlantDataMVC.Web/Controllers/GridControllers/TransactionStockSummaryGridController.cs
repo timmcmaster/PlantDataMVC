@@ -40,7 +40,7 @@ namespace PlantDataMVC.Web.Controllers
             var localPageSize = request.Take != 0 ? request.Take : 20;
 
             var firstSort = request.Sorted?.FirstOrDefault(); 
-            var localSortBy = firstSort == null ? "SpeciesId" : firstSort.Name; // HACK: only setting to this to override default in sortParams of "id"
+            var localSortBy = firstSort == null ? String.Empty : firstSort.Name;
             var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
 
             var query = new StockSummaryQuery(localPage, localPageSize, localSortBy, localAscending);

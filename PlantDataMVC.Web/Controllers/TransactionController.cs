@@ -33,7 +33,7 @@ namespace PlantDataMVC.Web.Controllers
             // resolve parameters
             var localPage = page ?? 1;
             var localPageSize = pageSize ?? 20;
-            var localSortBy = sortBy ?? "SpeciesId"; // HACK: overriding because default is "id"
+            var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
             var query = new StockSummaryQuery(localPage, localPageSize, localSortBy, localAscending);
@@ -57,7 +57,7 @@ namespace PlantDataMVC.Web.Controllers
             // resolve parameters
             var localPage = page ?? 1;
             var localPageSize = pageSize ?? 20;
-            var localSortBy = sortBy ?? "SpeciesId"; // HACK: overriding because default is "id"
+            var localSortBy = sortBy ?? string.Empty;
             var localAscending = ascending ?? true;
 
             var query = new StockSummaryQuery(localPage, localPageSize, localSortBy, localAscending);
