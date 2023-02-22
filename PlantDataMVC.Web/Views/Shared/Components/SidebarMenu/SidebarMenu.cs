@@ -42,52 +42,60 @@ namespace PlantDataMVC.Web.Shared.Components.MainMenu
             var menuItems = new List<MenuItemViewModel>()
             {
                 // Basic MVC menu header
-                new MenuItemViewModel(id:"basicItem0", text:"Basic MVC", parentId:"null", url:string.Empty, iconCss:"icon"),
+                new MenuItemViewModel(id:"mvcHeader", text:"Basic MVC", parentId:"null", url:string.Empty, iconCss:"icon"),
 
                 // Home menu
-                new MenuItemViewModel(id:"basicItem1", text:"Home", parentId:"null", url:Url.Action("Index",@PlantDataMvcAppControllers.Home) ?? string.Empty, iconCss:"icon-home icon"),
-                new MenuItemViewModel(id:"basicItem1.1", text:"About", parentId:"basicItem1", url:Url.Action("About", @PlantDataMvcAppControllers.Home) ?? string.Empty),
-                new MenuItemViewModel(id:"basicItem1.2", text:"Privacy", parentId:"basicItem1", url:Url.Action("Privacy", @PlantDataMvcAppControllers.Home) ?? string.Empty),
+                new MenuItemViewModel(id:"mvcHome", text:"Home", parentId:"null", url:Url.Action("Index",@PlantDataMvcAppControllers.Home) ?? string.Empty, iconCss:"icon-home icon"),
+                new MenuItemViewModel(id:"mvcHomeAbout", text:"About", parentId:"mvcHome", url:Url.Action("About", @PlantDataMvcAppControllers.Home) ?? string.Empty),
+                new MenuItemViewModel(id:"mvcHomePrivacy", text:"Privacy", parentId:"mvcHome", url:Url.Action("Privacy", @PlantDataMvcAppControllers.Home) ?? string.Empty),
 
-                // Basic MVC Views menu 
-                new MenuItemViewModel(id:"basicItem2", text:"Views", parentId:"null", url : string.Empty, iconCss:"icon-plus icon"),
-                new MenuItemViewModel(id:"basicItem2.1", text:"Genera", parentId:"basicItem2", url:Url.Action("Index", PlantDataMvcAppControllers.Genus) ?? string.Empty),
-                new MenuItemViewModel(id:"basicItem2.2", text:"Plant", parentId:"basicItem2", url:Url.Action("Index", PlantDataMvcAppControllers.Plant) ?? string.Empty),
-                new MenuItemViewModel(id:"basicItem2.3", text:"Plant Seeds", parentId:"basicItem2", url:Url.Action("Index", PlantDataMvcAppControllers.SeedBatch) ?? string.Empty),
-                new MenuItemViewModel(id:"basicItem2.4", text:"Sites", parentId:"basicItem2", url:Url.Action("Index", @PlantDataMvcAppControllers.Site) ?? string.Empty),
-                new MenuItemViewModel(id:"basicItem2.5", text:"Plant Stock", parentId:"basicItem2", url:Url.Action("Index", @PlantDataMvcAppControllers.PlantStock) ?? string.Empty),
-                new MenuItemViewModel(id:"basicItem2.6", text:"Seed Trays", parentId:"basicItem2", url:Url.Action("Index", PlantDataMvcAppControllers.SeedTray) ?? string.Empty),
-                new MenuItemViewModel(id:"basicItem2.7", text:"Sales", parentId:"basicItem2", url:Url.Action("Index", PlantDataMvcAppControllers.SaleEvent) ?? string.Empty),
-                new MenuItemViewModel(id:"basicItem2.8", text:"Transaction Stock Summary", parentId:"basicItem2", url:Url.Action("StockSummary", PlantDataMvcAppControllers.Transaction) ?? string.Empty),
+                // Basic MVC Views menus 
+                new MenuItemViewModel(id:"mvcPlant", text:"Plant Definitions", parentId:"null", url : string.Empty, iconCss:"icon-plus icon"),
+                new MenuItemViewModel(id:"mvcPlantGenera", text:"Genera", parentId:"mvcPlant", url:Url.Action("Index", PlantDataMvcAppControllers.Genus) ?? string.Empty),
+                new MenuItemViewModel(id:"mvcPlantSpecies", text:"Species", parentId:"mvcPlant", url:Url.Action("Index", PlantDataMvcAppControllers.Plant) ?? string.Empty),
 
-                new MenuItemViewModel(id:"basicItem3", text:"Maintenance", parentId:"null", url:string.Empty, iconCss:"icon-settings icon"),
-                new MenuItemViewModel(id:"basicItem3.1", text:"Products", parentId:"basicItem3", url:Url.Action("Index", PlantDataMvcAppControllers.ProductType) ?? string.Empty),
-                new MenuItemViewModel(id:"basicItem3.2", text:"Price Lists", parentId:"basicItem3", url:Url.Action("Index", PlantDataMvcAppControllers.PriceListType) ?? string.Empty),
+                new MenuItemViewModel(id:"mvcInv", text:"Inventory", parentId:"null", url : string.Empty, iconCss:"icon-plus icon"),
+                new MenuItemViewModel(id:"mvcInvSeeds", text:"Seeds", parentId:"mvcInv", url:Url.Action("Index", PlantDataMvcAppControllers.SeedBatch) ?? string.Empty),
+                new MenuItemViewModel(id:"mvcInvSites", text:"Seed Collection Sites", parentId:"mvcInv", url:Url.Action("Index", @PlantDataMvcAppControllers.Site) ?? string.Empty),
+                new MenuItemViewModel(id:"mvcInvTrays", text:"Seed Trays", parentId:"mvcInv", url:Url.Action("Index", PlantDataMvcAppControllers.SeedTray) ?? string.Empty),
+                new MenuItemViewModel(id:"mvcInvStock", text:"Plant Stock (static)", parentId:"mvcInv", url:Url.Action("Index", @PlantDataMvcAppControllers.PlantStock) ?? string.Empty),
+                new MenuItemViewModel(id:"mvcInvTransactions", text:"Plant Stock (from Transactions)", parentId:"mvcInv", url:Url.Action("StockSummary", PlantDataMvcAppControllers.Transaction) ?? string.Empty),
 
-                MenuItemViewModel.CreateSeparator(id:"item4", parentId:"null"),
+                new MenuItemViewModel(id:"mvcSales", text:"Sales", parentId:"null", url : string.Empty, iconCss:"icon-plus icon"),
+                new MenuItemViewModel(id:"mvcSalesEvents", text:"Sale Events", parentId:"mvcSales", url:Url.Action("Index", PlantDataMvcAppControllers.SaleEvent) ?? string.Empty),
+
+                new MenuItemViewModel(id:"mvcProd", text:"Products and Pricing", parentId:"null", url:string.Empty, iconCss:"icon-settings icon"),
+                new MenuItemViewModel(id:"mvcProdProducts", text:"Products", parentId:"mvcProd", url:Url.Action("Index", PlantDataMvcAppControllers.ProductType) ?? string.Empty),
+                new MenuItemViewModel(id:"mvcProdPricelists", text:"Price Lists", parentId:"mvcProd", url:Url.Action("Index", PlantDataMvcAppControllers.PriceListType) ?? string.Empty),
+
+                MenuItemViewModel.CreateSeparator(id:"separator1", parentId:"null"),
 
                 // Syncfusion menu header
-                new MenuItemViewModel(id:"sfItem0", text:"Syncfusion Controls", parentId:"null", url:string.Empty, iconCss:"icon"),
+                new MenuItemViewModel(id:"sfHeader", text:"Syncfusion Controls", parentId:"null", url:string.Empty, iconCss:"icon"),
 
                 // Home menu
-                new MenuItemViewModel(id:"sfItem1", text:"Home", parentId:"null", url:Url.Action("Index",@PlantDataMvcAppControllers.Home) ?? string.Empty, iconCss:"icon-home icon"),
-                new MenuItemViewModel(id:"sfItem1.1", text:"About", parentId:"sfItem1", url:Url.Action("About", @PlantDataMvcAppControllers.Home) ?? string.Empty),
-                new MenuItemViewModel(id:"sfItem1.2", text:"Privacy", parentId:"sfItem1", url:Url.Action("Privacy", @PlantDataMvcAppControllers.Home) ?? string.Empty),
+                new MenuItemViewModel(id:"sfHome", text:"Home", parentId:"null", url:Url.Action("Index",@PlantDataMvcAppControllers.Home) ?? string.Empty, iconCss:"icon-home icon"),
+                new MenuItemViewModel(id:"sfHomeAbout", text:"About", parentId:"sfHome", url:Url.Action("About", @PlantDataMvcAppControllers.Home) ?? string.Empty),
+                new MenuItemViewModel(id:"sfHomePrivacy", text:"Privacy", parentId:"sfHome", url:Url.Action("Privacy", @PlantDataMvcAppControllers.Home) ?? string.Empty),
 
-                // Syncfusion Controls Views menu 
-                new MenuItemViewModel(id:"sfItem2", text:"Syncfusion Views", parentId:"null", url:string.Empty, iconCss:"icon-plus icon"),
-                new MenuItemViewModel(id:"sfItem2.1", text:"Genera", parentId:"sfItem2", url:Url.Action("IndexVC", PlantDataMvcAppControllers.Genus) ?? string.Empty),
-                new MenuItemViewModel(id:"sfItem2.2", text:"Plant", parentId:"sfItem2", url:Url.Action("IndexVC", PlantDataMvcAppControllers.Plant) ?? string.Empty),
-                new MenuItemViewModel(id:"sfItem2.3", text:"Plant Seeds", parentId:"sfItem2", url:Url.Action("IndexVC", PlantDataMvcAppControllers.SeedBatch) ?? string.Empty),
-                new MenuItemViewModel(id:"sfItem2.4", text:"Sites", parentId:"sfItem2", url:Url.Action("IndexVC", PlantDataMvcAppControllers.Site) ?? string.Empty),
-                new MenuItemViewModel(id:"sfItem2.5", text:"Plant Stock", parentId:"sfItem2", url:Url.Action("IndexVC", @PlantDataMvcAppControllers.PlantStock) ?? string.Empty),
-                new MenuItemViewModel(id:"sfItem2.6", text:"Seed Trays", parentId:"sfItem2", url:Url.Action("IndexVC", PlantDataMvcAppControllers.SeedTray) ?? string.Empty),
-                new MenuItemViewModel(id:"sfItem2.7", text:"Sales", parentId:"sfItem2", url:Url.Action("IndexVC", PlantDataMvcAppControllers.SaleEvent) ?? string.Empty),
-                new MenuItemViewModel(id:"sfItem2.8", text:"Transaction Stock Summary", parentId:"sfItem2", url:Url.Action("StockSummaryVC", PlantDataMvcAppControllers.Transaction) ?? string.Empty),
+                // Basic MVC Views menu 
+                new MenuItemViewModel(id:"sfPlant", text:"Plant Definitions", parentId:"null", url : string.Empty, iconCss:"icon-plus icon"),
+                new MenuItemViewModel(id:"sfPlantGenera", text:"Genera", parentId:"sfPlant", url:Url.Action("IndexVC", PlantDataMvcAppControllers.Genus) ?? string.Empty),
+                new MenuItemViewModel(id:"sfPlantSpecies", text:"Species", parentId:"sfPlant", url:Url.Action("IndexVC", PlantDataMvcAppControllers.Plant) ?? string.Empty),
 
-                new MenuItemViewModel(id:"sfItem3", text:"Maintenance", parentId:"null", url:string.Empty, iconCss:"icon-settings icon"),
-                new MenuItemViewModel(id:"sfItem3.1", text:"Products", parentId:"sfItem3", url:Url.Action("IndexVC", PlantDataMvcAppControllers.ProductType) ?? string.Empty),
-                new MenuItemViewModel(id:"sfItem3.2", text:"Price Lists", parentId:"sfItem3", url:Url.Action("IndexVC", PlantDataMvcAppControllers.PriceListType) ?? string.Empty),
+                new MenuItemViewModel(id:"sfInv", text:"Inventory", parentId:"null", url : string.Empty, iconCss:"icon-plus icon"),
+                new MenuItemViewModel(id:"sfInvSeeds", text:"Seeds", parentId:"sfInv", url:Url.Action("IndexVC", PlantDataMvcAppControllers.SeedBatch) ?? string.Empty),
+                new MenuItemViewModel(id:"sfInvSites", text:"Seed Collection Sites", parentId:"sfInv", url:Url.Action("IndexVC", @PlantDataMvcAppControllers.Site) ?? string.Empty),
+                new MenuItemViewModel(id:"sfInvTrays", text:"Seed Trays", parentId:"sfInv", url:Url.Action("IndexVC", PlantDataMvcAppControllers.SeedTray) ?? string.Empty),
+                new MenuItemViewModel(id:"sfInvStock", text:"Plant Stock (static)", parentId:"sfInv", url:Url.Action("IndexVC", @PlantDataMvcAppControllers.PlantStock) ?? string.Empty),
+                new MenuItemViewModel(id:"sfInvTransactions", text:"Plant Stock (from Transactions)", parentId:"sfInv", url:Url.Action("StockSummaryVC", PlantDataMvcAppControllers.Transaction) ?? string.Empty),
+
+                new MenuItemViewModel(id:"sfSales", text:"Sales", parentId:"null", url : string.Empty, iconCss:"icon-plus icon"),
+                new MenuItemViewModel(id:"sfSalesEvents", text:"Sale Events", parentId:"sfSales", url:Url.Action("IndexVC", PlantDataMvcAppControllers.SaleEvent) ?? string.Empty),
+
+                new MenuItemViewModel(id:"sfProd", text:"Products and Pricing", parentId:"null", url:string.Empty, iconCss:"icon-settings icon"),
+                new MenuItemViewModel(id:"sfProdProducts", text:"Products", parentId:"sfProd", url:Url.Action("IndexVC", PlantDataMvcAppControllers.ProductType) ?? string.Empty),
+                new MenuItemViewModel(id:"sfProdPricelists", text:"Price Lists", parentId:"sfProd", url:Url.Action("IndexVC", PlantDataMvcAppControllers.PriceListType) ?? string.Empty)
             };
 
             menuModel.MenuItems = menuItems;
