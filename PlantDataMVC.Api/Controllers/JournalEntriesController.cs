@@ -123,13 +123,10 @@ namespace PlantDataMVC.Api.Controllers
 
                 var dataModelList = _mapper.Map<IEnumerable<JournalEntryStockSummaryModel>, IEnumerable<JournalEntryStockSummaryDataModel>>(dataListIn);
                 
-                var dataModelListSorted = dataModelList.AsQueryable().ApplySort(sortParams.Sort);
-
-                if (speciesId != null)
-                    dataModelListSorted = dataModelListSorted.Where(s => s.SpeciesId == speciesId);
-
-                if (productTypeId != null)
-                    dataModelListSorted = dataModelListSorted.Where(s => s.ProductTypeId == productTypeId);
+                var dataModelListSorted = dataModelList.AsQueryable()
+                    .ApplySort(sortParams.Sort)
+                    .Where(s => speciesId == null || s.SpeciesId == speciesId)
+                    .Where(s => productTypeId == null || s.ProductTypeId == productTypeId);
 
                 var paginationHeaders = PagingHelper.GetPaginationHeaders(
                     Url,
@@ -232,7 +229,7 @@ namespace PlantDataMVC.Api.Controllers
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public IActionResult Post([FromBody] CreateUpdateJournalEntryDataModel dataModelIn)
         {
-            // TODO: Add validation checks (e.g. uniqueness)
+            // TODO: Add validation checks
             try
             {
                 if (dataModelIn == null)
