@@ -1,0 +1,20 @@
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.ProductPrice.ProductPriceListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Product Types</h2>
+<p>This is a list of all Product Types</p>
+
+@if (PlantDataMvcConstants.UseBasicMvcViews)
+{
+    <a asp-action="New">Add New Item</a>
+}
+
+@await Component.InvokeAsync("ProductPriceGrid", new { model = Model })
+
+@if (PlantDataMvcConstants.UseBasicMvcViews)
+{
+    @Html.PagingLinksFor(m => Model)
+}

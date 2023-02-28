@@ -1,0 +1,24 @@
+﻿@using PlantDataMVC.Web.Constants
+
+@model PlantDataMVC.Web.Models.ViewModels.ProductPrice.ProductPriceDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<form asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Destroy">
+    <fieldset>
+        <legend>ProductPrice</legend>
+        @*Add hidden, as display for model doesn't show hidden input needed for submit*@
+        <input asp-for="ProductTypeId" type="hidden" />
+        <input asp-for="PriceListTypeId" type="hidden" />
+        @Html.DisplayForModel()
+    </fieldset>
+    <p>
+        <input type="submit" value="Delete" /> |
+        <a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Index">Back to Index</a>
+    </p>
+</form>

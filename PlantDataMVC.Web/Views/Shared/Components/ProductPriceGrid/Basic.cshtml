@@ -1,0 +1,40 @@
+﻿@model IList<PlantDataMVC.Web.Models.ViewModels.ProductPrice.ProductPriceListViewModel>
+@using ProductPrice = PlantDataMVC.Web.Models.ViewModels.ProductPrice
+@using PlantDataMVC.Web.Constants;
+@{
+    ProductPrice.ProductPriceListViewModel sampleElement = new ProductPrice.ProductPriceListViewModel();
+    // TODO: Convert ColumnHeaderFor to TagHelper
+}
+<table class="grid">
+    <tr>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.PriceListTypeName)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.DateEffective)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Price)</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+@{
+    int count = 0;
+    foreach (var entry in Model)
+    {
+        var routeData = new Dictionary<string, string>
+        {
+            { "productTypeId",entry.ProductTypeId.ToString() },
+            { "priceListTypeId",entry.PriceListTypeId.ToString() },
+            { "dateEffective", entry.DateEffective.ToString("yyyyMMdd") }
+        };
+        <tr>
+            <td>@entry.PriceListTypeName</td>
+            <td>@entry.ProductTypeName</td>
+            <td>@entry.DateEffective</td>
+            <td>@entry.Price</td>
+            <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Show" asp-all-route-data="routeData">Show</a></td>
+            <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Edit" asp-all-route-data="routeData">Edit</a></td>
+            <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Delete" asp-all-route-data="routeData">Delete</a></td>
+        </tr>
+        count++;
+    }
+}
+</table>

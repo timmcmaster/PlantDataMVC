@@ -10,6 +10,7 @@
         public const string PlantStock = "PlantStock";
         public const string PriceListType = "PriceListType";
         public const string ProductType = "ProductType";
+        public const string ProductPrice = "ProductPrice";
         public const string SaleEvent = "SaleEvent";
         public const string SeedBatch = "SeedBatch";
         public const string SeedTray = "SeedTray";

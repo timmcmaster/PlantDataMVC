@@ -13,6 +13,9 @@ namespace PlantDataMVC.Web.Models.ViewModels.PlantStock
         [HiddenInput(DisplayValue = false)]
         public int SpeciesId { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
+        public int ProductTypeId { get; set; }
+
         [Display(Name = "Species Name")]
         public string SpeciesBinomial { get; private set; }
 

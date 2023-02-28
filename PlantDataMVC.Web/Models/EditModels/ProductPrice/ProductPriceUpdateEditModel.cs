@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Framework.Web.Forms;
+using System;
 
-namespace PlantDataMVC.Api.Models.DataModels
+namespace PlantDataMVC.Web.Models.EditModels.ProductPrice
 {
-    public class ProductPriceDataModel : IDataModel
+    public class ProductPriceUpdateEditModel : IForm<bool>
     {
         public int ProductTypeId { get; set; }
         public int PriceListTypeId { get; set; }

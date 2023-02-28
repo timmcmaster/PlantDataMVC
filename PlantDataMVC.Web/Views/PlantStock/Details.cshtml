@@ -19,7 +19,7 @@
         <a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="New" asp-route-plantStockId="@Model.Id">New</a>
     </div>
     <div class="child-table">
-        <partial name="TransactionListTable" for="Transactions" />
+        @await Component.InvokeAsync("TransactionGrid", new { transactions = Model.Transactions, speciesId = Model.SpeciesId, productTypeId = Model.ProductTypeId })
     </div>
 </fieldset>
 <p>
