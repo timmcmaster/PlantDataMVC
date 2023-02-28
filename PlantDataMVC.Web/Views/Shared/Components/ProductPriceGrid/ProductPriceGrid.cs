@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Constants;
-using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.ProductPrice;
+using PlantDataMVC.Web.Views.Shared.Components.ProductPriceGrid;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Shared.Components.ProductTypeGrid
@@ -14,12 +15,18 @@ namespace PlantDataMVC.Web.Shared.Components.ProductTypeGrid
             Console.WriteLine("Called VC constructor");
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<ProductPriceListViewModel> model)
+        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<ProductPriceListViewModel> productPrices, int? priceListTypeId = null)
         {
             string viewName = "Default";
 
             if (PlantDataMvcConstants.UseBasicMvcViews)
                 viewName = "Basic";
+
+            var model = new ProductPriceGridViewModel()
+            {
+                PriceListTypeId = priceListTypeId,
+                ProductPrices = productPrices
+            };
 
             return View(viewName, model);
         }

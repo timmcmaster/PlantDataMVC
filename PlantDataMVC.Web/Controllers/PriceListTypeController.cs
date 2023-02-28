@@ -43,6 +43,23 @@ namespace PlantDataMVC.Web.Controllers
             }
         }
 
+        // GET: /"ControllerName"/StockSummaryDetails
+        // GET: /"ControllerName"/StockSummaryDetails?page=4&pageSize=20&sortBy=Genus&ascending=True
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public async Task<ActionResult> Details(int priceListTypeId)
+        {
+            var query = new DetailsQuery(priceListTypeId);
+            var model = await _mediator.Send(query);
+
+            if (model == null)
+            {
+                return Content("An error occurred");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
         // GET: /"ControllerName"/Show/5
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public async Task<ActionResult> Show(int id)

@@ -1,4 +1,4 @@
-﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.ProductPrice.ProductPriceListViewModel>
+﻿@model PlantDataMVC.Web.Views.Shared.Components.ProductPriceGrid.ProductPriceGridViewModel;
 
 @using ProductPrice = PlantDataMVC.Web.Models.ViewModels.ProductPrice
 @using PlantDataMVC.Web.Constants;
@@ -17,7 +17,7 @@
                     updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.ProductPriceGrid)"
                     removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.ProductPriceGrid)">
     </e-data-manager>
-    <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+    <e-grid-pagesettings></e-grid-pagesettings>
     <e-grid-editsettings allowAdding="true" allowEditing="true" allowDeleting="true"></e-grid-editsettings>
     <e-grid-columns>
         <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>

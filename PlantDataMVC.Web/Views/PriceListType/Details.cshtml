@@ -1,5 +1,5 @@
 ﻿@using PlantDataMVC.Web.Constants;
-@model PlantDataMVC.Web.Models.ViewModels.PriceListType.PriceListTypeShowViewModel
+@model PlantDataMVC.Web.Models.ViewModels.PriceListType.PriceListTypeDetailsViewModel
 
 @{
     ViewBag.Title = "Show";
@@ -11,6 +11,16 @@
     <legend>Price List with Prices</legend>
 
     @Html.DisplayForModel()
+
+    <div class="display-label">
+        <label asp-for="ProductPrices"></label>
+    </div>
+    <div class="button">
+        <a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="New" asp-route-plantStockId="@Model.Id">New</a>
+    </div>
+    <div class="child-table">
+        @await Component.InvokeAsync("ProductPriceGrid", new { priceListTypeId = Model.Id, productPrices = Model.ProductPrices })
+    </div>
 </fieldset>
 
 <p>
