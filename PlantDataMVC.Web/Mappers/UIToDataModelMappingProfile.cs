@@ -3,6 +3,7 @@ using PlantDataMVC.Api.Models.DataModels;
 using Genus = PlantDataMVC.Web.Models.EditModels.Genus;
 using Plant = PlantDataMVC.Web.Models.EditModels.Plant;
 using PlantStock = PlantDataMVC.Web.Models.EditModels.PlantStock;
+using ProductPrice = PlantDataMVC.Web.Models.EditModels.ProductPrice;
 using ProductType = PlantDataMVC.Web.Models.EditModels.ProductType;
 using PriceListType = PlantDataMVC.Web.Models.EditModels.PriceListType;
 using SaleEvent = PlantDataMVC.Web.Models.EditModels.SaleEvent;
@@ -10,6 +11,7 @@ using SeedBatch = PlantDataMVC.Web.Models.EditModels.SeedBatch;
 using SeedTray = PlantDataMVC.Web.Models.EditModels.SeedTray;
 using Site = PlantDataMVC.Web.Models.EditModels.Site;
 using Transaction = PlantDataMVC.Web.Models.EditModels.Transaction;
+using System;
 
 namespace PlantDataMVC.Web.Mappers
 {
@@ -25,6 +27,7 @@ namespace PlantDataMVC.Web.Mappers
         /// </summary>
         private void ConfigureEditModelsToDataModel()
         {
+            // Maps from UI edit models to domain
             ConfigureGenusEditModels();
             ConfigurePlantEditModels();
             ConfigureSeedBatchEditModels();
@@ -35,7 +38,7 @@ namespace PlantDataMVC.Web.Mappers
             ConfigureSiteEditModels();
             ConfigureSaleEventEditModels();
             ConfigurePriceListTypeEditModels();
-            // Maps from UI edit models to domain
+            ConfigureProductPriceEditModels();
         }
 
         #region Configure Edit Models
@@ -251,7 +254,7 @@ namespace PlantDataMVC.Web.Mappers
 
         private void ConfigureProductTypeEditModels()
         {
-            // Plant
+            // ProductType
             CreateMap<ProductType.ProductTypeCreateEditModel, CreateUpdateProductTypeDataModel>()
                 .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name));
 
@@ -278,6 +281,28 @@ namespace PlantDataMVC.Web.Mappers
             CreateMap<PriceListType.PriceListTypeUpdateEditModel, CreateUpdatePriceListTypeDataModel>()
                 .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name))
                 .ForMember(dm => dm.Kind, opt => opt.MapFrom(uio => uio.Kind));
+        }
+
+        private void ConfigureProductPriceEditModels()
+        {
+            CreateMap<ProductPrice.ProductPriceCreateEditModel, CreateUpdateProductPriceDataModel>()
+                .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductTypeId))
+                .ForMember(dm => dm.PriceListTypeId, opt => opt.MapFrom(uio => uio.PriceListTypeId))
+                .ForMember(dm => dm.DateEffective, opt => opt.MapFrom(uio => uio.DateEffective))
+                .ForMember(dm => dm.Price, opt => opt.MapFrom(uio => uio.Price));
+
+            CreateMap<ProductPrice.ProductPriceDestroyEditModel, ProductPriceDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dm => dm.ProductTypeId, opt => opt.Ignore())
+                .ForMember(dm => dm.PriceListTypeId, opt => opt.Ignore())
+                .ForMember(dm => dm.DateEffective, opt => opt.Ignore())
+                .ForMember(dm => dm.Price, opt => opt.Ignore());
+
+            CreateMap<ProductPrice.ProductPriceUpdateEditModel, CreateUpdateProductPriceDataModel>()
+                .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductTypeId))
+                .ForMember(dm => dm.PriceListTypeId, opt => opt.MapFrom(uio => uio.PriceListTypeId))
+                .ForMember(dm => dm.DateEffective, opt => opt.MapFrom(uio => uio.DateEffective))
+                .ForMember(dm => dm.Price, opt => opt.MapFrom(uio => uio.Price));
         }
 
         #endregion Configure Edit Models

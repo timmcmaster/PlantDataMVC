@@ -8,12 +8,16 @@ namespace PlantDataMVC.Entities.EntityModels
     public class ProductPriceEntityModel : IEntity
     {
         [Required]
+        [Display(Name = "Id")]
+        public int Id { get; set; } // Id (Primary key)
+
+        [Required]
         [Display(Name = "Price list type ID")]
-        public int PriceListTypeId { get; set; } // PriceListTypeId (Primary key)
+        public int PriceListTypeId { get; set; } // PriceListTypeId (Unique key 1)
 
         [Required]
         [Display(Name = "Product type ID")]
-        public int ProductTypeId { get; set; } // ProductTypeId (Primary key)
+        public int ProductTypeId { get; set; } // ProductTypeId (Unique key 2)
 
         [Required]
         [Display(Name = "Price")]
@@ -22,7 +26,7 @@ namespace PlantDataMVC.Entities.EntityModels
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Date effective")]
-        public System.DateTime DateEffective { get; set; } // DateEffective (Primary key)
+        public System.DateTime DateEffective { get; set; } // DateEffective (Unique key 3)
 
         // Foreign keys
 

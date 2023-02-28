@@ -24,6 +24,7 @@
         public const string SiteGrid = "SiteGrid";
         public const string SaleEventGrid = "SaleEventGrid";
         public const string PlantStockGrid = "PlantStockGrid";
+        public const string ProductPriceGrid = "ProductPriceGrid";
         public const string ProductTypeGrid = "ProductTypeGrid";
         public const string PriceListTypeGrid = "PriceListTypeGrid";
         public const string TransactionStockSummaryGrid = "TransactionStockSummaryGrid";

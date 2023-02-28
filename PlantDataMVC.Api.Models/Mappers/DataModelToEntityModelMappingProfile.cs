@@ -29,6 +29,7 @@ namespace PlantDataMVC.Api.Models.Mappers
             ConfigureSaleEventMappings();
             ConfigureProductTypeMappings();
             ConfigurePriceListTypeMappings();
+            ConfigureProductPriceMappings();
         }
 
         private void ConfigureGenusMappings()
@@ -237,6 +238,27 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(e => e.Name, opt => opt.MapFrom(dm => dm.Name)) // explicit and unnecessary
                 .ForMember(e => e.Kind, opt => opt.MapFrom(dm => dm.Kind)) // explicit and unnecessary
                 .ForMember(e => e.ProductPrices, opt => opt.Ignore());
+        }
+
+        private void ConfigureProductPriceMappings()
+        {
+            CreateMap<CreateUpdateProductPriceDataModel, ProductPriceEntityModel>()
+                .ForMember(e => e.Id, opt => opt.Ignore())
+                .ForMember(e => e.PriceListTypeId, opt => opt.MapFrom(dm => dm.PriceListTypeId)) // explicit and unnecessary
+                .ForMember(e => e.PriceListType, opt => opt.Ignore())
+                .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId)) // explicit and unnecessary
+                .ForMember(e => e.ProductType, opt => opt.Ignore())
+                .ForMember(e => e.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective)) // explicit and unnecessary
+                .ForMember(e => e.Price, opt => opt.MapFrom(dm => dm.Price)); // explicit and unnecessary
+
+            CreateMap<ProductPriceDataModel, ProductPriceEntityModel>()
+                .ForMember(e => e.Id, opt => opt.MapFrom(dm => dm.Id)) // explicit and unnecessary
+                .ForMember(e => e.PriceListTypeId, opt => opt.MapFrom(dm => dm.PriceListTypeId)) // explicit and unnecessary
+                .ForMember(e => e.PriceListType, opt => opt.Ignore())
+                .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId)) // explicit and unnecessary
+                .ForMember(e => e.ProductType, opt => opt.Ignore())
+                .ForMember(e => e.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective)) // explicit and unnecessary
+                .ForMember(e => e.Price, opt => opt.MapFrom(dm => dm.Price)); // explicit and unnecessary
         }
 
         // Not yet mapped objects

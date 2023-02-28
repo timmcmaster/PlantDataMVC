@@ -24,11 +24,6 @@ namespace PlantDataMVC.Service
             _repository = repository;
         }
 
-        public override ProductPriceEntityModel GetItemById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public ProductPriceEntityModel GetItemByProductPriceListDate(int productTypeId, int priceListId, DateTime effectiveDate)
         {
             return _repository.GetItemByProductPriceListDate(productTypeId, priceListId, effectiveDate);

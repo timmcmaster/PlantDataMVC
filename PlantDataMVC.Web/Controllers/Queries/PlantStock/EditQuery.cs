@@ -5,7 +5,6 @@ namespace PlantDataMVC.Web.Controllers.Queries.PlantStock
 {
     public class EditQuery : IQuery<PlantStockEditViewModel>
     {
-
         public EditQuery(int id)
         {
             Id = id;

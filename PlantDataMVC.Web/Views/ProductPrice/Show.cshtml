@@ -14,10 +14,7 @@
 </fieldset>
 
 <p>
-    <a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Edit" 
-        asp-route-product-type-id="@Model.ProductTypeId" 
-        asp-route-price-list-type-id="@Model.PriceListTypeId"
-        asp-route-date-effective="@Model.DateEffective.ToString("yyyyMMdd")">Edit</a>
+    <a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Index">Back to Index</a>
 </p>
 

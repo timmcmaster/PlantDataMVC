@@ -48,9 +48,9 @@ namespace PlantDataMVC.Web.Controllers
 
         // GET: /"ControllerName"/Show/5
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public async Task<ActionResult> Show(int productTypeId, int priceListTypeId, DateTime dateEffective)
+        public async Task<ActionResult> Show(int id)
         {
-            var query = new ShowQuery(productTypeId, priceListTypeId, dateEffective);
+            var query = new ShowQuery(id);
             var model = await _mediator.Send(query);
 
             if (model == null)
@@ -95,9 +95,9 @@ namespace PlantDataMVC.Web.Controllers
 
         // Display prior to POST via Update 
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public async Task<ActionResult> Edit(int productTypeId, int priceListTypeId, DateTime dateEffective)
+        public async Task<ActionResult> Edit(int id)
         {
-            var query = new EditQuery(productTypeId, priceListTypeId, dateEffective);
+            var query = new EditQuery(id);
             var model = await _mediator.Send(query);
 
             if (model == null)
@@ -120,7 +120,7 @@ namespace PlantDataMVC.Web.Controllers
             // TODO: Use userId in submit of form (via mediator)
 
             var failureResult = DefaultFormFailureResult();
-            var successResult = RedirectToAction("Show", new { productTypeId = form.ProductTypeId, priceListTypeId = form.PriceListTypeId, dateEffective = form.DateEffective.ToString("yyyyMMdd") });
+            var successResult = RedirectToAction("Show", new { id = form.Id });
 
             if (!ModelState.IsValid)
             {
@@ -134,9 +134,9 @@ namespace PlantDataMVC.Web.Controllers
 
         // GET: /"ControllerName"/Delete/5
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public async Task<ActionResult> Delete(int productTypeId, int priceListTypeId, DateTime dateEffective)
+        public async Task<ActionResult> Delete(int id)
         {
-            var query = new DeleteQuery(productTypeId, priceListTypeId, dateEffective);
+            var query = new DeleteQuery(id);
             var model = await _mediator.Send(query);
 
             if (model == null)

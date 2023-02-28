@@ -27,10 +27,10 @@ namespace PlantDataMVC.Web.Handlers.Forms.ProductPrice
             try
             {
                 // Map local model to dataModel
-                ProductPriceDataModel item = _mapper.Map<ProductPriceCreateEditModel, ProductPriceDataModel>(form);
+                CreateUpdateProductPriceDataModel item = _mapper.Map<ProductPriceCreateEditModel, CreateUpdateProductPriceDataModel>(form);
 
                 var uri = "api/ProductPrice";
-                var response = await _plantDataApiClient.PostAsync<ProductPriceDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                var response = await _plantDataApiClient.PostAsync<CreateUpdateProductPriceDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
 
                 return response.Success;
             }

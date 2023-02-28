@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PlantDataMVC.Web.Controllers.Queries.ProductType;
-using PlantDataMVC.Web.Models.EditModels.ProductType;
+using PlantDataMVC.Web.Controllers.Queries.ProductPrice;
+using PlantDataMVC.Web.Models.EditModels.ProductPrice;
 using Syncfusion.EJ2.Base;
 using System;
 using System.Linq;
@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Controllers
 {
-    public class ProductTypeGridController : Controller
+    public class ProductPriceGridController : Controller
     {
         private readonly IMediator _mediator;
 
-        public ProductTypeGridController(IMediator mediator)
+        public ProductPriceGridController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -59,7 +59,7 @@ namespace PlantDataMVC.Web.Controllers
             }
         }
 
-        public async Task<ActionResult> Insert([FromBody] CRUDModel<ProductTypeCreateEditModel> x)
+        public async Task<ActionResult> Insert([FromBody] CRUDModel<ProductPriceCreateEditModel> x)
         {
             // TODO: won't be correct, as we can't select the parent genus from the grid
             var form = x.Value;
@@ -69,7 +69,7 @@ namespace PlantDataMVC.Web.Controllers
             return Json(form);
         }
 
-        public async Task<ActionResult> Update([FromBody] CRUDModel<ProductTypeUpdateEditModel> x)
+        public async Task<ActionResult> Update([FromBody] CRUDModel<ProductPriceUpdateEditModel> x)
         {
             var form = x.Value;
 
@@ -78,10 +78,10 @@ namespace PlantDataMVC.Web.Controllers
             return Json(form);
         }
 
-        public async Task<ActionResult> Delete([FromBody] CRUDModel<ProductTypeDestroyEditModel> x)
+        public async Task<ActionResult> Delete([FromBody] CRUDModel<ProductPriceDestroyEditModel> x)
         {
             var id = Convert.ToInt32(x.Key.ToString());
-            var form = new ProductTypeDestroyEditModel() { Id = id };
+            var form = new ProductPriceDestroyEditModel() { Id = id };
             
             var result = await _mediator.Send(form);
 

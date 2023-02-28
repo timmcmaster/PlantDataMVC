@@ -19,20 +19,14 @@
     int count = 0;
     foreach (var entry in Model)
     {
-        var routeData = new Dictionary<string, string>
-        {
-            { "productTypeId",entry.ProductTypeId.ToString() },
-            { "priceListTypeId",entry.PriceListTypeId.ToString() },
-            { "dateEffective", entry.DateEffective.ToString("yyyyMMdd") }
-        };
         <tr>
             <td>@entry.PriceListTypeName</td>
             <td>@entry.ProductTypeName</td>
             <td>@entry.DateEffective</td>
             <td>@entry.Price</td>
-            <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Show" asp-all-route-data="routeData">Show</a></td>
-            <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Edit" asp-all-route-data="routeData">Edit</a></td>
-            <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Delete" asp-all-route-data="routeData">Delete</a></td>
+            <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Show" asp-route-id="@entry.Id">Show</a></td>
+            <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
+            <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
         </tr>
         count++;
     }

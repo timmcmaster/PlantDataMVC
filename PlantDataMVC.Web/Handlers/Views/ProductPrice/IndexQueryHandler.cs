@@ -81,11 +81,31 @@ namespace PlantDataMVC.Web.Handlers.Views.ProductPrice
             // supplied sortBy field should belong to display object (as it is generated from model metadata)
             if (querySortBy == nameof(ProductPriceListViewModel.Id))
             {
-                sortField = nameof(SeedTrayDataModel.Id);
+                sortField = nameof(ProductPriceDataModel.Id);
             }
-            else if (querySortBy == nameof(ProductPriceListViewModel.Name))
+            else if (querySortBy == nameof(ProductPriceListViewModel.ProductTypeId))
             {
-                sortField = nameof(ProductPriceDataModel.Name);
+                sortField = nameof(ProductPriceDataModel.ProductTypeId);
+            }
+            else if (querySortBy == nameof(ProductPriceListViewModel.PriceListTypeId))
+            {
+                sortField = nameof(ProductPriceDataModel.PriceListTypeId);
+            }
+            else if (querySortBy == nameof(ProductPriceListViewModel.ProductTypeName))
+            {
+                sortField = nameof(ProductPriceDataModel.ProductTypeName);
+            }
+            else if (querySortBy == nameof(ProductPriceListViewModel.PriceListTypeName))
+            {
+                sortField = nameof(ProductPriceDataModel.PriceListTypeName);
+            }
+            else if (querySortBy == nameof(ProductPriceListViewModel.DateEffective))
+            {
+                sortField = nameof(ProductPriceDataModel.DateEffective);
+            }
+            else if (querySortBy == nameof(ProductPriceListViewModel.Price))
+            {
+                sortField = nameof(ProductPriceDataModel.Price);
             }
 
             return sortField;

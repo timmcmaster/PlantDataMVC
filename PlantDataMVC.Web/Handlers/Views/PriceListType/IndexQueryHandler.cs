@@ -81,7 +81,7 @@ namespace PlantDataMVC.Web.Handlers.Views.PriceListType
             // supplied sortBy field should belong to display object (as it is generated from model metadata)
             if (querySortBy == nameof(PriceListTypeListViewModel.Id))
             {
-                sortField = nameof(SeedTrayDataModel.Id);
+                sortField = nameof(PriceListTypeDataModel.Id);
             }
             else if (querySortBy == nameof(PriceListTypeListViewModel.Name))
             {

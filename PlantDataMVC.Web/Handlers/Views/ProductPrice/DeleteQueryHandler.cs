@@ -24,7 +24,7 @@ namespace PlantDataMVC.Web.Handlers.Views.ProductPrice
 
         public async Task<ProductPriceDeleteViewModel> Handle(DeleteQuery query, CancellationToken cancellationToken)
         {
-            var uri = $"api/ProductPrice?productTypeId={query.ProductTypeId}&priceListId={query.PriceListTypeId}&strEffectiveDate={query.DateEffective.ToString("yyyyMMdd")}";
+            var uri = $"api/ProductPrice/{query.Id}";
 
             var response = await _plantDataApiClient.GetAsync<ProductPriceDataModel>(uri, cancellationToken).ConfigureAwait(false);
 

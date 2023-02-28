@@ -112,18 +112,13 @@ namespace PlantDataMVC.Api.Controllers
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
-        // GET: api/ProductPrice/
-        [HttpGet]
+        // GET: api/ProductPrice/5
+        [HttpGet("{id:int}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public IActionResult GetByKeyFields([FromQuery] int productTypeId,
-                                            [FromQuery] int priceListId,
-                                            [FromQuery] string strEffectiveDate,
-                                            [FromQuery] DataShapingParameters dsParams)
+        public IActionResult GetById(int id, [FromQuery] DataShapingParameters dsParams)
         {
             try
             {
-                DateTime effectiveDate = DateTime.ParseExact(strEffectiveDate, "yyyyMMdd", CultureInfo.InvariantCulture);
-
                 //var childDataModelsToInclude = new List<string>();
                 var lstOfFields = new List<string>();
 
@@ -133,7 +128,7 @@ namespace PlantDataMVC.Api.Controllers
                     //childDataModelsToInclude = DataShaping.GetIncludedObjectNames<ProductPriceDataModel>(lstOfFields);
                 }
 
-                var item = _service.GetItemByProductPriceListDate(productTypeId, priceListId, effectiveDate);
+                var item = _service.GetItemById(id);
 
                 if (item == null)
                 {
@@ -157,7 +152,7 @@ namespace PlantDataMVC.Api.Controllers
         // POST: api/ProductPrice
         [HttpPost]
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public IActionResult Post([FromBody] ProductPriceDataModel dataModelIn)
+        public IActionResult Post([FromBody] CreateUpdateProductPriceDataModel dataModelIn)
         {
             // TODO: Add validation checks (e.g. uniqueness)
             try
@@ -167,7 +162,7 @@ namespace PlantDataMVC.Api.Controllers
                     return BadRequest();
                 }
 
-                var entity = _mapper.Map<ProductPriceDataModel, ProductPriceEntityModel>(dataModelIn);
+                var entity = _mapper.Map<CreateUpdateProductPriceDataModel, ProductPriceEntityModel>(dataModelIn);
                 _service.Add(entity);
 
                 // Save changes before we map back
@@ -178,13 +173,7 @@ namespace PlantDataMVC.Api.Controllers
                 {
                     var dataModelOut = _mapper.Map<ProductPriceEntityModel, ProductPriceDataModel>(entity);
 
-                    return CreatedAtAction(nameof(GetByKeyFields), 
-                                           new { 
-                                               productTypeId = dataModelOut.ProductTypeId,
-                                               priceListId = dataModelOut.PriceListTypeId,
-                                               strEffectiveDate = dataModelOut.DateEffective.ToString("yyyyMMdd")
-                                           }, 
-                                           dataModelOut);
+                    return CreatedAtAction(nameof(GetById), new { id = dataModelOut.Id }, dataModelOut);
                 }
 
                 return BadRequest();
@@ -196,11 +185,11 @@ namespace PlantDataMVC.Api.Controllers
             }
         }
 
-        // PUT: api/ProductPrice/
+        // PUT: api/ProductPrice/5
         // TODO: Make underlying operation FULL update only (i.e. all stored fields, or default values if not supplied)
-        [HttpPut]
+        [HttpPut("{id}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public IActionResult Put([FromBody] ProductPriceDataModel dataModelIn)
+        public IActionResult Put(int id, [FromBody] CreateUpdateProductPriceDataModel dataModelIn)
         {
             try
             {
@@ -216,16 +205,14 @@ namespace PlantDataMVC.Api.Controllers
                 }
 
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
-                var entityFound = _service
-                    .Queryable(useTracking: false)
-                    .FirstOrDefault(g => g.ProductTypeId == dataModelIn.ProductTypeId && g.PriceListTypeId == dataModelIn.PriceListTypeId && g.DateEffective == dataModelIn.DateEffective);
+                var entityFound = _service.Queryable(useTracking: false).FirstOrDefault(g => g.Id == id);
 
                 if (entityFound == null)
                 {
                     return NotFound();
                 }
 
-                var entity = _mapper.Map<ProductPriceDataModel, ProductPriceEntityModel>(dataModelIn);
+                var entity = _mapper.Map<CreateUpdateProductPriceDataModel, ProductPriceEntityModel>(dataModelIn);
                 _service.Update(entity);
 
                 // Save changes before we map back
@@ -250,17 +237,12 @@ namespace PlantDataMVC.Api.Controllers
 
         // PATCH: api/ProductPrice/5
         // Partial update
-        [HttpPatch]
+        [HttpPatch("{id}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public IActionResult Patch([FromQuery] int productTypeId,
-                                   [FromQuery] int priceListId,
-                                   [FromQuery] string strEffectiveDate, 
-                                   [FromBody] JsonPatchDocument<ProductPriceDataModel> itemPatchDoc)
+        public IActionResult Patch(int id, [FromBody] JsonPatchDocument<ProductPriceDataModel> itemPatchDoc)
 {
             try
             {
-                DateTime effectiveDate = DateTime.ParseExact(strEffectiveDate, "yyyyMMdd", CultureInfo.InvariantCulture);
-
                 if (itemPatchDoc == null)
                 {
                     return BadRequest();
@@ -268,8 +250,7 @@ namespace PlantDataMVC.Api.Controllers
 
                 // Get domain entity
                 // Find id without tracking to prevent attaching object (and hence problem when attaching via save)
-                var entityFound = _service.Queryable(useTracking: false)
-                    .FirstOrDefault(g => g.ProductTypeId == productTypeId && g.PriceListTypeId == priceListId && g.DateEffective == effectiveDate);
+                var entityFound = _service.Queryable(useTracking: false).FirstOrDefault(g => g.Id == id);
 
                 // Check for errors from service
                 if (entityFound == null)
@@ -307,18 +288,14 @@ namespace PlantDataMVC.Api.Controllers
         }
 
         // DELETE: api/ProductPrice/5
-        [HttpDelete]
+        [HttpDelete("{id}")]
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public IActionResult Delete([FromQuery] int productTypeId,
-                                    [FromQuery] int priceListId,
-                                    [FromQuery] string strEffectiveDate)
+        public IActionResult Delete(int id)
         {
             try
             {
-                DateTime effectiveDate = DateTime.ParseExact(strEffectiveDate, "yyyyMMdd", CultureInfo.InvariantCulture);
-
                 // Get domain entity
-                var entityFound = _service.GetItemByProductPriceListDate(productTypeId, priceListId, effectiveDate);
+                var entityFound = _service.GetItemById(id);
 
                 // Check for errors from service
                 if (entityFound == null)

@@ -81,7 +81,7 @@ namespace PlantDataMVC.Web.Handlers.Views.SaleEvent
             // supplied sortBy field should belong to display object (as it is generated from model metadata)
             if (querySortBy == nameof(SaleEventListViewModel.Id))
             {
-                sortField = nameof(SeedTrayDataModel.Id);
+                sortField = nameof(SaleEventDataModel.Id);
             }
             else if (querySortBy == nameof(SaleEventListViewModel.Name))
             {

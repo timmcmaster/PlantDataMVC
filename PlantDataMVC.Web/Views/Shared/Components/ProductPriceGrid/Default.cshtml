@@ -6,7 +6,7 @@
     ProductPrice.ProductPriceListViewModel sampleElement = new ProductPrice.ProductPriceListViewModel();
 }
 
-<ejs-grid id="SeedBatchGrid"
+<ejs-grid id="ProductPriceGrid"
           allowPaging="true"
           allowSorting="true"
           height="550" width="1000"        
@@ -20,9 +20,10 @@
     <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
     <e-grid-editsettings allowAdding="true" allowEditing="true" allowDeleting="true"></e-grid-editsettings>
     <e-grid-columns>
-        <e-grid-column field="@nameof(sampleElement.PriceListTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.PriceListTypeName)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.ProductTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.ProductTypeName)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.DateEffective)" headerText="@Html.DisplayNameFor(x => sampleElement.DateEffective)"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.PriceListTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.PriceListTypeName)" allowEditing="false"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.ProductTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.ProductTypeName)" allowEditing="false"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.DateEffective)" headerText="@Html.DisplayNameFor(x => sampleElement.DateEffective)" type="date" format="dd/MM/yyyy" allowEditing="false"></e-grid-column>
         <e-grid-column field="@nameof(sampleElement.Price)" headerText="@Html.DisplayNameFor(x => sampleElement.Price)"></e-grid-column>
     </e-grid-columns>
 </ejs-grid>

@@ -83,7 +83,7 @@ namespace PlantDataMVC.Web.Handlers.Views.Site
             // supplied sortBy field should belong to display object (as it is generated from model metadata)
             if (querySortBy == nameof(SiteListViewModel.Id))
             {
-                sortField = nameof(SeedTrayDataModel.Id);
+                sortField = nameof(SiteDataModel.Id);
             }
             else if (querySortBy == nameof(SiteListViewModel.Latitude))
             {

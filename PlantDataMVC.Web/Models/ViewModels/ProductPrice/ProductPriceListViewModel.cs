@@ -7,6 +7,9 @@ namespace PlantDataMVC.Web.Models.ViewModels.ProductPrice
     public class ProductPriceListViewModel
     {
         [HiddenInput(DisplayValue = false)]
+        public int Id { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
         public int ProductTypeId { get; set; }
 
         [Display(Name = "Product Type Name")]

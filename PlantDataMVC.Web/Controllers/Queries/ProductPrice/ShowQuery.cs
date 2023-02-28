@@ -6,15 +6,11 @@ namespace PlantDataMVC.Web.Controllers.Queries.ProductPrice
 {
     public class ShowQuery : IQuery<ProductPriceShowViewModel>
     {
-        public ShowQuery(int productTypeId, int priceListTypeId, DateTime dateEffective)
+        public ShowQuery(int id)
         {
-            ProductTypeId = productTypeId;
-            PriceListTypeId = priceListTypeId;
-            DateEffective = dateEffective;
+            Id = id;
         }
 
-        public int ProductTypeId { get; set; }
-        public int PriceListTypeId { get; set; }
-        public DateTime DateEffective { get; set; }
+        public int Id { get; set; }
     }
 }

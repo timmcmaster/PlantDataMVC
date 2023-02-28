@@ -23,7 +23,7 @@ namespace PlantDataMVC.Web.Handlers.Forms.ProductPrice
         {
             try
             {
-                var uri = $"api/ProductPrice?productTypeId={form.ProductTypeId}&priceListId={form.PriceListTypeId}&strEffectiveDate={form.DateEffective.ToString("yyyyMMdd")}";
+                var uri = $"api/ProductPrice/{form.Id}";
 
                 var response = await _plantDataApiClient.DeleteAsync(uri, cancellationToken).ConfigureAwait(false);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)

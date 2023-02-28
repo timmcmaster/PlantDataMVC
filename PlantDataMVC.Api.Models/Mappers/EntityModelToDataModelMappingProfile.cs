@@ -192,10 +192,13 @@ namespace PlantDataMVC.Api.Models.Mappers
         private void ConfigureProductPriceMappings()
         {
             CreateMap<ProductPriceEntityModel, ProductPriceDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(e => e.Id))
                 .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(e => e.ProductTypeId))
+                .ForMember(dm => dm.ProductTypeName, opt => opt.MapFrom(e => e.ProductType.Name))
                 .ForMember(dm => dm.PriceListTypeId, opt => opt.MapFrom(e => e.PriceListTypeId))
-                .ForMember(dm => dm.Price, opt => opt.MapFrom(e => e.Price))
-                .ForMember(dm => dm.DateEffective, opt => opt.MapFrom(e => e.DateEffective));
+                .ForMember(dm => dm.PriceListTypeName, opt => opt.MapFrom(e => e.PriceListType.Name))
+                .ForMember(dm => dm.DateEffective, opt => opt.MapFrom(e => e.DateEffective))
+                .ForMember(dm => dm.Price, opt => opt.MapFrom(e => e.Price));
         }
         // Not yet mapped objects
     }

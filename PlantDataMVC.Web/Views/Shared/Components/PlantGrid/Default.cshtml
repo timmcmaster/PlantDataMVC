@@ -20,6 +20,7 @@
     <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
     <e-grid-editsettings allowAdding="true" allowEditing="true" allowDeleting="true" mode="Dialog"></e-grid-editsettings>
     <e-grid-columns>
+        <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
         <e-grid-column field="@nameof(sampleElement.Binomial)" headerText="@Html.DisplayNameFor(x => sampleElement.Binomial)"></e-grid-column>
         <e-grid-column field="@nameof(sampleElement.CommonName)" headerText="@Html.DisplayNameFor(x => sampleElement.CommonName)"></e-grid-column>
         <e-grid-column field="@nameof(sampleElement.Native)" headerText="@Html.DisplayNameFor(x => sampleElement.Native)" type="boolean" displayAsCheckBox="true"></e-grid-column>

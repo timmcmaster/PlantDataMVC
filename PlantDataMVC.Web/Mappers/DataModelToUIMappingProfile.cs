@@ -6,6 +6,7 @@ using Genus = PlantDataMVC.Web.Models.ViewModels.Genus;
 using Plant = PlantDataMVC.Web.Models.ViewModels.Plant;
 using PlantStock = PlantDataMVC.Web.Models.ViewModels.PlantStock;
 using PriceListType = PlantDataMVC.Web.Models.ViewModels.PriceListType;
+using ProductPrice = PlantDataMVC.Web.Models.ViewModels.ProductPrice;
 using ProductType = PlantDataMVC.Web.Models.ViewModels.ProductType;
 using SaleEvent = PlantDataMVC.Web.Models.ViewModels.SaleEvent;
 using SeedBatch = PlantDataMVC.Web.Models.ViewModels.SeedBatch;
@@ -43,6 +44,7 @@ namespace PlantDataMVC.Web.Mappers
             ConfigureSaleEventViewModels();
             ConfigureProductTypeViewModels();
             ConfigurePriceListTypeViewModels();
+            ConfigureProductPriceViewModels();
         }
 
         #region Configure View Models
@@ -445,6 +447,54 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
         }
+
+        private void ConfigureProductPriceViewModels()
+        {
+            CreateMap<ProductPriceDataModel, ProductPrice.ProductPriceDeleteViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+                .ForMember(uio => uio.PriceListTypeId, opt => opt.MapFrom(dm => dm.PriceListTypeId))
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
+                .ForMember(uio => uio.PriceListTypeName, opt => opt.MapFrom(dm => dm.PriceListTypeName))
+                .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
+                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price));
+
+            CreateMap<ProductPriceDataModel, ProductPrice.ProductPriceEditViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+                .ForMember(uio => uio.PriceListTypeId, opt => opt.MapFrom(dm => dm.PriceListTypeId))
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
+                .ForMember(uio => uio.PriceListTypeName, opt => opt.MapFrom(dm => dm.PriceListTypeName))
+                .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
+                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price));
+
+            CreateMap<ProductPriceDataModel, ProductPrice.ProductPriceListViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+                .ForMember(uio => uio.PriceListTypeId, opt => opt.MapFrom(dm => dm.PriceListTypeId))
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
+                .ForMember(uio => uio.PriceListTypeName, opt => opt.MapFrom(dm => dm.PriceListTypeName))
+                .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
+                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price));
+
+            CreateMap<ProductPriceDataModel, ProductPrice.ProductPriceNewViewModel>()
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+                .ForMember(uio => uio.PriceListTypeId, opt => opt.MapFrom(dm => dm.PriceListTypeId))
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
+                .ForMember(uio => uio.PriceListTypeName, opt => opt.MapFrom(dm => dm.PriceListTypeName))
+                .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
+                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price));
+
+            CreateMap<ProductPriceDataModel, ProductPrice.ProductPriceShowViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+                .ForMember(uio => uio.PriceListTypeId, opt => opt.MapFrom(dm => dm.PriceListTypeId))
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
+                .ForMember(uio => uio.PriceListTypeName, opt => opt.MapFrom(dm => dm.PriceListTypeName))
+                .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
+                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price));
+        }
+
         #endregion Configure View Models
     }
 }

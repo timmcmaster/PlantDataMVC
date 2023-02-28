@@ -6,15 +6,11 @@ namespace PlantDataMVC.Web.Controllers.Queries.ProductPrice
 {
     public class EditQuery : IQuery<ProductPriceEditViewModel>
     {
-        public EditQuery(int productTypeId, int priceListTypeId, DateTime dateEffective)
+        public EditQuery(int id)
         {
-            ProductTypeId = productTypeId;
-            PriceListTypeId = priceListTypeId;
-            DateEffective = dateEffective;
+            Id = id;
         }
 
-        public int ProductTypeId { get; set; }
-        public int PriceListTypeId { get; set; }
-        public DateTime DateEffective { get; set; }
+        public int Id { get; set; }
     }
 }

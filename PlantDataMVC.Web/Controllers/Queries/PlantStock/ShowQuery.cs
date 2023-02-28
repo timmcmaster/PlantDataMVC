@@ -5,7 +5,6 @@ namespace PlantDataMVC.Web.Controllers.Queries.PlantStock
 {
     public class ShowQuery : IQuery<PlantStockShowViewModel>
     {
-
         public ShowQuery(int id)
         {
             Id = id;
