@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PlantDataMVC.Constants;
 using PlantDataMVC.Web.Models.ViewModels.Transaction;
 using PlantDataMVC.Web.Views.Shared.Components.TransactionGrid;
 using System;
@@ -16,6 +17,14 @@ namespace PlantDataMVC.Web.Shared.Components.TransactionGrid
 
         public async Task<IViewComponentResult> InvokeAsync(IEnumerable<TransactionListViewModel> transactions, int? speciesId = null, int? productTypeId = null)
         {
+            string viewName = "Default";
+
+            if (PlantDataMvcConstants.UseBasicMvcViews)
+            {
+                //viewName = "Basic";
+                //return View(viewName, model);
+            }
+
             var model = new TransactionGridViewModel() 
             {
                 SpeciesId = speciesId,
@@ -23,7 +32,7 @@ namespace PlantDataMVC.Web.Shared.Components.TransactionGrid
                 Transactions = transactions
             };
 
-            return View(model);
+            return View(viewName, model);
         }
     }
 }

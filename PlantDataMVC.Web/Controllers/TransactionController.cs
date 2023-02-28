@@ -49,52 +49,10 @@ namespace PlantDataMVC.Web.Controllers
             }
         }
 
-        // GET: /"ControllerName"/StockSummaryVC
-        // GET: /"ControllerName"/StockSummaryVC?page=4&pageSize=20&sortBy=Genus&ascending=True
-        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public async Task<ActionResult> StockSummaryVC(int? page, int? pageSize, string sortBy, bool? ascending)
-        {
-            // resolve parameters
-            var localPage = page ?? 1;
-            var localPageSize = pageSize ?? 20;
-            var localSortBy = sortBy ?? string.Empty;
-            var localAscending = ascending ?? true;
-
-            var query = new StockSummaryQuery(localPage, localPageSize, localSortBy, localAscending);
-            var model = await _mediator.Send(query);
-
-            if (model == null)
-            {
-                return Content("An error occurred");
-            }
-            else
-            {
-                return View(model);
-            }
-        }
-
         // GET: /"ControllerName"/StockSummaryDetails
-        // GET: /"ControllerName"/StockSummary?page=4&pageSize=20&sortBy=Genus&ascending=True
+        // GET: /"ControllerName"/StockSummaryDetails?page=4&pageSize=20&sortBy=Genus&ascending=True
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public async Task<ActionResult> StockSummaryDetails(int speciesId, int productTypeId)
-        {
-            var query = new StockSummaryDetailsQuery(speciesId, productTypeId);
-            var model = await _mediator.Send(query);
-
-            if (model == null)
-            {
-                return Content("An error occurred");
-            }
-            else
-            {
-                return View(model);
-            }
-        }
-
-        // GET: /"ControllerName"/StockSummaryDetailsVC
-        // GET: /"ControllerName"/StockSummaryDetailsVC?page=4&pageSize=20&sortBy=Genus&ascending=True
-        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public async Task<ActionResult> StockSummaryDetailsVC(int speciesId, int productTypeId)
         {
             var query = new StockSummaryDetailsQuery(speciesId, productTypeId);
             var model = await _mediator.Send(query);

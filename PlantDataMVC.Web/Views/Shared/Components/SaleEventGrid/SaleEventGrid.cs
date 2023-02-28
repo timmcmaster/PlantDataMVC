@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PlantDataMVC.Constants;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.SaleEvent;
 using System;
@@ -15,7 +16,12 @@ namespace PlantDataMVC.Web.Shared.Components.SaleEventGrid
 
         public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<SaleEventListViewModel> model)
         {
-            return View(model);
+            string viewName = "Default";
+
+            if (PlantDataMvcConstants.UseBasicMvcViews)
+                viewName = "Basic";
+
+            return View(viewName, model);
         }
     }
 }

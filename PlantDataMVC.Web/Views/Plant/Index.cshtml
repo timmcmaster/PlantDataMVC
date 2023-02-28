@@ -8,9 +8,14 @@
 <p>This is a list of all plant descriptions</p>
 
 
-@*
-// TODO: Convert views to TagHelpers/use built-in taghelpers
-*@
-<a asp-action="New">Add New Item</a>
-<partial name="PlantListTable" for="@Model" />
-@Html.PagingLinksFor(m => Model)
+@if (PlantDataMvcConstants.UseBasicMvcViews)
+{
+    <a asp-action="New">Add New Item</a>
+}
+
+@await Component.InvokeAsync("PlantGrid", new { model = Model })
+
+@if (PlantDataMvcConstants.UseBasicMvcViews)
+{
+    @Html.PagingLinksFor(m => Model)
+}

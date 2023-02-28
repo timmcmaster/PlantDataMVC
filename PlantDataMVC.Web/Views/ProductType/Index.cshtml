@@ -7,9 +7,14 @@
 <h2>Product Types</h2>
 <p>This is a list of all Product Types</p>
 
-@*
-// TODO: Convert views to TagHelpers/use built-in taghelpers
-*@
-<a asp-action="New">Add New Item</a>
-<partial name="ProductTypeListTable" for="@Model" />
-@Html.PagingLinksFor(m => Model)
+@if (PlantDataMvcConstants.UseBasicMvcViews)
+{
+    <a asp-action="New">Add New Item</a>
+}
+
+@await Component.InvokeAsync("ProductTypeGrid", new { model = Model })
+
+@if (PlantDataMvcConstants.UseBasicMvcViews)
+{
+    @Html.PagingLinksFor(m => Model)
+}

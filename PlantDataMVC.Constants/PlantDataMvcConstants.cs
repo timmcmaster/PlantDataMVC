@@ -15,7 +15,9 @@
         public const string IdSrvAuthorize = IdSrvBase + "/connect/authorize";
         public const string IdSrvUserInfo = IdSrvBase + "/connect/userinfo";
 
+        public const bool UseBasicMvcViews = false;
     }
+
     //TODO:  Move to a more appropriate/correct location
     public static class AuthorizationRole
     {
