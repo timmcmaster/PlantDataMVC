@@ -10,12 +10,14 @@ INSERT INTO [dbo].[PriceListType] ([Id], [Name], [Kind]) VALUES (2, N'Friends Pr
 SET IDENTITY_INSERT [dbo].[PriceListType] OFF
 
 -- prices for price list types
-INSERT INTO [dbo].[ProductPrice] ([PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (1, 1, CAST(3.00 AS Decimal(18, 2)), N'2011-01-01')
-INSERT INTO [dbo].[ProductPrice] ([PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (1, 2, CAST(4.00 AS Decimal(18, 2)), N'2011-01-01')
-INSERT INTO [dbo].[ProductPrice] ([PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (1, 3, CAST(8.00 AS Decimal(18, 2)), N'2011-01-01')
-INSERT INTO [dbo].[ProductPrice] ([PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (2, 1, CAST(0.50 AS Decimal(18, 2)), N'2011-01-01')
-INSERT INTO [dbo].[ProductPrice] ([PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (2, 2, CAST(1.00 AS Decimal(18, 2)), N'2011-01-01')
-INSERT INTO [dbo].[ProductPrice] ([PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (2, 3, CAST(2.00 AS Decimal(18, 2)), N'2011-01-01')
+SET IDENTITY_INSERT [dbo].[ProductPrice] ON
+INSERT INTO [dbo].[ProductPrice] ([Id], [PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (1, 1, 1, CAST(3.00 AS Decimal(18, 2)), N'2011-01-01')
+INSERT INTO [dbo].[ProductPrice] ([Id], [PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (2, 1, 2, CAST(4.00 AS Decimal(18, 2)), N'2011-01-01')
+INSERT INTO [dbo].[ProductPrice] ([Id], [PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (3, 1, 3, CAST(8.00 AS Decimal(18, 2)), N'2011-01-01')
+INSERT INTO [dbo].[ProductPrice] ([Id], [PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (4, 2, 1, CAST(0.50 AS Decimal(18, 2)), N'2011-01-01')
+INSERT INTO [dbo].[ProductPrice] ([Id], [PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (5, 2, 2, CAST(1.00 AS Decimal(18, 2)), N'2011-01-01')
+INSERT INTO [dbo].[ProductPrice] ([Id], [PriceListTypeId], [ProductTypeId], [Price], [DateEffective]) VALUES (6, 2, 3, CAST(2.00 AS Decimal(18, 2)), N'2011-01-01')
+SET IDENTITY_INSERT [dbo].[ProductPrice] OFF
 
 -- transaction types
 SET IDENTITY_INSERT [dbo].[JournalEntryType] ON
