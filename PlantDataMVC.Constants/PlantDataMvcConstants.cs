@@ -14,8 +14,6 @@
         public const string IdSrvToken = IdSrvBase + "/connect/token";
         public const string IdSrvAuthorize = IdSrvBase + "/connect/authorize";
         public const string IdSrvUserInfo = IdSrvBase + "/connect/userinfo";
-
-        public const bool UseBasicMvcViews = true;
     }
 
     //TODO:  Move to a more appropriate/correct location

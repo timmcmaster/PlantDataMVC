@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Constants;
 using PlantDataMVC.Web.Constants;
 using PlantDataMVC.Web.Models.ViewModels;
@@ -12,11 +13,13 @@ namespace PlantDataMVC.Web.Shared.Components.MainMenu
 {
     public class SidebarMenu : ViewComponent
     {
-        public SidebarMenu()
-        {
-            Console.WriteLine("Called VC constructor");
-        }
+        private readonly bool _useBasicMvcViews = false;
 
+        public SidebarMenu(IConfiguration configuration)
+        {
+            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
+        }
+        
         public async Task<IViewComponentResult> InvokeAsync(string targetCss, string width, string dockWidth)
         {
             var model = GetModel(targetCss, width, dockWidth);
@@ -30,7 +33,8 @@ namespace PlantDataMVC.Web.Shared.Components.MainMenu
             {
                 TargetCss = targetCss,
                 Width = width,
-                DockWidth = dockWidth
+                DockWidth = dockWidth,
+                UseBasicMvcViews = _useBasicMvcViews
             };
 
             LoadMenuModel(sidebarMenuModel);
@@ -41,7 +45,7 @@ namespace PlantDataMVC.Web.Shared.Components.MainMenu
         {
             var menuModel = model.Menu;
 
-            var mainMenuHeaderText = PlantDataMvcConstants.UseBasicMvcViews ? "Menu - Basic MVC" : "Menu - Syncfusion";
+            var mainMenuHeaderText = model.UseBasicMvcViews ? "Menu - Basic MVC" : "Menu - Syncfusion";
 
             var menuItems = new List<MenuItemViewModel>()
             {

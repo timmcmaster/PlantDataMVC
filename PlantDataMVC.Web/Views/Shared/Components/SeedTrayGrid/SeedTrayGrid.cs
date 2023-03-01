@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Constants;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.SeedTray;
@@ -9,16 +10,18 @@ namespace PlantDataMVC.Web.Shared.Components.SeedTrayGrid
 {
     public class SeedTrayGrid : ViewComponent
     {
-        public SeedTrayGrid()
+        private readonly bool _useBasicMvcViews = false;
+
+        public SeedTrayGrid(IConfiguration configuration)
         {
-            Console.WriteLine("Called VC constructor");
+            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
         public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<SeedTrayListViewModel> model)
         {
             string viewName = "Default";
 
-            if (PlantDataMvcConstants.UseBasicMvcViews)
+            if (_useBasicMvcViews)
                 viewName = "Basic";
 
             return View(viewName, model);

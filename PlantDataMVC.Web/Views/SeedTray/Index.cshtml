@@ -6,14 +6,14 @@
 
 <h2>Index</h2>
 
-@if (PlantDataMvcConstants.UseBasicMvcViews)
+@if (Model.ShowAddItem)
 {
     <a asp-action="New">Add New Item</a>
 }
 
 @await Component.InvokeAsync("SeedTrayGrid", new { model = Model })
 
-@if (PlantDataMvcConstants.UseBasicMvcViews)
+@if (Model.ShowPagingLinks)
 {
     @Html.PagingLinksFor(m => Model)
 }

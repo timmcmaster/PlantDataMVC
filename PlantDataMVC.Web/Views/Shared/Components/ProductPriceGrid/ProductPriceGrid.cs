@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Constants;
 using PlantDataMVC.Web.Models.ViewModels.ProductPrice;
 using PlantDataMVC.Web.Views.Shared.Components.ProductPriceGrid;
@@ -10,16 +11,18 @@ namespace PlantDataMVC.Web.Shared.Components.ProductTypeGrid
 {
     public class ProductPriceGrid : ViewComponent
     {
-        public ProductPriceGrid()
+        private readonly bool _useBasicMvcViews = false;
+
+        public ProductPriceGrid(IConfiguration configuration)
         {
-            Console.WriteLine("Called VC constructor");
+            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
         public async Task<IViewComponentResult> InvokeAsync(IEnumerable<ProductPriceListViewModel> productPrices, int? priceListTypeId = null)
         {
             string viewName = "Default";
 
-            if (PlantDataMvcConstants.UseBasicMvcViews)
+            if (_useBasicMvcViews)
             {
                 viewName = "Basic";
                 return View(viewName, productPrices);

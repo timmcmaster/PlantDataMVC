@@ -7,14 +7,14 @@
 <h2>Product Types</h2>
 <p>This is a list of all Product Types</p>
 
-@if (PlantDataMvcConstants.UseBasicMvcViews)
+@if (Model.ShowAddItem)
 {
     <a asp-action="New">Add New Item</a>
 }
 
 @await Component.InvokeAsync("ProductTypeGrid", new { model = Model })
 
-@if (PlantDataMvcConstants.UseBasicMvcViews)
+@if (Model.ShowPagingLinks)
 {
     @Html.PagingLinksFor(m => Model)
 }

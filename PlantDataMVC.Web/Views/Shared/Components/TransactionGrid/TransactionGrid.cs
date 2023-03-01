@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Constants;
 using PlantDataMVC.Web.Models.ViewModels.Transaction;
 using PlantDataMVC.Web.Views.Shared.Components.TransactionGrid;
@@ -10,16 +11,18 @@ namespace PlantDataMVC.Web.Shared.Components.TransactionGrid
 {
     public class TransactionGrid : ViewComponent
     {
-        public TransactionGrid()
+        private readonly bool _useBasicMvcViews = false;
+
+        public TransactionGrid(IConfiguration configuration)
         {
-            Console.WriteLine("Called VC constructor");
+            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
         public async Task<IViewComponentResult> InvokeAsync(IEnumerable<TransactionListViewModel> transactions, int? speciesId = null, int? productTypeId = null)
         {
             string viewName = "Default";
 
-            if (PlantDataMvcConstants.UseBasicMvcViews)
+            if (_useBasicMvcViews)
             {
                 viewName = "Basic";
                 return View(viewName, transactions);

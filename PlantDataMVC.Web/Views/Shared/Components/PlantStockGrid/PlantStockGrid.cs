@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Constants;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.PlantStock;
@@ -9,16 +10,18 @@ namespace PlantDataMVC.Web.Shared.Components.PlantStockGrid
 {
     public class PlantStockGrid : ViewComponent
     {
-        public PlantStockGrid()
-        {
-            Console.WriteLine("Called VC constructor");
-        }
+        private readonly bool _useBasicMvcViews = false;
 
+        public PlantStockGrid(IConfiguration configuration)
+        {
+            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
+        }
+        
         public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<PlantStockListViewModel> model)
         {
             string viewName = "Default";
 
-            if (PlantDataMvcConstants.UseBasicMvcViews)
+            if (_useBasicMvcViews)
                 viewName = "Basic";
 
             return View(viewName, model);

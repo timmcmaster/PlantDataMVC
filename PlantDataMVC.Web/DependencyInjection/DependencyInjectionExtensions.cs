@@ -39,7 +39,8 @@ namespace PlantDataMVC.Web.DependencyInjection
             /// After calling AddMediatR you can use the container to resolve an <see cref="IMediator"/> instance.
             /// This does not scan for any <see cref="IPipelineBehavior{TRequest,TResponse}"/> instances including <see cref="RequestPreProcessorBehavior{TRequest,TResponse}"/> and <see cref="RequestPreProcessorBehavior{TRequest,TResponse}"/>.
             /// To register behaviors, use the <see cref="ServiceCollectionServiceExtensions.AddTransient(IServiceCollection,Type,Type)"/> with the open generic or closed generic types.            
-            services.AddMediatR(typeof(Handlers.Forms.Genus.GenusCreateEditModelFormHandler), typeof(Handlers.Views.Genus.ShowQueryHandler));
+            //services.AddMediatR(typeof(Handlers.Forms.Genus.GenusCreateEditModelFormHandler), typeof(Handlers.Views.Genus.ShowQueryHandler));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Startup>());
 
             // Before we leave this method, write our registrations to log file
             services.LogRegisteredServices(Log.Logger);

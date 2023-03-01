@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
-using Azure;
 using Framework.Web.Views;
-using Newtonsoft.Json;
-using PlantDataMVC.Api.Models.DataModels;
+using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Repository.Models;
 using PlantDataMVC.Web.Controllers.Queries.Transaction;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.ViewModels;
-using PlantDataMVC.Web.Models.ViewModels.PlantStock;
 using PlantDataMVC.Web.Models.ViewModels.Transaction;
 using System;
 using System.Collections.Generic;
@@ -22,11 +19,13 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
         private readonly IMapper _mapper;
+        private readonly bool _useBasicMvcViews = false;
 
-        public StockSummaryQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
+        public StockSummaryQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper, IConfiguration configuration)
         {
             _plantDataApiClient = plantDataApiClient;
             _mapper = mapper;
+            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
         public async Task<ListViewModelStatic<TransactionStockSummaryListViewModel>> Handle(StockSummaryQuery query, CancellationToken cancellationToken)
@@ -58,12 +57,13 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
 
                 var modelList = _mapper.Map<IEnumerable<JournalEntryStockSummaryDataModel>, List<TransactionStockSummaryListViewModel>>(response.Content);
 
-                var model = new ListViewModelStatic<TransactionStockSummaryListViewModel>(modelList,
-                                                                             apiPagingInfo.page,
-                                                                             apiPagingInfo.pageSize,
-                                                                             apiPagingInfo.totalCount,
-                                                                             query.SortBy,
-                                                                             query.SortAscending);
+                var showAddItem = _useBasicMvcViews;
+                var showPagingLinks = _useBasicMvcViews;
+                var model = new ListViewModelStatic<TransactionStockSummaryListViewModel>(
+                    modelList,
+                    apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount,
+                    query.SortBy, query.SortAscending,
+                    showAddItem, showPagingLinks);
 
                 return model;
             }
