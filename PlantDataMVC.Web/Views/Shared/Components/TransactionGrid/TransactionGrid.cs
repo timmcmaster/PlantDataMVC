@@ -21,8 +21,8 @@ namespace PlantDataMVC.Web.Shared.Components.TransactionGrid
 
             if (PlantDataMvcConstants.UseBasicMvcViews)
             {
-                //viewName = "Basic";
-                //return View(viewName, model);
+                viewName = "Basic";
+                return View(viewName, transactions);
             }
 
             var model = new TransactionGridViewModel() 

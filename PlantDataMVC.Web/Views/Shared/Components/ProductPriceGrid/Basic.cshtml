@@ -19,9 +19,9 @@
     foreach (var entry in Model)
     {
         <tr>
-            <td>@entry.ProductTypeName</td>
-            <td>@entry.DateEffective</td>
-            <td>@entry.Price</td>
+            <td>@Html.DisplayFor(m => m.ElementAt(count).ProductTypeName)</td>
+            <td>@Html.DisplayFor(m => m.ElementAt(count).DateEffective)</td>
+            <td>@Html.DisplayFor(m => m.ElementAt(count).Price)</td>
             <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Show" asp-route-id="@entry.Id">Show</a></td>
             <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
             <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>

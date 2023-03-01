@@ -46,9 +46,9 @@ namespace PlantDataMVC.Web.Controllers
         // GET: /"ControllerName"/StockSummaryDetails
         // GET: /"ControllerName"/StockSummaryDetails?page=4&pageSize=20&sortBy=Genus&ascending=True
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public async Task<ActionResult> Details(int priceListTypeId)
+        public async Task<ActionResult> Details(int id)
         {
-            var query = new DetailsQuery(priceListTypeId);
+            var query = new DetailsQuery(id);
             var model = await _mediator.Send(query);
 
             if (model == null)

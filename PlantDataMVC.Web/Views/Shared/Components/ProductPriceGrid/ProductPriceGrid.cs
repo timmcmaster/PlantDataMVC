@@ -20,7 +20,10 @@ namespace PlantDataMVC.Web.Shared.Components.ProductTypeGrid
             string viewName = "Default";
 
             if (PlantDataMvcConstants.UseBasicMvcViews)
+            {
                 viewName = "Basic";
+                return View(viewName, productPrices);
+            }
 
             var model = new ProductPriceGridViewModel()
             {
