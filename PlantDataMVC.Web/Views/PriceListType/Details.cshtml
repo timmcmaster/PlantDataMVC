@@ -5,7 +5,7 @@
     ViewBag.Title = "Show";
 }
 
-<h2>Show</h2>
+<h2>Details</h2>
 
 <fieldset>
     <legend>Price List with Prices</legend>
@@ -15,16 +15,12 @@
     <div class="display-label">
         <label asp-for="ProductPrices"></label>
     </div>
-    <div class="button">
-        <a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="New" asp-route-plantStockId="@Model.Id">New</a>
-    </div>
     <div class="child-table">
-        @await Component.InvokeAsync("ProductPriceGrid", new { priceListTypeId = Model.Id, productPrices = Model.ProductPrices })
+        @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, priceListTypeId = Model.Id })
     </div>
 </fieldset>
 
 <p>
-    <a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
     <a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Index">Back to Index</a>
 </p>
 

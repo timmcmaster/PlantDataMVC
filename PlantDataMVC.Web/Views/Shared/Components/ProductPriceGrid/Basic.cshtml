@@ -7,7 +7,6 @@
 }
 <table class="grid">
     <tr>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.PriceListTypeName)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.DateEffective)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.Price)</th>
@@ -20,7 +19,6 @@
     foreach (var entry in Model)
     {
         <tr>
-            <td>@entry.PriceListTypeName</td>
             <td>@entry.ProductTypeName</td>
             <td>@entry.DateEffective</td>
             <td>@entry.Price</td>

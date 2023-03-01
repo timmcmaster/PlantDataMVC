@@ -450,6 +450,7 @@ namespace PlantDataMVC.Web.Mappers
             CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeDetailsViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
+                .ForMember(uio => uio.Kind, opt => opt.MapFrom(dm => dm.Kind))
                 .ForMember(uio => uio.ProductPrices, opt => opt.MapFrom(dm => dm.ProductPrices))
                 ;
         }

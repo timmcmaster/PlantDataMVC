@@ -26,7 +26,8 @@ namespace PlantDataMVC.Web.Handlers.Views.PriceListType
 
         public async Task<PriceListTypeDetailsViewModel> Handle(DetailsQuery query, CancellationToken cancellationToken)
         {
-            var uri = "api/PriceListType/" + query.Id + "?fields=id,name,kind,productPrices";
+            //var uri = "api/PriceListType/" + query.Id + "?fields=id,name,kind,productPrices";
+            var uri = $"api/PriceListType/{query.Id}";
             var response = await _plantDataApiClient.GetAsync<PriceListTypeDataModel>(uri, cancellationToken).ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
