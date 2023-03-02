@@ -6,8 +6,6 @@ using PlantDataMVC.Entities.EntityModels;
 
 namespace PlantDataMVC.Entities.Context
 {
-    // TODO: Given that all entities have ID as key, we may be able to generically implement find for fakes based on given base type
-
     public class GenusDbSet : FakeDbSet<GenusEntityModel>
     {
         public override GenusEntityModel Find(params object[] keyValues)

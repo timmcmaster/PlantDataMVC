@@ -19,6 +19,7 @@ namespace PlantDataMVC.Web.Shared.Components.SeedBatchGrid
 
         public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<SeedBatchListViewModel> model)
         {
+            // TODO: Need edit with dropdowns and proper selction of species/genus
             string viewName = "Default";
 
             if (_useBasicMvcViews)
