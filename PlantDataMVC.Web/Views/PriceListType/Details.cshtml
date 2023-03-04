@@ -12,8 +12,16 @@
 
     @Html.DisplayForModel()
 
+
+
     <div class="display-label">
         <label asp-for="ProductPrices"></label>
+
+    @if (Model.ShowAddItem)
+    {
+            <br />
+            <a asp-controller="@PlantDataMvcAppControllers.ProductPrice" asp-action="New" asp-route-priceListTypeId="@Model.Id">Add New Item</a>
+    }
     </div>
     <div class="child-table">
         @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, priceListTypeId = Model.Id })

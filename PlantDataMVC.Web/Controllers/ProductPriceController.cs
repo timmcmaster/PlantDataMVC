@@ -10,16 +10,22 @@ using System.Security.Claims;
 using PlantDataMVC.Web.Shared.Components.PriceListTypeGrid;
 using PlantDataMVC.Web.Shared.Components.ProductTypeGrid;
 using System;
+using PlantDataMVC.Api.Models.DataModels;
+using PlantDataMVC.Web.Models.ViewModels.PlantStock;
+using AutoMapper;
+using PlantDataMVC.Web.Constants;
 
 namespace PlantDataMVC.Web.Controllers
 {
     public class ProductPriceController : DefaultController
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public ProductPriceController(IMediator mediator)
+        public ProductPriceController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         // GET: /"ControllerName"/Index
@@ -65,10 +71,24 @@ namespace PlantDataMVC.Web.Controllers
 
         // GET: /"ControllerName"/New
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public ActionResult New()
+        public async Task<ActionResult> New(int? priceListTypeId)
         {
-            var item = new ProductPriceNewViewModel();
-            return View(item);
+            if (priceListTypeId.HasValue)
+            {
+                var query = new PlantDataMVC.Web.Controllers.Queries.PriceListType.ShowQuery(priceListTypeId.Value);
+                var priceListModel = await _mediator.Send(query);
+
+                var item = new ProductPriceDataModel { PriceListTypeId = priceListTypeId.Value, PriceListTypeName = priceListModel.Name };
+
+                var model = _mapper.Map<ProductPriceDataModel, ProductPriceNewViewModel>(item);
+
+                return View(model);
+            }
+            else
+            {
+                var item = new ProductPriceDataModel();
+                return View(item);
+            }
         }
 
         // POST: /"ControllerName"/Create
@@ -81,7 +101,7 @@ namespace PlantDataMVC.Web.Controllers
             // TODO: Use userId in submit of form (via mediator)
 
             var failureResult = DefaultFormFailureResult();
-            var successResult = RedirectToAction("Index");
+            var successResult = RedirectToAction("Details", PlantDataMvcAppControllers.PriceListType, new { id = form.PriceListTypeId });
 
             if (!ModelState.IsValid)
             {
@@ -160,6 +180,7 @@ namespace PlantDataMVC.Web.Controllers
 
             var failureResult = DefaultFormFailureResult();
             var successResult = RedirectToAction("Index");
+            //var successResult = RedirectToAction("Details", PlantDataMvcAppControllers.PriceListType, new { id = form.PriceListTypeId });
 
             if (!ModelState.IsValid)
             {
