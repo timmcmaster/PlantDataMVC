@@ -29,6 +29,7 @@ namespace PlantDataMVC.Entities.Configuration
             builder.Property(x => x.Location).HasMaxLength(30);
             builder.Property(x => x.Notes).HasMaxLength(200);
             builder.Property(x => x.SiteId);
+            builder.Property(x => x.Emptied).IsRequired();
 
             // Ignore 
 
@@ -40,6 +41,7 @@ namespace PlantDataMVC.Entities.Configuration
             builder.Property(x => x.Location).HasColumnName(@"Location").HasColumnType("nvarchar");
             builder.Property(x => x.Notes).HasColumnName(@"Notes").HasColumnType("nvarchar");
             builder.Property(x => x.SiteId).HasColumnName(@"SiteId").HasColumnType("int");
+            builder.Property(x => x.Emptied).HasColumnName(@"Emptied").HasColumnType("bit");
 
             // Foreign keys
             builder.HasOne(a => a.Site).WithMany(b => b.SeedBatches).HasForeignKey(c => c.SiteId).OnDelete(DeleteBehavior.NoAction); // FK_SeedBatch_Site
