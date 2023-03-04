@@ -5,10 +5,10 @@ namespace PlantDataMVC.Web.Models.ViewModels.Site
     public class SiteNewViewModel
     {
         [Display(Name = "Site Name"), StringLength(50), DataType("CustomString")]
-        public string SiteName { get; set; }
+        public string SiteName { get; set; } = string.Empty;
 
         [StringLength(50), DataType("CustomString")]
-        public string Suburb { get; set; }
+        public string Suburb { get; set; } = string.Empty;
 
         [DisplayFormat(DataFormatString = "{0:0.00000}")]
         public decimal Latitude { get; set; }

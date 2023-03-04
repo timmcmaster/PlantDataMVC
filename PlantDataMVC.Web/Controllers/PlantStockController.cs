@@ -65,24 +65,6 @@ namespace PlantDataMVC.Web.Controllers
         }
 
         //
-        // GET: /"ControllerName"/Details/5
-        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
-        public async Task<ActionResult> Details(int id)
-        {
-            var query = new DetailsQuery(id);
-            var model = await _mediator.Send(query);
-
-            if (model == null)
-            {
-                return Content("An error occurred");
-            }
-            else
-            {
-                return View(model);
-            }
-        }
-
-        //
         // GET: /"ControllerName"/New
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
         public ActionResult New()

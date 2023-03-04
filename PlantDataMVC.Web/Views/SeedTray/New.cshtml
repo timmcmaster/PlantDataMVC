@@ -22,7 +22,7 @@
                 model => model.SeedBatchId,
                 new ListQuery<SeedBatchDataModel>(),
                 p => p.Id,
-                p => string.Concat(p.SpeciesId, ",", p.Location, ",", p.DateCollected.ToShortDateString()))
+                p => string.Concat(SpeciesFunctions.GetBinomial(p.GenusName, p.SpeciesName), ",", p.Location, ",", p.DateCollected.ToShortDateString()))
         </div>
 
         <div class="editor-label">
@@ -57,6 +57,5 @@
 
 <div>
     <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Index">Back to Index</a>
-    @Html.ActionLink("Back to Index", "Index")
 </div>
 

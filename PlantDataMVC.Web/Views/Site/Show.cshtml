@@ -47,7 +47,6 @@
             // TODO: Need some sort of error on invalid coordinates
             var map = maplib.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
             maplib.addMarker('@Url.Content("~/images/place-marker.png")', map, centreLat, centreLong, siteName);
-            maplib.addMarker('@Url.Content("~/images/place-marker.png")', map, centreLat + 1, centreLong + 1, 'Test');
         };
     </script>
 }

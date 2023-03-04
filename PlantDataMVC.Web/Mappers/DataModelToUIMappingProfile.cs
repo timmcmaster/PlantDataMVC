@@ -248,16 +248,6 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId));
             // TODO: What about ProductTypeId from dm?
-
-            // PlantStockDetailsViewModel
-            CreateMap<PlantStockDataModel, PlantStock.PlantStockDetailsViewModel>()
-                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
-                .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
-                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId));
-            // TODO: What about ProductTypeId from dm?
-
         }
 
         private void ConfigureTransactionViewModels()
