@@ -32,6 +32,9 @@ namespace PlantDataMVC.Entities.EntityModels
         [Display(Name = "Site ID")]
         public int? SiteId { get; set; } // SiteId
 
+        [Display(Name = "Emptied")]
+        public bool Emptied { get; set; }
+
         // Reverse navigation
 
         /// <summary>

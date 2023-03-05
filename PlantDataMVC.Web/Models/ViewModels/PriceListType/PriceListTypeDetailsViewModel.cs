@@ -18,5 +18,8 @@ namespace PlantDataMVC.Web.Models.ViewModels.PriceListType
 
         [Display(Name = "Product Prices")]
         public IList<ProductPriceListViewModel> ProductPrices { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public bool ShowAddItem { get; set; }
     }
 }

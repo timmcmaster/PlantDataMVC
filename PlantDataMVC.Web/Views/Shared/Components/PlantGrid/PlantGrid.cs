@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using PlantDataMVC.Constants;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.Plant;
 using System;
@@ -19,6 +18,7 @@ namespace PlantDataMVC.Web.Shared.Components.PlantGrid
 
         public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<PlantListViewModel> model)
         {
+            // TODO: Need to be able to edit all fields of object (not just ones in grid row) - dropdowns for genus etc
             string viewName = "Default";
 
             if (_useBasicMvcViews)

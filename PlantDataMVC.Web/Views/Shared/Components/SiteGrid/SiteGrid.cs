@@ -19,6 +19,7 @@ namespace PlantDataMVC.Web.Shared.Components.SiteGrid
 
         public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<SiteListViewModel> model)
         {
+            // TODO: Default edit needs ability to edit via map position
             string viewName = "Default";
 
             if (_useBasicMvcViews)

@@ -1,6 +1,13 @@
 ﻿@using PlantDataMVC.Web.Constants;
 @model PlantDataMVC.Web.Models.ViewModels.Site.SiteNewViewModel
 
+<style>
+    .map {
+        height: 400px;
+        width: 400px;
+    }
+</style>
+
 @{
     ViewBag.Title = "New";
 }
@@ -19,6 +26,50 @@
         </p>
     </fieldset>
 </form>
+
+<!-- This is the div that will contain the map -->
+<div id="map" class="map"><div id="popup"></div></div>
+
+<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
+@section Scripts {
+    <script type="text/javascript" src="~/js/lib/maplib.bundle.js"></script>
+    <script type="text/javascript">
+
+        // This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded.
+        $(document).ready(function () {
+            Initialise();
+        });
+
+        function modifyListener(evt) {
+            // expects a ol/interaction/Modify.ModifyEvent
+            var featuresCollection = evt.features;
+            var features = featuresCollection.getArray();
+            var geometry = features[0].getGeometry();
+            var coords = geometry.getCoordinates();
+            var lonLat = maplib.toLonLat(coords);
+
+            var long = document.getElementById("Longitude");
+            var lat = document.getElementById("Latitude");
+            long.value = lonLat[0];
+            lat.value = lonLat[1];
+        };
+
+        function Initialise() {
+            // get siteModel in JSON encoded format
+            var latitude = @Html.Raw(Json.Serialize(Model.Latitude));
+            var longitude = @Html.Raw(Json.Serialize(Model.Longitude));
+            var siteName = @Html.Raw(Json.Serialize(Model.SiteName));
+            var centreLat = latitude;
+            var centreLong = longitude;
+            var zoomLevel = 12;
+            var allowModify = true;
+
+            // TODO: Need some sort of error on invalid coordinates
+            var map = maplib.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
+            maplib.addMarker('@Url.Content("~/images/place-marker.png")', map, centreLat, centreLong, siteName, allowModify, modifyListener);
+        };
+    </script>
+}
 
 <div>
     <a asp-controller=@PlantDataMvcAppControllers.Site asp-action="Index">Back to Index</a>
