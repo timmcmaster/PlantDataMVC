@@ -13,8 +13,10 @@ namespace PlantDataMVC.Repository.Repositories
         }
         public override PriceListTypeEntityModel GetItemById(int id)
         {
-            var result = DbSet.Include(m => m.ProductPrices).ThenInclude(p => p.ProductType)
+            var result = DbSet
+                .Include(m => m.ProductPrices).ThenInclude(p => p.ProductType)
                 .Single(m => m.Id == id);
+            
             return result;
         }
     }

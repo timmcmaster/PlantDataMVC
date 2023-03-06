@@ -14,7 +14,9 @@ namespace PlantDataMVC.Repository.Repositories
 
         public override SpeciesEntityModel GetItemById(int id)
         {
-            var result = DbSet.Include(m => m.Genus).Single(m => m.Id == id);
+            var result = DbSet
+                .Include(m => m.Genus)
+                .Single(m => m.Id == id);
             return result;
         }
     }

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.EntityModels;
 using PlantDataMVC.Repository.Interfaces;
 using PlantDataMVC.Repository.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +16,10 @@ namespace PlantDataMVC.Repository.Repositories
 
         public override JournalEntryEntityModel GetItemById(int id)
         {
-            var result = DbSet.Include(m => m.JournalEntryType).Single(m => m.Id == id);
+            var result = DbSet
+                .Include(m => m.JournalEntryType)
+                .Single(m => m.Id == id);
+
             return result;
         }
 

@@ -17,6 +17,7 @@ namespace PlantDataMVC.Repository.Repositories
                 .Include(m => m.Species).ThenInclude(m => m.Genus)
                 .Include(m => m.ProductType)
                 .Single(m => m.Id == id);
+            
             return result;
         }
     }

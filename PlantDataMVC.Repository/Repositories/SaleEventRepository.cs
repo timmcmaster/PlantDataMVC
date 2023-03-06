@@ -15,7 +15,7 @@ namespace PlantDataMVC.Repository.Repositories
         {
             var result = DbSet.Include(m => m.SaleEventStock).ThenInclude(m => m.Species).ThenInclude(m => m.Genus)
                               .Include(m => m.SaleEventStock).ThenInclude(m => m.ProductType)
-                              .Single();
+                              .Single(m => m.Id == id);
 
             return result;
         }
