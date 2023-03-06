@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using PlantDataMVC.Constants;
 using PlantDataMVC.Web.Constants;
 using PlantDataMVC.Web.Models.ViewModels;
 using Syncfusion.EJ2.Navigations;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Shared.Components.MainMenu

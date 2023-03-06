@@ -28,6 +28,7 @@ namespace PlantDataMVC.Api.Models.Mappers
             ConfigureProductTypeMappings();
             ConfigureJournalEntryTypeMappings();
             ConfigureSaleEventMappings();
+            ConfigureSaleEventStockMappings();
             ConfigurePriceListTypeMappings();
             ConfigureProductPriceMappings();
         }
@@ -180,6 +181,19 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(dm => dm.Location, opt => opt.MapFrom(e => e.Location)); // explicit and unnecessary
         }
 
+        private void ConfigureSaleEventStockMappings()
+        {
+            CreateMap<SaleEventStockEntityModel, SaleEventStockDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(e => e.Id))
+                .ForMember(dm => dm.SaleEventId, opt => opt.MapFrom(e => e.SaleEventId))
+                .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(e => e.SpeciesId))
+                .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(e => e.ProductTypeId))
+                .ForMember(dm => dm.Quantity, opt => opt.MapFrom(e => e.Quantity))
+                .ForMember(dm => dm.GenusName, opt => opt.MapFrom(e => e.Species.Genus.LatinName))
+                .ForMember(dm => dm.SpeciesName, opt => opt.MapFrom(e => e.Species.SpecificName))
+                .ForMember(dm => dm.ProductTypeName, opt => opt.MapFrom(e => e.ProductType.Name));
+        }
+
         private void ConfigurePriceListTypeMappings()
         {
             CreateMap<PriceListTypeEntityModel, PriceListTypeDataModel>()
@@ -200,6 +214,5 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(dm => dm.DateEffective, opt => opt.MapFrom(e => e.DateEffective))
                 .ForMember(dm => dm.Price, opt => opt.MapFrom(e => e.Price));
         }
-        // Not yet mapped objects
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using PlantDataMVC.Constants;
 using PlantDataMVC.Web.Models.ViewModels.Transaction;
 using PlantDataMVC.Web.Views.Shared.Components.TransactionGrid;
 using System;

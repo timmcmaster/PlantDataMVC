@@ -24,6 +24,12 @@ namespace PlantDataMVC.Entities.EntityModels
         [Display(Name = "Location")]
         public string Location { get; set; }
 
-        public virtual ICollection<SaleEventStockEntityModel> SaleEventStock { get; } = new List<SaleEventStockEntityModel>();
+        public virtual ICollection<SaleEventStockEntityModel> SaleEventStock { get; set; } 
+
+        public SaleEventEntityModel()
+        {
+            SaleEventStock = new List<SaleEventStockEntityModel>();
+        }
+
     }
 }

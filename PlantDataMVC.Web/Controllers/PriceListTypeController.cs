@@ -60,6 +60,7 @@ namespace PlantDataMVC.Web.Controllers
                 return View(model);
             }
         }
+
         // GET: /"ControllerName"/Show/5
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public async Task<ActionResult> Show(int id)

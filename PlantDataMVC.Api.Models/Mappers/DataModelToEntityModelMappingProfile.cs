@@ -210,6 +210,23 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(e => e.Location, opt => opt.MapFrom(dm => dm.Location)); // explicit and unnecessary
         }
 
+        private void ConfigureSaleEventStockMappings()
+        {
+            CreateMap<CreateUpdateSaleEventStockDataModel, SaleEventStockEntityModel>()
+                .ForMember(e => e.Id, opt => opt.Ignore())
+                .ForMember(e => e.SaleEventId, opt => opt.MapFrom(dm => dm.SaleEventId)) // explicit and unnecessary
+                .ForMember(e => e.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId)) // explicit and unnecessary
+                .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId)) // explicit and unnecessary
+                .ForMember(e => e.Quantity, opt => opt.MapFrom(dm => dm.Quantity)); // explicit and unnecessary
+
+            CreateMap<SaleEventStockDataModel, SaleEventStockEntityModel>()
+                .ForMember(e => e.Id, opt => opt.MapFrom(dm => dm.Id)) // explicit and unnecessary
+                .ForMember(e => e.SaleEventId, opt => opt.MapFrom(dm => dm.SaleEventId)) // explicit and unnecessary
+                .ForMember(e => e.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId)) // explicit and unnecessary
+                .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId)) // explicit and unnecessary
+                .ForMember(e => e.Quantity, opt => opt.MapFrom(dm => dm.Quantity)); // explicit and unnecessary
+        }
+
         private void ConfigureProductTypeMappings()
         {
             CreateMap<CreateUpdateProductTypeDataModel, ProductTypeEntityModel>()

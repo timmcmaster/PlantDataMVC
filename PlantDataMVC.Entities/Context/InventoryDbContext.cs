@@ -16,6 +16,7 @@ namespace PlantDataMVC.Entities.Context
         public DbSet<PlantStockEntityModel> PlantStocks { get; set; } // PlantStock
         public DbSet<ProductTypeEntityModel> ProductTypes { get; set; } // ProductType
         public DbSet<SaleEventEntityModel> SaleEvents { get; set; } // SaleEvent
+        public DbSet<SaleEventStockEntityModel> SaleEventStocks { get; set; } // SaleEventStock
         public DbSet<SpeciesEntityModel> Species { get; set; } // Species
 
         //static InventoryDbContext()
@@ -51,6 +52,7 @@ namespace PlantDataMVC.Entities.Context
             modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SpeciesConfiguration());
             modelBuilder.ApplyConfiguration(new SaleEventConfiguration());
+            modelBuilder.ApplyConfiguration(new SaleEventStockConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

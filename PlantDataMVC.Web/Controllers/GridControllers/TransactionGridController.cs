@@ -19,13 +19,11 @@ namespace PlantDataMVC.Web.Controllers
 
         public IActionResult UrlAdaptor()
         {
-
             return View();
         }
 
         public IActionResult Default()
         {
-
             return View();
         }
         
@@ -34,7 +32,6 @@ namespace PlantDataMVC.Web.Controllers
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public async Task<ActionResult> UrlDatasource([FromBody]DataManagerRequest request)
         {
-
             // Convert operation to appropriate api call
             var localPage = request.Skip != 0 ? (request.Skip / request.Take) + 1 : 1;
             var localPageSize = request.Take != 0 ? request.Take : 20;

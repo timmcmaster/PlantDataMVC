@@ -9,6 +9,7 @@ using PriceListType = PlantDataMVC.Web.Models.ViewModels.PriceListType;
 using ProductPrice = PlantDataMVC.Web.Models.ViewModels.ProductPrice;
 using ProductType = PlantDataMVC.Web.Models.ViewModels.ProductType;
 using SaleEvent = PlantDataMVC.Web.Models.ViewModels.SaleEvent;
+using SaleEventStock = PlantDataMVC.Web.Models.ViewModels.SaleEventStock;
 using SeedBatch = PlantDataMVC.Web.Models.ViewModels.SeedBatch;
 using SeedTray = PlantDataMVC.Web.Models.ViewModels.SeedTray;
 using Site = PlantDataMVC.Web.Models.ViewModels.Site;
@@ -42,6 +43,7 @@ namespace PlantDataMVC.Web.Mappers
             ConfigureTransactionViewModels();
             ConfigureSiteViewModels();
             ConfigureSaleEventViewModels();
+            ConfigureSaleEventStockViewModels();
             ConfigureProductTypeViewModels();
             ConfigurePriceListTypeViewModels();
             ConfigureProductPriceViewModels();
@@ -390,8 +392,27 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
                 .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dm => dm.SaleDate))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location));
+
+            CreateMap<SaleEventDataModel, SaleEvent.SaleEventDetailsViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
+                .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dm => dm.SaleDate))
+                .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location))
+                .ForMember(uio => uio.SaleEventStocks, opt => opt.MapFrom(dm => dm.SaleEventStocks));
         }
 
+        private void ConfigureSaleEventStockViewModels()
+        {
+            CreateMap<SaleEventStockDataModel, SaleEventStock.SaleEventStockListViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.SaleEventId, opt => opt.MapFrom(dm => dm.SaleEventId))
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
+                .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity));
+
+        }
         private void ConfigureProductTypeViewModels()
         {
             // ProductType

@@ -18,6 +18,7 @@ namespace PlantDataMVC.Repository.Repositories
             var result = DbSet.Include(m => m.ProductType).Include(m => m.PriceListType).Single(m => m.Id == id);
             return result;
         }
+
         public ProductPriceEntityModel GetItemByProductPriceListDate(int productTypeId, int priceListId, DateTime effectiveDate)
         {
             return this.Queryable(useTracking: false).FirstOrDefault(p => p.ProductTypeId == productTypeId && p.PriceListTypeId == priceListId && p.DateEffective == effectiveDate);

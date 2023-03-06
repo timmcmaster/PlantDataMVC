@@ -19,6 +19,7 @@ namespace PlantDataMVC.Entities.Context
         public DbSet<ProductPriceEntityModel> ProductPrices { get; set; } // ProductPrice
         public DbSet<ProductTypeEntityModel> ProductTypes { get; set; } // ProductType
         public DbSet<SaleEventEntityModel> SaleEvents { get; set; } // SaleEvent
+        public DbSet<SaleEventStockEntityModel> SaleEventStocks { get; set; } // SaleEventStock
         public DbSet<SeedBatchEntityModel> SeedBatches { get; set; } // SeedBatch
         public DbSet<SeedTrayEntityModel> SeedTrays { get; set; } // SeedTray
         public DbSet<SiteEntityModel> Sites { get; set; } // Site
@@ -89,6 +90,7 @@ namespace PlantDataMVC.Entities.Context
             modelBuilder.ApplyConfiguration(new SiteConfiguration());
             modelBuilder.ApplyConfiguration(new SpeciesConfiguration());
             modelBuilder.ApplyConfiguration(new SaleEventConfiguration());
+            modelBuilder.ApplyConfiguration(new SaleEventStockConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

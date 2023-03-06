@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.EntityModels
 {
-    public partial class SaleEventStockEntityModel
+    public partial class SaleEventStockEntityModel: IEntity
     {
         public int Id { get; set; }
 

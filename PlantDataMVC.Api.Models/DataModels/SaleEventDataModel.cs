@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
@@ -8,5 +9,6 @@ namespace PlantDataMVC.Api.Models.DataModels
         public string Name { get; set; }
         public DateTime SaleDate { get; set; }
         public string Location { get; set; }
+        public IEnumerable<SaleEventStockDataModel> SaleEventStocks { get; set; }
     }
 }

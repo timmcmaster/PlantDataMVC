@@ -1,0 +1,25 @@
+﻿@model IList<PlantDataMVC.Web.Models.ViewModels.SaleEventStock.SaleEventStockListViewModel>
+@using SaleEventStock = PlantDataMVC.Web.Models.ViewModels.SaleEventStock
+@using PlantDataMVC.Web.Constants;
+@{
+    SaleEventStock.SaleEventStockListViewModel sampleElement = new SaleEventStock.SaleEventStockListViewModel();
+}
+<table class="grid">
+    <tr>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Quantity)</th>
+    </tr>
+@{
+    int count = 0;
+    foreach (var entry in Model)
+    {
+        <tr>
+                <td>@Html.DisplayFor(m => m.ElementAt(count).SpeciesBinomial)</td>
+            <td>@Html.DisplayFor(m => m.ElementAt(count).ProductTypeName)</td>
+            <td>@Html.DisplayFor(m => m.ElementAt(count).Quantity)</td>
+        </tr>
+        count++;
+    }
+}
+</table>
