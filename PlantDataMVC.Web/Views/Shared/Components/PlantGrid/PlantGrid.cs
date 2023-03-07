@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.Plant;
+using PlantDataMVC.Web.Views.Shared.Components.PlantGrid;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Shared.Components.PlantGrid
@@ -24,7 +26,30 @@ namespace PlantDataMVC.Web.Shared.Components.PlantGrid
             if (_useBasicMvcViews)
                 viewName = "Basic";
 
-            return View(viewName, model);
+            var gridModel = new PlantGridViewModel()
+            {
+                AllowAdd = true,
+                AllowDelete = true,
+                AllowEdit = true,
+                AllowPaging = true,
+                AllowSorting = true,
+
+                PageNumber = model.PageNumber,
+                PageSize = model.PageSize,
+                HasNextPage = model.HasNextPage,
+                HasPreviousPage = model.HasPreviousPage,
+                TotalCount = model.TotalCount,
+                TotalPages = model.TotalPages,
+                
+                SortBy = model.SortBy,
+                SortAscending = model.SortAscending,
+                SortExpression = model.SortExpression,
+
+                Items = (IEnumerable<PlantListViewModel>)model
+            };
+
+            //return View(viewName, model);
+            return View(viewName, gridModel);
         }
     }
 }
