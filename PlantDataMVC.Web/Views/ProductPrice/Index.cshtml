@@ -7,14 +7,4 @@
 <h2>Product Prices</h2>
 <p>This is a list of all Product Prices</p>
 
-@if (Model.ShowAddItem)
-{
-    <a asp-action="New">Add New Item</a>
-}
-
 @await Component.InvokeAsync("ProductPriceGrid", new { model = Model })
-
-@if (Model.ShowPagingLinks)
-{
-    @Html.PagingLinksFor(m => Model)
-}

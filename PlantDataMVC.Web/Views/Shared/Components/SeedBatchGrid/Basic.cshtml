@@ -1,9 +1,13 @@
-﻿@model IList<PlantDataMVC.Web.Models.ViewModels.SeedBatch.SeedBatchListViewModel>
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.SeedBatch.SeedBatchListViewModel>
 @using PlantDataMVC.Web.Constants;
 @using SeedBatch = PlantDataMVC.Web.Models.ViewModels.SeedBatch
 
 @{
     SeedBatch.SeedBatchListViewModel sampleElement = new SeedBatch.SeedBatchListViewModel();   
+}
+@if (Model.ShowAddItem)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.SeedBatch" asp-action="New">Add New Item</a>
 }
 <table class="grid">
     <tr>
@@ -30,3 +34,7 @@ foreach (var entry in Model) {
 }
 }
 </table>
+@if (Model.ShowPagingLinks)
+{
+    @Html.PagingLinksFor(m => Model)
+}

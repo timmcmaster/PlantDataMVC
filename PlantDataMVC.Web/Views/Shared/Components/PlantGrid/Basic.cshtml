@@ -1,9 +1,14 @@
-﻿@model IList<PlantDataMVC.Web.Models.ViewModels.Plant.PlantListViewModel>
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Plant.PlantListViewModel>
+@*@model IList<PlantDataMVC.Web.Models.ViewModels.Plant.PlantListViewModel>*@
 @using Plant = PlantDataMVC.Web.Models.ViewModels.Plant
 @using PlantDataMVC.Web.Constants;
 
 @{
     Plant.PlantListViewModel sampleElement = new Plant.PlantListViewModel();
+}
+@if (Model.ShowAddItem)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.Plant" asp-action="New">Add New Item</a>
 }
 <table class="grid">
     <tr>
@@ -13,7 +18,6 @@
         <th></th>
         <th></th>
     </tr>
-
 
     @{
         int count = 0;
@@ -30,3 +34,7 @@
         }
     }
 </table>
+@if (Model.ShowPagingLinks)
+{
+    @Html.PagingLinksFor(m => Model)
+}

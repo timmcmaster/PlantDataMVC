@@ -1,9 +1,12 @@
-﻿@model IList<PlantDataMVC.Web.Models.ViewModels.ProductType.ProductTypeListViewModel>
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.ProductType.ProductTypeListViewModel>
 @using ProductType = PlantDataMVC.Web.Models.ViewModels.ProductType
 @using PlantDataMVC.Web.Constants;
 @{
     ProductType.ProductTypeListViewModel sampleElement = new ProductType.ProductTypeListViewModel();
-    // TODO: Convert ColumnHeaderFor to TagHelper
+}
+@if (Model.ShowAddItem)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.ProductType" asp-action="New">Add New Item</a>
 }
 <table class="grid">
     <tr>
@@ -25,3 +28,7 @@ foreach (var entry in Model) {
 }
 }
 </table>
+@if (Model.ShowPagingLinks)
+{
+    @Html.PagingLinksFor(m => Model)
+}

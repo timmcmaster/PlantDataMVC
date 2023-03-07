@@ -10,7 +10,6 @@
           allowSorting="true"
           height="550" width="800"
           toolbar="@(new List<string>() { "Add", "Edit", "Delete","Update","Cancel" })">
-    <e-grid-editsettings allowEditing="true" allowDeleting="true"></e-grid-editsettings>
     <e-data-manager adaptor="UrlAdaptor" 
                     url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PlantGrid)"
                     insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.PlantGrid)"

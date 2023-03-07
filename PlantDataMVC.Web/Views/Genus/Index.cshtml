@@ -7,14 +7,4 @@
 <h2>Genus List</h2>
 <p>This is a list of all genuses recorded</p>
 
-@if (Model.ShowAddItem)
-{
-    <a asp-action="New">Add New Item</a>
-}
-
 @await Component.InvokeAsync("GenusGrid", new { model = Model })
-
-@if (Model.ShowPagingLinks)
-{
-    @Html.PagingLinksFor(m => Model)
-}

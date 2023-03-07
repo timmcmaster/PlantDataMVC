@@ -1,9 +1,13 @@
-﻿@model IList<PlantDataMVC.Web.Models.ViewModels.Genus.GenusListViewModel>
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Genus.GenusListViewModel>
 @using Genus = PlantDataMVC.Web.Models.ViewModels.Genus
 @using PlantDataMVC.Web.Constants;
 @{
     Genus.GenusListViewModel sampleElement = new Genus.GenusListViewModel();
     // TODO: Convert ColumnHeaderFor to TagHelper
+}
+@if (Model.ShowAddItem)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.Genus" asp-action="New">Add New Item</a>
 }
 <table class="grid">
     <tr>
@@ -26,3 +30,7 @@
         }
     }
 </table>
+@if (Model.ShowPagingLinks)
+{
+    @Html.PagingLinksFor(m => Model)
+}

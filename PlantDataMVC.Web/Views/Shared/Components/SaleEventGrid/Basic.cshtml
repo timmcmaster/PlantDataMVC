@@ -1,9 +1,13 @@
-﻿@model IList<PlantDataMVC.Web.Models.ViewModels.SaleEvent.SaleEventListViewModel>
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.SaleEvent.SaleEventListViewModel>
 @using PlantDataMVC.Web.Constants;
 @using SaleEvent = PlantDataMVC.Web.Models.ViewModels.SaleEvent
 
 @{
     SaleEvent.SaleEventListViewModel sampleElement = new SaleEvent.SaleEventListViewModel();   
+}
+@if (Model.ShowAddItem)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.SaleEvent" asp-action="New">Add New Item</a>
 }
 <table class="grid">
     <tr>
@@ -30,3 +34,7 @@ foreach (var entry in Model) {
 }
 }
 </table>
+@if (Model.ShowPagingLinks)
+{
+    @Html.PagingLinksFor(m => Model)
+}

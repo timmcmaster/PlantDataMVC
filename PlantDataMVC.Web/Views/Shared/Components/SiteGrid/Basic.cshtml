@@ -1,9 +1,13 @@
-﻿@model IList<PlantDataMVC.Web.Models.ViewModels.Site.SiteListViewModel>
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Site.SiteListViewModel>
 @using PlantDataMVC.Web.Constants;
 @using Site = PlantDataMVC.Web.Models.ViewModels.Site
 
 @{
     Site.SiteListViewModel sampleElement = new Site.SiteListViewModel();
+}
+@if (Model.ShowAddItem)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.Site" asp-action="New">Add New Item</a>
 }
 <table class="grid">
     <tr>
@@ -31,3 +35,7 @@
         }
     }
 </table>
+@if (Model.ShowPagingLinks)
+{
+    @Html.PagingLinksFor(m => Model)
+}

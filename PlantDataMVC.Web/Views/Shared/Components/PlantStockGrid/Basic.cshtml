@@ -1,4 +1,4 @@
-﻿@model IList<PlantDataMVC.Web.Models.ViewModels.PlantStock.PlantStockListViewModel>
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.PlantStock.PlantStockListViewModel>
 @using PlantDataMVC.Web.Constants;
 @using PlantStock = PlantDataMVC.Web.Models.ViewModels.PlantStock
 
@@ -6,6 +6,10 @@
     PlantStock.PlantStockListViewModel sampleElement = new PlantStock.PlantStockListViewModel();
 }
 
+@if (Model.ShowAddItem)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.PlantStock" asp-action="New">Add New Item</a>
+}
 <table class="grid">
     <tr>
         <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial)</th>
@@ -28,3 +32,7 @@
         }
     }
 </table>
+@if (Model.ShowPagingLinks)
+{
+    @Html.PagingLinksFor(m => Model)
+}

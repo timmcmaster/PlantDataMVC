@@ -1,9 +1,12 @@
-﻿@model IList<PlantDataMVC.Web.Models.ViewModels.PriceListType.PriceListTypeListViewModel>
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.PriceListType.PriceListTypeListViewModel>
 @using PriceListType = PlantDataMVC.Web.Models.ViewModels.PriceListType
 @using PlantDataMVC.Web.Constants;
 @{
     PriceListType.PriceListTypeListViewModel sampleElement = new PriceListType.PriceListTypeListViewModel();
-    // TODO: Convert ColumnHeaderFor to TagHelper
+}
+@if (Model.ShowAddItem)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.PriceListType" asp-action="New">Add New Item</a>
 }
 <table class="grid">
     <tr>
@@ -29,3 +32,7 @@ foreach (var entry in Model) {
 }
 }
 </table>
+@if (Model.ShowPagingLinks)
+{
+    @Html.PagingLinksFor(m => Model)
+}

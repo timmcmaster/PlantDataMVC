@@ -1,8 +1,12 @@
-﻿@model IList<PlantDataMVC.Web.Models.ViewModels.SaleEventStock.SaleEventStockListViewModel>
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.SaleEventStock.SaleEventStockListViewModel>
 @using SaleEventStock = PlantDataMVC.Web.Models.ViewModels.SaleEventStock
 @using PlantDataMVC.Web.Constants;
 @{
     SaleEventStock.SaleEventStockListViewModel sampleElement = new SaleEventStock.SaleEventStockListViewModel();
+}
+@if (Model.ShowAddItem)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.SeedBatch" asp-action="New">Add New Item</a>
 }
 <table class="grid">
     <tr>
@@ -23,3 +27,7 @@
     }
 }
 </table>
+@if (Model.ShowPagingLinks)
+{
+    @Html.PagingLinksFor(m => Model)
+}

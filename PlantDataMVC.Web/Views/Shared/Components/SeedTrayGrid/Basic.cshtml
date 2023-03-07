@@ -1,9 +1,13 @@
-﻿@model IList<PlantDataMVC.Web.Models.ViewModels.SeedTray.SeedTrayListViewModel>
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.SeedTray.SeedTrayListViewModel>
 @using PlantDataMVC.Web.Constants;
 @using SeedTray = PlantDataMVC.Web.Models.ViewModels.SeedTray
 
 @{
     SeedTray.SeedTrayListViewModel sampleElement = new SeedTray.SeedTrayListViewModel();
+}
+@if (Model.ShowAddItem)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.SeedTray" asp-action="New">Add New Item</a>
 }
 <table class="grid">
     <tr>
@@ -31,3 +35,7 @@
         }
     }
 </table>
+@if (Model.ShowPagingLinks)
+{
+    @Html.PagingLinksFor(m => Model)
+}
