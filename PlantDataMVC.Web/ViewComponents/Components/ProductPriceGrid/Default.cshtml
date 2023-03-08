@@ -1,0 +1,39 @@
+﻿@using ProductPrice = PlantDataMVC.Web.Models.ViewModels.ProductPrice
+
+@model PlantDataMVC.Web.Views.Shared.Components.ProductPriceGrid.ProductPriceGridViewModel;
+
+@{
+    ProductPrice.ProductPriceListViewModel sampleElement = new ProductPrice.ProductPriceListViewModel();
+    var dpParams = (new { @params = new { format = "dd/MM/yyyy" } });
+    var numericParams = (new { @params= new { decimals= 2 } });
+}
+
+<ejs-grid id="ProductPriceGrid"
+          dataSource="@Model.ProductPrices"
+          allowPaging="true"
+          allowSorting="true"
+          height="550" width="1000"> 
+@*          toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">*@
+@*    <e-data-manager adaptor="UrlAdaptor"
+                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.ProductPriceGrid, new {priceListTypeId = $"{Model.PriceListTypeId}"})"
+                    insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.ProductPriceGrid)"
+                    updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.ProductPriceGrid)"
+                    removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.ProductPriceGrid)">
+    </e-data-manager>
+*@    <e-grid-pagesettings></e-grid-pagesettings>
+    <e-grid-editsettings allowAdding="true" allowEditing="true" allowDeleting="true"></e-grid-editsettings>
+    <e-grid-columns>
+        <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
+@*        <e-grid-column field="@nameof(sampleElement.PriceListTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.PriceListTypeName)" allowEditing="false"></e-grid-column>
+*@        <e-grid-column field="@nameof(sampleElement.ProductTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.ProductTypeName)" allowEditing="false"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.DateEffective)" headerText="@Html.DisplayNameFor(x => sampleElement.DateEffective)" type="date" format="dd/MM/yyyy" edit="dpParams" editType="datepickeredit" allowEditing="false"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.Price)" headerText="@Html.DisplayNameFor(x => sampleElement.Price)" format="C2" edit="numericParams"></e-grid-column>
+    </e-grid-columns>
+</ejs-grid>
+
+<style>
+    .e-grid .e-row .e-rowcell {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+</style>

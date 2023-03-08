@@ -1,0 +1,41 @@
+﻿@using PriceListType = PlantDataMVC.Web.Models.ViewModels.PriceListType
+
+@model ListViewModelStatic<PriceListType.PriceListTypeListViewModel>
+
+@{
+    PriceListType.PriceListTypeListViewModel sampleElement = new PriceListType.PriceListTypeListViewModel();
+}
+
+<ejs-grid id="SeedBatchGrid"
+          allowPaging="true"
+          allowSorting="true"
+          height="550" width="1000"        
+          toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
+    <e-data-manager adaptor="UrlAdaptor"
+                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PriceListTypeGrid)" 
+                    insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.PriceListTypeGrid)"
+                    updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.PriceListTypeGrid)"
+                    removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.PriceListTypeGrid)">
+    </e-data-manager>
+    <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+    <e-grid-editsettings allowAdding="true" allowEditing="true" allowDeleting="true"></e-grid-editsettings>
+    <e-grid-columns>
+        <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.Name)" headerText="@Html.DisplayNameFor(x => sampleElement.Name)"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.Kind)" headerText="@Html.DisplayNameFor(x => sampleElement.Kind)"></e-grid-column>
+        <e-grid-column headerText="View Details" template="#detailsTemplate" width="150"></e-grid-column>
+    </e-grid-columns>
+</ejs-grid>
+
+<script id="detailsTemplate" type="text/x-template">
+    <div>
+        <a href="/PriceListType/Details/${Id}">Details</a>
+    </div>
+</script>
+
+<style>
+    .e-grid .e-row .e-rowcell {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+</style>

@@ -1,0 +1,37 @@
+﻿@using Genus = PlantDataMVC.Web.Models.ViewModels.Genus
+
+@model ListViewModelStatic<Genus.GenusListViewModel>
+
+@{
+    Genus.GenusListViewModel sampleElement = new Genus.GenusListViewModel();
+    // TODO: Convert ColumnHeaderFor to TagHelper
+}
+@if (Model.ShowAddItem)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.Genus" asp-action="New">Add New Item</a>
+}
+<table class="grid">
+    <tr>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.LatinName)</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+
+    @{
+        int count = 0;
+        foreach (var entry in Model)
+        {
+            <tr>
+                <td><a asp-controller=@PlantDataMvcAppControllers.Genus asp-action="Show" asp-route-id="@entry.Id">@entry.LatinName</a></td>
+                <td><a asp-controller=@PlantDataMvcAppControllers.Genus asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
+                <td><a asp-controller=@PlantDataMvcAppControllers.Genus asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
+            </tr>
+            count++;
+        }
+    }
+</table>
+@if (Model.ShowPagingLinks)
+{
+    @Html.PagingLinksFor(m => Model)
+}

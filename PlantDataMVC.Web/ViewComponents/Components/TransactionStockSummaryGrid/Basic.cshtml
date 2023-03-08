@@ -1,0 +1,29 @@
+﻿@using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction
+
+@model IList<Transaction.TransactionStockSummaryListViewModel>
+
+@{
+    Transaction.TransactionStockSummaryListViewModel sampleElement = new Transaction.TransactionStockSummaryListViewModel();
+}
+<table class="grid">
+    <tr>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.QuantityInStock)</th>
+        <th></th>
+    </tr>
+
+    @{
+        int count = 0;
+        foreach (var entry in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => m.ElementAt(count).SpeciesBinomial)</td>
+                <td>@Html.DisplayFor(m => m.ElementAt(count).ProductTypeName)</td>
+                <td>@Html.DisplayFor(m => m.ElementAt(count).QuantityInStock)</td>
+                <td><a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="StockSummaryDetails" asp-route-speciesid="@entry.SpeciesId" asp-route-producttypeid="@entry.ProductTypeId">Details</a></td>
+            </tr>
+            count++;
+        }
+    }
+</table>

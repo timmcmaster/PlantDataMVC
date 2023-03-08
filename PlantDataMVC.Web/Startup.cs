@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using PlantDataMVC.Common.Client;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc.Razor;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace PlantDataMVC.Web
@@ -146,7 +147,12 @@ namespace PlantDataMVC.Web
 
             // MVC
             services.AddControllersWithViews()
-                .AddJsonOptions(jsonOptions => jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null); // Don't convert property names to camelCase
+                .AddJsonOptions(jsonOptions => jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null) // Don't convert property names to camelCase
+                .AddRazorOptions(options =>
+                {
+                    // Allow for view components to be under ViewComponents/Components folder at root as well as Views/Shared/Components folder
+                    options.ViewLocationFormats.Add("/ViewComponents/{0}" + RazorViewEngine.ViewExtension);  
+                });        
         }
 
 
