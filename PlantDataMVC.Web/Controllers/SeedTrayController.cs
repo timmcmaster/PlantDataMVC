@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Web.Controllers.Queries.SeedTray;

@@ -1,0 +1,40 @@
+﻿@using Plant = PlantDataMVC.Web.Models.ViewModels.Plant
+
+@*@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Plant.PlantListViewModel>*@
+@model PlantDataMVC.Web.ViewComponents.PlantGrid.PlantGridViewModel
+
+@{
+    Plant.PlantListViewModel sampleElement = new Plant.PlantListViewModel();
+}
+@if (Model.AllowAdd)
+{
+    <a asp-controller="@PlantDataMvcAppControllers.Plant" asp-action="New">Add New Item</a>
+}
+<table class="grid">
+    <tr>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Binomial)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.CommonName)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Native)</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @{
+        int count = 0;
+        foreach (var entry in Model.Items)
+        {
+            <tr>
+                <td><a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Show" asp-route-id="@entry.Id">@entry.Binomial</a></td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).CommonName)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Native)</td>
+                <td><a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
+                <td><a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
+            </tr>
+            count++;
+        }
+    }
+</table>
+@if (Model.AllowPaging)
+{
+    @Html.PagingLinksFor(m => Model)
+}

@@ -1,0 +1,30 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using PlantDataMVC.Web.Models.ViewModels;
+using PlantDataMVC.Web.Models.ViewModels.SeedBatch;
+using System;
+using System.Threading.Tasks;
+
+namespace PlantDataMVC.Web.ViewComponents.SeedBatchGrid
+{
+    public class SeedBatchGrid : ViewComponent
+    {
+        private readonly bool _useBasicMvcViews = false;
+
+        public SeedBatchGrid(IConfiguration configuration)
+        {
+            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<SeedBatchListViewModel> model)
+        {
+            // TODO: Need edit with dropdowns and proper selction of species/genus
+            string viewName = "Default";
+
+            if (_useBasicMvcViews)
+                viewName = "Basic";
+
+            return View(viewName, model);
+        }
+    }
+}

@@ -1,11 +1,6 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Web.Controllers.Queries.SaleEventStock;
-using PlantDataMVC.Web.Helpers;
-using PlantDataMVC.Web.Models.ViewModels.SaleEventStock;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Controllers

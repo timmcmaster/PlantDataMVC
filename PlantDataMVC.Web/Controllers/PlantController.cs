@@ -1,8 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Web.Controllers.Queries.Plant;
-using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.EditModels.Plant;
 using PlantDataMVC.Web.Models.ViewModels.Plant;
 using System.Threading.Tasks;

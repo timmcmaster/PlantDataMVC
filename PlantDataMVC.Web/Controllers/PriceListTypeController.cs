@@ -1,12 +1,9 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Web.Controllers.Queries.PriceListType;
-using PlantDataMVC.Web.Helpers;
-using System.Threading.Tasks;
 using PlantDataMVC.Web.Models.EditModels.PriceListType;
 using PlantDataMVC.Web.Models.ViewModels.PriceListType;
-using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Controllers
 {

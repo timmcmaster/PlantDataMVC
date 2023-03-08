@@ -150,8 +150,8 @@ namespace PlantDataMVC.Web
                 .AddJsonOptions(jsonOptions => jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null) // Don't convert property names to camelCase
                 .AddRazorOptions(options =>
                 {
-                    // Allow for view components to be under ViewComponents/Components folder at root as well as Views/Shared/Components folder
-                    options.ViewLocationFormats.Add("/ViewComponents/{0}" + RazorViewEngine.ViewExtension);  
+                    // Allow for view components to be under ViewComponents folder at root as well as Views/Shared/Components folder
+                    options.ViewLocationFormats.Add("/View{0}" + RazorViewEngine.ViewExtension);  
                 });        
         }
 

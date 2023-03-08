@@ -1,19 +1,12 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using PlantDataMVC.Api.Models.DataModels;
+using PlantDataMVC.Web.Constants;
 using PlantDataMVC.Web.Controllers.Queries.ProductPrice;
-using PlantDataMVC.Web.Helpers;
-using System.Threading.Tasks;
 using PlantDataMVC.Web.Models.EditModels.ProductPrice;
 using PlantDataMVC.Web.Models.ViewModels.ProductPrice;
-using System.Security.Claims;
-using PlantDataMVC.Web.Shared.Components.PriceListTypeGrid;
-using PlantDataMVC.Web.Shared.Components.ProductTypeGrid;
-using System;
-using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.Web.Models.ViewModels.PlantStock;
-using AutoMapper;
-using PlantDataMVC.Web.Constants;
+using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Controllers
 {

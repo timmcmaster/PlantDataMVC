@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Web.Constants;
 using PlantDataMVC.Web.Controllers.Queries.Transaction;
-using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.EditModels.Transaction;
 using PlantDataMVC.Web.Models.ViewModels.Transaction;
 using System.Threading.Tasks;

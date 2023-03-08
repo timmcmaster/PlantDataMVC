@@ -1,0 +1,31 @@
+﻿@using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction
+
+@model PlantDataMVC.Web.ViewComponents.TransactionGrid.TransactionGridViewModel
+
+@{
+    Transaction.TransactionListViewModel sampleElement = new Transaction.TransactionListViewModel();
+}
+<ejs-grid id="TransactionGrid"
+          dataSource="@Model.Transactions"
+          allowPaging="true"
+          allowSorting="true"
+          height="400" width="800">
+@*    <e-data-manager adaptor="UrlAdaptor" 
+                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.TransactionGrid, new {speciesId = $"{Model.SpeciesId}",productTypeId = $"{Model.ProductTypeId}"})">
+    </e-data-manager>*@
+
+    <e-grid-pagesettings></e-grid-pagesettings>
+    <e-grid-columns>
+        <e-grid-column field="@nameof(sampleElement.TransactionTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.TransactionTypeName)"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.TransactionDate)" headerText="@Html.DisplayNameFor(x => sampleElement.TransactionDate)" type="date" format="dd/MM/yyyy"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.Quantity)" headerText="@Html.DisplayNameFor(x => sampleElement.Quantity)" type="number"></e-grid-column>
+        <e-grid-column field="@nameof(sampleElement.EffectiveQuantity)" headerText="@Html.DisplayNameFor(x => sampleElement.EffectiveQuantity)" type="number"></e-grid-column>
+    </e-grid-columns>
+</ejs-grid>
+
+<style>
+    .e-grid .e-row .e-rowcell {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+</style>
