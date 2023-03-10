@@ -17,7 +17,7 @@ namespace PlantDataMVC.Web.ViewComponents.PlantGrid
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<PlantListViewModel> model)
+        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<PlantListViewModel> model, GridOptionsModel gridOptions)
         {
             // TODO: Need to be able to edit all fields of object (not just ones in grid row) - dropdowns for genus etc
             string viewName = "Default";
@@ -25,18 +25,9 @@ namespace PlantDataMVC.Web.ViewComponents.PlantGrid
             if (_useBasicMvcViews)
                 viewName = "Basic";
 
-            var gridOptionsModel = new GridOptionsModel()
-            {
-                AllowAdd = true,
-                AllowDelete = true,
-                AllowEdit = true,
-                AllowPaging = true,
-                AllowSorting = true,
-            };
-
             var gridModel = new PlantGridViewModel()
             {
-                Options = gridOptionsModel,
+                Options = gridOptions,
 
                 PageNumber = model.PageNumber,
                 PageSize = model.PageSize,

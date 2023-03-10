@@ -17,25 +17,16 @@ namespace PlantDataMVC.Web.ViewComponents.SaleEventGrid
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<SaleEventListViewModel> model)
+        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<SaleEventListViewModel> model, GridOptionsModel gridOptions)
         {
             string viewName = "Default";
 
             if (_useBasicMvcViews)
                 viewName = "Basic";
 
-            var gridOptionsModel = new GridOptionsModel()
-            {
-                AllowAdd = true,
-                AllowDelete = true,
-                AllowEdit = true,
-                AllowPaging = true,
-                AllowSorting = true,
-            };
-
             var gridModel = new SaleEventGridViewModel()
             {
-                Options = gridOptionsModel,
+                Options = gridOptions,
 
                 PageNumber = model.PageNumber,
                 PageSize = model.PageSize,

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.ProductPrice;
 
 namespace PlantDataMVC.Web.Models.ViewModels.PriceListType
@@ -18,5 +19,7 @@ namespace PlantDataMVC.Web.Models.ViewModels.PriceListType
 
         [Display(Name = "Product Prices")]
         public IList<ProductPriceListViewModel> ProductPrices { get; set; }
+
+        public GridOptionsModel GridOptions { get; set; } = new();
     }
 }

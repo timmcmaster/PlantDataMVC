@@ -17,7 +17,7 @@ namespace PlantDataMVC.Web.ViewComponents.SiteGrid
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<SiteListViewModel> model)
+        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<SiteListViewModel> model, GridOptionsModel gridOptions)
         {
             // TODO: Default edit needs ability to edit via map position
             string viewName = "Default";
@@ -25,18 +25,9 @@ namespace PlantDataMVC.Web.ViewComponents.SiteGrid
             if (_useBasicMvcViews)
                 viewName = "Basic";
 
-            var gridOptionsModel = new GridOptionsModel()
-            {
-                AllowAdd = true,
-                AllowDelete = true,
-                AllowEdit = true,
-                AllowPaging = true,
-                AllowSorting = true,
-            };
-
             var gridModel = new SiteGridViewModel()
             {
-                Options = gridOptionsModel,
+                Options = gridOptions,
 
                 PageNumber = model.PageNumber,
                 PageSize = model.PageSize,

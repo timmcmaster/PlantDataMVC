@@ -7,4 +7,4 @@
 <h2>Product Prices</h2>
 <p>This is a list of all Product Prices</p>
 
-@await Component.InvokeAsync("ProductPriceGrid", new { model = Model })
+@await Component.InvokeAsync("ProductPriceGrid", new { model = Model, gridOptions = Model.GridOptions })

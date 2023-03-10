@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Project;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Web.Constants;
 using PlantDataMVC.Web.Controllers.Queries.ProductPrice;
 using PlantDataMVC.Web.Models.EditModels.ProductPrice;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.ProductPrice;
 using System.Threading.Tasks;
 
@@ -41,6 +43,15 @@ namespace PlantDataMVC.Web.Controllers
             }
             else
             {
+                model.GridOptions = new GridOptionsModel()
+                {
+                    AllowAdd = false,
+                    AllowDelete = false,
+                    AllowEdit = false,
+                    AllowPaging = false,
+                    AllowSorting = false,
+                };
+
                 return View(model);
             }
         }

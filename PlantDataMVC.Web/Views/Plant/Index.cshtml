@@ -7,4 +7,4 @@
 <h2>My Plant List</h2>
 <p>This is a list of all plant descriptions</p>
 
-@await Component.InvokeAsync("PlantGrid", new { model = Model })
+@await Component.InvokeAsync("PlantGrid", new { model = Model, gridOptions = Model.GridOptions })

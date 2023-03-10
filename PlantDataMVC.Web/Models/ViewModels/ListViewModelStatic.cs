@@ -1,5 +1,6 @@
 ﻿using Framework.Web.Mvc.Paging;
 using Framework.Web.Mvc.Sorting;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using System.Collections.Generic;
 
 namespace PlantDataMVC.Web.Models.ViewModels
@@ -33,5 +34,7 @@ namespace PlantDataMVC.Web.Models.ViewModels
         }
 
         #endregion
+
+        public GridOptionsModel GridOptions { get; set; } = new();
     }
 }

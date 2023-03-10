@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.SaleEventStock;
 
 namespace PlantDataMVC.Web.Models.ViewModels.SaleEvent
@@ -21,5 +22,7 @@ namespace PlantDataMVC.Web.Models.ViewModels.SaleEvent
 
         [Display(Name = "Sale Event Stock Items")]
         public IEnumerable<SaleEventStockListViewModel> SaleEventStocks { get; set; } = new List<SaleEventStockListViewModel>();
+
+        public GridOptionsModel GridOptions { get; set; } = new();
     }
 }

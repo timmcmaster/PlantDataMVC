@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Web.Controllers.Queries.Site;
 using PlantDataMVC.Web.Models.EditModels.Site;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.Site;
 using System.Threading.Tasks;
 
@@ -38,6 +39,15 @@ namespace PlantDataMVC.Web.Controllers
             }
             else
             {
+                model.GridOptions = new GridOptionsModel()
+                {
+                    AllowAdd = true,
+                    AllowDelete = true,
+                    AllowEdit = true,
+                    AllowPaging = true,
+                    AllowSorting = true,
+                };
+
                 return View(model);
             }
         }

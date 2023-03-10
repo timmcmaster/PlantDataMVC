@@ -5,6 +5,7 @@ using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Web.Controllers.Queries.SeedTray;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.EditModels.SeedTray;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.SeedTray;
 using System.Threading.Tasks;
 
@@ -41,9 +42,21 @@ namespace PlantDataMVC.Web.Controllers
             {
                 return Content("An error occurred");
             }
+            else
+            {
+                model.GridOptions = new GridOptionsModel()
+                {
+                    AllowAdd = true,
+                    AllowDelete = true,
+                    AllowEdit = true,
+                    AllowPaging = true,
+                    AllowSorting = true,
+                };
 
-            return View(model);
+                return View(model);
+            }
         }
+
         //
         // GET: /"ControllerName"/Show/5
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]

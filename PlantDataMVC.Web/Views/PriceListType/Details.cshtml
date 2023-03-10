@@ -15,7 +15,7 @@
         <label asp-for="ProductPrices"></label>
     </div>
     <div class="child-table">
-        @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, priceListTypeId = Model.Id })
+        @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, gridOptions = Model.GridOptions, priceListTypeId = Model.Id })
     </div>
 </fieldset>
 

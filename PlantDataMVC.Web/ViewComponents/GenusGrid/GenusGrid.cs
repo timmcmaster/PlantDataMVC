@@ -17,25 +17,16 @@ namespace PlantDataMVC.Web.ViewComponents.GenusGrid
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<GenusListViewModel> model)
+        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<GenusListViewModel> model, GridOptionsModel gridOptions)
         {
             string viewName = "Default";
 
             if (_useBasicMvcViews)
                 viewName = "Basic";
 
-            var gridOptionsModel = new GridOptionsModel()
-            {
-                AllowAdd = true,
-                AllowDelete = true,
-                AllowEdit = true,
-                AllowPaging = true,
-                AllowSorting = true,
-            };
-
             var gridModel = new GenusGridViewModel()
             {
-                Options = gridOptionsModel,
+                Options = gridOptions,
 
                 PageNumber = model.PageNumber,
                 PageSize = model.PageSize,

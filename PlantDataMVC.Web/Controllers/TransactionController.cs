@@ -5,6 +5,7 @@ using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Web.Constants;
 using PlantDataMVC.Web.Controllers.Queries.Transaction;
 using PlantDataMVC.Web.Models.EditModels.Transaction;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.Transaction;
 using System.Threading.Tasks;
 
@@ -43,6 +44,15 @@ namespace PlantDataMVC.Web.Controllers
             }
             else
             {
+                model.GridOptions = new GridOptionsModel()
+                {
+                    AllowAdd = true,
+                    AllowDelete = true,
+                    AllowEdit = true,
+                    AllowPaging = true,
+                    AllowSorting = true
+                };
+
                 return View(model);
             }
         }
@@ -61,6 +71,15 @@ namespace PlantDataMVC.Web.Controllers
             }
             else
             {
+                model.GridOptions = new GridOptionsModel()
+                {
+                    AllowAdd = false,
+                    AllowDelete = false,
+                    AllowEdit = false,
+                    AllowPaging = false,
+                    AllowSorting = false,
+                };
+
                 return View(model);
             }
         }

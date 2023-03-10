@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Web.Controllers.Queries.SaleEvent;
 using PlantDataMVC.Web.Models.EditModels.SaleEvent;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.SaleEvent;
 using System.Threading.Tasks;
 
@@ -38,6 +39,15 @@ namespace PlantDataMVC.Web.Controllers
             }
             else
             {
+                model.GridOptions = new GridOptionsModel()
+                {
+                    AllowAdd = true,
+                    AllowDelete = true,
+                    AllowEdit = true,
+                    AllowPaging = true,
+                    AllowSorting = true,
+                };
+
                 return View(model);
             }
         }
@@ -55,6 +65,15 @@ namespace PlantDataMVC.Web.Controllers
             }
             else
             {
+                model.GridOptions = new GridOptionsModel()
+                {
+                    AllowAdd = false,
+                    AllowDelete = false,
+                    AllowEdit = false,
+                    AllowPaging = false,
+                    AllowSorting = false,
+                };
+
                 return View(model);
             }
         }

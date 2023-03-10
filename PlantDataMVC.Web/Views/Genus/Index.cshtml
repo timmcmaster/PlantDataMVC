@@ -7,4 +7,4 @@
 <h2>Genus List</h2>
 <p>This is a list of all genuses recorded</p>
 
-@await Component.InvokeAsync("GenusGrid", new { model = Model })
+@await Component.InvokeAsync("GenusGrid", new { model = Model, gridOptions = Model.GridOptions })

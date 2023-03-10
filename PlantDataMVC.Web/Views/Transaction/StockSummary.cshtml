@@ -6,4 +6,4 @@
 
 <h2>Index</h2>
 
-@await Component.InvokeAsync("TransactionStockSummaryGrid", new { model = Model })
+@await Component.InvokeAsync("TransactionStockSummaryGrid", new { model = Model, gridOptions = Model.GridOptions })

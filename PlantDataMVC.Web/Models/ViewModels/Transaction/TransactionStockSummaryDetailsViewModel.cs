@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -23,5 +24,7 @@ namespace PlantDataMVC.Web.Models.ViewModels.Transaction
 
         [Display(Name = "Transactions")]
         public IEnumerable<TransactionListViewModel> Transactions { get; set; } = new List<TransactionListViewModel>();
+
+        public GridOptionsModel GridOptions { get; set; } = new();
     }
 }

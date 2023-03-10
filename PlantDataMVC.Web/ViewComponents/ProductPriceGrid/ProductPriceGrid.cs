@@ -17,7 +17,7 @@ namespace PlantDataMVC.Web.ViewComponents.ProductPriceGrid
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<ProductPriceListViewModel> productPrices, int? priceListTypeId = null)
+        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<ProductPriceListViewModel> productPrices, GridOptionsModel gridOptions, int? priceListTypeId = null)
         {
             string viewName = "Default";
 
@@ -26,18 +26,9 @@ namespace PlantDataMVC.Web.ViewComponents.ProductPriceGrid
                 viewName = "Basic";
             }
 
-            var gridOptionsModel = new GridOptionsModel()
-            {
-                AllowAdd = false,
-                AllowDelete = false,
-                AllowEdit = false,
-                AllowPaging = false,
-                AllowSorting = false,
-            };
-
             var gridModel = new ProductPriceGridViewModel()
             {
-                Options = gridOptionsModel,
+                Options = gridOptions,
 
                 //PageNumber = model.PageNumber,
                 //PageSize = model.PageSize,
