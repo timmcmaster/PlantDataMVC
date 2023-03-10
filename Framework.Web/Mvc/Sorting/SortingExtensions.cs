@@ -17,14 +17,14 @@ namespace Framework.Web.Mvc.Sorting
     {
         // TODO: Perhaps should be TagHelpers? https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/intro?view=aspnetcore-6.0
 
-        public static IHtmlContent ColumnHeaderFor<TModel, TProperty>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr)
+        public static IHtmlContent ColumnHeaderFor<TModel, TProperty>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr, bool allowSorting = true)
         {
             var expressionProvider = new ModelExpressionProvider(helper.MetadataProvider);
             var modelExpression = expressionProvider.CreateModelExpression(helper.ViewData, expr);
             var metadata = modelExpression.Metadata;
 
 
-            if (helper.ViewData.Model is ISortable)
+            if ((helper.ViewData.Model is ISortable) && allowSorting)
             {
                 return SortableColumnHeaderFor(helper, expr);
             }

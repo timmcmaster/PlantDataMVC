@@ -12,9 +12,9 @@
 }
 <table class="grid">
     <tr>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.QuantityInStock)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial, Model.Options.AllowSorting)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName, Model.Options.AllowSorting)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.QuantityInStock, Model.Options.AllowSorting)</th>
         @if (Model.Options.AllowDelete)
         {
             <th></th>

@@ -11,10 +11,10 @@
         @*        <th>@Html.ColumnHeaderFor(m => sampleElement.Id)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.PlantStockId)</th>
         *@
-        <th>@Html.ColumnHeaderFor(m => sampleElement.TransactionTypeName)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.TransactionDate)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.Quantity)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.EffectiveQuantity)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.TransactionTypeName, Model.Options.AllowSorting)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.TransactionDate, Model.Options.AllowSorting)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Quantity, Model.Options.AllowSorting)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.EffectiveQuantity, Model.Options.AllowSorting)</th>
     </tr>
 
     @{

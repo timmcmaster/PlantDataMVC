@@ -11,10 +11,10 @@
 }
 <table class="grid">
     <tr>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.Id)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.SeedBatchId)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.DateSown)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Id, Model.Options.AllowSorting)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.SeedBatchId, Model.Options.AllowSorting)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial, Model.Options.AllowSorting)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.DateSown, Model.Options.AllowSorting)</th>
         @if (Model.Options.AllowEdit)
         {
             <th></th>

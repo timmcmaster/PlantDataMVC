@@ -11,8 +11,8 @@
 }
 <table class="grid">
     <tr>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.Name)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.Kind)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Name, Model.Options.AllowSorting)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.Kind, Model.Options.AllowSorting)</th>
         <th></th>
         @if (Model.Options.AllowEdit)
         {

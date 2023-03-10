@@ -12,7 +12,7 @@
 }
 <table class="grid">
     <tr>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.LatinName)</th>
+        <th>@Html.ColumnHeaderFor(m => sampleElement.LatinName, Model.Options.AllowSorting)</th>
         @if (Model.Options.AllowEdit)
         {
             <th></th>
