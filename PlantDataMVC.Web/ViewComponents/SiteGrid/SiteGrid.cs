@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.Site;
 using System;
@@ -24,7 +25,34 @@ namespace PlantDataMVC.Web.ViewComponents.SiteGrid
             if (_useBasicMvcViews)
                 viewName = "Basic";
 
-            return View(viewName, model);
+            var gridOptionsModel = new GridOptionsModel()
+            {
+                AllowAdd = true,
+                AllowDelete = true,
+                AllowEdit = true,
+                AllowPaging = true,
+                AllowSorting = true,
+            };
+
+            var gridModel = new SiteGridViewModel()
+            {
+                Options = gridOptionsModel,
+
+                PageNumber = model.PageNumber,
+                PageSize = model.PageSize,
+                HasNextPage = model.HasNextPage,
+                HasPreviousPage = model.HasPreviousPage,
+                TotalCount = model.TotalCount,
+                TotalPages = model.TotalPages,
+
+                SortBy = model.SortBy,
+                SortAscending = model.SortAscending,
+                SortExpression = model.SortExpression,
+
+                Items = model
+            };
+
+            return View(viewName, gridModel);
         }
     }
 }

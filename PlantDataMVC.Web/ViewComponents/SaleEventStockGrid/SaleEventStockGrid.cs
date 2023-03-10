@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
+using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.SaleEventStock;
-using PlantDataMVC.Web.ViewComponents.SaleEventStockGrid;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,16 +25,37 @@ namespace PlantDataMVC.Web.ViewComponents.ProductTypeGrid
             if (_useBasicMvcViews)
             {
                 viewName = "Basic";
-                return View(viewName, saleEventStocks);
             }
 
-            var model = new SaleEventStockGridViewModel()
+            var gridOptionsModel = new GridOptionsModel()
             {
-                SaleEventId = saleEventId,
-                SaleEventStocks = saleEventStocks
+                AllowAdd = false,
+                AllowDelete = false,
+                AllowEdit = false,
+                AllowPaging = false,
+                AllowSorting = false,
             };
 
-            return View(viewName, model);
+            var gridModel = new SaleEventStockGridViewModel()
+            {
+                Options = gridOptionsModel,
+
+                //PageNumber = model.PageNumber,
+                //PageSize = model.PageSize,
+                //HasNextPage = model.HasNextPage,
+                //HasPreviousPage = model.HasPreviousPage,
+                //TotalCount = model.TotalCount,
+                //TotalPages = model.TotalPages,
+
+                //SortBy = model.SortBy,
+                //SortAscending = model.SortAscending,
+                //SortExpression = model.SortExpression,
+
+                SaleEventId = saleEventId,
+                Items = saleEventStocks
+            };
+
+            return View(viewName, gridModel);
         }
     }
 }

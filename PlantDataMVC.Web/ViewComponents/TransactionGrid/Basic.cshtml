@@ -1,6 +1,7 @@
-﻿@using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction
+﻿@using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
+@using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction
 
-@model IList<Transaction.TransactionListViewModel>
+@model TransactionGridViewModel
 
 @{
     Transaction.TransactionListViewModel sampleElement = new Transaction.TransactionListViewModel();
@@ -18,17 +19,17 @@
 
     @{
         int count = 0;
-        foreach (var entry in Model)
+        foreach (var entry in Model.Items)
         {
             <tr>
                 @*        
                 <td>@Html.DisplayFor(m => m.ElementAt(count).Id)</td>
                 <td>@Html.DisplayFor(m => m.ElementAt(count).PlantStockId)</td>
                 *@
-                <td>@Html.DisplayFor(m => m.ElementAt(count).TransactionTypeName)</td>
-                <td>@Html.DisplayFor(m => m.ElementAt(count).TransactionDate)</td>
-                <td>@Html.DisplayFor(m => m.ElementAt(count).Quantity)</td>
-                <td>@Html.DisplayFor(m => m.ElementAt(count).EffectiveQuantity)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).TransactionTypeName)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).TransactionDate)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Quantity)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).EffectiveQuantity)</td>
             </tr>
             count++;
         }

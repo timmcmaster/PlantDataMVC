@@ -1,11 +1,11 @@
 ﻿@using SaleEventStock = PlantDataMVC.Web.Models.ViewModels.SaleEventStock
 
-@model ListViewModelStatic<SaleEventStock.SaleEventStockListViewModel>
+@model SaleEventStockGridViewModel
 
 @{
     SaleEventStock.SaleEventStockListViewModel sampleElement = new SaleEventStock.SaleEventStockListViewModel();
 }
-@if (Model.ShowAddItem)
+@if (Model.Options.AllowAdd)
 {
     <a asp-controller="@PlantDataMvcAppControllers.SeedBatch" asp-action="New">Add New Item</a>
 }
@@ -17,18 +17,18 @@
     </tr>
 @{
     int count = 0;
-    foreach (var entry in Model)
+    foreach (var entry in Model.Items)
     {
         <tr>
-                <td>@Html.DisplayFor(m => m.ElementAt(count).SpeciesBinomial)</td>
-            <td>@Html.DisplayFor(m => m.ElementAt(count).ProductTypeName)</td>
-            <td>@Html.DisplayFor(m => m.ElementAt(count).Quantity)</td>
+            <td>@Html.DisplayFor(m => m.Items.ElementAt(count).SpeciesBinomial)</td>
+            <td>@Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)</td>
+            <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Quantity)</td>
         </tr>
         count++;
     }
 }
 </table>
-@if (Model.ShowPagingLinks)
+@if (Model.Options.AllowPaging)
 {
     @Html.PagingLinksFor(m => Model)
 }

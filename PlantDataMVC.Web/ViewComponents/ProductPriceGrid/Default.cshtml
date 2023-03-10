@@ -1,6 +1,7 @@
-﻿@using ProductPrice = PlantDataMVC.Web.Models.ViewModels.ProductPrice
+﻿@using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
+@using ProductPrice = PlantDataMVC.Web.Models.ViewModels.ProductPrice
 
-@model PlantDataMVC.Web.ViewComponents.ProductPriceGrid.ProductPriceGridViewModel
+@model ProductPriceGridViewModel
 
 @{
     ProductPrice.ProductPriceListViewModel sampleElement = new ProductPrice.ProductPriceListViewModel();
@@ -9,7 +10,7 @@
 }
 
 <ejs-grid id="ProductPriceGrid"
-          dataSource="@Model.ProductPrices"
+          dataSource="@Model.Items"
           allowPaging="true"
           allowSorting="true"
           height="550" width="1000"> 

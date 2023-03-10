@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.Transaction;
-using PlantDataMVC.Web.ViewComponents.TransactionGrid;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,17 +24,38 @@ namespace PlantDataMVC.Web.ViewComponents.TransactionGrid
             if (_useBasicMvcViews)
             {
                 viewName = "Basic";
-                return View(viewName, transactions);
             }
 
-            var model = new TransactionGridViewModel()
+            var gridOptionsModel = new GridOptionsModel()
             {
-                SpeciesId = speciesId,
-                ProductTypeId = productTypeId,
-                Transactions = transactions
+                AllowAdd = false,
+                AllowDelete = false,
+                AllowEdit = false,
+                AllowPaging = false,
+                AllowSorting = false,
             };
 
-            return View(viewName, model);
+            var gridModel = new TransactionGridViewModel()
+            {
+                Options = gridOptionsModel,
+
+                //PageNumber = model.PageNumber,
+                //PageSize = model.PageSize,
+                //HasNextPage = model.HasNextPage,
+                //HasPreviousPage = model.HasPreviousPage,
+                //TotalCount = model.TotalCount,
+                //TotalPages = model.TotalPages,
+
+                //SortBy = model.SortBy,
+                //SortAscending = model.SortAscending,
+                //SortExpression = model.SortExpression,
+
+                SpeciesId = speciesId,
+                ProductTypeId = productTypeId,
+                Items = transactions
+            };
+
+            return View(viewName, gridModel);
         }
     }
 }

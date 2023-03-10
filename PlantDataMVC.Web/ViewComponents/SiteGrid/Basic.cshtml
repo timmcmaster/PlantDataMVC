@@ -1,11 +1,11 @@
 ﻿@using Site = PlantDataMVC.Web.Models.ViewModels.Site
 
-@model ListViewModelStatic<Site.SiteListViewModel>
+@model SiteGridViewModel
 
 @{
     Site.SiteListViewModel sampleElement = new Site.SiteListViewModel();
 }
-@if (Model.ShowAddItem)
+@if (Model.Options.AllowAdd)
 {
     <a asp-controller="@PlantDataMvcAppControllers.Site" asp-action="New">Add New Item</a>
 }
@@ -21,13 +21,13 @@
 
     @{
         int count = 0;
-        foreach (var entry in Model)
+        foreach (var entry in Model.Items)
         {
             <tr>
                 <td><a asp-controller=@PlantDataMvcAppControllers.Site asp-action="Show" asp-route-id="@entry.Id">@entry.SiteName</a></td>
-                <td>@Html.DisplayFor(m => m.ElementAt(count).Suburb)</td>
-                <td>@Html.DisplayFor(m => m.ElementAt(count).Latitude)</td>
-                <td>@Html.DisplayFor(m => m.ElementAt(count).Longitude)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Suburb)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Latitude)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Longitude)</td>
                 <td><a asp-controller=@PlantDataMvcAppControllers.Site asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
                 <td><a asp-controller=@PlantDataMvcAppControllers.Site asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
             </tr>
@@ -35,7 +35,7 @@
         }
     }
 </table>
-@if (Model.ShowPagingLinks)
+@if (Model.Options.AllowPaging)
 {
     @Html.PagingLinksFor(m => Model)
 }

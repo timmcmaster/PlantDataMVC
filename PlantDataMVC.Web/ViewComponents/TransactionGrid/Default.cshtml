@@ -1,12 +1,13 @@
-﻿@using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction
+﻿@using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
+@using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction
 
-@model PlantDataMVC.Web.ViewComponents.TransactionGrid.TransactionGridViewModel
+@model TransactionGridViewModel
 
 @{
     Transaction.TransactionListViewModel sampleElement = new Transaction.TransactionListViewModel();
 }
 <ejs-grid id="TransactionGrid"
-          dataSource="@Model.Transactions"
+          dataSource="@Model.Items"
           allowPaging="true"
           allowSorting="true"
           height="400" width="800">

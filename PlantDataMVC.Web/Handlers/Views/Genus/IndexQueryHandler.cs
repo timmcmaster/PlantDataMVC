@@ -20,13 +20,11 @@ namespace PlantDataMVC.Web.Handlers.Views.Genus
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
         private readonly IMapper _mapper;
-        private readonly bool _useBasicMvcViews = false;
 
-        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper, IConfiguration configuration)
+        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
             _mapper = mapper;
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
         public async Task<ListViewModelStatic<GenusListViewModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
@@ -58,13 +56,10 @@ namespace PlantDataMVC.Web.Handlers.Views.Genus
 
                 var modelList = _mapper.Map<IEnumerable<GenusDataModel>, List<GenusListViewModel>>(response.Content);
 
-                var showAddItem = _useBasicMvcViews;
-                var showPagingLinks = _useBasicMvcViews;
                 var model = new ListViewModelStatic<GenusListViewModel>(
                     modelList,
                     apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount,
-                    query.SortBy, query.SortAscending,
-                    showAddItem, showPagingLinks);
+                    query.SortBy, query.SortAscending);
 
                 return model;
             }

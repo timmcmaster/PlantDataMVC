@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.ProductPrice;
-using PlantDataMVC.Web.ViewComponents.ProductPriceGrid;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,16 +24,37 @@ namespace PlantDataMVC.Web.ViewComponents.ProductPriceGrid
             if (_useBasicMvcViews)
             {
                 viewName = "Basic";
-                return View(viewName, productPrices);
             }
 
-            var model = new ProductPriceGridViewModel()
+            var gridOptionsModel = new GridOptionsModel()
             {
-                PriceListTypeId = priceListTypeId,
-                ProductPrices = productPrices
+                AllowAdd = false,
+                AllowDelete = false,
+                AllowEdit = false,
+                AllowPaging = false,
+                AllowSorting = false,
             };
 
-            return View(viewName, model);
+            var gridModel = new ProductPriceGridViewModel()
+            {
+                Options = gridOptionsModel,
+
+                //PageNumber = model.PageNumber,
+                //PageSize = model.PageSize,
+                //HasNextPage = model.HasNextPage,
+                //HasPreviousPage = model.HasPreviousPage,
+                //TotalCount = model.TotalCount,
+                //TotalPages = model.TotalPages,
+
+                //SortBy = model.SortBy,
+                //SortAscending = model.SortAscending,
+                //SortExpression = model.SortExpression,
+
+                PriceListTypeId = priceListTypeId,
+                Items = productPrices
+            };
+
+            return View(viewName, gridModel);
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.Plant;
-using PlantDataMVC.Web.ViewComponents.PlantGrid;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.ViewComponents.PlantGrid
@@ -26,13 +25,18 @@ namespace PlantDataMVC.Web.ViewComponents.PlantGrid
             if (_useBasicMvcViews)
                 viewName = "Basic";
 
-            var gridModel = new PlantGridViewModel()
+            var gridOptionsModel = new GridOptionsModel()
             {
                 AllowAdd = true,
                 AllowDelete = true,
                 AllowEdit = true,
                 AllowPaging = true,
                 AllowSorting = true,
+            };
+
+            var gridModel = new PlantGridViewModel()
+            {
+                Options = gridOptionsModel,
 
                 PageNumber = model.PageNumber,
                 PageSize = model.PageSize,
@@ -45,10 +49,9 @@ namespace PlantDataMVC.Web.ViewComponents.PlantGrid
                 SortAscending = model.SortAscending,
                 SortExpression = model.SortExpression,
 
-                Items = (IEnumerable<PlantListViewModel>)model
+                Items = model
             };
 
-            //return View(viewName, model);
             return View(viewName, gridModel);
         }
     }

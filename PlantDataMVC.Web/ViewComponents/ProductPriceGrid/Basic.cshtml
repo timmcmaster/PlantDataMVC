@@ -1,11 +1,11 @@
 ﻿@using ProductPrice = PlantDataMVC.Web.Models.ViewModels.ProductPrice
 
-@model ListViewModelStatic<ProductPrice.ProductPriceListViewModel>
+@model ProductPriceGridViewModel
 
 @{
     ProductPrice.ProductPriceListViewModel sampleElement = new ProductPrice.ProductPriceListViewModel();
 }
-@if (Model.ShowAddItem)
+@if (Model.Options.AllowAdd)
 {
     <a asp-controller="@PlantDataMvcAppControllers.ProductPrice" asp-action="New">Add New Item</a>
 }
@@ -21,12 +21,12 @@
     </tr>
 @{
     int count = 0;
-    foreach (var entry in Model)
+    foreach (var entry in Model.Items)
     {
         <tr>
-            <td>@Html.DisplayFor(m => m.ElementAt(count).ProductTypeName)</td>
-            <td>@Html.DisplayFor(m => m.ElementAt(count).DateEffective)</td>
-            <td>@Html.DisplayFor(m => m.ElementAt(count).Price)</td>
+            <td>@Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)</td>
+            <td>@Html.DisplayFor(m => m.Items.ElementAt(count).DateEffective)</td>
+            <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Price)</td>
             <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Show" asp-route-id="@entry.Id">Show</a></td>
             <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
             <td><a asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
@@ -35,7 +35,7 @@
     }
 }
 </table>
-@if (Model.ShowPagingLinks)
+@if (Model.Options.AllowPaging)
 {
     @Html.PagingLinksFor(m => Model)
 }

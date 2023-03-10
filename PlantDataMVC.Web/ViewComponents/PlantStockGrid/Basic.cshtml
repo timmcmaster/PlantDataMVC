@@ -1,12 +1,12 @@
 ﻿@using PlantStock = PlantDataMVC.Web.Models.ViewModels.PlantStock
 
-@model ListViewModelStatic<PlantStock.PlantStockListViewModel>
+@model PlantStockGridViewModel
 
 @{
     PlantStock.PlantStockListViewModel sampleElement = new PlantStock.PlantStockListViewModel();
 }
 
-@if (Model.ShowAddItem)
+@if (Model.Options.AllowAdd)
 {
     <a asp-controller="@PlantDataMvcAppControllers.PlantStock" asp-action="New">Add New Item</a>
 }
@@ -20,19 +20,19 @@
 
     @{
         int count = 0;
-        foreach (var entry in Model)
+        foreach (var entry in Model.Items)
         {
             <tr>
                 <td><a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Show" asp-route-id="@entry.Id">@entry.SpeciesBinomial</a></td>
-                <td>@Html.DisplayFor(m => m.ElementAt(count).ProductTypeName)</td>
-                <td>@Html.DisplayFor(m => m.ElementAt(count).QuantityInStock)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).QuantityInStock)</td>
                 <td><a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
             </tr>
             count++;
         }
     }
 </table>
-@if (Model.ShowPagingLinks)
+@if (Model.Options.AllowPaging)
 {
     @Html.PagingLinksFor(m => Model)
 }

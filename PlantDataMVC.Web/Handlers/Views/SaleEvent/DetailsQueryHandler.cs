@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using Framework.Web.Views;
-using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Controllers.Queries.SaleEvent;
-using PlantDataMVC.Web.Helpers;
-using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.SaleEvent;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,13 +15,11 @@ namespace PlantDataMVC.Web.Handlers.Views.SaleEvent
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
         private readonly IMapper _mapper;
-        private readonly bool _useBasicMvcViews = false;
 
-        public DetailsQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper, IConfiguration configuration)
+        public DetailsQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
             _mapper = mapper;
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
         public async Task<SaleEventDetailsViewModel> Handle(DetailsQuery query, CancellationToken cancellationToken)
@@ -41,7 +35,6 @@ namespace PlantDataMVC.Web.Handlers.Views.SaleEvent
             else if (response.Success && response.Content != null)
             {
                 var model = _mapper.Map<SaleEventDataModel, SaleEventDetailsViewModel>(response.Content);
-                model.ShowAddItem = _useBasicMvcViews;
                 return model;
             }
             else

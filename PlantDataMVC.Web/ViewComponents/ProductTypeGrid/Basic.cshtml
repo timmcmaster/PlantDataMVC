@@ -1,11 +1,11 @@
 ﻿@using ProductType = PlantDataMVC.Web.Models.ViewModels.ProductType
 
-@model ListViewModelStatic<ProductType.ProductTypeListViewModel>
+@model ProductTypeGridViewModel
 
 @{
     ProductType.ProductTypeListViewModel sampleElement = new ProductType.ProductTypeListViewModel();
 }
-@if (Model.ShowAddItem)
+@if (Model.Options.AllowAdd)
 {
     <a asp-controller="@PlantDataMvcAppControllers.ProductType" asp-action="New">Add New Item</a>
 }
@@ -19,7 +19,7 @@
 
 @{
 int count = 0;
-foreach (var entry in Model) {
+foreach (var entry in Model.Items) {
     <tr>
         <td><a asp-controller=@PlantDataMvcAppControllers.ProductType asp-action="Show" asp-route-id="@entry.Id">@entry.Name</a></td>
         <td><a asp-controller=@PlantDataMvcAppControllers.ProductType asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
@@ -29,7 +29,7 @@ foreach (var entry in Model) {
 }
 }
 </table>
-@if (Model.ShowPagingLinks)
+@if (Model.Options.AllowPaging)
 {
     @Html.PagingLinksFor(m => Model)
 }

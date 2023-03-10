@@ -19,13 +19,11 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
         private readonly IMapper _mapper;
-        private readonly bool _useBasicMvcViews = false;
 
-        public StockSummaryQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper, IConfiguration configuration)
+        public StockSummaryQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
             _mapper = mapper;
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
         public async Task<ListViewModelStatic<TransactionStockSummaryListViewModel>> Handle(StockSummaryQuery query, CancellationToken cancellationToken)
@@ -57,13 +55,10 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
 
                 var modelList = _mapper.Map<IEnumerable<JournalEntryStockSummaryDataModel>, List<TransactionStockSummaryListViewModel>>(response.Content);
 
-                var showAddItem = _useBasicMvcViews;
-                var showPagingLinks = _useBasicMvcViews;
                 var model = new ListViewModelStatic<TransactionStockSummaryListViewModel>(
                     modelList,
                     apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount,
-                    query.SortBy, query.SortAscending,
-                    showAddItem, showPagingLinks);
+                    query.SortBy, query.SortAscending);
 
                 return model;
             }

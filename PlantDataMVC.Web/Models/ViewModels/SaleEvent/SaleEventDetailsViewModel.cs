@@ -21,8 +21,5 @@ namespace PlantDataMVC.Web.Models.ViewModels.SaleEvent
 
         [Display(Name = "Sale Event Stock Items")]
         public IEnumerable<SaleEventStockListViewModel> SaleEventStocks { get; set; } = new List<SaleEventStockListViewModel>();
-
-        [HiddenInput(DisplayValue = false)]
-        public bool ShowAddItem { get; set; }
     }
 }

@@ -5,14 +5,4 @@
 
 <h2>Index</h2>
 
-@if (Model.ShowAddItem)
-{
-    <a asp-action="New">Add New Item</a>
-}
-
 @await Component.InvokeAsync("TransactionStockSummaryGrid", new { model = Model })
-
-@if (Model.ShowPagingLinks)
-{
-    @Html.PagingLinksFor(m => Model)
-}

@@ -1,12 +1,11 @@
 ﻿@using Plant = PlantDataMVC.Web.Models.ViewModels.Plant
 
-@*@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Plant.PlantListViewModel>*@
-@model PlantDataMVC.Web.ViewComponents.PlantGrid.PlantGridViewModel
+@model PlantGridViewModel
 
 @{
     Plant.PlantListViewModel sampleElement = new Plant.PlantListViewModel();
 }
-@if (Model.AllowAdd)
+@if (Model.Options.AllowAdd)
 {
     <a asp-controller="@PlantDataMvcAppControllers.Plant" asp-action="New">Add New Item</a>
 }
@@ -34,7 +33,7 @@
         }
     }
 </table>
-@if (Model.AllowPaging)
+@if (Model.Options.AllowPaging)
 {
     @Html.PagingLinksFor(m => Model)
 }

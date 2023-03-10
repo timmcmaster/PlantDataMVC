@@ -1,14 +1,14 @@
 ﻿@using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction;
 
-@model ListViewModelStatic<Transaction.TransactionStockSummaryListViewModel>
+@model TransactionStockSummaryGridViewModel
 
 @{
     Transaction.TransactionStockSummaryListViewModel sampleElement = new Transaction.TransactionStockSummaryListViewModel();
 }
 <ejs-grid id="TransactionStockSummaryGrid"
-          dataSource="@Model"
-          allowPaging="true"
-          allowSorting="true"
+          dataSource="@Model.Items"
+          allowPaging="@Model.Options.AllowPaging"
+          allowSorting="@Model.Options.AllowSorting"
           height="550" width="800">
     @*<e-data-manager adaptor="UrlAdaptor" 
                     url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.TransactionStockSummaryGrid)">

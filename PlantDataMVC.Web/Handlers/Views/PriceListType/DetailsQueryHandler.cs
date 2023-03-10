@@ -18,13 +18,11 @@ namespace PlantDataMVC.Web.Handlers.Views.PriceListType
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
         private readonly IMapper _mapper;
-        private readonly bool _useBasicMvcViews = false;
 
-        public DetailsQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper, IConfiguration configuration)
+        public DetailsQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
             _mapper = mapper;
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
         public async Task<PriceListTypeDetailsViewModel> Handle(DetailsQuery query, CancellationToken cancellationToken)
@@ -40,7 +38,6 @@ namespace PlantDataMVC.Web.Handlers.Views.PriceListType
             else if (response.Success && response.Content != null)
             {
                 var model = _mapper.Map<PriceListTypeDataModel, PriceListTypeDetailsViewModel>(response.Content);
-                model.ShowAddItem = _useBasicMvcViews;
                 return model;
             }
             else
