@@ -13,7 +13,7 @@
           height="550" width="1000"        
           toolbar="@Model.Options.ToolbarItems">
     <e-data-manager adaptor="UrlAdaptor"
-                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.SeedTrayGrid)" 
+                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.SeedTrayGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
                     insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.SeedTrayGrid)"
                     updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.SeedTrayGrid)"
                     removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.SeedTrayGrid)">

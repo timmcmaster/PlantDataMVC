@@ -6,7 +6,7 @@ namespace PlantDataMVC.Web.Controllers.Queries.Site
 {
     public class IndexQuery : IQuery<ListViewModelStatic<SiteListViewModel>>
     {
-        public IndexQuery(int page, int pageSize, string sortBy, bool sortAscending)
+        public IndexQuery(int? page, int? pageSize, string sortBy, bool sortAscending)
         {
             Page = page;
             PageSize = pageSize;
@@ -14,8 +14,8 @@ namespace PlantDataMVC.Web.Controllers.Queries.Site
             SortAscending = sortAscending;
         }
 
-        public int Page { get; set; }
-        public int PageSize { get; set; }
+        public int? Page { get; set; }
+        public int? PageSize { get; set; }
         public string SortBy { get; set; }
         public bool SortAscending { get; set; }
     }

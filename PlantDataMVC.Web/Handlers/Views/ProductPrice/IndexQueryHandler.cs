@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Framework.Web.Views;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
@@ -28,8 +29,16 @@ namespace PlantDataMVC.Web.Handlers.Views.ProductPrice
 
         public async Task<ListViewModelStatic<ProductPriceListViewModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
         {
+            bool usePaging = (query.Page != null && query.PageSize != null);
+
             // Get paging part of query
-            var requestUri = "api/ProductPrice?page=" + query.Page + "&pageSize=" + query.PageSize;
+            var baseUri = "api/ProductPrice";
+            var queryParams = new Dictionary<string, string?>();
+            if (usePaging)
+            {
+                queryParams.Add("page", query.Page.ToString());
+                queryParams.Add("pageSize", query.PageSize.ToString());
+            }
 
             // add sorting if it maps ok
             if (!string.IsNullOrEmpty(query.SortBy))
@@ -38,10 +47,12 @@ namespace PlantDataMVC.Web.Handlers.Views.ProductPrice
                 if (!string.IsNullOrEmpty(apiSortField))
                 {
                     var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
-                    requestUri = sortString == "" ? requestUri : requestUri + "&sort=" + sortString;
+                    if (sortString != "")
+                        queryParams.Add("sort", sortString);
                 }
             }
 
+            var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
             var response = await _plantDataApiClient.GetAsync<IEnumerable<ProductPriceDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)

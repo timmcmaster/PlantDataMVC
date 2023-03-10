@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Framework.Web.Views;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
@@ -28,15 +29,23 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
 
         public async Task<ListViewModelStatic<TransactionListViewModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
         {
+            bool usePaging = (query.Page != null && query.PageSize != null);
+
             // Get paging part of query string
-            var requestUri = $"api/JournalEntries?page={query.Page}&pageSize={query.PageSize}";
+            var baseUri = $"api/JournalEntries";
+            var queryParams = new Dictionary<string, string?>();
+            if (usePaging)
+            {
+                queryParams.Add("page", query.Page.ToString());
+                queryParams.Add("pageSize", query.PageSize.ToString());
+            }
 
             if (query.SpeciesId != null)
-                requestUri += $"&speciesId{query.SpeciesId}";
+                queryParams.Add("speciesId", query.SpeciesId.ToString());
 
             if (query.ProductTypeId != null)
-                requestUri += $"&productTypeId{query.ProductTypeId}";
-
+                queryParams.Add("productTypeId", query.ProductTypeId.ToString());
+            
             // add sorting if it maps ok
             if (!string.IsNullOrEmpty(query.SortBy))
             {
@@ -44,10 +53,13 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
                 if (!string.IsNullOrEmpty(apiSortField))
                 {
                     var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
-                    requestUri = sortString == "" ? requestUri : requestUri + "&sort=" + sortString;
+                    if (sortString != "")
+                        queryParams.Add("sort", sortString);
+
                 }
             }
 
+            var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
             var response = await _plantDataApiClient.GetAsync<IEnumerable<JournalEntryDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)

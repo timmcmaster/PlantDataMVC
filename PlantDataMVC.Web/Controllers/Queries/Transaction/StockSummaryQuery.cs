@@ -6,7 +6,7 @@ namespace PlantDataMVC.Web.Controllers.Queries.Transaction
 {
     public class StockSummaryQuery : IQuery<ListViewModelStatic<TransactionStockSummaryListViewModel>>
     {
-        public StockSummaryQuery(int page, int pageSize, string sortBy, bool sortAscending)
+        public StockSummaryQuery(int? page, int? pageSize, string sortBy, bool sortAscending)
         {
             Page = page;
             PageSize = pageSize;
@@ -14,8 +14,8 @@ namespace PlantDataMVC.Web.Controllers.Queries.Transaction
             SortAscending = sortAscending;
         }
 
-        public int Page { get; set; }
-        public int PageSize { get; set; }
+        public int? Page { get; set; }
+        public int? PageSize { get; set; }
         public string SortBy { get; set; }
         public bool SortAscending { get; set; }
     }

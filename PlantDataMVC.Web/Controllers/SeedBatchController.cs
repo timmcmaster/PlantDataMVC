@@ -26,11 +26,26 @@ namespace PlantDataMVC.Web.Controllers
 
         public async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
         {
+            var gridOptions = new GridOptionsModel()
+            {
+                AllowAdd = true,
+                AllowDelete = true,
+                AllowEdit = true,
+                AllowPaging = true,
+                AllowSorting = true,
+            };
+
             // resolve parameters
-            var localPage = page ?? 1;
-            var localPageSize = pageSize ?? 20;
-            var localSortBy = sortBy ?? string.Empty;
-            var localAscending = ascending ?? true;
+            int? localPage = page ?? 1;
+            int? localPageSize = pageSize ?? 20;
+            string localSortBy = sortBy ?? string.Empty;
+            bool localAscending = ascending ?? true;
+
+            if (!gridOptions.AllowPaging)
+            {
+                localPage = null;
+                localPageSize = null;
+            }
 
             var query = new IndexQuery(localPage, localPageSize, localSortBy, localAscending);
             var model = await _mediator.Send(query);
@@ -41,14 +56,7 @@ namespace PlantDataMVC.Web.Controllers
             }
             else
             {
-                model.GridOptions = new GridOptionsModel()
-                {
-                    AllowAdd = true,
-                    AllowDelete = true,
-                    AllowEdit = true,
-                    AllowPaging = true,
-                    AllowSorting = true,
-                };
+                model.GridOptions = gridOptions;
 
                 return View(model);
             }

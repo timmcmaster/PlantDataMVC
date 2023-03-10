@@ -12,7 +12,7 @@
           height="550" width="1000"        
           toolbar="@Model.Options.ToolbarItems">
     <e-data-manager adaptor="UrlAdaptor"
-                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PriceListTypeGrid)" 
+                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PriceListTypeGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
                     insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.PriceListTypeGrid)"
                     updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.PriceListTypeGrid)"
                     removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.PriceListTypeGrid)">
