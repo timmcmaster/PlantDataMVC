@@ -15,18 +15,18 @@
         <th>@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.Quantity)</th>
     </tr>
-@{
-    int count = 0;
-    foreach (var entry in Model.Items)
-    {
-        <tr>
-            <td>@Html.DisplayFor(m => m.Items.ElementAt(count).SpeciesBinomial)</td>
-            <td>@Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)</td>
-            <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Quantity)</td>
-        </tr>
-        count++;
+    @{
+        int count = 0;
+        foreach (var entry in Model.Items)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).SpeciesBinomial)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)</td>
+                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Quantity)</td>
+            </tr>
+            count++;
+        }
     }
-}
 </table>
 @if (Model.Options.AllowPaging)
 {

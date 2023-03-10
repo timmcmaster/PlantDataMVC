@@ -15,8 +15,14 @@
         <th>@Html.ColumnHeaderFor(m => sampleElement.SeedBatchId)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial)</th>
         <th>@Html.ColumnHeaderFor(m => sampleElement.DateSown)</th>
-        <th></th>
-        <th></th>
+        @if (Model.Options.AllowEdit)
+        {
+            <th></th>
+        }
+        @if (Model.Options.AllowDelete)
+        {
+            <th></th>
+        }
     </tr>
 
     @{
@@ -28,8 +34,14 @@
                 <td><a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Show" asp-route-id="@entry.SeedBatchId">@entry.SeedBatchId.ToString()</a></td>
                 <td>@Html.DisplayFor(m => m.Items.ElementAt(count).SpeciesBinomial)</td>
                 <td>@Html.DisplayFor(m => m.Items.ElementAt(count).DateSown)</td>
-                <td><a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
-                <td><a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
+                @if (Model.Options.AllowEdit)
+                {
+                    <td><a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
+                }
+                @if (Model.Options.AllowDelete)
+                {
+                    <td><a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
+                }
             </tr>
             count++;
         }
