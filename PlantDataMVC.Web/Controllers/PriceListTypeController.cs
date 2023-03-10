@@ -73,7 +73,6 @@ namespace PlantDataMVC.Web.Controllers
                     AllowSorting = false,
                 };
 
-
                 return View(model);
             }
         }
