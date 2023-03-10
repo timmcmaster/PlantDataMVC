@@ -1,7 +1,4 @@
-﻿using Syncfusion.EJ2.Navigations;
-using System.Collections.Generic;
-
-namespace PlantDataMVC.Web.Models.ViewModels
+﻿namespace PlantDataMVC.Web.Models.ViewModels
 {
     public class MenuItemViewModel
     {

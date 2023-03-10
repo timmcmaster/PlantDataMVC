@@ -39,6 +39,7 @@ namespace PlantDataMVC.Web.ViewComponents.SidebarMenu
 
             return sidebarMenuModel;
         }
+
         private void LoadMenuModel(SidebarMenuViewModel model)
         {
             var menuModel = model.Menu;
@@ -76,7 +77,14 @@ namespace PlantDataMVC.Web.ViewComponents.SidebarMenu
             };
 
             menuModel.MenuItems = menuItems;
-            menuModel.MenuFields = new MenuFieldSettings() { ItemId = "Id", Text = "Text", ParentId = "ParentId", Url = "Url", IconCss = "IconCss" };
+            menuModel.MenuFields = new MenuFieldsViewModel()
+            { 
+                ItemIdField = "Id", 
+                TextField = "Text", 
+                ParentIdField = "ParentId", 
+                UrlField = "Url", 
+                IconCssField = "IconCss" 
+            };
         }
     }
 }

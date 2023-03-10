@@ -1,14 +1,23 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.SidebarMenuViewModel
+﻿@using Syncfusion.EJ2.Navigations;
+@model PlantDataMVC.Web.Models.ViewModels.SidebarMenuViewModel
 
 @{
     Dictionary<string, object> HtmlAttribute = new Dictionary<string, object>() { { "class", "sidebar-menu" } };
+    MenuFieldSettings menuFields = new MenuFieldSettings()
+    {
+        ItemId = Model.Menu.MenuFields.ItemIdField,
+        Text = Model.Menu.MenuFields.TextField,
+        ParentId = Model.Menu.MenuFields.ParentIdField,
+        Url = Model.Menu.MenuFields.UrlField,
+        IconCss = Model.Menu.MenuFields.IconCssField
+    };
 }
 
 <ejs-sidebar id="menuSidebar" htmlAttributes="HtmlAttribute" enableDock="true" dockSize="@Model.DockWidth" width="@Model.Width" target="@Model.TargetCss" isOpen="true" type="Auto">
     <e-content-template>
         <div class="main-menu">
             <div>
-                <ejs-menu id="dockMenu" items="@Model.Menu.MenuItems" fields="@Model.Menu.MenuFields" orientation="Vertical" cssClass="dock-menu"></ejs-menu>
+                <ejs-menu id="dockMenu" items="@Model.Menu.MenuItems" fields="menuFields" orientation="Vertical" cssClass="dock-menu"></ejs-menu>
             </div>
         </div>
     </e-content-template>
