@@ -1,32 +1,31 @@
 ﻿@using PriceListType = PlantDataMVC.Web.Models.ViewModels.PriceListType
 
 @model PriceListTypeGridViewModel
-
 @{
     PriceListType.PriceListTypeListViewModel sampleElement = new PriceListType.PriceListTypeListViewModel();
 }
-
-<ejs-grid id="SeedBatchGrid"
-          allowPaging="@Model.Options.AllowPaging"
-          allowSorting="@Model.Options.AllowSorting"
-          height="550" width="1000"        
-          toolbar="@Model.Options.ToolbarItems">
-    <e-data-manager adaptor="UrlAdaptor"
-                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PriceListTypeGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
-                    insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.PriceListTypeGrid)"
-                    updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.PriceListTypeGrid)"
-                    removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.PriceListTypeGrid)">
-    </e-data-manager>
-    <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
-    <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
-    <e-grid-columns>
-        <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.Name)" headerText="@Html.DisplayNameFor(x => sampleElement.Name)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.Kind)" headerText="@Html.DisplayNameFor(x => sampleElement.Kind)"></e-grid-column>
-        <e-grid-column headerText="View Details" template="#detailsTemplate" width="150"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
-
+<div class="container-lg">
+    <ejs-grid id="SeedBatchGrid"
+              allowPaging="@Model.Options.AllowPaging"
+              allowSorting="@Model.Options.AllowSorting"
+              height="550" width="1000"
+              toolbar="@Model.Options.ToolbarItems">
+        <e-data-manager adaptor="UrlAdaptor"
+                        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PriceListTypeGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
+                        insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.PriceListTypeGrid)"
+                        updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.PriceListTypeGrid)"
+                        removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.PriceListTypeGrid)">
+        </e-data-manager>
+        <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+        <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
+        <e-grid-columns>
+            <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.Name)" headerText="@Html.DisplayNameFor(x => sampleElement.Name)"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.Kind)" headerText="@Html.DisplayNameFor(x => sampleElement.Kind)"></e-grid-column>
+            <e-grid-column headerText="View Details" template="#detailsTemplate" width="150"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
 <script id="detailsTemplate" type="text/x-template">
     <div>
         <a href="/PriceListType/Details/${Id}">Details</a>

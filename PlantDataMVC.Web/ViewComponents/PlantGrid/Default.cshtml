@@ -1,31 +1,32 @@
 ﻿@using Plant = PlantDataMVC.Web.Models.ViewModels.Plant
 
 @model PlantGridViewModel
-
 @{
     Plant.PlantListViewModel sampleElement = new Plant.PlantListViewModel();
 }
-<ejs-grid id="PlantGrid" 
-          allowPaging="@Model.Options.AllowPaging"
-          allowSorting="@Model.Options.AllowSorting"
-          height="550" width="800"
-          toolbar="@Model.Options.ToolbarItems">
-    <e-data-manager adaptor="UrlAdaptor" 
-                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PlantGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
-                    insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.PlantGrid)"
-                    updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.PlantGrid)"
-                    removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.PlantGrid)">
-    </e-data-manager>
-    <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
-    <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
-    <e-grid-columns>
-        <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.Binomial)" headerText="@Html.DisplayNameFor(x => sampleElement.Binomial)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.CommonName)" headerText="@Html.DisplayNameFor(x => sampleElement.CommonName)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.Native)" headerText="@Html.DisplayNameFor(x => sampleElement.Native)" type="boolean" displayAsCheckBox="true"></e-grid-column>
-        <e-grid-column headerText="View Details" template="#detailsTemplate" width="150"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
+<div class="container-lg">
+    <ejs-grid id="PlantGrid"
+              allowPaging="@Model.Options.AllowPaging"
+              allowSorting="@Model.Options.AllowSorting"
+              height="550" width="800"
+              toolbar="@Model.Options.ToolbarItems">
+        <e-data-manager adaptor="UrlAdaptor"
+                        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PlantGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
+                        insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.PlantGrid)"
+                        updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.PlantGrid)"
+                        removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.PlantGrid)">
+        </e-data-manager>
+        <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+        <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
+        <e-grid-columns>
+            <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.Binomial)" headerText="@Html.DisplayNameFor(x => sampleElement.Binomial)"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.CommonName)" headerText="@Html.DisplayNameFor(x => sampleElement.CommonName)"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.Native)" headerText="@Html.DisplayNameFor(x => sampleElement.Native)" type="boolean" displayAsCheckBox="true"></e-grid-column>
+            <e-grid-column headerText="View Details" template="#detailsTemplate" width="150"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
 <script id="detailsTemplate" type="text/x-template">
     <div>
         <a href="/Plant/Show/${Id}">Details</a>

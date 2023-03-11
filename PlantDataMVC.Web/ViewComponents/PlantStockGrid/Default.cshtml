@@ -5,21 +5,22 @@
 @{
     PlantStock.PlantStockListViewModel sampleElement = new PlantStock.PlantStockListViewModel();
 }
-<ejs-grid id="PlantStockGrid" 
-          allowPaging="true" 
-          allowSorting="true"
-          height="550" width="800">
-    <e-data-manager adaptor="UrlAdaptor" 
-                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PlantStockGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })">
-    </e-data-manager>
-    <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
-    <e-grid-columns>
-        <e-grid-column field="@nameof(sampleElement.SpeciesBinomial)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.ProductTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.ProductTypeName)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.QuantityInStock)" headerText="@Html.DisplayNameFor(x => sampleElement.QuantityInStock)" type="number"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
-
+<div class="container-lg">
+    <ejs-grid id="PlantStockGrid"
+              allowPaging="true"
+              allowSorting="true"
+              height="550" width="800">
+        <e-data-manager adaptor="UrlAdaptor"
+                        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PlantStockGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })">
+        </e-data-manager>
+        <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+        <e-grid-columns>
+            <e-grid-column field="@nameof(sampleElement.SpeciesBinomial)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.ProductTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.ProductTypeName)"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.QuantityInStock)" headerText="@Html.DisplayNameFor(x => sampleElement.QuantityInStock)" type="number"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
 <style>
     .e-grid .e-row .e-rowcell {
         padding-top: 2px;

@@ -5,23 +5,24 @@
 @{
     Transaction.TransactionStockSummaryListViewModel sampleElement = new Transaction.TransactionStockSummaryListViewModel();
 }
-<ejs-grid id="TransactionStockSummaryGrid"
-          dataSource="@Model.Items"
-          allowPaging="@Model.Options.AllowPaging"
-          allowSorting="@Model.Options.AllowSorting"
-          height="550" width="800">
-    @*<e-data-manager adaptor="UrlAdaptor" 
-                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.TransactionStockSummaryGrid)">
-    </e-data-manager>*@
-    <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
-    <e-grid-columns>
-        <e-grid-column field="@nameof(sampleElement.SpeciesBinomial)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.ProductTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.ProductTypeName)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.QuantityInStock)" headerText="@Html.DisplayNameFor(x => sampleElement.QuantityInStock)" type="number"></e-grid-column>
-        <e-grid-column headerText="View Details" template="#detailsTemplate" width="150"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
-
+<div class="container-lg">
+    <ejs-grid id="TransactionStockSummaryGrid"
+              dataSource="@Model.Items"
+              allowPaging="@Model.Options.AllowPaging"
+              allowSorting="@Model.Options.AllowSorting"
+              height="550" width="800">
+        @*<e-data-manager adaptor="UrlAdaptor"
+        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.TransactionStockSummaryGrid)">
+        </e-data-manager>*@
+        <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+        <e-grid-columns>
+            <e-grid-column field="@nameof(sampleElement.SpeciesBinomial)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.ProductTypeName)" headerText="@Html.DisplayNameFor(x => sampleElement.ProductTypeName)"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.QuantityInStock)" headerText="@Html.DisplayNameFor(x => sampleElement.QuantityInStock)" type="number"></e-grid-column>
+            <e-grid-column headerText="View Details" template="#detailsTemplate" width="150"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
 <script id="detailsTemplate" type="text/x-template">
     <div>
         <a href="/Transaction/StockSummaryDetails?speciesId=${SpeciesId}&productTypeId=${ProductTypeId}">Details</a>

@@ -1,33 +1,32 @@
 ﻿@using SeedTray = PlantDataMVC.Web.Models.ViewModels.SeedTray
 
 @model SeedTrayGridViewModel
-
 @{
     SeedTray.SeedTrayListViewModel sampleElement = new SeedTray.SeedTrayListViewModel();
     var dpParams = (new { @params = new { format = "dd/MM/yyyy" } });
 }
-
-<ejs-grid id="SeedBatchGrid"
-          allowPaging="@Model.Options.AllowPaging"
-          allowSorting="@Model.Options.AllowSorting"
-          height="550" width="1000"        
-          toolbar="@Model.Options.ToolbarItems">
-    <e-data-manager adaptor="UrlAdaptor"
-                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.SeedTrayGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
-                    insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.SeedTrayGrid)"
-                    updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.SeedTrayGrid)"
-                    removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.SeedTrayGrid)">
-    </e-data-manager>
-    <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
-    <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
-    <e-grid-columns>
-        <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.SeedBatchId)" headerText="@Html.DisplayNameFor(x => sampleElement.SeedBatchId)" visible="false" isPrimaryKey="true"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.SpeciesBinomial)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.DateSown)" headerText="@Html.DisplayNameFor(x => sampleElement.DateSown)" type="date" format="dd/MM/yyyy" editType="datepickeredit" edit="dpParams"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
-
+<div class="container-lg">
+    <ejs-grid id="SeedBatchGrid"
+              allowPaging="@Model.Options.AllowPaging"
+              allowSorting="@Model.Options.AllowSorting"
+              height="550" width="1000"
+              toolbar="@Model.Options.ToolbarItems">
+        <e-data-manager adaptor="UrlAdaptor"
+                        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.SeedTrayGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
+                        insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.SeedTrayGrid)"
+                        updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.SeedTrayGrid)"
+                        removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.SeedTrayGrid)">
+        </e-data-manager>
+        <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+        <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
+        <e-grid-columns>
+            <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.SeedBatchId)" headerText="@Html.DisplayNameFor(x => sampleElement.SeedBatchId)" visible="false" isPrimaryKey="true"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.SpeciesBinomial)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.DateSown)" headerText="@Html.DisplayNameFor(x => sampleElement.DateSown)" type="date" format="dd/MM/yyyy" editType="datepickeredit" edit="dpParams"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
 <style>
     .e-grid .e-row .e-rowcell {
         padding-top: 2px;

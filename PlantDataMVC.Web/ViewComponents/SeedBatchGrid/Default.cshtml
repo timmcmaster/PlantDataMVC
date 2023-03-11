@@ -1,34 +1,33 @@
 ﻿@using SeedBatch = PlantDataMVC.Web.Models.ViewModels.SeedBatch
 
 @model SeedBatchGridViewModel
-
 @{
     SeedBatch.SeedBatchListViewModel sampleElement = new SeedBatch.SeedBatchListViewModel();
     var dpParams = (new { @params = new { format = "dd/MM/yyyy" } });
 }
-
-<ejs-grid id="SeedBatchGrid"
-          allowPaging="@Model.Options.AllowPaging"
-          allowSorting="@Model.Options.AllowSorting"
-          height="550" width="1000"        
-          toolbar="@Model.Options.ToolbarItems">
-    <e-data-manager adaptor="UrlAdaptor"
-                    url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.SeedBatchGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
-                    insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.SeedBatchGrid)"
-                    updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.SeedBatchGrid)"
-                    removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.SeedBatchGrid)">
-    </e-data-manager>
-    <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
-    <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
-    <e-grid-columns>
-        <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.SpeciesBinomial)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.DateCollected)" headerText="@Html.DisplayNameFor(x => sampleElement.DateCollected)" type="date" format="dd/MM/yyyy" editType="datepickeredit" edit="dpParams"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.SiteName)" headerText="@Html.DisplayNameFor(x => sampleElement.SiteName)"></e-grid-column>
-        <e-grid-column field="@nameof(sampleElement.Location)" headerText="@Html.DisplayNameFor(x => sampleElement.Location)"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
-
+<div class="container-lg">
+    <ejs-grid id="SeedBatchGrid"
+              allowPaging="@Model.Options.AllowPaging"
+              allowSorting="@Model.Options.AllowSorting"
+              height="550" width="1000"
+              toolbar="@Model.Options.ToolbarItems">
+        <e-data-manager adaptor="UrlAdaptor"
+                        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.SeedBatchGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
+                        insertUrl="@Url.Action("Insert", @PlantDataMvcAppControllers.SeedBatchGrid)"
+                        updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.SeedBatchGrid)"
+                        removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.SeedBatchGrid)">
+        </e-data-manager>
+        <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+        <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
+        <e-grid-columns>
+            <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.SpeciesBinomial)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.DateCollected)" headerText="@Html.DisplayNameFor(x => sampleElement.DateCollected)" type="date" format="dd/MM/yyyy" editType="datepickeredit" edit="dpParams"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.SiteName)" headerText="@Html.DisplayNameFor(x => sampleElement.SiteName)"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.Location)" headerText="@Html.DisplayNameFor(x => sampleElement.Location)"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
 <style>
     .e-grid .e-row .e-rowcell {
         padding-top: 2px;
