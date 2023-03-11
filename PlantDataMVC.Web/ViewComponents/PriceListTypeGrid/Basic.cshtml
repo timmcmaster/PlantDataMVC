@@ -1,52 +1,55 @@
 ﻿@using PriceListType = PlantDataMVC.Web.Models.ViewModels.PriceListType
 
 @model PriceListTypeGridViewModel
-
 @{
     PriceListType.PriceListTypeListViewModel sampleElement = new PriceListType.PriceListTypeListViewModel();
 }
-@if (Model.Options.AllowAdd)
-{
-    <a asp-controller="@PlantDataMvcAppControllers.PriceListType" asp-action="New">Add New Item</a>
-}
-<table class="grid">
-    <tr>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.Name, Model.Options.AllowSorting)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.Kind, Model.Options.AllowSorting)</th>
-        <th></th>
-        @if (Model.Options.AllowEdit)
-        {
-            <th></th>
-        }
-        @if (Model.Options.AllowDelete)
-        {
-            <th></th>
-        }
-    </tr>
-
-
-    @{
-        int count = 0;
-        foreach (var entry in Model.Items)
-        {
+<div class="container-lg">
+    @if (Model.Options.AllowAdd)
+    {
+        <a asp-controller="@PlantDataMvcAppControllers.PriceListType" asp-action="New">Add New Item</a>
+    }
+    <table class="table border">
+        <thead>
             <tr>
-                <td><a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Show" asp-route-id="@entry.Id">@entry.Name</a></td>
-                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Kind)</td>
-                <td><a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Details" asp-route-id="@entry.Id">Details</a></td>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.Name, Model.Options.AllowSorting)</th>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.Kind, Model.Options.AllowSorting)</th>
+                <th scope="col"></th>
                 @if (Model.Options.AllowEdit)
                 {
-                    <td><a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
+                    <th scope="col"></th>
                 }
                 @if (Model.Options.AllowDelete)
                 {
-                    <td><a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
+                    <th scope="col"></th>
                 }
             </tr>
-            count++;
-        }
+        </thead>
+        <tbody>
+            @{
+                int count = 0;
+                foreach (var entry in Model.Items)
+                {
+                    <tr>
+                        <td><a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Show" asp-route-id="@entry.Id">@entry.Name</a></td>
+                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Kind)</td>
+                        <td><a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Details" asp-route-id="@entry.Id">Details</a></td>
+                        @if (Model.Options.AllowEdit)
+                        {
+                            <td><a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Edit" asp-route-id="@entry.Id">Edit</a></td>
+                        }
+                        @if (Model.Options.AllowDelete)
+                        {
+                            <td><a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Delete" asp-route-id="@entry.Id">Delete</a></td>
+                        }
+                    </tr>
+                    count++;
+                }
+            }
+        </tbody>
+    </table>
+    @if (Model.Options.AllowPaging)
+    {
+        @Html.PagingLinksFor(m => Model)
     }
-</table>
-@if (Model.Options.AllowPaging)
-{
-    @Html.PagingLinksFor(m => Model)
-}
+</div>

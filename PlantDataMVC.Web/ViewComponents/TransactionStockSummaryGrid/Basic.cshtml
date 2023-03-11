@@ -1,39 +1,41 @@
 ﻿@using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction
 
 @model TransactionStockSummaryGridViewModel
-
 @{
     Transaction.TransactionStockSummaryListViewModel sampleElement = new Transaction.TransactionStockSummaryListViewModel();
 }
-@if (Model.Options.AllowAdd)
-{
-    <a asp-action="New">Add New Item</a>
-}
-
-<table class="grid">
-    <tr>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial, Model.Options.AllowSorting)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName, Model.Options.AllowSorting)</th>
-        <th>@Html.ColumnHeaderFor(m => sampleElement.QuantityInStock, Model.Options.AllowSorting)</th>
-        <th></th>
-    </tr>
-
-    @{
-        int count = 0;
-        foreach (var entry in Model.Items)
-        {
-            <tr>
-                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).SpeciesBinomial)</td>
-                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)</td>
-                <td>@Html.DisplayFor(m => m.Items.ElementAt(count).QuantityInStock)</td>
-                <td><a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="StockSummaryDetails" asp-route-speciesid="@entry.SpeciesId" asp-route-producttypeid="@entry.ProductTypeId">Details</a></td>
-            </tr>
-            count++;
-        }
+<div class="container-lg">
+    @if (Model.Options.AllowAdd)
+    {
+        <a asp-action="New">Add New Item</a>
     }
-</table>
-
-@if (Model.Options.AllowPaging)
-{
-    @Html.PagingLinksFor(m => Model)
-}
+    <table class="table border">
+        <thead>
+            <tr>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial, Model.Options.AllowSorting)</th>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName, Model.Options.AllowSorting)</th>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.QuantityInStock, Model.Options.AllowSorting)</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int count = 0;
+                foreach (var entry in Model.Items)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).SpeciesBinomial)</td>
+                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)</td>
+                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).QuantityInStock)</td>
+                        <td><a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="StockSummaryDetails" asp-route-speciesid="@entry.SpeciesId" asp-route-producttypeid="@entry.ProductTypeId">Details</a></td>
+                    </tr>
+                    count++;
+                }
+            }
+        </tbody>
+    </table>
+    @if (Model.Options.AllowPaging)
+    {
+        @Html.PagingLinksFor(m => Model)
+    }
+</div>
