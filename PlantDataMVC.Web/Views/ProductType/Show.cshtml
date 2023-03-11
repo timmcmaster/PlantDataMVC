@@ -1,20 +1,23 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.ProductType.ProductTypeShowViewModel
-
+﻿@model PlantDataMVC.Web.Models.ViewModels.ProductType.ProductTypeShowViewModel
 @{
     ViewBag.Title = "Show";
 }
-
 <h2>Show</h2>
+<div class="container-lg">
+    <fieldset>
+        <legend>Product Type</legend>
 
-<fieldset>
-    <legend>Product Type</legend>
+        <input asp-for="Id" type="hidden" />
 
-    @Html.DisplayForModel()
-</fieldset>
-
-<p>
-    <a asp-controller=@PlantDataMvcAppControllers.ProductType asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-    <a asp-controller=@PlantDataMvcAppControllers.ProductType asp-action="Index">Back to Index</a>
-</p>
-
+        <div class="row mb-3">
+            <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.Name)</p>
+            </div>
+        </div>
+    </fieldset>
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.ProductType asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-controller=@PlantDataMvcAppControllers.ProductType asp-action="Index">Back to Index</a>
+    </div>
+</div>

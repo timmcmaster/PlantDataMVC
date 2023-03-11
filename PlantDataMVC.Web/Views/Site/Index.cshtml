@@ -1,9 +1,7 @@
 ﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Site.SiteListViewModel>
-
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
 
 @await Component.InvokeAsync("SiteGrid", new { model = Model, gridOptions = Model.GridOptions })

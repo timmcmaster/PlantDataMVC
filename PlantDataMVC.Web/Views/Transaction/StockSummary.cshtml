@@ -1,9 +1,7 @@
 ﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Transaction.TransactionStockSummaryListViewModel>
-
 @{
     ViewBag.Title = "Stock Summary";
 }
-
 <h2>Index</h2>
 
 @await Component.InvokeAsync("TransactionStockSummaryGrid", new { model = Model, gridOptions = Model.GridOptions })

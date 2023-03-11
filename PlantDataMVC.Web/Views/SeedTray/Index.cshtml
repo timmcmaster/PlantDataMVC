@@ -1,9 +1,7 @@
 ﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.SeedTray.SeedTrayListViewModel>
-
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
 
 @await Component.InvokeAsync("SeedTrayGrid", new { model = Model, gridOptions = Model.GridOptions })

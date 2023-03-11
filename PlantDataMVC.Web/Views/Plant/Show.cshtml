@@ -1,29 +1,57 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.Plant.PlantShowViewModel
-
+﻿@model PlantDataMVC.Web.Models.ViewModels.Plant.PlantShowViewModel
 @{
     ViewBag.Title = "Show";
 }
-
 <h2>Show</h2>
+<div class="container-lg">
+    <fieldset>
+        <legend>Plant</legend>
 
-<fieldset>
-    <legend>Plant</legend>
+        <div class="row mb-3">
+            <label asp-for="Binomial" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.Binomial)</p>
+            </div>
+        </div>
 
-    @Html.DisplayForModel()
+        <div class="row mb-3">
+            <label asp-for="CommonName" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.CommonName)</p>
+            </div>
+        </div>
 
-    @*<div class="display-label">@Html.LabelFor(model => model.Seeds)</div>
-    <div class="child-table">@Html.Partial("SeedBatchListTable", Model.Seeds)</div>
-    <div class="button"><a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
-    @*<p></p>*@
-    @*<div class="display-label">@Html.LabelFor(model => model.Stock)</div>
-    <div class="child-table">@Html.Partial("PlantStockListTable", Model.Stock)</div>
-    <div class="button"><a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
-</fieldset>
+        <div class="row mb-3">
+            <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.Description)</p>
+            </div>
+        </div>
 
-<p>
-<p>
-    <a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Index">Back to Index</a>
-</p>
-</p>
+        <div class="row mb-3">
+            <label asp-for="PropagationTime" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.PropagationTime)</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Native" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="Native" type="checkbox" class="form-check-input" disabled />
+            </div>
+        </div>
+
+        @*<div class="display-label">@Html.LabelFor(model => model.Seeds)</div>
+        <div class="child-table">@Html.Partial("SeedBatchListTable", Model.Seeds)</div>
+        <div class="button"><a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
+        @*<p></p>*@
+        @*<div class="display-label">@Html.LabelFor(model => model.Stock)</div>
+        <div class="child-table">@Html.Partial("PlantStockListTable", Model.Stock)</div>
+        <div class="button"><a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
+    </fieldset>
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Index">Back to Index</a>
+    </div>
+</div>

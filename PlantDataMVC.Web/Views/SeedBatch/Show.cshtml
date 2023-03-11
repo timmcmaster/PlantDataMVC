@@ -1,23 +1,54 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.SeedBatch.SeedBatchShowViewModel
-
+﻿@model PlantDataMVC.Web.Models.ViewModels.SeedBatch.SeedBatchShowViewModel
 @{
     ViewBag.Title = "Show";
 }
-
 <h2>Show</h2>
+<div class="container-lg">
+    <fieldset>
+        <legend>Seed Batch</legend>
 
-<fieldset>
-    <legend>Seed Batch</legend>
+        <input asp-for="Id" type="hidden" />
 
-    @Html.DisplayForModel()
-    
-    @*<div class="child-table">@Html.Partial("SeedTrayListTable", Model.SeedTrays)</div>
-    <div class="button"><a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
-</fieldset>
+        <div class="row mb-3">
+            <label asp-for="SpeciesBinomial" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.SpeciesBinomial)</p>
+            </div>
+        </div>
 
-<p>
-    <a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Index">Back to Index</a>
-</p>
+        <div class="row mb-3">
+            <label asp-for="SiteName" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.SiteName)</p>
+            </div>
+        </div>
 
+        <div class="row mb-3">
+            <label asp-for="DateCollected" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.DateCollected)</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Location" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.Location)</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Notes" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.Notes)</p>
+            </div>
+        </div>
+
+        @*<div class="child-table">@Html.Partial("SeedTrayListTable", Model.SeedTrays)</div>
+        <div class="button"><a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
+    </fieldset>
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Index">Back to Index</a>
+    </div>
+</div>

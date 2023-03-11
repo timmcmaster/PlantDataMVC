@@ -1,27 +1,37 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.SaleEvent.SaleEventShowViewModel
-
-<style>
-    .map {
-        height: 400px;
-        width: 400px;
-    }
-</style>
-
+﻿@model PlantDataMVC.Web.Models.ViewModels.SaleEvent.SaleEventShowViewModel
 @{
     ViewBag.Title = "Show";
 }
-
 <h2>Show</h2>
+<div class="container-lg">
+    <fieldset>
+        <legend>SaleEvent</legend>
 
-<fieldset>
-    <legend>SaleEvent</legend>
+        <input asp-for="Id" type="hidden" />
 
-    @Html.DisplayForModel()
-</fieldset>
+        <div class="row mb-3">
+            <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.Name)</p>
+            </div>
+        </div>
 
-<p>
-    <a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="Index">Back to Index</a>
-</p>
+        <div class="row mb-3">
+            <label asp-for="SaleDate" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.SaleDate)</p>
+            </div>
+        </div>
 
+        <div class="row mb-3">
+            <label asp-for="Location" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.Location)</p>
+            </div>
+        </div>
+    </fieldset>
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="Index">Back to Index</a>
+    </div>
+</div>

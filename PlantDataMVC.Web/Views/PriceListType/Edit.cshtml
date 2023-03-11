@@ -1,25 +1,38 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.PriceListType.PriceListTypeEditViewModel
-
+﻿@model PlantDataMVC.Web.Models.ViewModels.PriceListType.PriceListTypeEditViewModel
 @{
     ViewBag.Title = "Edit";
 }
-
 <h2>Edit</h2>
+<div class="container-lg">
+    <form asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Update">
+        <div asp-validation-summary="ModelOnly"></div>
+        <fieldset>
+            <legend>PriceListType</legend>
 
-<form asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Update">
-    <div asp-validation-summary="ModelOnly"></div>
-    <fieldset>
-        <legend>PriceListType</legend>
+            <input asp-for="Id" type="hidden" />
 
-        @Html.EditorForModel()
+            <div class="row mb-3">
+                <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+            </div>
 
-        <p>
-            <input type="submit" value="Update"/>
-        </p>
-    </fieldset>
-</form>
+            <div class="row mb-3">
+                <label asp-for="Kind" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Kind" class="form-control" />
+                    <span asp-validation-for="Kind"></span>
+                </div>
+            </div>
 
-<div>
-    <a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Index">Back to Index</a>
+            <p>
+                <input type="submit" value="Update" />
+            </p>
+        </fieldset>
+    </form>
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Index">Back to Index</a>
+    </div>
 </div>

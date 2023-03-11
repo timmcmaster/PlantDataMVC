@@ -1,73 +1,72 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.SeedBatch.SeedBatchNewViewModel
-
+﻿@model PlantDataMVC.Web.Models.ViewModels.SeedBatch.SeedBatchNewViewModel
 @{
     ViewBag.Title = "New";
 }
-
 <h2>New</h2>
+<div class="container-lg">
+    <form asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Create">
+        <div asp-validation-summary="ModelOnly"></div>
+        <fieldset>
+            <legend>Seed Batch</legend>
 
-<form asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Create">
-    <div asp-validation-summary="ModelOnly"></div>
-    <fieldset>
-        <legend>Seed Batch</legend>
+            <div class="row mb-3">
+                <label asp-for="SpeciesId" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    @Html.QueryDropDownFor(
+                    () => nameof(Model.SpeciesId),
+                    model => model.SpeciesId,
+                    new ListQuery<SpeciesDataModel>(),
+                    p => p.Id,
+                    p => SpeciesFunctions.GetBinomial(p.GenusName, p.SpecificName),
+                    new { @class="form-select" })
+                    <span asp-validation-for="SpeciesId"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="SpeciesId"></label>
-        </div>
-        <div class="editor-field">
-            @Html.QueryDropDownFor(
-                () => nameof(Model.SpeciesId),
-                model => model.SpeciesId,
-                new ListQuery<SpeciesDataModel>(),
-                p => p.Id,
-                p => SpeciesFunctions.GetBinomial(p.GenusName, p.SpecificName))
-            <span asp-validation-for="SpeciesId"></span>
-        </div>
+            <div class="row mb-3">
+                <label asp-for="SiteId" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    @Html.QueryDropDownFor(
+                    () => nameof(Model.SiteId),
+                    model => model.SiteId,
+                    new ListQuery<SiteDataModel>(),
+                    p => p.Id,
+                    p => p.SiteName,
+                    new { @class="form-select" })
+                    <span asp-validation-for="SiteId"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="SiteId"></label>
-        </div>
-        <div class="editor-field">
-            @Html.QueryDropDownFor(
-                  () => nameof(Model.SiteId),
-                  model => model.SiteId,
-                  new ListQuery<SiteDataModel>(),
-                  p => p.Id,
-                  p => p.SiteName)
-            <span asp-validation-for="SiteId"></span>
-        </div>
+            <div class="row mb-3">
+                <label asp-for="DateCollected" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="DateCollected" class="form-control" />
+                    <span asp-validation-for="DateCollected"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="DateCollected"></label>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DateCollected)
-            <span asp-validation-for="DateCollected"></span>
-        </div>
+            <div class="row mb-3">
+                <label asp-for="Location" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="Location"></label>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Location)
-            <span asp-validation-for="Location"></span>
-        </div>
+            <div class="row mb-3">
+                <label asp-for="Notes" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Notes" class="form-control" />
+                    <span asp-validation-for="Notes"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="Notes"></label>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Notes)
-            <span asp-validation-for="Notes"></span>
-        </div>
-        <p>
-            <input type="submit" value="Create"/>
-        </p>
-    </fieldset>
-</form>
-
-<div>
-    <a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Index">Back to Index</a>
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+    </form>
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.SeedBatch asp-action="Index">Back to Index</a>
+    </div>
 </div>
-

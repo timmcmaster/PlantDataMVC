@@ -1,34 +1,61 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.Site.SiteEditViewModel
-
-<style>
-    .map {
-        height: 400px;
-        width: 400px;
-    }
-</style>
-
+﻿@model PlantDataMVC.Web.Models.ViewModels.Site.SiteEditViewModel
 @{
     ViewBag.Title = "Edit";
 }
-
 <h2>Edit</h2>
+<div class="container-lg">
+    <form asp-controller=@PlantDataMvcAppControllers.Site asp-action="Update">
+        <div asp-validation-summary="ModelOnly"></div>
+        <fieldset>
+            <legend>Site</legend>
 
-<form asp-controller=@PlantDataMvcAppControllers.Site asp-action="Update">
-    <div asp-validation-summary="ModelOnly"></div>
-    <fieldset>
-        <legend>Site</legend>
+            <input asp-for="Id" type="hidden" />
 
-        @Html.EditorForModel()
+            <div class="row mb-3">
+                <label asp-for="SiteName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="SiteName" class="form-control" />
+                    <span asp-validation-for="SiteName"></span>
+                </div>
+            </div>
 
-        <p>
-            <input type="submit" value="Update" />
-        </p>
-    </fieldset>
-</form>
+            <div class="row mb-3">
+                <label asp-for="Suburb" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Suburb" class="form-control" />
+                    <span asp-validation-for="Suburb"></span>
+                </div>
+            </div>
 
-<!-- This is the div that will contain the map -->
-<div id="map" class="map"><div id="popup"></div></div>
+            <div class="row mb-3">
+                <label asp-for="Latitude" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Latitude" class="form-control" />
+                    <span asp-validation-for="Latitude"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label asp-for="Longitude" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Longitude" class="form-control" />
+                    <span asp-validation-for="Longitude"></span>
+                </div>
+            </div>
+
+            <p>
+                <input type="submit" value="Update" />
+            </p>
+        </fieldset>
+    </form>
+
+    <!-- This is the div that will contain the map -->
+    <div id="map" class="map"><div id="popup"></div></div>
+
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.Site asp-action="Index">Back to Index</a>
+    </div>
+</div>
 
 <!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
 @section Scripts {
@@ -71,7 +98,9 @@
     </script>
 }
 
-<div>
-    <a asp-controller=@PlantDataMvcAppControllers.Site asp-action="Index">Back to Index</a>
-</div>
-
+<style>
+    .map {
+        height: 400px;
+        width: 400px;
+    }
+</style>

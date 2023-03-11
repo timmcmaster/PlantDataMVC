@@ -1,23 +1,41 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.PlantStock.PlantStockShowViewModel
-
+﻿@model PlantDataMVC.Web.Models.ViewModels.PlantStock.PlantStockShowViewModel
 @{
     ViewBag.Title = "Show";
 }
-
 <h2>Show</h2>
+<div class="container-lg">
+    <fieldset>
+        <legend>Plant Stock</legend>
 
-<fieldset>
-    <legend>Plant Stock</legend>
+        <input asp-for="Id" type="hidden" />
 
-    @Html.DisplayForModel()
+        <div class="row mb-3">
+            <label asp-for="SpeciesBinomial" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.SpeciesBinomial)</p>
+            </div>
+        </div>
 
-    @*<div class="display-label">@Html.LabelFor(model => model.Transactions)</div>*@
-    @*<div class="child-table">@Html.Partial("TransactionListTable", Model.Transactions)</div>*@
-    @*<div class="button"><a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
-</fieldset>
-<p>
-    <a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Index">Back to Index</a>
-</p>
+        <div class="row mb-3">
+            <label asp-for="ProductTypeName" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.ProductTypeName)</p>
+            </div>
+        </div>
 
+        <div class="row mb-3">
+            <label asp-for="QuantityInStock" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.QuantityInStock)</p>
+            </div>
+        </div>
+
+        @*<div class="display-label">@Html.LabelFor(model => model.Transactions)</div>*@
+        @*<div class="child-table">@Html.Partial("TransactionListTable", Model.Transactions)</div>*@
+        @*<div class="button"><a asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="New" asp-route-id=@Model.Id>New</a></div>*@
+    </fieldset>
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-controller=@PlantDataMvcAppControllers.PlantStock asp-action="Index">Back to Index</a>
+    </div>
+</div>

@@ -1,79 +1,76 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.Plant.PlantEditViewModel
-
+﻿@model PlantDataMVC.Web.Models.ViewModels.Plant.PlantEditViewModel
 @{
     ViewBag.Title = "Edit";
 }
-
 <h2>Edit</h2>
+<div class="container-lg">
+    <form asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Update">
+        <div asp-validation-summary="ModelOnly"></div>
+        <fieldset>
+            <legend>Plant</legend>
 
-<form asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Update">
-    <div asp-validation-summary="ModelOnly"></div>
-    <fieldset>
-        <legend>Plant</legend>
+            <input asp-for="Id" type="hidden" />
 
-        <input asp-for="Id" type="hidden" />
+            <div class="row mb-3">
+                <label asp-for="GenusId" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    @Html.QueryDropDownFor(
+                    () => nameof(Model.GenusId),
+                    model => model.GenusId,
+                    new ListQuery<GenusDataModel>(),
+                    p => p.Id,
+                    p => p.LatinName,
+                    new { @class="form-select" })
+                    <span asp-validation-for="GenusId"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="GenusId"></label>
-        </div>
-        <div class="editor-field">
-            @Html.QueryDropDownFor(
-                () => nameof(Model.GenusId),
-                model => model.GenusId,
-                new ListQuery<GenusDataModel>(),
-                p => p.Id,
-                p => p.LatinName)
-            <span asp-validation-for="GenusId"></span>
-        </div>
+            <div class="row mb-3">
+                <label asp-for="Species" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Species" class="form-control" />
+                    <span asp-validation-for="Species"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="Species"></label>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Species)
-            <span asp-validation-for="Species"></span>
-        </div>
+            <div class="row mb-3">
+                <label asp-for="CommonName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="CommonName" class="form-control" />
+                    <span asp-validation-for="CommonName"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="CommonName"></label>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CommonName)
-            <span asp-validation-for="CommonName"></span>
-        </div>
+            <div class="row mb-3">
+                <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="Description"></label>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            <span asp-validation-for="Description"></span>
-        </div>
+            <div class="row mb-3">
+                <label asp-for="PropagationTime" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="PropagationTime" class="form-control" />
+                    <span asp-validation-for="PropagationTime"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="PropagationTime"></label>
-        </div>
-        <div class="editor-field">
+            <div class="row mb-3">
+                <label asp-for="Native" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Native" type="checkbox" class="form-check-input" />
+                    <span asp-validation-for="Native"></span>
+                </div>
+            </div>
 
-            @Html.EditorFor(model => model.PropagationTime)
-            <span asp-validation-for="PropagationTime"></span>
-        </div>
-
-        <div class="editor-label">
-            <label asp-for="Native"></label>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Native)
-            <span asp-validation-for="Native"></span>
-        </div>
-
-        <p>
-            <input type="submit" value="Update" />
-        </p>
-    </fieldset>
-</form>
-
-<div>
-    <a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Index">Back to Index</a>
+            <p>
+                <input type="submit" value="Update" />
+            </p>
+        </fieldset>
+    </form>
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.Plant asp-action="Index">Back to Index</a>
+    </div>
 </div>

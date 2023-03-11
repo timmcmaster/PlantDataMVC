@@ -1,24 +1,43 @@
 ﻿@model PlantDataMVC.Web.Models.ViewModels.SaleEvent.SaleEventDetailsViewModel
-
 @{
     ViewBag.Title = "Sale Event Stock";
 }
-
 <h2>Details</h2>
+<div class="container-lg">
+    <fieldset>
+        <legend>Sale Event Stock </legend>
 
-<fieldset>
-    <legend>Sale Event Stock </legend>
+        <input asp-for="Id" type="hidden" />
 
-    @Html.DisplayForModel()
+        <div class="row mb-3">
+            <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.Name)</p>
+            </div>
+        </div>
 
-    <div class="display-label">
-        <label asp-for="SaleEventStocks"></label>
-    </div>
-    <div class="child-table">
-        @await Component.InvokeAsync("SaleEventStockGrid", new { saleEventStocks = Model.SaleEventStocks, gridOptions = Model.GridOptions, saleEventId = Model.Id })
-    </div>
-</fieldset>
-<p>
-    <a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="Index">Back to Index</a>
-</p>
+        <div class="row mb-3">
+            <label asp-for="SaleDate" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.SaleDate)</p>
+            </div>
+        </div>
 
+        <div class="row mb-3">
+            <label asp-for="Location" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.Location)</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="SaleEventStocks"></label>
+            <div class="child-table">
+                @await Component.InvokeAsync("SaleEventStockGrid", new { saleEventStocks = Model.SaleEventStocks, gridOptions = Model.GridOptions, saleEventId = Model.Id })
+            </div>
+        </div>
+    </fieldset>
+    <p>
+        <a asp-controller=@PlantDataMvcAppControllers.SaleEvent asp-action="Index">Back to Index</a>
+    </p>
+</div>

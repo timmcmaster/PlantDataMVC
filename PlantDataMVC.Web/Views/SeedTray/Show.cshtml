@@ -1,67 +1,66 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.SeedTray.SeedTrayShowViewModel
-
+﻿@model PlantDataMVC.Web.Models.ViewModels.SeedTray.SeedTrayShowViewModel
 @{
     ViewBag.Title = "Show";
 }
-
 <h2>Show</h2>
-
-<fieldset>
-    <legend>Seed Tray</legend>
-
+<div class="container-lg">
     <fieldset>
-        <legend>Seed Batch Info</legend>
+        <legend>Seed Tray</legend>
 
-        <input asp-for="SeedBatchId" type="hidden" />
+        <div>
+            <fieldset>
+                <legend>Seed Batch Info</legend>
 
-        <div class="editor-label">
-            <label asp-for="SeedBatchSpeciesBinomial"></label>
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.SeedBatchSpeciesBinomial)
+                <input asp-for="SeedBatchId" type="hidden" />
+
+                <div class="row mb-3">
+                    <label asp-for="SeedBatchSpeciesBinomial" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="col-form-label">@Html.DisplayFor(model => model.SeedBatchSpeciesBinomial)</p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label asp-for="SeedBatchLocation" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="col-form-label">@Html.DisplayFor(model => model.SeedBatchLocation)</p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label asp-for="SeedBatchDateCollected" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="col-form-label">@Html.DisplayFor(model => model.SeedBatchDateCollected)</p>
+                    </div>
+                </div>
+            </fieldset>
         </div>
 
-        <div class="editor-label">
-            <label asp-for="SeedBatchLocation"></label>
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.SeedBatchLocation)
+        <input asp-for="Id" type="hidden" />
+
+        <div class="row mb-3">
+            <label asp-for="DateSown" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.DateSown)</p>
+            </div>
         </div>
 
-        <div class="editor-label">
-            <label asp-for="SeedBatchDateCollected"></label>
+        <div class="row mb-3">
+            <label asp-for="Treatment" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.Treatment)</p>
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.SeedBatchDateCollected)
+
+        <div class="row mb-3">
+            <label asp-for="ThrownOut" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="ThrownOut" type="checkbox" class="form-check-input" disabled />
+            </div>
         </div>
     </fieldset>
-
-    <div class="editor-label">
-        <label asp-for="DateSown"></label>
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Index">Back to Index</a>
     </div>
-    <div class="editor-field">
-        @Html.DisplayFor(model => model.DateSown)
-    </div>
-
-    <div class="editor-label">
-        <label asp-for="Treatment"></label>
-    </div>
-    <div class="editor-field">
-        @Html.DisplayFor(model => model.Treatment)
-    </div>
-
-    <div class="editor-label">
-        <label asp-for="ThrownOut"></label>
-    </div>
-    <div class="editor-field">
-        @Html.DisplayFor(model => model.ThrownOut)
-    </div>
-
-</fieldset>
-
-<p>
-    <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Index">Back to Index</a>
-</p>
-
+</div>

@@ -15,17 +15,17 @@ namespace PlantDataMVC.Web.Models.ViewModels.SeedBatch
         [Display(Name = "Species Name")]
         public string SpeciesBinomial { get; private set; }
 
+        [HiddenInput(DisplayValue = false)]
+        public int? SiteId { get; set; } // SiteId
+
+        [Display(Name = "Site Name")]
+        public string SiteName { get; set; }
+
         [Display(Name = "Date Collected")]
         public DateTime DateCollected { get; set; }
 
         public string Location { get; set; }
 
         public string Notes { get; set; }
-
-        [HiddenInput(DisplayValue = false)]
-        public int? SiteId { get; set; } // SiteId
-
-        [Display(Name = "Site Name")]
-        public string SiteName { get; set; }
     }
 }

@@ -31,6 +31,18 @@ namespace PlantDataMVC.Web.Helpers
 
          */
 
+        public static IHtmlContent QueryDropDownFor<TModel, TViewModel, TListItem, TProperty>(this IHtmlHelper<TModel> htmlHelper,
+                                                                                     Func<string> saveFieldNameFunc,
+                                                                                     Expression<Func<TModel, TProperty>> selectedDataValueExpr,
+                                                                                     IQueryForList<TListItem, TViewModel> query,
+                                                                                     Func<TListItem, TProperty> dataValueSelector,
+                                                                                     Func<TListItem, string> displayValueSelector
+        ) where TListItem : class
+          where TViewModel : IEnumerable<TListItem>
+        { 
+            return QueryDropDownFor(htmlHelper, saveFieldNameFunc, selectedDataValueExpr, query, dataValueSelector, displayValueSelector, new { });
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -49,7 +61,8 @@ namespace PlantDataMVC.Web.Helpers
                                                                                      Expression<Func<TModel, TProperty>> selectedDataValueExpr,
                                                                                      IQueryForList<TListItem, TViewModel> query,
                                                                                      Func<TListItem, TProperty> dataValueSelector,
-                                                                                     Func<TListItem, string> displayValueSelector
+                                                                                     Func<TListItem, string> displayValueSelector,
+                                                                                     object htmlAttributes
         ) where TListItem : class
           where TViewModel : IEnumerable<TListItem>
         {
@@ -81,7 +94,7 @@ namespace PlantDataMVC.Web.Helpers
                 Selected = dataValueSelector(x).Equals(selectedDataValue(model))
             });
 
-            return htmlHelper.DropDownList(saveFieldNameFunc(), selectListItems, "Select an option");
+            return htmlHelper.DropDownList(saveFieldNameFunc(), selectListItems, "Select an option", htmlAttributes);
         }
     }
 }

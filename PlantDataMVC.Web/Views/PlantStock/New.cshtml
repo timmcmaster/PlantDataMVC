@@ -1,5 +1,4 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.PlantStock.PlantStockNewViewModel
+﻿@model PlantDataMVC.Web.Models.ViewModels.PlantStock.PlantStockNewViewModel
 
 @{
     ViewBag.Title = "New";
@@ -15,51 +14,45 @@
         @*@Html.HiddenFor(model => model.SpeciesId)*@
 
 
-        <div class="editor-label">
+        <div class="row mb-3">
             <label asp-for="SpeciesId"></label>
-        </div>
-        <div class="editor-field">
-            @Html.QueryDropDownFor(
+            <div class="col-sm-10">
+                @Html.QueryDropDownFor(
                 () => nameof(Model.SpeciesId),
                 model => model.SpeciesId,
                 new ListQuery<SpeciesDataModel>(),
                 p => p.Id,
-                p => SpeciesFunctions.GetBinomial(p.GenusName, p.SpecificName))
-            <span asp-validation-for="SpeciesId"></span>
+                p => SpeciesFunctions.GetBinomial(p.GenusName, p.SpecificName),
+                new { @class="form-select" })
+                <span asp-validation-for="SpeciesId"></span>
+            </div>
         </div>
 
-        @*
-        <div class="editor-label">
-            <label asp-for="SpeciesBinomial"></label>
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.SpeciesBinomial)
-            <span asp-validation-for="SpeciesBinomial"></span>
-        </div>
-*@
-        <div class="editor-label">
-            <label asp-for="ProductTypeId"></label>
-        </div>
-        <div class="editor-field">
-            @Html.QueryDropDownFor(
+        <div class="row mb-3">
+            <label asp-for="ProductTypeId" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                @Html.QueryDropDownFor(
                 () => nameof(Model.ProductTypeId),
                 model => model.ProductTypeId,
                 new ListQuery<ProductTypeDataModel>(),
                 p => p.Id,
-                p => p.Name)
-            <span asp-validation-for="ProductTypeId"></span>
+                p => p.Name,
+                new { @class="form-select" })
+                <span asp-validation-for="ProductTypeId"></span>
+            </div>
         </div>
 
-        <div class="editor-label">
-            <label asp-for="QuantityInStock"></label>
+        <div class="row mb-3">
+            <label asp-for="QuantityInStock" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="QuantityInStock" class="form-control" />
+                <span asp-validation-for="QuantityInStock"></span>
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.QuantityInStock)
-            <span asp-validation-for="QuantityInStock"></span>
-        </div>
+
 
         <p>
-            <input type="submit" value="Create"/>
+            <input type="submit" value="Create" />
         </p>
     </fieldset>
 </form>

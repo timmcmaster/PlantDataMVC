@@ -1,60 +1,56 @@
-﻿
-@model PlantDataMVC.Web.Models.ViewModels.ProductPrice.ProductPriceEditViewModel
-
+﻿@model PlantDataMVC.Web.Models.ViewModels.ProductPrice.ProductPriceEditViewModel
 @{
     ViewBag.Title = "Edit";
 }
-
 <h2>Edit</h2>
+<div class="container-lg">
+    <form asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Update">
+        <div asp-validation-summary="ModelOnly"></div>
+        <fieldset>
+            <legend>Product Price</legend>
 
-<form asp-controller=@PlantDataMvcAppControllers.ProductPrice asp-action="Update">
-    <div asp-validation-summary="ModelOnly"></div>
-    <fieldset>
-        <legend>ProductPrice</legend>
+            <input asp-for="Id" type="hidden" />
 
-        <input asp-for="Id" type="hidden" />
+            <input asp-for="PriceListTypeId" type="hidden" />
 
-        <input asp-for="PriceListTypeId" type="hidden" />
+            <input asp-for="ProductTypeId" type="hidden" />
 
-        <input asp-for="ProductTypeId" type="hidden" />
+            <div class="row mb-3">
+                <label asp-for="PriceListTypeName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <p class="col-form-label">@Html.DisplayFor(model => model.PriceListTypeName)</p>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="PriceListTypeName"></label>
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.PriceListTypeName)
-        </div>
+            <div class="row mb-3">
+                <label asp-for="ProductTypeName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <p class="col-form-label">@Html.DisplayFor(model => model.ProductTypeName)</p>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="ProductTypeName"></label>
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.ProductTypeName)
-        </div>
+            <div class="row mb-3">
+                <label asp-for="Price" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="Price"></label>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Price)
-            <span asp-validation-for="Price"></span>
-        </div>
+            <div class="row mb-3">
+                <label asp-for="DateEffective" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="DateEffective" class="form-control" />
+                    <span asp-validation-for="DateEffective"></span>
+                </div>
+            </div>
 
-        <div class="editor-label">
-            <label asp-for="DateEffective"></label>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DateEffective)
-            <span asp-validation-for="DateEffective"></span>
-        </div>
-
-
-        <p>
-            <input type="submit" value="Update"/>
-        </p>
-    </fieldset>
-</form>
-
-<div>
-    <a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Details" asp-route-id="@Model.PriceListTypeId">Back to Details</a>
+            <p>
+                <input type="submit" value="Update" />
+            </p>
+        </fieldset>
+    </form>
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Details" asp-route-id="@Model.PriceListTypeId">Back to Details</a>
+    </div>
 </div>
