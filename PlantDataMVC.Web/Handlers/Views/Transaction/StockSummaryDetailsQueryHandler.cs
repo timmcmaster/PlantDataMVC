@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Framework.Web.Views;
+using Microsoft.AspNetCore.WebUtilities;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Repository.Models;
 using PlantDataMVC.Web.Controllers.Queries.Transaction;
 using PlantDataMVC.Web.Models.ViewModels.Transaction;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,9 +26,13 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
 
         public async Task<TransactionStockSummaryDetailsViewModel> Handle(StockSummaryDetailsQuery query, CancellationToken cancellationToken)
         {
-            var uri = $"api/JournalEntries/StockSummaryDetails?speciesId={query.SpeciesId}&productTypeId={query.ProductTypeId}";
+            var baseUri = "api/JournalEntries/StockSummaryDetails";
+            var queryParams = new Dictionary<string, string?>();
+                queryParams.Add("speciesId", query.SpeciesId.ToString());
+                queryParams.Add("productTypeId", query.ProductTypeId.ToString());
 
-            var response = await _plantDataApiClient.GetAsync<JournalEntryStockSummaryDataModel>(uri, cancellationToken).ConfigureAwait(false);
+            var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
+            var response = await _plantDataApiClient.GetAsync<JournalEntryStockSummaryDataModel>(requestUri, cancellationToken).ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
