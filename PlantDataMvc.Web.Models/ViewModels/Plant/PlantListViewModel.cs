@@ -11,6 +11,12 @@ namespace PlantDataMVC.Web.Models.ViewModels.Plant
         [Display(Name = "Latin Name")]
         public string Binomial { get; set; }
 
+        public int GenusId { get; set; }
+
+        public string Genus { get; set; }
+        
+        public string Species { get; set; }
+
         [Display(Name = "Common Name")]
         public string CommonName { get; set; }
 

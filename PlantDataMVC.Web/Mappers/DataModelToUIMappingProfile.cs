@@ -100,8 +100,11 @@ namespace PlantDataMVC.Web.Mappers
             CreateMap<SpeciesDataModel, Plant.PlantListViewModel>()
                .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dm => dm.GenusName))
+               .ForMember(uio => uio.GenusId, opt => opt.MapFrom(dm => dm.GenusId))
                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-               .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native));
+               .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
+               .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
 
             CreateMap<SpeciesDataModel, Plant.PlantNewViewModel>()
                .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
@@ -141,9 +144,7 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location))
                 .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes))
                 .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dm => dm.SiteId))
-                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dm => dm.SiteName))
-                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
-                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)));
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId));
 
             CreateMap<SeedBatchDataModel, SeedBatch.SeedBatchListViewModel>()
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dm => dm.DateCollected))

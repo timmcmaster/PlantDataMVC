@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using PlantDataMVC.Api.Models.DataModels;
+using PlantDataMVC.Web.Controllers.Queries;
 using PlantDataMVC.Web.Controllers.Queries.Plant;
 using PlantDataMVC.Web.Models.EditModels.Plant;
 using Syncfusion.EJ2.Base;
@@ -91,6 +93,23 @@ namespace PlantDataMVC.Web.Controllers
             var result = await _mediator.Send(form);
 
             return Json(form);
+        }
+
+        public async Task<ActionResult> GenusComboBoxData([FromBody] DataManagerRequest request)
+        {
+            var query = new ListQuery<GenusDataModel>();
+            var model = await _mediator.Send(query);
+
+            if (model == null)
+            {
+                return Content("An error occurred");
+            }
+            else
+            {
+                var jsonResult = request.RequiresCounts ? Json(new { result = model, count = model.Count() }) : Json(model);
+
+                return jsonResult;
+            }
         }
     }
 }

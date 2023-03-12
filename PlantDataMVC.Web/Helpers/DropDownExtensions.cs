@@ -1,6 +1,7 @@
 ﻿//using Framework.Web.Mediator;
-using MediatR;
+using Framework.Web.Services;
 using Framework.Web.Views;
+using MediatR;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace PlantDataMVC.Web.Helpers
 {
@@ -68,26 +68,17 @@ namespace PlantDataMVC.Web.Helpers
         {
             var model = htmlHelper.ViewData.Model;
 
-            //var expressionProvider = new ModelExpressionProvider(htmlHelper.MetadataProvider);
-            //var modelExpression = expressionProvider.CreateModelExpression(htmlHelper.ViewData, selectedDataValueExpr);
-            //var metadata = modelExpression.Metadata;
-
             // TODO: Note that this hides the dependency injection to an extent (best to inject mediator if possible)
             IServiceProvider services = htmlHelper.ViewContext.HttpContext.RequestServices;
             
             // Will throw exception if service not registered
-            var mediator = services.GetRequiredService<IMediator>();
-
-            // Get list of options via query
-            var requestTask = mediator.Send(query);
-            // NOTE: Need to be careful with this, as waiting on async can cause deadlocks.
-            // ALSO, lose any exception type management, as it returns AggregateException
-            var dataModelItems = requestTask.Result.OrderBy(x => displayValueSelector(x));
+            var lookupService = services.GetRequiredService<ILookupService<TListItem>>();
+            var lookupItems = lookupService.GetOrderedData(x => displayValueSelector(x));
 
             // Compile expression to use against model
             var selectedDataValue = selectedDataValueExpr.Compile();
 
-            IEnumerable<SelectListItem> selectListItems = dataModelItems.Select(x => new SelectListItem
+            IEnumerable<SelectListItem> selectListItems = lookupItems.Select(x => new SelectListItem
             {
                 Text = displayValueSelector(x),
                 Value = dataValueSelector(x).ToString(),

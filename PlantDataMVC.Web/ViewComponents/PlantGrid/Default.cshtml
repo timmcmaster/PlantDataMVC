@@ -1,13 +1,18 @@
 ﻿@using Plant = PlantDataMVC.Web.Models.ViewModels.Plant
+@using PlantDataMVC.Web.Services;
+
+@inject IGenusLookupService genusLookup
 
 @model PlantGridViewModel
 @{
     Plant.PlantListViewModel sampleElement = new Plant.PlantListViewModel();
+    var foreignData = genusLookup.GetOrderedData(x => x.LatinName).Select(p => new { GenusId = p.Id, LatinName = p.LatinName }).ToList();
 }
 <div class="container-lg">
     <ejs-grid id="PlantGrid"
               allowPaging="@Model.Options.AllowPaging"
               allowSorting="@Model.Options.AllowSorting"
+              actionBegin="actionBegin"
               height="550" width="800"
               toolbar="@Model.Options.ToolbarItems">
         <e-data-manager adaptor="UrlAdaptor"
@@ -20,18 +25,55 @@
         <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
         <e-grid-columns>
             <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
-            <e-grid-column field="@nameof(sampleElement.Binomial)" headerText="@Html.DisplayNameFor(x => sampleElement.Binomial)"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.Binomial)" headerText="@Html.DisplayNameFor(x => sampleElement.Binomial)" allowEditing="false"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.GenusId)" headerText="@Html.DisplayNameFor(x => sampleElement.Genus)" visible="true" foreignKeyValue="LatinName" dataSource="@foreignData"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.Species)" headerText="@Html.DisplayNameFor(x => sampleElement.Species)" visible="false"></e-grid-column>
             <e-grid-column field="@nameof(sampleElement.CommonName)" headerText="@Html.DisplayNameFor(x => sampleElement.CommonName)"></e-grid-column>
-            <e-grid-column field="@nameof(sampleElement.Native)" headerText="@Html.DisplayNameFor(x => sampleElement.Native)" type="boolean" displayAsCheckBox="true"></e-grid-column>
-            <e-grid-column headerText="View Details" template="#detailsTemplate" width="150"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.Native)" headerText="@Html.DisplayNameFor(x => sampleElement.Native)" type="boolean" editType="booleanedit" displayAsCheckBox="true"></e-grid-column>
+            <e-grid-column headerText="View Details" template="#detailsTemplate" width="150" allowEditing="false"></e-grid-column>
         </e-grid-columns>
     </ejs-grid>
 </div>
+<script id="genusTemplate" type="text/x-template">
+    ${GenusId}
+</script>
+<script id="genusTemplate1" type="text/x-template">
+    <ejs-combobox id="genusId" placeholder="Select an option">
+        <e-data-manager adaptor="UrlAdaptor" url="@Url.Action("GenusComboBoxData", @PlantDataMvcAppControllers.PlantGrid)"></e-data-manager>
+        <e-combobox-fields text="LatinName" value="Id" />
+    </ejs-combobox>
+</script>
 <script id="detailsTemplate" type="text/x-template">
     <div>
         <a href="/Plant/Show/${Id}">Details</a>
     </div>
 </script>
+<script>
+    function actionBegin(args) {
+        if ((args.requestType === 'beginEdit' || args.requestType === 'add')) {
+            for (var i = 0; i < this.columns.length; i++) {
+                if ((this.columns[i].field == "GenusId")  || (this.columns[i].field == "SpeciesName")) {
+                    this.columns[i].visible = true;
+                }
+                //else if (this.columns[i].field == "Binomial") {
+                //    this.columns[i].visible = false;
+                //}
+            }
+        }
+    }
+
+    function actionComplete(args) {
+        if (args.requestType === 'save') {
+            for (var i = 0; i < this.columns.length; i++) {
+                if ((this.columns[i].field == "GenusId") || (this.columns[i].field == "SpeciesName")) {
+                    this.columns[i].visible = false;
+                }
+                //else if (this.columns[i].field == "Binomial") {
+                //    this.columns[i].visible = true;
+                //}
+            }
+        }
+    }</script>
 
 <style>
     .e-grid .e-row .e-rowcell {

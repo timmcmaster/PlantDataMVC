@@ -1,4 +1,5 @@
-﻿using PlantDataMVC.Web.Models.ViewModels.Plant;
+﻿using PlantDataMVC.Api.Models.DataModels;
+using PlantDataMVC.Web.Models.ViewModels.Plant;
 using System.Collections.Generic;
 
 namespace PlantDataMVC.Web.Models.ViewComponents.ViewModels

@@ -5,10 +5,10 @@ namespace PlantDataMVC.Web.Models.ViewModels.Transaction
 {
     public class TransactionNewViewModel
     {
-        [Display(Name = "Species Id")]
+        [Display(Name = "Species")]
         public int SpeciesId { get; set; }
 
-        [Display(Name = "Product Type Id")]
+        [Display(Name = "Product Type")]
         public int ProductTypeId { get; set; }
 
         [Display(Name = "Transaction Type")]
@@ -19,7 +19,7 @@ namespace PlantDataMVC.Web.Models.ViewModels.Transaction
 
         public int Quantity { get; set; }
 
-        [Display(Name = "Seed Tray Id")]
+        [Display(Name = "Seed Tray")]
         public int SeedTrayId { get; set; }
 
         [Display(Name = "Transaction Source"), StringLength(50), DataType("CustomString")]

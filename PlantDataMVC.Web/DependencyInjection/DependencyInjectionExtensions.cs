@@ -1,7 +1,12 @@
 ﻿using Framework.Web.DependencyInjection;
+using Framework.Web.Forms;
+using Framework.Web.Services;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using PlantDataMVC.Web.Services;
 using Serilog;
+using Syncfusion;
+using System.Reflection;
 
 namespace PlantDataMVC.Web.DependencyInjection
 {
@@ -15,22 +20,22 @@ namespace PlantDataMVC.Web.DependencyInjection
             // ****************************************************
             // UI configurations
             // ****************************************************
-            /*
-            // Register mediator
-            services.AddScoped<IMediator, Mediator>();
 
-            // Register all types that implement IFormHandler<T,U> from given assembly
-            Assembly formAssembly = Assembly.GetAssembly(typeof(Handlers.Forms.Genus.GenusCreateEditModelFormHandler));
-            services.AddImplementedInterfacesFromAssembly(formAssembly, typeof(IFormHandler<,>));
+            // Used by QueryDropDown
+            Assembly lookupServicesAssembly = Assembly.GetAssembly(typeof(GenusLookupService));
+            services.AddImplementedInterfacesFromAssembly(lookupServicesAssembly, typeof(ILookupService<>));
 
-            services.AddScoped<IFormHandlerFactory, FormHandlerFactory>();
-
-            // Register all types that implement IQueryHandler<T,U> from given assembly
-            Assembly viewAssembly = Assembly.GetAssembly(typeof(Handlers.Views.Genus.ShowQueryHandler));
-            services.AddImplementedInterfacesFromAssembly(viewAssembly, typeof(IQueryHandler<,>)); 
-
-            services.AddScoped<IQueryHandlerFactory, QueryHandlerFactory>();
-            */
+            // Used in view injections
+            services.AddTransient<IGenusLookupService, GenusLookupService>();
+            services.AddTransient<IJournalEntryTypeLookupService, JournalEntryTypeLookupService>();
+            services.AddTransient<IPriceListTypeLookupService, PriceListTypeLookupService>();
+            services.AddTransient<IProductPriceLookupService, ProductPriceLookupService>();
+            services.AddTransient<IProductTypeLookupService, ProductTypeLookupService>();
+            services.AddTransient<ISaleEventLookupService, SaleEventLookupService>();
+            services.AddTransient<ISeedBatchLookupService, SeedBatchLookupService>();
+            services.AddTransient<ISeedTrayLookupService, SeedTrayLookupService>();
+            services.AddTransient<ISiteLookupService, SiteLookupService>();
+            services.AddTransient<ISpeciesLookupService, SpeciesLookupService>();
 
             /// Extensions to scan for MediatR handlers and registers them.
             /// - Scans for any handler interface implementations and registers them as <see cref="ServiceLifetime.Transient"/>
