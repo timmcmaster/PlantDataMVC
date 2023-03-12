@@ -14,6 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Handlers\FormHandlerFactory.cs" />
+    <Compile Remove="Handlers\QueryHandlerFactory.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="webpack.config.js" />
   </ItemGroup>
 
@@ -42,7 +47,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="wwwroot\js\dist\" />
     <Folder Include="wwwroot\js\lib\" />
     <Folder Include="wwwroot\js\src\syncfusion\" />
