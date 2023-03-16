@@ -52,26 +52,26 @@ namespace PlantDataMVC.Web.ViewComponents.SidebarMenu
                 new MenuItemViewModel(id:"sfHeader", text:mainMenuHeaderText, parentId:"null", url:string.Empty, iconCss:"icon"),
 
                 // Home menu
-                new MenuItemViewModel(id:"sfHome", text:"Home", parentId:"null", url:Url.Action("Index",@PlantDataMvcAppControllers.Home) ?? string.Empty, iconCss:"fa fa-solid fa-house"),
+                new MenuItemViewModel(id:"sfHome", text:"Home", parentId:"null", url:Url.Action("Index",@PlantDataMvcAppControllers.Home) ?? string.Empty, iconCss:"bi-house-fill"),
                 new MenuItemViewModel(id:"sfHomeAbout", text:"About", parentId:"sfHome", url:Url.Action("About", @PlantDataMvcAppControllers.Home) ?? string.Empty),
                 new MenuItemViewModel(id:"sfHomePrivacy", text:"Privacy", parentId:"sfHome", url:Url.Action("Privacy", @PlantDataMvcAppControllers.Home) ?? string.Empty),
 
                 // Basic MVC Views menu 
-                new MenuItemViewModel(id:"sfPlant", text:"Plant Definitions", parentId:"null", url : string.Empty, iconCss:"fa fa-solid fa-tree"),
+                new MenuItemViewModel(id:"sfPlant", text:"Plant Definitions", parentId:"null", url : string.Empty, iconCss:"bi-tree-fill"),
                 new MenuItemViewModel(id:"sfPlantGenera", text:"Genera", parentId:"sfPlant", url:Url.Action("Index", PlantDataMvcAppControllers.Genus) ?? string.Empty),
                 new MenuItemViewModel(id:"sfPlantSpecies", text:"Species", parentId:"sfPlant", url:Url.Action("Index", PlantDataMvcAppControllers.Plant) ?? string.Empty),
 
-                new MenuItemViewModel(id:"sfInv", text:"Inventory", parentId:"null", url : string.Empty, iconCss:"fa fa-solid fa-cubes"),
+                new MenuItemViewModel(id:"sfInv", text:"Inventory", parentId:"null", url : string.Empty, iconCss:"bi-boxes"),
                 new MenuItemViewModel(id:"sfInvSeeds", text:"Seeds", parentId:"sfInv", url:Url.Action("Index", PlantDataMvcAppControllers.SeedBatch) ?? string.Empty),
                 new MenuItemViewModel(id:"sfInvSites", text:"Seed Collection Sites", parentId:"sfInv", url:Url.Action("Index", @PlantDataMvcAppControllers.Site) ?? string.Empty),
                 new MenuItemViewModel(id:"sfInvTrays", text:"Seed Trays", parentId:"sfInv", url:Url.Action("Index", PlantDataMvcAppControllers.SeedTray) ?? string.Empty),
                 new MenuItemViewModel(id:"sfInvStock", text:"Plant Stock (static)", parentId:"sfInv", url:Url.Action("Index", @PlantDataMvcAppControllers.PlantStock) ?? string.Empty),
                 new MenuItemViewModel(id:"sfInvTransactions", text:"Plant Stock (from Transactions)", parentId:"sfInv", url:Url.Action("StockSummary", PlantDataMvcAppControllers.Transaction) ?? string.Empty),
 
-                new MenuItemViewModel(id:"sfSales", text:"Sales", parentId:"null", url : string.Empty, iconCss:"fa fa-solid fa-calendar"),
+                new MenuItemViewModel(id:"sfSales", text:"Sales", parentId:"null", url : string.Empty, iconCss:"bi-calendar-fill"),
                 new MenuItemViewModel(id:"sfSalesEvents", text:"Sale Events", parentId:"sfSales", url:Url.Action("Index", PlantDataMvcAppControllers.SaleEvent) ?? string.Empty),
 
-                new MenuItemViewModel(id:"sfProd", text:"Products and Pricing", parentId:"null", url:string.Empty, iconCss:"fa fa-solid fa-dollar-sign"),
+                new MenuItemViewModel(id:"sfProd", text:"Products and Pricing", parentId:"null", url:string.Empty, iconCss:"bi-currency-dollar"),
                 new MenuItemViewModel(id:"sfProdProducts", text:"Products", parentId:"sfProd", url:Url.Action("Index", PlantDataMvcAppControllers.ProductType) ?? string.Empty),
                 new MenuItemViewModel(id:"sfProdPricelists", text:"Price Lists", parentId:"sfProd", url:Url.Action("Index", PlantDataMvcAppControllers.PriceListType) ?? string.Empty)
             };
