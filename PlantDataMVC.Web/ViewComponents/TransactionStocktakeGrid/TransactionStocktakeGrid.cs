@@ -6,25 +6,25 @@ using PlantDataMVC.Web.Models.ViewModels.Transaction;
 using System;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.Web.ViewComponents.TransactionStockSummaryGrid
+namespace PlantDataMVC.Web.ViewComponents.TransactionStocktakeGrid
 {
-    public class TransactionStockSummaryGrid : ViewComponent
+    public class TransactionStocktakeGrid : ViewComponent
     {
         private readonly bool _useBasicMvcViews = false;
 
-        public TransactionStockSummaryGrid(IConfiguration configuration)
+        public TransactionStocktakeGrid(IConfiguration configuration)
         {
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<TransactionStockSummaryListViewModel> model, GridOptionsModel gridOptions)
+        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<TransactionStocktakeListViewModel> model, GridOptionsModel gridOptions)
         {
             string viewName = "Default";
 
             if (_useBasicMvcViews)
                 viewName = "Basic";
 
-            var gridModel = new TransactionStockSummaryGridViewModel()
+            var gridModel = new TransactionStocktakeGridViewModel()
             {
                 Options = gridOptions,
                 PageNumber = model.PageNumber,

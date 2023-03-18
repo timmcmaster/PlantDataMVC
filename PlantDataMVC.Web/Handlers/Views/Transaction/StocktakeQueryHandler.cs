@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Repository.Models;
 using PlantDataMVC.Web.Controllers.Queries.Transaction;
@@ -15,18 +16,18 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Handlers.Views.Transaction
 {
-    public class StockSummaryQueryHandler : IQueryHandler<StockSummaryQuery, ListViewModelStatic<TransactionStockSummaryListViewModel>>
+    public class StocktakeQueryHandler : IQueryHandler<StocktakeQuery, ListViewModelStatic<TransactionStocktakeListViewModel>>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
         private readonly IMapper _mapper;
 
-        public StockSummaryQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
+        public StocktakeQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
             _mapper = mapper;
         }
 
-        public async Task<ListViewModelStatic<TransactionStockSummaryListViewModel>> Handle(StockSummaryQuery query, CancellationToken cancellationToken)
+        public async Task<ListViewModelStatic<TransactionStocktakeListViewModel>> Handle(StocktakeQuery query, CancellationToken cancellationToken)
         {
             bool usePaging = (query.Page != null && query.PageSize != null);
             // Get paging part of query string
@@ -47,7 +48,6 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
                     var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
                     if (sortString != "")
                         queryParams.Add("sort", sortString);
-
                 }
             }
 
@@ -63,9 +63,9 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
                 var apiPagingInfo = response.PagingInfo;
                 var linkInfo = response.LinkInfo;
 
-                var modelList = _mapper.Map<IEnumerable<JournalEntryStockSummaryDataModel>, List<TransactionStockSummaryListViewModel>>(response.Content);
+                var modelList = _mapper.Map<IEnumerable<JournalEntryStockSummaryDataModel>, List<TransactionStocktakeListViewModel>>(response.Content);
 
-                var model = new ListViewModelStatic<TransactionStockSummaryListViewModel>(
+                var model = new ListViewModelStatic<TransactionStocktakeListViewModel>(
                     modelList,
                     apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount,
                     query.SortBy, query.SortAscending);

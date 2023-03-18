@@ -1,0 +1,46 @@
+﻿@using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction
+
+@model TransactionStocktakeGridViewModel
+@{
+    Transaction.TransactionStocktakeListViewModel sampleElement = new Transaction.TransactionStocktakeListViewModel();
+}
+<div class="container-lg">
+    @if (Model.Options.AllowAdd)
+    {
+        <a asp-controller="@PlantDataMvcAppControllers.Transaction" asp-action="New">Add New Item</a>
+    }
+    <table class="table border">
+        <thead>
+            <tr>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial, Model.Options.AllowSorting)</th>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName, Model.Options.AllowSorting)</th>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.QuantityInStock, Model.Options.AllowSorting)</th>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.CountedQuantity, Model.Options.AllowSorting)</th>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.Discrepancy, Model.Options.AllowSorting)</th>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.Reason, Model.Options.AllowSorting)</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int count = 0;
+                foreach (var entry in Model.Items)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).SpeciesBinomial)</td>
+                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)</td>
+                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).QuantityInStock)</td>
+                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).CountedQuantity)</td>
+                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Discrepancy)</td>
+                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Reason)</td>
+                    </tr>
+                    count++;
+                }
+            }
+        </tbody>
+    </table>
+    @if (Model.Options.AllowPaging)
+    {
+        @Html.PagingLinksFor(m => Model)
+    }
+</div>

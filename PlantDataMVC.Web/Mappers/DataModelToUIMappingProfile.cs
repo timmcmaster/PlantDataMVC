@@ -313,6 +313,16 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock))
                 .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
                 .ForMember(uio => uio.Transactions, opt => opt.MapFrom(dm => dm.JournalEntries));
+
+            CreateMap<JournalEntryStockSummaryDataModel, Transaction.TransactionStocktakeListViewModel>()
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
+                .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
+                .ForMember(uio => uio.CountedQuantity, opt => opt.MapFrom(dm => 0))
+                .ForMember(uio => uio.Discrepancy, opt => opt.MapFrom(dm => 0))
+                .ForMember(uio => uio.Reason, opt => opt.MapFrom(dm => string.Empty));
         }
 
         private void ConfigureSeedTrayViewModels()
