@@ -29,5 +29,6 @@
         public const string PriceListTypeGrid = "PriceListTypeGrid";
         public const string TransactionStockSummaryGrid = "TransactionStockSummaryGrid";
         public const string TransactionGrid = "TransactionGrid";
+        public const string TransactionStocktakeGrid = "TransactionStocktakeGrid";
     }
 }

@@ -66,7 +66,6 @@ namespace PlantDataMVC.Web.Controllers
 
         public async Task<ActionResult> Insert([FromBody] CRUDModel<SiteCreateEditModel> x)
         {
-            // TODO: won't be correct, as we can't select the parent genus from the grid
             var form = x.Value;
 
             var result = await _mediator.Send(form);

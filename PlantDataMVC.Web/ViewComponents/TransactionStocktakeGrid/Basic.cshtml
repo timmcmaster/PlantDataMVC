@@ -12,6 +12,7 @@
     <table class="table border">
         <thead>
             <tr>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.IsStock, Model.Options.AllowSorting)</th>
                 <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial, Model.Options.AllowSorting)</th>
                 <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName, Model.Options.AllowSorting)</th>
                 <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.QuantityInStock, Model.Options.AllowSorting)</th>
@@ -27,6 +28,7 @@
                 foreach (var entry in Model.Items)
                 {
                     <tr>
+                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).IsStock)</td>
                         <td>@Html.DisplayFor(m => m.Items.ElementAt(count).SpeciesBinomial)</td>
                         <td>@Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)</td>
                         <td>@Html.DisplayFor(m => m.Items.ElementAt(count).QuantityInStock)</td>

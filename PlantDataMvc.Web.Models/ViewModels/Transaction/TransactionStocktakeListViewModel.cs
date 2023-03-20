@@ -17,17 +17,20 @@ namespace PlantDataMVC.Web.Models.ViewModels.Transaction
         [Display(Name = "Product Type")]
         public string ProductTypeName { get; set; }
 
-        [Display(Name = "Quantity In Stock")]
+        [Display(Name = "Stock Qty")]
         public int QuantityInStock { get; set; }
 
-        [Display(Name = "Counted Quantity")]
+        [Display(Name = "Counted Qty")]
         public int CountedQuantity { get; set; }
 
         [Display(Name = "Discrepancy")]
-        public int Discrepancy { get; set; }
+        public int Discrepancy { get; set; } 
 
         [Display(Name = "Reason")]
         public string Reason { get; set; }
+
+        [Display(Name = "Stock")]
+        public bool IsStock { get; set; }
 
         public TransactionStocktakeListViewModel()
         {
