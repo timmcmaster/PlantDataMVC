@@ -13,7 +13,9 @@
         <thead>
             <tr>
                 <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.IsStock, Model.Options.AllowSorting)</th>
+                <th scope="col" style="display:none"></th> <!-- hidden column for species ID -->
                 <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial, Model.Options.AllowSorting)</th>
+                <th scope="col" style="display:none"></th> <!-- hidden column for product Type ID -->
                 <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.ProductTypeName, Model.Options.AllowSorting)</th>
                 <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.QuantityInStock, Model.Options.AllowSorting)</th>
                 <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.CountedQuantity, Model.Options.AllowSorting)</th>
@@ -28,13 +30,33 @@
                 foreach (var entry in Model.Items)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).IsStock)</td>
-                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).SpeciesBinomial)</td>
-                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)</td>
-                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).QuantityInStock)</td>
-                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).CountedQuantity)</td>
-                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Discrepancy)</td>
-                        <td>@Html.DisplayFor(m => m.Items.ElementAt(count).Reason)</td>
+                        <td>
+                            <input asp-for="@entry.IsStock" name="form.Items[@count].IsStock" disabled="True" />
+                        </td>
+                        <td style="display:none">
+                            <input asp-for="@entry.SpeciesId" name="form.Items[@count].SpeciesId" disabled="True" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => m.Items.ElementAt(count).SpeciesBinomial)
+                        </td>
+                        <td style="display:none">
+                            <input asp-for="@entry.ProductTypeId" name="form.Items[@count].ProductTypeId" disabled="True" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)
+                        </td>
+                        <td>
+                            <input asp-for="@entry.QuantityInStock" name="form.Items[@count].QuantityInStock" disabled="True" />
+                        </td>
+                        <td>
+                            <input asp-for="@entry.CountedQuantity" name="form.Items[@count].CountedQuantity" />
+                        </td>
+                        <td>
+                            <input asp-for="@entry.Discrepancy" name="form.Items[@count].Discrepancy" disabled="True" />
+                        </td>
+                        <td>
+                            <input asp-for="@entry.Reason" name="form.Items[@count].Reason" />
+                        </td>
                     </tr>
                     count++;
                 }

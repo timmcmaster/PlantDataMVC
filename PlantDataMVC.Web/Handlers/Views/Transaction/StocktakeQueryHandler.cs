@@ -10,6 +10,7 @@ using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.Transaction;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -63,7 +64,9 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
                 var apiPagingInfo = response.PagingInfo;
                 var linkInfo = response.LinkInfo;
 
-                var modelList = _mapper.Map<IEnumerable<JournalEntryStockSummaryDataModel>, List<TransactionStocktakeListViewModel>>(response.Content);
+                var nonZeroRecords = response.Content.Where(x => x.QuantityInStock > 0).ToList();   
+
+                var modelList = _mapper.Map<IEnumerable<JournalEntryStockSummaryDataModel>, List<TransactionStocktakeListViewModel>>(nonZeroRecords);
 
                 var model = new ListViewModelStatic<TransactionStocktakeListViewModel>(
                     modelList,

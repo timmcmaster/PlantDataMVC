@@ -3,5 +3,12 @@
     ViewBag.Title = "Stocktake";
 }
 <h2>Index</h2>
+<div class="container-lg">
+    <form asp-controller=@PlantDataMvcAppControllers.Transaction asp-action="StocktakeSave">
 
-@await Component.InvokeAsync("TransactionStocktakeGrid", new { model = Model, gridOptions = Model.GridOptions })
+        @await Component.InvokeAsync("TransactionStocktakeGrid", new { model = Model, gridOptions = Model.GridOptions })
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </form>
+</div>

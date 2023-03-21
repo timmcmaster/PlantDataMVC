@@ -104,7 +104,7 @@ namespace PlantDataMVC.Web.Controllers
                 AllowAdd = true,
                 AllowDelete = false,
                 AllowEdit = true,
-                AllowPaging = true,
+                AllowPaging = false,
                 AllowSorting = true
             };
 
@@ -133,6 +133,23 @@ namespace PlantDataMVC.Web.Controllers
 
                 return View(model);
             }
+        }
+
+        // POST: /"ControllerName"/Update/5
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> StocktakeSave(TransactionStocktakeGridEditModel form)
+        {
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("StockSummary", @PlantDataMvcAppControllers.Transaction);
+
+            if (!ModelState.IsValid)
+            {
+                // TODO: Display any model validation errors
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
         }
 
         /// <summary>
