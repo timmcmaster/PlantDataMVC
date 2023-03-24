@@ -12,7 +12,7 @@
 
         public int Discrepancy { get; set; } 
 
-        public string Reason { get; set; } = string.Empty;
+        public string? Reason { get; set; }
 
         public bool IsStock { get; set; }
 

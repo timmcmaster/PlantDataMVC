@@ -46,7 +46,9 @@ namespace PlantDataMVC.Web.Handlers.Forms.Transaction
                             TransactionDate = stocktakeDateTime,
                             JournalEntryTypeId = 9, // HACK: use hardcoded value for now (Stock adjustment)
                             Quantity = diff,
-                            Source = $"Stocktake {stocktakeDateTime}"
+                            Source = $"Stocktake {stocktakeDateTime}",
+                            Notes = item.Reason,
+                            SeedTrayId = null
                         };
 
                         var uri = "api/JournalEntries";

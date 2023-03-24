@@ -75,9 +75,7 @@
                 // Not done yet (uses webpack and npm)
                 break;
             case (CssSource.FromFullLocal):
-                //<link href="~/css/sinorcaish-screen.css" rel="stylesheet" />
-                <link href="~/css/CustomStyles.css" rel="stylesheet" />
-                //<link href="~/css/Site.css" rel="stylesheet" />
+                <link href="~/css/site.css" rel="stylesheet" />
                 break;
         }
     }
@@ -136,7 +134,7 @@
                 // Not possible - no cdn for my js
                 break;
             case (JsSource.FromBundledLocal):
-                // Uses webpack and npm
+                // Uses webpack and npm to include required modules
                 <script src="~/js/dist/app.bundle.js"></script>
                 break;
             case (JsSource.FromFullLocal):

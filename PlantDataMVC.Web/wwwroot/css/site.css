@@ -1,125 +1,80 @@
-/* Styles for validation helpers
------------------------------------------------------------*/
-.field-validation-error
-{
-    color: #ff0000;
+﻿/* Sorting UI */
+a.sortAsc {
+    padding-right: 16px;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up' viewBox='0 0 16 16'> <path fill-rule='evenodd' d='M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z'/> </svg>"); 
+    background-position: right;
+    background-repeat: no-repeat;
 }
 
-.field-validation-valid
-{
-    display: none;
+a.sortDesc {
+    padding-right: 16px;
+    background-image: url(/images/arrow_down.png);
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up' viewBox='0 0 16 16'> <path fill-rule='evenodd' d='M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z'/> </svg>");
+    background-position: right;
+    background-repeat: no-repeat;
 }
 
-.input-validation-error
-{
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
-    padding: 8px;
-    font-style: italic;
+
+
+
+
+/* Paging UI */
+/*
+td.pager {
+    background-color: #eee;
 }
 
-.validation-summary-errors
-{
+td.pager div {
+    font-size: smaller;
     font-weight: bold;
-    color: #ff0000;
+    padding: 5px;
 }
 
-.validation-summary-valid
+a.pagerButton, a.pagerButton:visited
 {
-    display: none;
+    border: solid 1px #eee;
+    padding: 4px;
+    text-decoration: none;
+    color: #006;
+    margin: 0px 2px 0px 2px;
 }
 
-/* Styles for editor and display helpers
-----------------------------------------------------------*/
-fieldset input[type="submit"] 
+a.pagerButton:hover
 {
-    margin: 0.5em 0 0.5em 0;
-    float:left;
-    clear:left
+    border: solid 1px black;
+    color: Black;
 }
 
-.button
+a.pagerButtonCurrentPage
 {
-    clear: left;
-    float:left;
+    border: solid 1px #00a;
+    padding: 4px;
+    text-decoration: none;
+    color: White;
+    background-color: #006;
+    margin: 0px 2px 0px 2px;
 }
 
-.child-table
+.pagerButtonDisabled
 {
-    margin: 0.5em 0 0.5em 0;
-    float:left;
-    clear:left
+    border: none;
+    color: #999;
+    padding: 4px;
+}
+*/
+
+
+
+/* Filtering Styles */
+/*
+.filtering {
+    margin: 15px;
+    padding: 0px 10px 10px 10px;
+    background-color: #ffc;
 }
 
-.child-table table.grid
-{
-    margin: 0 0 0 0;
-}
-
-.display-label,
-.editor-label
-{
-    margin: 0.5em 0 0.5em 0;
+.filtering legend {
     font-weight: bold;
-    clear: left;
-    float: left;
+    font-size: larger;
 }
-
-.display-field,
-.editor-field
-{
-    margin: 0.5em 0 0.5em 0.5em;
-    float: left;
-}
-
-.text-box
-{
-    width: 30em;
-}
-
-.text-box.single-line.narrow
-{
-    width: 10em;
-}
-
-.text-box.single-line.wide
-{
-    width: 50em;
-}
-
-.text-box.multi-line
-{
-    height: 6.5em;
-    border-style: solid;
-    border-width: thin;
-    border-color: black;
-}
-
-.tri-state
-{
-    width: 6em;
-}
-
-/* Styles for menu items
-----------------------------------------------------------*/
-#sidebar ul.mymenu
-{
-   margin-left:     0.5em;
-}
-
-#sidebar ul.mymenu li
-{
-}
-
-#sidebar ul.mysub-menu
-{
-    list-style-type: square;
-    margin-left:     1.5em;
-    font-size:       90%;
-}
-
-#sidebar ul.mysub-menu li
-{
-   padding-top:     0;
-   padding-bottom:  0;
-}
+    */

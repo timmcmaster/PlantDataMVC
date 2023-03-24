@@ -5,11 +5,7 @@
     Transaction.TransactionStocktakeListViewModel sampleElement = new Transaction.TransactionStocktakeListViewModel();
 }
 <div class="container-lg">
-    @if (Model.Options.AllowAdd)
-    {
-        <a asp-controller="@PlantDataMvcAppControllers.Transaction" asp-action="New">Add New Item</a>
-    }
-    <table class="table border">
+    <table id="main_grid" class="table border">
         <thead>
             <tr>
                 <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.IsStock, Model.Options.AllowSorting)</th>
@@ -31,28 +27,31 @@
                 {
                     <tr>
                         <td>
-                            <input asp-for="@entry.IsStock" name="form.Items[@count].IsStock" disabled="True" />
+                            <input asp-for="@entry.IsStock" disabled="disabled" />
+                            <input asp-for="@entry.IsStock" name="form.Items[@count].IsStock" type="hidden" />
                         </td>
                         <td style="display:none">
-                            <input asp-for="@entry.SpeciesId" name="form.Items[@count].SpeciesId" disabled="True" />
+                            <input asp-for="@entry.SpeciesId" name="form.Items[@count].SpeciesId" />
                         </td>
                         <td>
-                            @Html.DisplayFor(m => m.Items.ElementAt(count).SpeciesBinomial)
+                            @Html.DisplayFor(m => @entry.SpeciesBinomial)
                         </td>
                         <td style="display:none">
-                            <input asp-for="@entry.ProductTypeId" name="form.Items[@count].ProductTypeId" disabled="True" />
+                            <input asp-for="@entry.ProductTypeId" name="form.Items[@count].ProductTypeId" />
                         </td>
                         <td>
-                            @Html.DisplayFor(m => m.Items.ElementAt(count).ProductTypeName)
+                            @Html.DisplayFor(m => @entry.ProductTypeName)
                         </td>
                         <td>
-                            <input asp-for="@entry.QuantityInStock" name="form.Items[@count].QuantityInStock" disabled="True" />
+                            @Html.DisplayFor(m => @entry.QuantityInStock)
+                            <input asp-for="@entry.QuantityInStock" name="form.Items[@count].QuantityInStock" type="hidden" />
                         </td>
                         <td>
                             <input asp-for="@entry.CountedQuantity" name="form.Items[@count].CountedQuantity" />
                         </td>
                         <td>
-                            <input asp-for="@entry.Discrepancy" name="form.Items[@count].Discrepancy" disabled="True" />
+                            @Html.DisplayFor(m => @entry.Discrepancy)
+                            <input asp-for="@entry.Discrepancy" name="form.Items[@count].Discrepancy" type="hidden" />
                         </td>
                         <td>
                             <input asp-for="@entry.Reason" name="form.Items[@count].Reason" />
@@ -62,9 +61,144 @@
                 }
             }
         </tbody>
+        @if (Model.Options.AllowAdd)
+        {
+            <tfoot>
+                <tr>
+                    <td>
+                        <input id="addIsStock" type="checkbox" value="false" disabled="disabled" />
+                    </td>
+                    <td style="display:none">
+                        <!-- speciesId column -->
+                    </td>
+                    <td>
+                        @Html.QueryDropDownFor(
+                            () => nameof(sampleElement.SpeciesId),
+                            model => -1,
+                            new ListQuery<SpeciesDataModel>(),
+                            p => p.Id,
+                            p => SpeciesFunctions.GetBinomial(p.GenusName, p.SpecificName),
+                            new { @class = "form-select", id = "addSpeciesId" })
+                    </td>
+                    <td style="display:none">
+                        <!-- productTypeId column -->
+                    </td>
+                    <td>
+                        @Html.QueryDropDownFor(
+                            () => nameof(sampleElement.ProductTypeId),
+                            model => -1,
+                            new ListQuery<ProductTypeDataModel>(),
+                            p => p.Id,
+                            p => p.Name,
+                            new { @class = "form-select", id = "addProductTypeId" })
+                    </td>
+                    <td>
+                        0
+                    </td>
+                    <td>
+                        <input type="number" id="addCountedQuantity" />
+                    </td>
+                    <td>
+                        0
+                    </td>
+                    <td>
+                        <input type="text" id="addReason" />
+                        <button id="addRowButton" type="button" onclick="addRow()">Add Row</button>
+                    </td>
+                </tr>
+            </tfoot>
+        }
     </table>
     @if (Model.Options.AllowPaging)
     {
         @Html.PagingLinksFor(m => Model)
     }
 </div>
+<script type="text/javascript">
+    // Need checks to prevent duplicate rows by species and producttype
+    function addRow() {
+        let table = document.getElementById("main_grid");
+        let count = table.tBodies[0].rows.length;
+
+        let row = table.tBodies[0].insertRow(-1);
+
+        // IsStock cell
+        let cell = row.insertCell(-1);
+
+        let chkIsStock = document.createElement("input");
+        chkIsStock.type = "checkbox";
+        chkIsStock.value = "false";
+        chkIsStock.disabled = true;
+        cell.appendChild(chkIsStock);
+
+        let hiddenIsStock = document.createElement("input");
+        hiddenIsStock.type = "hidden";
+        hiddenIsStock.value = "false";
+        hiddenIsStock.name = "form.Items[" + count + "].IsStock";
+        cell.appendChild(hiddenIsStock);
+
+        // SpeciesId cell
+        cell = row.insertCell();
+        cell.style = "display: none;";
+        let speciesIdSelect = document.getElementById("addSpeciesId");
+        let speciesId = document.createElement("input");
+        speciesId.value = speciesIdSelect.value;
+        speciesId.name = "form.Items[" + count + "].SpeciesId";
+        cell.appendChild(speciesId);
+
+        // SpeciesBinomial cell
+        cell = row.insertCell();
+        cell.innerText = speciesIdSelect.options[speciesIdSelect.selectedIndex].text;
+
+        // ProductTypeId cell
+        cell = row.insertCell();
+        cell.style = "display: none;";
+        let productTypeIdSelect = document.getElementById("addProductTypeId");
+        let productTypeId = document.createElement("input");
+        productTypeId.value = productTypeIdSelect.value;
+        productTypeId.name = "form.Items[" + count + "].ProductTypeId";
+        cell.appendChild(productTypeId);
+
+        // ProductTypeName cell
+        cell = row.insertCell();
+        cell.innerText = productTypeIdSelect.options[productTypeIdSelect.selectedIndex].text;
+
+        // QuantityInStock cell
+        cell = row.insertCell();
+        cell.innerText = "0";
+
+        let hiddenQtyinStock = document.createElement("input");
+        hiddenQtyinStock.type = "hidden";
+        hiddenQtyinStock.value = 0;
+        hiddenQtyinStock.name = "form.Items[" + count + "].IsStock";
+        cell.appendChild(hiddenQtyinStock);
+
+        // CountedQuantity cell
+        cell = row.insertCell();
+        let addCountedQty = document.getElementById("addCountedQuantity");
+        let countedQty = document.createElement("input");
+        countedQty.type = "number";
+        countedQty.value = addCountedQty.value;
+        countedQty.name = "form.Items[" + count + "].CountedQuantity";
+        cell.appendChild(countedQty);
+
+        // Discrepancy cell
+        cell = row.insertCell();
+        let discrepancy = countedQty.value - hiddenQtyinStock.value;
+        cell.innerText = discrepancy.toString();
+
+        let hiddenDiscrepancy = document.createElement("input");
+        hiddenDiscrepancy.type = "hidden";
+        hiddenDiscrepancy.value = 0;
+        hiddenDiscrepancy.name = "form.Items[" + count + "].Discrepancy";
+        cell.appendChild(hiddenDiscrepancy);
+
+        // Reason cell
+        cell = row.insertCell();
+        let txtReason = document.createElement("input");
+        txtReason.type = "text";
+        txtReason.value = document.getElementById("addReason").value;
+        txtReason.name = "form.Items[" + count + "].Reason";
+        cell.appendChild(txtReason);
+    }
+</script>
