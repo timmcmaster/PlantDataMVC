@@ -1,0 +1,96 @@
+﻿@using Label = PlantDataMVC.Web.Models.ViewModels.Label
+
+@model PlantLabelGridViewModel
+@{
+    Label.PlantLabelListViewModel sampleElement = new Label.PlantLabelListViewModel();
+}
+<div class="container-lg">
+    <table id="main_grid" class="table border">
+        <thead>
+            <tr>
+                <th scope="col" style="display:none"></th> <!-- hidden column for species ID -->
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.SpeciesBinomial, Model.Options.AllowSorting)</th>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.LabelQuantity, Model.Options.AllowSorting)</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int count = 0;
+                foreach (var entry in Model.Items)
+                {
+                    <tr>
+                        <td style="display:none">
+                            <input asp-for="@entry.SpeciesId" name="form.Items[@count].SpeciesId" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => @entry.SpeciesBinomial)
+                        </td>
+                        <td>
+                            <input asp-for="@entry.LabelQuantity" name="form.Items[@count].LabelQuantity" />
+                        </td>
+                    </tr>
+                    count++;
+                }
+            }
+        </tbody>
+        @if (Model.Options.AllowAdd)
+        {
+            <tfoot>
+                <tr>
+                    <td style="display:none">
+                        <!-- speciesId column -->
+                    </td>
+                    <td>
+                        @Html.QueryDropDownFor(
+                            () => nameof(sampleElement.SpeciesId),
+                            model => -1,
+                            new ListQuery<SpeciesDataModel>(),
+                            p => p.Id,
+                            p => SpeciesFunctions.GetBinomial(p.GenusName, p.SpecificName),
+                            new { @class = "form-select", id = "addSpeciesId" })
+                    </td>
+                    <td>
+                        <input type="number" id="addLabelQuantity" />
+                        <button id="addRowButton" type="button" onclick="addRow()">Add Row</button>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+    @if (Model.Options.AllowPaging)
+    {
+        @Html.PagingLinksFor(m => Model)
+    }
+</div>
+<script type="text/javascript">
+    // Need checks to prevent duplicate rows by species and producttype
+    function addRow() {
+        let table = document.getElementById("main_grid");
+        let count = table.tBodies[0].rows.length;
+
+        let row = table.tBodies[0].insertRow(-1);
+
+        // SpeciesId cell
+        let cell = row.insertCell(-1);
+        cell.style = "display: none;";
+        let speciesIdSelect = document.getElementById("addSpeciesId");
+        let speciesId = document.createElement("input");
+        speciesId.value = speciesIdSelect.value;
+        speciesId.name = "form.Items[" + count + "].SpeciesId";
+        cell.appendChild(speciesId);
+
+        // SpeciesBinomial cell
+        cell = row.insertCell();
+        cell.innerText = speciesIdSelect.options[speciesIdSelect.selectedIndex].text;
+
+        // CountedQuantity cell
+        cell = row.insertCell();
+        let addLabelQty = document.getElementById("addLabelQuantity");
+        let labelQty = document.createElement("input");
+        labelQty.type = "number";
+        labelQty.value = addLabelQty.value;
+        labelQty.name = "form.Items[" + count + "].LabelQuantity";
+        cell.appendChild(labelQty);
+    }
+</script>

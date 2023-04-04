@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-using PlantDataMVC.Api.Models.DataModels;
+﻿using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Controllers.Queries;
-using PlantDataMVC.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

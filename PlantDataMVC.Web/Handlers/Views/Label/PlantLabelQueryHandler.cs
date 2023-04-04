@@ -1,37 +1,39 @@
 ﻿using AutoMapper;
+using Azure;
 using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
+using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
-using PlantDataMVC.Repository.Models;
-using PlantDataMVC.Web.Controllers.Queries.Transaction;
+using PlantDataMVC.Common.Client.Models;
+using PlantDataMVC.Web.Controllers.Queries.Label;
 using PlantDataMVC.Web.Helpers;
 using PlantDataMVC.Web.Models.ViewModels;
-using PlantDataMVC.Web.Models.ViewModels.Transaction;
+using PlantDataMVC.Web.Models.ViewModels.Label;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.Web.Handlers.Views.Transaction
+namespace PlantDataMVC.Web.Handlers.Views.Label
 {
-    public class StocktakeQueryHandler : IQueryHandler<StocktakeQuery, ListViewModelStatic<TransactionStocktakeListViewModel>>
+    public class PlantLabelQueryHandler : IQueryHandler<PlantLabelQuery, ListViewModelStatic<PlantLabelListViewModel>>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
         private readonly IMapper _mapper;
 
-        public StocktakeQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
+        public PlantLabelQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
             _mapper = mapper;
         }
 
-        public async Task<ListViewModelStatic<TransactionStocktakeListViewModel>> Handle(StocktakeQuery query, CancellationToken cancellationToken)
+        public async Task<ListViewModelStatic<PlantLabelListViewModel>> Handle(PlantLabelQuery query, CancellationToken cancellationToken)
         {
+            /*
             bool usePaging = (query.Page != null && query.PageSize != null);
             // Get paging part of query string
-            var baseUri = "api/JournalEntries/StockSummary";
+            var baseUri = "api/Species";
             var queryParams = new Dictionary<string, string?>();
             if (usePaging)
             {
@@ -52,7 +54,7 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
             }
 
             var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
-            var response = await _plantDataApiClient.GetAsync<IEnumerable<JournalEntryStockSummaryDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
+            var response = await _plantDataApiClient.GetAsync<IEnumerable<SpeciesDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
@@ -63,20 +65,21 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
                 var apiPagingInfo = response.PagingInfo;
                 var linkInfo = response.LinkInfo;
 
-                var nonZeroRecords = response.Content.Where(x => x.QuantityInStock > 0).ToList();   
+                var modelList = _mapper.Map<IEnumerable<SpeciesDataModel>, List<PlantLabelListViewModel>>(response.Content);
 
-                var modelList = _mapper.Map<IEnumerable<JournalEntryStockSummaryDataModel>, List<TransactionStocktakeListViewModel>>(nonZeroRecords);
-
-                var model = new ListViewModelStatic<TransactionStocktakeListViewModel>(
+                var model = new ListViewModelStatic<PlantLabelListViewModel>(
                     modelList,
                     apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount,
                     query.SortBy, query.SortAscending);
 
                 return model;
             }
+            */
+            var modelList = new List<PlantLabelListViewModel>();
 
-            // TODO: better way needed to handle failure response
-            return null;
+            var model = new ListViewModelStatic<PlantLabelListViewModel>(modelList,1,0,0, query.SortBy, query.SortAscending);
+
+            return model;
         }
 
         /// <summary>
@@ -90,25 +93,13 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
 
             // TODO: Got to be a more rigorous way to convert columns back to API fields
             // supplied sortBy field should belong to display object (as it is generated from model metadata)
-            if (querySortBy == nameof(TransactionStockSummaryListViewModel.ProductTypeId))
+            if (querySortBy == nameof(PlantLabelListViewModel.SpeciesId))
             {
-                sortField = nameof(JournalEntryStockSummaryDataModel.ProductTypeId);
+                sortField = nameof(SpeciesDataModel.Id);
             }
-            else if (querySortBy == nameof(TransactionStockSummaryListViewModel.SpeciesId))
+            else if (querySortBy == nameof(PlantLabelListViewModel.SpeciesBinomial))
             {
-                sortField = nameof(JournalEntryStockSummaryDataModel.SpeciesId);
-            }
-            else if (querySortBy == nameof(TransactionStockSummaryListViewModel.QuantityInStock))
-            {
-                sortField = nameof(JournalEntryStockSummaryDataModel.QuantityInStock);
-            }
-            else if (querySortBy == nameof(TransactionStockSummaryListViewModel.ProductTypeName))
-            {
-                sortField = nameof(JournalEntryStockSummaryDataModel.ProductTypeName);
-            }
-            else if (querySortBy == nameof(TransactionStockSummaryListViewModel.SpeciesBinomial))
-            {
-                sortField = $"{nameof(JournalEntryStockSummaryDataModel.GenusName)},{nameof(JournalEntryStockSummaryDataModel.SpeciesName)}";
+                sortField = $"{nameof(SpeciesDataModel.GenusName)},{nameof(SpeciesDataModel.SpecificName)}";
             }
 
             return sortField;

@@ -3,6 +3,7 @@ using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Api.Models.DomainFunctions;
 using PlantDataMVC.Repository.Models;
 using Genus = PlantDataMVC.Web.Models.ViewModels.Genus;
+using Label = PlantDataMVC.Web.Models.ViewModels.Label;
 using Plant = PlantDataMVC.Web.Models.ViewModels.Plant;
 using PlantStock = PlantDataMVC.Web.Models.ViewModels.PlantStock;
 using PriceListType = PlantDataMVC.Web.Models.ViewModels.PriceListType;
@@ -47,6 +48,7 @@ namespace PlantDataMVC.Web.Mappers
             ConfigureProductTypeViewModels();
             ConfigurePriceListTypeViewModels();
             ConfigureProductPriceViewModels();
+            ConfigureLabelViewModels();
         }
 
         #region Configure View Models
@@ -525,6 +527,14 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price));
         }
 
+        private void ConfigureLabelViewModels()
+        {
+
+            CreateMap<SpeciesDataModel, Label.PlantLabelListViewModel>()
+               .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.Id))
+               .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
+               .ForMember(uio => uio.LabelQuantity, opt => opt.MapFrom(dm => 0));
+        }
         #endregion Configure View Models
     }
 }

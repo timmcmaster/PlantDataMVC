@@ -16,6 +16,7 @@
         public const string SeedTray = "SeedTray";
         public const string Site = "Site";
         public const string Transaction = "Transaction";
+        public const string Label = "Label";
 
         public const string GenusGrid = "GenusGrid";
         public const string PlantGrid = "PlantGrid";
