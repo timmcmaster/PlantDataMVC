@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Web.Constants;
 using PlantDataMVC.Web.Controllers.Queries.Label;
+using PlantDataMVC.Web.Models.EditModels.Label;
 using PlantDataMVC.Web.Models.EditModels.Transaction;
 using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using System.Threading.Tasks;
@@ -60,7 +61,7 @@ namespace PlantDataMVC.Web.Controllers
 
         // POST: /"ControllerName"/Update/5
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> PlantsPrint(TransactionStocktakeGridEditModel form)
+        public async Task<ActionResult> PlantsPrint(PlantLabelGridEditModel form)
         {
             var failureResult = DefaultFormFailureResult();
             var successResult = RedirectToAction("xxxx", @PlantDataMvcAppControllers.Label);

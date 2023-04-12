@@ -4,7 +4,7 @@
 }
 <h2>Plant Labels</h2>
 <div class="container-lg">
-    <form asp-controller=@PlantDataMvcAppControllers.Label asp-action="PlantLabelSave">
+    <form asp-controller=@PlantDataMvcAppControllers.Label asp-action="PlantsPrint">
 
         @await Component.InvokeAsync("PlantLabelGrid", new { model = Model, gridOptions = Model.GridOptions })
         <p>
