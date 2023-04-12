@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PDFsharp-MigraDoc" Version="6.0.0-preview-1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlantDataMVC.Api.Models\PlantDataMVC.Api.Models.csproj" />
+    <ProjectReference Include="..\PlantDataMVC.Service\PlantDataMVC.Service.csproj" />
+  </ItemGroup>
+
+</Project>

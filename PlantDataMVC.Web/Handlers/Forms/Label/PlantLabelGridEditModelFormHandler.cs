@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Framework.Web.Forms;
 using PlantDataMVC.Api.Models.DataModels;
+using PlantDataMVC.Api.Models.ServiceModels;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Models.EditModels.Label;
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,16 +27,17 @@ namespace PlantDataMVC.Web.Handlers.Forms.Transaction
         {
             try
             {
-                var stocktakeDateTime = DateTime.Now;
                 bool success = true;
 
-                foreach (var item in form.Items)
-                {
-                    // Compile model list to send to report generator
+                FetchPlantInfoLabelReportAsyncRequestDTO requestDTO = new();
 
-                }
+                var labelRequests = form.Items.Select(x => new SpeciesLabelItemRequestModel() { SpeciesId = x.SpeciesId, LabelQuantity = x.LabelQuantity }).ToList();
+                requestDTO.LabelRequests = labelRequests;
 
-                return success;
+                var uri = "api/Label/FetchPlantInfoLabelReportAsync";
+                var response = await _plantDataApiClient.PostAsync<FetchPlantInfoLabelReportAsyncRequestDTO,FetchPlantInfoLabelReportAsyncResponseDTO>(uri, requestDTO, cancellationToken).ConfigureAwait(false);
+
+                return response.Success;
             }
             catch
             {

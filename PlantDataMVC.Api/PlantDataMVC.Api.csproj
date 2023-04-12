@@ -47,6 +47,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Framework.Web\Framework.Web.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Api.Models\PlantDataMVC.Api.Models.csproj" />
+    <ProjectReference Include="..\PlantDataMvc.Api.Reports\PlantDataMvc.Api.Reports.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Constants\PlantDataMVC.Constants.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Repository\PlantDataMVC.Repository.csproj" />
