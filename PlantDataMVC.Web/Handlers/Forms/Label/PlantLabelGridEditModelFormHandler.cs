@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Handlers.Forms.Transaction
 {
-    public class PlantLabelGridEditModelFormHandler : IFormHandler<PlantLabelGridEditModel, bool>
+    public class PlantLabelGridEditModelFormHandler : IFormHandler<PlantLabelGridEditModel, string>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
         private readonly IMapper _mapper;
@@ -23,12 +23,12 @@ namespace PlantDataMVC.Web.Handlers.Forms.Transaction
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(PlantLabelGridEditModel form, CancellationToken cancellationToken)
+        public async Task<string> Handle(PlantLabelGridEditModel form, CancellationToken cancellationToken)
         {
+            string reportData = string.Empty;
+
             try
             {
-                bool success = true;
-
                 FetchPlantInfoLabelReportAsyncRequestDTO requestDTO = new();
 
                 var labelRequests = form.Items.Select(x => new SpeciesLabelItemRequestModel() { SpeciesId = x.SpeciesId, LabelQuantity = x.LabelQuantity }).ToList();
@@ -37,11 +37,16 @@ namespace PlantDataMVC.Web.Handlers.Forms.Transaction
                 var uri = "api/Label/FetchPlantInfoLabelReportAsync";
                 var response = await _plantDataApiClient.PostAsync<FetchPlantInfoLabelReportAsyncRequestDTO,FetchPlantInfoLabelReportAsyncResponseDTO>(uri, requestDTO, cancellationToken).ConfigureAwait(false);
 
-                return response.Success;
+                if (response.Success)
+                {
+                    reportData = response.Content?.ReportDocument ?? string.Empty;
+                }
+
+                return reportData;
             }
             catch
             {
-                return false;
+                return reportData;
             }
         }
     }

@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using PlantDataMvc.Web.Models.ViewModels.Label;
 using PlantDataMVC.Web.Constants;
 using PlantDataMVC.Web.Controllers.Queries.Label;
 using PlantDataMVC.Web.Models.EditModels.Label;
-using PlantDataMVC.Web.Models.EditModels.Transaction;
 using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Controllers
@@ -18,8 +19,6 @@ namespace PlantDataMVC.Web.Controllers
             _mediator = mediator;
         }
 
-        // GET: /"ControllerName"/StockSummary
-        // GET: /"ControllerName"/StockSummary?page=4&pageSize=20&sortBy=Genus&ascending=True
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public async Task<ActionResult> Plants(int? page, int? pageSize, string sortBy, bool? ascending)
         {
@@ -59,12 +58,11 @@ namespace PlantDataMVC.Web.Controllers
             }
         }
 
-        // POST: /"ControllerName"/Update/5
+        // POST: /"ControllerName"/PlantsPrint
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> PlantsPrint(PlantLabelGridEditModel form)
         {
             var failureResult = DefaultFormFailureResult();
-            var successResult = RedirectToAction("xxxx", @PlantDataMvcAppControllers.Label);
 
             if (!ModelState.IsValid)
             {
@@ -73,7 +71,19 @@ namespace PlantDataMVC.Web.Controllers
             }
 
             var result = await _mediator.Send(form);
-            return result ? successResult : failureResult;
+
+            var reportBytes = Convert.FromBase64String(result);
+
+            var fileModel = new FileModel() 
+            { 
+                Name = "Test", 
+                ContentType = "application/pdf", 
+                Data = reportBytes 
+            };
+            //var successResult = RedirectToAction("ViewPdf", PlantDataMvcAppControllers.Label);
+            var successResult = View("ViewPdf", fileModel);
+
+            return string.IsNullOrEmpty(result) ? successResult : failureResult;
         }
 
     }
