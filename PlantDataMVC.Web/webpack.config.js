@@ -44,9 +44,6 @@ module.exports = [
         entry: {
             maplib: "./wwwroot/js/src/maplib.js"
         },
-        plugins: [
-            new CleanWebpackPlugin()
-        ],
         output: {
             path: path.resolve(__dirname, 'wwwroot/js/lib'),
             filename: "[name].bundle.js",
@@ -57,9 +54,6 @@ module.exports = [
         entry: {
             pdflib: "./wwwroot/js/src/pdflib.js"
         },
-        plugins: [
-            new CleanWebpackPlugin()
-        ],
         output: {
             path: path.resolve(__dirname, 'wwwroot/js/lib'),
             filename: "[name].bundle.js",
@@ -71,9 +65,6 @@ module.exports = [
         entry: {
             "pdf.worker": "./node_modules/pdfjs-dist/build/pdf.worker.entry.js"
         },
-        plugins: [
-            new CleanWebpackPlugin()
-        ],
         output: {
             path: path.resolve(__dirname, 'wwwroot/js/lib'),
             filename: "[name].bundle.js",
