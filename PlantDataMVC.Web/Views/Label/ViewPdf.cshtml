@@ -1,9 +1,13 @@
-﻿@model PlantDataMvc.Web.Models.ViewModels.Label.FileModel
+﻿@using PlantDataMVC.Web.ViewComponents.PdfViewer;
+@model PlantDataMvc.Web.Models.ViewModels.Label.FileModel
 @{
     ViewData["Title"] = "View";
 }
 
 <h1>View</h1>
+<div id="pdfViewer">
+@await Component.InvokeAsync(nameof(PdfViewer), new { height = "720px", width = "800px" })
+</div>
 
 <!-- This is the canvas that will contain the pdf -->
 <canvas id="theCanvas"></canvas>

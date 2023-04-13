@@ -1,0 +1,16 @@
+﻿@using PlantDataMVC.Web.ViewComponents.PdfViewer;
+
+@model PlantDataMVC.Web.Models.ViewModels.PdfViewerViewModel
+@{
+    //Genus.GenusListViewModel sampleElement = new Genus.GenusListViewModel();
+}
+<div class="container-lg">
+    <ejs-pdfviewer id="pdfviewer" style="height:@Model.Height" serviceUrl="/Index" documentPath="test.pdf">
+    </ejs-pdfviewer>
+</div>
+<style>
+    .e-grid .e-row .e-rowcell {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+</style>
