@@ -6,7 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = [
     {
         entry: {
-            app: "./wwwroot/js/src/main.js"
+            app: "./wwwroot/js/src/app.js"
         },
         plugins: [
             new CleanWebpackPlugin(),
@@ -52,5 +52,32 @@ module.exports = [
             filename: "[name].bundle.js",
             library: 'maplib'
         }
+    },
+    {
+        entry: {
+            pdflib: "./wwwroot/js/src/pdflib.js"
+        },
+        plugins: [
+            new CleanWebpackPlugin()
+        ],
+        output: {
+            path: path.resolve(__dirname, 'wwwroot/js/lib'),
+            filename: "[name].bundle.js",
+            library: 'pdflib'
+        }
+    },
+    {
+        context: __dirname,
+        entry: {
+            "pdf.worker": "./node_modules/pdfjs-dist/build/pdf.worker.entry.js"
+        },
+        plugins: [
+            new CleanWebpackPlugin()
+        ],
+        output: {
+            path: path.resolve(__dirname, 'wwwroot/js/lib'),
+            filename: "[name].bundle.js",
+        }
     }
+
 ]
