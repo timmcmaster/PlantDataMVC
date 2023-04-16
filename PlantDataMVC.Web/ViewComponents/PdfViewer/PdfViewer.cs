@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using PlantDataMVC.Web.Models.ViewModels;
+using PlantDataMvc.Web.Models.ViewComponents.ViewModels;
 using System;
 using System.Threading.Tasks;
 
@@ -19,8 +19,8 @@ namespace PlantDataMVC.Web.ViewComponents.PdfViewer
         {
             string viewName = "Default";
 
-            //if (_useBasicMvcViews)
-            //    viewName = "Basic";
+            if (_useBasicMvcViews)
+                viewName = "Basic";
 
             var viewModel = new PdfViewerViewModel()
             {

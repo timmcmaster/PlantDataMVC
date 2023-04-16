@@ -1,10 +1,13 @@
 ﻿@using PlantDataMVC.Web.ViewComponents.PdfViewer;
+@using PlantDataMvc.Web.Models.ViewComponents.ViewModels;
 
-@model PlantDataMVC.Web.Models.ViewModels.PdfViewerViewModel
+@model PdfViewerViewModel
 @{
     //Genus.GenusListViewModel sampleElement = new Genus.GenusListViewModel();
 }
 <div class="container-lg">
+    <!-- This is the canvas that will contain the pdf -->
+    <canvas id="theCanvas"></canvas>
 </div>
 <style>
     .e-grid .e-row .e-rowcell {

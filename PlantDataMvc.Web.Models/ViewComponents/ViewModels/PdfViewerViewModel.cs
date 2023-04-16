@@ -1,4 +1,4 @@
-﻿namespace PlantDataMVC.Web.Models.ViewModels
+﻿namespace PlantDataMvc.Web.Models.ViewComponents.ViewModels
 {
     public class PdfViewerViewModel
     {
