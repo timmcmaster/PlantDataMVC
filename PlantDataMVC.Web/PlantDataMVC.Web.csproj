@@ -44,7 +44,7 @@
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="21.1.39" />
-    <PackageReference Include="Syncfusion.EJ2.PdfViewer.AspNet.Core.Windows" Version="21.1.39" />
+    <PackageReference Include="Syncfusion.EJ2.PdfViewer.AspNet.Core" Version="21.1.39" />
   </ItemGroup>
 
   <ItemGroup>

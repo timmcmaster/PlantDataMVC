@@ -1,69 +1,33 @@
-﻿@using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction;
+﻿@using Label = PlantDataMVC.Web.Models.ViewModels.Label
 
 @inject PlantDataMVC.Web.Services.ISpeciesLookupService speciesLookup
-@inject PlantDataMVC.Web.Services.IProductTypeLookupService productTypeLookup
 
-@model TransactionStocktakeGridViewModel
-
+@model PlantLabelGridViewModel
 @{
-    Transaction.TransactionStocktakeListViewModel sampleElement = new Transaction.TransactionStocktakeListViewModel();
+    Label.PlantLabelListViewModel sampleElement = new Label.PlantLabelListViewModel();
     var speciesForeignData = speciesLookup.GetData()
                         .Select(p => new { SpeciesId = p.Id, SpeciesBinomial = SpeciesFunctions.GetBinomial(p.GenusName, p.SpecificName) })
                         .OrderBy(p => p.SpeciesBinomial)
                         .ToList();
-    var productForeignData = productTypeLookup.GetOrderedData(p => p.Name).Select(p => new { ProductTypeId = p.Id, ProductTypeName = p.Name }).ToList();
 }
 <div class="container-lg">
-    <ejs-grid id="TransactionStocktakeGrid"
+    <ejs-grid id="PlantLabelGrid"
               dataSource="@Model.Items"
               allowPaging="@Model.Options.AllowPaging"
               allowSorting="@Model.Options.AllowSorting"
-              actionBegin="actionBegin"
-              actionComplete="actionComplete"
               height="550" width="800"
               toolbar="@Model.Options.ToolbarItems">
-        <e-data-manager adaptor="UrlAdaptor"
-                        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.TransactionStocktakeGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
-                        updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.TransactionStocktakeGrid)"></e-data-manager>
-        <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+@*        <e-data-manager adaptor="UrlAdaptor"
+                        url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PlantLabelGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
+                        updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.PlantLabelGrid)"></e-data-manager>
+*@        <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
         <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
         <e-grid-columns>
-            <e-grid-column width="60" field="@nameof(sampleElement.IsStock)" headerText="@Html.DisplayNameFor(x => sampleElement.IsStock)" allowEditing="false" type="boolean" editType="booleanedit" displayAsCheckBox="true"></e-grid-column>
-            <e-grid-column width="150" field="@nameof(sampleElement.SpeciesId)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesId)" allowEditing="false" foreignKeyValue="SpeciesBinomial" dataSource="@speciesForeignData"></e-grid-column>
-            <e-grid-column width="120" field="@nameof(sampleElement.ProductTypeId)" headerText="@Html.DisplayNameFor(x => sampleElement.ProductTypeId)" allowEditing="false" foreignKeyValue="ProductTypeName" dataSource="@productForeignData"></e-grid-column>
-            <e-grid-column width="100" field="@nameof(sampleElement.QuantityInStock)" headerText="@Html.DisplayNameFor(x => sampleElement.QuantityInStock)" allowEditing="false" type="number"></e-grid-column>
-            <e-grid-column width="100" field="@nameof(sampleElement.CountedQuantity)" headerText="@Html.DisplayNameFor(x => sampleElement.CountedQuantity)" type="number"></e-grid-column>
-            <e-grid-column width="100" field="@nameof(sampleElement.Discrepancy)" headerText="@Html.DisplayNameFor(x => sampleElement.Discrepancy)" type="number"></e-grid-column>
-            <e-grid-column width="150" field="@nameof(sampleElement.Reason)" headerText="@Html.DisplayNameFor(x => sampleElement.Reason)"></e-grid-column>
+            <e-grid-column width="150" field="@nameof(sampleElement.SpeciesId)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesId)" foreignKeyValue="SpeciesBinomial" dataSource="@speciesForeignData"></e-grid-column>
+            <e-grid-column width="100" field="@nameof(sampleElement.LabelQuantity)" headerText="@Html.DisplayNameFor(x => sampleElement.LabelQuantity)" type="number"></e-grid-column>
         </e-grid-columns>
     </ejs-grid>
 </div>
-<script>
-    function actionBegin(args) {
-        if ((args.requestType === 'add')) {
-            for (var i = 0; i < this.columns.length; i++) {
-                if ((this.columns[i].field == "SpeciesId") || (this.columns[i].field == "ProductTypeId")) {
-                    this.columns[i].allowEditing = true;
-                }
-            }
-        }
-        if (args.requestType === 'delete') {
-            if (args.data[0]['IsStock'] == true) {
-                args.cancel = true;
-            }
-        }
-    }
-
-    function actionComplete(args) {
-        if (args.requestType === 'save') {
-            for (var i = 0; i < this.columns.length; i++) {
-                if ((this.columns[i].field == "SpeciesId") || (this.columns[i].field == "ProductTypeId")) {
-                    this.columns[i].allowEditing = false;
-                }
-            }
-        }
-    }
-</script>
 <style>
     .e-grid .e-row .e-rowcell {
         padding-top: 2px;

@@ -3,11 +3,11 @@
 
 @model PdfViewerViewModel
 @{
-    //Genus.GenusListViewModel sampleElement = new Genus.GenusListViewModel();
+    string _controlId = "pdf-js-viewer";
 }
 <div class="container-lg">
     <!-- This is the canvas that will contain the pdf -->
-    <canvas id="theCanvas"></canvas>
+    <iframe id="@_controlId" src="pdf.js/web/viewer.html" style="width:@Model.Width; height:@Model.Height; overflow:hidden; position:relative;"></iframe>
 </div>
 <style>
     .e-grid .e-row .e-rowcell {

@@ -2,11 +2,9 @@
 @using PlantDataMvc.Web.Models.ViewComponents.ViewModels;
 
 @model PdfViewerViewModel
-@{
-    //Genus.GenusListViewModel sampleElement = new Genus.GenusListViewModel();
-}
+
 <div class="container-lg">
-    <ejs-pdfviewer id="pdfviewer" style="height:@Model.Height" serviceUrl="/Index" documentPath="test.pdf">
+    <ejs-pdfviewer id="pdfviewer" style="height:@Model.Height" serviceUrl="PdfViewer" documentPath="test.pdf">
     </ejs-pdfviewer>
 </div>
 <style>
