@@ -6,15 +6,13 @@
 
 <h1>View</h1>
 <div id="pdfViewer">
-@await Component.InvokeAsync(nameof(PdfViewer), new { height = "720px", width = "800px" })
+@await Component.InvokeAsync(nameof(PdfViewer), new { fileModel = Model, height = "720px", width = "800px" })
 </div>
-
-<!-- This is the canvas that will contain the pdf -->
-<canvas id="theCanvas"></canvas>
 
 <!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
 @section Scripts{
-    <script type="text/javascript" src="~/js/lib/pdflib.bundle.js"></script>
+@*    <script type="text/javascript" src="~/js/lib/pdflib.bundle.js"></script>
+*@
 @*    <script type="text/javascript">
 
         // This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded.

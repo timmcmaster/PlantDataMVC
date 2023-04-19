@@ -4,7 +4,7 @@
 @model PdfViewerViewModel
 
 <div class="container-lg">
-    <ejs-pdfviewer id="pdfviewer" style="height:@Model.Height" serviceUrl="PdfViewer" documentPath="test.pdf">
+    <ejs-pdfviewer id="pdfviewer" style="height:@Model.Height" serviceUrl="PdfViewer" documentPath="@Model.FileToView.DataBase64">
     </ejs-pdfviewer>
 </div>
 <style>

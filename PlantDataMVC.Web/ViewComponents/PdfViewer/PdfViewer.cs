@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PlantDataMvc.Web.Models.ViewComponents.ViewModels;
+using PlantDataMvc.Web.Models.ViewModels.Label;
 using System;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace PlantDataMVC.Web.ViewComponents.PdfViewer
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string width, string height)
+        public async Task<IViewComponentResult> InvokeAsync(FileModel fileModel, string width, string height)
         {
             string viewName = "Default";
 
@@ -24,6 +25,7 @@ namespace PlantDataMVC.Web.ViewComponents.PdfViewer
 
             var viewModel = new PdfViewerViewModel()
             {
+                FileToView = fileModel,
                 Width = width,
                 Height = height
             };

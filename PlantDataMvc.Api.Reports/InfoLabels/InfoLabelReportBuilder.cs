@@ -1,4 +1,5 @@
-﻿using PlantDataMVC.Api.Models.DataModels;
+﻿using Microsoft.Extensions.Logging;
+using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Api.Models.DomainFunctions;
 using PlantDataMVC.Api.Reports.InfoLabels.Models;
 using PlantDataMVC.Service;
@@ -8,10 +9,12 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
     public class InfoLabelReportBuilder : IInfoLabelReportBuilder
     {
         private readonly ISpeciesService _service;
+        private readonly ILogger<InfoLabelReportBuilder> _logger;
 
-        public InfoLabelReportBuilder(ISpeciesService service)
+        public InfoLabelReportBuilder(ISpeciesService service, ILogger<InfoLabelReportBuilder> logger)
         {
             _service = service;
+            _logger = logger;
         }
 
         public async Task<string?> GetInfoLabelReportAsync(List<SpeciesLabelItemRequestModel> requestedItems)
@@ -26,7 +29,7 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
             }
             catch (Exception ex)
             {
-                var a = ex.Message;
+                _logger.LogError(ex, "Exception occurred");
                 return null;
             }
 }

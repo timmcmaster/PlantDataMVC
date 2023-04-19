@@ -20,13 +20,15 @@ namespace PlantDataMVC.Api.Controllers
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly IMapper _mapper;
         private readonly ILogger<SpeciesController> _logger;
+        private readonly ILoggerFactory _loggerFactory;
 
-        public LabelController(IUnitOfWorkAsync unitOfWorkAsync, ISpeciesService service, IMapper mapper, ILogger<SpeciesController> logger)
+        public LabelController(IUnitOfWorkAsync unitOfWorkAsync, ISpeciesService service, IMapper mapper, ILogger<SpeciesController> logger, ILoggerFactory loggerFactory)
         {
             _service = service;
             _unitOfWorkAsync = unitOfWorkAsync;
             _mapper = mapper;
             _logger = logger;
+            _loggerFactory = loggerFactory;
         }
 
         // POST: api/Label/FetchPlantInfoLabelReportAsync
@@ -45,7 +47,8 @@ namespace PlantDataMVC.Api.Controllers
 
             try
             {
-                var reportBuilder = new InfoLabelReportBuilder(_service);
+                ILogger<InfoLabelReportBuilder> logger = _loggerFactory.CreateLogger<InfoLabelReportBuilder>();
+                var reportBuilder = new InfoLabelReportBuilder(_service, logger);
                 result.ReportDocument = await reportBuilder.GetInfoLabelReportAsync(dto.LabelRequests).ConfigureAwait(false);
             }
             catch (Exception e)

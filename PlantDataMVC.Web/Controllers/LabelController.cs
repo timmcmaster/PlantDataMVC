@@ -63,7 +63,7 @@ namespace PlantDataMVC.Web.Controllers
 
         // POST: /"ControllerName"/PlantsPrint
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> PlantsPrint(string LabelData)
+        public async Task<ActionResult> PlantsPrint(string labelData)
         {
             var failureResult = DefaultFormFailureResult();
 
@@ -73,9 +73,9 @@ namespace PlantDataMVC.Web.Controllers
                 return failureResult;
             }
             PlantLabelGridEditModel form = new PlantLabelGridEditModel();
-            if (LabelData != null)
+            if (labelData != null)
             {
-                form.Items = JsonConvert.DeserializeObject <IEnumerable<PlantLabelListEditModel>>(LabelData);
+                form.Items = JsonConvert.DeserializeObject<IEnumerable<PlantLabelListEditModel>>(labelData);
             }
 
             var result = await _mediator.Send(form);
@@ -86,7 +86,8 @@ namespace PlantDataMVC.Web.Controllers
             {
                 Name = "Test",
                 ContentType = "application/pdf",
-                Data = reportBytes
+                Data = reportBytes,
+                DataBase64 = result
             };
             //var successResult = RedirectToAction("ViewPdf", PlantDataMvcAppControllers.Label);
             var successResult = View("ViewPdf", fileModel);

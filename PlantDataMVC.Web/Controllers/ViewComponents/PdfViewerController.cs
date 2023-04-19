@@ -1,40 +1,40 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using Syncfusion.EJ2.PdfViewer;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Reflection;
 
 namespace PlantDataMVC.Web.Controllers.ViewComponents
 {
     public class PdfViewerController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IMemoryCache _cache;
 
-        public PdfViewerController(IWebHostEnvironment webHostEnvironment)
+        public PdfViewerController(IWebHostEnvironment webHostEnvironment, IMemoryCache cache)
         {
             _webHostEnvironment = webHostEnvironment;
+            _cache = cache;
         }
 
+        [AcceptVerbs("Post")]
+        [Route("[controller]/Load")]
         [HttpPost]
-        public ActionResult Load(jsonObjects jsonObject)
+        public IActionResult Load([FromBody] Dictionary<string, string> jsonObject)
         {
-            PdfRenderer pdfviewer = new PdfRenderer();
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
             MemoryStream stream = new MemoryStream();
 
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            
             object jsonResult = new object();
             
-            if (jsonObject != null && jsonData.ContainsKey("document"))
+            if (jsonObject != null && jsonObject.ContainsKey("document"))
             {
-                if (bool.Parse(jsonData["isFileName"]))
+                if (bool.Parse(jsonObject["isFileName"]))
                 {
-                    string documentPath = GetDocumentPath(jsonData["document"]);
+                    string documentPath = GetDocumentPath(jsonObject["document"]);
 
                     if (!string.IsNullOrEmpty(documentPath))
                     {
@@ -43,140 +43,150 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
                     }
                     else
                     {
-                        return this.Content(jsonData["document"] + " is not found");
+                        return this.Content(jsonObject["document"] + " is not found");
                     }
                 }
                 else
                 {
-                    byte[] bytes = Convert.FromBase64String(jsonData["document"]);
+                    byte[] bytes = Convert.FromBase64String(jsonObject["document"]);
                     stream = new MemoryStream(bytes);
 
                 }
             }
-            jsonResult = pdfviewer.Load(stream, jsonData);
+            jsonResult = pdfviewer.Load(stream, jsonObject);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
-        public Dictionary<string, string> JsonObjectsToDictionary(jsonObjects results)
+        [HttpPost]
+        public IActionResult ExportAnnotations([FromBody] Dictionary<string, string> jsonObject)
         {
-            Dictionary<string, object> resultObjects = new Dictionary<string, object>();
-            resultObjects = results.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .ToDictionary(prop => prop.Name, prop => prop.GetValue(results, null));
-            var emptyObjects = (from kv in resultObjects
-                                where kv.Value != null
-                                select kv).ToDictionary(kv => kv.Key, kv => kv.Value);
-            Dictionary<string, string> jsonResult = emptyObjects.ToDictionary(k => k.Key, k => k.Value.ToString());
-            return jsonResult;
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            string jsonResult = pdfviewer.ExportAnnotation(jsonObject);
+            return Content(jsonResult);
         }
 
         [HttpPost]
-        public ActionResult ExportAnnotations(jsonObjects jsonObject)
+        public IActionResult ImportAnnotations([FromBody] Dictionary<string, string> jsonObject)
         {
-            PdfRenderer pdfviewer = new PdfRenderer();
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            string jsonResult = pdfviewer.ExportAnnotation(jsonData);
-            return Content((jsonResult));
-        }
-
-        [HttpPost]
-        public ActionResult ImportAnnotations(jsonObjects jsonObject)
-        {
-            PdfRenderer pdfviewer = new PdfRenderer();
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
             string jsonResult = string.Empty;
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            if (jsonObject != null && jsonData.ContainsKey("fileName"))
+            object JsonResult;
+            if (jsonObject != null && jsonObject.ContainsKey("fileName"))
             {
-                string documentPath = GetDocumentPath(jsonData["fileName"]);
+                string documentPath = GetDocumentPath(jsonObject["fileName"]);
                 if (!string.IsNullOrEmpty(documentPath))
                 {
                     jsonResult = System.IO.File.ReadAllText(documentPath);
                 }
                 else
                 {
-                    return this.Content(jsonData["document"] + " is not found");
+                    return this.Content(jsonObject["document"] + " is not found");
                 }
             }
-            return Content(JsonConvert.SerializeObject(jsonResult));
-        }
-
-        [HttpPost]
-        public ActionResult ImportFormFields(jsonObjects jsonObject)
-        {
-            PdfRenderer pdfviewer = new PdfRenderer();
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            object jsonResult = pdfviewer.ImportFormFields(jsonData);
-            return Content(JsonConvert.SerializeObject(jsonResult));
-        }
-
-        [HttpPost]
-        public ActionResult ExportFormFields(jsonObjects jsonObject)
-        {
-            PdfRenderer pdfviewer = new PdfRenderer();
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            string jsonResult = pdfviewer.ExportFormFields(jsonData);
+            else
+            {
+                string extension = Path.GetExtension(jsonObject["importedData"]);
+                if (extension != ".xfdf")
+                {
+                    JsonResult = pdfviewer.ImportAnnotation(jsonObject);
+                    return Content(JsonConvert.SerializeObject(JsonResult));
+                }
+                else
+                {
+                    string documentPath = GetDocumentPath(jsonObject["importedData"]);
+                    if (!string.IsNullOrEmpty(documentPath))
+                    {
+                        byte[] bytes = System.IO.File.ReadAllBytes(documentPath);
+                        jsonObject["importedData"] = Convert.ToBase64String(bytes);
+                        JsonResult = pdfviewer.ImportAnnotation(jsonObject);
+                        return Content(JsonConvert.SerializeObject(JsonResult));
+                    }
+                    else
+                    {
+                        return this.Content(jsonObject["document"] + " is not found");
+                    }
+                }
+            }
             return Content(jsonResult);
         }
 
         [HttpPost]
-        public ActionResult RenderPdfPages(jsonObjects jsonObject)
+        public IActionResult ImportFormFields([FromBody] Dictionary<string, string> jsonObject)
         {
-            PdfRenderer pdfviewer = new PdfRenderer();
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            object jsonResult = pdfviewer.GetPage(jsonData);
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            object jsonResult = pdfviewer.ImportFormFields(jsonObject);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
         [HttpPost]
-        public ActionResult Unload(jsonObjects jsonObject)
+        public IActionResult ExportFormFields([FromBody] Dictionary<string, string> jsonObject)
         {
-            PdfRenderer pdfviewer = new PdfRenderer();
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            pdfviewer.ClearCache(jsonData);
-            return this.Content("Document cache is cleared");
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            string jsonResult = pdfviewer.ExportFormFields(jsonObject);
+            return Content(jsonResult);
         }
 
         [HttpPost]
-        public ActionResult RenderThumbnailImages(jsonObjects jsonObject)
+        public IActionResult RenderPdfPages([FromBody] Dictionary<string, string> jsonObject)
         {
-            PdfRenderer pdfviewer = new PdfRenderer();
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            object result = pdfviewer.GetThumbnailImages(jsonData);
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            object jsonResult = pdfviewer.GetPage(jsonObject);
+            return Content(JsonConvert.SerializeObject(jsonResult));
+        }
+
+        [HttpPost]
+        public IActionResult RenderPdfTexts([FromBody] Dictionary<string, string> jsonObject)
+        {
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            object result = pdfviewer.GetDocumentText(jsonObject);
             return Content(JsonConvert.SerializeObject(result));
         }
 
         [HttpPost]
-        public ActionResult Bookmarks(jsonObjects jsonObject)
+        public IActionResult Unload([FromBody] Dictionary<string, string> jsonObject)
         {
-            PdfRenderer pdfviewer = new PdfRenderer();
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            object jsonResult = pdfviewer.GetBookmarks(jsonData);
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            pdfviewer.ClearCache(jsonObject);
+            return this.Content("Document cache is cleared");
+        }
+
+        [HttpPost]
+        public IActionResult RenderThumbnailImages([FromBody] Dictionary<string, string> jsonObject)
+        {
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            object result = pdfviewer.GetThumbnailImages(jsonObject);
+            return Content(JsonConvert.SerializeObject(result));
+        }
+
+        [HttpPost]
+        public IActionResult Bookmarks([FromBody] Dictionary<string, string> jsonObject)
+        {
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            object jsonResult = pdfviewer.GetBookmarks(jsonObject);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
         [HttpPost]
-        public ActionResult RenderAnnotationComments(jsonObjects jsonObject)
+        public IActionResult RenderAnnotationComments([FromBody] Dictionary<string, string> jsonObject)
         {
-            PdfRenderer pdfviewer = new PdfRenderer();
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            object jsonResult = pdfviewer.GetAnnotationComments(jsonData);
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            object jsonResult = pdfviewer.GetAnnotationComments(jsonObject);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
         [HttpPost]
-        public ActionResult Download(jsonObjects jsonObject)
+        public IActionResult Download([FromBody] Dictionary<string, string> jsonObject)
         {
-            PdfRenderer pdfviewer = new PdfRenderer();
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            string documentBase = pdfviewer.GetDocumentAsBase64(jsonData);
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            string documentBase = pdfviewer.GetDocumentAsBase64(jsonObject);
             return Content(documentBase);
         }
 
         [HttpPost]
-        public ActionResult PrintImages(jsonObjects jsonObject)
+        public IActionResult PrintImages([FromBody] Dictionary<string, string> jsonObject)
         {
-            PdfRenderer pdfviewer = new PdfRenderer();
-            var jsonData = JsonObjectsToDictionary(jsonObject);
-            object pageImage = pdfviewer.GetPrintImage(jsonData);
+            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            object pageImage = pdfviewer.GetPrintImage(jsonObject);
             return Content(JsonConvert.SerializeObject(pageImage));
         }
 
@@ -187,7 +197,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             {
                 string basePath = _webHostEnvironment.WebRootPath;
                 string dataPath = string.Empty;
-                dataPath = basePath + "/";
+                dataPath = basePath + @"/Data/";
                 if (System.IO.File.Exists(dataPath + (document)))
                     documentPath = dataPath + document;
             }
@@ -197,45 +207,5 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             }
             return documentPath;
         }
-    }
-
-    public class jsonObjects
-    {
-        public string document { get; set; }
-        public string password { get; set; }
-        public string zoomFactor { get; set; }
-        public string isFileName { get; set; }
-        public string xCoordinate { get; set; }
-        public string yCoordinate { get; set; }
-        public string pageNumber { get; set; }
-        public string documentId { get; set; }
-        public string hashId { get; set; }
-        public string sizeX { get; set; }
-        public string sizeY { get; set; }
-        public string startPage { get; set; }
-        public string endPage { get; set; }
-        public string stampAnnotations { get; set; }
-        public string textMarkupAnnotations { get; set; }
-        public string stickyNotesAnnotation { get; set; }
-        public string shapeAnnotations { get; set; }
-        public string measureShapeAnnotations { get; set; }
-        public string action { get; set; }
-        public string pageStartIndex { get; set; }
-        public string pageEndIndex { get; set; }
-        public string fileName { get; set; }
-        public string elementId { get; set; }
-        public string pdfAnnotation { get; set; }
-        public string importPageList { get; set; }
-        public string uniqueId { get; set; }
-        public string data { get; set; }
-        public string viewPortWidth { get; set; }
-        public string viewportHeight { get; set; }
-        public string tilecount { get; set; }
-        public string isCompletePageSizeNotReceived { get; set; }
-        public string freeTextAnnotation { get; set; }
-        public string signatureData { get; set; }
-        public string fieldsData { get; set; }
-        public string FormDesigner { get; set; }
-        public string inkSignatureData { get; set; }
     }
 }
