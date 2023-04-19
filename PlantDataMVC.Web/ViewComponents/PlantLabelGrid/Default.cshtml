@@ -11,12 +11,15 @@
                         .ToList();
 }
 <div class="container-lg">
+    <input type="hidden" id="LabelData" value="" />
+
     <ejs-grid id="PlantLabelGrid"
               dataSource="@Model.Items"
               allowPaging="@Model.Options.AllowPaging"
               allowSorting="@Model.Options.AllowSorting"
               height="550" width="800"
-              toolbar="@Model.Options.ToolbarItems">
+              toolbar="@Model.Options.ToolbarItems"
+              actionComplete="actionComplete">
 @*        <e-data-manager adaptor="UrlAdaptor"
                         url="@Url.Action("UrlDatasource", @PlantDataMvcAppControllers.PlantLabelGrid, new { allowPaging = $"{Model.Options.AllowPaging}" })"
                         updateUrl="@Url.Action("Update", @PlantDataMvcAppControllers.PlantLabelGrid)"></e-data-manager>
@@ -28,6 +31,17 @@
         </e-grid-columns>
     </ejs-grid>
 </div>
+
+<script type="text/javascript">
+    function actionComplete(args) {
+        if (args.requestType === 'save') {
+            var ds = document.getElementById("PlantLabelGrid").ej2_instances[0].dataSource;
+            var s = JSON.stringify(ds);
+            $("#LabelData").val(s);
+        }
+    }
+</script>
+
 <style>
     .e-grid .e-row .e-rowcell {
         padding-top: 2px;

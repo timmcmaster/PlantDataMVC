@@ -1,11 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PlantDataMvc.Web.Models.ViewModels.Label;
 using PlantDataMVC.Web.Constants;
 using PlantDataMVC.Web.Controllers.Queries.Label;
 using PlantDataMVC.Web.Models.EditModels.Label;
 using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.Controllers
@@ -60,7 +63,7 @@ namespace PlantDataMVC.Web.Controllers
 
         // POST: /"ControllerName"/PlantsPrint
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> PlantsPrint(PlantLabelGridEditModel form)
+        public async Task<ActionResult> PlantsPrint(string LabelData)
         {
             var failureResult = DefaultFormFailureResult();
 
@@ -69,22 +72,55 @@ namespace PlantDataMVC.Web.Controllers
                 // TODO: Display any model validation errors
                 return failureResult;
             }
+            PlantLabelGridEditModel form = new PlantLabelGridEditModel();
+            if (LabelData != null)
+            {
+                form.Items = JsonConvert.DeserializeObject <IEnumerable<PlantLabelListEditModel>>(LabelData);
+            }
 
             var result = await _mediator.Send(form);
 
             var reportBytes = Convert.FromBase64String(result);
 
-            var fileModel = new FileModel() 
-            { 
-                Name = "Test", 
-                ContentType = "application/pdf", 
-                Data = reportBytes 
+            var fileModel = new FileModel()
+            {
+                Name = "Test",
+                ContentType = "application/pdf",
+                Data = reportBytes
             };
             //var successResult = RedirectToAction("ViewPdf", PlantDataMvcAppControllers.Label);
             var successResult = View("ViewPdf", fileModel);
 
             return string.IsNullOrEmpty(result) ? successResult : failureResult;
         }
+
+        //// POST: /"ControllerName"/PlantsPrint
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> PlantsPrint([FromForm] PlantLabelGridEditModel form)
+        //{
+        //    var failureResult = DefaultFormFailureResult();
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        // TODO: Display any model validation errors
+        //        return failureResult;
+        //    }
+
+        //    var result = await _mediator.Send(form);
+
+        //    var reportBytes = Convert.FromBase64String(result);
+
+        //    var fileModel = new FileModel() 
+        //    { 
+        //        Name = "Test", 
+        //        ContentType = "application/pdf", 
+        //        Data = reportBytes 
+        //    };
+        //    //var successResult = RedirectToAction("ViewPdf", PlantDataMvcAppControllers.Label);
+        //    var successResult = View("ViewPdf", fileModel);
+
+        //    return string.IsNullOrEmpty(result) ? successResult : failureResult;
+        //}
 
     }
 }

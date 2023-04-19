@@ -5,6 +5,8 @@
     Label.PlantLabelListViewModel sampleElement = new Label.PlantLabelListViewModel();
 }
 <div class="container-lg">
+    <input type="hidden" id="LabelData" value="" />
+
     <table id="main_grid" class="table border">
         <thead>
             <tr>
@@ -64,33 +66,63 @@
     }
 </div>
 <script type="text/javascript">
-    // Need checks to prevent duplicate rows by species and producttype
     function addRow() {
-        let table = document.getElementById("main_grid");
+        let table = document.getElementById('main_grid');
         let count = table.tBodies[0].rows.length;
 
         let row = table.tBodies[0].insertRow(-1);
 
         // SpeciesId cell
         let cell = row.insertCell(-1);
-        cell.style = "display: none;";
-        let speciesIdSelect = document.getElementById("addSpeciesId");
-        let speciesId = document.createElement("input");
+        cell.style = 'display: none;';
+        let speciesIdSelect = document.getElementById('addSpeciesId');
+        let speciesId = document.createElement('input');
         speciesId.value = speciesIdSelect.value;
-        speciesId.name = "form.Items[" + count + "].SpeciesId";
+        speciesId.name = 'form.Items[' + count + '].SpeciesId';
         cell.appendChild(speciesId);
 
         // SpeciesBinomial cell
         cell = row.insertCell();
         cell.innerText = speciesIdSelect.options[speciesIdSelect.selectedIndex].text;
 
-        // CountedQuantity cell
+        // LabelQuantity cell
         cell = row.insertCell();
-        let addLabelQty = document.getElementById("addLabelQuantity");
-        let labelQty = document.createElement("input");
-        labelQty.type = "number";
+        let addLabelQty = document.getElementById('addLabelQuantity');
+        let labelQty = document.createElement('input');
+        labelQty.type = 'number';
         labelQty.value = addLabelQty.value;
-        labelQty.name = "form.Items[" + count + "].LabelQuantity";
+        labelQty.name = 'form.Items[' + count + '].LabelQuantity';
         cell.appendChild(labelQty);
+
+        // write label data
+        writeLabelData();
+    }
+
+    function getTableDataSourceObject(tableId) {
+        let dsRows = [];
+
+        var table = document.getElementById(tableId);
+        var tableBody = table.tBodies[0];
+        for (var i = 0, row; row = tableBody.rows[i]; i++) {
+            // iterate through body rows
+            let rowObj = {};
+            for (var j = 0, col; col = row.cells[j]; j++) {
+                // get values from first input node (if any)
+                var input = col.querySelector("input");
+                if (input != null) {
+                    let colName = input.name;
+                    rowObj[colName] = input.value;
+                }
+            }
+            dsRows.push(rowObj);
+        }
+
+        return dsRows;
+    }
+
+    function writeLabelData() {
+        var ds = getTableDataSourceObject('main_grid');
+        var s = JSON.stringify(ds);
+        $("#LabelData").val(s);
     }
 </script>
