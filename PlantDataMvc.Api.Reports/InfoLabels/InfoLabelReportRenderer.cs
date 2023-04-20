@@ -10,8 +10,11 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
     {
         private readonly InfoLabelReportModel _reportModel;
 
-        private readonly int _orderLineRowHeight = 4;
-        private readonly int _orderLineFontSize = 11;
+        private readonly int _labelsPerRow = 2;
+        private readonly int _cellsPerLabel = 2; // Text cell and buffer cell
+
+        private readonly int _labelRowHeightMM = 15;
+        private readonly int _speciesNameFontSize = 11;
 
         public InfoLabelReportRenderer(InfoLabelReportModel reportModel)
         {
@@ -26,6 +29,7 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
             {
                 // Create the PDF Document
                 _report = new Document();
+                _report.DefaultPageSetup.PageFormat = PageFormat.A4;
 
                 CreateDocument();
 
@@ -34,6 +38,14 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
                 var pdfRenderer = new PdfDocumentRenderer() { Document = _report };
                 pdfRenderer.RenderDocument();
                 pdfRenderer.PdfDocument.Save(s);
+
+                // HACK: Save to file as well, for testing
+                string filePath = "..\\logs\\InfoLabelReport.pdf";
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }   
+                pdfRenderer.PdfDocument.Save(filePath);
 
                 reportData = Convert.ToBase64String(s.ToArray());
             }
@@ -50,63 +62,112 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
             // Add a section to the document
             Section section = _report.AddSection();
 
+            var defaultpagesetup = _report.DefaultPageSetup;
+
+            section.PageSetup = _report.DefaultPageSetup.Clone();
+
+            section.PageSetup.PageFormat = PageFormat.A4;
+
             section.PageSetup.Orientation = Orientation.Portrait; //_reportModel.HeaderInfo.ReportOrientation;
 
             section.PageSetup.LeftMargin = Unit.FromMillimeter(_pageLeftMargin);
             section.PageSetup.RightMargin = Unit.FromMillimeter(_pageRightMargin);
-            section.PageSetup.TopMargin = Unit.FromMillimeter(68);
-            section.PageSetup.BottomMargin = Unit.FromMillimeter(32);
+            section.PageSetup.TopMargin = Unit.FromMillimeter(_pageTopMargin);
+            section.PageSetup.BottomMargin = Unit.FromMillimeter(_pageBottomMargin);
 
-            section.PageSetup.HeaderDistance = Unit.FromMillimeter(_pageHeaderDistance);
-            section.PageSetup.FooterDistance = Unit.FromMillimeter(_pageFooterDistance);
+            //section.PageSetup.HeaderDistance = Unit.FromMillimeter(_pageHeaderDistance);
+            //section.PageSetup.FooterDistance = Unit.FromMillimeter(_pageFooterDistance);
 
-            Table labelItemsTable = CreateLabelItemTable();
+            Table table = CreateLabelItemTable();
+
+            const int cols = 2;
 
             foreach (var labelGroup in _reportModel.LabelItems)
             {
-                for (int i=0; i < labelGroup.LabelQuantity; i++)
+                if (labelGroup.LabelQuantity > 0)
                 {
-                    AddLabelItemLine(labelItemsTable, labelGroup);
+                    Row currentRow = table.AddRow();
+
+                    for (int i = 0; i < labelGroup.LabelQuantity; i++)
+                    {
+                        if ((i > 0) && i % _labelsPerRow == 0)
+                        {
+                            currentRow = table.AddRow();
+                        }
+
+                        int cellIndex = (i % _labelsPerRow) * _cellsPerLabel;
+                        AddLabelItem(currentRow.Cells[cellIndex], labelGroup);
+                    }
                 }
             }
         }
 
         private Table CreateLabelItemTable()
         {
-            // Total width = 276
-            int col0Width = 138;
-            int col1Width = 138;
-
+            // Total width = 210
+            var section = _report.LastSection;
+            var pageWidth = section.PageSetup.Orientation == Orientation.Landscape ? section.PageSetup.PageHeight : section.PageSetup.PageWidth;
+            var printableWidthMM = pageWidth.Millimeter - section.PageSetup.LeftMargin.Millimeter - section.PageSetup.RightMargin.Millimeter;
+            var labelBottomBufferWidth = Unit.FromMillimeter(25);
+            var textColWidth = printableWidthMM / _labelsPerRow - labelBottomBufferWidth.Millimeter;
+            
             Table table = _report.LastSection.AddTable();
 
             // table default format
-            table.Format.LineSpacingRule = LineSpacingRule.OnePtFive;
+            table.Format.LineSpacingRule = LineSpacingRule.Single;
             table.Format.Font.Name = _reportFont;
-            table.Format.Font.Size = _orderLineFontSize;
-            table.Rows.Height = Unit.FromMillimeter(_orderLineRowHeight);
+            table.Format.Font.Size = _speciesNameFontSize;
+            table.Rows.Height = Unit.FromMillimeter(_labelRowHeightMM);
+            table.Rows.HeightRule = RowHeightRule.AtLeast;
+            table.Borders.Visible = true;
 
             // Create columns
-            // Left column
+            // Left text column
             Column column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(col0Width);
+            column.Width = Unit.FromMillimeter(textColWidth);
             column.Format.Alignment = ParagraphAlignment.Left;
+            column.Borders.Right.Visible = false;
 
-            // Right column
+            // Left buffer column
             column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(col1Width);
+            column.Width = labelBottomBufferWidth;
             column.Format.Alignment = ParagraphAlignment.Left;
+            column.Borders.Left.Visible = false;
+
+            // Right text column
+            column = table.AddColumn();
+            column.Width = Unit.FromMillimeter(textColWidth);
+            column.Format.Alignment = ParagraphAlignment.Left;
+            column.Borders.Right.Visible = false;
+
+            // Right buffer column
+            column = table.AddColumn();
+            column.Width = labelBottomBufferWidth;
+            column.Format.Alignment = ParagraphAlignment.Left;
+            column.Borders.Left.Visible = false;
 
             return table;
         }
 
-
-        private void AddLabelItemLine(Table table, InfoLabelItemModel labelItem)
+        private void AddLabelItem(Cell cell, InfoLabelItemModel labelItem)
         {
-            Row row = table.AddRow();
+            var para = cell.AddParagraph(labelItem.SpeciesBinomial ?? "");
+            para.Format.Font.Bold = true;
+            para.Format.Font.Italic = true;
+            para.Format.Font.Size = 11;
+            para.Format.SpaceBefore = Unit.FromMillimeter(0);
+            para.Format.SpaceAfter = Unit.FromMillimeter(0);
 
-            var para = row.Cells[0].AddParagraph(labelItem.SpeciesBinomial ?? "junk");
-            para = row.Cells[0].AddParagraph(labelItem.CommonName ?? "junk");
-            para = row.Cells[0].AddParagraph(labelItem.Description ?? "junk");
+            var commonNameFont = para.Format.Font.Clone();
+            commonNameFont.Bold = false;
+            commonNameFont.Italic = false;
+            commonNameFont.Size = 10;
+            para.AddFormattedText($" - {labelItem.CommonName ?? ""}", commonNameFont);
+
+            para = cell.AddParagraph(labelItem.Description ?? "");
+            para.Format.Font.Bold = false;
+            para.Format.Font.Italic = false;
+            para.Format.Font.Size = 9;
         }
     }
 }
