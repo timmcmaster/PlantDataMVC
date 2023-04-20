@@ -104,9 +104,9 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
         {
             Row row = table.AddRow();
 
-            var para = row.Cells[0].AddParagraph(labelItem.SpeciesBinomial);
-            para = row.Cells[0].AddParagraph(labelItem.CommonName);
-            para = row.Cells[0].AddParagraph(labelItem.Description);
+            var para = row.Cells[0].AddParagraph(labelItem.SpeciesBinomial ?? "junk");
+            para = row.Cells[0].AddParagraph(labelItem.CommonName ?? "junk");
+            para = row.Cells[0].AddParagraph(labelItem.Description ?? "junk");
         }
     }
 }

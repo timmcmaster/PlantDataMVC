@@ -92,7 +92,7 @@ namespace PlantDataMVC.Web.Controllers
             //var successResult = RedirectToAction("ViewPdf", PlantDataMvcAppControllers.Label);
             var successResult = View("ViewPdf", fileModel);
 
-            return string.IsNullOrEmpty(result) ? successResult : failureResult;
+            return string.IsNullOrEmpty(result) ? failureResult : successResult;
         }
 
         //// POST: /"ControllerName"/PlantsPrint
