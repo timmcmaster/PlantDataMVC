@@ -1,0 +1,128 @@
+﻿@using Label = PlantDataMVC.Web.Models.ViewModels.Label
+
+@model BarcodeLabelGridViewModel
+@{
+    Label.BarcodeLabelListViewModel sampleElement = new Label.BarcodeLabelListViewModel();
+}
+<div class="container-lg">
+    <input type="hidden" id="LabelData" name="labelData" value="" />
+
+    <table id="main_grid" class="table border">
+        <thead>
+            <tr>
+                <th scope="col" style="display:none"></th> <!-- hidden column for species ID -->
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.ProductPriceText, Model.Options.AllowSorting)</th>
+                <th scope="col">@Html.ColumnHeaderFor(m => sampleElement.LabelQuantity, Model.Options.AllowSorting)</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int count = 0;
+                foreach (var entry in Model.Items)
+                {
+                    <tr>
+                        <td style="display:none">
+                            <input asp-for="@entry.ProductPriceId" name="form.Items[@count].SpeciesId" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => @entry.ProductPriceText)
+                        </td>
+                        <td>
+                            <input asp-for="@entry.LabelQuantity" name="form.Items[@count].LabelQuantity" />
+                        </td>
+                    </tr>
+                    count++;
+                }
+            }
+        </tbody>
+        @if (Model.Options.AllowAdd)
+        {
+            <tfoot>
+                <tr>
+                    <td style="display:none">
+                        <!-- speciesId column -->
+                    </td>
+                    <td>
+                        @Html.QueryDropDownFor(
+                            () => nameof(sampleElement.ProductPriceId),
+                            model => -1,
+                            new ListQuery<ProductPriceDataModel>(),
+                            p => p.Id,
+                            p => $"{p.ProductTypeName} {p.DateEffective.ToString("dd/MM/yyyy")}",
+                            new { @class = "form-select", id = "addSpeciesId" })
+                    </td>
+                    <td>
+                        <input type="number" id="addLabelQuantity" />
+                        <button id="addRowButton" type="button" onclick="addRow()">Add Row</button>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+    @if (Model.Options.AllowPaging)
+    {
+        @Html.PagingLinksFor(m => Model)
+    }
+</div>
+<script type="text/javascript">
+    function addRow() {
+        let table = document.getElementById('main_grid');
+        let count = table.tBodies[0].rows.length;
+
+        let row = table.tBodies[0].insertRow(-1);
+
+        // SpeciesId cell
+        let cell = row.insertCell(-1);
+        cell.style = 'display: none;';
+        let speciesIdSelect = document.getElementById('addSpeciesId');
+        let speciesId = document.createElement('input');
+        speciesId.value = speciesIdSelect.value;
+        speciesId.name = 'form.Items[' + count + '].SpeciesId';
+        cell.appendChild(speciesId);
+
+        // SpeciesBinomial cell
+        cell = row.insertCell();
+        cell.innerText = speciesIdSelect.options[speciesIdSelect.selectedIndex].text;
+
+        // LabelQuantity cell
+        cell = row.insertCell();
+        let addLabelQty = document.getElementById('addLabelQuantity');
+        let labelQty = document.createElement('input');
+        labelQty.type = 'number';
+        labelQty.value = addLabelQty.value;
+        labelQty.name = 'form.Items[' + count + '].LabelQuantity';
+        cell.appendChild(labelQty);
+
+        // write label data
+        writeLabelData();
+    }
+
+    function getTableDataSourceObject(tableId) {
+        let dsRows = [];
+
+        var table = document.getElementById(tableId);
+        var tableBody = table.tBodies[0];
+        for (var i = 0, row; row = tableBody.rows[i]; i++) {
+            // iterate through body rows
+            let rowObj = {};
+            for (var j = 0, col; col = row.cells[j]; j++) {
+                // get values from first input node (if any)
+                var input = col.querySelector("input");
+                if (input != null) {
+                    let colName = input.name;
+                    rowObj[colName] = input.value;
+                }
+            }
+            dsRows.push(rowObj);
+        }
+
+        return dsRows;
+    }
+
+    function writeLabelData() {
+        var ds = getTableDataSourceObject('main_grid');
+        var s = JSON.stringify(ds);
+        $("#LabelData").val(s);
+    }
+</script>

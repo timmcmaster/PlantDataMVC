@@ -77,7 +77,7 @@ namespace PlantDataMVC.Web.ViewComponents.SidebarMenu
 
                 new MenuItemViewModel(id:"sfPrint", text:"Labels", parentId:"null", url:string.Empty, iconCss:"bi-stickies"),
                 new MenuItemViewModel(id:"sfPrintLabels", text:"Information Labels", parentId:"sfPrint", url:Url.Action("Plants", PlantDataMvcAppControllers.Label) ?? string.Empty),
-                new MenuItemViewModel(id:"sfPrintBarcodes", text:"Barcode Labels", parentId:"sfPrint", url: string.Empty)
+                new MenuItemViewModel(id:"sfPrintBarcodes", text:"Barcode Labels", parentId:"sfPrint", url:Url.Action("Barcodes", PlantDataMvcAppControllers.Label) ?? string.Empty)
             };
 
             menuModel.MenuItems = menuItems;

@@ -1,0 +1,14 @@
+﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.Label.BarcodeLabelListViewModel>
+@{
+    ViewBag.Title = "Barcode Labels";
+}
+<h2>Barcode Labels</h2>
+<div class="container-lg">
+    <form asp-controller=@PlantDataMvcAppControllers.Label asp-action="BarcodesPrint">
+
+        @await Component.InvokeAsync("BarcodeLabelGrid", new { model = Model, gridOptions = Model.GridOptions })
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </form>
+</div>

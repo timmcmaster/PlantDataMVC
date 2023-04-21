@@ -6,25 +6,25 @@ using PlantDataMVC.Web.Models.ViewModels.Label;
 using System;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.Web.ViewComponents.PlantLabelGrid
+namespace PlantDataMVC.Web.ViewComponents.BarcodeLabelGrid
 {
-    public class PlantLabelGrid : ViewComponent
+    public class BarcodeLabelGrid : ViewComponent
     {
         private readonly bool _useBasicMvcViews = false;
 
-        public PlantLabelGrid(IConfiguration configuration)
+        public BarcodeLabelGrid(IConfiguration configuration)
         {
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<PlantLabelListViewModel> model, GridOptionsModel gridOptions)
+        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<BarcodeLabelListViewModel> model, GridOptionsModel gridOptions)
         {
             string viewName = "Default";
 
             if (_useBasicMvcViews)
                 viewName = "Basic";
 
-            var gridModel = new PlantLabelGridViewModel()
+            var gridModel = new BarcodeLabelGridViewModel()
             {
                 Options = gridOptions,
                 PageNumber = model.PageNumber,

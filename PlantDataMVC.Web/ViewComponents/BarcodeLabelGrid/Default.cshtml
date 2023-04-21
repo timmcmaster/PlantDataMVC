@@ -1,0 +1,47 @@
+﻿@using Label = PlantDataMVC.Web.Models.ViewModels.Label
+
+@inject PlantDataMVC.Web.Services.IProductPriceLookupService priceLookup
+
+@model BarcodeLabelGridViewModel
+@{
+    Label.BarcodeLabelListViewModel sampleElement = new Label.BarcodeLabelListViewModel();
+    var priceForeignData = priceLookup.GetData()
+                        .Select(p => new { ProductPriceId = p.Id, PriceText = $"{p.ProductTypeName} {p.DateEffective.ToString("dd/MM/yyyy")}"})
+                        .OrderBy(p => p.PriceText)
+                        .ToList();
+}
+<div class="container-lg">
+    <input type="hidden" id="LabelData" name="labelData" value="" />
+
+    <ejs-grid id="BarcodeLabelGrid"
+              dataSource="@Model.Items"
+              allowPaging="@Model.Options.AllowPaging"
+              allowSorting="@Model.Options.AllowSorting"
+              height="550" width="800"
+              toolbar="@Model.Options.ToolbarItems"
+              actionComplete="actionComplete">
+        <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
+        <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
+        <e-grid-columns>
+            <e-grid-column width="150" field="@nameof(sampleElement.ProductPriceId)" headerText="@Html.DisplayNameFor(x => sampleElement.ProductPriceId)" foreignKeyValue="PriceText" dataSource="@priceForeignData"></e-grid-column>
+            <e-grid-column width="100" field="@nameof(sampleElement.LabelQuantity)" headerText="@Html.DisplayNameFor(x => sampleElement.LabelQuantity)" type="number"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
+
+<script type="text/javascript">
+    function actionComplete(args) {
+        if (args.requestType === 'save') {
+            var ds = document.getElementById("BarcodeLabelGrid").ej2_instances[0].dataSource;
+            var s = JSON.stringify(ds);
+            $("#LabelData").val(s);
+        }
+    }
+</script>
+
+<style>
+    .e-grid .e-row .e-rowcell {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+</style>
