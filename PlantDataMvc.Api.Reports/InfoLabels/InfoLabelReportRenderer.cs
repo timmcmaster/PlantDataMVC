@@ -6,8 +6,20 @@ using PlantDataMvc.Api.Reports;
 
 namespace PlantDataMVC.Api.Reports.InfoLabels
 {
-    public class InfoLabelReportRenderer : BaseReportRenderer
+    public class InfoLabelReportRenderer
     {
+        private Document _report = new();
+
+        private readonly string _reportFont = "Arial";
+
+        // Page Setup
+        private readonly int _pageTopMargin = 5;
+        private readonly int _pageBottomMargin = 5;
+        private readonly int _pageLeftMargin = 5;
+        private readonly int _pageRightMargin = 5;
+
+
+
         private readonly InfoLabelReportModel _reportModel;
 
         private readonly int _labelsPerRow = 2;
@@ -62,8 +74,6 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
             // Add a section to the document
             Section section = _report.AddSection();
 
-            var defaultpagesetup = _report.DefaultPageSetup;
-
             section.PageSetup = _report.DefaultPageSetup.Clone();
 
             section.PageSetup.PageFormat = PageFormat.A4;
@@ -75,8 +85,6 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
             section.PageSetup.TopMargin = Unit.FromMillimeter(_pageTopMargin);
             section.PageSetup.BottomMargin = Unit.FromMillimeter(_pageBottomMargin);
 
-            //section.PageSetup.HeaderDistance = Unit.FromMillimeter(_pageHeaderDistance);
-            //section.PageSetup.FooterDistance = Unit.FromMillimeter(_pageFooterDistance);
 
             Table table = CreateLabelItemTable();
 

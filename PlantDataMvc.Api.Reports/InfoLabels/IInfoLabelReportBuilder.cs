@@ -1,6 +1,4 @@
 ﻿using PlantDataMVC.Api.Models.DataModels;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PlantDataMVC.Api.Reports.InfoLabels
 {
