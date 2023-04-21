@@ -10,10 +10,9 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
         private Document _report = new();
 
         private readonly string _reportFont = "Arial";
-        private readonly string _barcodeFont = "Libre Barcode 39";
 
         // Page Setup
-        private readonly double _pageTopMargin = 10.9;
+        private readonly double _pageTopMargin = 10.7;
         private readonly double _pageBottomMargin = 0;
         private readonly double _pageLeftMargin = 4.7;
         private readonly double _pageRightMargin = 4.7;
@@ -106,10 +105,10 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
 
             //CreateFontTestPages();
 
-            // Chuck in barcode test page
-            Table testTable = CreateBarcodeTestTable();
-            AddBarcodeHeaderRow(testTable);
-            AddBarcodeTestRows(testTable);
+            //// Barcode test page
+            //Table testTable = CreateBarcodeTestTable();
+            //AddBarcodeHeaderRow(testTable);
+            //AddBarcodeTestRows(testTable);
 
 
             // Create labels
@@ -123,6 +122,7 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
                 for (int rowIndex = 0; rowIndex < _rowsPerPage; rowIndex++)
                 {
                     currentRow = table.AddRow();
+                    currentRow.VerticalAlignment = VerticalAlignment.Center;
 
                     int colIndex = 0;
                     while (colIndex < _columnsPerRow)
