@@ -22,6 +22,7 @@ using Microsoft.IdentityModel.Tokens;
 using PlantDataMVC.Common.Client;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.StaticFiles;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace PlantDataMVC.Web
@@ -177,7 +178,13 @@ namespace PlantDataMVC.Web
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+
+            var provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".properties"] = "application/octet-stream";
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                ContentTypeProvider = provider
+            });
             
             app.UseSerilogRequestLogging(); // Nicer HTTP request logging than stdd Ms stuff
             

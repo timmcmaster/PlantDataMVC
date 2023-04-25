@@ -23,13 +23,13 @@
                 {
                     <tr>
                         <td style="display:none">
-                            <input asp-for="@entry.SpeciesId" name="form.Items[@count].SpeciesId" />
+                            <input asp-for="@entry.SpeciesId" name="SpeciesId" />
                         </td>
                         <td>
                             @Html.DisplayFor(m => @entry.SpeciesBinomial)
                         </td>
                         <td>
-                            <input asp-for="@entry.LabelQuantity" name="form.Items[@count].LabelQuantity" />
+                            <input asp-for="@entry.LabelQuantity" name="LabelQuantity" />
                         </td>
                     </tr>
                     count++;
@@ -78,7 +78,7 @@
         let speciesIdSelect = document.getElementById('addSpeciesId');
         let speciesId = document.createElement('input');
         speciesId.value = speciesIdSelect.value;
-        speciesId.name = 'form.Items[' + count + '].SpeciesId';
+        speciesId.name = 'SpeciesId';
         cell.appendChild(speciesId);
 
         // SpeciesBinomial cell
@@ -91,7 +91,7 @@
         let labelQty = document.createElement('input');
         labelQty.type = 'number';
         labelQty.value = addLabelQty.value;
-        labelQty.name = 'form.Items[' + count + '].LabelQuantity';
+        labelQty.name = 'LabelQuantity';
         cell.appendChild(labelQty);
 
         // write label data

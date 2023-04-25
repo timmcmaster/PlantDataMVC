@@ -63,21 +63,28 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
 
                 CreateDocument();
 
-                using MemoryStream s = new MemoryStream();
+                using MemoryStream ms = new MemoryStream();
 
                 var pdfRenderer = new PdfDocumentRenderer() { Document = _report };
                 pdfRenderer.RenderDocument();
-                pdfRenderer.PdfDocument.Save(s);
+                pdfRenderer.PdfDocument.Save(ms);
+
+                var reportBytes = ms.ToArray();
+                reportData = Convert.ToBase64String(reportBytes);
 
                 // HACK: Save to file as well, for testing
-                string filePath = "..\\logs\\BarcodeLabelReport.pdf";
-                if (File.Exists(filePath))
                 {
-                    File.Delete(filePath);
+                    string filePath = "..\\logs\\BarcodeLabelReport.pdf";
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+                    using (var file = File.OpenWrite(filePath))
+                    {
+                        file.Write(reportBytes);
+                    }
                 }
-                pdfRenderer.PdfDocument.Save(filePath);
 
-                reportData = Convert.ToBase64String(s.ToArray());
             }
             catch
             {

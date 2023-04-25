@@ -1,14 +1,71 @@
 ﻿@using PlantDataMVC.Web.ViewComponents.PdfViewer;
 @using PlantDataMvc.Web.Models.ViewComponents.ViewModels;
+@using System.IO;
 
 @model PdfViewerViewModel
 @{
     string _controlId = "pdf-js-viewer";
 }
 <div class="container-lg">
-    <!-- This is the canvas that will contain the pdf -->
-    <iframe id="@_controlId" src="pdf.js/web/viewer.html" style="width:@Model.Width; height:@Model.Height; overflow:hidden; position:relative;"></iframe>
+    <iframe id="@_controlId" src="../pdf.js/web/viewer.html?file=" title="webviewer" style="width:@Model.Width; height:@Model.Height; overflow:hidden; position:relative;"></iframe>
 </div>
+<div>
+    <input type="button" value="Load PDF" onclick="loadPdf()" />
+</div>
+<script>
+    //$(document).ready(function () {
+    //    loadPDFData('@Model.FileToView.DataBase64');
+    //});
+    //document.addEventListener("DOMContentLoaded", function (event) {
+    //    loadPdf();
+    //});
+    var documentBase64 = '@Html.Raw(Model.FileToView.DataBase64)';
+
+    document.addEventListener("webviewerloaded", async () => {
+        loadPdf();
+    });
+
+    function loadPdf() {
+        var documentAsUint8 = base64ToUint8Array(documentBase64);
+        let reqObject = { data: documentAsUint8 };
+
+        loadPDFData(reqObject);
+    }
+
+    function base64ToUint8Array(base64data) {
+        var raw = window.atob(base64data);
+        var rawLength = raw.length;
+        var uint8Array = new Uint8Array(new ArrayBuffer(rawLength));
+
+        for (var i = 0; i < rawLength; i++) {
+            uint8Array[i] = raw.charCodeAt(i);
+        }
+        return uint8Array;
+    }
+
+    function loadPDFData(reqObject) {
+        // data is already decoded from base64 in previous steps
+        var pdfjsframe = document.getElementById('@_controlId');
+
+        let pdfViewerApp = pdfjsframe.contentWindow.PDFViewerApplication;
+        let pdfViewerAppOptions = pdfjsframe.contentWindow.PDFViewerApplicationOptions;
+        // https://github.com/mozilla/pdf.js/blob/master/web/app_options.js
+        if (pdfViewerAppOptions === undefined) {
+            alert("pdfViewerAppOptions is undefined");
+        }
+        else {
+            pdfViewerAppOptions.set('defaultUrl', '');
+            pdfViewerAppOptions.set('viewerCssTheme', 2);
+        }
+
+        if (pdfViewerApp === undefined) {
+            alert("PDFViewerApplication is undefined");
+        }
+        else {
+            pdfViewerApp.open(reqObject);
+        }
+    }
+</script>
 <style>
     .e-grid .e-row .e-rowcell {
         padding-top: 2px;

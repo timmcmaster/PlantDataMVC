@@ -45,21 +45,23 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
 
                 CreateDocument();
 
-                using MemoryStream s = new MemoryStream();
+                using MemoryStream ms = new MemoryStream();
 
                 var pdfRenderer = new PdfDocumentRenderer() { Document = _report };
                 pdfRenderer.RenderDocument();
-                pdfRenderer.PdfDocument.Save(s);
+                pdfRenderer.PdfDocument.Save(ms,false);
+
+                var reportBytes = ms.ToArray();
+                reportData = Convert.ToBase64String(ms.ToArray());
 
                 // HACK: Save to file as well, for testing
-                string filePath = "..\\logs\\InfoLabelReport.pdf";
-                if (File.Exists(filePath))
                 {
-                    File.Delete(filePath);
-                }   
-                pdfRenderer.PdfDocument.Save(filePath);
-
-                reportData = Convert.ToBase64String(s.ToArray());
+                    string filePath = "..\\logs\\InfoLabelReport.pdf";
+                    using (var file = File.OpenWrite(filePath))
+                    {
+                        file.Write(reportBytes);
+                    }
+                }
             }
             catch
             {

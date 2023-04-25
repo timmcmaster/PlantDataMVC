@@ -23,13 +23,13 @@
                 {
                     <tr>
                         <td style="display:none">
-                            <input asp-for="@entry.ProductPriceId" name="form.Items[@count].SpeciesId" />
+                            <input asp-for="@entry.ProductPriceId" name="ProductPriceId" />
                         </td>
                         <td>
                             @Html.DisplayFor(m => @entry.ProductPriceText)
                         </td>
                         <td>
-                            <input asp-for="@entry.LabelQuantity" name="form.Items[@count].LabelQuantity" />
+                            <input asp-for="@entry.LabelQuantity" name="LabelQuantity" />
                         </td>
                     </tr>
                     count++;
@@ -50,7 +50,7 @@
                             new ListQuery<ProductPriceDataModel>(),
                             p => p.Id,
                             p => $"{p.ProductTypeName} {p.DateEffective.ToString("dd/MM/yyyy")}",
-                            new { @class = "form-select", id = "addSpeciesId" })
+                            new { @class = "form-select", id = "addProductPriceId" })
                     </td>
                     <td>
                         <input type="number" id="addLabelQuantity" />
@@ -75,15 +75,15 @@
         // SpeciesId cell
         let cell = row.insertCell(-1);
         cell.style = 'display: none;';
-        let speciesIdSelect = document.getElementById('addSpeciesId');
-        let speciesId = document.createElement('input');
-        speciesId.value = speciesIdSelect.value;
-        speciesId.name = 'form.Items[' + count + '].SpeciesId';
-        cell.appendChild(speciesId);
+        let productPriceIdSelect = document.getElementById('addProductPriceId');
+        let productPriceId = document.createElement('input');
+        productPriceId.value = productPriceIdSelect.value;
+        productPriceId.name = 'ProductPriceId';
+        cell.appendChild(productPriceId);
 
-        // SpeciesBinomial cell
+        // ProductPriceText cell
         cell = row.insertCell();
-        cell.innerText = speciesIdSelect.options[speciesIdSelect.selectedIndex].text;
+        cell.innerText = productPriceIdSelect.options[productPriceIdSelect.selectedIndex].text;
 
         // LabelQuantity cell
         cell = row.insertCell();
@@ -91,7 +91,7 @@
         let labelQty = document.createElement('input');
         labelQty.type = 'number';
         labelQty.value = addLabelQty.value;
-        labelQty.name = 'form.Items[' + count + '].LabelQuantity';
+        labelQty.name = 'LabelQuantity';
         cell.appendChild(labelQty);
 
         // write label data

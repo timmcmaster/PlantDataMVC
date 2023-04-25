@@ -51,6 +51,7 @@
     <Folder Include="wwwroot\js\dist\" />
     <Folder Include="wwwroot\js\lib\" />
     <Folder Include="wwwroot\js\src\syncfusion\" />
+    <Folder Include="wwwroot\pdf.js\web\" />
   </ItemGroup>
 
 </Project>
