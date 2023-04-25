@@ -333,3 +333,5 @@ ASALocalRun/
 PlantDataMVC.UI/Scripts/dist/app.bundle.js
 PlantDataMVC.UI/Scripts/lib/maplib.bundle.js
 /PlantDataMVC.Web/wwwroot/pdfViewertest.html
+PlantDataMVC.Web/wwwroot/js/dist/
+PlantDataMVC.Web/wwwroot/js/lib/
