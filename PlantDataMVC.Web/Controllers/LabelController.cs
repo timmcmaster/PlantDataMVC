@@ -82,7 +82,7 @@ namespace PlantDataMVC.Web.Controllers
 
             var fileModel = new FileModel()
             {
-                Name = "Test",
+                Name = $"PlantInfoLabels-{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf",
                 ContentType = "application/pdf",
                 Data = reportBytes,
                 DataBase64 = result
@@ -154,7 +154,7 @@ namespace PlantDataMVC.Web.Controllers
 
             var fileModel = new FileModel()
             {
-                Name = "Test",
+                Name = $"BarcodeLabels-{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf",
                 ContentType = "application/pdf",
                 Data = reportBytes,
                 DataBase64 = result
