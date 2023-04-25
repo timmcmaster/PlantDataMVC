@@ -60,9 +60,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Web", "Framework.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.Web", "PlantDataMVC.Web\PlantDataMVC.Web.csproj", "{1D9FB366-7D61-4CF7-9083-6781D513B3DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.Common.Client", "PlantDataMVC.common.Client\PlantDataMVC.Common.Client.csproj", "{49DAD686-0BDD-403B-A2A3-D013BF7AF380}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.Common.Client", "PlantDataMVC.Common.Client\PlantDataMVC.Common.Client.csproj", "{49DAD686-0BDD-403B-A2A3-D013BF7AF380}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVc.Repository.Models", "PlantDataMVc.Repository.Models\PlantDataMVc.Repository.Models.csproj", "{39836D0F-098C-479E-82E9-08C42BB18460}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.Repository.Models", "PlantDataMVc.Repository.Models\PlantDataMVC.Repository.Models.csproj", "{39836D0F-098C-479E-82E9-08C42BB18460}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Identity", "5.Identity", "{7B64A4AD-2C74-4CD3-A3AA-D56127D33778}"
 EndProject
@@ -70,7 +70,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6.Api", "6.Api", "{DE080546
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMvc.Web.Models", "PlantDataMvc.Web.Models\PlantDataMvc.Web.Models.csproj", "{40717944-8696-45A6-AA07-4AE545866E15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantDataMvc.Api.Reports", "PlantDataMvc.Api.Reports\PlantDataMvc.Api.Reports.csproj", "{5D89937B-28B0-4013-B9BB-6192214CC498}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMvc.Api.Reports", "PlantDataMvc.Api.Reports\PlantDataMvc.Api.Reports.csproj", "{5D89937B-28B0-4013-B9BB-6192214CC498}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.DbMigrations", "PlantDataMVC.DbMigrations\PlantDataMVC.DbMigrations.csproj", "{365255BF-AC71-4045-954E-29A8514F558B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -352,6 +354,18 @@ Global
 		{5D89937B-28B0-4013-B9BB-6192214CC498}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5D89937B-28B0-4013-B9BB-6192214CC498}.Release|x86.ActiveCfg = Release|Any CPU
 		{5D89937B-28B0-4013-B9BB-6192214CC498}.Release|x86.Build.0 = Release|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Debug|x86.Build.0 = Debug|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Release|x86.ActiveCfg = Release|Any CPU
+		{365255BF-AC71-4045-954E-29A8514F558B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -378,6 +392,7 @@ Global
 		{39836D0F-098C-479E-82E9-08C42BB18460} = {CCCA5B13-EEF2-44A1-B6B0-6819F412FEB0}
 		{40717944-8696-45A6-AA07-4AE545866E15} = {8359D422-6DDC-4C3C-89A1-69172DE28F52}
 		{5D89937B-28B0-4013-B9BB-6192214CC498} = {DE080546-74E2-498D-98DA-58D0CB4C4C1A}
+		{365255BF-AC71-4045-954E-29A8514F558B} = {CCCA5B13-EEF2-44A1-B6B0-6819F412FEB0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {60B4C356-76F5-4270-90B7-5609C4A1FDFE}

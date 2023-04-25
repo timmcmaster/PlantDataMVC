@@ -1,10 +1,6 @@
-﻿// ReSharper disable CheckNamespace
-
-using DelegateDecompiler;
-using Interfaces.Domain.Entity;
+﻿using Interfaces.Domain.Entity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlantDataMVC.Entities.EntityModels
 {
@@ -64,7 +60,5 @@ namespace PlantDataMVC.Entities.EntityModels
             PlantStocks = new List<PlantStockEntityModel>();
             SeedBatches = new List<SeedBatchEntityModel>();
         }
-
     }
-
 }

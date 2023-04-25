@@ -1,6 +1,4 @@
-﻿// ReSharper disable CheckNamespace
-
-using Interfaces.Domain.Entity;
+﻿using Interfaces.Domain.Entity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 

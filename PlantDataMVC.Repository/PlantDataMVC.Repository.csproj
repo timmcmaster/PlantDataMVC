@@ -8,7 +8,7 @@
     <ProjectReference Include="..\Framework.Domain.EF\Framework.Domain.EF.csproj" />
     <ProjectReference Include="..\Interfaces.Domain\Interfaces.Domain.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Entities\PlantDataMVC.Entities.csproj" />
-    <ProjectReference Include="..\PlantDataMVc.Repository.Models\PlantDataMVc.Repository.Models.csproj" />
+    <ProjectReference Include="..\PlantDataMVc.Repository.Models\PlantDataMVC.Repository.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UnitOfWork\" />
