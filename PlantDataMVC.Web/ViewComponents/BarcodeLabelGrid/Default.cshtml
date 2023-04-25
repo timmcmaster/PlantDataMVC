@@ -6,7 +6,7 @@
 @{
     Label.BarcodeLabelListViewModel sampleElement = new Label.BarcodeLabelListViewModel();
     var priceForeignData = priceLookup.GetData()
-                        .Select(p => new { ProductPriceId = p.Id, PriceText = $"{p.ProductTypeName} {p.DateEffective.ToString("dd/MM/yyyy")}"})
+                        .Select(p => new { ProductPriceId = p.Id, PriceText = $"{p.PriceListTypeName}, {p.ProductTypeName}, {p.Price.ToString("C")}, {p.DateEffective.ToString("dd/MM/yyyy")}" })
                         .OrderBy(p => p.PriceText)
                         .ToList();
 }
