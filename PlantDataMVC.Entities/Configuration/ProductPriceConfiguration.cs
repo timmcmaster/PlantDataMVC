@@ -28,6 +28,7 @@ namespace PlantDataMVC.Entities.Configuration
             builder.Property(x => x.ProductTypeId).IsRequired();
             builder.Property(x => x.Price).IsRequired();//.HasPrecision(18, 2);
             builder.Property(x => x.DateEffective).IsRequired();
+            builder.Property(x => x.BarcodeSKU).IsRequired();
 
             // Ignore 
 
@@ -38,6 +39,7 @@ namespace PlantDataMVC.Entities.Configuration
             builder.Property(x => x.ProductTypeId).HasColumnName(@"ProductTypeId").HasColumnType("int"); //.HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             builder.Property(x => x.Price).HasColumnName(@"Price").HasColumnType("decimal");
             builder.Property(x => x.DateEffective).HasColumnName(@"DateEffective").HasColumnType("date"); //.HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            builder.Property(x => x.BarcodeSKU).HasColumnName(@"BarcodeSKU").HasColumnType("nvarchar");
 
             // Unique key
             builder.HasAlternateKey(x => new { x.PriceListTypeId, x.ProductTypeId, x.DateEffective }).HasName("AK_ProductPrice_ProductType_PriceListType_Date");

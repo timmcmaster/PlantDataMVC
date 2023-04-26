@@ -1,4 +1,5 @@
-﻿using Interfaces.Domain.Entity;
+﻿using System;
+using Interfaces.Domain.Entity;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.EntityModels
@@ -24,7 +25,13 @@ namespace PlantDataMVC.Entities.EntityModels
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Date effective")]
-        public System.DateTime DateEffective { get; set; } // DateEffective (Unique key 3)
+        public DateTime DateEffective { get; set; } // DateEffective (Unique key 3)
+
+        [Required(AllowEmptyStrings = true)]
+        [MaxLength(40)]
+        [StringLength(40)]
+        [Display(Name = "Barcode SKU")]
+        public string BarcodeSKU { get; set; }
 
         // Foreign keys
 
