@@ -36,34 +36,20 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
 
         private async Task LoadLabelItems(BarcodeLabelReportModel reportModel, List<ProductPriceBarcodeItemRequestModel> requestedItems)
         {
-            //foreach (var item in requestedItems)
-            //{
-            //    var productPriceEntity = _service.GetItemById(item.ProductPriceId);
-            //    if (productPriceEntity != null)
-            //    {
-            //        var labelItem = new BarcodeLabelItemModel()
-            //        {
-            //            LabelText = "Tim McMaster",
-            //            Price = $"{productPriceEntity.Price.ToString("C")}",
-            //            BarcodeText = productPriceEntity.ProductSKU
-            //        };
-            //        reportModel.LabelItems.Add(labelItem);
-            //    }
-            //}
-
-            // Should get this from DB
-            string labelText = "Tim McMaster";
-            decimal price = 2.50M;
-            string barcodeSKUText = "38 2.5";
-
-            var tempLabelItem = new BarcodeLabelItemModel()
+            foreach (var item in requestedItems)
             {
-                LabelText =labelText,
-                Price = $"{price.ToString("C")}",
-                BarcodeText = barcodeSKUText
-            };
-
-            reportModel.LabelItems.Add(tempLabelItem);
+                var productPriceEntity = _service.GetItemById(item.ProductPriceId);
+                if (productPriceEntity != null)
+                {
+                    var labelItem = new BarcodeLabelItemModel()
+                    {
+                        LabelText = "Tim McMaster",
+                        Price = $"{productPriceEntity.Price.ToString("C")}",
+                        BarcodeText = productPriceEntity.BarcodeSKU
+                    };
+                    reportModel.LabelItems.Add(labelItem);
+                }
+            }
         }
     }
 }

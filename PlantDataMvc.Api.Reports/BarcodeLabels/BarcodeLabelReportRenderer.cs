@@ -36,7 +36,6 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
 
         private readonly int _textFontSize = 11;
         private readonly int _priceFontSize = 14;
-        private readonly int _barcodeFontSize = 20;
 
         public BarcodeLabelReportRenderer(BarcodeLabelReportModel reportModel)
         {
@@ -212,9 +211,12 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
             para.Format.Font.Size = _priceFontSize;
             para.Format.Font.Bold = true;
 
-            para = cell.AddParagraph(_selectedBarcodeFontInfo.EncodedText(labelItem.BarcodeText));
-            para.Format.Font.Name = _selectedBarcodeFontInfo.Name;
-            para.Format.Font.Size = _selectedBarcodeFontInfo.Size;
+            if (!string.IsNullOrEmpty(labelItem.BarcodeText))
+            {
+                para = cell.AddParagraph(_selectedBarcodeFontInfo.EncodedText(labelItem.BarcodeText));
+                para.Format.Font.Name = _selectedBarcodeFontInfo.Name;
+                para.Format.Font.Size = _selectedBarcodeFontInfo.Size;
+            }
         }
 
         private Table CreateBarcodeTestTable()
