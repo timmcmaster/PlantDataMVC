@@ -56,7 +56,7 @@ namespace PlantDataMVC.Web
                 options.ClientId = "mvc.interactive";
                 options.ClientSecret = "secret";
                 options.ResponseType = OpenIdConnectResponseType.Code;
-                
+
                 options.Scope.Clear();
                 options.Scope.Add(OidcConstants.StandardScopes.OpenId);
                 options.Scope.Add(OidcConstants.StandardScopes.Profile);
@@ -148,7 +148,10 @@ namespace PlantDataMVC.Web
 
             // MVC
             services.AddControllersWithViews()
-                .AddJsonOptions(jsonOptions => jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null) // Don't convert property names to camelCase
+                .AddJsonOptions(jsonOptions =>
+                {
+                    jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null; // Don't convert property names to camelCase
+                })
                 .AddRazorOptions(options =>
                 {
                     // Allow for view components to be under ViewComponents folder at root as well as Views/Shared/Components folder

@@ -23,8 +23,12 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         [AcceptVerbs("Post")]
         [Route("[controller]/Load")]
         [HttpPost]
+        //[Consumes("application/json")]
         public IActionResult Load([FromBody] Dictionary<string, string> jsonObject)
         {
+            // get model state for testing
+            var modelState = this.ModelState;
+
             PdfRenderer pdfviewer = new PdfRenderer(_cache);
             MemoryStream stream = new MemoryStream();
 
@@ -50,82 +54,83 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
                 {
                     byte[] bytes = Convert.FromBase64String(jsonObject["document"]);
                     stream = new MemoryStream(bytes);
-
                 }
             }
             jsonResult = pdfviewer.Load(stream, jsonObject);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
-        [HttpPost]
-        public IActionResult ExportAnnotations([FromBody] Dictionary<string, string> jsonObject)
-        {
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
-            string jsonResult = pdfviewer.ExportAnnotation(jsonObject);
-            return Content(jsonResult);
-        }
+        //[HttpPost]
+        //public IActionResult ExportAnnotations([FromBody] Dictionary<string, string> jsonObject)
+        //{
+        //    PdfRenderer pdfviewer = new PdfRenderer(_cache);
+        //    string jsonResult = pdfviewer.ExportAnnotation(jsonObject);
+        //    return Content(jsonResult);
+        //}
 
-        [HttpPost]
-        public IActionResult ImportAnnotations([FromBody] Dictionary<string, string> jsonObject)
-        {
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
-            string jsonResult = string.Empty;
-            object JsonResult;
-            if (jsonObject != null && jsonObject.ContainsKey("fileName"))
-            {
-                string documentPath = GetDocumentPath(jsonObject["fileName"]);
-                if (!string.IsNullOrEmpty(documentPath))
-                {
-                    jsonResult = System.IO.File.ReadAllText(documentPath);
-                }
-                else
-                {
-                    return this.Content(jsonObject["document"] + " is not found");
-                }
-            }
-            else
-            {
-                string extension = Path.GetExtension(jsonObject["importedData"]);
-                if (extension != ".xfdf")
-                {
-                    JsonResult = pdfviewer.ImportAnnotation(jsonObject);
-                    return Content(JsonConvert.SerializeObject(JsonResult));
-                }
-                else
-                {
-                    string documentPath = GetDocumentPath(jsonObject["importedData"]);
-                    if (!string.IsNullOrEmpty(documentPath))
-                    {
-                        byte[] bytes = System.IO.File.ReadAllBytes(documentPath);
-                        jsonObject["importedData"] = Convert.ToBase64String(bytes);
-                        JsonResult = pdfviewer.ImportAnnotation(jsonObject);
-                        return Content(JsonConvert.SerializeObject(JsonResult));
-                    }
-                    else
-                    {
-                        return this.Content(jsonObject["document"] + " is not found");
-                    }
-                }
-            }
-            return Content(jsonResult);
-        }
+        //[HttpPost]
+        //public IActionResult ImportAnnotations([FromBody] Dictionary<string, string> jsonObject)
+        //{
+        //    PdfRenderer pdfviewer = new PdfRenderer(_cache);
+        //    string jsonResult = string.Empty;
+        //    object JsonResult;
+        //    if (jsonObject != null && jsonObject.ContainsKey("fileName"))
+        //    {
+        //        string documentPath = GetDocumentPath(jsonObject["fileName"]);
+        //        if (!string.IsNullOrEmpty(documentPath))
+        //        {
+        //            jsonResult = System.IO.File.ReadAllText(documentPath);
+        //        }
+        //        else
+        //        {
+        //            return this.Content(jsonObject["document"] + " is not found");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        string extension = Path.GetExtension(jsonObject["importedData"]);
+        //        if (extension != ".xfdf")
+        //        {
+        //            JsonResult = pdfviewer.ImportAnnotation(jsonObject);
+        //            return Content(JsonConvert.SerializeObject(JsonResult));
+        //        }
+        //        else
+        //        {
+        //            string documentPath = GetDocumentPath(jsonObject["importedData"]);
+        //            if (!string.IsNullOrEmpty(documentPath))
+        //            {
+        //                byte[] bytes = System.IO.File.ReadAllBytes(documentPath);
+        //                jsonObject["importedData"] = Convert.ToBase64String(bytes);
+        //                JsonResult = pdfviewer.ImportAnnotation(jsonObject);
+        //                return Content(JsonConvert.SerializeObject(JsonResult));
+        //            }
+        //            else
+        //            {
+        //                return this.Content(jsonObject["document"] + " is not found");
+        //            }
+        //        }
+        //    }
+        //    return Content(jsonResult);
+        //}
 
-        [HttpPost]
-        public IActionResult ImportFormFields([FromBody] Dictionary<string, string> jsonObject)
-        {
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
-            object jsonResult = pdfviewer.ImportFormFields(jsonObject);
-            return Content(JsonConvert.SerializeObject(jsonResult));
-        }
+        //[HttpPost]
+        //public IActionResult ImportFormFields([FromBody] Dictionary<string, string> jsonObject)
+        //{
+        //    PdfRenderer pdfviewer = new PdfRenderer(_cache);
+        //    object jsonResult = pdfviewer.ImportFormFields(jsonObject);
+        //    return Content(JsonConvert.SerializeObject(jsonResult));
+        //}
 
-        [HttpPost]
-        public IActionResult ExportFormFields([FromBody] Dictionary<string, string> jsonObject)
-        {
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
-            string jsonResult = pdfviewer.ExportFormFields(jsonObject);
-            return Content(jsonResult);
-        }
+        //[HttpPost]
+        //public IActionResult ExportFormFields([FromBody] Dictionary<string, string> jsonObject)
+        //{
+        //    PdfRenderer pdfviewer = new PdfRenderer(_cache);
+        //    string jsonResult = pdfviewer.ExportFormFields(jsonObject);
+        //    return Content(jsonResult);
+        //}
 
+        [AcceptVerbs("Post")]
+        [Route("[controller]/RenderPdfPages")]
         [HttpPost]
         public IActionResult RenderPdfPages([FromBody] Dictionary<string, string> jsonObject)
         {
@@ -134,14 +139,16 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
-        [HttpPost]
-        public IActionResult RenderPdfTexts([FromBody] Dictionary<string, string> jsonObject)
-        {
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
-            object result = pdfviewer.GetDocumentText(jsonObject);
-            return Content(JsonConvert.SerializeObject(result));
-        }
+        //[HttpPost]
+        //public IActionResult RenderPdfTexts([FromBody] Dictionary<string, string> jsonObject)
+        //{
+        //    PdfRenderer pdfviewer = new PdfRenderer(_cache);
+        //    object result = pdfviewer.GetDocumentText(jsonObject);
+        //    return Content(JsonConvert.SerializeObject(result));
+        //}
 
+        [AcceptVerbs("Post")]
+        [Route("[controller]/Unload")]
         [HttpPost]
         public IActionResult Unload([FromBody] Dictionary<string, string> jsonObject)
         {
@@ -150,6 +157,8 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             return this.Content("Document cache is cleared");
         }
 
+        [AcceptVerbs("Post")]
+        [Route("[controller]/RenderThumbnailImages")]
         [HttpPost]
         public IActionResult RenderThumbnailImages([FromBody] Dictionary<string, string> jsonObject)
         {
@@ -158,6 +167,8 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             return Content(JsonConvert.SerializeObject(result));
         }
 
+        [AcceptVerbs("Post")]
+        [Route("[controller]/Bookmarks")]
         [HttpPost]
         public IActionResult Bookmarks([FromBody] Dictionary<string, string> jsonObject)
         {
@@ -166,6 +177,8 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
+        [AcceptVerbs("Post")]
+        [Route("[controller]/RenderAnnotationComments")]
         [HttpPost]
         public IActionResult RenderAnnotationComments([FromBody] Dictionary<string, string> jsonObject)
         {
@@ -174,6 +187,8 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
+        [AcceptVerbs("Post")]
+        [Route("[controller]/Download")]
         [HttpPost]
         public IActionResult Download([FromBody] Dictionary<string, string> jsonObject)
         {
@@ -182,6 +197,8 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             return Content(documentBase);
         }
 
+        [AcceptVerbs("Post")]
+        [Route("[controller]/PrintImages")]
         [HttpPost]
         public IActionResult PrintImages([FromBody] Dictionary<string, string> jsonObject)
         {
@@ -208,4 +225,6 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             return documentPath;
         }
     }
+
+    //internal class SyncfusionPdfJson
 }
