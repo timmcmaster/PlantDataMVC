@@ -4,6 +4,7 @@ using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.ProductPrice;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.ViewComponents.ProductPriceGrid
@@ -17,7 +18,7 @@ namespace PlantDataMVC.Web.ViewComponents.ProductPriceGrid
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<ProductPriceListViewModel> productPrices, GridOptionsModel gridOptions, int? priceListTypeId = null)
+        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<ProductPriceListViewModel> productPrices, DateTime effectiveDate, GridOptionsModel gridOptions, int? priceListTypeId = null)
         {
             string viewName = "Default";
 
@@ -25,6 +26,11 @@ namespace PlantDataMVC.Web.ViewComponents.ProductPriceGrid
             {
                 viewName = "Basic";
             }
+
+            var productsByLastUpToEffectiveDate = productPrices.Where(x => x.DateEffective <= effectiveDate)
+                .GroupBy(y => y.ProductTypeId)
+                .Select(g => g.OrderByDescending(y => y.DateEffective).First())
+                .ToList();
 
             var gridModel = new ProductPriceGridViewModel()
             {
@@ -42,7 +48,7 @@ namespace PlantDataMVC.Web.ViewComponents.ProductPriceGrid
                 //SortExpression = model.SortExpression,
 
                 PriceListTypeId = priceListTypeId,
-                Items = productPrices
+                Items = productsByLastUpToEffectiveDate
             };
 
             return View(viewName, gridModel);

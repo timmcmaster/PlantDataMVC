@@ -2,6 +2,7 @@
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Api.Models.DomainFunctions;
 using PlantDataMVC.Repository.Models;
+using System.Linq;
 using Genus = PlantDataMVC.Web.Models.ViewModels.Genus;
 using Label = PlantDataMVC.Web.Models.ViewModels.Label;
 using Plant = PlantDataMVC.Web.Models.ViewModels.Plant;
@@ -476,6 +477,8 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
                 .ForMember(uio => uio.Kind, opt => opt.MapFrom(dm => dm.Kind))
+                .ForMember(uio => uio.EffectiveDates, opt => opt.MapFrom(dm => dm.ProductPrices.Select(m => m.DateEffective).Distinct().ToList()))
+                .ForMember(uio => uio.SelectedEffectiveDate, opt => opt.MapFrom(dm => dm.ProductPrices.OrderBy(m => m.DateEffective).Select(m => m.DateEffective).FirstOrDefault()))
                 .ForMember(uio => uio.ProductPrices, opt => opt.MapFrom(dm => dm.ProductPrices))
                 ;
         }

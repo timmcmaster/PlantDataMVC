@@ -23,10 +23,22 @@
             </div>
         </div>
 
+@*      dropdown for effective dates needed *@
+        <div class="row mb-3">
+            <label asp-for="SelectedEffectiveDate" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(
+                Model => Model.SelectedEffectiveDate,
+                new SelectList(Model.EffectiveDates),
+                "--Select Effective Date--",
+                new { @class="form-select" })
+            </div>
+        </div>
+
         <div class="row mb-3">
             <label asp-for="ProductPrices"></label>
             <div class="child-table">
-                @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, gridOptions = Model.GridOptions, priceListTypeId = Model.Id })
+                @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, effectiveDate = Model.SelectedEffectiveDate, gridOptions = Model.GridOptions, priceListTypeId = Model.Id })
             </div>
         </div>
     </fieldset>

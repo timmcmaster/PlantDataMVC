@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
@@ -12,13 +13,18 @@ namespace PlantDataMVC.Web.Models.ViewModels.PriceListType
         public int Id { get; set; }
 
         [Display(Name = "Name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [Display(Name = "Kind")]
-        public string Kind { get; set; }
+        public string Kind { get; set; } = string.Empty;
+
+        [Display(Name = "Effective Date")]
+        public DateTime SelectedEffectiveDate { get; set; }
+
+        public List<DateTime> EffectiveDates { get; set; } = new();
 
         [Display(Name = "Product Prices")]
-        public IList<ProductPriceListViewModel> ProductPrices { get; set; }
+        public List<ProductPriceListViewModel> ProductPrices { get; set; } = new();
 
         public GridOptionsModel GridOptions { get; set; } = new();
     }
