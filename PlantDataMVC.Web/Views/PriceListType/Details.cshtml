@@ -23,21 +23,25 @@
             </div>
         </div>
 
-@*      dropdown for effective dates needed *@
+        @* TODO: need selecting date to change grid content *@
+        @{
+            var datePairs = Model.EffectiveDates.Select(x => (Value: x.ToString("u"), Text: x.ToString())).ToList();
+            var selectList = new SelectList(datePairs, "Value", "Text");
+        }
         <div class="row mb-3">
             <label asp-for="SelectedEffectiveDate" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
                 @Html.DropDownListFor(
                 Model => Model.SelectedEffectiveDate,
                 new SelectList(Model.EffectiveDates),
-                "--Select Effective Date--",
-                new { @class="form-select" })
+                "--Select Date Effective--",
+                new { @class="form-select", @onchange="GetGrid(this)"})
             </div>
         </div>
 
         <div class="row mb-3">
             <label asp-for="ProductPrices"></label>
-            <div class="child-table">
+            <div id="pricesGridDiv" class="child-table">
                 @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, effectiveDate = Model.SelectedEffectiveDate, gridOptions = Model.GridOptions, priceListTypeId = Model.Id })
             </div>
         </div>
@@ -46,3 +50,34 @@
         <a asp-controller=@PlantDataMvcAppControllers.PriceListType asp-action="Index">Back to Index</a>
     </p>
 </div>
+@section Scripts{
+    <script type="text/javascript">
+        function GetGrid(selectControl) {
+            // Date will be treated as local TZ
+            var effectiveDate = new Date(selectControl.value);
+            // Get as naive date string by hacking
+            var offsetMinutes = effectiveDate.getTimezoneOffset();
+            var effectiveDateUTC = new Date(effectiveDate.getTime() - offsetMinutes*60000);
+            var jsonNaiveDate = effectiveDateUTC.toJSON().slice(0,-1);
+            
+            var modelJson = @Json.Serialize(Model);
+            modelJson.SelectedEffectiveDate = jsonNaiveDate;
+
+            var modelJsonString = JSON.stringify(modelJson);
+            var url = "@Url.Action("GetGridViewComponent", @PlantDataMvcAppControllers.ProductPriceGrid)";
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                contentType: "application/json",
+                data: modelJsonString,
+                success: function (result) {
+                    $("#pricesGridDiv").html("");
+                    $("#pricesGridDiv").html(result);
+                },
+                error: function (err) {
+                }
+            });
+        }
+    </script>
+}

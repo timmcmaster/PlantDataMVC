@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantDataMVC.Web.Controllers.Queries.ProductPrice;
 using PlantDataMVC.Web.Models.EditModels.ProductPrice;
+using PlantDataMVC.Web.Models.ViewModels.PriceListType;
 using Syncfusion.EJ2.Base;
 using System;
 using System.Linq;
@@ -92,5 +93,17 @@ namespace PlantDataMVC.Web.Controllers
 
             return Json(form);
         }
+
+        [HttpPost]
+        public IActionResult GetGridViewComponent([FromBody] PriceListTypeDetailsViewModel model)
+        {
+            if (model != null)
+            {
+                return ViewComponent("ProductPriceGrid", new { productPrices = model.ProductPrices, effectiveDate = model.SelectedEffectiveDate, gridOptions = model.GridOptions, priceListTypeId = model.Id });
+            }
+
+            return View();
+        }
+
     }
 }

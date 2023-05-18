@@ -18,7 +18,7 @@ namespace PlantDataMVC.Web.Models.ViewModels.PriceListType
         [Display(Name = "Kind")]
         public string Kind { get; set; } = string.Empty;
 
-        [Display(Name = "Effective Date")]
+        [Display(Name = "Date Effective")]
         public DateTime SelectedEffectiveDate { get; set; }
 
         public List<DateTime> EffectiveDates { get; set; } = new();
