@@ -1,0 +1,12 @@
+﻿@model PlantDataMVC.Web.Models.ViewComponents.ViewModels.ProductPriceGridViewModel
+﻿@{
+    Layout = null;
+}
+<link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/21.2.3/bootstrap5.css" />
+<script src="https://cdn.syncfusion.com/ej2/21.2.3/dist/ej2.min.js"></script>
+
+<div>
+@await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.Items, effectiveDate = Model.EffectiveDate, gridOptions = Model.Options, priceListTypeId = Model.PriceListTypeId })
+</div>
+
+<ejs-scripts></ejs-scripts>

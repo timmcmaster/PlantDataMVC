@@ -1,4 +1,5 @@
-﻿@model PlantDataMVC.Web.Models.ViewModels.PriceListType.PriceListTypeDetailsViewModel
+﻿@using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
+@model PlantDataMVC.Web.Models.ViewModels.PriceListType.PriceListTypeDetailsViewModel
 @{
     ViewBag.Title = "Details";
 }
@@ -43,6 +44,7 @@
             <label asp-for="ProductPrices"></label>
             <div id="pricesGridDiv" class="child-table">
                 @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, effectiveDate = Model.SelectedEffectiveDate, gridOptions = Model.GridOptions, priceListTypeId = Model.Id })
+                @*<partial name="_ProductPriceGridPartial" model="new ProductPriceGridViewModel() { Items = Model.ProductPrices, EffectiveDate = Model.SelectedEffectiveDate, Options = Model.GridOptions, PriceListTypeId = Model.Id }" />*@
             </div>
         </div>
     </fieldset>
@@ -65,19 +67,35 @@
 
             var modelJsonString = JSON.stringify(modelJson);
             var url = "@Url.Action("GetGridViewComponent", @PlantDataMvcAppControllers.ProductPriceGrid)";
+            //var url = "@Url.Action("GetGridPartial", @PlantDataMvcAppControllers.ProductPriceGrid)";
 
-            $.ajax({
+            var ajax = new ej.base.Ajax({
                 type: "POST",
                 url: url,
                 contentType: "application/json",
-                data: modelJsonString,
-                success: function (result) {
-                    $("#pricesGridDiv").html("");
-                    $("#pricesGridDiv").html(result);
-                },
-                error: function (err) {
+                data: modelJsonString});
+            ajax.send();
+            ajax.onSuccess = function (result) {
+                document.getElementById('pricesGridDiv').innerHTML = result;
+                if (document.getElementById('pricesGridDiv').querySelector('script') !== null) {
+                    eval(document.getElementById('pricesGridDiv').querySelector('script').innerHTML);
                 }
-            });
+            }
+
+            //$.ajax({
+            //    type: "POST",
+            //    url: url,
+            //    contentType: "application/json",
+            //    data: modelJsonString,
+            //    success: function (result) {
+            //        document.getElementById('pricesGridDiv').innerHTML = result;
+            //        if (document.getElementById('pricesGridDiv').querySelector('script') !== null) {
+            //            eval(document.getElementById('pricesGridDiv').querySelector('script').innerHTML);
+            //        }
+            //    },
+            //    error: function (err) {
+            //    }
+            //});
         }
     </script>
 }
