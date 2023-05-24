@@ -48,6 +48,7 @@ namespace PlantDataMVC.Web.ViewComponents.ProductPriceGrid
                 //SortExpression = model.SortExpression,
 
                 PriceListTypeId = priceListTypeId,
+                EffectiveDate = effectiveDate,
                 Items = productsByLastUpToEffectiveDate
             };
 
