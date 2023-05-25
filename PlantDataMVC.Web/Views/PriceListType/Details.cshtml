@@ -43,8 +43,8 @@
         <div class="row mb-3">
             <label asp-for="ProductPrices"></label>
             <div id="pricesGridDiv" class="child-table">
-                @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, effectiveDate = Model.SelectedEffectiveDate, gridOptions = Model.GridOptions, priceListTypeId = Model.Id })
-                @*<partial name="_ProductPriceGridPartial" model="new ProductPriceGridViewModel() { Items = Model.ProductPrices, EffectiveDate = Model.SelectedEffectiveDate, Options = Model.GridOptions, PriceListTypeId = Model.Id }" />*@
+@*                @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, effectiveDate = Model.SelectedEffectiveDate, gridOptions = Model.GridOptions, priceListTypeId = Model.Id })
+*@                <partial name="_ProductPriceGridPartial" model="new ProductPriceGridViewModel() { Items = Model.ProductPrices, EffectiveDate = Model.SelectedEffectiveDate, Options = Model.GridOptions, PriceListTypeId = Model.Id }" />
             </div>
         </div>
     </fieldset>
