@@ -15,21 +15,21 @@ namespace PlantDataMVC.Api.Classes
             _transformFunction = transformFunction;
         }
 
-        public void Visit(TreeNode<T> sourceNode)
+        public void Visit(TreeNode<T> node)
         {
-            if (sourceNode.IsRootNode)
+            if (node.IsRootNode)
             {
-                var dataValue = _transformFunction(sourceNode, null);
+                var dataValue = _transformFunction(node, null);
                 CloneRoot = new TreeNode<U>(dataValue);
                 _currentParent = CloneRoot;
             }
             else
             {
-                var dataValue = _transformFunction(sourceNode, _currentParent);
+                var dataValue = _transformFunction(node, _currentParent);
                 _currentParent = _currentParent.AddChild(dataValue);
             }
 
-            foreach (var sourceChild in sourceNode.Children)
+            foreach (var sourceChild in node.Children)
             {
                 sourceChild.Accept(this);
             }

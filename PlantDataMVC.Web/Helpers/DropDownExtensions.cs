@@ -14,23 +14,6 @@ namespace PlantDataMVC.Web.Helpers
 {
     public static class DropDownExtensions
     {
-        // TODO: Implement as below?
-
-        // Preferred call structure would be:
-        // @(Html.QueryDropDown2For(() => "SiteId", model => model.Site.Id, new IndexQuery(1, 100), p => p.SiteName, p => p.Id))
-        // - requires TViewModel to be inferred somehow (preferably from query type)
-
-        /* Current sample call model for a Genus drop down
-
-         @Html.QueryDropDownFor(
-                () => "GenusId",
-                model => model.GenusId,
-                new ListQuery<GenusDataModel>(),
-                p => p.Id,
-                p => p.LatinName)
-
-         */
-
         public static IHtmlContent QueryDropDownFor<TModel, TViewModel, TListItem, TProperty>(this IHtmlHelper<TModel> htmlHelper,
                                                                                      Func<string> saveFieldNameFunc,
                                                                                      Expression<Func<TModel, TProperty>> selectedDataValueExpr,
@@ -68,7 +51,7 @@ namespace PlantDataMVC.Web.Helpers
         {
             var model = htmlHelper.ViewData.Model;
 
-            // TODO: Note that this hides the dependency injection to an extent (best to inject mediator if possible)
+            // HACK: Note that this hides the dependency injection to an extent (best to inject mediator if possible)
             IServiceProvider services = htmlHelper.ViewContext.HttpContext.RequestServices;
             
             // Will throw exception if service not registered

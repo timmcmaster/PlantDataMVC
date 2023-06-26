@@ -69,13 +69,12 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
             else if (response.Success && response.Content != null)
             {
                 var apiPagingInfo = response.PagingInfo;
-                var linkInfo = response.LinkInfo;
 
                 var modelList = _mapper.Map<IEnumerable<JournalEntryDataModel>, List<TransactionListViewModel>>(response.Content);
 
                 var model = new ListViewModelStatic<TransactionListViewModel>(
                     modelList,
-                    apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount,
+                    apiPagingInfo.Page, apiPagingInfo.PageSize, apiPagingInfo.TotalCount,
                     query.SortBy, query.SortAscending);
 
                 return model;
@@ -90,7 +89,7 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        private string MapSortField(string querySortBy)
+        private static string MapSortField(string querySortBy)
         {
             var sortField = "";
 

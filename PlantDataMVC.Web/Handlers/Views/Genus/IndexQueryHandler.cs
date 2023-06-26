@@ -63,13 +63,12 @@ namespace PlantDataMVC.Web.Handlers.Views.Genus
             else if (response.Success && response.Content != null)
             {
                 var apiPagingInfo = response.PagingInfo;
-                var linkInfo = response.LinkInfo;
 
                 var modelList = _mapper.Map<IEnumerable<GenusDataModel>, List<GenusListViewModel>>(response.Content);
 
                 var model = new ListViewModelStatic<GenusListViewModel>(
                     modelList,
-                    apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount,
+                    apiPagingInfo.Page, apiPagingInfo.PageSize, apiPagingInfo.TotalCount,
                     query.SortBy, query.SortAscending);
 
                 return model;
@@ -84,7 +83,7 @@ namespace PlantDataMVC.Web.Handlers.Views.Genus
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        private string MapSortField(string querySortBy)
+        private static string MapSortField(string querySortBy)
         {
             var sortField = "";
 

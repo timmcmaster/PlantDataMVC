@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using PlantDataMVC.Common.Client.Models;
-using System;
-using System.Linq;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 
@@ -26,9 +24,6 @@ namespace PlantDataMVC.Common.Client.Helpers
         {
             if (responseHeaders.Contains("Link"))
             {
-                // TODO: Parse as (proposed) RFC8288 https://httpwg.org/specs/rfc8288.html
-                // Read comma-separated collection of links in format "<{0}>; rel=\"{1}\""
-                // e.g.
                 var linkHeaderText = responseHeaders.First(ph => ph.Key == "Link").Value;
                 var linkEntries = linkHeaderText.First().Split(',');
 

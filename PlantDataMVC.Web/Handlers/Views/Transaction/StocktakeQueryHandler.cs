@@ -61,7 +61,6 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
             else if (response.Success && response.Content != null)
             {
                 var apiPagingInfo = response.PagingInfo;
-                var linkInfo = response.LinkInfo;
 
                 var nonZeroRecords = response.Content.Where(x => x.QuantityInStock > 0).ToList();   
 
@@ -69,7 +68,7 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
 
                 var model = new ListViewModelStatic<TransactionStocktakeListViewModel>(
                     modelList,
-                    apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount,
+                    apiPagingInfo.Page, apiPagingInfo.PageSize, apiPagingInfo.TotalCount,
                     query.SortBy, query.SortAscending);
 
                 return model;
@@ -84,7 +83,7 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        private string MapSortField(string querySortBy)
+        private static string MapSortField(string querySortBy)
         {
             var sortField = "";
 

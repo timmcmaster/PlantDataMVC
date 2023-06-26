@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Framework.Web.Forms;
+﻿using Framework.Web.Forms;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Api.Models.ServiceModels;
 using PlantDataMVC.Common.Client;
@@ -13,12 +12,10 @@ namespace PlantDataMVC.Web.Handlers.Forms.Transaction
     public class BarcodeLabelGridEditModelFormHandler : IFormHandler<BarcodeLabelGridEditModel, string>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
-        private readonly IMapper _mapper;
 
-        public BarcodeLabelGridEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
+        public BarcodeLabelGridEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
         {
             _plantDataApiClient = plantDataApiClient;
-            _mapper = mapper;
         }
 
         public async Task<string> Handle(BarcodeLabelGridEditModel form, CancellationToken cancellationToken)

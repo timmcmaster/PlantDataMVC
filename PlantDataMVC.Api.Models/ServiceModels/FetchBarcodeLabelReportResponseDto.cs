@@ -2,7 +2,7 @@
 {
     public class FetchBarcodeLabelReportResponseDto : ResponseDto
     {
-        public string? ReportDocument { get; set; }
+        public string ReportDocument { get; set; }
 
         public FetchBarcodeLabelReportResponseDto()
         {

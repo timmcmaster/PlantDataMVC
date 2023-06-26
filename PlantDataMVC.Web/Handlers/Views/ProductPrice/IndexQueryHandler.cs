@@ -62,13 +62,12 @@ namespace PlantDataMVC.Web.Handlers.Views.ProductPrice
             else if (response.Success && response.Content != null)
             {
                 var apiPagingInfo = response.PagingInfo;
-                var linkInfo = response.LinkInfo;
 
                 var modelList = _mapper.Map<IEnumerable<ProductPriceDataModel>, List<ProductPriceListViewModel>>(response.Content);
 
                 var model = new ListViewModelStatic<ProductPriceListViewModel>(
                     modelList,
-                    apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount,
+                    apiPagingInfo.Page, apiPagingInfo.PageSize, apiPagingInfo.TotalCount,
                     query.SortBy, query.SortAscending);
 
                 return model;
@@ -85,7 +84,7 @@ namespace PlantDataMVC.Web.Handlers.Views.ProductPrice
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        private string MapSortField(string querySortBy)
+        private static string MapSortField(string querySortBy)
         {
             var sortField = "";
 

@@ -96,7 +96,7 @@ namespace PlantDataMVC.Api.Helpers
                     fieldsToWorkWith.RemoveItems(childDataModelFields);
 
                     // Strip childName and "." from list of fields
-                    childDataModelFields = childDataModelFields.Select(f => f.Substring(f.IndexOf(".") + 1)).ToList();
+                    childDataModelFields = childDataModelFields.Select(f => f[(f.IndexOf(".") + 1)..]).ToList();
 
                     // Get DTO for child object or collection
                     if (propertyUsingDataModel.GetValue(mainDataModel, null) is IEnumerable<IDataModel> dataModelCollection)

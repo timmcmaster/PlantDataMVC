@@ -9,9 +9,6 @@ namespace Framework.Web.DependencyInjection
     {
         public static IServiceCollection AddImplementedInterfacesFromAssembly(this IServiceCollection services, Assembly assembly, Type genericInterfaceType)
         {
-            // Implement equivalent of:
-            // builder.RegisterAssemblyTypes(formAssembly).AsClosedTypesOf(typeof(IFormHandler<,>)).AsImplementedInterfaces();
-
             if (assembly == null)
                 throw new ArgumentNullException(nameof(assembly));
 
@@ -22,15 +19,14 @@ namespace Framework.Web.DependencyInjection
 
             foreach (var genericType in typesWithGenericInterface)
             {
-                var implementedGenericInterfaces = genericType.GetInterfaces().Where(i => i.IsGenericType).ToList();
-                foreach (var implementedInterface in implementedGenericInterfaces)
-                {
-                    if (genericInterfaceType.IsAssignableFrom(implementedInterface.GetGenericTypeDefinition()))
-                    {
-                        services.AddScoped(implementedInterface, genericType);
+                var implementedGenericInterfacesOfCorrectType = genericType
+                    .GetInterfaces()
+                    .Where(i => i.IsGenericType)
+                    .Where(i => genericInterfaceType.IsAssignableFrom(i.GetGenericTypeDefinition()));
 
-                        //Log.Information($"Adding {genericType.GetFriendlyName(useFullName: true)} as implementation of {implementedInterface.GetFriendlyName(useFullName: true)}"); 
-                    }
+                foreach (var implementedInterface in implementedGenericInterfacesOfCorrectType)
+                {
+                    services.AddScoped(implementedInterface, genericType);
                 }
             }
 
@@ -45,8 +41,8 @@ namespace Framework.Web.DependencyInjection
                 logger.Information(
                     $"Service: {service.ServiceType.FullName}\n" +
                     $"Service Friendly Name : {service.ServiceType.GetFriendlyName(useFullName: true)}\n" +
-                    $"Lifetime: { service.Lifetime}\n" +
-                    $"Instance: { service.ImplementationType?.FullName}");
+                    $"Lifetime: {service.Lifetime}\n" +
+                    $"Instance: {service.ImplementationType?.FullName}");
             }
 
             return services;
@@ -75,7 +71,7 @@ namespace Framework.Web.DependencyInjection
             else if (type.IsGenericType)
                 return type.Name.Split('`')[0] + "<" + string.Join(", ", type.GetGenericArguments().Select(x => GetFriendlyName(x)).ToArray()) + ">";
             else
-                return useFullName ? type.FullName: type.Name;
+                return useFullName ? type.FullName : type.Name;
         }
     }
 }

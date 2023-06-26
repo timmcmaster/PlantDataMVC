@@ -76,45 +76,48 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         public IActionResult ImportAnnotations([FromBody] SyncfusionPdfJsonObject jsonObject)
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
-            
+
             PdfRenderer pdfviewer = new(_cache);
-            string jsonResult;
+            string jsonResult = string.Empty;
 
-            if (jsonDict != null && jsonDict.ContainsKey("fileName"))
+            if (jsonDict != null)
             {
-                string documentPath = GetDocumentPath(jsonDict["fileName"]);
-                if (!string.IsNullOrEmpty(documentPath))
+                if (jsonDict.ContainsKey("fileName"))
                 {
-                    jsonResult = System.IO.File.ReadAllText(documentPath);
-                }
-                else
-                {
-                    return this.Content(jsonDict["document"] + " is not found");
-                }
-            }
-            else
-            {
-                object objJsonResult;
-                string extension = Path.GetExtension(jsonDict["importedData"]);
-
-                if (extension != ".xfdf")
-                {
-                    objJsonResult = pdfviewer.ImportAnnotation(jsonDict);
-                    return Content(JsonConvert.SerializeObject(objJsonResult));
-                }
-                else
-                {
-                    string documentPath = GetDocumentPath(jsonDict["importedData"]);
+                    string documentPath = GetDocumentPath(jsonDict["fileName"]);
                     if (!string.IsNullOrEmpty(documentPath))
                     {
-                        byte[] bytes = System.IO.File.ReadAllBytes(documentPath);
-                        jsonDict["importedData"] = Convert.ToBase64String(bytes);
+                        jsonResult = System.IO.File.ReadAllText(documentPath);
+                    }
+                    else
+                    {
+                        return this.Content(jsonDict["document"] + " is not found");
+                    }
+                }
+                else
+                {
+                    object objJsonResult;
+                    string extension = Path.GetExtension(jsonDict["importedData"]);
+
+                    if (extension != ".xfdf")
+                    {
                         objJsonResult = pdfviewer.ImportAnnotation(jsonDict);
                         return Content(JsonConvert.SerializeObject(objJsonResult));
                     }
                     else
                     {
-                        return this.Content(jsonDict["document"] + " is not found");
+                        string documentPath = GetDocumentPath(jsonDict["importedData"]);
+                        if (!string.IsNullOrEmpty(documentPath))
+                        {
+                            byte[] bytes = System.IO.File.ReadAllBytes(documentPath);
+                            jsonDict["importedData"] = Convert.ToBase64String(bytes);
+                            objJsonResult = pdfviewer.ImportAnnotation(jsonDict);
+                            return Content(JsonConvert.SerializeObject(objJsonResult));
+                        }
+                        else
+                        {
+                            return this.Content(jsonDict["document"] + " is not found");
+                        }
                     }
                 }
             }

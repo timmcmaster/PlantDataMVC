@@ -63,13 +63,12 @@ namespace PlantDataMVC.Web.Handlers.Views.SeedBatch
             else if (response.Success && response.Content != null)
             {
                 var apiPagingInfo = response.PagingInfo;
-                var linkInfo = response.LinkInfo;
 
                 var modelList = _mapper.Map<IEnumerable<SeedBatchDataModel>, List<SeedBatchListViewModel>>(response.Content);
 
                 var model = new ListViewModelStatic<SeedBatchListViewModel>(
                     modelList,
-                    apiPagingInfo.page, apiPagingInfo.pageSize, apiPagingInfo.totalCount,
+                    apiPagingInfo.Page, apiPagingInfo.PageSize, apiPagingInfo.TotalCount,
                     query.SortBy, query.SortAscending);
 
                 return model;
@@ -84,7 +83,7 @@ namespace PlantDataMVC.Web.Handlers.Views.SeedBatch
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        private string MapSortField(string querySortBy)
+        private static string MapSortField(string querySortBy)
         {
             var sortField = "";
 

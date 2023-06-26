@@ -38,8 +38,6 @@ namespace PlantDataMVC.Web.Handlers.Views.Site
                 }
                 else if (response.Success && response.Content != null)
                 {
-                    //var apiPagingInfo = response.PagingInfo;
-
                     var dataModelList = response.Content;
 
                     // Concatenate page to full list

@@ -18,7 +18,8 @@
                     model => model.SeedBatchId,
                     new ListQuery<SeedBatchDataModel>(),
                     p => p.Id,
-                    p => string.Concat(SpeciesFunctions.GetBinomial(p.GenusName, p.SpeciesName), ",", p.Location, ",", p.DateCollected.ToShortDateString()))
+                    p => string.Concat(SpeciesFunctions.GetBinomial(p.GenusName, p.SpeciesName), ",", p.Location, ",", p.DateCollected.ToShortDateString()),
+                    new { @class = "form-select" })
                 </div>
             </div>
 

@@ -49,7 +49,7 @@ namespace PlantDataMVC.Web.Handlers.Views.SaleEvent
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        private string MapSortField(string querySortBy)
+        private static string MapSortField(string querySortBy)
         {
             var sortField = "";
 
