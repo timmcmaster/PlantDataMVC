@@ -30,9 +30,6 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
 
-            // get model state for testing
-            var modelState = this.ModelState;
-
             PdfRenderer pdfviewer = new(_cache);
             MemoryStream stream = new();
 
