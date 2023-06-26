@@ -17,7 +17,7 @@ namespace PlantDataMVC.Web.ViewComponents.PlantStockGrid
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<PlantStockListViewModel> model, GridOptionsModel gridOptions)
+        public IViewComponentResult Invoke(ListViewModelStatic<PlantStockListViewModel> model, GridOptionsModel gridOptions)
         {
             string viewName = "Default";
 

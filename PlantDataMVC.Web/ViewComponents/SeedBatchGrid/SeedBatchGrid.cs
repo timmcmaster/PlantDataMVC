@@ -18,7 +18,7 @@ namespace PlantDataMVC.Web.ViewComponents.SeedBatchGrid
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<SeedBatchListViewModel> model, GridOptionsModel gridOptions)
+        public IViewComponentResult Invoke(ListViewModelStatic<SeedBatchListViewModel> model, GridOptionsModel gridOptions)
         {
             // TODO: Need edit with dropdowns and proper selction of species/genus
             string viewName = "Default";

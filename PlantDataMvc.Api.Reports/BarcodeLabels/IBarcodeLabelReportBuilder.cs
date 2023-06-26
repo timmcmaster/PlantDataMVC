@@ -4,6 +4,6 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
 {
     public interface IBarcodeLabelReportBuilder
     {
-        Task<string?> GetBarcodeLabelReportAsync(List<ProductPriceBarcodeItemRequestModel> requestedItems);
+        string? GetBarcodeLabelReport(List<ProductPriceBarcodeItemRequestModel> requestedItems);
     }
 }

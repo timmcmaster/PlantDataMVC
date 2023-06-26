@@ -27,13 +27,13 @@ namespace PlantDataMVC.Web.Handlers.Forms.Transaction
 
             try
             {
-                FetchPlantInfoLabelReportAsyncRequestDTO requestDTO = new();
+                FetchPlantInfoLabelReportRequestDto requestDTO = new();
 
                 var labelRequests = form.Items.Select(x => new SpeciesLabelItemRequestModel() { SpeciesId = x.SpeciesId, LabelQuantity = x.LabelQuantity }).ToList();
                 requestDTO.LabelRequests = labelRequests;
 
-                var uri = "api/Label/FetchPlantInfoLabelReportAsync";
-                var response = await _plantDataApiClient.PostAsync<FetchPlantInfoLabelReportAsyncRequestDTO,FetchPlantInfoLabelReportAsyncResponseDTO>(uri, requestDTO, cancellationToken).ConfigureAwait(false);
+                var uri = "api/Label/FetchPlantInfoLabelReport";
+                var response = await _plantDataApiClient.PostAsync<FetchPlantInfoLabelReportRequestDto,FetchPlantInfoLabelReportResponseDto>(uri, requestDTO, cancellationToken).ConfigureAwait(false);
 
                 if (response.Success)
                 {

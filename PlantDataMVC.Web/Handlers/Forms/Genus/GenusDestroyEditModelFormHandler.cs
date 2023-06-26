@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using Azure;
 using Framework.Web.Forms;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Web.Models.EditModels.Genus;
-using System.Net;
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,6 +17,7 @@ namespace PlantDataMVC.Web.Handlers.Forms.Genus
         public GenusDestroyEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<bool> Handle(GenusDestroyEditModel form, CancellationToken cancellationToken)

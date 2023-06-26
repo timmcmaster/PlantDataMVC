@@ -18,6 +18,7 @@ namespace PlantDataMVC.Web.Handlers.Forms.ProductType
         public ProductTypeDestroyEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<bool> Handle(ProductTypeDestroyEditModel form, CancellationToken cancellationToken)

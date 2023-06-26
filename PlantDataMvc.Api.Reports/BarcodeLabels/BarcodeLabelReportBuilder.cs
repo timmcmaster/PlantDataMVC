@@ -17,13 +17,13 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
             _service = service;
         }
 
-        public async Task<string?> GetBarcodeLabelReportAsync(List<ProductPriceBarcodeItemRequestModel> requestedItems)
+        public string? GetBarcodeLabelReport(List<ProductPriceBarcodeItemRequestModel> requestedItems)
         {
             try
             {
                 var reportModel = new BarcodeLabelReportModel();
 
-                await LoadLabelItems(reportModel,requestedItems);
+                LoadLabelItems(reportModel,requestedItems);
 
                 return new BarcodeLabelReportRenderer(reportModel).BuildReport();
             }
@@ -34,7 +34,7 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
             }
         }
 
-        private async Task LoadLabelItems(BarcodeLabelReportModel reportModel, List<ProductPriceBarcodeItemRequestModel> requestedItems)
+        private void LoadLabelItems(BarcodeLabelReportModel reportModel, List<ProductPriceBarcodeItemRequestModel> requestedItems)
         {
             foreach (var item in requestedItems)
             {

@@ -25,7 +25,7 @@ namespace UnitTest.Utils.Common
                 var rnd = SeedRandom();
                 for (int i = 0; i < length; i++)
                 {
-                    sb.Append(rnd.Next(0, 9).ToString());
+                    sb.Append(rnd.Next(0, 9));
                 }
 
                 return sb.ToString();
@@ -132,12 +132,12 @@ namespace UnitTest.Utils.Common
             // Create a byte array as a data source
             byte[] tmpSource = Encoding.ASCII.GetBytes(DateTime.Now.Ticks.ToString());
 
-            byte[] tmpHash = new SHA512Managed().ComputeHash(tmpSource);
+            byte[] tmpHash = SHA512.HashData(tmpSource);
             string result = Convert.ToBase64String(tmpHash);
 
             if (result.Length > length)
             {
-                result = result.Substring(0, length);
+                result = result[..length];
             }
 
             return result;

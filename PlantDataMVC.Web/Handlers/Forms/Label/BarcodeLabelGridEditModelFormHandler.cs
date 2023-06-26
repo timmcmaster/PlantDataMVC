@@ -27,13 +27,13 @@ namespace PlantDataMVC.Web.Handlers.Forms.Transaction
 
             try
             {
-                FetchBarcodeLabelReportAsyncRequestDTO requestDTO = new();
+                FetchBarcodeLabelReportRequestDto requestDTO = new();
 
                 var labelRequests = form.Items.Select(x => new ProductPriceBarcodeItemRequestModel() { ProductPriceId = x.ProductPriceId, LabelQuantity = x.LabelQuantity }).ToList();
                 requestDTO.LabelRequests = labelRequests;
 
-                var uri = "api/Label/FetchBarcodeLabelReportAsync";
-                var response = await _plantDataApiClient.PostAsync<FetchBarcodeLabelReportAsyncRequestDTO, FetchBarcodeLabelReportAsyncResponseDTO>(uri, requestDTO, cancellationToken).ConfigureAwait(false);
+                var uri = "api/Label/FetchBarcodeLabelReport";
+                var response = await _plantDataApiClient.PostAsync<FetchBarcodeLabelReportRequestDto, FetchBarcodeLabelReportResponseDto>(uri, requestDTO, cancellationToken).ConfigureAwait(false);
 
                 if (response.Success)
                 {

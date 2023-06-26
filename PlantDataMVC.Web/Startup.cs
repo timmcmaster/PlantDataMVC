@@ -107,7 +107,7 @@ namespace PlantDataMVC.Web
                 // ClientCredentialsRequest elements
                 Scope = "plantdataapi"
                 //Resource = new List<string>()
-            }); ;
+            });
 
             services.AddTransient<BearerTokenMessageHandler>();
 
@@ -165,7 +165,7 @@ namespace PlantDataMVC.Web
         // here if you need to resolve things from the container.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBMAY9C3t2VFhiQlJPd11dXmJWd1p/THNYflR1fV9DaUwxOX1dQl9gSXtSc0diXHpeeXBVRWc=");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXlcdXZUQ2ReV0d1XUs=");
 
             // Stop trying to map tokens to .Net claim types
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;

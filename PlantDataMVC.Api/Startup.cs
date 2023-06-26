@@ -151,7 +151,7 @@ namespace PlantDataMVC.Api
         // Configure is where you add middleware.        
         // You can use IApplicationBuilder.ApplicationServices
         // here if you need to resolve things from the container.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment host)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
 

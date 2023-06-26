@@ -34,17 +34,17 @@ namespace PlantDataMVC.Api.Controllers
             _loggerFactory = loggerFactory;
         }
 
-        // POST: api/Label/FetchPlantInfoLabelReportAsync
+        // POST: api/Label/FetchPlantInfoLabelReport
         [HttpPost]
-        [Route("FetchPlantInfoLabelReportAsync")]
+        [Route("FetchPlantInfoLabelReport")]
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public async Task<IActionResult> FetchPlantInfoLabelReportAsync([FromBody] FetchPlantInfoLabelReportAsyncRequestDTO? dto)
+        public IActionResult FetchPlantInfoLabelReport([FromBody] FetchPlantInfoLabelReportRequestDto? dto)
         {
-            FetchPlantInfoLabelReportAsyncResponseDTO result = new() { Success = true };
+            FetchBarcodeLabelReportResponseDto result = new() { Success = true };
             if (dto == null)
             {
                 result.Success = false;
-                result.Message = $"Invalid request at {nameof(FetchPlantInfoLabelReportAsync)}";
+                result.Message = $"Invalid request at {nameof(FetchPlantInfoLabelReport)}";
                 return Ok(result);
             }
 
@@ -52,7 +52,7 @@ namespace PlantDataMVC.Api.Controllers
             {
                 ILogger<InfoLabelReportBuilder> logger = _loggerFactory.CreateLogger<InfoLabelReportBuilder>();
                 var reportBuilder = new InfoLabelReportBuilder(_speciesService, logger);
-                result.ReportDocument = await reportBuilder.GetInfoLabelReportAsync(dto.LabelRequests).ConfigureAwait(false);
+                result.ReportDocument = reportBuilder.GetInfoLabelReport(dto.LabelRequests);
             }
             catch (Exception e)
             {
@@ -63,17 +63,17 @@ namespace PlantDataMVC.Api.Controllers
             return Ok(result);
         }
 
-        // POST: api/Label/FetchBarcodeLabelReportAsync
+        // POST: api/Label/FetchBarcodeLabelReport
         [HttpPost]
-        [Route("FetchBarcodeLabelReportAsync")]
+        [Route("FetchBarcodeLabelReport")]
         //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
-        public async Task<IActionResult> FetchBarcodeLabelReportAsync([FromBody] FetchBarcodeLabelReportAsyncRequestDTO? dto)
+        public IActionResult FetchBarcodeLabelReport([FromBody] FetchBarcodeLabelReportRequestDto? dto)
         {
-            FetchBarcodeLabelReportAsyncResponseDTO result = new() { Success = true };
+            FetchBarcodeLabelReportResponseDto result = new() { Success = true };
             if (dto == null)
             {
                 result.Success = false;
-                result.Message = $"Invalid request at {nameof(FetchBarcodeLabelReportAsync)}";
+                result.Message = $"Invalid request at {nameof(FetchBarcodeLabelReport)}";
                 return Ok(result);
             }
 
@@ -81,7 +81,7 @@ namespace PlantDataMVC.Api.Controllers
             {
                 ILogger<BarcodeLabelReportBuilder> logger = _loggerFactory.CreateLogger<BarcodeLabelReportBuilder>();
                 var reportBuilder = new BarcodeLabelReportBuilder(_priceService, logger);
-                result.ReportDocument = await reportBuilder.GetBarcodeLabelReportAsync(dto.LabelRequests).ConfigureAwait(false);
+                result.ReportDocument = reportBuilder.GetBarcodeLabelReport(dto.LabelRequests);
             }
             catch (Exception e)
             {

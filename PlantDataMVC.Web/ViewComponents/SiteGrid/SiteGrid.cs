@@ -17,7 +17,7 @@ namespace PlantDataMVC.Web.ViewComponents.SiteGrid
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<SiteListViewModel> model, GridOptionsModel gridOptions)
+        public IViewComponentResult Invoke(ListViewModelStatic<SiteListViewModel> model, GridOptionsModel gridOptions)
         {
             // TODO: Default edit needs ability to edit via map position
             string viewName = "Default";

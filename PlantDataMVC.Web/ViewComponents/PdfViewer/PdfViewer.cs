@@ -16,7 +16,7 @@ namespace PlantDataMVC.Web.ViewComponents.PdfViewer
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(FileModel fileModel, string width, string height)
+        public IViewComponentResult Invoke(FileModel fileModel, string width, string height)
         {
             string viewName = "Default";
 

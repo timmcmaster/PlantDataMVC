@@ -70,7 +70,7 @@ namespace PlantDataMVC.Web.Controllers
                 // TODO: Display any model validation errors
                 return failureResult;
             }
-            PlantLabelGridEditModel form = new PlantLabelGridEditModel();
+            PlantLabelGridEditModel form = new();
             if (labelData != null)
             {
                 form.Items = JsonConvert.DeserializeObject<IEnumerable<PlantLabelListEditModel>>(labelData);
@@ -82,7 +82,7 @@ namespace PlantDataMVC.Web.Controllers
 
             var fileModel = new FileModel()
             {
-                Name = $"PlantInfoLabels-{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf",
+                Name = $"PlantInfoLabels-{DateTime.Now:yyyyMMdd_HHmm}.pdf",
                 ContentType = "application/pdf",
                 Data = reportBytes,
                 DataBase64 = result
@@ -142,7 +142,7 @@ namespace PlantDataMVC.Web.Controllers
                 // TODO: Display any model validation errors
                 return failureResult;
             }
-            BarcodeLabelGridEditModel form = new BarcodeLabelGridEditModel();
+            BarcodeLabelGridEditModel form = new();
             if (labelData != null)
             {
                 form.Items = JsonConvert.DeserializeObject<IEnumerable<BarcodeLabelListEditModel>>(labelData);
@@ -154,7 +154,7 @@ namespace PlantDataMVC.Web.Controllers
 
             var fileModel = new FileModel()
             {
-                Name = $"BarcodeLabels-{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf",
+                Name = $"BarcodeLabels-{DateTime.Now:yyyyMMdd_HHmm}.pdf",
                 ContentType = "application/pdf",
                 Data = reportBytes,
                 DataBase64 = result

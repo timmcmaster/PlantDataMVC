@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PlantDataMVC.Api.Models.ServiceModels
 {
-    public class FetchPlantInfoLabelReportAsyncRequestDTO
+    public class FetchPlantInfoLabelReportRequestDto
     {
         public List<SpeciesLabelItemRequestModel> LabelRequests { get; set; } = new();
     }

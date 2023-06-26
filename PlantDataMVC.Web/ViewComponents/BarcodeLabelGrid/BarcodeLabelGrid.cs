@@ -17,7 +17,7 @@ namespace PlantDataMVC.Web.ViewComponents.BarcodeLabelGrid
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(ListViewModelStatic<BarcodeLabelListViewModel> model, GridOptionsModel gridOptions)
+        public IViewComponentResult Invoke(ListViewModelStatic<BarcodeLabelListViewModel> model, GridOptionsModel gridOptions)
         {
             string viewName = "Default";
 

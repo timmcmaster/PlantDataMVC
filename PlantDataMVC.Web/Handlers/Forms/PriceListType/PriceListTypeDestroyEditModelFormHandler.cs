@@ -18,6 +18,7 @@ namespace PlantDataMVC.Web.Handlers.Forms.PriceListType
         public PriceListTypeDestroyEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
         {
             _plantDataApiClient = plantDataApiClient;
+            _mapper = mapper;
         }
 
         public async Task<bool> Handle(PriceListTypeDestroyEditModel form, CancellationToken cancellationToken)

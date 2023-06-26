@@ -14,13 +14,13 @@ namespace PlantDataMVC.Web.Handlers.Views.Label
         {
         }
 
-        public async Task<ListViewModelStatic<PlantLabelListViewModel>> Handle(PlantLabelQuery query, CancellationToken cancellationToken)
+        public Task<ListViewModelStatic<PlantLabelListViewModel>> Handle(PlantLabelQuery query, CancellationToken cancellationToken)
         {
             var modelList = new List<PlantLabelListViewModel>();
 
             var model = new ListViewModelStatic<PlantLabelListViewModel>(modelList,1,0,0, query.SortBy, query.SortAscending);
 
-            return model;
+            return Task.FromResult(model);
         }
     }
 }

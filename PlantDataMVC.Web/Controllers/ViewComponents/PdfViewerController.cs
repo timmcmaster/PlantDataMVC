@@ -33,11 +33,9 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             // get model state for testing
             var modelState = this.ModelState;
 
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
-            MemoryStream stream = new MemoryStream();
+            PdfRenderer pdfviewer = new(_cache);
+            MemoryStream stream = new();
 
-            object jsonResult = new object();
-            
             if (jsonDict != null && jsonDict.ContainsKey("document"))
             {
                 if (bool.Parse(jsonDict["isFileName"]))
@@ -60,7 +58,8 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
                     stream = new MemoryStream(bytes);
                 }
             }
-            jsonResult = pdfviewer.Load(stream, jsonDict);
+
+            object jsonResult = pdfviewer.Load(stream, jsonDict);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
 
@@ -68,7 +67,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         public IActionResult ExportAnnotations([FromBody] SyncfusionPdfJsonObject jsonObject)
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            PdfRenderer pdfviewer = new(_cache);
             string jsonResult = pdfviewer.ExportAnnotation(jsonDict);
             return Content(jsonResult);
         }
@@ -77,9 +76,10 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         public IActionResult ImportAnnotations([FromBody] SyncfusionPdfJsonObject jsonObject)
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
-            string jsonResult = string.Empty;
-            object JsonResult;
+            
+            PdfRenderer pdfviewer = new(_cache);
+            string jsonResult;
+
             if (jsonDict != null && jsonDict.ContainsKey("fileName"))
             {
                 string documentPath = GetDocumentPath(jsonDict["fileName"]);
@@ -94,11 +94,13 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             }
             else
             {
+                object objJsonResult;
                 string extension = Path.GetExtension(jsonDict["importedData"]);
+
                 if (extension != ".xfdf")
                 {
-                    JsonResult = pdfviewer.ImportAnnotation(jsonDict);
-                    return Content(JsonConvert.SerializeObject(JsonResult));
+                    objJsonResult = pdfviewer.ImportAnnotation(jsonDict);
+                    return Content(JsonConvert.SerializeObject(objJsonResult));
                 }
                 else
                 {
@@ -107,8 +109,8 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
                     {
                         byte[] bytes = System.IO.File.ReadAllBytes(documentPath);
                         jsonDict["importedData"] = Convert.ToBase64String(bytes);
-                        JsonResult = pdfviewer.ImportAnnotation(jsonDict);
-                        return Content(JsonConvert.SerializeObject(JsonResult));
+                        objJsonResult = pdfviewer.ImportAnnotation(jsonDict);
+                        return Content(JsonConvert.SerializeObject(objJsonResult));
                     }
                     else
                     {
@@ -123,7 +125,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         public IActionResult ImportFormFields([FromBody] SyncfusionPdfJsonObject jsonObject)
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            PdfRenderer pdfviewer = new(_cache);
             object jsonResult = pdfviewer.ImportFormFields(jsonDict);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
@@ -132,7 +134,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         public IActionResult ExportFormFields([FromBody] SyncfusionPdfJsonObject jsonObject)
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            PdfRenderer pdfviewer = new(_cache);
             string jsonResult = pdfviewer.ExportFormFields(jsonDict);
             return Content(jsonResult);
         }
@@ -144,7 +146,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
 
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            PdfRenderer pdfviewer = new(_cache);
             object jsonResult = pdfviewer.GetPage(jsonDict);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
@@ -153,7 +155,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         public IActionResult RenderPdfTexts([FromBody] SyncfusionPdfJsonObject jsonObject)
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            PdfRenderer pdfviewer = new(_cache);
             object result = pdfviewer.GetDocumentText(jsonDict);
             return Content(JsonConvert.SerializeObject(result));
         }
@@ -165,7 +167,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
 
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            PdfRenderer pdfviewer = new(_cache);
             pdfviewer.ClearCache(jsonDict);
             return this.Content("Document cache is cleared");
         }
@@ -177,7 +179,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
 
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            PdfRenderer pdfviewer = new(_cache);
             object result = pdfviewer.GetThumbnailImages(jsonDict);
             return Content(JsonConvert.SerializeObject(result));
         }
@@ -189,7 +191,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
 
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            PdfRenderer pdfviewer = new(_cache);
             object jsonResult = pdfviewer.GetBookmarks(jsonDict);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
@@ -201,7 +203,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
 
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            PdfRenderer pdfviewer = new(_cache);
             object jsonResult = pdfviewer.GetAnnotationComments(jsonDict);
             return Content(JsonConvert.SerializeObject(jsonResult));
         }
@@ -213,7 +215,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
 
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            PdfRenderer pdfviewer = new(_cache);
             string documentBase = pdfviewer.GetDocumentAsBase64(jsonDict);
             return Content(documentBase);
         }
@@ -225,7 +227,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
         {
             var jsonDict = GetDictionaryFromObject(jsonObject);
 
-            PdfRenderer pdfviewer = new PdfRenderer(_cache);
+            PdfRenderer pdfviewer = new(_cache);
             object pageImage = pdfviewer.GetPrintImage(jsonDict);
             return Content(JsonConvert.SerializeObject(pageImage));
         }
@@ -236,8 +238,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             if (!System.IO.File.Exists(document))
             {
                 string basePath = _webHostEnvironment.WebRootPath;
-                string dataPath = string.Empty;
-                dataPath = basePath + @"/Data/";
+                string dataPath = basePath + @"/Data/";
                 if (System.IO.File.Exists(dataPath + (document)))
                     documentPath = dataPath + document;
             }
@@ -253,7 +254,7 @@ namespace PlantDataMVC.Web.Controllers.ViewComponents
             // HACK: force isFilename to false so that load works
             jsonObject.isFileName = false.ToString().ToLower();
 
-            Dictionary<string, object> resultObjects = new Dictionary<string, object>();
+            Dictionary<string, object> resultObjects = new();
 
             resultObjects = jsonObject.GetType()
                 .GetProperties(BindingFlags.Instance | BindingFlags.Public)

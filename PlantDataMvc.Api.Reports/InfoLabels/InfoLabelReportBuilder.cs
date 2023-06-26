@@ -17,13 +17,13 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
             _logger = logger;
         }
 
-        public async Task<string?> GetInfoLabelReportAsync(List<SpeciesLabelItemRequestModel> requestedItems)
+        public string? GetInfoLabelReport(List<SpeciesLabelItemRequestModel> requestedItems)
         {
             try
             {
                 var reportModel = new InfoLabelReportModel();
 
-                await LoadLabelItems(reportModel, requestedItems);
+                LoadLabelItems(reportModel, requestedItems);
 
                 return new InfoLabelReportRenderer(reportModel).BuildReport();
             }
@@ -32,9 +32,9 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
                 _logger.LogError(ex, "Exception occurred");
                 return null;
             }
-}
+        }
 
-        private async Task LoadLabelItems(InfoLabelReportModel reportModel, List<SpeciesLabelItemRequestModel> requestedItems)
+        private void LoadLabelItems(InfoLabelReportModel reportModel, List<SpeciesLabelItemRequestModel> requestedItems)
         {
             foreach (var item in requestedItems)
             {

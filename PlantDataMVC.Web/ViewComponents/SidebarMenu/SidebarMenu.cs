@@ -17,7 +17,7 @@ namespace PlantDataMVC.Web.ViewComponents.SidebarMenu
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string targetCss, string width, string dockWidth)
+        public IViewComponentResult Invoke(string targetCss, string width, string dockWidth)
         {
             var model = GetModel(targetCss, width, dockWidth);
 

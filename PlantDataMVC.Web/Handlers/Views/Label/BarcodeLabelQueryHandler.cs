@@ -14,13 +14,13 @@ namespace PlantDataMVC.Web.Handlers.Views.Label
         {   
         }
 
-        public async Task<ListViewModelStatic<BarcodeLabelListViewModel>> Handle(BarcodeLabelQuery query, CancellationToken cancellationToken)
+        public Task<ListViewModelStatic<BarcodeLabelListViewModel>> Handle(BarcodeLabelQuery query, CancellationToken cancellationToken)
         {
             var modelList = new List<BarcodeLabelListViewModel>();
 
             var model = new ListViewModelStatic<BarcodeLabelListViewModel>(modelList,1,0,0, query.SortBy, query.SortAscending);
 
-            return model;
+            return Task.FromResult(model);
         }
     }
 }

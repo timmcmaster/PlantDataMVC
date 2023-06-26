@@ -2,9 +2,9 @@
 {
     public class BarcodeLabelItemModel
     {
-        public string LabelText { get; set; }
-        public string Price { get; set; }
-        public string BarcodeText { get; set; }
+        public string LabelText { get; set; } = string.Empty;
+        public string Price { get; set; } = string.Empty;
+        public string BarcodeText { get; set; } = string.Empty;
 
         public BarcodeLabelItemModel()
         {

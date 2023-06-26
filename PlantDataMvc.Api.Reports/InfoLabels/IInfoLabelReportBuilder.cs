@@ -4,6 +4,6 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
 {
     public interface IInfoLabelReportBuilder
     {
-        Task<string?> GetInfoLabelReportAsync(List<SpeciesLabelItemRequestModel> requestedItems);
+        string? GetInfoLabelReport(List<SpeciesLabelItemRequestModel> requestedItems);
     }
 }

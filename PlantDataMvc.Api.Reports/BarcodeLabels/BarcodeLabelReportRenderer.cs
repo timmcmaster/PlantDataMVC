@@ -18,9 +18,7 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
         private readonly double _pageRightMargin = 4.7;
 
         // Column setup
-        private readonly int _labelsPerRow = 5;
         private readonly int _columnsPerRow = 9;
-        private readonly int _cellsPerLabel = 1;
         private readonly double _labelWidthMM = 38.1;
         private readonly double _labelColumnGapWidthMM = 2.5;
 
@@ -36,6 +34,8 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
 
         private readonly int _textFontSize = 11;
         private readonly int _priceFontSize = 14;
+
+        private readonly bool _testFonts = false;
 
         public BarcodeLabelReportRenderer(BarcodeLabelReportModel reportModel)
         {
@@ -53,44 +53,38 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
         public string? BuildReport()
         {
             string? reportData = null;
+            // Create the PDF Document
+            _report = new Document();
+            _report.DefaultPageSetup.PageFormat = PageFormat.A4;
 
-            try
-            {
-                // Create the PDF Document
-                _report = new Document();
-                _report.DefaultPageSetup.PageFormat = PageFormat.A4;
+            CreateDocument();
 
-                CreateDocument();
+            using MemoryStream ms = new MemoryStream();
 
-                using MemoryStream ms = new MemoryStream();
+            var pdfRenderer = new PdfDocumentRenderer() { Document = _report };
+            pdfRenderer.RenderDocument();
+            pdfRenderer.PdfDocument.Save(ms);
 
-                var pdfRenderer = new PdfDocumentRenderer() { Document = _report };
-                pdfRenderer.RenderDocument();
-                pdfRenderer.PdfDocument.Save(ms);
+            var reportBytes = ms.ToArray();
+            reportData = Convert.ToBase64String(reportBytes);
 
-                var reportBytes = ms.ToArray();
-                reportData = Convert.ToBase64String(reportBytes);
-
-                // HACK: Save to file as well, for testing
-                {
-                    string filePath = "..\\logs\\BarcodeLabelReport.pdf";
-                    if (File.Exists(filePath))
-                    {
-                        File.Delete(filePath);
-                    }
-                    using (var file = File.OpenWrite(filePath))
-                    {
-                        file.Write(reportBytes);
-                    }
-                }
-
-            }
-            catch
-            {
-                throw;
-            }
+            // HACK: Save to file as well, for testing
+            SaveToFileForTesting(reportBytes);
 
             return reportData;
+        }
+
+        private static void SaveToFileForTesting(byte[] reportBytes)
+        {
+            string filePath = "..\\logs\\BarcodeLabelReport.pdf";
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            using (var file = File.OpenWrite(filePath))
+            {
+                file.Write(reportBytes);
+            }
         }
 
         private void CreateDocument()
@@ -109,13 +103,15 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
             section.PageSetup.TopMargin = Unit.FromMillimeter(_pageTopMargin);
             section.PageSetup.BottomMargin = Unit.FromMillimeter(_pageBottomMargin);
 
-            //CreateFontTestPages();
+            if (_testFonts)
+            {
+                CreateFontTestPages();
 
-            //// Barcode test page
-            //Table testTable = CreateBarcodeTestTable();
-            //AddBarcodeHeaderRow(testTable);
-            //AddBarcodeTestRows(testTable);
-
+                // Barcode test page
+                Table testTable = CreateBarcodeTestTable();
+                AddBarcodeHeaderRow(testTable);
+                AddBarcodeTestRows(testTable);
+            }
 
             // Create labels
             Table table = CreateLabelItemTable();
@@ -141,12 +137,9 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
         }
 
 
-
         private Table CreateLabelItemTable()
         {
             // Total width = 210
-            var section = _report.LastSection;
-
             Table table = _report.LastSection.AddTable();
 
             // table default format
@@ -222,8 +215,6 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
         private Table CreateBarcodeTestTable()
         {
             // Total width = 210
-            var section = _report.LastSection;
-
             Table table = _report.LastSection.AddTable();
 
             // table default format
@@ -306,11 +297,11 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
             var row = table.AddRow();
             row.Format.Font.Bold = true;
 
-            var para = row.Cells[0].AddParagraph("Font Name");
-            para = row.Cells[1].AddParagraph("Font Size");
-            para = row.Cells[2].AddParagraph("Barcode Text");
-            para = row.Cells[3].AddParagraph($"Barcode");
-            para = row.Cells[4].AddParagraph($"Barcode (space subst.)");
+            row.Cells[0].AddParagraph("Font Name");
+            row.Cells[1].AddParagraph("Font Size");
+            row.Cells[2].AddParagraph("Barcode Text");
+            row.Cells[3].AddParagraph($"Barcode");
+            row.Cells[4].AddParagraph($"Barcode (space subst.)");
         }
 
         
@@ -336,13 +327,13 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
         {
             var row = table.AddRow();
 
-            var para = row.Cells[0].AddParagraph(barcodeFontInfo.Name);
+            row.Cells[0].AddParagraph(barcodeFontInfo.Name);
 
-            para = row.Cells[1].AddParagraph(barcodeFontInfo.Size.ToString());
+            row.Cells[1].AddParagraph(barcodeFontInfo.Size.ToString());
 
-            para = row.Cells[2].AddParagraph(labelItem.BarcodeText);
+            row.Cells[2].AddParagraph(labelItem.BarcodeText);
 
-            para = row.Cells[3].AddParagraph($"*{labelItem.BarcodeText}*");
+            var para = row.Cells[3].AddParagraph($"*{labelItem.BarcodeText}*");
             para.Format.Font.Name = barcodeFontInfo.Name;
             para.Format.Font.Size = barcodeFontInfo.Size;
 

@@ -1,10 +1,10 @@
 ﻿namespace PlantDataMVC.Api.Models.ServiceModels
 {
-    public class FetchPlantInfoLabelReportAsyncResponseDTO: ResponseDTO
+    public class FetchBarcodeLabelReportResponseDto : ResponseDto
     {
         public string? ReportDocument { get; set; }
 
-        public FetchPlantInfoLabelReportAsyncResponseDTO()
+        public FetchBarcodeLabelReportResponseDto()
         {
         }
     }

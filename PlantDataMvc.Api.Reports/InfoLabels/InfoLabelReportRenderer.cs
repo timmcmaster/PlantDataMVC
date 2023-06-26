@@ -36,39 +36,34 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
         public string? BuildReport()
         {
             string? reportData = null;
+            // Create the PDF Document
+            _report = new Document();
+            _report.DefaultPageSetup.PageFormat = PageFormat.A4;
 
-            try
-            {
-                // Create the PDF Document
-                _report = new Document();
-                _report.DefaultPageSetup.PageFormat = PageFormat.A4;
+            CreateDocument();
 
-                CreateDocument();
+            using MemoryStream ms = new MemoryStream();
 
-                using MemoryStream ms = new MemoryStream();
+            var pdfRenderer = new PdfDocumentRenderer() { Document = _report };
+            pdfRenderer.RenderDocument();
+            pdfRenderer.PdfDocument.Save(ms, false);
 
-                var pdfRenderer = new PdfDocumentRenderer() { Document = _report };
-                pdfRenderer.RenderDocument();
-                pdfRenderer.PdfDocument.Save(ms,false);
+            var reportBytes = ms.ToArray();
+            reportData = Convert.ToBase64String(ms.ToArray());
 
-                var reportBytes = ms.ToArray();
-                reportData = Convert.ToBase64String(ms.ToArray());
-
-                // HACK: Save to file as well, for testing
-                {
-                    string filePath = "..\\logs\\InfoLabelReport.pdf";
-                    using (var file = File.OpenWrite(filePath))
-                    {
-                        file.Write(reportBytes);
-                    }
-                }
-            }
-            catch
-            {
-                throw;
-            }
+            // HACK: Save to file as well, for testing
+            SaveToFileForTesting(reportBytes);
 
             return reportData;
+        }
+
+        private static void SaveToFileForTesting(byte[] reportBytes)
+        {
+            string filePath = "..\\logs\\InfoLabelReport.pdf";
+            using (var file = File.OpenWrite(filePath))
+            {
+                file.Write(reportBytes);
+            }
         }
 
         private void CreateDocument()
@@ -80,7 +75,7 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
 
             section.PageSetup.PageFormat = PageFormat.A4;
 
-            section.PageSetup.Orientation = Orientation.Portrait; //_reportModel.HeaderInfo.ReportOrientation;
+            section.PageSetup.Orientation = Orientation.Portrait;
 
             section.PageSetup.LeftMargin = Unit.FromMillimeter(_pageLeftMargin);
             section.PageSetup.RightMargin = Unit.FromMillimeter(_pageRightMargin);
@@ -89,8 +84,6 @@ namespace PlantDataMVC.Api.Reports.InfoLabels
 
 
             Table table = CreateLabelItemTable();
-
-            const int cols = 2;
 
             foreach (var labelGroup in _reportModel.LabelItems)
             {
