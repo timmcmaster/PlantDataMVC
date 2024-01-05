@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
@@ -37,14 +37,14 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-    <PackageReference Include="IdentityModel" Version="6.1.0" />
+    <PackageReference Include="IdentityModel" Version="6.2.0" />
     <PackageReference Include="IdentityModel.AspNetCore" Version="4.3.0" />
-    <PackageReference Include="MediatR" Version="12.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.8" />
-    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="22.1.34" />
-    <PackageReference Include="Syncfusion.EJ2.PdfViewer.AspNet.Core" Version="22.1.34" />
+    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="24.1.44" />
+    <PackageReference Include="Syncfusion.EJ2.PdfViewer.AspNet.Core" Version="24.1.44" />
   </ItemGroup>
 
   <ItemGroup>

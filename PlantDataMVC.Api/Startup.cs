@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Mvc.Versioning;
+using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -19,7 +20,6 @@ using PlantDataMVC.Api.Helpers;
 using Serilog;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-//using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace PlantDataMVC.Api
 {
@@ -91,15 +91,13 @@ namespace PlantDataMVC.Api
             services.AddApiVersioning(options =>
             {
                 options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.ReportApiVersions = true;
                 options.ApiVersionReader = ApiVersionReader.Combine(
                     new QueryStringApiVersionReader("api-version"),
                     new HeaderApiVersionReader("X-Version"),
                     new MediaTypeApiVersionReader("ver"));
-            });
-
-            services.AddVersionedApiExplorer(options =>
+            }).AddApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VVV";
                 options.SubstituteApiVersionInUrl = true;
