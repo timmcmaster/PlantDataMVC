@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace PlantDataMVC.Common.Client.Helpers
 {
-    public static class HeaderParser
+    public static partial class HeaderParser
     {
         public static ApiPagingInfo FindAndParsePagingInfo(HttpResponseHeaders responseHeaders)
         {
@@ -27,12 +27,12 @@ namespace PlantDataMVC.Common.Client.Helpers
                 var linkHeaderText = responseHeaders.First(ph => ph.Key == "Link").Value;
                 var linkEntries = linkHeaderText.First().Split(',');
 
-                LinkHeader linkHeader = new LinkHeader();
+                LinkHeader linkHeader = new();
 
                 foreach (var linkEntry in linkEntries)
                 {
-                    var relMatch = Regex.Match(linkEntry, "(?<=rel=\").+?(?=\")", RegexOptions.IgnoreCase);
-                    var linkMatch = Regex.Match(linkEntry, "(?<=<).+?(?=>)", RegexOptions.IgnoreCase);
+                    var relMatch = RelUriRegex().Match(linkEntry);
+                    var linkMatch = LinkUriRegex().Match(linkEntry);
 
                     if (relMatch.Success && linkMatch.Success)
                     {
@@ -62,5 +62,11 @@ namespace PlantDataMVC.Common.Client.Helpers
 
             return null;
         }
+
+        [GeneratedRegex("(?<=rel=\").+?(?=\")", RegexOptions.IgnoreCase, "en-AU")]
+        private static partial Regex RelUriRegex();
+
+        [GeneratedRegex("(?<=<).+?(?=>)", RegexOptions.IgnoreCase, "en-AU")]
+        private static partial Regex LinkUriRegex();
     }
 }

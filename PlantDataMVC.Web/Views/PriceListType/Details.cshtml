@@ -43,8 +43,8 @@
         <div class="row mb-3">
             <label asp-for="ProductPrices"></label>
             <div id="pricesGridDiv" class="child-table">
-@*                @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, effectiveDate = Model.SelectedEffectiveDate, gridOptions = Model.GridOptions, priceListTypeId = Model.Id })
-*@                <partial name="_ProductPriceGridPartial" model="new ProductPriceGridViewModel() { Items = Model.ProductPrices, EffectiveDate = Model.SelectedEffectiveDate, Options = Model.GridOptions, PriceListTypeId = Model.Id }" />
+@*                @await Component.InvokeAsync("ProductPriceGrid", new { productPrices = Model.ProductPrices, effectiveDate = Model.SelectedEffectiveDate, gridOptions = Model.GridOptions, priceListTypeId = Model.Id })*@
+                  <partial name="_ProductPriceGridPartial" model="new ProductPriceGridViewModel() { Items = Model.ProductPrices, EffectiveDate = Model.SelectedEffectiveDate, Options = Model.GridOptions, PriceListTypeId = Model.Id }" />
             </div>
         </div>
     </fieldset>
@@ -55,6 +55,11 @@
 @section Scripts{
     <script type="text/javascript">
         function GetGrid(selectControl) {
+            //GetGridVC(selectControl);
+            GetGridPartial(selectControl);
+        };
+
+        function GetGridVC(selectControl) {
             // Date will be treated as local TZ
             var effectiveDate = new Date(selectControl.value);
             // Get as naive date string by hacking
@@ -76,26 +81,48 @@
                 data: modelJsonString});
             ajax.send();
             ajax.onSuccess = function (result) {
-                document.getElementById('pricesGridDiv').innerHTML = result;
-                if (document.getElementById('pricesGridDiv').querySelector('script') !== null) {
-                    eval(document.getElementById('pricesGridDiv').querySelector('script').innerHTML);
+                $('#pricesGridDiv').html(result);
+                var scriptElement = document.getElementById('pricesGridDiv').querySelector('script');
+                if (scriptElement !== null) {
+                    eval(scriptElement.innerHTML);
                 }
+            };
+            ajax.onFailure = function (error) {
+                alert("Ajax failure: " + error);
             }
+        }
 
-            //$.ajax({
-            //    type: "POST",
-            //    url: url,
-            //    contentType: "application/json",
-            //    data: modelJsonString,
-            //    success: function (result) {
-            //        document.getElementById('pricesGridDiv').innerHTML = result;
-            //        if (document.getElementById('pricesGridDiv').querySelector('script') !== null) {
-            //            eval(document.getElementById('pricesGridDiv').querySelector('script').innerHTML);
-            //        }
-            //    },
-            //    error: function (err) {
-            //    }
-            //});
+        function GetGridPartial(selectControl) {
+            // Date will be treated as local TZ
+            var effectiveDate = new Date(selectControl.value);
+            // Get as naive date string by hacking
+            var offsetMinutes = effectiveDate.getTimezoneOffset();
+            var effectiveDateUTC = new Date(effectiveDate.getTime() - offsetMinutes * 60000);
+            var jsonNaiveDate = effectiveDateUTC.toJSON().slice(0, -1);
+
+            var modelJson = @Json.Serialize(Model);
+            modelJson.SelectedEffectiveDate = jsonNaiveDate;
+
+            var modelJsonString = JSON.stringify(modelJson);
+            var url = "@Url.Action("GetGridPartial", @PlantDataMvcAppControllers.ProductPriceGrid)";
+
+            var ajax = new ej.base.Ajax({
+                type: "POST",
+                url: url,
+                contentType: "application/json",
+                data: modelJsonString
+            });
+            ajax.send();
+            ajax.onSuccess = function (result) {
+                $('#pricesGridDiv').html(result);
+                var scriptElement = document.getElementById('pricesGridDiv').querySelector('script');
+                if (scriptElement !== null) {
+                    eval(scriptElement.innerHTML);
+                }
+            };
+            ajax.onFailure = function (error) {
+                alert("Ajax failure: " + error);
+            };
         }
     </script>
 }

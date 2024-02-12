@@ -27,9 +27,11 @@ namespace PlantDataMVC.Web.Handlers.Views.Transaction
         public async Task<TransactionStockSummaryDetailsViewModel> Handle(StockSummaryDetailsQuery query, CancellationToken cancellationToken)
         {
             var baseUri = "api/JournalEntries/StockSummaryDetails";
-            var queryParams = new Dictionary<string, string?>();
-                queryParams.Add("speciesId", query.SpeciesId.ToString());
-                queryParams.Add("productTypeId", query.ProductTypeId.ToString());
+            var queryParams = new Dictionary<string, string?>
+            {
+                { "speciesId", query.SpeciesId.ToString() },
+                { "productTypeId", query.ProductTypeId.ToString() }
+            };
 
             var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
             var response = await _plantDataApiClient.GetAsync<JournalEntryStockSummaryDataModel>(requestUri, cancellationToken).ConfigureAwait(false);
