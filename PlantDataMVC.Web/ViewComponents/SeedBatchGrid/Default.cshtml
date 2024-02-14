@@ -1,14 +1,22 @@
 ﻿@using SeedBatch = PlantDataMVC.Web.Models.ViewModels.SeedBatch
 
+@inject PlantDataMVC.Web.Services.ISpeciesLookupService speciesLookup
+@inject PlantDataMVC.Web.Services.ISiteLookupService siteLookup
+
 @model SeedBatchGridViewModel
 @{
     SeedBatch.SeedBatchListViewModel sampleElement = new SeedBatch.SeedBatchListViewModel();
     var dpParams = (new { @params = new { format = "dd/MM/yyyy" } });
+
+    var speciesForeignData = speciesLookup.GetOrderedData(x => SpeciesFunctions.GetBinomial(x.GenusName, x.SpecificName)).Select(p => new { SpeciesId = p.Id, SpeciesBinomial = SpeciesFunctions.GetBinomial(p.GenusName, p.SpecificName) }).ToList();
+    var siteForeignData = siteLookup.GetOrderedData(x => x.SiteName).Select(p => new { SiteId = p.Id, SiteName = p.SiteName }).ToList();
 }
 <div class="container-lg">
     <ejs-grid id="SeedBatchGrid"
               allowPaging="@Model.Options.AllowPaging"
               allowSorting="@Model.Options.AllowSorting"
+              actionBegin="actionBegin"
+              actionComplete="actionComplete"
               height="550" width="1000"
               toolbar="@Model.Options.ToolbarItems">
         <e-data-manager adaptor="UrlAdaptor"
@@ -18,16 +26,45 @@
                         removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.SeedBatchGrid)">
         </e-data-manager>
         <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
-        <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
+        <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete" mode="Dialog"></e-grid-editsettings>
         <e-grid-columns>
             <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.SpeciesId)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)" visible="false" foreignKeyValue="SpeciesBinomial" dataSource="@speciesForeignData"></e-grid-column>
             <e-grid-column field="@nameof(sampleElement.SpeciesBinomial)" headerText="@Html.DisplayNameFor(x => sampleElement.SpeciesBinomial)"></e-grid-column>
             <e-grid-column field="@nameof(sampleElement.DateCollected)" headerText="@Html.DisplayNameFor(x => sampleElement.DateCollected)" type="date" format="dd/MM/yyyy" editType="datepickeredit" edit="dpParams"></e-grid-column>
+            <e-grid-column field="@nameof(sampleElement.SiteId)" headerText="@Html.DisplayNameFor(x => sampleElement.SiteName)" visible="false" foreignKeyValue="SiteName" dataSource="@siteForeignData"></e-grid-column>
             <e-grid-column field="@nameof(sampleElement.SiteName)" headerText="@Html.DisplayNameFor(x => sampleElement.SiteName)"></e-grid-column>
             <e-grid-column field="@nameof(sampleElement.Location)" headerText="@Html.DisplayNameFor(x => sampleElement.Location)"></e-grid-column>
         </e-grid-columns>
     </ejs-grid>
 </div>
+<script>
+    function actionBegin(args) {
+        if ((args.requestType === 'beginEdit' || args.requestType === 'add')) {
+            for (var i = 0; i < this.columns.length; i++) {
+                if ((this.columns[i].field == "SpeciesId") || (this.columns[i].field == "SiteId")) {
+                    this.columns[i].visible = true;
+                }
+                else if ((this.columns[i].field == "SpeciesBinomial") || (this.columns[i].field == "SiteName")) {
+                    this.columns[i].visible = false;
+                }
+            }
+        }
+    }
+
+    function actionComplete(args) {
+        if (args.requestType === 'save') {
+            for (var i = 0; i < this.columns.length; i++) {
+                if ((this.columns[i].field == "SpeciesId") || (this.columns[i].field == "SiteId")) {
+                    this.columns[i].visible = false;
+                }
+                else if ((this.columns[i].field == "SpeciesBinomial") || (this.columns[i].field == "SiteName")) {
+                    this.columns[i].visible = true;
+                }
+            }
+        }
+    }
+</script>
 <style>
     .e-grid .e-row .e-rowcell {
         padding-top: 2px;

@@ -17,7 +17,7 @@
                         removeUrl="@Url.Action("Delete", @PlantDataMvcAppControllers.GenusGrid)">
         </e-data-manager>
         <e-grid-pagesettings pageSize="@Model.PageSize" currentPage="@Model.PageNumber"></e-grid-pagesettings>
-        <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete"></e-grid-editsettings>
+        <e-grid-editsettings allowAdding="@Model.Options.AllowAdd" allowEditing="@Model.Options.AllowEdit" allowDeleting="@Model.Options.AllowDelete" mode="Dialog"></e-grid-editsettings>
         <e-grid-columns>
             <e-grid-column field="@nameof(sampleElement.Id)" headerText="@Html.DisplayNameFor(x => sampleElement.Id)" visible="false" isPrimaryKey="true"></e-grid-column>
             <e-grid-column field="@nameof(sampleElement.LatinName)" headerText="@Html.DisplayNameFor(x => sampleElement.LatinName)"></e-grid-column>

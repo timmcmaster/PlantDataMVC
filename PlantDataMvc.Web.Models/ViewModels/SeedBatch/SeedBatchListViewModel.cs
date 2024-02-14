@@ -15,6 +15,9 @@ namespace PlantDataMVC.Web.Models.ViewModels.SeedBatch
         [Display(Name = "Species Name")]
         public string SpeciesBinomial { get; private set; }
 
+        [HiddenInput(DisplayValue = false)]
+        public int SiteId { get; set; }
+
         [Display(Name = "Site Name")]
         public string SiteName { get; private set; }
 

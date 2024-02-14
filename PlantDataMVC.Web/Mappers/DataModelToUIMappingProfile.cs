@@ -153,6 +153,7 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.DateCollected, opt => opt.MapFrom(dm => dm.DateCollected))
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location))
+                .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dm => dm.SiteId))
                 .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dm => dm.SiteName))
                 .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
                 .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)));

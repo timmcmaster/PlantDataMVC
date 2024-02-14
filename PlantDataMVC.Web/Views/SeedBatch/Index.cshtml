@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Index</h2>
+<h2>Seed Batch List</h2>
+<p>This is a list of all Seed Batches</p>
 
 @await Component.InvokeAsync("SeedBatchGrid", new { model = Model, gridOptions = Model.GridOptions })
