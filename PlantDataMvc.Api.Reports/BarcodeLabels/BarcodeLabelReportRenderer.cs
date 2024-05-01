@@ -31,6 +31,7 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
 
 
         private readonly BarcodeLabelReportModel _reportModel;
+        private readonly BarcodeLabelLayoutDefinition _layoutDefinition;
 
         private readonly int _textFontSize = 11;
         private readonly int _priceFontSize = 14;
@@ -39,6 +40,10 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
 
         public BarcodeLabelReportRenderer(BarcodeLabelReportModel reportModel)
         {
+            // Hardcode here initially
+            //_layoutDefinition = LayoutDefinitions.AveryL7651;
+            _layoutDefinition = LayoutDefinitions.AveryL7158;
+
             _reportModel = reportModel;
             _barcodeFontInfos = new List<FontInfo>() {
                     new FontInfo("3 of 9 Barcode", 20, (char)33),           // '!'
@@ -94,14 +99,23 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
 
             section.PageSetup = _report.DefaultPageSetup.Clone();
 
-            section.PageSetup.PageFormat = PageFormat.A4;
+            switch (_layoutDefinition.PageSize)
+            {
+                case "A4":
+                    section.PageSetup.PageFormat = PageFormat.A4;
+                    break;
+
+                default:
+                    section.PageSetup.PageFormat = _report.DefaultPageSetup.PageFormat;
+                    break;
+            }
 
             section.PageSetup.Orientation = Orientation.Portrait;
 
-            section.PageSetup.LeftMargin = Unit.FromMillimeter(_pageLeftMargin);
-            section.PageSetup.RightMargin = Unit.FromMillimeter(_pageRightMargin);
-            section.PageSetup.TopMargin = Unit.FromMillimeter(_pageTopMargin);
-            section.PageSetup.BottomMargin = Unit.FromMillimeter(_pageBottomMargin);
+            section.PageSetup.LeftMargin = Unit.FromMillimeter(_layoutDefinition.PageLeftMargin);
+            section.PageSetup.RightMargin = Unit.FromMillimeter(_layoutDefinition.PageRightMargin);
+            section.PageSetup.TopMargin = Unit.FromMillimeter(_layoutDefinition.PageTopMargin);
+            section.PageSetup.BottomMargin = Unit.FromMillimeter(_layoutDefinition.PageBottomMargin);
 
             if (_testFonts)
             {
@@ -121,13 +135,13 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
                 // Create a full page for each group
                 Row currentRow;
 
-                for (int rowIndex = 0; rowIndex < _rowsPerPage; rowIndex++)
+                for (int rowIndex = 0; rowIndex < _layoutDefinition.RowsPerPage; rowIndex++)
                 {
                     currentRow = table.AddRow();
                     currentRow.VerticalAlignment = VerticalAlignment.Center;
 
                     int colIndex = 0;
-                    while (colIndex < _columnsPerRow)
+                    while (colIndex < _layoutDefinition.ColumnsPerRow)
                     {
                         AddLabelItem(currentRow.Cells[colIndex++], labelGroup);
                         colIndex++; // Skip gap column
@@ -146,51 +160,30 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
             table.Format.LineSpacingRule = LineSpacingRule.Single;
             table.Format.Font.Name = _reportFont;
             table.Format.Font.Size = _textFontSize;
-            table.Rows.Height = Unit.FromMillimeter(_labelRowHeightMM);
+            table.Rows.Height = Unit.FromMillimeter(_layoutDefinition.LabelRowHeightMM);
             table.Rows.HeightRule = RowHeightRule.Exactly;
             table.Borders.Visible = false;
 
             // Create columns
-            // Label column 1
-            Column column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(_labelWidthMM);
-            column.Format.Alignment = ParagraphAlignment.Center;
+            Column column;
+            int colIndex = 0;
 
-            // Gap column
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(_labelColumnGapWidthMM);
+            while (colIndex < _layoutDefinition.ColumnsPerRow)
+            {
+                // Label column
+                column = table.AddColumn();
+                column.Width = Unit.FromMillimeter(_layoutDefinition.LabelWidthMM);
+                column.Format.Alignment = ParagraphAlignment.Center;
+                colIndex++;
 
-            // Label column 2
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(_labelWidthMM);
-            column.Format.Alignment = ParagraphAlignment.Center;
-
-            // Gap column
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(_labelColumnGapWidthMM);
-
-            // Label column 3
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(_labelWidthMM);
-            column.Format.Alignment = ParagraphAlignment.Center;
-
-            // Gap column
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(_labelColumnGapWidthMM);
-
-            // Label column 4
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(_labelWidthMM);
-            column.Format.Alignment = ParagraphAlignment.Center;
-
-            // Gap column
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(_labelColumnGapWidthMM);
-
-            // Label column 5
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(_labelWidthMM);
-            column.Format.Alignment = ParagraphAlignment.Center;
+                if (colIndex < _layoutDefinition.ColumnsPerRow)
+                {
+                    // Gap column
+                    column = table.AddColumn();
+                    column.Width = Unit.FromMillimeter(_layoutDefinition.LabelColumnGapWidthMM);
+                    colIndex++;
+                }
+            }
 
             return table;
         }
