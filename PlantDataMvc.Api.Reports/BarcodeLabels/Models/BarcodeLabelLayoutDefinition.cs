@@ -3,6 +3,7 @@
     public class BarcodeLabelLayoutDefinition
     {
         public string LayoutName { get; set; } = string.Empty;
+        public bool IsDefault { get; set; }
 
         // Page Setup
         public string PageSize { get; set; } = string.Empty;

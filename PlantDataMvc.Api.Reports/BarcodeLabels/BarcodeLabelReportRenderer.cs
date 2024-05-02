@@ -38,11 +38,9 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
 
         private readonly bool _testFonts = false;
 
-        public BarcodeLabelReportRenderer(BarcodeLabelReportModel reportModel)
+        public BarcodeLabelReportRenderer(BarcodeLabelReportModel reportModel, BarcodeLabelLayoutDefinition layoutDefinition)
         {
-            // Hardcode here initially
-            //_layoutDefinition = LayoutDefinitions.AveryL7651;
-            _layoutDefinition = LayoutDefinitions.AveryL7158;
+            _layoutDefinition = layoutDefinition;
 
             _reportModel = reportModel;
             _barcodeFontInfos = new List<FontInfo>() {

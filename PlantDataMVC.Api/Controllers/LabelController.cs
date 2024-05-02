@@ -81,7 +81,7 @@ namespace PlantDataMVC.Api.Controllers
             {
                 ILogger<BarcodeLabelReportBuilder> logger = _loggerFactory.CreateLogger<BarcodeLabelReportBuilder>();
                 var reportBuilder = new BarcodeLabelReportBuilder(_priceService, logger);
-                result.ReportDocument = reportBuilder.GetBarcodeLabelReport(dto.LabelRequests);
+                result.ReportDocument = reportBuilder.GetBarcodeLabelReport(dto.LayoutDefinition, dto.LabelRequests);
             }
             catch (Exception e)
             {

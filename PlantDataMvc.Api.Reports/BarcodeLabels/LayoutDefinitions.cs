@@ -2,52 +2,59 @@
 {
     public static class LayoutDefinitions
     {
-        public static BarcodeLabelLayoutDefinition AveryL7651
+        public static BarcodeLabelLayoutDefinition GetAveryL7651(bool setAsDefault = false)
         {
-            get
+            var layout = new BarcodeLabelLayoutDefinition()
             {
-                var layout = new BarcodeLabelLayoutDefinition()
-                {
-                    LayoutName = "Avery L7651",
-                    PageSize = "A4",
-                    LabelsPerPage = 65,
-                    PageTopMargin = 10.7,
-                    PageBottomMargin = 0,
-                    PageLeftMargin = 4.7,
-                    PageRightMargin = 4.7,
-                    ColumnsPerRow = 9,
-                    LabelWidthMM = 38.1,
-                    LabelColumnGapWidthMM = 2.5,
-                    RowsPerPage = 13,
-                    LabelRowHeightMM = 21.2
-                };
+                LayoutName = "Avery L7651",
+                IsDefault = setAsDefault,
+                PageSize = "A4",
+                LabelsPerPage = 65,
+                PageTopMargin = 10.7,
+                PageBottomMargin = 0,
+                PageLeftMargin = 4.7,
+                PageRightMargin = 4.7,
+                ColumnsPerRow = 9,
+                LabelWidthMM = 38.1,
+                LabelColumnGapWidthMM = 2.5,
+                RowsPerPage = 13,
+                LabelRowHeightMM = 21.2
+            };
 
-                return layout;
-            }
+            return layout;
         }
 
-        public static BarcodeLabelLayoutDefinition AveryL7158
+        public static BarcodeLabelLayoutDefinition GetAveryL7158(bool setAsDefault = false)
         {
-            get
+            var layout = new BarcodeLabelLayoutDefinition()
             {
-                var layout = new BarcodeLabelLayoutDefinition()
-                {
-                    LayoutName = "Avery L7158",
-                    PageSize = "A4",
-                    LabelsPerPage = 30,
-                    PageTopMargin = 10.7,
-                    PageBottomMargin = 0,
-                    PageLeftMargin = 4.7,
-                    PageRightMargin = 4.7,
-                    ColumnsPerRow = 5,
-                    LabelWidthMM = 64.0,
-                    LabelColumnGapWidthMM = 2.5,
-                    RowsPerPage = 10,
-                    LabelRowHeightMM = 26.7
-                };
+                LayoutName = "Avery L7158",
+                IsDefault = setAsDefault,
+                PageSize = "A4",
+                LabelsPerPage = 30,
+                PageTopMargin = 10.7,
+                PageBottomMargin = 0,
+                PageLeftMargin = 4.7,
+                PageRightMargin = 4.7,
+                ColumnsPerRow = 5,
+                LabelWidthMM = 64.0,
+                LabelColumnGapWidthMM = 2.5,
+                RowsPerPage = 10,
+                LabelRowHeightMM = 26.7
+            };
 
-                return layout;
-            }
+            return layout;
+        }
+
+        public static List<BarcodeLabelLayoutDefinition> GetAllLayoutDefinitions()
+        {
+            var list = new List<BarcodeLabelLayoutDefinition>()
+            {
+                GetAveryL7651(setAsDefault: true),
+                GetAveryL7158()
+            };
+
+            return list;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
             _service = service;
         }
 
-        public string? GetBarcodeLabelReport(List<ProductPriceBarcodeItemRequestModel> requestedItems)
+        public string? GetBarcodeLabelReport(BarcodeLabelLayoutDefinition layoutDefinition, List<ProductPriceBarcodeItemRequestModel> requestedItems)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
 
                 LoadLabelItems(reportModel,requestedItems);
 
-                return new BarcodeLabelReportRenderer(reportModel).BuildReport();
+                return new BarcodeLabelReportRenderer(reportModel, layoutDefinition).BuildReport();
             }
             catch (Exception ex)
             {
