@@ -36,6 +36,7 @@ namespace PlantDataMVC.Web.DependencyInjection
             services.AddTransient<ISeedTrayLookupService, SeedTrayLookupService>();
             services.AddTransient<ISiteLookupService, SiteLookupService>();
             services.AddTransient<ISpeciesLookupService, SpeciesLookupService>();
+            services.AddTransient<IBarcodeLayoutLookupService, BarcodeLayoutLookupService>();
 
             /// Extensions to scan for MediatR handlers and registers them.
             /// - Scans for any handler interface implementations and registers them as <see cref="ServiceLifetime.Transient"/>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PlantDataMvc.Api.Reports.BarcodeLabels;
+using PlantDataMvc.Api.Reports.BarcodeLabels.Models;
 using PlantDataMVC.Api.Models.ServiceModels;
 using PlantDataMVC.Api.Reports.InfoLabels;
 using PlantDataMVC.Service;
@@ -34,6 +35,8 @@ namespace PlantDataMVC.Api.Controllers
             _loggerFactory = loggerFactory;
         }
 
+        #region PlantInfoLabels
+
         // POST: api/Label/FetchPlantInfoLabelReport
         [HttpPost]
         [Route("FetchPlantInfoLabelReport")]
@@ -63,6 +66,20 @@ namespace PlantDataMVC.Api.Controllers
             return Ok(result);
         }
 
+        #endregion PlantInfoLabels
+
+        #region BarcodeLabels
+
+        // GET: api/Label/BarcodeLayouts
+        [HttpGet]
+        [Route("BarcodeLayouts")]
+        public IActionResult Get()
+        {
+            var itemList = LayoutDefinitions.GetAllLayouts();
+
+            return Ok(itemList);
+        }
+
         // POST: api/Label/FetchBarcodeLabelReport
         [HttpPost]
         [Route("FetchBarcodeLabelReport")]
@@ -81,7 +98,8 @@ namespace PlantDataMVC.Api.Controllers
             {
                 ILogger<BarcodeLabelReportBuilder> logger = _loggerFactory.CreateLogger<BarcodeLabelReportBuilder>();
                 var reportBuilder = new BarcodeLabelReportBuilder(_priceService, logger);
-                result.ReportDocument = reportBuilder.GetBarcodeLabelReport(dto.LayoutDefinition, dto.LabelRequests);
+                
+                result.ReportDocument = reportBuilder.GetBarcodeLabelReport(dto.LayoutName, dto.LabelRequests);
             }
             catch (Exception e)
             {
@@ -91,5 +109,7 @@ namespace PlantDataMVC.Api.Controllers
 
             return Ok(result);
         }
+
+        #endregion BarcodeLabels
     }
 }

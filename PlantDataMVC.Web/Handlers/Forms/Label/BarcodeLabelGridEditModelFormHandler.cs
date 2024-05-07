@@ -26,6 +26,8 @@ namespace PlantDataMVC.Web.Handlers.Forms.Transaction
             {
                 FetchBarcodeLabelReportRequestDto requestDTO = new();
 
+                //requestDTO.LayoutName = form.LayoutName;
+                
                 var labelRequests = form.Items.Select(x => new ProductPriceBarcodeItemRequestModel() { ProductPriceId = x.ProductPriceId, LabelQuantity = x.LabelQuantity }).ToList();
                 requestDTO.LabelRequests = labelRequests;
 

@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
-using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.SaleEventStock;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PlantDataMVC.Web.ViewComponents.ProductTypeGrid
 {

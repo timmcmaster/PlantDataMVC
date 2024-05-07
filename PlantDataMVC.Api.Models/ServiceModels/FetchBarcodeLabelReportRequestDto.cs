@@ -5,7 +5,7 @@ namespace PlantDataMVC.Api.Models.ServiceModels
 {
     public class FetchBarcodeLabelReportRequestDto
     {
-        public BarcodeLabelLayoutDefinition LayoutDefinition { get; set; } = new();
+        public string LayoutName { get; set; }
         public List<ProductPriceBarcodeItemRequestModel> LabelRequests { get; set; } = new();
     }
 }

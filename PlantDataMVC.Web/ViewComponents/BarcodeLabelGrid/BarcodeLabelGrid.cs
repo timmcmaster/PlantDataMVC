@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
-using PlantDataMVC.Web.Models.ViewModels;
 using PlantDataMVC.Web.Models.ViewModels.Label;
 using System;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace PlantDataMVC.Web.ViewComponents.BarcodeLabelGrid
 {
@@ -17,7 +16,7 @@ namespace PlantDataMVC.Web.ViewComponents.BarcodeLabelGrid
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
         }
 
-        public IViewComponentResult Invoke(ListViewModelStatic<BarcodeLabelListViewModel> model, GridOptionsModel gridOptions)
+        public IViewComponentResult Invoke(IEnumerable<BarcodeLabelListViewModel> barcodeLabels, GridOptionsModel gridOptions)
         {
             string viewName = "Default";
 
@@ -27,18 +26,18 @@ namespace PlantDataMVC.Web.ViewComponents.BarcodeLabelGrid
             var gridModel = new BarcodeLabelGridViewModel()
             {
                 Options = gridOptions,
-                PageNumber = model.PageNumber,
-                PageSize = model.PageSize,
-                HasNextPage = model.HasNextPage,
-                HasPreviousPage = model.HasPreviousPage,
-                TotalCount = model.TotalCount,
-                TotalPages = model.TotalPages,
+                //PageNumber = model.PageNumber,
+                //PageSize = model.PageSize,
+                //HasNextPage = model.HasNextPage,
+                //HasPreviousPage = model.HasPreviousPage,
+                //TotalCount = model.TotalCount,
+                //TotalPages = model.TotalPages,
 
-                SortBy = model.SortBy,
-                SortAscending = model.SortAscending,
-                SortExpression = model.SortExpression,
+                //SortBy = model.SortBy,
+                //SortAscending = model.SortAscending,
+                //SortExpression = model.SortExpression,
 
-                Items = model
+                Items = barcodeLabels
             };
 
             return View(viewName, gridModel);

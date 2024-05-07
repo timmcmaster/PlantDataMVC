@@ -17,13 +17,19 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
             _service = service;
         }
 
-        public string? GetBarcodeLabelReport(BarcodeLabelLayoutDefinition layoutDefinition, List<ProductPriceBarcodeItemRequestModel> requestedItems)
+        public string? GetBarcodeLabelReport(string layoutName, List<ProductPriceBarcodeItemRequestModel> requestedItems)
         {
             try
             {
                 var reportModel = new BarcodeLabelReportModel();
 
                 LoadLabelItems(reportModel,requestedItems);
+
+                var layoutDefinition = LayoutDefinitions.GetAllLayouts().Where(x => x.LayoutName == layoutName).FirstOrDefault();
+                if (layoutDefinition == null) 
+                {
+                    layoutDefinition = LayoutDefinitions.GetAllLayouts().Where(x => x.IsDefault).First();
+                }
 
                 return new BarcodeLabelReportRenderer(reportModel, layoutDefinition).BuildReport();
             }

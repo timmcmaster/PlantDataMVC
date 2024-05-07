@@ -2,6 +2,7 @@
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
 using PlantDataMvc.Api.Reports.BarcodeLabels.Models;
+using PlantDataMVC.Api.Models.DataModels;
 
 namespace PlantDataMvc.Api.Reports.BarcodeLabels
 {
@@ -31,14 +32,14 @@ namespace PlantDataMvc.Api.Reports.BarcodeLabels
 
 
         private readonly BarcodeLabelReportModel _reportModel;
-        private readonly BarcodeLabelLayoutDefinition _layoutDefinition;
+        private readonly BarcodeLabelLayoutDataModel _layoutDefinition;
 
         private readonly int _textFontSize = 11;
         private readonly int _priceFontSize = 14;
 
         private readonly bool _testFonts = false;
 
-        public BarcodeLabelReportRenderer(BarcodeLabelReportModel reportModel, BarcodeLabelLayoutDefinition layoutDefinition)
+        public BarcodeLabelReportRenderer(BarcodeLabelReportModel reportModel, BarcodeLabelLayoutDataModel layoutDefinition)
         {
             _layoutDefinition = layoutDefinition;
 

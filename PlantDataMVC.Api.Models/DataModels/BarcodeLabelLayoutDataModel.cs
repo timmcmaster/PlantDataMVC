@@ -1,6 +1,6 @@
-﻿namespace PlantDataMvc.Api.Reports.BarcodeLabels.Models
+﻿namespace PlantDataMVC.Api.Models.DataModels
 {
-    public class BarcodeLabelLayoutDefinition
+    public class BarcodeLabelLayoutDataModel
     {
         public string LayoutName { get; set; } = string.Empty;
         public bool IsDefault { get; set; }

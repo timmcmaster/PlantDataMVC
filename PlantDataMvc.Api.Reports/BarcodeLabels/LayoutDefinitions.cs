@@ -1,10 +1,12 @@
-﻿namespace PlantDataMvc.Api.Reports.BarcodeLabels.Models
+﻿using PlantDataMVC.Api.Models.DataModels;
+
+namespace PlantDataMvc.Api.Reports.BarcodeLabels.Models
 {
     public static class LayoutDefinitions
     {
-        public static BarcodeLabelLayoutDefinition GetAveryL7651(bool setAsDefault = false)
+        public static BarcodeLabelLayoutDataModel GetAveryL7651(bool setAsDefault = false)
         {
-            var layout = new BarcodeLabelLayoutDefinition()
+            var layout = new BarcodeLabelLayoutDataModel()
             {
                 LayoutName = "Avery L7651",
                 IsDefault = setAsDefault,
@@ -24,9 +26,9 @@
             return layout;
         }
 
-        public static BarcodeLabelLayoutDefinition GetAveryL7158(bool setAsDefault = false)
+        public static BarcodeLabelLayoutDataModel GetAveryL7158(bool setAsDefault = false)
         {
-            var layout = new BarcodeLabelLayoutDefinition()
+            var layout = new BarcodeLabelLayoutDataModel()
             {
                 LayoutName = "Avery L7158",
                 IsDefault = setAsDefault,
@@ -46,9 +48,9 @@
             return layout;
         }
 
-        public static List<BarcodeLabelLayoutDefinition> GetAllLayoutDefinitions()
+        public static List<BarcodeLabelLayoutDataModel> GetAllLayouts()
         {
-            var list = new List<BarcodeLabelLayoutDefinition>()
+            var list = new List<BarcodeLabelLayoutDataModel>()
             {
                 GetAveryL7651(setAsDefault: true),
                 GetAveryL7158()

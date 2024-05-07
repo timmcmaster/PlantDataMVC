@@ -93,7 +93,7 @@ namespace PlantDataMVC.Web.Controllers
             return string.IsNullOrEmpty(result) ? failureResult : successResult;
         }
 
-        public async Task<ActionResult> Barcodes(int? page, int? pageSize, string sortBy, bool? ascending)
+        public async Task<ActionResult> Barcodes()
         {
             var gridOptions = new GridOptionsModel()
             {
@@ -104,19 +104,7 @@ namespace PlantDataMVC.Web.Controllers
                 AllowSorting = true
             };
 
-            // resolve parameters
-            int? localPage = page ?? 1;
-            int? localPageSize = pageSize ?? 20;
-            string localSortBy = sortBy ?? string.Empty;
-            bool localAscending = ascending ?? true;
-
-            if (!gridOptions.AllowPaging)
-            {
-                localPage = null;
-                localPageSize = null;
-            }
-
-            var query = new BarcodeLabelQuery(localPage, localPageSize, localSortBy, localAscending);
+            var query = new BarcodeLabelQuery();
             var model = await _mediator.Send(query);
 
             if (model == null)
