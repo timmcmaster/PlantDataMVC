@@ -1,6 +1,6 @@
 ﻿using PlantDataMVC.Api.Models.DataModels;
 
-namespace PlantDataMvc.Api.Reports.BarcodeLabels.Models
+namespace PlantDataMVC.Api.Reports.BarcodeLabels.Models
 {
     public static class LayoutDefinitions
     {

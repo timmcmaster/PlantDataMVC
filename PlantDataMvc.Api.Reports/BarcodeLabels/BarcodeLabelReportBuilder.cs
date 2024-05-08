@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
-using PlantDataMvc.Api.Reports.BarcodeLabels.Models;
+using PlantDataMVC.Api.Reports.BarcodeLabels.Models;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Api.Reports.InfoLabels;
 using PlantDataMVC.Service;
 
-namespace PlantDataMvc.Api.Reports.BarcodeLabels
+namespace PlantDataMVC.Api.Reports.BarcodeLabels
 {
     public class BarcodeLabelReportBuilder : IBarcodeLabelReportBuilder
     {

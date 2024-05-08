@@ -7,15 +7,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Mediator\**" />
-    <EmbeddedResource Remove="Mediator\**" />
-    <None Remove="Mediator\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Forms\IFormHandlerFactory.cs" />
-    <Compile Remove="Views\IQueryHandlerFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />

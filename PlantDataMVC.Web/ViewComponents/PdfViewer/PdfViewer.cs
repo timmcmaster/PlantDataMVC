@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using PlantDataMvc.Web.Models.ViewComponents.ViewModels;
-using PlantDataMvc.Web.Models.ViewModels.Label;
+using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
+using PlantDataMVC.Web.Models.ViewModels.Label;
 using System;
 using System.Threading.Tasks;
 

@@ -7,6 +7,7 @@
                                    .OrderByDescending(x => x.IsDefault)
                                    .ThenBy(x => x.LayoutName)
                                    .Select(x => x.LayoutName);
+    var selectedLayoutName = labelLayouts.FirstOrDefault();
 }
 <h2>Barcode Labels</h2>
 <div class="container-lg">
@@ -19,14 +20,19 @@
                 <div class="col-sm-10">
                     @Html.DropDownListFor(
                              Model => Model.LayoutName,
-                             new SelectList(labelLayouts),
+                             new SelectList(labelLayouts, selectedLayoutName),
                              "--Select Layout--",
                              new { @class = "form-select" })
                     <span asp-validation-for="LayoutName"></span>
                 </div>
             </div>
 
-            @await Component.InvokeAsync("BarcodeLabelGrid", new { model = Model.BarcodeLabels, gridOptions = Model.GridOptions })
+            <div class="row mb-3">
+                <label asp-for="BarcodeLabels"></label>
+                <div class="child-table">
+                    @await Component.InvokeAsync("BarcodeLabelGrid", new { model = Model.BarcodeLabels, gridOptions = Model.GridOptions })
+                </div>
+            </div>
             <p>
                 <input type="submit" value="Save" />
             </p>

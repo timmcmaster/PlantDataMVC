@@ -1,10 +1,10 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
-using PlantDataMvc.Api.Reports.BarcodeLabels.Models;
+using PlantDataMVC.Api.Reports.BarcodeLabels.Models;
 using PlantDataMVC.Api.Models.DataModels;
 
-namespace PlantDataMvc.Api.Reports.BarcodeLabels
+namespace PlantDataMVC.Api.Reports.BarcodeLabels
 {
     public class BarcodeLabelReportRenderer
     {

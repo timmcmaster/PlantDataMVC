@@ -9,7 +9,7 @@ using AutoMapper;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PlantDataMvc.WebApiCore.Tests;
+using PlantDataMVC.WebApiCore.Tests;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Api.Models.Mappers;
 using PlantDataMVC.Entities.EntityModels;

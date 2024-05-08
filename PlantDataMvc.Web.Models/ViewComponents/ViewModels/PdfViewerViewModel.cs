@@ -1,6 +1,6 @@
-﻿using PlantDataMvc.Web.Models.ViewModels.Label;
+﻿using PlantDataMVC.Web.Models.ViewModels.Label;
 
-namespace PlantDataMvc.Web.Models.ViewComponents.ViewModels
+namespace PlantDataMVC.Web.Models.ViewComponents.ViewModels
 {
     public class PdfViewerViewModel
     {

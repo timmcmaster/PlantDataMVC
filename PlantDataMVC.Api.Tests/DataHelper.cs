@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlantDataMvc.WebApiCore.Tests
+namespace PlantDataMVC.WebApiCore.Tests
 {
     public static class DataHelper
     {

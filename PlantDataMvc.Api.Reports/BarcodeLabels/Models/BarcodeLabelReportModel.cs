@@ -1,4 +1,4 @@
-﻿namespace PlantDataMvc.Api.Reports.BarcodeLabels.Models
+﻿namespace PlantDataMVC.Api.Reports.BarcodeLabels.Models
 {
     public class BarcodeLabelReportModel
     {

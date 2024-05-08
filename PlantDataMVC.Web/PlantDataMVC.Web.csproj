@@ -29,10 +29,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Framework.Web\Framework.Web.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Api.Models\PlantDataMVC.Api.Models.csproj" />
-    <ProjectReference Include="..\PlantDataMvc.Api.Reports\PlantDataMvc.Api.Reports.csproj" />
+    <ProjectReference Include="..\PlantDataMvc.Api.Reports\PlantDataMVC.Api.Reports.csproj" />
     <ProjectReference Include="..\PlantDataMVC.common.Client\PlantDataMVC.Common.Client.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Constants\PlantDataMVC.Constants.csproj" />
-    <ProjectReference Include="..\PlantDataMvc.Web.Models\PlantDataMvc.Web.Models.csproj" />
+    <ProjectReference Include="..\PlantDataMvc.Web.Models\PlantDataMVC.Web.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

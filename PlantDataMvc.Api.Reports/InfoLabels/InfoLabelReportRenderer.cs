@@ -2,7 +2,7 @@
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
-using PlantDataMvc.Api.Reports;
+using PlantDataMVC.Api.Reports;
 
 namespace PlantDataMVC.Api.Reports.InfoLabels
 {

@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using PlantDataMvc.Web.Models.ViewModels.Label;
+using PlantDataMVC.Web.Models.EditModels.Label;
+using PlantDataMVC.Web.Models.ViewModels.Label;
 using PlantDataMVC.Web.Controllers.Queries.Label;
 using PlantDataMVC.Web.Models.EditModels.Label;
 using PlantDataMVC.Web.Models.ViewComponents.ViewModels;
@@ -19,6 +20,8 @@ namespace PlantDataMVC.Web.Controllers
         {
             _mediator = mediator;
         }
+
+        #region PlantInfoLabels
 
         //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
         public async Task<ActionResult> Plants(int? page, int? pageSize, string sortBy, bool? ascending)
@@ -93,6 +96,10 @@ namespace PlantDataMVC.Web.Controllers
             return string.IsNullOrEmpty(result) ? failureResult : successResult;
         }
 
+        #endregion PlantInfoLabels
+
+        #region BarcodeLabels
+
         public async Task<ActionResult> Barcodes()
         {
             var gridOptions = new GridOptionsModel()
@@ -119,9 +126,10 @@ namespace PlantDataMVC.Web.Controllers
             }
         }
 
+
         // POST: /"ControllerName"/BarcodesPrint
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> BarcodesPrint(string labelData)
+        public async Task<ActionResult> BarcodesPrint(BarcodeLabelsEditModel form, string labelData)
         {
             var failureResult = DefaultFormFailureResult();
 
@@ -130,7 +138,7 @@ namespace PlantDataMVC.Web.Controllers
                 // TODO: Display any model validation errors
                 return failureResult;
             }
-            BarcodeLabelGridEditModel form = new();
+
             if (labelData != null)
             {
                 form.Items = JsonConvert.DeserializeObject<IEnumerable<BarcodeLabelListEditModel>>(labelData);
@@ -152,5 +160,7 @@ namespace PlantDataMVC.Web.Controllers
 
             return string.IsNullOrEmpty(result) ? failureResult : successResult;
         }
+
+        #endregion BarcodeLabels
     }
 }

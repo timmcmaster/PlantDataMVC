@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PlantDataMvc.Web.Models.ViewModels.Label
+namespace PlantDataMVC.Web.Models.ViewModels.Label
 {
     public class FileModel
     {

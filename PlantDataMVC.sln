@@ -68,9 +68,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Identity", "5.Identity", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6.Api", "6.Api", "{DE080546-74E2-498D-98DA-58D0CB4C4C1A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMvc.Web.Models", "PlantDataMvc.Web.Models\PlantDataMvc.Web.Models.csproj", "{40717944-8696-45A6-AA07-4AE545866E15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.Web.Models", "PlantDataMvc.Web.Models\PlantDataMVC.Web.Models.csproj", "{40717944-8696-45A6-AA07-4AE545866E15}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMvc.Api.Reports", "PlantDataMvc.Api.Reports\PlantDataMvc.Api.Reports.csproj", "{5D89937B-28B0-4013-B9BB-6192214CC498}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.Api.Reports", "PlantDataMvc.Api.Reports\PlantDataMVC.Api.Reports.csproj", "{5D89937B-28B0-4013-B9BB-6192214CC498}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantDataMVC.DbMigrations", "PlantDataMVC.DbMigrations\PlantDataMVC.DbMigrations.csproj", "{365255BF-AC71-4045-954E-29A8514F558B}"
 EndProject
