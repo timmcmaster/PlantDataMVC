@@ -3,6 +3,7 @@
     public class BarcodeLabelLayoutDataModel
     {
         public string LayoutName { get; set; } = string.Empty;
+        public string LayoutDescription => $"{LayoutName} ({LabelsPerPage} labels per page - {LabelWidthMM} mm x {LabelRowHeightMM} mm)";
         public bool IsDefault { get; set; }
 
         // Page Setup

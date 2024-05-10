@@ -6,8 +6,8 @@
     var labelLayouts = layoutLookup.GetData()
                                    .OrderByDescending(x => x.IsDefault)
                                    .ThenBy(x => x.LayoutName)
-                                   .Select(x => x.LayoutName);
-    var selectedLayoutName = labelLayouts.FirstOrDefault();
+                                   .Select(x => new { LayoutName = x.LayoutName, LayoutDescription = x.LayoutDescription });
+    var selectedLayout = labelLayouts.FirstOrDefault();
 }
 <h2>Barcode Labels</h2>
 <div class="container-lg">
@@ -20,7 +20,7 @@
                 <div class="col-sm-10">
                     @Html.DropDownListFor(
                              Model => Model.LayoutName,
-                             new SelectList(labelLayouts, selectedLayoutName),
+                             new SelectList(labelLayouts, nameof(selectedLayout.LayoutName), nameof(selectedLayout.LayoutDescription),selectedLayout),
                              "--Select Layout--",
                              new { @class = "form-select" })
                     <span asp-validation-for="LayoutName"></span>
