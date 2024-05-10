@@ -30,7 +30,7 @@
             <div class="row mb-3">
                 <label asp-for="BarcodeLabels"></label>
                 <div class="child-table">
-                    @await Component.InvokeAsync("BarcodeLabelGrid", new { model = Model.BarcodeLabels, gridOptions = Model.GridOptions })
+                    @await Component.InvokeAsync("BarcodeLabelGrid", new { barcodeLabels = Model.BarcodeLabels, gridOptions = Model.GridOptions })
                 </div>
             </div>
             <p>
