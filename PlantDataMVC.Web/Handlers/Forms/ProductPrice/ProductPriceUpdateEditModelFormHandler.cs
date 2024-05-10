@@ -29,11 +29,13 @@ namespace PlantDataMVC.Web.Handlers.Forms.ProductPrice
             try
             {
                 // Map local model to DTO
-                ProductPriceDataModel item = _mapper.Map<ProductPriceUpdateEditModel, ProductPriceDataModel>(form);
+                CreateUpdateProductPriceDataModel item = _mapper.Map<ProductPriceUpdateEditModel, CreateUpdateProductPriceDataModel>(form);
 
                 // Update with PUT
-                var uri = $"api/ProductPrice?productTypeId={form.ProductTypeId}&priceListId={form.PriceListTypeId}&strEffectiveDate={form.DateEffective.ToString("yyyyMMdd")}";
-                var response = await _plantDataApiClient.PutAsync<ProductPriceDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                //var uri = $"api/ProductPrice?productTypeId={form.ProductTypeId}&priceListId={form.PriceListTypeId}&strEffectiveDate={form.DateEffective.ToString("yyyyMMdd")}";
+                //var response = await _plantDataApiClient.PutAsync<ProductPriceDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
+                var uri = $"api/ProductPrice/" + form.Id;
+                var response = await _plantDataApiClient.PutAsync<CreateUpdateProductPriceDataModel>(uri, item, cancellationToken).ConfigureAwait(false);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     throw new UnauthorizedAccessException();

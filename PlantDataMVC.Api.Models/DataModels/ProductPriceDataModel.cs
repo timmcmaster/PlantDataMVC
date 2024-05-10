@@ -11,5 +11,6 @@ namespace PlantDataMVC.Api.Models.DataModels
         public string PriceListTypeName { get; set; }
         public DateTime DateEffective { get; set; }
         public decimal Price { get; set; }
+        public string BarcodeSKU { get; set; }
     }
 }

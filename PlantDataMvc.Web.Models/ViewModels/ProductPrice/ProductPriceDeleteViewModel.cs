@@ -26,5 +26,8 @@ namespace PlantDataMVC.Web.Models.ViewModels.ProductPrice
         public DateTime DateEffective { get; set; }
         
         public decimal Price { get; set; }
+
+        [Display(Name = "SKU")]
+        public string BarcodeSKU { get; set; }
     }
 }

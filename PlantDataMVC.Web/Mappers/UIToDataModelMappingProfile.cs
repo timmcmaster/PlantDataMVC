@@ -289,20 +289,23 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductTypeId))
                 .ForMember(dm => dm.PriceListTypeId, opt => opt.MapFrom(uio => uio.PriceListTypeId))
                 .ForMember(dm => dm.DateEffective, opt => opt.MapFrom(uio => uio.DateEffective))
-                .ForMember(dm => dm.Price, opt => opt.MapFrom(uio => uio.Price));
+                .ForMember(dm => dm.Price, opt => opt.MapFrom(uio => uio.Price))
+                .ForMember(dm => dm.BarcodeSKU, opt => opt.MapFrom(uio => uio.BarcodeSKU));
 
             CreateMap<ProductPrice.ProductPriceDestroyEditModel, ProductPriceDataModel>()
                 .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
                 .ForMember(dm => dm.ProductTypeId, opt => opt.Ignore())
                 .ForMember(dm => dm.PriceListTypeId, opt => opt.Ignore())
                 .ForMember(dm => dm.DateEffective, opt => opt.Ignore())
-                .ForMember(dm => dm.Price, opt => opt.Ignore());
+                .ForMember(dm => dm.Price, opt => opt.Ignore())
+                .ForMember(dm => dm.BarcodeSKU, opt => opt.Ignore());
 
             CreateMap<ProductPrice.ProductPriceUpdateEditModel, CreateUpdateProductPriceDataModel>()
                 .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(uio => uio.ProductTypeId))
                 .ForMember(dm => dm.PriceListTypeId, opt => opt.MapFrom(uio => uio.PriceListTypeId))
                 .ForMember(dm => dm.DateEffective, opt => opt.MapFrom(uio => uio.DateEffective))
-                .ForMember(dm => dm.Price, opt => opt.MapFrom(uio => uio.Price));
+                .ForMember(dm => dm.Price, opt => opt.MapFrom(uio => uio.Price))
+                .ForMember(dm => dm.BarcodeSKU, opt => opt.MapFrom(uio => uio.BarcodeSKU));
         }
 
         #endregion Configure Edit Models

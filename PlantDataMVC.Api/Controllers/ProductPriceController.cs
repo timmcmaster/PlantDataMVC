@@ -213,6 +213,7 @@ namespace PlantDataMVC.Api.Controllers
                 }
 
                 var entity = _mapper.Map<CreateUpdateProductPriceDataModel, ProductPriceEntityModel>(dataModelIn);
+                entity.Id = entityFound.Id;
                 _service.Update(entity);
 
                 // Save changes before we map back

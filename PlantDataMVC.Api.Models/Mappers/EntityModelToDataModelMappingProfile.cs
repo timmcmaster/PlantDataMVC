@@ -212,7 +212,8 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(dm => dm.PriceListTypeId, opt => opt.MapFrom(e => e.PriceListTypeId))
                 .ForMember(dm => dm.PriceListTypeName, opt => opt.MapFrom(e => e.PriceListType.Name))
                 .ForMember(dm => dm.DateEffective, opt => opt.MapFrom(e => e.DateEffective))
-                .ForMember(dm => dm.Price, opt => opt.MapFrom(e => e.Price));
+                .ForMember(dm => dm.Price, opt => opt.MapFrom(e => e.Price))
+                .ForMember(dm => dm.BarcodeSKU, opt => opt.MapFrom(e => e.BarcodeSKU));
         }
     }
 }

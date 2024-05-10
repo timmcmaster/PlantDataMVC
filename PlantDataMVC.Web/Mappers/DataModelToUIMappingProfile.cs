@@ -493,7 +493,8 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
                 .ForMember(uio => uio.PriceListTypeName, opt => opt.MapFrom(dm => dm.PriceListTypeName))
                 .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
-                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price));
+                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price))
+                .ForMember(uio => uio.BarcodeSKU, opt => opt.MapFrom(dm => dm.BarcodeSKU));
 
             CreateMap<ProductPriceDataModel, ProductPrice.ProductPriceEditViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
@@ -502,7 +503,8 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
                 .ForMember(uio => uio.PriceListTypeName, opt => opt.MapFrom(dm => dm.PriceListTypeName))
                 .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
-                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price));
+                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price))
+                .ForMember(uio => uio.BarcodeSKU, opt => opt.MapFrom(dm => dm.BarcodeSKU));
 
             CreateMap<ProductPriceDataModel, ProductPrice.ProductPriceListViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
@@ -511,7 +513,8 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
                 .ForMember(uio => uio.PriceListTypeName, opt => opt.MapFrom(dm => dm.PriceListTypeName))
                 .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
-                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price));
+                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price))
+                .ForMember(uio => uio.BarcodeSKU, opt => opt.MapFrom(dm => dm.BarcodeSKU));
 
             CreateMap<ProductPriceDataModel, ProductPrice.ProductPriceNewViewModel>()
                 .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
@@ -519,7 +522,8 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
                 .ForMember(uio => uio.PriceListTypeName, opt => opt.MapFrom(dm => dm.PriceListTypeName))
                 .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
-                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price));
+                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price))
+                .ForMember(uio => uio.BarcodeSKU, opt => opt.MapFrom(dm => dm.BarcodeSKU));
 
             CreateMap<ProductPriceDataModel, ProductPrice.ProductPriceShowViewModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
@@ -528,7 +532,8 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
                 .ForMember(uio => uio.PriceListTypeName, opt => opt.MapFrom(dm => dm.PriceListTypeName))
                 .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
-                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price));
+                .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price))
+                .ForMember(uio => uio.BarcodeSKU, opt => opt.MapFrom(dm => dm.BarcodeSKU));
         }
 
         private void ConfigureLabelViewModels()

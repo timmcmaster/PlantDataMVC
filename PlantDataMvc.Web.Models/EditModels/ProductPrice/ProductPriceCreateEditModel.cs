@@ -9,5 +9,6 @@ namespace PlantDataMVC.Web.Models.EditModels.ProductPrice
         public int PriceListTypeId { get; set; }
         public DateTime DateEffective { get; set; }
         public decimal Price { get; set; }
+        public string BarcodeSKU { get; set; }
     }
 }

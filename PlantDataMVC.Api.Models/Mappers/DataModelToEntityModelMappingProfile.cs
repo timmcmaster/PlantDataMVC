@@ -266,7 +266,8 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId)) // explicit and unnecessary
                 .ForMember(e => e.ProductType, opt => opt.Ignore())
                 .ForMember(e => e.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective)) // explicit and unnecessary
-                .ForMember(e => e.Price, opt => opt.MapFrom(dm => dm.Price)); // explicit and unnecessary
+                .ForMember(e => e.Price, opt => opt.MapFrom(dm => dm.Price)) // explicit and unnecessary
+                .ForMember(e => e.BarcodeSKU, opt => opt.MapFrom(dm => dm.BarcodeSKU)); // explicit and unnecessary
 
             CreateMap<ProductPriceDataModel, ProductPriceEntityModel>()
                 .ForMember(e => e.Id, opt => opt.MapFrom(dm => dm.Id)) // explicit and unnecessary
@@ -275,7 +276,8 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(e => e.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId)) // explicit and unnecessary
                 .ForMember(e => e.ProductType, opt => opt.Ignore())
                 .ForMember(e => e.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective)) // explicit and unnecessary
-                .ForMember(e => e.Price, opt => opt.MapFrom(dm => dm.Price)); // explicit and unnecessary
+                .ForMember(e => e.Price, opt => opt.MapFrom(dm => dm.Price)) // explicit and unnecessary
+                .ForMember(e => e.BarcodeSKU, opt => opt.MapFrom(dm => dm.BarcodeSKU)); // explicit and unnecessary
         }
 
         // Not yet mapped objects

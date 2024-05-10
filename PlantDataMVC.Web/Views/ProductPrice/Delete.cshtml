@@ -37,6 +37,13 @@
                     <p class="col-form-label">@Html.DisplayFor(model => model.Price)</p>
                 </div>
             </div>
+
+            <div class="row mb-3">
+                <label asp-for="BarcodeSKU" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <p class="col-form-label">@Html.DisplayFor(model => model.BarcodeSKU)</p>
+                </div>
+            </div>
         </fieldset>
         <p>
             <input type="submit" value="Delete" />
