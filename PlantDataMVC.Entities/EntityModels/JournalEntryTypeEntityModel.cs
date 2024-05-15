@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlantDataMVC.Entities.EntityModels
 {
-    public partial class JournalEntryTypeEntityModel: IEntity
+    public class JournalEntryTypeEntityModel: IEntity
     {
         [Required]
         [Display(Name = "Id")]

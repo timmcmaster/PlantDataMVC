@@ -18,6 +18,8 @@ namespace PlantDataMVC.Entities.Context
         public DbSet<SaleEventEntityModel> SaleEvents { get; set; } // SaleEvent
         public DbSet<SaleEventStockEntityModel> SaleEventStocks { get; set; } // SaleEventStock
         public DbSet<SpeciesEntityModel> Species { get; set; } // Species
+        public DbSet<StocktakeHeaderEntityModel> Stocktakes { get; set; } // StocktakeHeader
+        public DbSet<StocktakeLineEntityModel> StocktakeLines { get; set; } // StocktakeLine
 
         //static InventoryDbContext()
         //{

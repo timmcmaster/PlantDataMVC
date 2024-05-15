@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlantDataMVC.Entities.Context;
 
@@ -11,9 +12,11 @@ using PlantDataMVC.Entities.Context;
 namespace PlantDataMVC.DbMigrations.Migrations
 {
     [DbContext(typeof(PlantDataDbContext))]
-    partial class PlantDataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240515033938_Stocktake")]
+    partial class Stocktake
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

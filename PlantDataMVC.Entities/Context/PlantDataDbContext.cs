@@ -24,6 +24,9 @@ namespace PlantDataMVC.Entities.Context
         public DbSet<SeedTrayEntityModel> SeedTrays { get; set; } // SeedTray
         public DbSet<SiteEntityModel> Sites { get; set; } // Site
         public DbSet<SpeciesEntityModel> Species { get; set; } // Species
+        public DbSet<StocktakeHeaderEntityModel> Stocktakes { get; set; } // StocktakeHeader
+        public DbSet<StocktakeLineEntityModel> StocktakeLines { get; set; } // StocktakeLine
+
 
         //static PlantDataDbContext()
         //{
