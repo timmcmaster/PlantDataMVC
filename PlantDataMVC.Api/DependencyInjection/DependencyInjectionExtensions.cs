@@ -53,6 +53,8 @@ namespace PlantDataMVC.Api.DependencyInjection
             services.AddTransient<IPlantStockRepository, PlantStockRepository>();
             services.AddTransient<ISaleEventRepository, SaleEventRepository>();
             services.AddTransient<IProductPriceRepository, ProductPriceRepository>();
+            services.AddTransient<IStocktakeHeaderRepository, StocktakeHeaderRepository>();
+            services.AddTransient<IStocktakeLineRepository, StocktakeLineRepository>();
 
             //*****************************************
             // Register services wrapping repositories
@@ -69,6 +71,8 @@ namespace PlantDataMVC.Api.DependencyInjection
             services.AddTransient<IPlantStockService, PlantStockService>();
             services.AddTransient<ISaleEventService, SaleEventService>();
             services.AddTransient<IProductPriceService, ProductPriceService>();
+            services.AddTransient<IStocktakeHeaderService, StocktakeHeaderService>();
+            services.AddTransient<IStocktakeLineService, StocktakeLineService>();
 
             // Before we leave this method, write our registrations to log file
             services.LogRegisteredServices(Log.Logger);

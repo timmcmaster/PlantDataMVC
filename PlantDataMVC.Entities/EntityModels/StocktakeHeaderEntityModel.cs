@@ -12,14 +12,14 @@ namespace PlantDataMVC.Entities.EntityModels
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Stocktake Date")]
-        public DateTime StocktakeDate { get; set; }
-
-        [Required]
         [MaxLength(50)]
         [StringLength(50)]
         [Display(Name = "Reference")]
         public string Reference { get; set; }
+
+        [Required]
+        [Display(Name = "Stocktake Date")]
+        public DateTime StocktakeDate { get; set; }
 
         public virtual ICollection<StocktakeLineEntityModel> Lines { get; set; }
 

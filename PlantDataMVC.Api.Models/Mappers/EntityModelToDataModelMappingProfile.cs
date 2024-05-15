@@ -31,6 +31,8 @@ namespace PlantDataMVC.Api.Models.Mappers
             ConfigureSaleEventStockMappings();
             ConfigurePriceListTypeMappings();
             ConfigureProductPriceMappings();
+            ConfigureStocktakeMappings();
+            ConfigureStocktakeLineMappings();
         }
 
         private void ConfigureGenusMappings()
@@ -214,6 +216,36 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(dm => dm.DateEffective, opt => opt.MapFrom(e => e.DateEffective))
                 .ForMember(dm => dm.Price, opt => opt.MapFrom(e => e.Price))
                 .ForMember(dm => dm.BarcodeSKU, opt => opt.MapFrom(e => e.BarcodeSKU));
+        }
+
+        private void ConfigureStocktakeMappings()
+        {
+            CreateMap<StocktakeHeaderEntityModel, StocktakeDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(e => e.Id)) // explicit and unnecessary
+                .ForMember(dm => dm.Reference, opt => opt.MapFrom(e => e.Reference)) // explicit and unnecessary
+                .ForMember(dm => dm.StocktakeDate, opt => opt.MapFrom(e => e.StocktakeDate))
+                .ForMember(dm => dm.Lines, opt =>
+                {
+                    opt.MapFrom(e => e.Lines);
+                    opt.ExplicitExpansion(); // For projections only expand collection if requested
+                }) // ICollection, explicit and unnecessary
+                ;
+        }
+
+        private void ConfigureStocktakeLineMappings()
+        {
+            CreateMap<StocktakeLineEntityModel, StocktakeLineDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(e => e.Id))
+                .ForMember(dm => dm.HeaderId, opt => opt.MapFrom(e => e.HeaderId))
+                .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(e => e.SpeciesId))
+                .ForMember(dm => dm.ProductTypeId, opt => opt.MapFrom(e => e.ProductTypeId))
+                .ForMember(dm => dm.GenusName, opt => opt.MapFrom(e => e.Species.Genus.LatinName))
+                .ForMember(dm => dm.SpeciesName, opt => opt.MapFrom(e => e.Species.SpecificName))
+                .ForMember(dm => dm.ProductTypeName, opt => opt.MapFrom(e => e.ProductType.Name))
+                .ForMember(dm => dm.ExpectedQuantity, opt => opt.MapFrom(e => e.ExpectedQuantity))
+                .ForMember(dm => dm.CountedQuantity, opt => opt.MapFrom(e => e.CountedQuantity))
+                .ForMember(dm => dm.Applied, opt => opt.MapFrom(e => e.Applied))
+                ;
         }
     }
 }

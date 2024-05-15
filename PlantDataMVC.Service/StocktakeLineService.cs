@@ -1,0 +1,22 @@
+﻿using Framework.Service;
+using Interfaces.Service;
+using PlantDataMVC.Entities.EntityModels;
+using PlantDataMVC.Repository.Interfaces;
+
+namespace PlantDataMVC.Service
+{
+    public interface IStocktakeLineService : IService<StocktakeLineEntityModel>
+    {
+    }
+
+    /// <summary>
+    ///     All methods that are exposed from Repository in Service are overridable to add business logic,
+    ///     business logic should be in the Service layer and not in repository for separation of concerns.
+    /// </summary>
+    public class StocktakeLineService : Service<StocktakeLineEntityModel>, IStocktakeLineService
+    {
+        public StocktakeLineService(IStocktakeLineRepository repository) : base(repository)
+        {
+        }
+    }
+}
