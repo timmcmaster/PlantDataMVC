@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Framework.Domain.EF;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using Framework.Domain.EF;
-using PlantDataMVC.Entities.Interfaces;
-using PlantDataMVC.Entities.EntityModels;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using PlantDataMVC.Entities.EntityModels;
+using PlantDataMVC.Entities.Interfaces;
+using System;
 
 namespace PlantDataMVC.Entities.Context
 {

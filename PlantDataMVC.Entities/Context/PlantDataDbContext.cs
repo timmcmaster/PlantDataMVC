@@ -2,8 +2,8 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PlantDataMVC.Entities.Configuration;
-using PlantDataMVC.Entities.Interfaces;
 using PlantDataMVC.Entities.EntityModels;
+using PlantDataMVC.Entities.Interfaces;
 
 namespace PlantDataMVC.Entities.Context
 {
