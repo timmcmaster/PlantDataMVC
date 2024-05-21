@@ -27,7 +27,8 @@ namespace PlantDataMVC.Entities.Context
             AddFakeDbSet<SeedBatchEntityModel, SeedBatchDbSet>();
             AddFakeDbSet<SeedTrayEntityModel, SeedTrayDbSet>();
             AddFakeDbSet<SiteEntityModel, SiteDbSet>();
-            AddFakeDbSet<SpeciesEntityModel, SpeciesDbSet>();
+            AddFakeDbSet<StocktakeHeaderEntityModel, StocktakeHeaderDbSet>();
+            AddFakeDbSet<StocktakeLineEntityModel, StocktakeLineDbSet>();
         }
 
         #region IPlantDataDbContext Members

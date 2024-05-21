@@ -34,7 +34,7 @@ namespace PlantDataMVC.Entities.Configuration
             // Ignore 
 
             // Table & column mappings
-            builder.ToTable("Stocktake", _schema);
+            builder.ToTable("StocktakeLine", _schema);
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").UseIdentityColumn();
             builder.Property(x => x.HeaderId).HasColumnName(@"HeaderId").HasColumnType("int");

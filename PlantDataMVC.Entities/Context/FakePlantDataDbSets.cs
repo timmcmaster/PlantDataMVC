@@ -90,4 +90,16 @@ namespace PlantDataMVC.Entities.Context
         // TODO: Override Find(params object[] keyValues)
         // TODO: Override FindAsync(CancellationToken cancellationToken, params object[] keyValues)
     }
+
+    public class StocktakeHeaderDbSet : FakeDbSet<StocktakeHeaderEntityModel>
+    {
+        // TODO: Override Find(params object[] keyValues)
+        // TODO: Override FindAsync(CancellationToken cancellationToken, params object[] keyValues)
+    }
+
+    public class StocktakeLineDbSet : FakeDbSet<StocktakeLineEntityModel>
+    {
+        // TODO: Override Find(params object[] keyValues)
+        // TODO: Override FindAsync(CancellationToken cancellationToken, params object[] keyValues)
+    }
 }

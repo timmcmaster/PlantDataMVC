@@ -94,6 +94,8 @@ namespace PlantDataMVC.Entities.Context
             modelBuilder.ApplyConfiguration(new SpeciesConfiguration());
             modelBuilder.ApplyConfiguration(new SaleEventConfiguration());
             modelBuilder.ApplyConfiguration(new SaleEventStockConfiguration());
+            modelBuilder.ApplyConfiguration(new StocktakeHeaderConfiguration());
+            modelBuilder.ApplyConfiguration(new StocktakeLineConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
