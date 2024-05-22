@@ -17,6 +17,7 @@
         public const string Site = "Site";
         public const string Transaction = "Transaction";
         public const string Label = "Label";
+        public const string StocktakeHeader = "StocktakeHeader";
 
         public const string GenusGrid = "GenusGrid";
         public const string PlantGrid = "PlantGrid";
@@ -28,6 +29,7 @@
         public const string ProductPriceGrid = "ProductPriceGrid";
         public const string ProductTypeGrid = "ProductTypeGrid";
         public const string PriceListTypeGrid = "PriceListTypeGrid";
+        public const string StocktakeHeaderGrid = "StocktakeHeaderGrid";
         public const string TransactionStockSummaryGrid = "TransactionStockSummaryGrid";
         public const string TransactionGrid = "TransactionGrid";
         public const string TransactionStocktakeGrid = "TransactionStocktakeGrid";

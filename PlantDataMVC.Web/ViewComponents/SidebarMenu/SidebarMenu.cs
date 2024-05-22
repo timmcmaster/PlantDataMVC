@@ -62,12 +62,12 @@ namespace PlantDataMVC.Web.ViewComponents.SidebarMenu
 
                 new MenuItemViewModel(id:"sfInv", text:"Inventory", parentId:"null", url : string.Empty, iconCss:"bi-boxes"),
                 new MenuItemViewModel(id:"sfInvSeeds", text:"Seeds", parentId:"sfInv", url:Url.Action("Index", PlantDataMvcAppControllers.SeedBatch) ?? string.Empty),
-                new MenuItemViewModel(id:"sfInvSites", text:"Seed Collection Sites", parentId:"sfInv", url:Url.Action("Index", @PlantDataMvcAppControllers.Site) ?? string.Empty),
+                new MenuItemViewModel(id:"sfInvStocktakeHeaders", text:"Seed Collection StocktakeHeaders", parentId:"sfInv", url:Url.Action("Index", @PlantDataMvcAppControllers.StocktakeHeader) ?? string.Empty),
                 new MenuItemViewModel(id:"sfInvTrays", text:"Seed Trays", parentId:"sfInv", url:Url.Action("Index", PlantDataMvcAppControllers.SeedTray) ?? string.Empty),
                 new MenuItemViewModel(id:"sfInvStock", text:"Plant Stock (static)", parentId:"sfInv", url:Url.Action("Index", @PlantDataMvcAppControllers.PlantStock) ?? string.Empty),
                 new MenuItemViewModel(id:"sfInvTransactions", text:"Plant Stock (from Transactions)", parentId:"sfInv", url:Url.Action("StockSummary", PlantDataMvcAppControllers.Transaction) ?? string.Empty),
                 new MenuItemViewModel(id:"sfInvStocktake", text:"Plant Stocktake", parentId:"sfInv", url:Url.Action("Stocktake", PlantDataMvcAppControllers.Transaction) ?? string.Empty),
-                new MenuItemViewModel(id:"sfInvStocktakeSheets", text:"Stocktake Sheets", parentId:"sfInv", string.Empty), //url:Url.Action("Stocktake", PlantDataMvcAppControllers.Transaction) ?? string.Empty),
+                new MenuItemViewModel(id:"sfInvStocktakeSheets", text:"Stocktake Sheets", parentId:"sfInv", url:Url.Action("Index", PlantDataMvcAppControllers.StocktakeHeader) ?? string.Empty),
 
                 new MenuItemViewModel(id:"sfSales", text:"Sales", parentId:"null", url : string.Empty, iconCss:"bi-calendar-fill"),
                 new MenuItemViewModel(id:"sfSalesEvents", text:"Sale Events", parentId:"sfSales", url:Url.Action("Index", PlantDataMvcAppControllers.SaleEvent) ?? string.Empty),

@@ -15,6 +15,7 @@ using SaleEventStock = PlantDataMVC.Web.Models.ViewModels.SaleEventStock;
 using SeedBatch = PlantDataMVC.Web.Models.ViewModels.SeedBatch;
 using SeedTray = PlantDataMVC.Web.Models.ViewModels.SeedTray;
 using Site = PlantDataMVC.Web.Models.ViewModels.Site;
+using StocktakeHeader = PlantDataMVC.Web.Models.ViewModels.StocktakeHeader;
 using Transaction = PlantDataMVC.Web.Models.ViewModels.Transaction;
 
 namespace PlantDataMVC.Web.Mappers
@@ -50,6 +51,7 @@ namespace PlantDataMVC.Web.Mappers
             ConfigurePriceListTypeViewModels();
             ConfigureProductPriceViewModels();
             ConfigureLabelViewModels();
+            ConfigureStocktakeHeaderViewModels();
         }
 
         #region Configure View Models
@@ -544,6 +546,35 @@ namespace PlantDataMVC.Web.Mappers
                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
                .ForMember(uio => uio.LabelQuantity, opt => opt.MapFrom(dm => 0));
         }
+
+        private void ConfigureStocktakeHeaderViewModels()
+        {
+            // StocktakeHeader
+            CreateMap<StocktakeDataModel, StocktakeHeader.StocktakeHeaderDeleteViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Reference, opt => opt.MapFrom(dm => dm.Reference))
+                .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
+
+            CreateMap<StocktakeDataModel, StocktakeHeader.StocktakeHeaderEditViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Reference, opt => opt.MapFrom(dm => dm.Reference))
+                .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
+
+            CreateMap<StocktakeDataModel, StocktakeHeader.StocktakeHeaderListViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Reference, opt => opt.MapFrom(dm => dm.Reference))
+                .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
+
+            CreateMap<StocktakeDataModel, StocktakeHeader.StocktakeHeaderNewViewModel>()
+                .ForMember(uio => uio.Reference, opt => opt.MapFrom(dm => dm.Reference))
+                .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
+
+            CreateMap<StocktakeDataModel, StocktakeHeader.StocktakeHeaderShowViewModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Reference, opt => opt.MapFrom(dm => dm.Reference))
+                .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
+        }
+
         #endregion Configure View Models
     }
 }

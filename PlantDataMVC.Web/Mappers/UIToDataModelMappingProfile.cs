@@ -10,6 +10,7 @@ using SaleEvent = PlantDataMVC.Web.Models.EditModels.SaleEvent;
 using SeedBatch = PlantDataMVC.Web.Models.EditModels.SeedBatch;
 using SeedTray = PlantDataMVC.Web.Models.EditModels.SeedTray;
 using Site = PlantDataMVC.Web.Models.EditModels.Site;
+using StocktakeHeader = PlantDataMVC.Web.Models.EditModels.StocktakeHeader;
 using Transaction = PlantDataMVC.Web.Models.EditModels.Transaction;
 using System;
 
@@ -39,6 +40,7 @@ namespace PlantDataMVC.Web.Mappers
             ConfigureSaleEventEditModels();
             ConfigurePriceListTypeEditModels();
             ConfigureProductPriceEditModels();
+            ConfigureStocktakeHeaderEditModels();
         }
 
         #region Configure Edit Models
@@ -306,6 +308,23 @@ namespace PlantDataMVC.Web.Mappers
                 .ForMember(dm => dm.DateEffective, opt => opt.MapFrom(uio => uio.DateEffective))
                 .ForMember(dm => dm.Price, opt => opt.MapFrom(uio => uio.Price))
                 .ForMember(dm => dm.BarcodeSKU, opt => opt.MapFrom(uio => uio.BarcodeSKU));
+        }
+
+        private void ConfigureStocktakeHeaderEditModels()
+        {
+            // StocktakeHeaderDTO
+            CreateMap<StocktakeHeader.StocktakeHeaderCreateEditModel, CreateUpdateStocktakeHeaderDataModel>()
+                .ForMember(dm => dm.Reference, opt => opt.MapFrom(uio => uio.Reference))
+                .ForMember(dm => dm.StocktakeDate, opt => opt.MapFrom(uio => uio.StocktakeDate));
+
+            CreateMap<StocktakeHeader.StocktakeHeaderDestroyEditModel, StocktakeDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dm => dm.Reference, opt => opt.Ignore())
+                .ForMember(dm => dm.StocktakeDate, opt => opt.Ignore());
+
+            CreateMap<StocktakeHeader.StocktakeHeaderUpdateEditModel, CreateUpdateStocktakeHeaderDataModel>()
+                .ForMember(dm => dm.Reference, opt => opt.MapFrom(uio => uio.Reference))
+                .ForMember(dm => dm.StocktakeDate, opt => opt.MapFrom(uio => uio.StocktakeDate));
         }
 
         #endregion Configure Edit Models

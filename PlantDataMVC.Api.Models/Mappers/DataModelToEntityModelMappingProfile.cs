@@ -30,6 +30,7 @@ namespace PlantDataMVC.Api.Models.Mappers
             ConfigureProductTypeMappings();
             ConfigurePriceListTypeMappings();
             ConfigureProductPriceMappings();
+            ConfigureStocktakeHeaderMappings();
         }
 
         private void ConfigureGenusMappings()
@@ -278,6 +279,21 @@ namespace PlantDataMVC.Api.Models.Mappers
                 .ForMember(e => e.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective)) // explicit and unnecessary
                 .ForMember(e => e.Price, opt => opt.MapFrom(dm => dm.Price)) // explicit and unnecessary
                 .ForMember(e => e.BarcodeSKU, opt => opt.MapFrom(dm => dm.BarcodeSKU)); // explicit and unnecessary
+        }
+
+        private void ConfigureStocktakeHeaderMappings()
+        {
+            CreateMap<CreateUpdateStocktakeHeaderDataModel, StocktakeHeaderEntityModel>()
+                .ForMember(e => e.Id, opt => opt.Ignore())
+                .ForMember(e => e.Reference, opt => opt.MapFrom(dm => dm.Reference)) // explicit and unnecessary
+                .ForMember(e => e.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate)) // explicit and unnecessary
+                .ForMember(e => e.Lines, opt => opt.Ignore());
+
+            CreateMap<StocktakeDataModel, StocktakeHeaderEntityModel>()
+                .ForMember(e => e.Id, opt => opt.MapFrom(dm => dm.Id)) // explicit and unnecessary
+                .ForMember(e => e.Reference, opt => opt.MapFrom(dm => dm.Reference)) // explicit and unnecessary
+                .ForMember(e => e.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate)) // explicit and unnecessary
+                .ForMember(e => e.Lines, opt => opt.MapFrom(dm => dm.Lines)); // ICollection, explicit and unnecessary
         }
 
         // Not yet mapped objects
