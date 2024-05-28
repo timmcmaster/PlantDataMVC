@@ -1,0 +1,33 @@
+﻿@using PlantData.Web.Mvc.ViewComponents.PdfViewer;
+@model PlantData.Web.Mvc.Models.ViewModels.Label.FileModel
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+<div id="pdfViewer">
+@await Component.InvokeAsync(nameof(PdfViewer), new { fileModel = Model, height = "720px", width = "800px" })
+</div>
+
+<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
+@section Scripts{
+@*    <script type="text/javascript" src="~/js/lib/pdflib.bundle.js"></script>
+*@
+@*    <script type="text/javascript">
+
+        // This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded.
+        $(document).ready(function () {
+            Initialise();
+        });
+
+        function Initialise() {
+            // get siteModel in JSON encoded format
+            var filename = @Html.Raw(Json.Serialize(Model.Name));
+            var contentType = @Html.Raw(Json.Serialize(Model.ContentType));
+            var reportData = @Html.Raw(Json.Serialize(Model.Data));
+
+            //var map = maplib.createMap(document.getElementById('map'), latitude, longitude, zoomLevel);
+            //maplib.addMarker(map, centreLat, centreLong, siteName);
+        };
+    </script>
+*@    }

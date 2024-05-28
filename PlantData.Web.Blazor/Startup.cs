@@ -2,15 +2,23 @@ using IdentityModel;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using PlantData.Web.Blazor.Components;
+using PlantData.Web.Blazor.DependencyInjection;
 using PlantData.Web.Blazor.Helpers;
 using PlantData.Web.Blazor.Mappers;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Constants;
 using Serilog;
+using Syncfusion.Blazor;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 
@@ -135,11 +143,17 @@ namespace PlantData.Web.Blazor
             // - Adds IMapper as Mapper using IConfiguratrionProvider
             services.AddAutoMapper(AutoMapperWebConfiguration.ConfigAction);
 
+            // Main Domain stuff
+            //services.AddDomainServices();
+            services.AddViewModelsAndInterfaces();
+
             // Add services to the container.
             //services.AddControllersWithViews();
 
-            services.AddRazorComponents()
-                .AddInteractiveServerComponents();
+            services.AddRazorComponents().AddInteractiveServerComponents();
+            
+            services.AddSyncfusionBlazor();
+
         }
 
         // Configure is where you add middleware.        
@@ -161,10 +175,13 @@ namespace PlantData.Web.Blazor
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseStatusCodePagesWithRedirects("/StatusCode/{0}"); // Redirect to error page on 404 (not found) 
+
             app.UseHttpsRedirection();
 
             var provider = new FileExtensionContentTypeProvider();

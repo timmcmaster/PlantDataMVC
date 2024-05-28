@@ -1,0 +1,165 @@
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using PlantData.Web.Mvc.Models.ViewModels.Label;
+using PlantData.Web.Mvc.Controllers.Queries.Label;
+using PlantData.Web.Mvc.Models.ViewComponents.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using PlantData.Web.Mvc.Models.EditModels.Label;
+
+namespace PlantData.Web.Mvc.Controllers
+{
+    public class LabelController : DefaultController
+    {
+        private readonly IMediator _mediator;
+
+        public LabelController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        #region PlantInfoLabels
+
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public async Task<ActionResult> Plants(int? page, int? pageSize, string sortBy, bool? ascending)
+        {
+            var gridOptions = new GridOptionsModel()
+            {
+                AllowAdd = true,
+                AllowDelete = false,
+                AllowEdit = true,
+                AllowPaging = false,
+                AllowSorting = true
+            };
+
+            // resolve parameters
+            int? localPage = page ?? 1;
+            int? localPageSize = pageSize ?? 20;
+            string localSortBy = sortBy ?? string.Empty;
+            bool localAscending = ascending ?? true;
+
+            if (!gridOptions.AllowPaging)
+            {
+                localPage = null;
+                localPageSize = null;
+            }
+
+            var query = new PlantLabelQuery(localPage, localPageSize, localSortBy, localAscending);
+            var model = await _mediator.Send(query);
+
+            if (model == null)
+            {
+                return Content("An error occurred");
+            }
+            else
+            {
+                model.GridOptions = gridOptions;
+
+                return View(model);
+            }
+        }
+
+        // POST: /"ControllerName"/PlantsPrint
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> PlantsPrint(string labelData)
+        {
+            var failureResult = DefaultFormFailureResult();
+
+            if (!ModelState.IsValid)
+            {
+                // TODO: Display any model validation errors
+                return failureResult;
+            }
+            PlantLabelGridEditModel form = new();
+            if (labelData != null)
+            {
+                form.Items = JsonConvert.DeserializeObject<IEnumerable<PlantLabelListEditModel>>(labelData);
+            }
+
+            var result = await _mediator.Send(form);
+
+            var reportBytes = Convert.FromBase64String(result);
+
+            var fileModel = new FileModel()
+            {
+                Name = $"PlantInfoLabels-{DateTime.Now:yyyyMMdd_HHmm}.pdf",
+                ContentType = "application/pdf",
+                Data = reportBytes,
+                DataBase64 = result
+            };
+            //var successResult = RedirectToAction("ViewPdf", PlantDataMvcAppControllers.Label);
+            var successResult = View("ViewPdf", fileModel);
+
+            return string.IsNullOrEmpty(result) ? failureResult : successResult;
+        }
+
+        #endregion PlantInfoLabels
+
+        #region BarcodeLabels
+
+        public async Task<ActionResult> Barcodes()
+        {
+            var gridOptions = new GridOptionsModel()
+            {
+                AllowAdd = true,
+                AllowDelete = false,
+                AllowEdit = true,
+                AllowPaging = false,
+                AllowSorting = true
+            };
+
+            var query = new BarcodeLabelQuery();
+            var model = await _mediator.Send(query);
+
+            if (model == null)
+            {
+                return Content("An error occurred");
+            }
+            else
+            {
+                model.GridOptions = gridOptions;
+
+                return View(model);
+            }
+        }
+
+
+        // POST: /"ControllerName"/BarcodesPrint
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> BarcodesPrint(BarcodeLabelsEditModel form, string labelData)
+        {
+            var failureResult = DefaultFormFailureResult();
+
+            if (!ModelState.IsValid)
+            {
+                // TODO: Display any model validation errors
+                return failureResult;
+            }
+
+            if (labelData != null)
+            {
+                form.Items = JsonConvert.DeserializeObject<IEnumerable<BarcodeLabelListEditModel>>(labelData);
+            }
+
+            var result = await _mediator.Send(form);
+
+            var reportBytes = Convert.FromBase64String(result);
+
+            var fileModel = new FileModel()
+            {
+                Name = $"BarcodeLabels-{DateTime.Now:yyyyMMdd_HHmm}.pdf",
+                ContentType = "application/pdf",
+                Data = reportBytes,
+                DataBase64 = result
+            };
+            //var successResult = RedirectToAction("ViewPdf", PlantDataMvcAppControllers.Label);
+            var successResult = View("ViewPdf", fileModel);
+
+            return string.IsNullOrEmpty(result) ? failureResult : successResult;
+        }
+
+        #endregion BarcodeLabels
+    }
+}

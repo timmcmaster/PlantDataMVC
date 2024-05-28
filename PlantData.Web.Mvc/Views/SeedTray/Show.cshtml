@@ -1,0 +1,66 @@
+﻿@model PlantData.Web.Mvc.Models.ViewModels.SeedTray.SeedTrayShowViewModel
+@{
+    ViewBag.Title = "Show";
+}
+<h2>Show</h2>
+<div class="container-lg">
+    <fieldset>
+        <legend>Seed Tray</legend>
+
+        <div>
+            <fieldset>
+                <legend>Seed Batch Info</legend>
+
+                <input asp-for="SeedBatchId" type="hidden" />
+
+                <div class="row mb-3">
+                    <label asp-for="SeedBatchSpeciesBinomial" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="col-form-label">@Html.DisplayFor(model => model.SeedBatchSpeciesBinomial)</p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label asp-for="SeedBatchLocation" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="col-form-label">@Html.DisplayFor(model => model.SeedBatchLocation)</p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label asp-for="SeedBatchDateCollected" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="col-form-label">@Html.DisplayFor(model => model.SeedBatchDateCollected)</p>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <input asp-for="Id" type="hidden" />
+
+        <div class="row mb-3">
+            <label asp-for="DateSown" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.DateSown)</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Treatment" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <p class="col-form-label">@Html.DisplayFor(model => model.Treatment)</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="ThrownOut" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="ThrownOut" type="checkbox" class="form-check-input" disabled />
+            </div>
+        </div>
+    </fieldset>
+    <div>
+        <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-controller=@PlantDataMvcAppControllers.SeedTray asp-action="Index">Back to Index</a>
+    </div>
+</div>

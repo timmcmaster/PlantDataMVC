@@ -1,0 +1,15 @@
+﻿@using PlantData.Web.Mvc.ViewComponents.PdfViewer;
+@using PlantData.Web.Mvc.Models.ViewComponents.ViewModels;
+
+@model PdfViewerViewModel
+
+<div class="container-lg">
+    <ejs-pdfviewer id="pdfviewer" style="height:@Model.Height" serviceUrl="/PdfViewer" documentPath="@Model.FileToView.DataBase64" downloadFileName="@Model.FileToView.Name">
+    </ejs-pdfviewer>
+</div>
+<style>
+    .e-grid .e-row .e-rowcell {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+</style>

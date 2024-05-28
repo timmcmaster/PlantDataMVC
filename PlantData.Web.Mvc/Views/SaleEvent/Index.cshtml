@@ -1,0 +1,7 @@
+﻿@model ListViewModelStatic<PlantData.Web.Mvc.Models.ViewModels.SaleEvent.SaleEventListViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+
+@await Component.InvokeAsync("SaleEventGrid", new { model = Model, gridOptions = Model.GridOptions })

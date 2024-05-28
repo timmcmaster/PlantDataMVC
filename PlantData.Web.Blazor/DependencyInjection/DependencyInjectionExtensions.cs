@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using PlantData.Web.Blazor.Services;
 using Serilog;
 using Syncfusion;
+using System;
+using System.Linq;
 using System.Reflection;
 
 namespace PlantData.Web.Blazor.DependencyInjection
@@ -50,6 +52,34 @@ namespace PlantData.Web.Blazor.DependencyInjection
             // Before we leave this method, write our registrations to log file
             services.LogRegisteredServices(Log.Logger);
 
+            return services;
+        }
+
+        public static IServiceCollection AddViewModelsAndInterfaces(this IServiceCollection services)
+        {
+            string assemblyNamePrefix = "PlantData.Web.Blazor.ViewModels";
+            string vmNamespacePrefix = "PlantData.Web.Blazor.ViewModels";
+            string vmNameSuffix = "ViewModel";
+
+            var assembly = AppDomain.CurrentDomain.GetAssemblies()
+               .Where(a => a.FullName!.StartsWith(assemblyNamePrefix, StringComparison.InvariantCulture))
+               .First();
+
+            var classes = assembly.ExportedTypes
+               .Where(a => a.FullName!.EndsWith(vmNameSuffix, StringComparison.InvariantCulture) &&
+                           a.Namespace!.StartsWith(vmNamespacePrefix, StringComparison.InvariantCulture));
+
+            foreach (Type t in classes)
+            {
+                foreach (Type i in t.GetInterfaces())
+                {
+                    if ($"I{t.Name}" == i.Name)
+                        services.AddTransient(i, t);
+                }
+            }
+
+            // Before we leave this method, write our registrations to log file
+            services.LogRegisteredServices(Log.Logger);
             return services;
         }
     }

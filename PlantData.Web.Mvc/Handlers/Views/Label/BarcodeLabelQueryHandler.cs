@@ -1,0 +1,22 @@
+﻿using Framework.Web.Views;
+using PlantData.Web.Mvc.Controllers.Queries.Label;
+using PlantData.Web.Mvc.Models.ViewModels.Label;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace PlantData.Web.Mvc.Handlers.Views.Label
+{
+    public class BarcodeLabelQueryHandler : IQueryHandler<BarcodeLabelQuery, BarcodeLabelsViewModel>
+    {
+        public BarcodeLabelQueryHandler()
+        {
+        }
+
+        public Task<BarcodeLabelsViewModel> Handle(BarcodeLabelQuery query, CancellationToken cancellationToken)
+        {
+            var model = new BarcodeLabelsViewModel();
+
+            return Task.FromResult(model);
+        }
+    }
+}

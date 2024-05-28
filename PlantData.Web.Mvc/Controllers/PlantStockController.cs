@@ -1,0 +1,197 @@
+﻿using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using PlantDataMVC.Api.Models.DataModels;
+using PlantData.Web.Mvc.Controllers.Queries.PlantStock;
+using PlantData.Web.Mvc.Helpers;
+using PlantData.Web.Mvc.Models.ViewComponents.ViewModels;
+using System.Threading.Tasks;
+using PlantData.Web.Mvc.Models.EditModels.PlantStock;
+using PlantData.Web.Mvc.Models.ViewModels.PlantStock;
+
+namespace PlantData.Web.Mvc.Controllers
+{
+    public class PlantStockController : DefaultController
+    {
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
+
+        public PlantStockController(IMediator mediator, IMapper mapper)
+        {
+            _mediator = mediator;
+            _mapper = mapper;
+        }
+
+        // GET: /"ControllerName"/Index
+        // GET: /"ControllerName"/Index?page=4&pageSize=20&sortBy=Genus&ascending=True
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public async Task<ActionResult> Index(int? page, int? pageSize, string sortBy, bool? ascending)
+        {
+            var gridOptions = new GridOptionsModel()
+            {
+                AllowAdd = true,
+                AllowDelete = true,
+                AllowEdit = true,
+                AllowPaging = true,
+                AllowSorting = true,
+            };
+
+            // resolve parameters
+            int? localPage = page ?? 1;
+            int? localPageSize = pageSize ?? 20;
+            string localSortBy = sortBy ?? string.Empty;
+            bool localAscending = ascending ?? true;
+
+            if (!gridOptions.AllowPaging)
+            {
+                localPage = null;
+                localPageSize = null;
+            }
+
+            var query = new IndexQuery(localPage, localPageSize, localSortBy, localAscending);
+            var model = await _mediator.Send(query);
+
+            if (model == null)
+            {
+                return Content("An error occurred");
+            }
+            else
+            {
+                model.GridOptions = gridOptions;
+
+                return View(model);
+            }
+        }
+
+        //
+        // GET: /"ControllerName"/Show/5
+        //[Authorize(Policy = AuthorizationPolicies.RequireReadUserRole)]
+        public async Task<ActionResult> Show(int id)
+        {
+            var query = new ShowQuery(id);
+            var model = await _mediator.Send(query);
+
+            if (model == null)
+            {
+                return Content("An error occurred");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        //
+        // GET: /"ControllerName"/New
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        public ActionResult New()
+        {
+            var item = new PlantStockNewViewModel();
+            return View(item);
+        }
+
+        /// <summary>
+        /// Additional action for creating a new entry for a given species.
+        /// </summary>
+        /// <param name="speciesId">The Id of the species.</param>
+        /// <returns></returns>
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        [RequireRequestValue("speciesId")]
+        public ActionResult New(int speciesId)
+        {
+            var item = new PlantStockDataModel { SpeciesId = speciesId };
+            var model = _mapper.Map<PlantStockDataModel, PlantStockNewViewModel>(item);
+            return View(model);
+        }
+
+        //
+        // POST: /"ControllerName"/Create
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(PlantStockCreateEditModel form)
+        {
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Index");
+
+            if (!ModelState.IsValid)
+            {
+                // TODO: Display any model validation errors
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
+        }
+
+        //
+        // GET: /"ControllerName"/Edit/5
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        public async Task<ActionResult> Edit(int id)
+        {
+            var query = new EditQuery(id);
+            var model = await _mediator.Send(query);
+
+            if (model == null)
+            {
+                return Content("An error occurred");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        //
+        // POST: /"ControllerName"/Update/5
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Update(PlantStockUpdateEditModel form)
+        {
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Show", new { id = form.Id });
+
+            if (!ModelState.IsValid)
+            {
+                // TODO: Display any model validation errors
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
+        }
+
+        //
+        // GET: /"ControllerName"/Delete/5
+        //[Authorize(Policy = AuthorizationPolicies.RequireWriteUserRole)]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var query = new DeleteQuery(id);
+            var model = await _mediator.Send(query);
+
+            if (model == null)
+            {
+                return Content("An error occurred");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        //
+        // POST: /Plant/Delete/5
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Destroy(PlantStockDestroyEditModel form)
+        {
+            var failureResult = DefaultFormFailureResult();
+            var successResult = RedirectToAction("Index");
+
+            if (!ModelState.IsValid)
+            {
+                // TODO: Display any model validation errors
+                return failureResult;
+            }
+
+            var result = await _mediator.Send(form);
+            return result ? successResult : failureResult;
+        }
+    }
+}

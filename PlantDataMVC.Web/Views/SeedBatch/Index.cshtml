@@ -1,8 +1,0 @@
-﻿@model ListViewModelStatic<PlantDataMVC.Web.Models.ViewModels.SeedBatch.SeedBatchListViewModel>
-@{
-    ViewBag.Title = "Index";
-}
-<h2>Seed Batch List</h2>
-<p>This is a list of all Seed Batches</p>
-
-@await Component.InvokeAsync("SeedBatchGrid", new { model = Model, gridOptions = Model.GridOptions })

@@ -1,0 +1,43 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+
+namespace PlantData.Web.Mvc.Models.ViewModels.Transaction
+{
+    public class TransactionDeleteViewModel
+    {
+        [HiddenInput(DisplayValue = false)]
+        public int Id { get; set; }
+
+        [Display(Name = "Species Id")]
+        public int SpeciesId { get; set; }
+
+        [Display(Name = "Product Type Id")]
+        public int ProductTypeId { get; set; }
+
+        [Display(Name = "Transaction Type")]
+        public string TransactionTypeName { get; set; }
+
+        [Display(Name = "Transaction Date")]
+        public DateTime TransactionDate { get; set; }
+
+        public int Quantity { get; set; }
+
+        [Display(Name = "Effective Quantity")]
+        public int EffectiveQuantity { get; set; }
+
+        [Display(Name = "Seed Tray Id")]
+        public int SeedTrayId { get; set; }
+
+        [Display(Name = "Transaction Source")]
+        public string TransactionSource { get; set; }
+
+        public string Notes { get; set; }
+
+
+        public TransactionDeleteViewModel()
+        {
+            TransactionDate = new DateTime();
+        }
+    }
+}

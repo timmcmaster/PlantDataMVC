@@ -1,0 +1,307 @@
+﻿@using PlantData.Web.Mvc.ViewComponents.SidebarMenu;
+
+@functions {
+    enum CssSource { FromCdn, FromBundledLocal, FromFullLocal };
+    enum JsSource { FromCdn, FromBundledLocal, FromFullLocal };
+}
+@{
+    // Set up as for non-dev
+    CssSource PackageCss = CssSource.FromCdn;
+    CssSource CustomCss = CssSource.FromFullLocal;
+
+    JsSource PackageJs = JsSource.FromCdn;
+    JsSource CustomJs = JsSource.FromBundledLocal;
+
+    string environmentName = "";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+
+    @* use full versions of css & scripts when in dev env *@
+    <environment include="Development">
+        @{
+            environmentName = "Development";
+
+            // Set up for dev
+            PackageCss = CssSource.FromCdn;
+            CustomCss = CssSource.FromFullLocal;
+
+            PackageJs = JsSource.FromCdn;
+            CustomJs = JsSource.FromBundledLocal;
+        }
+    </environment>
+
+    @* use bundled and/or minified versions when in other envs *@
+    <environment exclude="Development">
+        @{
+            environmentName = "Non-Development";
+        }
+    </environment>
+
+    @{
+        switch (PackageCss)
+        {
+            case (CssSource.FromCdn):
+                //<!-- jquery UI (base theme) -->
+                //<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+                // bootstrap icons
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+                // bootstrap styles
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+                // open layers mapping
+                <link href="https://cdn.jsdelivr.net/npm/ol@v7.2.2/ol.css" rel="stylesheet">
+                // Syncfusion ASP.NET Core controls styles
+                <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/25.2.3/bootstrap5.css" />
+                break;
+            case (CssSource.FromBundledLocal):
+                // Not done yet (uses webpack and npm)
+                break;
+            case (CssSource.FromFullLocal):
+                // Not done yet (need to get full css to local wwwroot?)
+                break;
+        }
+
+        switch (CustomCss)
+        {
+            case (CssSource.FromCdn):
+                break;
+            case (CssSource.FromBundledLocal):
+                // Not done yet (uses webpack and npm)
+                break;
+            case (CssSource.FromFullLocal):
+                <link href="~/css/site.css" rel="stylesheet" />
+                break;
+        }
+    }
+</head>
+<body>
+    @{
+        Dictionary<string, object> HtmlAttribute = new Dictionary<string, object>() { { "class", "sidebar-menu" } };
+
+        var folderTemplate = "<div class='e-folder'><div class='e-folder-name'>MVC Plant Data Application</div></div>";
+
+        bool userAuthenticated = User?.Identity?.IsAuthenticated ?? false;
+        if (userAuthenticated)
+        {
+            var givenname = User.Claims.FirstOrDefault(c => c.Type == "given_name").Value;
+        };
+    }
+
+    <div id="wrapper">
+        @*header-section declaration*@
+        <div>
+            <ejs-toolbar id="menuToolbar" Clicked="toolbarClicked">
+                <e-toolbar-items>
+                    <e-toolbar-item PrefixIcon="icon-menu" TooltipText="Menu"></e-toolbar-item>
+                    <e-toolbar-item template="@folderTemplate"></e-toolbar-item>
+                </e-toolbar-items>
+            </ejs-toolbar>
+        </div>
+
+        @*main content declaration*@
+        <div id="maintext" class="main-content">
+            <div class="content">
+                @RenderBody()
+            </div>
+        </div>
+
+        @*sidebar element declaration*@
+        @await Component.InvokeAsync(nameof(SidebarMenu),
+                         new { 
+                             targetCss = ".main-content",
+                             dockWidth = "50px",
+                             width = "220px" }
+                         )
+
+        @*footer-section  declaration*@
+        <div id="footer">
+            A web page by Tim McMaster.
+        </div>
+    </div>
+
+
+    <!-- Script area start -->
+    @{
+        switch (CustomJs)
+        {
+            case (JsSource.FromCdn):
+                // Not possible - no cdn for my js
+                break;
+            case (JsSource.FromBundledLocal):
+                // Uses webpack and npm to include required modules
+                <script src="~/js/dist/app.bundle.js"></script>
+                break;
+            case (JsSource.FromFullLocal):
+                break;
+        }
+
+        switch (PackageJs)
+        {
+            case (JsSource.FromCdn):
+                //<!-- TEST: Use CDN versions to check that JS is working -->
+                //<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                //<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+                //<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+                //<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+                //<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+                //<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.1.3/build/ol.js"></script>
+
+                // TODO: Fix loading so that it displays menu and toolbar correctly on open
+                //<!-- Syncfusion ASP.NET Core controls scripts -->
+                <script src="https://cdn.syncfusion.com/ej2/25.2.3/dist/ej2.min.js"></script>
+                break;
+            case (JsSource.FromBundledLocal):
+                // Not done yet (uses webpack and npm)
+                break;
+            case (JsSource.FromFullLocal):
+                // Not done yet (need to get full js to local wwwroot?)
+                <script src="~/js/src/syncfusion/ej2.crg.js"></script>
+                break;
+        }
+    }
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            sidebarObj = document.getElementById("menuSidebar").ej2_instances[0];
+        });
+        function toolbarClicked(args) {
+            if (args.item.tooltipText == "Menu") {
+                sidebarObj.toggle();
+            }
+        }
+    </script>
+
+    @RenderSection("Scripts", false)
+
+    <!-- Syncfusion Script Manager -->
+    <ejs-scripts></ejs-scripts>
+    
+    <!-- Script area end -->
+
+    <style>
+        /* top toolbar styles */
+        #wrapper .icon-menu {
+            font-size: 24px;
+        }
+
+        #wrapper .icon-menu:before {
+            content: '\e799';
+            font-family: 'e-icons'
+        }
+
+        .e-folder {
+            text-align: center;
+            font-weight: 500;
+            font-size: 16px
+        }
+
+        .e-folder-name {
+            margin-top: -2px;
+        }
+
+        /* Specifies the level styles for toolbar */
+        #wrapper .e-toolbar .e-toolbar-items:not(.e-tbar-pos) .e-toolbar-item:first-child {
+            margin-left: 10px;
+        }
+
+        /* general sidebar stuff ? */
+        #wrapper .sidebar-menu {
+            z-index: 20 !important;
+        }
+
+        #wrapper .dock-menu.e-menu-wrapper {
+            border: 0px;
+        }
+
+        #maintext.main-content {
+            height: 800px;
+        }
+
+        #wrapper .sidebar-menu .e-menu-wrapper {
+            border: 0px;
+            height: 800px;
+        }
+
+        /* vertical-menu styles */
+        .sidebar-menu .e-menu-wrapper ul .e-menu-item.e-menu-caret-icon {
+            width: 220px;
+        }
+
+        .e-close .e-menu-wrapper ul .e-menu-item {
+            width: 50px;
+        }
+
+        .e-close ul .e-menu-item.e-menu-caret-icon {
+            padding-right: 12px;
+        }
+
+        .sidebar-menu.e-dock.e-close .e-menu-wrapper ul .e-menu-item .e-caret {
+            display: none;
+        }
+
+        .sidebar-menu.e-dock.e-close .e-menu-wrapper ul .e-menu-item.e-menu-caret-icon,
+        .sidebar-menu.e-dock.e-close .e-menu-wrapper ul.e-vertical {
+            min-width: 0;
+            width: 50px !important;
+        }
+
+        .sidebar-menu.e-dock.e-close .e-menu-wrapper ul.e-menu {
+            font-size: 0;
+        }
+
+        .sidebar-menu.e-dock.e-close .e-menu-item .e-menu-icon {
+            font-size: 20px;
+            padding: 0;
+        }
+
+        .sidebar-menu,
+        .e-menu-wrapper,
+        .e-menu-wrapper ul {
+            overflow: hidden;
+        }
+
+        /* Specifies the level styles for sidebar for dock & closed state */
+        #wrapper .sidebar-menu.e-dock.e-close .e-menu-wrapper ul .e-menu-item {
+            padding: 0 9px;
+        }
+
+        /* Specifies the level styles for sidebar for dock & opened state */
+        #wrapper .sidebar-menu .e-menu-wrapper ul .e-menu-item .e-menu-icon {
+            margin: 0 15px 0 7px;
+        }
+
+        /* Specifies the border bottom styles for toolbar in light theme*/
+        #wrapper .e-toolbar {
+            border-bottom: 1px solid #eaeaeae0;
+        }
+
+        /* Specifies the border right color for the sidebar in light theme */
+        .sidebar-menu {
+            border-right: 1px solid #eaeaeae0;
+        }
+
+        /* bootstrap 5 menu icons */
+        .dock-menu .icon {
+            font-family: 'e-icons';
+        }
+
+        .dock-menu .icon-home:before {
+            content: '\e87b';
+        }
+
+        .dock-menu .icon-plus:before {
+            content: '\e805';
+        }
+
+        .dock-menu .icon-settings:before {
+            content: '\e880';
+        }
+    </style>
+</body>
+</html>

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,9 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Framework.Web\Framework.Web.csproj" />
+    <ProjectReference Include="..\PlantData.Web.Blazor.Components\PlantData.Web.Blazor.SharedComponents.csproj" />
+    <ProjectReference Include="..\PlantData.Web.Blazor.ViewModels\PlantData.Web.Blazor.ViewModels.csproj" />
+    <ProjectReference Include="..\PlantDataMVC.Api.Models\PlantDataMVC.Api.Models.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Common.Client\PlantDataMVC.Common.Client.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Constants\PlantDataMVC.Constants.csproj" />
-    <ProjectReference Include="..\PlantDataMvc.Web.Models\PlantDataMVC.Web.Models.csproj" />
   </ItemGroup>
 
 </Project>
