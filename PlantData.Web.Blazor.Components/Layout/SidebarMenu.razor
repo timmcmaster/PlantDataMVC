@@ -1,0 +1,41 @@
+﻿@{
+    Dictionary<string, object> HtmlAttribute = new Dictionary<string, object>() { { "class", "sidebar-menu" } };
+}
+
+<SfSidebar @HtmlAttributes="@HtmlAttribute" @EnableDock="true" @DockSize="@DockWidth" @Width="@Width" @Target="@TargetCss" @IsOpen="true", @Type="Auto">
+    <ChildContent>
+        <div class="main-menu">
+            <div>
+                <SfMenu id="dockMenu" Items="@ViewModel.Menu.MenuItems" fields="menuFields" Orientation=Orientation.Vertical cssClass="dock-menu">
+                    <MenuFieldSettings 
+                        ItemId = "@ViewModel.Menu.MenuFields.ItemIdField"
+                        Text = "@ViewModel.Menu.MenuFields.TextField"
+                        ParentId = "@ViewModel.Menu.MenuFields.ParentIdField"
+                        Url = "@ViewModel.Menu.MenuFields.UrlField"
+                        IconCss = "@ViewModel.Menu.MenuFields.IconCssField"
+                    ></MenuFieldSettings>
+                </SfMenu>
+            </div>
+        </div>
+    </ChildContent>
+</SfSidebar>
+
+@code
+{
+    [Parameter]
+    public string TargetCss { get; set; }
+
+    [Parameter]
+    public string Width { get; set; }
+
+    [Parameter]
+    public string DockWidth { get; set; }
+
+    [Parameter]
+    public ISidebarMenuViewModel ViewModel { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ViewModel.InitialiseAsync().ConfigureAwait(false);
+    }
+}

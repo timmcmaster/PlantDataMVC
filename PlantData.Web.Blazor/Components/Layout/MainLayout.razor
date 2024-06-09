@@ -1,8 +1,13 @@
-﻿@inherits LayoutComponentBase
+﻿@using PlantData.Web.Blazor.SharedComponents.Layout
+@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
+@*     <div class="sidebar">
         <NavMenu />
+    </div>
+ *@
+    <div class="sidebar">
+        <SidebarMenu ViewModel=""/>
     </div>
 
     <main>
