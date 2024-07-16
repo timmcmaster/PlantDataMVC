@@ -1,4 +1,4 @@
-﻿namespace PlantData.Web.Blazor.ViewModels
+﻿namespace PlantData.Web.Blazor.SharedComponents.Layout
 {
     public class MenuItemViewModel
     {

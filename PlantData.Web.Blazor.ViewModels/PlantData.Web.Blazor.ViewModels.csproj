@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Framework.Web\Framework.Web.csproj" />
+    <ProjectReference Include="..\PlantData.Web.Blazor.Components\PlantData.Web.Blazor.SharedComponents.csproj" />
   </ItemGroup>
 
 </Project>

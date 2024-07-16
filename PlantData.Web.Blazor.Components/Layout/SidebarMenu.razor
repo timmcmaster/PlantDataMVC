@@ -6,13 +6,13 @@
     <ChildContent>
         <div class="main-menu">
             <div>
-                <SfMenu id="dockMenu" Items="@ViewModel.Menu.MenuItems" fields="menuFields" Orientation=Orientation.Vertical cssClass="dock-menu">
+                <SfMenu id="dockMenu" Items="@ViewModel.Items" fields="menuFields" Orientation=Orientation.Vertical cssClass="dock-menu">
                     <MenuFieldSettings 
-                        ItemId = "@ViewModel.Menu.MenuFields.ItemIdField"
-                        Text = "@ViewModel.Menu.MenuFields.TextField"
-                        ParentId = "@ViewModel.Menu.MenuFields.ParentIdField"
-                        Url = "@ViewModel.Menu.MenuFields.UrlField"
-                        IconCss = "@ViewModel.Menu.MenuFields.IconCssField"
+                        ItemId = "@ViewModel.Fields.ItemIdField"
+                        Text = "@ViewModel.Fields.TextField"
+                        ParentId = "@ViewModel.Fields.ParentIdField"
+                        Url = "@ViewModel.Fields.UrlField"
+                        IconCss = "@ViewModel.Fields.IconCssField"
                     ></MenuFieldSettings>
                 </SfMenu>
             </div>
@@ -33,9 +33,4 @@
 
     [Parameter]
     public ISidebarMenuViewModel ViewModel { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        await ViewModel.InitialiseAsync().ConfigureAwait(false);
-    }
-}
+ }

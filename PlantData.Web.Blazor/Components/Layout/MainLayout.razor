@@ -1,16 +1,15 @@
 ﻿@using PlantData.Web.Blazor.SharedComponents.Layout
 @inherits LayoutComponentBase
 
+@* @inject ISidebarMenuViewModel menuViewModel *@
+
 <div class="page">
 @*     <div class="sidebar">
         <NavMenu />
     </div>
  *@
-    <div class="sidebar">
-        <SidebarMenu ViewModel=""/>
-    </div>
 
-    <main>
+    <main class="main-content">
         <div class="top-row px-4">
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
         </div>
@@ -19,6 +18,11 @@
             @Body
         </article>
     </main>
+
+    <div class="sidebar">
+        <SidebarMenu ViewModel="menuViewModel" DockWidth="50px" Width="220px" TargetCss=".main-content" />
+    </div>
+
 </div>
 
 <div id="blazor-error-ui">
