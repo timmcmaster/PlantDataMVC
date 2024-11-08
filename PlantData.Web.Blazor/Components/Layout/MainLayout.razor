@@ -1,28 +1,46 @@
-﻿@using PlantData.Web.Blazor.SharedComponents.Layout
+﻿@using PlantData.Web.Blazor.ViewModels
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Inputs
+
 @inherits LayoutComponentBase
 
-@* @inject ISidebarMenuViewModel menuViewModel *@
+@inject ISidebarMenuViewModel menuViewModel
 
 <div class="page">
-@*     <div class="sidebar">
-        <NavMenu />
-    </div>
- *@
-
-    <main class="main-content">
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+    <div id="wrapper">
+        <div class="toolbar">
+            @*Initialize the Toolbar component*@
+            <SfToolbar ID="menuToolbar">
+                 <ToolbarEvents Clicked="@Toggle"></ToolbarEvents>
+                 <ToolbarItems>
+                    <ToolbarItem PrefixIcon="e-icons e-menu" TooltipText="Menu"></ToolbarItem>
+                    <ToolbarItem>
+                        <Template>
+                            <div class='e-folder'>
+                                <div class='e-folder-name'>MVC Plant Data Application</div>
+                            </div>
+                        </Template>
+                    </ToolbarItem>
+                </ToolbarItems>
+            </SfToolbar>
         </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+        @*Initialize the Sidebar menu component*@
+        <SidebarMenu ViewModel="menuViewModel" DockWidth="50px" Width="220px" TargetCss=".main-content" Docked="SidebarDocked" />
 
-    <div class="sidebar">
-        <SidebarMenu ViewModel="menuViewModel" DockWidth="50px" Width="220px" TargetCss=".main-content" />
+        @*main-content declaration*@
+        <div id="main-text" class="main-content" height="800px">
+            <div class="sidebar-content">
+                <div class="content px-4">
+                    @Body
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            A web page by Tim McMaster.
+        </div>
     </div>
-
 </div>
 
 <div id="blazor-error-ui">
@@ -30,3 +48,22 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code {
+    public bool SidebarDocked = false;
+
+    // Specifies the event handler for Clicked event in Toolbar component.
+    public void Toggle(ClickEventArgs args)
+    {
+        if (args.Item.TooltipText == "Menu")
+        {
+            SidebarDocked = !SidebarDocked;
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+}

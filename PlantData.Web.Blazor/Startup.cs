@@ -143,17 +143,18 @@ namespace PlantData.Web.Blazor
             // - Adds IMapper as Mapper using IConfiguratrionProvider
             services.AddAutoMapper(AutoMapperWebConfiguration.ConfigAction);
 
-            // Main Domain stuff
-            //services.AddDomainServices();
-            services.AddViewModelsAndInterfaces();
-
             // Add services to the container.
             //services.AddControllersWithViews();
 
+
             services.AddRazorComponents().AddInteractiveServerComponents();
-            
             services.AddSyncfusionBlazor();
 
+            // Main Domain stuff
+            //services.AddDomainServices();
+            //services.AddViewModelsAndInterfaces();
+
+            services.AddSidebarMenuViewModelAndInterface();
         }
 
         // Configure is where you add middleware.        
@@ -164,7 +165,7 @@ namespace PlantData.Web.Blazor
             if (app == null)
                 throw new ArgumentNullException(nameof(app));
 
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpfc3ZWRmFdVEBwX0Q=");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NDaF5cWWtCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXZfeHZWRWBdVE1xXks=");
 
             // Stop trying to map tokens to .Net claim types
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;

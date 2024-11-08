@@ -1,19 +1,20 @@
-﻿@{
+﻿@using PlantData.Web.Blazor.ViewModels
+@using Syncfusion.Blazor.Navigations
+@{
     Dictionary<string, object> HtmlAttribute = new Dictionary<string, object>() { { "class", "sidebar-menu" } };
 }
 
-<SfSidebar @HtmlAttributes="@HtmlAttribute" @EnableDock="true" @DockSize="@DockWidth" @Width="@Width" @Target="@TargetCss" @IsOpen="true", @Type="Auto">
+<SfSidebar @attributes="@HtmlAttribute" EnableDock="true" DockSize="@DockWidth" Width="@Width" Target="@TargetCss" IsOpen="@Docked" Type=SidebarType.Auto>
     <ChildContent>
         <div class="main-menu">
             <div>
-                <SfMenu id="dockMenu" Items="@ViewModel.Items" fields="menuFields" Orientation=Orientation.Vertical cssClass="dock-menu">
-                    <MenuFieldSettings 
-                        ItemId = "@ViewModel.Fields.ItemIdField"
-                        Text = "@ViewModel.Fields.TextField"
-                        ParentId = "@ViewModel.Fields.ParentIdField"
-                        Url = "@ViewModel.Fields.UrlField"
-                        IconCss = "@ViewModel.Fields.IconCssField"
-                    ></MenuFieldSettings>
+                <SfMenu Items="@ViewModel.Items" Orientation=Orientation.Vertical>
+                    <MenuFieldSettings ItemId="@ViewModel.Fields.ItemIdField"
+                                       Text="@ViewModel.Fields.TextField"
+                                       ParentId="@ViewModel.Fields.ParentIdField"
+                                       IconCss="@ViewModel.Fields.IconCssField"
+                                       Url="@ViewModel.Fields.UrlField">
+                    </MenuFieldSettings>
                 </SfMenu>
             </div>
         </div>
@@ -32,5 +33,22 @@
     public string DockWidth { get; set; }
 
     [Parameter]
+    public bool Docked { get; set; }
+
+    [Parameter]
     public ISidebarMenuViewModel ViewModel { get; set; }
- }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        //ViewModel.Initialise();
+
+        await base.OnInitializedAsync();
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        ViewModel.Initialise();
+
+        return base.OnParametersSetAsync();
+    }
+}

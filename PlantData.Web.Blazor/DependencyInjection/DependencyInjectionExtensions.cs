@@ -61,21 +61,73 @@ namespace PlantData.Web.Blazor.DependencyInjection
             string vmNamespacePrefix = "PlantData.Web.Blazor.ViewModels";
             string vmNameSuffix = "ViewModel";
 
-            var assembly = AppDomain.CurrentDomain.GetAssemblies()
-               .Where(a => a.FullName!.StartsWith(assemblyNamePrefix, StringComparison.InvariantCulture))
-               .First();
-
-            var classes = assembly.ExportedTypes
-               .Where(a => a.FullName!.EndsWith(vmNameSuffix, StringComparison.InvariantCulture) &&
-                           a.Namespace!.StartsWith(vmNamespacePrefix, StringComparison.InvariantCulture));
-
-            foreach (Type t in classes)
+            try
             {
-                foreach (Type i in t.GetInterfaces())
+                var assembly = Assembly.Load(assemblyNamePrefix);
+
+                var classes = assembly.ExportedTypes
+                   .Where(a => a.FullName!.EndsWith(vmNameSuffix, StringComparison.InvariantCulture) &&
+                               a.Namespace!.StartsWith(vmNamespacePrefix, StringComparison.InvariantCulture));
+
+                foreach (Type t in classes)
                 {
-                    if ($"I{t.Name}" == i.Name)
-                        services.AddTransient(i, t);
+                    foreach (Type i in t.GetInterfaces())
+                    {
+                        if ($"I{t.Name}" == i.Name)
+                            services.AddTransient(i, t);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Could not load assembly {assemblyNamePrefix}");
+            }
+
+            //var assembly = AppDomain.CurrentDomain.GetAssemblies()
+            //   .Where(a => a.FullName!.StartsWith(assemblyNamePrefix, StringComparison.InvariantCulture))
+            //   .First();
+
+            //var classes = assembly.ExportedTypes
+            //   .Where(a => a.FullName!.EndsWith(vmNameSuffix, StringComparison.InvariantCulture) &&
+            //               a.Namespace!.StartsWith(vmNamespacePrefix, StringComparison.InvariantCulture));
+
+            //foreach (Type t in classes)
+            //{
+            //    foreach (Type i in t.GetInterfaces())
+            //    {
+            //        if ($"I{t.Name}" == i.Name)
+            //            services.AddTransient(i, t);
+            //    }
+            //}
+
+            // Before we leave this method, write our registrations to log file
+            services.LogRegisteredServices(Log.Logger);
+            return services;
+        }
+
+        public static IServiceCollection AddSidebarMenuViewModelAndInterface(this IServiceCollection services)
+        {
+            string assemblyNamePrefix = "PlantData.Web.Blazor.ViewModels";
+            string vmNamespacePrefix = "PlantData.Web.Blazor.ViewModels";
+            string vmNameSuffix = "ViewModel";
+
+            string className = "PlantData.Web.Blazor.ViewModels.SidebarMenuViewModel";
+            string interfaceName = "PlantData.Web.Blazor.ViewModels.ISidebarMenuViewModel";
+
+            try 
+            { 
+                var assembly = Assembly.Load(assemblyNamePrefix);
+
+                var menuClassType = assembly.ExportedTypes.Where(a => a.FullName.Equals(className, StringComparison.InvariantCulture)).FirstOrDefault();
+                var menuInterfaces = menuClassType.GetInterfaces();
+
+                var menuInterfaceType = menuInterfaces.Where(a => a.FullName.Equals(interfaceName, StringComparison.InvariantCulture)).FirstOrDefault();
+
+                services.AddTransient(menuInterfaceType, menuClassType);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Could not load assembly {assemblyNamePrefix}");
             }
 
             // Before we leave this method, write our registrations to log file
