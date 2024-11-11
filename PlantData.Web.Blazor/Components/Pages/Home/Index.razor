@@ -1,0 +1,60 @@
+﻿@page "/"
+
+<PageTitle>Home Page</PageTitle>
+
+<h2>Welcome</h2>
+<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<h3>Claims</h3>
+<table border="1" width="100%" style="table-layout:fixed">
+    <tr>
+        <th align="left">Claim Type</th>
+        <th align="left">Claim Value</th>
+    </tr>
+@* 
+    @foreach (var claim in User.Claims)
+    {
+        <tr>
+            <td style="font-weight:bold" align="left">@claim.Type</td>
+            <td style="word-wrap:break-word" align="left">@claim.Value</td>
+        </tr>
+    }
+ *@
+</table>
+<br />
+<h3>Roles</h3>
+<table border="1" width="100%" style="table-layout:fixed">
+    <tr>
+        <th align="left">Role</th>
+        <th align="left">User in role?</th>
+    </tr>
+    <tr>
+        <td style="font-weight:bold" align="left">@* @AuthorizationRole.WebReadUser *@</td>
+        <td style="word-wrap:break-word" align="left">@* @User.IsInRole(AuthorizationRole.WebReadUser) *@</td>
+    </tr>
+    <tr>
+        <td style="font-weight:bold" align="left">@* @AuthorizationRole.WebWriteUser *@</td>
+        <td style="word-wrap:break-word" align="left">@* @User.IsInRole(AuthorizationRole.WebWriteUser) *@</td>
+    </tr>
+    <tr>
+        <td style="font-weight:bold" align="left">@* @AuthorizationRole.WebAdminUser *@</td>
+        <td style="word-wrap:break-word" align="left">@* @User.IsInRole(AuthorizationRole.WebAdminUser) *@</td>
+    </tr>
+</table>
+<br />
+<h3>Properties</h3>
+<table border="1" width="100%" style="table-layout:fixed">
+    <tr>
+        <th align="left">Key</th>
+        <th align="left">Value</th>
+    </tr>
+@* 
+    @foreach (var prop in (await Context.AuthenticateAsync()).Properties.Items)
+    {
+        <tr>
+            <td style="font-weight:bold" align="left">@prop.Key</td>
+            <td style="word-wrap:break-word" align="left">@prop.Value</td>
+        </tr>
+    }
+ *@
+</table>

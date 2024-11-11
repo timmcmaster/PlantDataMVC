@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@typeparam TGridItem where TGridItem : IGridItem
+
+<div class="container-lg">
+    @if (ViewModel.Options.AllowAdd)
+    {
+        <NavLink href="@($"{ViewModel.Links.AddNew}")">Add New Item</NavLink>
+    }
+    <table class="table border">
+        <thead>
+            <tr>
+                @*<th scope="col">@Html.ColumnHeaderFor(m => sampleElement.LatinName, ViewModel.Options.AllowSorting)</th> *@
+                @foreach (var prop in typeof(TGridItem).GetProperties())
+                {
+                    if (ViewModel.PropertyColumns.Contains(prop.Name))
+                    {
+                        <th scope="col">@prop.Name</th>
+                    }
+                }
+                <th scope="col"></th>
+                @if (ViewModel.Options.AllowEdit)
+                {
+                    <th scope="col"></th>
+                }
+                @if (ViewModel.Options.AllowDelete)
+                {
+                    <th scope="col"></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int count = 0;
+                @foreach (var entry in ViewModel.Items)
+                {
+                    <tr>
+                        @foreach (var prop in typeof(TGridItem).GetProperties())
+                        {
+                            if (ViewModel.PropertyColumns.Contains(prop.Name))
+                            {
+                                <td>@entry.GetType().GetProperty(prop.Name).GetValue(entry)</td>
+                            }
+                        }
+                        <NavLink href="@($"{ViewModel.Links.Show}/{entry.Id}")">Show</NavLink>
+                        @if (ViewModel.Options.AllowEdit)
+                        {
+                            <NavLink href="@($"{ViewModel.Links.Edit}/{entry.Id}")">Edit</NavLink>
+                        }
+                        @if (ViewModel.Options.AllowDelete)
+                        {
+                            <NavLink href="@($"{ViewModel.Links.Delete}/{entry.Id}")">Delete</NavLink>
+                        }
+                    </tr>
+                    count++;
+                }
+            }
+        </tbody>
+    </table>
+    @if (ViewModel.Options.AllowPaging)
+    {
+        @* @Html.PagingLinksFor(m => Model) *@
+    }
+</div>
+
+@code {
+        [Parameter]
+        public IBaseGridModel<TGridItem> ViewModel { get; set; }
+}

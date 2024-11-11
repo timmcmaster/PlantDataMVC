@@ -34,13 +34,14 @@ namespace PlantData.Web.Blazor.ViewModels
                 new MenuItemViewModel("sfHeader", mainMenuHeaderText, null, string.Empty, "icon"),
 
                 // Home menu
-                new MenuItemViewModel("sfHome", "Home",  null,  _linkGen.GetPathByAction("Index",PlantDataMvcAppControllers.Home) ?? string.Empty, "bi-house-fill"),
-                new MenuItemViewModel("sfHomeAbout", "About", "sfHome",  _linkGen.GetPathByAction("About", PlantDataMvcAppControllers.Home) ?? string.Empty),
-                new MenuItemViewModel("sfHomePrivacy", "Privacy", "sfHome",  _linkGen.GetPathByAction("Privacy", PlantDataMvcAppControllers.Home) ?? string.Empty),
+                new MenuItemViewModel("sfHome", "Home",  null,  string.Empty, "bi-house-fill"),
+                new MenuItemViewModel("sfHomeHome", "Home", "sfHome",  "/"),
+                new MenuItemViewModel("sfHomeAbout", "About", "sfHome",  "about"),
+                new MenuItemViewModel("sfHomePrivacy", "Privacy", "sfHome",  "privacy"),
 
                 // Basic MVC Views menu
                 new MenuItemViewModel("sfPlant", "Plant Definitions", null, string.Empty, "bi-tree-fill"),
-                new MenuItemViewModel("sfPlantGenera", "Genera", "sfPlant",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.Genus) ?? string.Empty),
+                new MenuItemViewModel("sfPlantGenera", "Genera", "sfPlant",  "genus"),
                 new MenuItemViewModel("sfPlantSpecies", "Species", "sfPlant",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.Plant) ?? string.Empty),
 
                 new MenuItemViewModel("sfInv", "Inventory", null, string.Empty, "bi-boxes"),

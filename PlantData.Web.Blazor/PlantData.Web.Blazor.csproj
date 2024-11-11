@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Components\Pages\Home.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="IdentityModel" Version="6.2.0" />
     <PackageReference Include="IdentityModel.AspNetCore" Version="4.3.0" />
