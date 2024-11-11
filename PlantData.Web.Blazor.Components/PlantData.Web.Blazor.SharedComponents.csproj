@@ -21,4 +21,9 @@
     <ProjectReference Include="..\PlantData.Web.Blazor.ViewModels\PlantData.Web.Blazor.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Grid\BasicGrid\" />
+    <Folder Include="Grid\PrettyGrid\" />
+  </ItemGroup>
+
 </Project>

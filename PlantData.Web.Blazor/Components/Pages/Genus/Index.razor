@@ -1,4 +1,5 @@
-﻿@page "/genus"
+﻿@using PlantData.Web.Blazor.SharedComponents.Grid
+@page "/genus"
 
 <h2>Genus</h2>
 
@@ -11,6 +12,46 @@
 
 @* @await Component.InvokeAsync("GenusGrid", new { model = Model, gridOptions = Model.GridOptions })
  *@
-@code {
+ <BasicGrid ViewModel="ViewModel"></BasicGrid>
 
+
+ <PrettyGrid ViewModel="ViewModel"></PrettyGrid>
+
+@code 
+{
+    private BaseGridModel<GenusGridModel> ViewModel = new BaseGridModel<GenusGridModel>()
+    {
+        Options = new GridOptionsModel()
+        {
+            AllowAdd = true,
+            AllowEdit = true,
+            AllowDelete = true,
+            AllowPaging = false,
+            AllowSorting = false
+        },
+        Paging = new GridPagingModel(),
+        Sorting = new GridSortingModel(),
+        Links = new GridLinksModel()
+        {
+            Show = "genus",
+            AddNew = "genus/new",
+            Edit = "genus/edit",
+            Delete = "genus/delete"
+        },
+        Items = new List<GenusGridModel>()
+        {
+            new GenusGridModel() { Id = 1, LatinName = "Acacia" },
+            new GenusGridModel() { Id = 2, LatinName = "Banksia" },
+            new GenusGridModel() { Id = 3, LatinName = "Brachychiton" },
+            new GenusGridModel() { Id = 4, LatinName = "Chrysocephalum" },
+            new GenusGridModel() { Id = 5, LatinName = "Deeringia" }
+        },
+        PropertyColumns = new List<string>() { nameof(GenusGridModel.Id), nameof(GenusGridModel.LatinName) }
+    };
+
+    public class GenusGridModel: IGridItem
+    {
+        public int Id { get; set; }
+        public string LatinName { get; set; }
+    }
 }
