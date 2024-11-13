@@ -1,4 +1,5 @@
-﻿@    using PlantData.Web.Blazor.SharedComponents.Grid
+﻿@using PlantData.Web.Blazor.SharedComponents.Grid
+@using PlantData.Web.Blazor.SharedComponents.Paging
 @page "/genus"
 
 <h2>Genus</h2>
@@ -44,22 +45,13 @@
         _viewModel = new BaseGridModel<GenusGridModel>()
         {
             Options = GridOptionsModel.Default,
-            Paging = GetPagingModel(pageSize, pageNumber, genusList.Count),
+            Paging = new PagingModel(pageSize, pageNumber, genusList.Count),
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel("genus"),
             Items = items.Skip((pageNumber-1)*pageSize).Take(pageSize),
             PropertyColumns = propertyColumns
         };
         _viewModel.Options.AllowSorting = false;
-    }
-
-    private GridPagingModel GetPagingModel(int pageSize, int pageNumber, int totalCount)
-    {
-        var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-        var hasPrevious = pageNumber > 1;
-        var hasNext = pageNumber < totalPages;
-
-        return new GridPagingModel() { PageSize = pageSize, PageNumber = pageNumber, TotalCount = totalCount, TotalPages = totalPages, HasPreviousPage = hasPrevious, HasNextPage = hasNext };
     }
 
     public class GenusGridModel: IGridItem
