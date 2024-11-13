@@ -1,4 +1,4 @@
-﻿@using PlantData.Web.Blazor.SharedComponents.Grid
+﻿@    using PlantData.Web.Blazor.SharedComponents.Grid
 @page "/genus"
 
 <h2>Genus</h2>
@@ -12,42 +12,55 @@
 
 @* @await Component.InvokeAsync("GenusGrid", new { model = Model, gridOptions = Model.GridOptions })
  *@
- <BasicGrid ViewModel="ViewModel"></BasicGrid>
+ <BasicGrid ViewModel="_viewModel"></BasicGrid>
 
 
- <PrettyGrid ViewModel="ViewModel"></PrettyGrid>
+ <PrettyGrid ViewModel="_viewModel"></PrettyGrid>
 
 @code 
 {
-    private BaseGridModel<GenusGridModel> ViewModel = new BaseGridModel<GenusGridModel>()
+    private BaseGridModel<GenusGridModel> _viewModel;
+
+    protected override async Task OnInitializedAsync()
     {
-        Options = new GridOptionsModel()
+        var genusList = new List<string>() { "Abutilon", "Acacia", "Acmella", "Acmena", "Akania", "Aleogyne", "Allocasuarina", "Alloxylon", "Alphitonia", "Alpinia", "Alyxia", 
+                                             "Ammannia", "Amphibromus", "Anadenanthera", "Angophora", "Anigozanthos", "Anisomeles", "Anopterus", "Anthocercis", "Anthosachne", "Aotus", "Aphanopetalum",
+                                             "Aphelia", "Aphyllanthes", "Aponogeton", "Aptosimum", "Arthropodium", "Astelia", "Asterolasia", "Astroloma", "Atriplex", "Austromyrtus",
+                                             "Banksia", "Brachychiton", "Callistemon", "Chrysocephalum", "Deeringia", "Eucalyptus", "Leptospermum", "Melaleuca", "Synoum", "Syncarpus", "Syzygium" };
+
+        int id = 1;
+        var items = new List<GenusGridModel>();
+
+        foreach (var genus in genusList)
         {
-            AllowAdd = true,
-            AllowEdit = true,
-            AllowDelete = true,
-            AllowPaging = false,
-            AllowSorting = false
-        },
-        Paging = new GridPagingModel(),
-        Sorting = new GridSortingModel(),
-        Links = new GridLinksModel()
+            items.Add(new GenusGridModel() { Id = id, LatinName = genus });
+            id++;
+        };
+
+        var propertyColumns = new List<string>() { nameof(GenusGridModel.Id), nameof(GenusGridModel.LatinName) };
+        var pageSize = 10;
+        var pageNumber = 1;
+
+        _viewModel = new BaseGridModel<GenusGridModel>()
         {
-            Show = "genus",
-            AddNew = "genus/new",
-            Edit = "genus/edit",
-            Delete = "genus/delete"
-        },
-        Items = new List<GenusGridModel>()
-        {
-            new GenusGridModel() { Id = 1, LatinName = "Acacia" },
-            new GenusGridModel() { Id = 2, LatinName = "Banksia" },
-            new GenusGridModel() { Id = 3, LatinName = "Brachychiton" },
-            new GenusGridModel() { Id = 4, LatinName = "Chrysocephalum" },
-            new GenusGridModel() { Id = 5, LatinName = "Deeringia" }
-        },
-        PropertyColumns = new List<string>() { nameof(GenusGridModel.Id), nameof(GenusGridModel.LatinName) }
-    };
+            Options = GridOptionsModel.Default,
+            Paging = GetPagingModel(pageSize, pageNumber, genusList.Count),
+            Sorting = new GridSortingModel(),
+            Links = new GridLinksModel("genus"),
+            Items = items.Skip((pageNumber-1)*pageSize).Take(pageSize),
+            PropertyColumns = propertyColumns
+        };
+        _viewModel.Options.AllowSorting = false;
+    }
+
+    private GridPagingModel GetPagingModel(int pageSize, int pageNumber, int totalCount)
+    {
+        var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+        var hasPrevious = pageNumber > 1;
+        var hasNext = pageNumber < totalPages;
+
+        return new GridPagingModel() { PageSize = pageSize, PageNumber = pageNumber, TotalCount = totalCount, TotalPages = totalPages, HasPreviousPage = hasPrevious, HasNextPage = hasNext };
+    }
 
     public class GenusGridModel: IGridItem
     {

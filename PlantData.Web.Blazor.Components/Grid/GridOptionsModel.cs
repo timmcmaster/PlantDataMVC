@@ -28,5 +28,50 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
                 return list;
             }
         }
+
+        public static GridOptionsModel Default
+        {
+            get
+            {
+                return new GridOptionsModel
+                {
+                    AllowAdd = true,
+                    AllowEdit = true,
+                    AllowDelete = true,
+                    AllowPaging = true,
+                    AllowSorting = true
+                };
+            }
+        }
+
+        public static GridOptionsModel ViewOnly
+        {
+            get
+            {
+                return new GridOptionsModel
+                {
+                    AllowAdd = false,
+                    AllowEdit = false,
+                    AllowDelete = false,
+                    AllowPaging = false,
+                    AllowSorting = false
+                };
+            }
+        }
+
+        public static GridOptionsModel NoPagingOrSorting
+        {
+            get
+            {
+                return new GridOptionsModel
+                {
+                    AllowAdd = true,
+                    AllowEdit = true,
+                    AllowDelete = true,
+                    AllowPaging = false,
+                    AllowSorting = false
+                };
+            }
+        }
     }
 }

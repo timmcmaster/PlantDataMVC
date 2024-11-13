@@ -2,9 +2,15 @@
 {
     public class GridLinksModel
     {
-        public string AddNew { get; set; }
-        public string Show { get; set; }
-        public string Edit { get; set; }
-        public string Delete { get; set; }
+        public GridLinksModel(string baseUrl)
+        {
+            BaseUrl = baseUrl;
+        }
+
+        public string BaseUrl { get; internal set; }
+        public string AddNew => $"{BaseUrl}/new";
+        public string Show => $"{BaseUrl}";
+        public string Edit => $"{BaseUrl}/edit";
+        public string Delete => $"{BaseUrl}/delete";
     }
 }

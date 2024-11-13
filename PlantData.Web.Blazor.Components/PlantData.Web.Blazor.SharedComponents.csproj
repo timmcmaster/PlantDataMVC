@@ -6,6 +6,17 @@
     <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Grid\BasicGrid\**" />
+    <Compile Remove="Grid\PrettyGrid\**" />
+    <Content Remove="Grid\BasicGrid\**" />
+    <Content Remove="Grid\PrettyGrid\**" />
+    <EmbeddedResource Remove="Grid\BasicGrid\**" />
+    <EmbeddedResource Remove="Grid\PrettyGrid\**" />
+    <None Remove="Grid\BasicGrid\**" />
+    <None Remove="Grid\PrettyGrid\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
@@ -19,11 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PlantData.Web.Blazor.ViewModels\PlantData.Web.Blazor.ViewModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Grid\BasicGrid\" />
-    <Folder Include="Grid\PrettyGrid\" />
   </ItemGroup>
 
 </Project>

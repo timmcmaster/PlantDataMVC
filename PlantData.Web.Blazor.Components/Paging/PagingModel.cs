@@ -1,6 +1,6 @@
-﻿namespace PlantData.Web.Blazor.SharedComponents.Grid
+﻿namespace PlantData.Web.Blazor.SharedComponents.Paging
 {
-    public class GridPagingModel
+    public class PagingModel
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }

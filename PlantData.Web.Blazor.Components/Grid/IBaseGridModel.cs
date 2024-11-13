@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using PlantData.Web.Blazor.SharedComponents.Paging;
 
 namespace PlantData.Web.Blazor.SharedComponents.Grid
 {
     public interface IBaseGridModel<T>
     {
         GridOptionsModel Options { get; set; }
-        GridPagingModel Paging { get; set; }
+        PagingModel Paging { get; set; }
         GridSortingModel Sorting { get; set; }
         GridLinksModel Links { get; set; }
 
