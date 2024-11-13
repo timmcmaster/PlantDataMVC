@@ -1,10 +1,7 @@
 ﻿@using PlantData.Web.Blazor.ViewModels
 @using Syncfusion.Blazor.Navigations
-@{
-    Dictionary<string, object> HtmlAttribute = new Dictionary<string, object>() { { "class", "sidebar-menu" } };
-}
 
-<SfSidebar @attributes="@HtmlAttribute" EnableDock="true" DockSize="@DockWidth" Width="@Width" Target="@TargetCss" IsOpen="@Docked" Type=SidebarType.Auto>
+<SfSidebar @attributes=HtmlAttributes EnableDock="true" DockSize="@DockWidth" Width="@Width" Target="@TargetCss" IsOpen="@Docked" Type=SidebarType.Auto>
     <ChildContent>
         <div class="main-menu">
             <div>
@@ -37,12 +34,17 @@
 
     [Parameter]
     public ISidebarMenuViewModel ViewModel { get; set; }
-    
+
+
+    Dictionary<string, object> HtmlAttributes;
+
+
     protected override async Task OnInitializedAsync()
     {
-        //ViewModel.Initialise();
+        HtmlAttributes = new Dictionary<string, object>() { { "class", "sidebar-menu" } };
 
-        await base.OnInitializedAsync();
+        //ViewModel.Initialise();
+        //await base.OnInitializedAsync();
     }
 
     protected override Task OnParametersSetAsync()

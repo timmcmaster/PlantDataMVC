@@ -1,6 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Components.Routing
-@typeparam TGridItem where TGridItem : IGridItem
+@typeparam TRowData
 
+<CascadingValue IsFixed="true" Value="this">
+    @ChildContent
+</CascadingValue>
+
+@* Render the grid *@
 <div class="container-lg">
     @if (ViewModel.Options.AllowAdd)
     {
@@ -10,12 +15,9 @@
         <thead>
             <tr>
                 @*<th scope="col">@Html.ColumnHeaderFor(m => sampleElement.LatinName, ViewModel.Options.AllowSorting)</th> *@
-                @foreach (var prop in typeof(TGridItem).GetProperties())
+                @foreach (var column in columns)
                 {
-                    if (ViewModel.PropertyColumns.Contains(prop.Name))
-                    {
-                        <th scope="col">@prop.Name</th>
-                    }
+                    @column.HeaderTemplate;
                 }
                 <th scope="col"></th>
                 @if (ViewModel.Options.AllowEdit)
@@ -33,22 +35,20 @@
                 int count = 0;
                 @foreach (var entry in ViewModel.Items)
                 {
-                    <tr>
-                        @foreach (var prop in typeof(TGridItem).GetProperties())
+                    <tr @key="entry.GetHashCode()">
+
+                        @foreach (var column in columns)
                         {
-                            if (ViewModel.PropertyColumns.Contains(prop.Name))
-                            {
-                                <td>@entry.GetType().GetProperty(prop.Name).GetValue(entry)</td>
-                            }
+                            @column.CellTemplate;
                         }
-                        <NavLink href="@($"{ViewModel.Links.Show}/{entry.Id}")">Show</NavLink>
+                        <NavLink href="@($"{ViewModel.Links.Show}")">Show</NavLink>
                         @if (ViewModel.Options.AllowEdit)
                         {
-                            <NavLink href="@($"{ViewModel.Links.Edit}/{entry.Id}")">Edit</NavLink>
+                            <NavLink href="@($"{ViewModel.Links.Edit}")">Edit</NavLink>
                         }
                         @if (ViewModel.Options.AllowDelete)
                         {
-                            <NavLink href="@($"{ViewModel.Links.Delete}/{entry.Id}")">Delete</NavLink>
+                            <NavLink href="@($"{ViewModel.Links.Delete}")">Delete</NavLink>
                         }
                     </tr>
                     count++;
@@ -63,6 +63,29 @@
 </div>
 
 @code {
-        [Parameter]
-        public IBaseGridModel<TGridItem> ViewModel { get; set; }
+    [Parameter]
+    public IBaseGridModel<TRowData> ViewModel { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } // Should contain all columns
+
+
+    private readonly List<BasicGridColumn<TRowData>> columns = new List<BasicGridColumn<TRowData>>();
+
+    internal void AddColumn(BasicGridColumn<TRowData> column)
+    {
+        columns.Add(column);
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // The first render will instantiate the GridColumn defined in the ChildContent.
+            // GridColumn calls AddColumn during its initialization. This means that until
+            // the first render is completed, the columns collection is empty.
+            // Calling StateHasChanged() will re-render the component, so the second time it will know the columns
+            StateHasChanged();
+        }
+    }
 }
