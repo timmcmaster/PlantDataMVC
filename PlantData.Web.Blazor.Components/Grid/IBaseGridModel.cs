@@ -11,6 +11,6 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
         GridLinksModel Links { get; set; }
 
         IEnumerable<T> Items { get; set; }
-        IEnumerable<string> PropertyColumns { get; set; }
+        IEnumerable<BaseGridColumnModel<T>> Columns { get; set; }
     }
 }

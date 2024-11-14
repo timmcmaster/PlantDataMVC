@@ -63,15 +63,16 @@
 </div>
 
 @code {
-    [Parameter]
-    public IBaseGridModel<TRowData> ViewModel { get; set; }
+    [Parameter, EditorRequired]
+    public required IBaseGridModel<TRowData> ViewModel { get; set; }
 
     [Parameter]
-    public RenderFragment ChildContent { get; set; } // Should contain all columns
+    public RenderFragment ChildContent { get; set; } = default!; // Should contain all columns
 
 
     private readonly List<BasicGridColumn<TRowData>> columns = new List<BasicGridColumn<TRowData>>();
 
+    
     internal void AddColumn(BasicGridColumn<TRowData> column)
     {
         columns.Add(column);
@@ -81,8 +82,8 @@
     {
         if (firstRender)
         {
-            // The first render will instantiate the GridColumn defined in the ChildContent.
-            // GridColumn calls AddColumn during its initialization. This means that until
+            // The first render will instantiate the BasicGridColumn defined in the ChildContent.
+            // BasicGridColumn calls AddColumn during its initialization. This means that until
             // the first render is completed, the columns collection is empty.
             // Calling StateHasChanged() will re-render the component, so the second time it will know the columns
             StateHasChanged();

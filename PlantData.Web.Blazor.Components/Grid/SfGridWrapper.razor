@@ -19,11 +19,11 @@
         <GridColumns>
             @foreach (var prop in typeof(TGridItem).GetProperties())
             {
-                if (ViewModel.PropertyColumns.Contains(prop.Name))
+@*                 if (ViewModel.PropertyColumns.Contains(prop.Name))
                 {
                     <GridColumn Field="@prop.Name" IsPrimaryKey="@(prop.Name == "Id")"></GridColumn>
                 }
-            }
+ *@            }
         </GridColumns>
     </SfGrid>
 </div>

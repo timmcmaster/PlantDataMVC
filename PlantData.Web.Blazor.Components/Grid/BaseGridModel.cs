@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 using PlantData.Web.Blazor.SharedComponents.Paging;
 
 namespace PlantData.Web.Blazor.SharedComponents.Grid
@@ -11,6 +11,6 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
         public GridLinksModel Links { get; set; }
 
         public IEnumerable<T> Items { get; set; } = new List<T>();
-        public IEnumerable<string> PropertyColumns { get; set; } = new List<string>();
+        public IEnumerable<BaseGridColumnModel<T>> Columns { get; set; } = new List<BaseGridColumnModel<T>>();
     }
 }

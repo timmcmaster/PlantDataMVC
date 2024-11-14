@@ -4,10 +4,10 @@
 @code {
 
     [CascadingParameter]
-    public BasicGrid<TRowData> Parent { get; set; }
+    public required BasicGrid<TRowData> Parent { get; set; }
 
     [Parameter]
-    public string HeaderText { get; set; }
+    public string HeaderText { get; set; } = default!;
 
     [Parameter]
     public Expression<Func<TRowData, object>> FieldExpression { get; set; }

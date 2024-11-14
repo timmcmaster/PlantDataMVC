@@ -1,0 +1,121 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@using System.Linq.Expressions
+@typeparam TRowData
+
+@* Render the grid *@
+<div class="container-lg">
+    @if (ViewModel.Options.AllowAdd)
+    {
+        <NavLink href="@($"{ViewModel.Links.AddNew}")">Add New Item</NavLink>
+    }
+    <table class="table border">
+        <thead>
+            <tr>
+                @*<th scope="col">@Html.ColumnHeaderFor(m => sampleElement.LatinName, ViewModel.Options.AllowSorting)</th> *@
+                @foreach (var column in ViewModel.Columns)
+                {
+                    <th scope="col">@column.HeaderText</th>
+                }
+                <th scope="col"></th>
+                @if (ViewModel.Options.AllowEdit)
+                {
+                    <th scope="col"></th>
+                }
+                @if (ViewModel.Options.AllowDelete)
+                {
+                    <th scope="col"></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int count = 0;
+                @foreach (var entry in ViewModel.Items)
+                {
+                    <tr @key="entry.GetHashCode()">
+
+                        @foreach (var column in ViewModel.Columns)
+                        {
+                            <td>
+                                @GetColumnData(column, entry)
+                            </td>
+                        }
+                        <NavLink href="@($"{ViewModel.Links.Show}")">Show</NavLink>
+                        @if (ViewModel.Options.AllowEdit)
+                        {
+                            <NavLink href="@($"{ViewModel.Links.Edit}")">Edit</NavLink>
+                        }
+                        @if (ViewModel.Options.AllowDelete)
+                        {
+                            <NavLink href="@($"{ViewModel.Links.Delete}")">Delete</NavLink>
+                        }
+                    </tr>
+                    count++;
+                }
+            }
+        </tbody>
+    </table>
+    @if (ViewModel.Options.AllowPaging)
+    {
+        @* @Html.PagingLinksFor(m => Model) *@
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public required IBaseGridModel<TRowData> ViewModel { get; set; }
+
+    private Dictionary<Guid, ColumnExpressionInfo> columnExpressionInfoDict = new();
+
+    internal string GetColumnData(IBaseGridColumnModel<TRowData> column, TRowData rowData)
+    {
+        var formattedValue = string.Empty;
+
+        ColumnExpressionInfo? columnExpressionInfo;
+
+        if (columnExpressionInfoDict.TryGetValue(column.Identifier, out columnExpressionInfo))
+        {
+            if (columnExpressionInfo.CompiledExpression != null)
+            {
+                var cellValue = columnExpressionInfo.CompiledExpression(rowData);
+                formattedValue = string.IsNullOrEmpty(column.Format) ? cellValue?.ToString() : string.Format("{0:" + column.Format + "}", cellValue);
+            }
+        }
+
+        return formattedValue;
+    }
+
+    protected override void OnInitialized()
+    {
+        foreach (var column in ViewModel.Columns)
+        {
+            columnExpressionInfoDict.Add(column.Identifier, new ColumnExpressionInfo());
+        }
+
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        foreach (var column in ViewModel.Columns)
+        {
+            ColumnExpressionInfo? columnExpressionInfo;
+            if (columnExpressionInfoDict.TryGetValue(column.Identifier, out columnExpressionInfo))
+            {
+                if (columnExpressionInfo.LastCompiledExpression != column.FieldExpression)
+                {
+                    columnExpressionInfo.CompiledExpression = column.FieldExpression?.Compile();
+                    columnExpressionInfo.LastCompiledExpression = column.FieldExpression;
+                }
+            }
+        }
+    }
+
+    internal class ColumnExpressionInfo
+    {
+        public Func<TRowData, object> CompiledExpression { get; set; }
+        public Expression LastCompiledExpression { get; set; } = default!;
+
+    }
+
+}

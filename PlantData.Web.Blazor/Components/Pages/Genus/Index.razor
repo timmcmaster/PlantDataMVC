@@ -16,14 +16,14 @@
 
 @* @await Component.InvokeAsync("GenusGrid", new { model = Model, gridOptions = Model.GridOptions })
  *@
-<BasicGrid ViewModel="_viewModel">
+@* <BasicGrid ViewModel="_viewModel">
     <BasicGridColumn TRowData="GenusGridModel" HeaderText="Id" FieldExpression="x => x.Id" IsPrimaryKey="true"></BasicGridColumn>
     <BasicGridColumn TRowData="GenusGridModel" HeaderText="Latin Name" FieldExpression="x => x.LatinName"></BasicGridColumn>
 </BasicGrid>
-
-
- <PrettyGrid ViewModel="_viewModel"></PrettyGrid>
-
+ *@
+<BasicGrid2 ViewModel="_viewModel"></BasicGrid2>
+@*  <SfGridWrapper ViewModel="_viewModel"></SfGridWrapper>
+ *@
 @code 
 {
     private BaseGridModel<GenusGridModel> _viewModel;
@@ -44,7 +44,11 @@
             id++;
         };
 
-        var propertyColumns = new List<string>() { nameof(GenusGridModel.Id), nameof(GenusGridModel.LatinName) };
+        var columns = new List<BaseGridColumnModel<GenusGridModel>>()
+        {
+            new BaseGridColumnModel<GenusGridModel>() {  HeaderText = "Id", IsPrimaryKey = true, FieldExpression = x => x.Id },
+            new BaseGridColumnModel<GenusGridModel>() {  HeaderText = "Latin Name", FieldExpression = x => x.LatinName }
+        };
         var pageSize = 10;
         var pageNumber = 1;
 
@@ -55,7 +59,7 @@
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel("genus"),
             Items = items.Skip((pageNumber-1)*pageSize).Take(pageSize),
-            PropertyColumns = propertyColumns
+            Columns = columns
         };
         _viewModel.Options.AllowSorting = false;
     }
