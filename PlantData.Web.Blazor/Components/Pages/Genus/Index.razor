@@ -1,6 +1,8 @@
 ﻿@using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.SharedComponents.Paging
+@using PlantData.Web.Blazor.ViewModels.Genus
 @using System.ComponentModel
+
 @page "/genus"
 
 <h2>Genus</h2>
@@ -15,8 +17,8 @@
 @* @await Component.InvokeAsync("GenusGrid", new { model = Model, gridOptions = Model.GridOptions })
  *@
 <BasicGrid ViewModel="_viewModel">
-     <BasicGridColumn TRowData="GenusGridModel" HeaderText="Id" FieldExpression="x => x.Id" IsPrimaryKey="true"></BasicGridColumn>
-     <BasicGridColumn TRowData="GenusGridModel" HeaderText="Latin Name" FieldExpression="x => x.LatinName"></BasicGridColumn>
+    <BasicGridColumn TRowData="GenusGridModel" HeaderText="Id" FieldExpression="x => x.Id" IsPrimaryKey="true"></BasicGridColumn>
+    <BasicGridColumn TRowData="GenusGridModel" HeaderText="Latin Name" FieldExpression="x => x.LatinName"></BasicGridColumn>
 </BasicGrid>
 
 
@@ -56,14 +58,5 @@
             PropertyColumns = propertyColumns
         };
         _viewModel.Options.AllowSorting = false;
-    }
-
-    public class GenusGridModel
-    {
-        [DisplayName("Id")]
-        public int Id { get; set; }
-
-        [DisplayName("Latin Name")]
-        public string LatinName { get; set; }
     }
 }

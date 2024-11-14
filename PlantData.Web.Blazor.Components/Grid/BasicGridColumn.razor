@@ -63,9 +63,9 @@
     {
         if (Parent == null)
             throw new ArgumentNullException(nameof(Parent), "BasicGridColumn must exist within a BasicGrid");
-        
+
         base.OnInitialized(); 
-        
+
         Parent.AddColumn(this);
     }
 

@@ -39,7 +39,7 @@
 
                         @foreach (var column in columns)
                         {
-                            @column.CellTemplate;
+                            @column.CellTemplate(entry);
                         }
                         <NavLink href="@($"{ViewModel.Links.Show}")">Show</NavLink>
                         @if (ViewModel.Options.AllowEdit)
