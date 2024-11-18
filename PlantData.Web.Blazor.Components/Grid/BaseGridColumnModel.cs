@@ -10,6 +10,8 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
 
         public string HeaderText { get; set; } = default!;
 
+        public string FieldName { get; set; }
+
         public Expression<Func<T, object>> FieldExpression { get; set; }
 
         public string Format { get; set; } = default!;

@@ -1,9 +1,11 @@
-﻿@using PlantData.Web.Blazor.SharedComponents.Grid
+﻿@using Microsoft.Extensions.Configuration
+@using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.SharedComponents.Paging
 @using PlantData.Web.Blazor.ViewModels.Genus
 @using System.ComponentModel
 
 @page "/genus"
+@inject IConfiguration configuration
 
 <h2>Genus</h2>
 
@@ -21,11 +23,11 @@
     <BasicGridColumn TRowData="GenusGridModel" HeaderText="Latin Name" FieldExpression="x => x.LatinName"></BasicGridColumn>
 </BasicGrid>
  *@
-<BasicGrid2 ViewModel="_viewModel"></BasicGrid2>
-@*  <SfGridWrapper ViewModel="_viewModel"></SfGridWrapper>
- *@
+ <MyGridWrapper GridType="GridType.SfGrid" TGridItem="GenusGridModel" ViewModel="_viewModel"></MyGridWrapper>
 @code 
 {
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;
+
     private BaseGridModel<GenusGridModel> _viewModel;
 
     protected override async Task OnInitializedAsync()
@@ -46,8 +48,8 @@
 
         var columns = new List<BaseGridColumnModel<GenusGridModel>>()
         {
-            new BaseGridColumnModel<GenusGridModel>() {  HeaderText = "Id", IsPrimaryKey = true, FieldExpression = x => x.Id },
-            new BaseGridColumnModel<GenusGridModel>() {  HeaderText = "Latin Name", FieldExpression = x => x.LatinName }
+            new BaseGridColumnModel<GenusGridModel>() {  FieldName = nameof(GenusGridModel.Id), HeaderText = "Id", IsPrimaryKey = true, FieldExpression = x => x.Id },
+            new BaseGridColumnModel<GenusGridModel>() {  FieldName = nameof(GenusGridModel.LatinName), HeaderText = "Latin Name", FieldExpression = x => x.LatinName }
         };
         var pageSize = 10;
         var pageNumber = 1;
