@@ -14,7 +14,7 @@ namespace PlantData.Web.Mvc
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .WriteTo.Console()
-                .WriteTo.File("..\\logs\\Web-bootstrap-log-.txt",
+                .WriteTo.File("..\\logs\\Mvc-bootstrap-log-.txt",
                     rollingInterval: RollingInterval.Day)
                 .CreateBootstrapLogger();
 
