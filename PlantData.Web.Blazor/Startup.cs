@@ -165,7 +165,7 @@ namespace PlantData.Web.Blazor
             if (app == null)
                 throw new ArgumentNullException(nameof(app));
 
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NDaF5cWWtCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWH5fdnZUQmZYWURzWEc=");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NMaF5cXmBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWH1fdnZVQ2deVkJwWUI=");
 
             // Stop trying to map tokens to .Net claim types
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
