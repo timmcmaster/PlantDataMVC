@@ -34,4 +34,10 @@
     <ProjectReference Include="..\PlantData.Web.Blazor.ViewModels\PlantData.Web.Blazor.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Grid\GridWrapper.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
 </Project>
