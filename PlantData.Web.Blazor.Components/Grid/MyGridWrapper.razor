@@ -8,10 +8,12 @@
     @if (@GridType == GridType.Basic)
     {
         <BasicGrid ViewModel="@ViewModel">
-            @foreach (var column in ViewModel.Columns)
-            {
-                <BasicGridColumn TRowData="TGridItem" HeaderText="@column.HeaderText" FieldExpression="@column.FieldExpression" IsPrimaryKey="@column.IsPrimaryKey"></BasicGridColumn>
-            }
+            <GridColumns>
+                @foreach (var column in ViewModel.Columns)
+                {
+                    <BasicGridColumn TRowData="TGridItem" HeaderText="@column.HeaderText" FieldExpression="@column.FieldExpression" IsPrimaryKey="@column.IsPrimaryKey"></BasicGridColumn>
+                }
+            </GridColumns>
         </BasicGrid>
     }
     else if (GridType == GridType.QuickGrid)

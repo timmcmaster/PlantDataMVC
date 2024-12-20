@@ -19,11 +19,13 @@
 @* @await Component.InvokeAsync("GenusGrid", new { model = Model, gridOptions = Model.GridOptions })
  *@
 @* <BasicGrid ViewModel="_viewModel">
-    <BasicGridColumn TRowData="GenusGridModel" HeaderText="Id" FieldExpression="x => x.Id" IsPrimaryKey="true"></BasicGridColumn>
-    <BasicGridColumn TRowData="GenusGridModel" HeaderText="Latin Name" FieldExpression="x => x.LatinName"></BasicGridColumn>
+    <GridColumns>
+        <BasicGridColumn TRowData="GenusGridModel" HeaderText="Id" FieldExpression="x => x.Id" IsPrimaryKey="true"></BasicGridColumn>
+        <BasicGridColumn TRowData="GenusGridModel" HeaderText="Latin Name" FieldExpression="x => x.LatinName"></BasicGridColumn>
+    </GridColumns>
 </BasicGrid>
  *@
- <MyGridWrapper GridType="GridType.SfGrid" TGridItem="GenusGridModel" ViewModel="_viewModel"></MyGridWrapper>
+ <MyGridWrapper GridType="@GridType" TGridItem="GenusGridModel" ViewModel="_viewModel"></MyGridWrapper>
 @code 
 {
     public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;

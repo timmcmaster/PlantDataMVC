@@ -2,7 +2,7 @@
 @typeparam TRowData
 
 <CascadingValue IsFixed="true" Value="this">
-    @ChildContent
+    @GridColumns
 </CascadingValue>
 
 @* Render the grid *@
@@ -67,7 +67,7 @@
     public required IBaseGridModel<TRowData> ViewModel { get; set; }
 
     [Parameter]
-    public RenderFragment ChildContent { get; set; } = default!; // Should contain all columns
+    public RenderFragment? GridColumns { get; set; } = default!; // Should contain all columns
 
 
     private readonly List<BasicGridColumn<TRowData>> columns = new List<BasicGridColumn<TRowData>>();
