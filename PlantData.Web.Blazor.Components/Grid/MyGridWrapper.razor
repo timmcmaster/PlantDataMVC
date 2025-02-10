@@ -28,18 +28,18 @@
     }
     else if (GridType == GridType.SfGrid)
     {
-        <SfGrid DataSource="@ViewModel.Items" 
-        AllowPaging="@ViewModel.Options.AllowPaging" 
-        AllowSorting="@ViewModel.Options.AllowSorting"
-        Height="550" Width="800" 
-        Toolbar="@ViewModel.Options.ToolbarItems">
-            @*         <SfDataManager Adaptor="Adaptors.UrlAdaptor" 
+        <SfGrid DataSource="@ViewModel.Items"
+                AllowPaging="@ViewModel.Options.AllowPaging"
+                AllowSorting="@ViewModel.Options.AllowSorting"
+                Height="550" Width="800"
+                Toolbar="@ViewModel.Options.ToolbarItems">
+@*         <SfDataManager Adaptor="Adaptors.UrlAdaptor" 
                      Url="UrlDatasource" 
                      InsertUrl="Insert" 
                      UpdateUrl="Update" 
                      RemoveUrl="Delete">
         </SfDataManager>
- *@        <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
+*@        <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
             <GridEditSettings AllowAdding="@ViewModel.Options.AllowAdd" AllowEditing="@ViewModel.Options.AllowEdit" AllowDeleting="@ViewModel.Options.AllowDelete" Mode="EditMode.Dialog"></GridEditSettings>
             <GridColumns>
                 @foreach (var column in ViewModel.Columns)
@@ -47,16 +47,16 @@
                     <GridColumn Field="@column.FieldName" HeaderText="@column.HeaderText" IsPrimaryKey="@column.IsPrimaryKey"></GridColumn>
                 }
             </GridColumns>
-    </SfGrid>
+        </SfGrid>
     }
 </div>
 <style>
     /* styles for QuickGrid */
- 
+
     /* styles for SfGrid */
     .e-grid .e-row .e-rowcell {
-    padding-top: 2px;
-    padding-bottom: 2px;
+        padding-top: 2px;
+        padding-bottom: 2px;
     }
 </style>
 

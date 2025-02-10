@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Components.QuickGrid
+@using PlantData.Web.Blazor.SharedComponents.Grid
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Data
+@using System;
+@using System.Linq.Expressions;
+@typeparam TGridItem
+
+<div class="container-lg">
+    @if (@GridType == GridType.Basic)
+    {
+        <BasicGridColumn TRowData="TGridItem" HeaderText="@HeaderText" FieldExpression="@FieldExpression" IsPrimaryKey="@IsPrimaryKey"></BasicGridColumn>
+    }
+    else if (GridType == GridType.QuickGrid)
+    {
+        <PropertyColumn Title="@HeaderText" Property="@FieldExpression" Sortable="@ViewModel.Options.AllowSorting"></PropertyColumn>
+    }
+    else if (GridType == GridType.SfGrid)
+    {
+        <GridColumn Field="@FieldName" HeaderText="@HeaderText" IsPrimaryKey="@IsPrimaryKey"></GridColumn>
+    }
+</div>
+<style>
+    /* styles for QuickGrid */
+
+    /* styles for SfGrid */
+    .e-grid .e-row .e-rowcell {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public IBaseGridModel<TGridItem> ViewModel { get; set; }
+
+    [Parameter]
+    public GridType GridType { get; set; }
+
+    [Parameter]
+    public string HeaderText { get; set; }
+
+    [Parameter]
+    public string FieldName { get; set; }
+
+    [Parameter]
+    public Expression<Func<TGridItem, object>> FieldExpression { get; set; }
+
+    //public string Format { get; set; } = default!;
+
+    [Parameter]
+
+    public bool IsPrimaryKey { get; set; }
+}

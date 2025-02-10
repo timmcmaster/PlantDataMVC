@@ -25,7 +25,17 @@
     </GridColumns>
 </BasicGrid>
  *@
- <MyGridWrapper GridType="@GridType" TGridItem="GenusGridModel" ViewModel="_viewModel"></MyGridWrapper>
+ @* <MyGridWrapper GridType="@GridType" TGridItem="GenusGridModel" ViewModel="_viewModel"></MyGridWrapper>
+ *@
+ <!-- What I would like it to look like -->
+<GenericGrid GridType="@GridType" TGridItem="GenusGridModel" ViewModel="_viewModel">
+    <GridColumns>
+        <GenericGridColumn GridType="@GridType" TGridItem="GenusGridModel" HeaderText="Id" FieldExpression="x => x.Id" IsPrimaryKey="true"></GenericGridColumn>
+        <GenericGridColumn GridType="@GridType" TGridItem="GenusGridModel" HeaderText="Latin Name" FieldExpression="x => x.LatinName"></GenericGridColumn>
+    </GridColumns>
+</GenericGrid>
+
+
 @code 
 {
     public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;

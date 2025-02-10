@@ -8,20 +8,13 @@
     @if (@GridType == GridType.Basic)
     {
         <BasicGrid ViewModel="@ViewModel">
-            @foreach (var column in ViewModel.Columns)
-            {
-                <BasicGridColumn TRowData="TGridItem" HeaderText="@column.HeaderText" FieldExpression="@column.FieldExpression" IsPrimaryKey="@column.IsPrimaryKey"></BasicGridColumn>
-            }
+            @GridColumns
         </BasicGrid>
     }
     else if (GridType == GridType.QuickGrid)
     {
         <QuickGrid Items="@ViewModel.Items.AsQueryable()" TGridItem="TGridItem">
-            @foreach (var column in ViewModel.Columns)
-            {
-                <PropertyColumn Title="@column.HeaderText" Property="@column.FieldExpression" Sortable="@ViewModel.Options.AllowSorting"></PropertyColumn>
-            }
-
+            @GridColumns
         </QuickGrid>
     }
     else if (GridType == GridType.SfGrid)
@@ -39,13 +32,8 @@
         </SfDataManager>
  *@        <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
             <GridEditSettings AllowAdding="@ViewModel.Options.AllowAdd" AllowEditing="@ViewModel.Options.AllowEdit" AllowDeleting="@ViewModel.Options.AllowDelete" Mode="EditMode.Dialog"></GridEditSettings>
-            <GridColumns>
-                @foreach (var column in ViewModel.Columns)
-                {
-                    <GridColumn Field="@column.FieldName" HeaderText="@column.HeaderText" IsPrimaryKey="@column.IsPrimaryKey"></GridColumn>
-                }
-            </GridColumns>
-    </SfGrid>
+            @GridColumns
+        </SfGrid>
     }
 </div>
 <style>
@@ -59,9 +47,13 @@
 </style>
 
 @code {
-    [Parameter]
+    [Parameter, EditorRequired]
     public IBaseGridModel<TGridItem> ViewModel { get; set; }
 
-    [Parameter]
+    [Parameter, EditorRequired]
     public GridType GridType { get; set; }
+
+    [Parameter]
+    public RenderFragment<TGridItem>? GridColumns { get; set; } = default!; // Should contain all columns
+
 }
