@@ -9,11 +9,7 @@
 <div class="container-lg">
     @if (@GridType == GridType.Basic)
     {
-        <BasicGridColumn TRowData="TGridItem" HeaderText="@HeaderText" FieldExpression="@FieldExpression" IsPrimaryKey="@IsPrimaryKey"></BasicGridColumn>
-    }
-    else if (GridType == GridType.QuickGrid)
-    {
-        <PropertyColumn Title="@HeaderText" Property="@FieldExpression" Sortable="@ViewModel.Options.AllowSorting"></PropertyColumn>
+        <BasicGridColumn TRowData="TGridItem" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey"></BasicGridColumn>
     }
     else if (GridType == GridType.SfGrid)
     {
@@ -21,8 +17,6 @@
     }
 </div>
 <style>
-    /* styles for QuickGrid */
-
     /* styles for SfGrid */
     .e-grid .e-row .e-rowcell {
     padding-top: 2px;
@@ -43,12 +37,8 @@
     [Parameter]
     public string FieldName { get; set; }
 
-    [Parameter]
-    public Expression<Func<TGridItem, object>> FieldExpression { get; set; }
-
     //public string Format { get; set; } = default!;
 
     [Parameter]
-
     public bool IsPrimaryKey { get; set; }
 }

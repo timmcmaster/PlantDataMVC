@@ -1,4 +1,5 @@
 ﻿@using Microsoft.Extensions.Configuration
+@using PlantData.Web.Blazor.DisplayHelpers
 @using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.SharedComponents.Paging
 @using PlantData.Web.Blazor.ViewModels.Genus
@@ -16,23 +17,11 @@
 <h2>Genus List</h2>
 <p>This is a list of all genuses recorded</p>
 
-@* @await Component.InvokeAsync("GenusGrid", new { model = Model, gridOptions = Model.GridOptions })
- *@
-@* <BasicGrid ViewModel="_viewModel">
-    <GridColumns>
-        <BasicGridColumn TRowData="GenusGridModel" HeaderText="Id" FieldExpression="x => x.Id" IsPrimaryKey="true"></BasicGridColumn>
-        <BasicGridColumn TRowData="GenusGridModel" HeaderText="Latin Name" FieldExpression="x => x.LatinName"></BasicGridColumn>
-    </GridColumns>
-</BasicGrid>
- *@
- @* <MyGridWrapper GridType="@GridType" TGridItem="GenusGridModel" ViewModel="_viewModel"></MyGridWrapper>
- *@
- <!-- What I would like it to look like -->
 <GenericGrid GridType="@GridType" TGridItem="GenusGridModel" ViewModel="_viewModel">
-    <GridColumns>
-        <GenericGridColumn GridType="@GridType" TGridItem="GenusGridModel" HeaderText="Id" FieldExpression="x => x.Id" IsPrimaryKey="true"></GenericGridColumn>
-        <GenericGridColumn GridType="@GridType" TGridItem="GenusGridModel" HeaderText="Latin Name" FieldExpression="x => x.LatinName"></GenericGridColumn>
-    </GridColumns>
+    <GenericGridColumns>
+        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.Id))" FieldName="@nameof(GenusGridModel.Id)" IsPrimaryKey="true" />
+        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.LatinName))" FieldName="@nameof(GenusGridModel.LatinName)" />
+    </GenericGridColumns>
 </GenericGrid>
 
 
@@ -60,8 +49,8 @@
 
         var columns = new List<BaseGridColumnModel<GenusGridModel>>()
         {
-            new BaseGridColumnModel<GenusGridModel>() {  FieldName = nameof(GenusGridModel.Id), HeaderText = "Id", IsPrimaryKey = true, FieldExpression = x => x.Id },
-            new BaseGridColumnModel<GenusGridModel>() {  FieldName = nameof(GenusGridModel.LatinName), HeaderText = "Latin Name", FieldExpression = x => x.LatinName }
+            new BaseGridColumnModel<GenusGridModel>() {  FieldName = nameof(GenusGridModel.Id), HeaderText = ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.Id), IsPrimaryKey = true },
+            new BaseGridColumnModel<GenusGridModel>() {  FieldName = nameof(GenusGridModel.LatinName), HeaderText = ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.LatinName) }
         };
         var pageSize = 10;
         var pageNumber = 1;

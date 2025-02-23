@@ -3,7 +3,6 @@
     public enum GridType
     {
         Basic = 0,
-        QuickGrid,
         SfGrid
     }
 }

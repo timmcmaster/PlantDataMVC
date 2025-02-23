@@ -2,28 +2,25 @@
 @using PlantData.Web.Blazor.SharedComponents.Grid
 @using Syncfusion.Blazor.Grids
 @using Syncfusion.Blazor.Data
+@attribute [CascadingTypeParameter(nameof(TGridItem))]
 @typeparam TGridItem
 
 <div class="container-lg">
     @if (@GridType == GridType.Basic)
     {
-        <BasicGrid ViewModel="@ViewModel">
-            @GridColumns
+        <BasicGrid Items="@ViewModel.Items" links="@ViewModel.Links" AllowAdd="@ViewModel.Options.AllowAdd" AllowEdit="@ViewModel.Options.AllowEdit" AllowDelete="@ViewModel.Options.AllowDelete" AllowPaging="@ViewModel.Options.AllowPaging">
+            <GridColumns>
+                @GenericGridColumns(@ViewModel.Items)
+            </GridColumns>
         </BasicGrid>
-    }
-    else if (GridType == GridType.QuickGrid)
-    {
-        <QuickGrid Items="@ViewModel.Items.AsQueryable()" TGridItem="TGridItem">
-            @GridColumns
-        </QuickGrid>
     }
     else if (GridType == GridType.SfGrid)
     {
-        <SfGrid DataSource="@ViewModel.Items" 
-        AllowPaging="@ViewModel.Options.AllowPaging" 
-        AllowSorting="@ViewModel.Options.AllowSorting"
-        Height="550" Width="800" 
-        Toolbar="@ViewModel.Options.ToolbarItems">
+        <SfGrid DataSource="@ViewModel.Items"
+                AllowPaging="@ViewModel.Options.AllowPaging"
+                AllowSorting="@ViewModel.Options.AllowSorting"
+                Height="550" Width="800"
+                Toolbar="@ViewModel.Options.ToolbarItems">
             @*         <SfDataManager Adaptor="Adaptors.UrlAdaptor" 
                      Url="UrlDatasource" 
                      InsertUrl="Insert" 
@@ -32,17 +29,17 @@
         </SfDataManager>
  *@        <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
             <GridEditSettings AllowAdding="@ViewModel.Options.AllowAdd" AllowEditing="@ViewModel.Options.AllowEdit" AllowDeleting="@ViewModel.Options.AllowDelete" Mode="EditMode.Dialog"></GridEditSettings>
-            @GridColumns
+            <GridColumns>
+                @GenericGridColumns(@ViewModel.Items)
+            </GridColumns>
         </SfGrid>
     }
 </div>
 <style>
-    /* styles for QuickGrid */
- 
     /* styles for SfGrid */
     .e-grid .e-row .e-rowcell {
-    padding-top: 2px;
-    padding-bottom: 2px;
+        padding-top: 2px;
+        padding-bottom: 2px;
     }
 </style>
 
@@ -54,6 +51,6 @@
     public GridType GridType { get; set; }
 
     [Parameter]
-    public RenderFragment<TGridItem>? GridColumns { get; set; } = default!; // Should contain all columns
+    public RenderFragment<IEnumerable<TGridItem>>? GenericGridColumns { get; set; } = default!; // Should contain all columns
 
 }

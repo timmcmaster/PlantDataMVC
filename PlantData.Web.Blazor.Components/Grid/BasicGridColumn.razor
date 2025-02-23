@@ -10,7 +10,7 @@
     public string HeaderText { get; set; } = default!;
 
     [Parameter]
-    public Expression<Func<TRowData, object>> FieldExpression { get; set; }
+    public string Field { get; set; }
 
     [Parameter]
     public string Format { get; set; }
@@ -22,8 +22,6 @@
     public RenderFragment<TRowData> ChildContent { get; set; }
 
 
-    private Func<TRowData, object> compiledExpression;
-    private Expression lastCompiledExpression;
     private RenderFragment headerTemplate;
     private RenderFragment<TRowData> cellTemplate;
 
@@ -48,12 +46,12 @@
             return cellTemplate ??= (rowData => builder =>
             {
                 builder.OpenElement(0, "td");
-                if (compiledExpression != null)
-                { 
-                    var cellValue = compiledExpression(rowData);
-                    var formattedValue = string.IsNullOrEmpty(Format) ? cellValue?.ToString() : string.Format("{0:" + Format + "}", cellValue);
-                    builder.AddContent(1, formattedValue);
-                }
+                // Get property defined by "Field" on TRowData type
+                var property = typeof(TRowData).GetProperty(Field);
+                var cellValue = property.GetValue(rowData);
+                var formattedValue = string.IsNullOrEmpty(Format) ? cellValue?.ToString() : string.Format("{0:" + Format + "}", cellValue);
+                builder.AddContent(1, formattedValue);
+
                 builder.CloseElement();
             });
         }
@@ -67,14 +65,5 @@
         base.OnInitialized(); 
 
         Parent.AddColumn(this);
-    }
-
-    protected override void OnParametersSet()
-    {
-        if (lastCompiledExpression != FieldExpression)
-        {
-            compiledExpression = FieldExpression?.Compile();
-            lastCompiledExpression = FieldExpression;
-        }
     }
 }

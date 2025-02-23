@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Components.Routing
+@attribute [CascadingTypeParameter(nameof(TRowData))]
 @typeparam TRowData
 
 <CascadingValue IsFixed="true" Value="this">
@@ -7,9 +8,9 @@
 
 @* Render the grid *@
 <div class="container-lg">
-    @if (ViewModel.Options.AllowAdd)
+    @if (AllowAdd)
     {
-        <NavLink href="@($"{ViewModel.Links.AddNew}")">Add New Item</NavLink>
+        <NavLink href="@($"{Links.AddNew}")">Add New Item</NavLink>
     }
     <table class="table border">
         <thead>
@@ -20,11 +21,11 @@
                     @column.HeaderTemplate;
                 }
                 <th scope="col"></th>
-                @if (ViewModel.Options.AllowEdit)
+                @if (AllowEdit)
                 {
                     <th scope="col"></th>
                 }
-                @if (ViewModel.Options.AllowDelete)
+                @if (AllowDelete)
                 {
                     <th scope="col"></th>
                 }
@@ -32,8 +33,8 @@
         </thead>
         <tbody>
             @{
-                int count = 0;
-                @foreach (var entry in ViewModel.Items)
+                int count = 0; 
+                @foreach (var entry in Items)
                 {
                     <tr @key="entry.GetHashCode()">
 
@@ -41,14 +42,14 @@
                         {
                             @column.CellTemplate(entry);
                         }
-                        <NavLink href="@($"{ViewModel.Links.Show}")">Show</NavLink>
-                        @if (ViewModel.Options.AllowEdit)
+                        <NavLink href="@($"{Links.Show}")">Show</NavLink>
+                        @if (AllowEdit)
                         {
-                            <NavLink href="@($"{ViewModel.Links.Edit}")">Edit</NavLink>
+                            <NavLink href="@($"{Links.Edit}")">Edit</NavLink>
                         }
-                        @if (ViewModel.Options.AllowDelete)
+                        @if (AllowDelete)
                         {
-                            <NavLink href="@($"{ViewModel.Links.Delete}")">Delete</NavLink>
+                            <NavLink href="@($"{Links.Delete}")">Delete</NavLink>
                         }
                     </tr>
                     count++;
@@ -56,7 +57,7 @@
             }
         </tbody>
     </table>
-    @if (ViewModel.Options.AllowPaging)
+    @if (AllowPaging)
     {
         @* @Html.PagingLinksFor(m => Model) *@
     }
@@ -64,11 +65,25 @@
 
 @code {
     [Parameter, EditorRequired]
-    public required IBaseGridModel<TRowData> ViewModel { get; set; }
+    public required IEnumerable<TRowData> Items { get; set; }
+
+    [Parameter]
+    public bool AllowAdd { get; set; }
+
+    [Parameter]
+    public bool AllowEdit { get; set; }
+
+    [Parameter]
+    public bool AllowDelete { get; set; }
+
+    [Parameter]
+    public bool AllowPaging { get; set; }
+
+    [Parameter]
+    public GridLinksModel Links { get; set; }
 
     [Parameter]
     public RenderFragment? GridColumns { get; set; } = default!; // Should contain all columns
-
 
     private readonly List<BasicGridColumn<TRowData>> columns = new List<BasicGridColumn<TRowData>>();
 

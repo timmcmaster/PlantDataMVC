@@ -12,8 +12,6 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
 
         public string FieldName { get; set; }
 
-        public Expression<Func<T, object>> FieldExpression { get; set; }
-
         public string Format { get; set; } = default!;
 
         public bool IsPrimaryKey { get; set; }

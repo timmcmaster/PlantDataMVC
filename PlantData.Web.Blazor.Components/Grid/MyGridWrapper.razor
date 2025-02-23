@@ -7,24 +7,14 @@
 <div class="container-lg">
     @if (@GridType == GridType.Basic)
     {
-        <BasicGrid ViewModel="@ViewModel">
+        <BasicGrid Items="@ViewModel.Items" links="@ViewModel.Links" AllowAdd="@ViewModel.Options.AllowAdd" AllowEdit="@ViewModel.Options.AllowEdit" AllowDelete="@ViewModel.Options.AllowDelete" AllowPaging="@ViewModel.Options.AllowPaging">
             <GridColumns>
                 @foreach (var column in ViewModel.Columns)
                 {
-                    <BasicGridColumn TRowData="TGridItem" HeaderText="@column.HeaderText" FieldExpression="@column.FieldExpression" IsPrimaryKey="@column.IsPrimaryKey"></BasicGridColumn>
+                    <BasicGridColumn TRowData="TGridItem" HeaderText="@column.HeaderText" Field="@column.FieldName" IsPrimaryKey="@column.IsPrimaryKey"></BasicGridColumn>
                 }
             </GridColumns>
         </BasicGrid>
-    }
-    else if (GridType == GridType.QuickGrid)
-    {
-        <QuickGrid Items="@ViewModel.Items.AsQueryable()" TGridItem="TGridItem">
-            @foreach (var column in ViewModel.Columns)
-            {
-                <PropertyColumn Title="@column.HeaderText" Property="@column.FieldExpression" Sortable="@ViewModel.Options.AllowSorting"></PropertyColumn>
-            }
-
-        </QuickGrid>
     }
     else if (GridType == GridType.SfGrid)
     {
@@ -51,8 +41,6 @@
     }
 </div>
 <style>
-    /* styles for QuickGrid */
-
     /* styles for SfGrid */
     .e-grid .e-row .e-rowcell {
         padding-top: 2px;
