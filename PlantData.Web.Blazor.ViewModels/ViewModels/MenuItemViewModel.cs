@@ -1,10 +1,10 @@
-﻿namespace PlantData.Web.Blazor.ViewModels
+﻿namespace PlantData.Web.Blazor.UIModels.ViewModels
 {
     public class MenuItemViewModel
     {
         public string Id { get; set; }
         public string Text { get; set; }
-        public string? ParentId { get; set; }
+        public string? ParentId { get; set; }   
         public string Url { get; set; }
         public string IconCss { get; set; }
         public bool Separator { get; set; }

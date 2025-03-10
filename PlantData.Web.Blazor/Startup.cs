@@ -146,12 +146,14 @@ namespace PlantData.Web.Blazor
             // Add services to the container.
             //services.AddControllersWithViews();
 
-
             services.AddRazorComponents().AddInteractiveServerComponents();
             services.AddSyncfusionBlazor();
 
+            // Add controllers for wrapping api calls for data grids
+            services.AddControllers();
+
             // Main Domain stuff
-            //services.AddDomainServices();
+            services.AddDomainServices();
             //services.AddViewModelsAndInterfaces();
 
             services.AddSidebarMenuViewModelAndInterface();
@@ -203,9 +205,9 @@ namespace PlantData.Web.Blazor
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers(); // Map controllers for wrapping api calls for data grids
                 endpoints.MapRazorComponents<App>().AddInteractiveServerRenderMode();
                 //endpoints.MapDefaultControllerRoute().RequireAuthorization();
-                //endpoints.MapControllers();
                 //endpoints.MapFallbackToPage()
             });
         }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace PlantData.Web.Blazor.ViewModels
+namespace PlantData.Web.Blazor.UIModels.ViewModels
 {
     public class BaseViewModel : IBaseViewModel
     {

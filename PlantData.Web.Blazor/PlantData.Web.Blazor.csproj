@@ -33,7 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Framework.Web\Framework.Web.csproj" />
     <ProjectReference Include="..\PlantData.Web.Blazor.Components\PlantData.Web.Blazor.SharedComponents.csproj" />
-    <ProjectReference Include="..\PlantData.Web.Blazor.ViewModels\PlantData.Web.Blazor.ViewModels.csproj" />
+    <ProjectReference Include="..\PlantData.Web.Blazor.ViewModels\PlantData.Web.Blazor.UIModels.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Api.Models\PlantDataMVC.Api.Models.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Common.Client\PlantDataMVC.Common.Client.csproj" />
     <ProjectReference Include="..\PlantDataMVC.Constants\PlantDataMVC.Constants.csproj" />

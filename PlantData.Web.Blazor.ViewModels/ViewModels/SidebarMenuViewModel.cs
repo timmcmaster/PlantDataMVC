@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
-using PlantData.Web.Blazor.ViewModels.Constants;
+using PlantData.Web.Blazor.UIModels.Constants;
 
-namespace PlantData.Web.Blazor.ViewModels
+namespace PlantData.Web.Blazor.UIModels.ViewModels
 {
     public class SidebarMenuViewModel : BaseViewModel, ISidebarMenuViewModel
     {
@@ -18,7 +18,7 @@ namespace PlantData.Web.Blazor.ViewModels
         {
             _linkGen = linkGen;
             _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
-            }
+        }
 
         public void Initialise()
         {

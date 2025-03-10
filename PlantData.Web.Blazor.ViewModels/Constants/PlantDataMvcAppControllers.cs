@@ -1,4 +1,4 @@
-﻿namespace PlantData.Web.Blazor.ViewModels.Constants
+﻿namespace PlantData.Web.Blazor.UIModels.Constants
 {
     public static class PlantDataMvcAppControllers
     {

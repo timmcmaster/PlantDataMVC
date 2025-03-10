@@ -68,8 +68,8 @@ namespace PlantDataMVC.IdentityServer
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = true,
-                    RedirectUris = { PlantDataMvcConstants.PlantDataClient + "/signin-oidc" }, // sign-in page
-                    PostLogoutRedirectUris = { PlantDataMvcConstants.PlantDataClient + "/signout-callback-oidc" }, // sign-out callback page
+                    RedirectUris = { PlantDataMvcConstants.PlantDataMvcClient + "/signin-oidc" }, // sign-in page
+                    PostLogoutRedirectUris = { PlantDataMvcConstants.PlantDataMvcClient + "/signout-callback-oidc" }, // sign-out callback page
                     AllowOfflineAccess = true,
                     AllowedScopes = new List<string>
                     {

@@ -19,6 +19,9 @@ namespace PlantData.Web.Blazor.DependencyInjection
         /// </summary>
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
+            /*
+             * 
+             * 
             // ****************************************************
             // UI configurations
             // ****************************************************
@@ -39,6 +42,8 @@ namespace PlantData.Web.Blazor.DependencyInjection
             services.AddTransient<ISiteLookupService, SiteLookupService>();
             services.AddTransient<ISpeciesLookupService, SpeciesLookupService>();
             services.AddTransient<IBarcodeLayoutLookupService, BarcodeLayoutLookupService>();
+
+            */
 
             /// Extensions to scan for MediatR handlers and registers them.
             /// - Scans for any handler interface implementations and registers them as <see cref="ServiceLifetime.Transient"/>
@@ -107,12 +112,12 @@ namespace PlantData.Web.Blazor.DependencyInjection
 
         public static IServiceCollection AddSidebarMenuViewModelAndInterface(this IServiceCollection services)
         {
-            string assemblyNamePrefix = "PlantData.Web.Blazor.ViewModels";
-            string vmNamespacePrefix = "PlantData.Web.Blazor.ViewModels";
-            string vmNameSuffix = "ViewModel";
+            string assemblyNamePrefix = "PlantData.Web.Blazor.UIModels";
+            //string vmNamespacePrefix = "PlantData.Web.Blazor.ViewModels";
+            //string vmNameSuffix = "ViewModel";
 
-            string className = "PlantData.Web.Blazor.ViewModels.SidebarMenuViewModel";
-            string interfaceName = "PlantData.Web.Blazor.ViewModels.ISidebarMenuViewModel";
+            string className = "PlantData.Web.Blazor.UIModels.ViewModels.SidebarMenuViewModel";
+            string interfaceName = "PlantData.Web.Blazor.UIModels.ViewModels.ISidebarMenuViewModel";
 
             try 
             { 

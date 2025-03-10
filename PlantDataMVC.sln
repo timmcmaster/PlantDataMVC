@@ -74,7 +74,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantData.Web.Blazor", "Pla
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantData.Web.Blazor.SharedComponents", "PlantData.Web.Blazor.Components\PlantData.Web.Blazor.SharedComponents.csproj", "{2E84D44A-993E-4100-BA45-7B153F21E3F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantData.Web.Blazor.ViewModels", "PlantData.Web.Blazor.ViewModels\PlantData.Web.Blazor.ViewModels.csproj", "{DEF2A995-8856-4A18-8DB5-14491C77C0C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantData.Web.Blazor.UIModels", "PlantData.Web.Blazor.ViewModels\PlantData.Web.Blazor.UIModels.csproj", "{DEF2A995-8856-4A18-8DB5-14491C77C0C7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantData.Web.Mvc", "PlantData.Web.Mvc\PlantData.Web.Mvc.csproj", "{B3A2CF3B-D3A9-4CC8-8CE2-9C65F27EF59C}"
 EndProject

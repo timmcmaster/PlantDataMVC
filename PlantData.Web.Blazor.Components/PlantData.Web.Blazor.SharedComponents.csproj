@@ -32,7 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PlantData.Web.Blazor.ViewModels\PlantData.Web.Blazor.ViewModels.csproj" />
+    <ProjectReference Include="..\PlantData.Web.Blazor.ViewModels\PlantData.Web.Blazor.UIModels.csproj" />
+    <ProjectReference Include="..\PlantDataMVC.Constants\PlantDataMVC.Constants.csproj" />
   </ItemGroup>
 
   <ItemGroup>

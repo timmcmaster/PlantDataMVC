@@ -3,7 +3,7 @@ using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Api.Models.DomainFunctions;
 using PlantDataMVC.Repository.Models;
 using System.Linq;
-//using Genus = PlantData.Web.Mvc.Models.ViewModels.Genus;
+using Genus = PlantData.Web.Blazor.UIModels.ViewModels.Genus;
 //using Label = PlantData.Web.Mvc.Models.ViewModels.Label;
 //using Plant = PlantData.Web.Mvc.Models.ViewModels.Plant;
 //using PlantStock = PlantData.Web.Mvc.Models.ViewModels.PlantStock;
@@ -38,7 +38,7 @@ namespace PlantData.Web.Blazor.Mappers
         private void ConfigureDataModelToViewModels()
         {
             // Maps from Domain to UI view models
-            //ConfigureGenusViewModels();
+            ConfigureGenusViewModels();
             //ConfigurePlantViewModels();
             //ConfigureSeedBatchViewModels();
             //ConfigureSeedTrayViewModels();
@@ -56,29 +56,33 @@ namespace PlantData.Web.Blazor.Mappers
 
         #region Configure View Models
 
-        //private void ConfigureGenusViewModels()
-        //{
-        //    // Genus
-        //    CreateMap<GenusDataModel, Genus.GenusDeleteViewModel>()
-        //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
+        private void ConfigureGenusViewModels()
+        {
+            //    // Genus
+            //    CreateMap<GenusDataModel, Genus.GenusDeleteViewModel>()
+            //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+            //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
 
-        //    CreateMap<GenusDataModel, Genus.GenusEditViewModel>()
-        //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
+            //    CreateMap<GenusDataModel, Genus.GenusEditViewModel>()
+            //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+            //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
 
-        //    CreateMap<GenusDataModel, Genus.GenusListViewModel>()
-        //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
+            //    CreateMap<GenusDataModel, Genus.GenusListViewModel>()
+            //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+            //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
 
 
-        //    CreateMap<GenusDataModel, Genus.GenusNewViewModel>()
-        //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
+            //    CreateMap<GenusDataModel, Genus.GenusNewViewModel>()
+            //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
 
-        //    CreateMap<GenusDataModel, Genus.GenusShowViewModel>()
-        //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
-        //}
+            //    CreateMap<GenusDataModel, Genus.GenusShowViewModel>()
+            //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+            //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
+
+            CreateMap<GenusDataModel, Genus.GenusGridModel>()
+               .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+               .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
+        }
 
         //private void ConfigurePlantViewModels()
         //{

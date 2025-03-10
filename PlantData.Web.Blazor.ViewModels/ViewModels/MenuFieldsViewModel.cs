@@ -1,4 +1,4 @@
-﻿namespace PlantData.Web.Blazor.ViewModels
+﻿namespace PlantData.Web.Blazor.UIModels.ViewModels
 {
     public class MenuFieldsViewModel
     {

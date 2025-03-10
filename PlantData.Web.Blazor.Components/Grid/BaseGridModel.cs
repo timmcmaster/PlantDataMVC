@@ -10,7 +10,8 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
         public GridSortingModel Sorting { get; set; }
         public GridLinksModel Links { get; set; }
 
+        public GridUrlDataSourceModel UrlDataSource { get; set; }
+
         public IEnumerable<T> Items { get; set; } = new List<T>();
-        public IEnumerable<BaseGridColumnModel<T>> Columns { get; set; } = new List<BaseGridColumnModel<T>>();
     }
 }

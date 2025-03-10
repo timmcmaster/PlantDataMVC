@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PlantData.Web.Blazor.ViewModels.Genus
+namespace PlantData.Web.Blazor.UIModels.ViewModels.Genus
 {
     public class GenusGridModel
     {

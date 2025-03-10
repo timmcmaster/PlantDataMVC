@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PlantData.Web.Blazor.ViewModels
+namespace PlantData.Web.Blazor.UIModels.ViewModels
 {
     public interface ISidebarMenuViewModel : IBaseViewModel
     {

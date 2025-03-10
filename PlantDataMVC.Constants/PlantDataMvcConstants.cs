@@ -6,7 +6,8 @@
         public const string PlantDataApi = "https://localhost:6001";
         public const string PlantDataApi_IIS = "https://localhost:6101";
 
-        public const string PlantDataClient = "https://localhost:7001";
+        public const string PlantDataMvcClient = "https://localhost:7001";
+        public const string PlantDataBlazorClient = "https://localhost:8001";
 
         public const string IdSrvIssuerUri = "https://plantdataidsrv3/embedded";
 

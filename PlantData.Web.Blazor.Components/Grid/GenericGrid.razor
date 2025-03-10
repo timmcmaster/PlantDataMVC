@@ -2,6 +2,7 @@
 @using PlantData.Web.Blazor.SharedComponents.Grid
 @using Syncfusion.Blazor.Grids
 @using Syncfusion.Blazor.Data
+
 @attribute [CascadingTypeParameter(nameof(TGridItem))]
 @typeparam TGridItem
 
@@ -16,18 +17,17 @@
     }
     else if (GridType == GridType.SfGrid)
     {
-        <SfGrid DataSource="@ViewModel.Items"
-                AllowPaging="@ViewModel.Options.AllowPaging"
+        <SfGrid TValue="TGridItem" Query="@GridQuery" AllowPaging="@ViewModel.Options.AllowPaging"
                 AllowSorting="@ViewModel.Options.AllowSorting"
                 Height="550" Width="800"
                 Toolbar="@ViewModel.Options.ToolbarItems">
-            @*         <SfDataManager Adaptor="Adaptors.UrlAdaptor" 
-                     Url="UrlDatasource" 
-                     InsertUrl="Insert" 
-                     UpdateUrl="Update" 
-                     RemoveUrl="Delete">
-        </SfDataManager>
- *@        <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
+            <SfDataManager Url="@ViewModel.UrlDataSource.Url"
+                           InsertUrl="@ViewModel.UrlDataSource.InsertUrl"
+                           UpdateUrl="@ViewModel.UrlDataSource.UpdateUrl"
+                           RemoveUrl="@ViewModel.UrlDataSource.DeleteUrl"
+                           Adaptor="Adaptors.UrlAdaptor">
+            </SfDataManager>
+            <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
             <GridEditSettings AllowAdding="@ViewModel.Options.AllowAdd" AllowEditing="@ViewModel.Options.AllowEdit" AllowDeleting="@ViewModel.Options.AllowDelete" Mode="EditMode.Dialog"></GridEditSettings>
             <GridColumns>
                 @GenericGridColumns(@ViewModel.Items)
@@ -53,4 +53,10 @@
     [Parameter]
     public RenderFragment<IEnumerable<TGridItem>>? GenericGridColumns { get; set; } = default!; // Should contain all columns
 
+    public Query GridQuery { get; set; }
+
+    protected override void OnInitialized()
+    {
+        GridQuery = new Query().AddParams("allowPaging", ViewModel.Options.AllowPaging);
+    }
 }

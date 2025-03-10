@@ -2,7 +2,8 @@
 @using PlantData.Web.Blazor.DisplayHelpers
 @using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.SharedComponents.Paging
-@using PlantData.Web.Blazor.ViewModels.Genus
+@using PlantData.Web.Blazor.UIModels.Constants
+@using PlantData.Web.Blazor.UIModels.ViewModels.Genus
 @using System.ComponentModel
 
 @page "/genus"
@@ -33,36 +34,17 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var genusList = new List<string>() { "Abutilon", "Acacia", "Acmella", "Acmena", "Akania", "Aleogyne", "Allocasuarina", "Alloxylon", "Alphitonia", "Alpinia", "Alyxia", 
-                                             "Ammannia", "Amphibromus", "Anadenanthera", "Angophora", "Anigozanthos", "Anisomeles", "Anopterus", "Anthocercis", "Anthosachne", "Aotus", "Aphanopetalum",
-                                             "Aphelia", "Aphyllanthes", "Aponogeton", "Aptosimum", "Arthropodium", "Astelia", "Asterolasia", "Astroloma", "Atriplex", "Austromyrtus",
-                                             "Banksia", "Brachychiton", "Callistemon", "Chrysocephalum", "Deeringia", "Eucalyptus", "Leptospermum", "Melaleuca", "Synoum", "Syncarpus", "Syzygium" };
-
-        int id = 1;
-        var items = new List<GenusGridModel>();
-
-        foreach (var genus in genusList)
-        {
-            items.Add(new GenusGridModel() { Id = id, LatinName = genus });
-            id++;
-        };
-
-        var columns = new List<BaseGridColumnModel<GenusGridModel>>()
-        {
-            new BaseGridColumnModel<GenusGridModel>() {  FieldName = nameof(GenusGridModel.Id), HeaderText = ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.Id), IsPrimaryKey = true },
-            new BaseGridColumnModel<GenusGridModel>() {  FieldName = nameof(GenusGridModel.LatinName), HeaderText = ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.LatinName) }
-        };
         var pageSize = 10;
         var pageNumber = 1;
+        var itemCount = 100; // Hack: should be from url
 
         _viewModel = new BaseGridModel<GenusGridModel>()
         {
             Options = GridOptionsModel.Default,
-            Paging = new PagingModel(pageSize, pageNumber, genusList.Count),
+            Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel("genus"),
-            Items = items.Skip((pageNumber-1)*pageSize).Take(pageSize),
-            Columns = columns
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.GenusGrid),
         };
         _viewModel.Options.AllowSorting = false;
     }
