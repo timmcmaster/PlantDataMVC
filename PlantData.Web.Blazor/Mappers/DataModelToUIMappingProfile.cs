@@ -5,7 +5,7 @@ using PlantDataMVC.Repository.Models;
 using System.Linq;
 using Genus = PlantData.Web.Blazor.UIModels.ViewModels.Genus;
 //using Label = PlantData.Web.Mvc.Models.ViewModels.Label;
-//using Plant = PlantData.Web.Mvc.Models.ViewModels.Plant;
+using Plant = PlantData.Web.Blazor.UIModels.ViewModels.Plant;
 //using PlantStock = PlantData.Web.Mvc.Models.ViewModels.PlantStock;
 //using PriceListType = PlantData.Web.Mvc.Models.ViewModels.PriceListType;
 //using ProductPrice = PlantData.Web.Mvc.Models.ViewModels.ProductPrice;
@@ -39,7 +39,7 @@ namespace PlantData.Web.Blazor.Mappers
         {
             // Maps from Domain to UI view models
             ConfigureGenusViewModels();
-            //ConfigurePlantViewModels();
+            ConfigurePlantViewModels();
             //ConfigureSeedBatchViewModels();
             //ConfigureSeedTrayViewModels();
             //ConfigurePlantStockViewModels();
@@ -84,55 +84,64 @@ namespace PlantData.Web.Blazor.Mappers
                .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => dm.LatinName));
         }
 
-        //private void ConfigurePlantViewModels()
-        //{
-        //    // SpeciesDTO
-        //    CreateMap<SpeciesDataModel, Plant.PlantDeleteViewModel>()
-        //       .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
-        //       .ForMember(uio => uio.Description, opt => opt.MapFrom(dm => dm.Description))
-        //       .ForMember(uio => uio.Genus, opt => opt.MapFrom(dm => dm.GenusName))
-        //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
-        //       .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
-        //       .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dm => dm.PropagationTime))
-        //       .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
+        private void ConfigurePlantViewModels()
+        {
+            //    // SpeciesDTO
+            //    CreateMap<SpeciesDataModel, Plant.PlantDeleteViewModel>()
+            //       .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
+            //       .ForMember(uio => uio.Description, opt => opt.MapFrom(dm => dm.Description))
+            //       .ForMember(uio => uio.Genus, opt => opt.MapFrom(dm => dm.GenusName))
+            //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+            //       .ForMember(uio => uio.LatinName, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
+            //       .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
+            //       .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dm => dm.PropagationTime))
+            //       .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
 
-        //    CreateMap<SpeciesDataModel, Plant.PlantEditViewModel>()
-        //       .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
-        //       .ForMember(uio => uio.Description, opt => opt.MapFrom(dm => dm.Description))
-        //       .ForMember(uio => uio.GenusId, opt => opt.MapFrom(dm => dm.GenusId))
-        //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //       .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
-        //       .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dm => dm.PropagationTime))
-        //       .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
+            //    CreateMap<SpeciesDataModel, Plant.PlantEditViewModel>()
+            //       .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
+            //       .ForMember(uio => uio.Description, opt => opt.MapFrom(dm => dm.Description))
+            //       .ForMember(uio => uio.GenusId, opt => opt.MapFrom(dm => dm.GenusId))
+            //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+            //       .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
+            //       .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dm => dm.PropagationTime))
+            //       .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
 
-        //    CreateMap<SpeciesDataModel, Plant.PlantListViewModel>()
-        //       .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
-        //       .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
-        //       .ForMember(uio => uio.Genus, opt => opt.MapFrom(dm => dm.GenusName))
-        //       .ForMember(uio => uio.GenusId, opt => opt.MapFrom(dm => dm.GenusId))
-        //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //       .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
-        //       .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
+            //    CreateMap<SpeciesDataModel, Plant.PlantListViewModel>()
+            //       .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
+            //       .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
+            //       .ForMember(uio => uio.Genus, opt => opt.MapFrom(dm => dm.GenusName))
+            //       .ForMember(uio => uio.GenusId, opt => opt.MapFrom(dm => dm.GenusId))
+            //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+            //       .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
+            //       .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
 
-        //    CreateMap<SpeciesDataModel, Plant.PlantNewViewModel>()
-        //       .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
-        //       .ForMember(uio => uio.Description, opt => opt.MapFrom(dm => dm.Description))
-        //       .ForMember(uio => uio.GenusId, opt => opt.MapFrom(dm => dm.GenusId))
-        //       .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
-        //       .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dm => dm.PropagationTime))
-        //       .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
+            //    CreateMap<SpeciesDataModel, Plant.PlantNewViewModel>()
+            //       .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
+            //       .ForMember(uio => uio.Description, opt => opt.MapFrom(dm => dm.Description))
+            //       .ForMember(uio => uio.GenusId, opt => opt.MapFrom(dm => dm.GenusId))
+            //       .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
+            //       .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dm => dm.PropagationTime))
+            //       .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
 
-        //    CreateMap<SpeciesDataModel, Plant.PlantShowViewModel>()
-        //       .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
-        //       .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
-        //       .ForMember(uio => uio.Description, opt => opt.MapFrom(dm => dm.Description))
-        //       .ForMember(uio => uio.Genus, opt => opt.MapFrom(dm => dm.GenusName))
-        //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //       .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
-        //       .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dm => dm.PropagationTime))
-        //       .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
-        //}
+            //    CreateMap<SpeciesDataModel, Plant.PlantShowViewModel>()
+            //       .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
+            //       .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
+            //       .ForMember(uio => uio.Description, opt => opt.MapFrom(dm => dm.Description))
+            //       .ForMember(uio => uio.Genus, opt => opt.MapFrom(dm => dm.GenusName))
+            //       .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+            //       .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
+            //       .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dm => dm.PropagationTime))
+            //       .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
+
+            CreateMap<SpeciesDataModel, Plant.PlantGridModel>()
+               .ForMember(uio => uio.Binomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
+               .ForMember(uio => uio.CommonName, opt => opt.MapFrom(dm => dm.CommonName))
+               .ForMember(uio => uio.Genus, opt => opt.MapFrom(dm => dm.GenusName))
+               .ForMember(uio => uio.GenusId, opt => opt.MapFrom(dm => dm.GenusId))
+               .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+               .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
+               .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
+        }
 
         //private void ConfigureSeedBatchViewModels()
         //{

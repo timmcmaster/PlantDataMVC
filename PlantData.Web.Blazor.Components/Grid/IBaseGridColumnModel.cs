@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
 
 namespace PlantData.Web.Blazor.SharedComponents.Grid
 {
@@ -9,5 +8,6 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
         string Format { get; set; }
         string HeaderText { get; set; }
         bool IsPrimaryKey { get; set; }
+        bool IsVisible { get; set; }
     }
 }

@@ -1,0 +1,49 @@
+﻿@using Microsoft.Extensions.Configuration
+@using PlantData.Web.Blazor.DisplayHelpers
+@using PlantData.Web.Blazor.SharedComponents.Grid
+@using PlantData.Web.Blazor.SharedComponents.Paging
+@using PlantData.Web.Blazor.UIModels.Constants
+@using PlantData.Web.Blazor.UIModels.ViewModels.Plant
+@using System.ComponentModel
+
+@page "/plant"
+@inject IConfiguration configuration
+
+<h2>My Plant List</h2>
+<p>This is a list of all plant descriptions</p>
+
+<GenericGrid GridType="@GridType" TGridItem="PlantGridModel" ViewModel="_viewModel">
+    <GenericGridColumns>
+        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Id))" FieldName="@nameof(PlantGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Binomial))" FieldName="@nameof(PlantGridModel.Binomial)" />
+        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.GenusId))" FieldName="@nameof(PlantGridModel.GenusId)" />
+        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Species))" FieldName="@nameof(PlantGridModel.Species)" />
+        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.CommonName))" FieldName="@nameof(PlantGridModel.CommonName)" />
+        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Native))" FieldName="@nameof(PlantGridModel.Native)" />
+    </GenericGridColumns>
+</GenericGrid>
+
+
+@code 
+{
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;
+
+    private BaseGridModel<PlantGridModel> _viewModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var pageSize = 20;
+        var pageNumber = 1;
+        var itemCount = 100; // Hack: should be from url
+
+        _viewModel = new BaseGridModel<PlantGridModel>()
+        {
+            Options = GridOptionsModel.Default,
+            Paging = new PagingModel(pageSize, pageNumber, itemCount),
+            Sorting = new GridSortingModel(),
+            Links = new GridLinksModel("plant"),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.PlantGrid),
+        };
+        _viewModel.Options.AllowSorting = false;
+    }
+}

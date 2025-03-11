@@ -9,11 +9,11 @@
 <div class="container-lg">
     @if (@GridType == GridType.Basic)
     {
-        <BasicGridColumn TRowData="TGridItem" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey"></BasicGridColumn>
+        <BasicGridColumn TRowData="TGridItem" Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey"></BasicGridColumn>
     }
     else if (GridType == GridType.SfGrid)
     {
-        <GridColumn Field="@FieldName" HeaderText="@HeaderText" IsPrimaryKey="@IsPrimaryKey"></GridColumn>
+        <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey"></GridColumn>
     }
 </div>
 <style>
@@ -41,4 +41,7 @@
 
     [Parameter]
     public bool IsPrimaryKey { get; set; }
+
+    [Parameter]
+    public bool IsVisible { get; set; } = true;
 }

@@ -1,20 +1,22 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PlantData.Web.Blazor.UIModels.EditModels.Genus;
+using PlantData.Web.Blazor.UIModels.EditModels.Plant;
+using PlantData.Web.Blazor.UIModels.ViewModels.Plant;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.Data;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.Genus
+namespace PlantData.Web.Blazor.Features.Plant
 {
-    public class GenusGridController : Controller
+    public class PlantGridController : Controller
     {
         private readonly IMediator _mediator;
 
-        public GenusGridController(IMediator mediator)
+        public PlantGridController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -56,7 +58,7 @@ namespace PlantData.Web.Blazor.Features.Genus
 
         [HttpPost]
         [Route("data/[controller]/Insert")]
-        public async Task<ActionResult> Insert([FromBody] CRUDModel<GenusCreateEditModel> x)
+        public async Task<ActionResult> Insert([FromBody] CRUDModel<PlantCreateEditModel> x)
         {
             var form = x.Value;
 
@@ -67,7 +69,7 @@ namespace PlantData.Web.Blazor.Features.Genus
 
         [HttpPost]
         [Route("data/[controller]/Update")]
-        public async Task<ActionResult> Update([FromBody] CRUDModel<GenusUpdateEditModel> x)
+        public async Task<ActionResult> Update([FromBody] CRUDModel<PlantUpdateEditModel> x)
         {
             var form = x.Value;
 
@@ -78,10 +80,10 @@ namespace PlantData.Web.Blazor.Features.Genus
 
         [HttpPost]
         [Route("data/[controller]/Delete")]
-        public async Task<ActionResult> Delete([FromBody] CRUDModel<GenusDestroyEditModel> x)
+        public async Task<ActionResult> Delete([FromBody] CRUDModel<PlantDestroyEditModel> x)
         {
             var id = Convert.ToInt32(x.Key.ToString());
-            var form = new GenusDestroyEditModel() { Id = id };
+            var form = new PlantDestroyEditModel() { Id = id };
 
             var result = await _mediator.Send(form);
 

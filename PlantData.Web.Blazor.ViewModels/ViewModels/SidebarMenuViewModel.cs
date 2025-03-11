@@ -42,7 +42,7 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels
                 // Basic MVC Views menu
                 new MenuItemViewModel("sfPlant", "Plant Definitions", null, string.Empty, "bi-tree-fill"),
                 new MenuItemViewModel("sfPlantGenera", "Genera", "sfPlant",  "genus"),
-                new MenuItemViewModel("sfPlantSpecies", "Species", "sfPlant",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.Plant) ?? string.Empty),
+                new MenuItemViewModel("sfPlantSpecies", "Species", "sfPlant",  "plant"),
 
                 new MenuItemViewModel("sfInv", "Inventory", null, string.Empty, "bi-boxes"),
                 new MenuItemViewModel("sfInvSeeds", "Seeds", "sfInv",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.SeedBatch) ?? string.Empty),

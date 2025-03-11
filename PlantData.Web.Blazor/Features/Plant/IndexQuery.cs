@@ -1,10 +1,10 @@
 ﻿using Framework.Web.Views;
 using PlantData.Web.Blazor.SharedComponents.Grid;
-using PlantData.Web.Blazor.UIModels.ViewModels.Genus;
+using PlantData.Web.Blazor.UIModels.ViewModels.Plant;
 
-namespace PlantData.Web.Blazor.Features.Genus
+namespace PlantData.Web.Blazor.Features.Plant
 {
-    public class IndexQuery : IQuery<GridDataModel<GenusGridModel>>
+    public class IndexQuery : IQuery<GridDataModel<PlantGridModel>>
     {
         public IndexQuery(int? page, int? pageSize, string sortBy, bool sortAscending)
         {

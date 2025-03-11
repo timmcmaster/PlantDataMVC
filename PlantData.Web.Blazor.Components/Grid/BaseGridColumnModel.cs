@@ -15,5 +15,6 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
         public string Format { get; set; } = default!;
 
         public bool IsPrimaryKey { get; set; }
+        public bool IsVisible { get; set; }
     }
 }

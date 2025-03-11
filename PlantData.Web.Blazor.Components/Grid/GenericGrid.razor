@@ -9,7 +9,7 @@
 <div class="container-lg">
     @if (@GridType == GridType.Basic)
     {
-        <BasicGrid Items="@ViewModel.Items" links="@ViewModel.Links" AllowAdd="@ViewModel.Options.AllowAdd" AllowEdit="@ViewModel.Options.AllowEdit" AllowDelete="@ViewModel.Options.AllowDelete" AllowPaging="@ViewModel.Options.AllowPaging">
+        <BasicGrid Items="@ViewModel.Items" Links="@ViewModel.Links" AllowAdd="@ViewModel.Options.AllowAdd" AllowEdit="@ViewModel.Options.AllowEdit" AllowDelete="@ViewModel.Options.AllowDelete" AllowPaging="@ViewModel.Options.AllowPaging">
             <GridColumns>
                 @GenericGridColumns(@ViewModel.Items)
             </GridColumns>

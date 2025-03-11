@@ -19,6 +19,9 @@
     public bool IsPrimaryKey { get; set; }
 
     [Parameter]
+    public bool IsVisible { get; set; } = true;
+
+    [Parameter]
     public RenderFragment<TRowData> ChildContent { get; set; }
 
 

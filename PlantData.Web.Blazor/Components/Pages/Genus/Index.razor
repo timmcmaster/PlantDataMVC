@@ -11,16 +11,12 @@
 
 <h2>Genus</h2>
 
-@* @model ListViewModelStatic<PlantData.Web.Mvc.Models.ViewModels.Genus.GenusListViewModel>
-@{
-    ViewBag.Title = "Index";
-} *@
 <h2>Genus List</h2>
 <p>This is a list of all genuses recorded</p>
 
 <GenericGrid GridType="@GridType" TGridItem="GenusGridModel" ViewModel="_viewModel">
     <GenericGridColumns>
-        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.Id))" FieldName="@nameof(GenusGridModel.Id)" IsPrimaryKey="true" />
+        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.Id))" FieldName="@nameof(GenusGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
         <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.LatinName))" FieldName="@nameof(GenusGridModel.LatinName)" />
     </GenericGridColumns>
 </GenericGrid>
@@ -34,7 +30,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var pageSize = 10;
+        var pageSize = 20;
         var pageNumber = 1;
         var itemCount = 100; // Hack: should be from url
 

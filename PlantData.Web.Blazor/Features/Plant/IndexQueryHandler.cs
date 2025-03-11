@@ -3,7 +3,7 @@ using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using PlantData.Web.Blazor.SharedComponents.Grid;
-using PlantData.Web.Blazor.UIModels.ViewModels.Genus;
+using PlantData.Web.Blazor.UIModels.ViewModels.Plant;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
 using System;
@@ -12,9 +12,9 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.Genus
+namespace PlantData.Web.Blazor.Features.Plant
 {
-    public class IndexQueryHandler : IQueryHandler<IndexQuery, GridDataModel<GenusGridModel>>
+    public class IndexQueryHandler : IQueryHandler<IndexQuery, GridDataModel<PlantGridModel>>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
         private readonly IMapper _mapper;
@@ -25,12 +25,12 @@ namespace PlantData.Web.Blazor.Features.Genus
             _mapper = mapper;
         }
 
-        public async Task<GridDataModel<GenusGridModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
+        public async Task<GridDataModel<PlantGridModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
         {
             bool usePaging = query.Page != null && query.PageSize != null;
 
             // Get paging part of query string
-            var baseUri = "api/Genus";
+            var baseUri = "api/Species";
             var queryParams = new Dictionary<string, string?>();
             if (usePaging)
             {
@@ -51,7 +51,7 @@ namespace PlantData.Web.Blazor.Features.Genus
             //}
 
             var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
-            var response = await _plantDataApiClient.GetAsync<IEnumerable<GenusDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
+            var response = await _plantDataApiClient.GetAsync<IEnumerable<SpeciesDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
@@ -61,11 +61,11 @@ namespace PlantData.Web.Blazor.Features.Genus
             {
                 var apiPagingInfo = response.PagingInfo;
 
-                var modelList = _mapper.Map<IEnumerable<GenusDataModel>, List<GenusGridModel>>(response.Content);
+                var modelList = _mapper.Map<IEnumerable<SpeciesDataModel>, List<PlantGridModel>>(response.Content);
 
                 // Map to a standard grid data model with paging and sorting data
 
-                var model = new GridDataModel<GenusGridModel>(modelList, apiPagingInfo.Page, apiPagingInfo.PageSize, apiPagingInfo.TotalCount, query.SortBy, query.SortAscending);
+                var model = new GridDataModel<PlantGridModel>(modelList, apiPagingInfo.Page, apiPagingInfo.PageSize, apiPagingInfo.TotalCount, query.SortBy, query.SortAscending);
 
                 return model;
             }
