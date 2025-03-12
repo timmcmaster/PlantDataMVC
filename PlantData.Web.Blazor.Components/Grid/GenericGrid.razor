@@ -6,35 +6,39 @@
 @attribute [CascadingTypeParameter(nameof(TGridItem))]
 @typeparam TGridItem
 
-<div class="container-lg">
-    @if (@GridType == GridType.Basic)
-    {
-        <BasicGrid Items="@ViewModel.Items" Links="@ViewModel.Links" AllowAdd="@ViewModel.Options.AllowAdd" AllowEdit="@ViewModel.Options.AllowEdit" AllowDelete="@ViewModel.Options.AllowDelete" AllowPaging="@ViewModel.Options.AllowPaging">
-            <GridColumns>
-                @GenericGridColumns(@ViewModel.Items)
-            </GridColumns>
-        </BasicGrid>
-    }
-    else if (GridType == GridType.SfGrid)
-    {
-        <SfGrid TValue="TGridItem" Query="@GridQuery" AllowPaging="@ViewModel.Options.AllowPaging"
-                AllowSorting="@ViewModel.Options.AllowSorting"
-                Height="550" Width="800"
-                Toolbar="@ViewModel.Options.ToolbarItems">
-            <SfDataManager Url="@ViewModel.UrlDataSource.Url"
-                           InsertUrl="@ViewModel.UrlDataSource.InsertUrl"
-                           UpdateUrl="@ViewModel.UrlDataSource.UpdateUrl"
-                           RemoveUrl="@ViewModel.UrlDataSource.DeleteUrl"
-                           Adaptor="Adaptors.UrlAdaptor">
-            </SfDataManager>
-            <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
-            <GridEditSettings AllowAdding="@ViewModel.Options.AllowAdd" AllowEditing="@ViewModel.Options.AllowEdit" AllowDeleting="@ViewModel.Options.AllowDelete" Mode="EditMode.Dialog"></GridEditSettings>
-            <GridColumns>
-                @GenericGridColumns(@ViewModel.Items)
-            </GridColumns>
-        </SfGrid>
-    }
-</div>
+<CascadingValue IsFixed="true" Value="@GridType">
+    <div class="container-lg">
+        @if (@GridType == GridType.Basic)
+        {
+            <BasicGrid Items="@ViewModel.Items" Links="@ViewModel.Links" AllowAdd="@ViewModel.Options.AllowAdd" AllowEdit="@ViewModel.Options.AllowEdit" AllowDelete="@ViewModel.Options.AllowDelete" AllowPaging="@ViewModel.Options.AllowPaging">
+                <GridColumns>
+                    @GenericGridColumns(@ViewModel.Items)
+                </GridColumns>
+            </BasicGrid>
+        }
+        else if (GridType == GridType.SfGrid)
+        {
+            <SfGrid TValue="TGridItem" Query="@GridQuery" AllowPaging="@ViewModel.Options.AllowPaging"
+                    AllowSorting="@ViewModel.Options.AllowSorting"
+                    Height="550" Width="800"
+                    Toolbar="@ViewModel.Options.ToolbarItems">
+                <SfDataManager Url="@ViewModel.UrlDataSource.Url"
+                               InsertUrl="@ViewModel.UrlDataSource.InsertUrl"
+                               UpdateUrl="@ViewModel.UrlDataSource.UpdateUrl"
+                               RemoveUrl="@ViewModel.UrlDataSource.DeleteUrl"
+                               Adaptor="Adaptors.UrlAdaptor">
+                </SfDataManager>
+                <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
+                <GridEditSettings AllowAdding="@ViewModel.Options.AllowAdd" AllowEditing="@ViewModel.Options.AllowEdit" AllowDeleting="@ViewModel.Options.AllowDelete" Mode="EditMode.Dialog"></GridEditSettings>
+                <GridColumns>
+                    @GenericGridColumns(@ViewModel.Items)
+                </GridColumns>
+            </SfGrid>
+        }
+    </div>
+</CascadingValue>
+
+
 <style>
     /* styles for SfGrid */
     .e-grid .e-row .e-rowcell {

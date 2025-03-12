@@ -25,11 +25,11 @@
 </style>
 
 @code {
-    [Parameter]
-    public IBaseGridModel<TGridItem> ViewModel { get; set; }
+    [CascadingParameter]
+    public GridType GridType { get; set; }
 
     [Parameter]
-    public GridType GridType { get; set; }
+    public IBaseGridModel<TGridItem> ViewModel { get; set; }
 
     [Parameter]
     public string HeaderText { get; set; }

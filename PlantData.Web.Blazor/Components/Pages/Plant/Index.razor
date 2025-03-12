@@ -14,12 +14,12 @@
 
 <GenericGrid GridType="@GridType" TGridItem="PlantGridModel" ViewModel="_viewModel">
     <GenericGridColumns>
-        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Id))" FieldName="@nameof(PlantGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
-        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Binomial))" FieldName="@nameof(PlantGridModel.Binomial)" />
-        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.GenusId))" FieldName="@nameof(PlantGridModel.GenusId)" />
-        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Species))" FieldName="@nameof(PlantGridModel.Species)" />
-        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.CommonName))" FieldName="@nameof(PlantGridModel.CommonName)" />
-        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Native))" FieldName="@nameof(PlantGridModel.Native)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Id))" FieldName="@nameof(PlantGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Binomial))" FieldName="@nameof(PlantGridModel.Binomial)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.GenusId))" FieldName="@nameof(PlantGridModel.GenusId)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Species))" FieldName="@nameof(PlantGridModel.Species)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.CommonName))" FieldName="@nameof(PlantGridModel.CommonName)" />
+        <GenericGridColumn @GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Native))" FieldName="@nameof(PlantGridModel.Native)" />
     </GenericGridColumns>
 </GenericGrid>
 

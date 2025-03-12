@@ -16,8 +16,8 @@
 
 <GenericGrid GridType="@GridType" TGridItem="GenusGridModel" ViewModel="_viewModel">
     <GenericGridColumns>
-        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.Id))" FieldName="@nameof(GenusGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
-        <GenericGridColumn GridType="@GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.LatinName))" FieldName="@nameof(GenusGridModel.LatinName)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.Id))" FieldName="@nameof(GenusGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.LatinName))" FieldName="@nameof(GenusGridModel.LatinName)" />
     </GenericGridColumns>
 </GenericGrid>
 
