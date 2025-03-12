@@ -1,5 +1,6 @@
 ﻿@using Microsoft.Extensions.Configuration
 @using PlantData.Web.Blazor.DisplayHelpers
+@using PlantData.Web.Blazor.Services
 @using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.SharedComponents.Paging
 @using PlantData.Web.Blazor.UIModels.Constants
@@ -7,7 +8,10 @@
 @using System.ComponentModel
 
 @page "/plant"
+
 @inject IConfiguration configuration
+@* @inject IGenusLookupService genusLookup *@
+
 
 <h2>My Plant List</h2>
 <p>This is a list of all plant descriptions</p>
@@ -19,7 +23,7 @@
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.GenusId))" FieldName="@nameof(PlantGridModel.GenusId)" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Species))" FieldName="@nameof(PlantGridModel.Species)" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.CommonName))" FieldName="@nameof(PlantGridModel.CommonName)" />
-        <GenericGridColumn @GridType" HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Native))" FieldName="@nameof(PlantGridModel.Native)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Native))" FieldName="@nameof(PlantGridModel.Native)" />
     </GenericGridColumns>
 </GenericGrid>
 
