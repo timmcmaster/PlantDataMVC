@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PlantDataMVC.Api.Models.DataModels;
-//using Genus = PlantData.Web.Mvc.Models.EditModels.Genus;
+using Genus = PlantData.Web.Blazor.UIModels.EditModels.Genus;
 //using Plant = PlantData.Web.Mvc.Models.EditModels.Plant;
 //using PlantStock = PlantData.Web.Mvc.Models.EditModels.PlantStock;
 //using ProductPrice = PlantData.Web.Mvc.Models.EditModels.ProductPrice;
@@ -28,7 +28,7 @@ namespace PlantData.Web.Blazor.Mappers
         private void ConfigureEditModelsToDataModel()
         {
             // Maps from UI edit models to domain
-            //ConfigureGenusEditModels();
+            ConfigureGenusEditModels();
             //ConfigurePlantEditModels();
             //ConfigureSeedBatchEditModels();
             //ConfigureSeedTrayEditModels();
@@ -44,25 +44,25 @@ namespace PlantData.Web.Blazor.Mappers
 
         #region Configure Edit Models
 
-        //private void ConfigureGenusEditModels()
-        //{
-        //    // Plant
-        //    CreateMap<Genus.GenusCreateEditModel, CreateUpdateGenusDataModel>()
-        //        .ForMember(dm => dm.LatinName, opt => opt.MapFrom(uio => uio.LatinName));
+        private void ConfigureGenusEditModels()
+        {
+            // Plant
+            CreateMap<Genus.GenusCreateEditModel, CreateUpdateGenusDataModel>()
+                .ForMember(dm => dm.LatinName, opt => opt.MapFrom(uio => uio.LatinName));
 
-        //    CreateMap<Genus.GenusDestroyEditModel, GenusDataModel>()
-        //        .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
-        //        .ForMember(dm => dm.LatinName, opt => opt.Ignore())
-        //        .ForMember(dm => dm.Species, opt => opt.Ignore());
+            CreateMap<Genus.GenusDestroyEditModel, GenusDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dm => dm.LatinName, opt => opt.Ignore())
+                .ForMember(dm => dm.Species, opt => opt.Ignore());
 
-        //    CreateMap<Genus.GenusUpdateEditModel, CreateUpdateGenusDataModel>()
-        //        .ForMember(dm => dm.LatinName, opt => opt.MapFrom(uio => uio.LatinName));
+            CreateMap<Genus.GenusUpdateEditModel, CreateUpdateGenusDataModel>()
+                .ForMember(dm => dm.LatinName, opt => opt.MapFrom(uio => uio.LatinName));
 
-        //    //CreateMap<GenusUpdateEditModel, GenusDataModel>()
-        //    //    .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
-        //    //    .ForMember(dm => dm.LatinName, opt => opt.MapFrom(uio => uio.LatinName))
-        //    //    .ForMember(dm => dm.Species, opt => opt.Ignore());     // TODO: check about mapping back collection
-        //}
+            //CreateMap<GenusUpdateEditModel, GenusDataModel>()
+            //    .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+            //    .ForMember(dm => dm.LatinName, opt => opt.MapFrom(uio => uio.LatinName))
+            //    .ForMember(dm => dm.Species, opt => opt.Ignore());     // TODO: check about mapping back collection
+        }
 
         //private void ConfigurePlantEditModels()
         //{

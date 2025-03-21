@@ -6,7 +6,7 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
     {
         public GridUrlDataSourceModel(string controllerName)
         {         
-            BaseUrl = PlantDataMvcConstants.PlantDataBlazorClient + "/data/" + controllerName;
+            BaseUrl = GetBaseUrl(controllerName);
         }
 
         public string BaseUrl { get; internal set; }
@@ -14,5 +14,14 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
         public string InsertUrl => $"{BaseUrl}/Insert";
         public string UpdateUrl => $"{BaseUrl}/Update";
         public string DeleteUrl => $"{BaseUrl}/Delete";
+
+        private static string GetBaseUrl(string controllerName) => PlantDataMvcConstants.PlantDataBlazorClient + "/data/" + controllerName;
+
+        public static string GetUrl(string controllerName, string methodName)
+        {
+            string baseUrl = GetBaseUrl(controllerName);
+
+            return $"{baseUrl}/{methodName}";
+        }
     }
 }

@@ -3,7 +3,7 @@ using Framework.Web.Forms;
 using Framework.Web.Services;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using PlantData.Web.Blazor.Services;
+using PlantData.Web.Blazor.Features.Genus;
 using Serilog;
 using Syncfusion;
 using System;
@@ -19,9 +19,6 @@ namespace PlantData.Web.Blazor.DependencyInjection
         /// </summary>
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
-            /*
-             * 
-             * 
             // ****************************************************
             // UI configurations
             // ****************************************************
@@ -32,18 +29,16 @@ namespace PlantData.Web.Blazor.DependencyInjection
 
             // Used in view injections
             services.AddTransient<IGenusLookupService, GenusLookupService>();
-            services.AddTransient<IJournalEntryTypeLookupService, JournalEntryTypeLookupService>();
-            services.AddTransient<IPriceListTypeLookupService, PriceListTypeLookupService>();
-            services.AddTransient<IProductPriceLookupService, ProductPriceLookupService>();
-            services.AddTransient<IProductTypeLookupService, ProductTypeLookupService>();
-            services.AddTransient<ISaleEventLookupService, SaleEventLookupService>();
-            services.AddTransient<ISeedBatchLookupService, SeedBatchLookupService>();
-            services.AddTransient<ISeedTrayLookupService, SeedTrayLookupService>();
-            services.AddTransient<ISiteLookupService, SiteLookupService>();
-            services.AddTransient<ISpeciesLookupService, SpeciesLookupService>();
-            services.AddTransient<IBarcodeLayoutLookupService, BarcodeLayoutLookupService>();
-
-            */
+            //services.AddTransient<IJournalEntryTypeLookupService, JournalEntryTypeLookupService>();
+            //services.AddTransient<IPriceListTypeLookupService, PriceListTypeLookupService>();
+            //services.AddTransient<IProductPriceLookupService, ProductPriceLookupService>();
+            //services.AddTransient<IProductTypeLookupService, ProductTypeLookupService>();
+            //services.AddTransient<ISaleEventLookupService, SaleEventLookupService>();
+            //services.AddTransient<ISeedBatchLookupService, SeedBatchLookupService>();
+            //services.AddTransient<ISeedTrayLookupService, SeedTrayLookupService>();
+            //services.AddTransient<ISiteLookupService, SiteLookupService>();
+            //services.AddTransient<ISpeciesLookupService, SpeciesLookupService>();
+            //services.AddTransient<IBarcodeLayoutLookupService, BarcodeLayoutLookupService>();
 
             /// Extensions to scan for MediatR handlers and registers them.
             /// - Scans for any handler interface implementations and registers them as <see cref="ServiceLifetime.Transient"/>
@@ -62,8 +57,8 @@ namespace PlantData.Web.Blazor.DependencyInjection
 
         public static IServiceCollection AddViewModelsAndInterfaces(this IServiceCollection services)
         {
-            string assemblyNamePrefix = "PlantData.Web.Blazor.ViewModels";
-            string vmNamespacePrefix = "PlantData.Web.Blazor.ViewModels";
+            string assemblyNamePrefix = "PlantData.Web.Blazor.UIModels.ViewModels";
+            string vmNamespacePrefix = "PlantData.Web.Blazor.UIModels.ViewModels";
             string vmNameSuffix = "ViewModel";
 
             try

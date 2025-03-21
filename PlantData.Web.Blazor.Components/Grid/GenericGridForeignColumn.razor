@@ -7,15 +7,22 @@
 @using System.Reflection;
 
 @typeparam TGridItem
+@typeparam TForeignDataItem
+
 
 <div class="container-lg">
     @if (@GridType == GridType.Basic)
     {
+        @* No special behaviour (yet) for basic column *@
         <BasicGridColumn TRowData="TGridItem" Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey"></BasicGridColumn>
     }
     else if (GridType == GridType.SfGrid)
     {
-        <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey"></GridColumn>
+@*         <GridForeignColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey" ForeignKeyValue="@ForeignKeyValue" ForeignDataSource="@ForeignDataSource"></GridForeignColumn> *@
+        <GridForeignColumn TValue="TForeignDataItem" Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey" ForeignKeyField="@ForeignKeyField" ForeignKeyValue="@ForeignKeyValue">
+            <Syncfusion.Blazor.Data.SfDataManager Url="@ForeignDataSourceUrl" CrossDomain="true" Adaptor="Adaptors.UrlAdaptor">
+            </Syncfusion.Blazor.Data.SfDataManager>
+        </GridForeignColumn>
     }
 </div>
 <style>
@@ -26,7 +33,8 @@
     }
 </style>
 
-@code {
+@code 
+{
     [CascadingParameter]
     public GridType GridType { get; set; }
 
@@ -46,4 +54,16 @@
 
     [Parameter]
     public bool IsVisible { get; set; } = true;
+
+    [Parameter]
+    public string ForeignKeyField { get; set; }
+
+    [Parameter]
+    public string ForeignKeyValue { get; set; }
+
+    [Parameter]
+    public IEnumerable<TForeignDataItem> ForeignDataSource { get; set; }
+
+    [Parameter]
+    public string ForeignDataSourceUrl { get; set; }
 }
