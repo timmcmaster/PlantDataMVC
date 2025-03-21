@@ -13,10 +13,12 @@ namespace PlantData.Web.Blazor.Features.Plant
     public class PlantGridController : Controller
     {
         private readonly IMediator _mediator;
+        private readonly ISpeciesLookupService _speciesLookupService;
 
-        public PlantGridController(IMediator mediator)
+        public PlantGridController(IMediator mediator, ISpeciesLookupService speciesLookupService)
         {
             _mediator = mediator;
+            _speciesLookupService = speciesLookupService;
         }
 
         [HttpPost]
@@ -86,6 +88,23 @@ namespace PlantData.Web.Blazor.Features.Plant
             var result = await _mediator.Send(form);
 
             return Json(form);
+        }
+
+        [HttpPost]
+        [Route("data/[controller]/List")]
+        public async Task<ActionResult> List([FromBody] DataManagerRequest request)
+        {
+            var dataSource = await _speciesLookupService.GetData();
+
+            if (request.Where != null && request.Where.Count > 0)
+            {
+                // Filtering
+                dataSource = DataOperations.PerformFiltering(dataSource, request.Where, request.Where[0].Condition);
+            }
+
+            var jsonResult = request.RequiresCounts ? Json(new { result = dataSource, count = dataSource.Count() }) : Json(dataSource);
+
+            return jsonResult;
         }
     }
 }

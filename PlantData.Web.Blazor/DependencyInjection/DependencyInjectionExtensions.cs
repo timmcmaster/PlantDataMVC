@@ -4,6 +4,7 @@ using Framework.Web.Services;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using PlantData.Web.Blazor.Features.Genus;
+using PlantData.Web.Blazor.Features.Plant;
 using Serilog;
 using Syncfusion;
 using System;
@@ -37,7 +38,7 @@ namespace PlantData.Web.Blazor.DependencyInjection
             //services.AddTransient<ISeedBatchLookupService, SeedBatchLookupService>();
             //services.AddTransient<ISeedTrayLookupService, SeedTrayLookupService>();
             //services.AddTransient<ISiteLookupService, SiteLookupService>();
-            //services.AddTransient<ISpeciesLookupService, SpeciesLookupService>();
+            services.AddTransient<ISpeciesLookupService, SpeciesLookupService>();
             //services.AddTransient<IBarcodeLayoutLookupService, BarcodeLayoutLookupService>();
 
             /// Extensions to scan for MediatR handlers and registers them.

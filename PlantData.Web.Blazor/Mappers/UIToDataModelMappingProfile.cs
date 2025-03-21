@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using PlantDataMVC.Api.Models.DataModels;
 using Genus = PlantData.Web.Blazor.UIModels.EditModels.Genus;
-//using Plant = PlantData.Web.Mvc.Models.EditModels.Plant;
+using Plant = PlantData.Web.Blazor.UIModels.EditModels.Plant;
 //using PlantStock = PlantData.Web.Mvc.Models.EditModels.PlantStock;
 //using ProductPrice = PlantData.Web.Mvc.Models.EditModels.ProductPrice;
 //using ProductType = PlantData.Web.Mvc.Models.EditModels.ProductType;
@@ -29,7 +29,7 @@ namespace PlantData.Web.Blazor.Mappers
         {
             // Maps from UI edit models to domain
             ConfigureGenusEditModels();
-            //ConfigurePlantEditModels();
+            ConfigurePlantEditModels();
             //ConfigureSeedBatchEditModels();
             //ConfigureSeedTrayEditModels();
             //ConfigurePlantStockEditModels();
@@ -64,37 +64,37 @@ namespace PlantData.Web.Blazor.Mappers
             //    .ForMember(dm => dm.Species, opt => opt.Ignore());     // TODO: check about mapping back collection
         }
 
-        //private void ConfigurePlantEditModels()
-        //{
-        //    // Plant
-        //    CreateMap<Plant.PlantCreateEditModel, CreateUpdateSpeciesDataModel>()
-        //       .ForMember(dm => dm.CommonName, opt => opt.MapFrom(uio => uio.CommonName))
-        //       .ForMember(dm => dm.Description, opt => opt.MapFrom(uio => uio.Description))
-        //       .ForMember(dm => dm.GenusId, opt => opt.MapFrom(uio => uio.GenusId))
-        //       .ForMember(dm => dm.Native, opt => opt.MapFrom(uio => uio.Native))
-        //       .ForMember(dm => dm.PropagationTime, opt => opt.MapFrom(uio => uio.PropagationTime))
-        //       .ForMember(dm => dm.SpecificName, opt => opt.MapFrom(uio => uio.Species));
+        private void ConfigurePlantEditModels()
+        {
+            // Plant
+            CreateMap<Plant.PlantCreateEditModel, CreateUpdateSpeciesDataModel>()
+               .ForMember(dm => dm.CommonName, opt => opt.MapFrom(uio => uio.CommonName))
+               .ForMember(dm => dm.Description, opt => opt.MapFrom(uio => uio.Description))
+               .ForMember(dm => dm.GenusId, opt => opt.MapFrom(uio => uio.GenusId))
+               .ForMember(dm => dm.Native, opt => opt.MapFrom(uio => uio.Native))
+               .ForMember(dm => dm.PropagationTime, opt => opt.MapFrom(uio => uio.PropagationTime))
+               .ForMember(dm => dm.SpecificName, opt => opt.MapFrom(uio => uio.Species));
 
-        //    CreateMap<Plant.PlantDestroyEditModel, SpeciesDataModel>()
-        //        .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
-        //        .ForMember(dm => dm.GenusId, opt => opt.Ignore())
-        //        .ForMember(dm => dm.GenusName, opt => opt.Ignore())
-        //        .ForMember(dm => dm.SpecificName, opt => opt.Ignore())
-        //        .ForMember(dm => dm.CommonName, opt => opt.Ignore())
-        //        .ForMember(dm => dm.Description, opt => opt.Ignore())
-        //        .ForMember(dm => dm.PropagationTime, opt => opt.Ignore())
-        //        .ForMember(dm => dm.Native, opt => opt.Ignore())
-        //        .ForMember(dm => dm.PlantStocks, opt => opt.Ignore())
-        //        .ForMember(dm => dm.SeedBatches, opt => opt.Ignore());
+            CreateMap<Plant.PlantDestroyEditModel, SpeciesDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dm => dm.GenusId, opt => opt.Ignore())
+                .ForMember(dm => dm.GenusName, opt => opt.Ignore())
+                .ForMember(dm => dm.SpecificName, opt => opt.Ignore())
+                .ForMember(dm => dm.CommonName, opt => opt.Ignore())
+                .ForMember(dm => dm.Description, opt => opt.Ignore())
+                .ForMember(dm => dm.PropagationTime, opt => opt.Ignore())
+                .ForMember(dm => dm.Native, opt => opt.Ignore())
+                .ForMember(dm => dm.PlantStocks, opt => opt.Ignore())
+                .ForMember(dm => dm.SeedBatches, opt => opt.Ignore());
 
-        //    CreateMap<Plant.PlantUpdateEditModel, CreateUpdateSpeciesDataModel>()
-        //        .ForMember(dm => dm.CommonName, opt => opt.MapFrom(uio => uio.CommonName))
-        //        .ForMember(dm => dm.Description, opt => opt.MapFrom(uio => uio.Description))
-        //        .ForMember(dm => dm.GenusId, opt => opt.MapFrom(uio => uio.GenusId))
-        //        .ForMember(dm => dm.Native, opt => opt.MapFrom(uio => uio.Native))
-        //        .ForMember(dm => dm.PropagationTime, opt => opt.MapFrom(uio => uio.PropagationTime))
-        //        .ForMember(dm => dm.SpecificName, opt => opt.MapFrom(uio => uio.Species));
-        //}
+            CreateMap<Plant.PlantUpdateEditModel, CreateUpdateSpeciesDataModel>()
+                .ForMember(dm => dm.CommonName, opt => opt.MapFrom(uio => uio.CommonName))
+                .ForMember(dm => dm.Description, opt => opt.MapFrom(uio => uio.Description))
+                .ForMember(dm => dm.GenusId, opt => opt.MapFrom(uio => uio.GenusId))
+                .ForMember(dm => dm.Native, opt => opt.MapFrom(uio => uio.Native))
+                .ForMember(dm => dm.PropagationTime, opt => opt.MapFrom(uio => uio.PropagationTime))
+                .ForMember(dm => dm.SpecificName, opt => opt.MapFrom(uio => uio.Species));
+        }
 
         //private void ConfigureSeedBatchEditModels()
         //{

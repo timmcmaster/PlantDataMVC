@@ -1,11 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PlantData.Web.Blazor.UIModels.EditModels.Genus;
-using PlantDataMVC.Api.Models.DataModels;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -107,7 +105,6 @@ namespace PlantData.Web.Blazor.Features.Genus
             var jsonResult = request.RequiresCounts ? Json(new { result = dataSource, count = dataSource.Count() }) : Json(dataSource);
 
             return jsonResult;
-
         }
     }
 }
