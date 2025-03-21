@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -40,12 +41,18 @@ namespace PlantData.Web.Blazor.DisplayHelpers
             }
 
             var attr = memberInfo.GetAttribute<DisplayNameAttribute>(false);
-            if (attr == null)
+            if (attr != null)
             {
-                return memberInfo.Name;
+                return attr.DisplayName;
             }
 
-            return attr.DisplayName;
+            var attr2 = memberInfo.GetCustomAttribute<DisplayAttribute>(false);
+            if (attr2 != null && attr2.Name != null)
+            {
+                return attr2.Name;
+            }
+
+            return memberInfo.Name;
         }
 
         public static MemberInfo GetPropertyInformation(Expression propertyExpression)

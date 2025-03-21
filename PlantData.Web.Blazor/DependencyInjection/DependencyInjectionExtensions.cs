@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using PlantData.Web.Blazor.Features.Genus;
 using PlantData.Web.Blazor.Features.Plant;
+using PlantData.Web.Blazor.Features.SeedBatch;
 using Serilog;
 using Syncfusion;
 using System;
@@ -35,7 +36,7 @@ namespace PlantData.Web.Blazor.DependencyInjection
             //services.AddTransient<IProductPriceLookupService, ProductPriceLookupService>();
             //services.AddTransient<IProductTypeLookupService, ProductTypeLookupService>();
             //services.AddTransient<ISaleEventLookupService, SaleEventLookupService>();
-            //services.AddTransient<ISeedBatchLookupService, SeedBatchLookupService>();
+            services.AddTransient<ISeedBatchLookupService, SeedBatchLookupService>();
             //services.AddTransient<ISeedTrayLookupService, SeedTrayLookupService>();
             //services.AddTransient<ISiteLookupService, SiteLookupService>();
             services.AddTransient<ISpeciesLookupService, SpeciesLookupService>();

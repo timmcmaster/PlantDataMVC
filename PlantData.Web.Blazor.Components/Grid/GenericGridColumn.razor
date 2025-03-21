@@ -15,7 +15,7 @@
     }
     else if (GridType == GridType.SfGrid)
     {
-        <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey"></GridColumn>
+        <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey"></GridColumn>
     }
 </div>
 <style>
@@ -39,7 +39,8 @@
     [Parameter]
     public string FieldName { get; set; }
 
-    //public string Format { get; set; } = default!;
+    [Parameter]
+    public string Format { get; set; } = default!;
 
     [Parameter]
     public bool IsPrimaryKey { get; set; }

@@ -7,7 +7,7 @@ using Plant = PlantData.Web.Blazor.UIModels.EditModels.Plant;
 //using ProductType = PlantData.Web.Mvc.Models.EditModels.ProductType;
 //using PriceListType = PlantData.Web.Mvc.Models.EditModels.PriceListType;
 //using SaleEvent = PlantData.Web.Mvc.Models.EditModels.SaleEvent;
-//using SeedBatch = PlantData.Web.Mvc.Models.EditModels.SeedBatch;
+using SeedBatch = PlantData.Web.Blazor.UIModels.EditModels.SeedBatch;
 //using SeedTray = PlantData.Web.Mvc.Models.EditModels.SeedTray;
 //using Site = PlantData.Web.Mvc.Models.EditModels.Site;
 //using StocktakeHeader = PlantData.Web.Mvc.Models.EditModels.StocktakeHeader;
@@ -30,7 +30,7 @@ namespace PlantData.Web.Blazor.Mappers
             // Maps from UI edit models to domain
             ConfigureGenusEditModels();
             ConfigurePlantEditModels();
-            //ConfigureSeedBatchEditModels();
+            ConfigureSeedBatchEditModels();
             //ConfigureSeedTrayEditModels();
             //ConfigurePlantStockEditModels();
             //ConfigureProductTypeEditModels();
@@ -96,33 +96,33 @@ namespace PlantData.Web.Blazor.Mappers
                 .ForMember(dm => dm.SpecificName, opt => opt.MapFrom(uio => uio.Species));
         }
 
-        //private void ConfigureSeedBatchEditModels()
-        //{
-        //    // SeedBatchDTO
-        //    CreateMap<SeedBatch.SeedBatchCreateEditModel, CreateUpdateSeedBatchDataModel>()
-        //        .ForMember(dm => dm.Location, opt => opt.MapFrom(uio => uio.Location))
-        //        .ForMember(dm => dm.Notes, opt => opt.MapFrom(uio => uio.Notes))
-        //        .ForMember(dm => dm.SiteId, opt => opt.MapFrom(uio => uio.SiteId))
-        //        .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
+        private void ConfigureSeedBatchEditModels()
+        {
+            // SeedBatchDTO
+            CreateMap<SeedBatch.SeedBatchCreateEditModel, CreateUpdateSeedBatchDataModel>()
+                .ForMember(dm => dm.Location, opt => opt.MapFrom(uio => uio.Location))
+                .ForMember(dm => dm.Notes, opt => opt.MapFrom(uio => uio.Notes))
+                .ForMember(dm => dm.SiteId, opt => opt.MapFrom(uio => uio.SiteId))
+                .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
 
-        //    CreateMap<SeedBatch.SeedBatchDestroyEditModel, SeedBatchDataModel>()
-        //        .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
-        //        .ForMember(dm => dm.SpeciesId, opt => opt.Ignore())
-        //        .ForMember(dm => dm.GenusName, opt => opt.Ignore())
-        //        .ForMember(dm => dm.SpeciesName, opt => opt.Ignore())
-        //        .ForMember(dm => dm.DateCollected, opt => opt.Ignore())
-        //        .ForMember(dm => dm.Location, opt => opt.Ignore())
-        //        .ForMember(dm => dm.Notes, opt => opt.Ignore())
-        //        .ForMember(dm => dm.SiteId, opt => opt.Ignore())
-        //        .ForMember(dm => dm.SiteName, opt => opt.Ignore())
-        //        .ForMember(dm => dm.SeedTrays, opt => opt.Ignore());
+            CreateMap<SeedBatch.SeedBatchDestroyEditModel, SeedBatchDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dm => dm.SpeciesId, opt => opt.Ignore())
+                .ForMember(dm => dm.GenusName, opt => opt.Ignore())
+                .ForMember(dm => dm.SpeciesName, opt => opt.Ignore())
+                .ForMember(dm => dm.DateCollected, opt => opt.Ignore())
+                .ForMember(dm => dm.Location, opt => opt.Ignore())
+                .ForMember(dm => dm.Notes, opt => opt.Ignore())
+                .ForMember(dm => dm.SiteId, opt => opt.Ignore())
+                .ForMember(dm => dm.SiteName, opt => opt.Ignore())
+                .ForMember(dm => dm.SeedTrays, opt => opt.Ignore());
 
-        //    CreateMap<SeedBatch.SeedBatchUpdateEditModel, CreateUpdateSeedBatchDataModel>()
-        //            .ForMember(dm => dm.Location, opt => opt.MapFrom(uio => uio.Location))
-        //            .ForMember(dm => dm.Notes, opt => opt.MapFrom(uio => uio.Notes))
-        //            .ForMember(dm => dm.SiteId, opt => opt.MapFrom(uio => uio.SiteId))
-        //            .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
-        //}
+            CreateMap<SeedBatch.SeedBatchUpdateEditModel, CreateUpdateSeedBatchDataModel>()
+                    .ForMember(dm => dm.Location, opt => opt.MapFrom(uio => uio.Location))
+                    .ForMember(dm => dm.Notes, opt => opt.MapFrom(uio => uio.Notes))
+                    .ForMember(dm => dm.SiteId, opt => opt.MapFrom(uio => uio.SiteId))
+                    .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
+        }
 
         //private void ConfigureSiteEditModels()
         //{

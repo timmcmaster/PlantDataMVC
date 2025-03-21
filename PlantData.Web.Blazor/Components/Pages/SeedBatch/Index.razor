@@ -1,0 +1,69 @@
+﻿@using Microsoft.Extensions.Configuration
+@using PlantData.Web.Blazor.DisplayHelpers
+@using PlantData.Web.Blazor.Features.Genus
+@using PlantData.Web.Blazor.SharedComponents.Grid
+@using PlantData.Web.Blazor.SharedComponents.Paging
+@using PlantData.Web.Blazor.UIModels.Constants
+@using PlantData.Web.Blazor.UIModels.ViewModels.SeedBatch
+@using System.ComponentModel
+@using PlantDataMVC.Api.Models.DataModels
+
+@page "/seedbatch"
+
+@inject IConfiguration configuration
+
+
+<h2>Seed Batch List</h2>
+<p>This is a list of all Seed Batches</p>
+
+<GenericGrid GridType="@GridType" TGridItem=SeedBatchGridModel ViewModel="_viewModel">
+    <GenericGridColumns>
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.Id))" FieldName="@nameof(SeedBatchGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesId))" FieldName="@nameof(SeedBatchGridModel.SpeciesId)" IsVisible="false"/>
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.DateCollected))" FieldName="@nameof(SeedBatchGridModel.DateCollected)" Format="dd/MM/yyyy" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteId))" FieldName="@nameof(SeedBatchGridModel.SiteId)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteName))" FieldName="@nameof(SeedBatchGridModel.SiteName)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.Location))" FieldName="@nameof(SeedBatchGridModel.Location)" />
+    </GenericGridColumns>
+</GenericGrid>
+
+
+@code 
+{
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;
+
+    private BaseGridModel<SeedBatchGridModel> _viewModel;
+
+    //private ForeignColumnModel<GenusDataModel> _fcm;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var pageSize = 20;
+        var pageNumber = 1;
+        var itemCount = 100; // Hack: should be from url
+
+        _viewModel = new BaseGridModel<SeedBatchGridModel>()
+        {
+            Options = GridOptionsModel.Default,
+            Paging = new PagingModel(pageSize, pageNumber, itemCount),
+            Sorting = new GridSortingModel(),
+            Links = new GridLinksModel("plant"),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.SeedBatchGrid),
+    };
+        _viewModel.Options.AllowSorting = false;
+
+        // TODO: Define foreign column info for SpeciesId, somehow get speciesbinomial info
+        // _fcmSpecies = new ForeignColumnModel<pla>(
+        //     foreignKeyField: x => nameof(x.Id),
+        //     foreignKeyValue: x => nameof(x.b),
+        //     GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.PlantGrid, "List")
+        // );
+
+        // TODO: Define foreign column info for SiteId
+        // _fcmSpecies = new ForeignColumnModel<pla>(
+        //     foreignKeyField: x => nameof(x.Id),
+        //     foreignKeyValue: x => nameof(x.b),
+        //     GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.PlantGrid, "List")
+        // );
+    }
+}
