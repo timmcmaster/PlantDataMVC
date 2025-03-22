@@ -57,7 +57,7 @@
         _fcm = new ForeignColumnModel<GenusDataModel>(
             foreignKeyField: x => nameof(x.Id),
             foreignKeyValue: x => nameof(x.LatinName),
-            GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.GenusGrid, "List")
+            GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.GenusGrid, PlantDataMvcAppControllers.DataRoutes.List)
         );
     }
 }

@@ -23,6 +23,9 @@
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.DateCollected))" FieldName="@nameof(SeedBatchGridModel.DateCollected)" Format="dd/MM/yyyy" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteId))" FieldName="@nameof(SeedBatchGridModel.SiteId)" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteName))" FieldName="@nameof(SeedBatchGridModel.SiteName)" />
+        <GenericGridForeignColumn TGridItem=SeedBatchGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteName))" FieldName="@nameof(SeedBatchGridModel.SiteId)"
+                                  TForeignDataItem=SiteDataModel ForeignKeyField="@_fcmSite.ForeignKeyField" ForeignKeyValue="@_fcmSite.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSite.ForeignDataUrl" />
+
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.Location))" FieldName="@nameof(SeedBatchGridModel.Location)" />
     </GenericGridColumns>
 </GenericGrid>
@@ -34,7 +37,7 @@
 
     private BaseGridModel<SeedBatchGridModel> _viewModel;
 
-    //private ForeignColumnModel<GenusDataModel> _fcm;
+    private ForeignColumnModel<SiteDataModel> _fcmSite;
 
     protected override async Task OnInitializedAsync()
     {
@@ -56,14 +59,14 @@
         // _fcmSpecies = new ForeignColumnModel<pla>(
         //     foreignKeyField: x => nameof(x.Id),
         //     foreignKeyValue: x => nameof(x.b),
-        //     GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.PlantGrid, "List")
+        //     GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.PlantGrid, PlantDataMvcAppControllers.DataRoutes.List)
         // );
 
-        // TODO: Define foreign column info for SiteId
-        // _fcmSpecies = new ForeignColumnModel<pla>(
-        //     foreignKeyField: x => nameof(x.Id),
-        //     foreignKeyValue: x => nameof(x.b),
-        //     GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.PlantGrid, "List")
-        // );
+        // Define foreign column info for SiteId
+        _fcmSite = new ForeignColumnModel<SiteDataModel>(
+            foreignKeyField: x => nameof(x.Id),
+            foreignKeyValue: x => nameof(x.SiteName),
+            GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.SiteGrid, PlantDataMvcAppControllers.DataRoutes.List)
+        );
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PlantDataMVC.Constants;
+using PlantData.Web.Blazor.UIModels.Constants;
 
 namespace PlantData.Web.Blazor.SharedComponents.Grid
 {
@@ -11,9 +12,9 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
 
         public string BaseUrl { get; internal set; }
         public string Url => $"{BaseUrl}";
-        public string InsertUrl => $"{BaseUrl}/Insert";
-        public string UpdateUrl => $"{BaseUrl}/Update";
-        public string DeleteUrl => $"{BaseUrl}/Delete";
+        public string InsertUrl => $"{BaseUrl}/{PlantDataMvcAppControllers.DataRoutes.Insert}";
+        public string UpdateUrl => $"{BaseUrl}/{PlantDataMvcAppControllers.DataRoutes.Update}";
+        public string DeleteUrl => $"{BaseUrl}/{PlantDataMvcAppControllers.DataRoutes.Delete}";
 
         private static string GetBaseUrl(string controllerName) => PlantDataMvcConstants.PlantDataBlazorClient + "/data/" + controllerName;
 

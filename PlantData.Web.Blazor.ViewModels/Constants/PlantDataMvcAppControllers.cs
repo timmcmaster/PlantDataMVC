@@ -18,5 +18,13 @@
         //public const string TransactionStockSummaryGrid = "TransactionStockSummaryGrid";
         //public const string TransactionGrid = "TransactionGrid";
         //public const string TransactionStocktakeGrid = "TransactionStocktakeGrid";
+
+        public static class DataRoutes
+        {
+            public const string Insert = "Insert";
+            public const string Update = "Update";
+            public const string Delete = "Delete";
+            public const string List = "List";
+        }
     }
 }
