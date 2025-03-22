@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PlantData.Web.Blazor.UIModels.EditModels.SeedBatch;
+using PlantData.Web.Blazor.Features.Site;
+using PlantData.Web.Blazor.UIModels.EditModels.Site;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.Data;
 using System;
@@ -8,17 +9,17 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.SeedBatch
+namespace PlantData.Web.Mvc.Controllers.ViewComponents
 {
-    public class SeedBatchGridController : Controller
+    public class SiteGridController : Controller
     {
         private readonly IMediator _mediator;
-        private readonly ISeedBatchLookupService _seedBatchLookupService;
+        private readonly ISiteLookupService _siteLookupService;
 
-        public SeedBatchGridController(IMediator mediator, ISeedBatchLookupService seedBatchLookupService)
+        public SiteGridController(IMediator mediator, ISiteLookupService siteLookupService)
         {
             _mediator = mediator;
-            this._seedBatchLookupService = seedBatchLookupService;
+            this._siteLookupService = siteLookupService;
         }
 
         [HttpPost]
@@ -58,9 +59,8 @@ namespace PlantData.Web.Blazor.Features.SeedBatch
 
         [HttpPost]
         [Route("data/[controller]/Insert")]
-        public async Task<ActionResult> Insert([FromBody] CRUDModel<SeedBatchCreateEditModel> x)
+        public async Task<ActionResult> Insert([FromBody] CRUDModel<SiteCreateEditModel> x)
         {
-            // TODO: won't be correct, as we can't select the parent genus from the grid
             var form = x.Value;
 
             var result = await _mediator.Send(form);
@@ -70,7 +70,7 @@ namespace PlantData.Web.Blazor.Features.SeedBatch
 
         [HttpPost]
         [Route("data/[controller]/Update")]
-        public async Task<ActionResult> Update([FromBody] CRUDModel<SeedBatchUpdateEditModel> x)
+        public async Task<ActionResult> Update([FromBody] CRUDModel<SiteUpdateEditModel> x)
         {
             var form = x.Value;
 
@@ -81,10 +81,10 @@ namespace PlantData.Web.Blazor.Features.SeedBatch
 
         [HttpPost]
         [Route("data/[controller]/Delete")]
-        public async Task<ActionResult> Delete([FromBody] CRUDModel<SeedBatchDestroyEditModel> x)
+        public async Task<ActionResult> Delete([FromBody] CRUDModel<SiteDestroyEditModel> x)
         {
             var id = Convert.ToInt32(x.Key.ToString());
-            var form = new SeedBatchDestroyEditModel() { Id = id };
+            var form = new SiteDestroyEditModel() { Id = id };
 
             var result = await _mediator.Send(form);
 
@@ -95,7 +95,7 @@ namespace PlantData.Web.Blazor.Features.SeedBatch
         [Route("data/[controller]/List")]
         public async Task<ActionResult> List([FromBody] DataManagerRequest request)
         {
-            var dataSource = await _seedBatchLookupService.GetData();
+            var dataSource = await _siteLookupService.GetData();
 
             if (request.Where != null && request.Where.Count > 0)
             {

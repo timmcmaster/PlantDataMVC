@@ -1,20 +1,18 @@
 ﻿using AutoMapper;
 using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Api.Models.DomainFunctions;
-using PlantDataMVC.Repository.Models;
-using System.Linq;
 using Genus = PlantData.Web.Blazor.UIModels.ViewModels.Genus;
-//using Label = PlantData.Web.Mvc.Models.ViewModels.Label;
 using Plant = PlantData.Web.Blazor.UIModels.ViewModels.Plant;
+using SeedBatch = PlantData.Web.Blazor.UIModels.ViewModels.SeedBatch;
+using Site = PlantData.Web.Blazor.UIModels.ViewModels.Site;
+//using Label = PlantData.Web.Mvc.Models.ViewModels.Label;
 //using PlantStock = PlantData.Web.Mvc.Models.ViewModels.PlantStock;
 //using PriceListType = PlantData.Web.Mvc.Models.ViewModels.PriceListType;
 //using ProductPrice = PlantData.Web.Mvc.Models.ViewModels.ProductPrice;
 //using ProductType = PlantData.Web.Mvc.Models.ViewModels.ProductType;
 //using SaleEvent = PlantData.Web.Mvc.Models.ViewModels.SaleEvent;
 //using SaleEventStock = PlantData.Web.Mvc.Models.ViewModels.SaleEventStock;
-using SeedBatch = PlantData.Web.Blazor.UIModels.ViewModels.SeedBatch;
 //using SeedTray = PlantData.Web.Mvc.Models.ViewModels.SeedTray;
-//using Site = PlantData.Web.Mvc.Models.ViewModels.Site;
 //using StocktakeHeader = PlantData.Web.Mvc.Models.ViewModels.StocktakeHeader;
 //using Transaction = PlantData.Web.Mvc.Models.ViewModels.Transaction;
 
@@ -41,10 +39,10 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigureGenusViewModels();
             ConfigurePlantViewModels();
             ConfigureSeedBatchViewModels();
+            ConfigureSiteViewModels();
             //ConfigureSeedTrayViewModels();
             //ConfigurePlantStockViewModels();
             //ConfigureTransactionViewModels();
-            //ConfigureSiteViewModels();
             //ConfigureSaleEventViewModels();
             //ConfigureSaleEventStockViewModels();
             //ConfigureProductTypeViewModels();
@@ -87,43 +85,15 @@ namespace PlantData.Web.Blazor.Mappers
                 .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)));
         }
 
-        //private void ConfigureSiteViewModels()
-        //{
-        //    // Site
-        //    CreateMap<SiteDataModel, Site.SiteDeleteViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Latitude, opt => opt.MapFrom(dm => dm.Latitude))
-        //        .ForMember(uio => uio.Longitude, opt => opt.MapFrom(dm => dm.Longitude))
-        //        .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dm => dm.SiteName))
-        //        .ForMember(uio => uio.Suburb, opt => opt.MapFrom(dm => dm.Suburb));
-
-        //    CreateMap<SiteDataModel, Site.SiteEditViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Latitude, opt => opt.MapFrom(dm => dm.Latitude))
-        //        .ForMember(uio => uio.Longitude, opt => opt.MapFrom(dm => dm.Longitude))
-        //        .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dm => dm.SiteName))
-        //        .ForMember(uio => uio.Suburb, opt => opt.MapFrom(dm => dm.Suburb));
-
-        //    CreateMap<SiteDataModel, Site.SiteListViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Latitude, opt => opt.MapFrom(dm => dm.Latitude))
-        //        .ForMember(uio => uio.Longitude, opt => opt.MapFrom(dm => dm.Longitude))
-        //        .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dm => dm.SiteName))
-        //        .ForMember(uio => uio.Suburb, opt => opt.MapFrom(dm => dm.Suburb));
-
-        //    CreateMap<SiteDataModel, Site.SiteNewViewModel>()
-        //        .ForMember(uio => uio.Latitude, opt => opt.MapFrom(dm => dm.Latitude))
-        //        .ForMember(uio => uio.Longitude, opt => opt.MapFrom(dm => dm.Longitude))
-        //        .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dm => dm.SiteName))
-        //        .ForMember(uio => uio.Suburb, opt => opt.MapFrom(dm => dm.Suburb));
-
-        //    CreateMap<SiteDataModel, Site.SiteShowViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Latitude, opt => opt.MapFrom(dm => dm.Latitude))
-        //        .ForMember(uio => uio.Longitude, opt => opt.MapFrom(dm => dm.Longitude))
-        //        .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dm => dm.SiteName))
-        //        .ForMember(uio => uio.Suburb, opt => opt.MapFrom(dm => dm.Suburb));
-        //}
+        private void ConfigureSiteViewModels()
+        {
+            CreateMap<SiteDataModel, Site.SiteGridModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Latitude, opt => opt.MapFrom(dm => dm.Latitude))
+                .ForMember(uio => uio.Longitude, opt => opt.MapFrom(dm => dm.Longitude))
+                .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dm => dm.SiteName))
+                .ForMember(uio => uio.Suburb, opt => opt.MapFrom(dm => dm.Suburb));
+        }
 
         //private void ConfigurePlantStockViewModels()
         //{

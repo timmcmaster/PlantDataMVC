@@ -8,7 +8,7 @@
 @using System.ComponentModel
 @using PlantDataMVC.Api.Models.DataModels
 
-@page "/seedbatch"
+@attribute [Route(PlantDataRoutes.SeedBatch)]
 
 @inject IConfiguration configuration
 
@@ -47,7 +47,7 @@
             Options = GridOptionsModel.Default,
             Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
-            Links = new GridLinksModel("plant"),
+            Links = new GridLinksModel(PlantDataRoutes.SeedBatch),
             UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.SeedBatchGrid),
     };
         _viewModel.Options.AllowSorting = false;

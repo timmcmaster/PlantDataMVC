@@ -41,12 +41,12 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels
 
                 // Basic MVC Views menu
                 new MenuItemViewModel("sfPlant", "Plant Definitions", null, string.Empty, "bi-tree-fill"),
-                new MenuItemViewModel("sfPlantGenera", "Genera", "sfPlant",  "genus"),
-                new MenuItemViewModel("sfPlantSpecies", "Species", "sfPlant",  "plant"),
+                new MenuItemViewModel("sfPlantGenera", "Genera", "sfPlant",  PlantDataRoutes.Genus),
+                new MenuItemViewModel("sfPlantSpecies", "Species", "sfPlant",  PlantDataRoutes.Plant),
 
                 new MenuItemViewModel("sfInv", "Inventory", null, string.Empty, "bi-boxes"),
-                new MenuItemViewModel("sfInvSeeds", "Seeds", "sfInv",  "seedbatch"),
-                //new MenuItemViewModel("sfInvSites", "Seed Collection Sites", "sfInv",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.StocktakeHeader) ?? string.Empty),
+                new MenuItemViewModel("sfInvSeeds", "Seeds", "sfInv",  PlantDataRoutes.SeedBatch),
+                new MenuItemViewModel("sfInvSites", "Seed Collection Sites", "sfInv",  PlantDataRoutes.Site),
                 //new MenuItemViewModel("sfInvStocktakeHeaders", "Seed Collection Sites", "sfInv",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.StocktakeHeader) ?? string.Empty),
                 //new MenuItemViewModel("sfInvTrays", "Seed Trays", "sfInv",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.SeedTray) ?? string.Empty),
                 //new MenuItemViewModel("sfInvStock", "Plant Stock (static)", "sfInv",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.PlantStock) ?? string.Empty),

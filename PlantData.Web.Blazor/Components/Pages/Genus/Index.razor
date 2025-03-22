@@ -6,7 +6,7 @@
 @using PlantData.Web.Blazor.UIModels.ViewModels.Genus
 @using System.ComponentModel
 
-@page "/genus"
+@attribute [Route(PlantDataRoutes.Genus)]
 @inject IConfiguration configuration
 
 <h2>Genus</h2>
@@ -39,7 +39,7 @@
             Options = GridOptionsModel.Default,
             Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
-            Links = new GridLinksModel("genus"),
+            Links = new GridLinksModel(PlantDataRoutes.Genus),
             UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.GenusGrid),
         };
         _viewModel.Options.AllowSorting = false;

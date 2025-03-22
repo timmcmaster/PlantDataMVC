@@ -2,14 +2,14 @@
 using PlantDataMVC.Api.Models.DataModels;
 using Genus = PlantData.Web.Blazor.UIModels.EditModels.Genus;
 using Plant = PlantData.Web.Blazor.UIModels.EditModels.Plant;
+using SeedBatch = PlantData.Web.Blazor.UIModels.EditModels.SeedBatch;
+using Site = PlantData.Web.Blazor.UIModels.EditModels.Site;
 //using PlantStock = PlantData.Web.Mvc.Models.EditModels.PlantStock;
 //using ProductPrice = PlantData.Web.Mvc.Models.EditModels.ProductPrice;
 //using ProductType = PlantData.Web.Mvc.Models.EditModels.ProductType;
 //using PriceListType = PlantData.Web.Mvc.Models.EditModels.PriceListType;
 //using SaleEvent = PlantData.Web.Mvc.Models.EditModels.SaleEvent;
-using SeedBatch = PlantData.Web.Blazor.UIModels.EditModels.SeedBatch;
 //using SeedTray = PlantData.Web.Mvc.Models.EditModels.SeedTray;
-//using Site = PlantData.Web.Mvc.Models.EditModels.Site;
 //using StocktakeHeader = PlantData.Web.Mvc.Models.EditModels.StocktakeHeader;
 //using Transaction = PlantData.Web.Mvc.Models.EditModels.Transaction;
 
@@ -31,11 +31,11 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigureGenusEditModels();
             ConfigurePlantEditModels();
             ConfigureSeedBatchEditModels();
+            ConfigureSiteEditModels();
             //ConfigureSeedTrayEditModels();
             //ConfigurePlantStockEditModels();
             //ConfigureProductTypeEditModels();
             //ConfigureTransactionEditModels();
-            //ConfigureSiteEditModels();
             //ConfigureSaleEventEditModels();
             //ConfigurePriceListTypeEditModels();
             //ConfigureProductPriceEditModels();
@@ -46,7 +46,6 @@ namespace PlantData.Web.Blazor.Mappers
 
         private void ConfigureGenusEditModels()
         {
-            // Plant
             CreateMap<Genus.GenusCreateEditModel, CreateUpdateGenusDataModel>()
                 .ForMember(dm => dm.LatinName, opt => opt.MapFrom(uio => uio.LatinName));
 
@@ -66,7 +65,6 @@ namespace PlantData.Web.Blazor.Mappers
 
         private void ConfigurePlantEditModels()
         {
-            // Plant
             CreateMap<Plant.PlantCreateEditModel, CreateUpdateSpeciesDataModel>()
                .ForMember(dm => dm.CommonName, opt => opt.MapFrom(uio => uio.CommonName))
                .ForMember(dm => dm.Description, opt => opt.MapFrom(uio => uio.Description))
@@ -98,7 +96,6 @@ namespace PlantData.Web.Blazor.Mappers
 
         private void ConfigureSeedBatchEditModels()
         {
-            // SeedBatchDTO
             CreateMap<SeedBatch.SeedBatchCreateEditModel, CreateUpdateSeedBatchDataModel>()
                 .ForMember(dm => dm.Location, opt => opt.MapFrom(uio => uio.Location))
                 .ForMember(dm => dm.Notes, opt => opt.MapFrom(uio => uio.Notes))
@@ -124,30 +121,29 @@ namespace PlantData.Web.Blazor.Mappers
                     .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
         }
 
-        //private void ConfigureSiteEditModels()
-        //{
-        //    // SiteDTO
-        //    CreateMap<Site.SiteCreateEditModel, CreateUpdateSiteDataModel>()
-        //        .ForMember(dm => dm.Latitude, opt => opt.MapFrom(uio => uio.Latitude))
-        //        .ForMember(dm => dm.Longitude, opt => opt.MapFrom(uio => uio.Longitude))
-        //        .ForMember(dm => dm.SiteName, opt => opt.MapFrom(uio => uio.SiteName))
-        //        .ForMember(dm => dm.Suburb, opt => opt.MapFrom(uio => uio.Suburb));
+        private void ConfigureSiteEditModels()
+        {
+            CreateMap<Site.SiteCreateEditModel, CreateUpdateSiteDataModel>()
+                .ForMember(dm => dm.Latitude, opt => opt.MapFrom(uio => uio.Latitude))
+                .ForMember(dm => dm.Longitude, opt => opt.MapFrom(uio => uio.Longitude))
+                .ForMember(dm => dm.SiteName, opt => opt.MapFrom(uio => uio.SiteName))
+                .ForMember(dm => dm.Suburb, opt => opt.MapFrom(uio => uio.Suburb));
 
 
-        //    CreateMap<Site.SiteDestroyEditModel, SiteDataModel>()
-        //        .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
-        //        .ForMember(dm => dm.SiteName, opt => opt.Ignore())
-        //        .ForMember(dm => dm.Suburb, opt => opt.Ignore())
-        //        .ForMember(dm => dm.Latitude, opt => opt.Ignore())
-        //        .ForMember(dm => dm.Longitude, opt => opt.Ignore())
-        //        .ForMember(dm => dm.SeedBatches, opt => opt.Ignore());
+            CreateMap<Site.SiteDestroyEditModel, SiteDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dm => dm.SiteName, opt => opt.Ignore())
+                .ForMember(dm => dm.Suburb, opt => opt.Ignore())
+                .ForMember(dm => dm.Latitude, opt => opt.Ignore())
+                .ForMember(dm => dm.Longitude, opt => opt.Ignore())
+                .ForMember(dm => dm.SeedBatches, opt => opt.Ignore());
 
-        //    CreateMap<Site.SiteUpdateEditModel, CreateUpdateSiteDataModel>()
-        //        .ForMember(dm => dm.Latitude, opt => opt.MapFrom(uio => uio.Latitude))
-        //        .ForMember(dm => dm.Longitude, opt => opt.MapFrom(uio => uio.Longitude))
-        //        .ForMember(dm => dm.SiteName, opt => opt.MapFrom(uio => uio.SiteName))
-        //        .ForMember(dm => dm.Suburb, opt => opt.MapFrom(uio => uio.Suburb));
-        //}
+            CreateMap<Site.SiteUpdateEditModel, CreateUpdateSiteDataModel>()
+                .ForMember(dm => dm.Latitude, opt => opt.MapFrom(uio => uio.Latitude))
+                .ForMember(dm => dm.Longitude, opt => opt.MapFrom(uio => uio.Longitude))
+                .ForMember(dm => dm.SiteName, opt => opt.MapFrom(uio => uio.SiteName))
+                .ForMember(dm => dm.Suburb, opt => opt.MapFrom(uio => uio.Suburb));
+        }
 
         //private void ConfigurePlantStockEditModels()
         //{

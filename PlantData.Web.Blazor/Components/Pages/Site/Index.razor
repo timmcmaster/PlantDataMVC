@@ -1,0 +1,52 @@
+﻿@using Microsoft.Extensions.Configuration
+@using PlantData.Web.Blazor.DisplayHelpers
+@using PlantData.Web.Blazor.Features.Genus
+@using PlantData.Web.Blazor.SharedComponents.Grid
+@using PlantData.Web.Blazor.SharedComponents.Paging
+@using PlantData.Web.Blazor.UIModels.Constants
+@using PlantData.Web.Blazor.UIModels.ViewModels.Site
+@using System.ComponentModel
+@using PlantDataMVC.Api.Models.DataModels
+
+@attribute [Route(PlantDataRoutes.Site)]
+
+@inject IConfiguration configuration
+
+
+<h2>Site List</h2>
+<p>This is a list of all Sites</p>
+
+<GenericGrid GridType="@GridType" TGridItem=SiteGridModel ViewModel="_viewModel">
+    <GenericGridColumns>
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Id))" FieldName="@nameof(SiteGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.SiteName))" FieldName="@nameof(SiteGridModel.SiteName)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Suburb))" FieldName="@nameof(SiteGridModel.Suburb)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Latitude))" FieldName="@nameof(SiteGridModel.Latitude)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Longitude))" FieldName="@nameof(SiteGridModel.Longitude)" />
+    </GenericGridColumns>
+</GenericGrid>
+
+
+@code 
+{
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;
+
+    private BaseGridModel<SiteGridModel> _viewModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var pageSize = 20;
+        var pageNumber = 1;
+        var itemCount = 100; // Hack: should be from url
+
+        _viewModel = new BaseGridModel<SiteGridModel>()
+        {
+            Options = GridOptionsModel.Default,
+            Paging = new PagingModel(pageSize, pageNumber, itemCount),
+            Sorting = new GridSortingModel(),
+            Links = new GridLinksModel(PlantDataRoutes.Site),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.SiteGrid),
+    };
+        _viewModel.Options.AllowSorting = false;
+    }
+}
