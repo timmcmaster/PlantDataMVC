@@ -4,12 +4,13 @@ using Genus = PlantData.Web.Blazor.UIModels.EditModels.Genus;
 using Plant = PlantData.Web.Blazor.UIModels.EditModels.Plant;
 using SeedBatch = PlantData.Web.Blazor.UIModels.EditModels.SeedBatch;
 using Site = PlantData.Web.Blazor.UIModels.EditModels.Site;
+using SeedTray = PlantData.Web.Blazor.UIModels.EditModels.SeedTray;
+using ProductType = PlantData.Web.Blazor.UIModels.EditModels.ProductType;
+
 //using PlantStock = PlantData.Web.Mvc.Models.EditModels.PlantStock;
 //using ProductPrice = PlantData.Web.Mvc.Models.EditModels.ProductPrice;
-//using ProductType = PlantData.Web.Mvc.Models.EditModels.ProductType;
 //using PriceListType = PlantData.Web.Mvc.Models.EditModels.PriceListType;
 //using SaleEvent = PlantData.Web.Mvc.Models.EditModels.SaleEvent;
-//using SeedTray = PlantData.Web.Mvc.Models.EditModels.SeedTray;
 //using StocktakeHeader = PlantData.Web.Mvc.Models.EditModels.StocktakeHeader;
 //using Transaction = PlantData.Web.Mvc.Models.EditModels.Transaction;
 
@@ -32,9 +33,9 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigurePlantEditModels();
             ConfigureSeedBatchEditModels();
             ConfigureSiteEditModels();
-            //ConfigureSeedTrayEditModels();
+            ConfigureSeedTrayEditModels();
+            ConfigureProductTypeEditModels();
             //ConfigurePlantStockEditModels();
-            //ConfigureProductTypeEditModels();
             //ConfigureTransactionEditModels();
             //ConfigureSaleEventEditModels();
             //ConfigurePriceListTypeEditModels();
@@ -145,6 +146,29 @@ namespace PlantData.Web.Blazor.Mappers
                 .ForMember(dm => dm.Suburb, opt => opt.MapFrom(uio => uio.Suburb));
         }
 
+        private void ConfigureSeedTrayEditModels()
+        {
+            CreateMap<SeedTray.SeedTrayCreateEditModel, CreateUpdateSeedTrayDataModel>()
+                .ForMember(dm => dm.DateSown, opt => opt.MapFrom(uio => uio.DateSown))
+                .ForMember(dm => dm.SeedBatchId, opt => opt.MapFrom(uio => uio.SeedBatchId))
+                .ForMember(dm => dm.ThrownOut, opt => opt.MapFrom(uio => uio.ThrownOut))
+                .ForMember(dm => dm.Treatment, opt => opt.MapFrom(uio => uio.Treatment));
+
+            CreateMap<SeedTray.SeedTrayDestroyEditModel, SeedTrayDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dm => dm.SeedBatchId, opt => opt.Ignore())
+                .ForMember(dm => dm.DateSown, opt => opt.Ignore())
+                .ForMember(dm => dm.Treatment, opt => opt.Ignore())
+                .ForMember(dm => dm.ThrownOut, opt => opt.Ignore())
+                .ForMember(dm => dm.JournalEntries, opt => opt.Ignore());
+
+            CreateMap<SeedTray.SeedTrayUpdateEditModel, CreateUpdateSeedTrayDataModel>()
+                    .ForMember(dm => dm.DateSown, opt => opt.MapFrom(uio => uio.DateSown))
+                    .ForMember(dm => dm.SeedBatchId, opt => opt.MapFrom(uio => uio.SeedBatchId))
+                    .ForMember(dm => dm.ThrownOut, opt => opt.MapFrom(uio => uio.ThrownOut))
+                    .ForMember(dm => dm.Treatment, opt => opt.MapFrom(uio => uio.Treatment));
+        }
+
         //private void ConfigurePlantStockEditModels()
         //{
         //    // PlantStockDTO
@@ -204,29 +228,6 @@ namespace PlantData.Web.Blazor.Mappers
         //        .ForMember(dm => dm.TransactionDate, opt => opt.MapFrom(uio => uio.TransactionDate));
         //}
 
-        //private void ConfigureSeedTrayEditModels()
-        //{
-        //    // SeedTray
-        //    CreateMap<SeedTray.SeedTrayCreateEditModel, CreateUpdateSeedTrayDataModel>()
-        //        .ForMember(dm => dm.DateSown, opt => opt.MapFrom(uio => uio.DateSown))
-        //        .ForMember(dm => dm.SeedBatchId, opt => opt.MapFrom(uio => uio.SeedBatchId))
-        //        .ForMember(dm => dm.ThrownOut, opt => opt.MapFrom(uio => uio.ThrownOut))
-        //        .ForMember(dm => dm.Treatment, opt => opt.MapFrom(uio => uio.Treatment));
-
-        //    CreateMap<SeedTray.SeedTrayDestroyEditModel, SeedTrayDataModel>()
-        //        .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
-        //        .ForMember(dm => dm.SeedBatchId, opt => opt.Ignore())
-        //        .ForMember(dm => dm.DateSown, opt => opt.Ignore())
-        //        .ForMember(dm => dm.Treatment, opt => opt.Ignore())
-        //        .ForMember(dm => dm.ThrownOut, opt => opt.Ignore())
-        //        .ForMember(dm => dm.JournalEntries, opt => opt.Ignore());
-
-        //    CreateMap<SeedTray.SeedTrayUpdateEditModel, CreateUpdateSeedTrayDataModel>()
-        //            .ForMember(dm => dm.DateSown, opt => opt.MapFrom(uio => uio.DateSown))
-        //            .ForMember(dm => dm.SeedBatchId, opt => opt.MapFrom(uio => uio.SeedBatchId))
-        //            .ForMember(dm => dm.ThrownOut, opt => opt.MapFrom(uio => uio.ThrownOut))
-        //            .ForMember(dm => dm.Treatment, opt => opt.MapFrom(uio => uio.Treatment));
-        //}
 
         //private void ConfigureSaleEventEditModels()
         //{
@@ -249,19 +250,19 @@ namespace PlantData.Web.Blazor.Mappers
         //        .ForMember(dm => dm.Location, opt => opt.MapFrom(uio => uio.Location));
         //}
 
-        //private void ConfigureProductTypeEditModels()
-        //{
-        //    // ProductType
-        //    CreateMap<ProductType.ProductTypeCreateEditModel, CreateUpdateProductTypeDataModel>()
-        //        .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name));
+        private void ConfigureProductTypeEditModels()
+        {
+            // ProductType
+            CreateMap<ProductType.ProductTypeCreateEditModel, CreateUpdateProductTypeDataModel>()
+                .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name));
 
-        //    CreateMap<ProductType.ProductTypeDestroyEditModel, ProductTypeDataModel>()
-        //        .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
-        //        .ForMember(dm => dm.Name, opt => opt.Ignore());
+            CreateMap<ProductType.ProductTypeDestroyEditModel, ProductTypeDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dm => dm.Name, opt => opt.Ignore());
 
-        //    CreateMap<ProductType.ProductTypeUpdateEditModel, CreateUpdateProductTypeDataModel>()
-        //        .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name));
-        //}
+            CreateMap<ProductType.ProductTypeUpdateEditModel, CreateUpdateProductTypeDataModel>()
+                .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name));
+        }
 
         //private void ConfigurePriceListTypeEditModels()
         //{

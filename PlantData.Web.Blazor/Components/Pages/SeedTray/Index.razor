@@ -1,0 +1,61 @@
+﻿@using Microsoft.Extensions.Configuration
+@using PlantData.Web.Blazor.DisplayHelpers
+@using PlantData.Web.Blazor.Features.Genus
+@using PlantData.Web.Blazor.SharedComponents.Grid
+@using PlantData.Web.Blazor.SharedComponents.Paging
+@using PlantData.Web.Blazor.UIModels.Constants
+@using PlantData.Web.Blazor.UIModels.ViewModels.SeedTray
+@using System.ComponentModel
+@using PlantDataMVC.Api.Models.DataModels
+
+@attribute [Route(PlantDataRoutes.SeedTray)]
+
+@inject IConfiguration configuration
+
+
+<h2>Seed Batch List</h2>
+<p>This is a list of all Seed Batches</p>
+
+<GenericGrid GridType="@GridType" TGridItem=SeedTrayGridModel ViewModel="_viewModel">
+    <GenericGridColumns>
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.Id))" FieldName="@nameof(SeedTrayGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SeedBatchId))" FieldName="@nameof(SeedTrayGridModel.SeedBatchId)" />
+        <GenericGridColumn TGridItem=SeedTrayGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedTrayGridModel.SpeciesBinomial)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.DateSown))" FieldName="@nameof(SeedTrayGridModel.DateSown)" Format="dd/MM/yyyy" />
+    </GenericGridColumns>
+</GenericGrid>
+
+
+@code 
+{
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;
+
+    private BaseGridModel<SeedTrayGridModel> _viewModel;
+
+    private ForeignColumnModel<SeedBatchDataModel> _fcmSeedBatch;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var pageSize = 20;
+        var pageNumber = 1;
+        var itemCount = 100; // Hack: should be from url
+
+        _viewModel = new BaseGridModel<SeedTrayGridModel>()
+        {
+            Options = GridOptionsModel.Default,
+            Paging = new PagingModel(pageSize, pageNumber, itemCount),
+            Sorting = new GridSortingModel(),
+            Links = new GridLinksModel(PlantDataRoutes.SeedTray),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.SeedTrayGrid),
+    };
+        _viewModel.Options.AllowSorting = false;
+
+        // Define foreign column info for SpeciesId 
+        // TODO:, somehow get speciesbinomial info
+        _fcmSeedBatch = new ForeignColumnModel<SeedBatchDataModel>(
+            foreignKeyField: x => nameof(x.Id),
+            foreignKeyValue: x => nameof(x.SpeciesName),
+            GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.SeedBatchGrid, PlantDataMvcAppControllers.DataRoutes.List)
+        );
+    }
+}

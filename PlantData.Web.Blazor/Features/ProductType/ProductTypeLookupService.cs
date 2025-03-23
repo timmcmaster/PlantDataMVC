@@ -3,13 +3,13 @@ using MediatR;
 using PlantData.Web.Blazor.Features.Common.List;
 using PlantDataMVC.Api.Models.DataModels;
 
-namespace PlantData.Web.Blazor.Services
+namespace PlantData.Web.Blazor.Features.ProductType
 {
-    public interface IProductTypeLookupService : ILookupService<ProductTypeDataModel>
+    public interface IProductTypeLookupService : ILookupServiceAsync<ProductTypeDataModel>
     {
     }
 
-    public class ProductTypeLookupService : LookupService<ProductTypeDataModel>, IProductTypeLookupService
+    public class ProductTypeLookupService : LookupServiceAsync<ProductTypeDataModel>, IProductTypeLookupService
     {
         public ProductTypeLookupService(IMediator mediator) : base(mediator)
         {

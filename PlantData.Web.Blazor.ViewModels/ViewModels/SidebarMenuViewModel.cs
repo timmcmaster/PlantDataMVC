@@ -47,8 +47,8 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels
                 new MenuItemViewModel("sfInv", "Inventory", null, string.Empty, "bi-boxes"),
                 new MenuItemViewModel("sfInvSeeds", "Seeds", "sfInv",  PlantDataRoutes.SeedBatch),
                 new MenuItemViewModel("sfInvSites", "Seed Collection Sites", "sfInv",  PlantDataRoutes.Site),
+                new MenuItemViewModel("sfInvTrays", "Seed Trays", "sfInv",  PlantDataRoutes.SeedTray),
                 //new MenuItemViewModel("sfInvStocktakeHeaders", "Seed Collection Sites", "sfInv",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.StocktakeHeader) ?? string.Empty),
-                //new MenuItemViewModel("sfInvTrays", "Seed Trays", "sfInv",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.SeedTray) ?? string.Empty),
                 //new MenuItemViewModel("sfInvStock", "Plant Stock (static)", "sfInv",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.PlantStock) ?? string.Empty),
                 //new MenuItemViewModel("sfInvTransactions", "Plant Stock (from Transactions)", "sfInv",  _linkGen.GetPathByAction("StockSummary", PlantDataMvcAppControllers.Transaction) ?? string.Empty),
                 //new MenuItemViewModel("sfInvStocktake", "Plant Stocktake", "sfInv",  _linkGen.GetPathByAction("Stocktake", PlantDataMvcAppControllers.Transaction) ?? string.Empty),
@@ -58,7 +58,7 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels
                 //new MenuItemViewModel("sfSalesEvents", "Sale Events", "sfSales",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.SaleEvent) ?? string.Empty),
 
                 new MenuItemViewModel("sfProd", "Products and Pricing", null, string.Empty, "bi-currency-dollar"),
-                //new MenuItemViewModel("sfProdProducts", "Products", "sfProd",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.ProductType) ?? string.Empty),
+                new MenuItemViewModel("sfProdProducts", "Products", "sfProd",  PlantDataRoutes.ProductType),
                 //new MenuItemViewModel("sfProdPricelists", "Price Lists", "sfProd",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.PriceListType) ?? string.Empty),
 
                 new MenuItemViewModel("sfPrint", "Labels", null, string.Empty, "bi-stickies"),

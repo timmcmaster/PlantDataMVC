@@ -5,14 +5,14 @@ using Genus = PlantData.Web.Blazor.UIModels.ViewModels.Genus;
 using Plant = PlantData.Web.Blazor.UIModels.ViewModels.Plant;
 using SeedBatch = PlantData.Web.Blazor.UIModels.ViewModels.SeedBatch;
 using Site = PlantData.Web.Blazor.UIModels.ViewModels.Site;
+using SeedTray = PlantData.Web.Blazor.UIModels.ViewModels.SeedTray;
+using ProductType = PlantData.Web.Blazor.UIModels.ViewModels.ProductType;
 //using Label = PlantData.Web.Mvc.Models.ViewModels.Label;
 //using PlantStock = PlantData.Web.Mvc.Models.ViewModels.PlantStock;
 //using PriceListType = PlantData.Web.Mvc.Models.ViewModels.PriceListType;
 //using ProductPrice = PlantData.Web.Mvc.Models.ViewModels.ProductPrice;
-//using ProductType = PlantData.Web.Mvc.Models.ViewModels.ProductType;
 //using SaleEvent = PlantData.Web.Mvc.Models.ViewModels.SaleEvent;
 //using SaleEventStock = PlantData.Web.Mvc.Models.ViewModels.SaleEventStock;
-//using SeedTray = PlantData.Web.Mvc.Models.ViewModels.SeedTray;
 //using StocktakeHeader = PlantData.Web.Mvc.Models.ViewModels.StocktakeHeader;
 //using Transaction = PlantData.Web.Mvc.Models.ViewModels.Transaction;
 
@@ -40,12 +40,12 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigurePlantViewModels();
             ConfigureSeedBatchViewModels();
             ConfigureSiteViewModels();
-            //ConfigureSeedTrayViewModels();
+            ConfigureSeedTrayViewModels();
+            ConfigureProductTypeViewModels();
             //ConfigurePlantStockViewModels();
             //ConfigureTransactionViewModels();
             //ConfigureSaleEventViewModels();
             //ConfigureSaleEventStockViewModels();
-            //ConfigureProductTypeViewModels();
             //ConfigurePriceListTypeViewModels();
             //ConfigureProductPriceViewModels();
             //ConfigureLabelViewModels();
@@ -93,6 +93,24 @@ namespace PlantData.Web.Blazor.Mappers
                 .ForMember(uio => uio.Longitude, opt => opt.MapFrom(dm => dm.Longitude))
                 .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dm => dm.SiteName))
                 .ForMember(uio => uio.Suburb, opt => opt.MapFrom(dm => dm.Suburb));
+        }
+
+        private void ConfigureSeedTrayViewModels()
+        {
+            CreateMap<SeedTrayDataModel, SeedTray.SeedTrayGridModel>()
+                .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
+                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.SeedBatchGenusName, dm.SeedBatchSpeciesName)))
+                .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
+                .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
+        }
+
+        private void ConfigureProductTypeViewModels()
+        {
+            CreateMap<ProductTypeDataModel, ProductType.ProductTypeGridModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
         }
 
         //private void ConfigurePlantStockViewModels()
@@ -211,53 +229,6 @@ namespace PlantData.Web.Blazor.Mappers
         //        .ForMember(uio => uio.IsStock, opt => opt.MapFrom(dm => true));
         //}
 
-        //private void ConfigureSeedTrayViewModels()
-        //{
-        //    // SeedTray
-        //    CreateMap<SeedTrayDataModel, SeedTray.SeedTrayDeleteViewModel>()
-        //        .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
-        //        .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.SeedBatchGenusName, dm.SeedBatchSpeciesName)))
-        //        .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
-        //        .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
-
-        //    CreateMap<SeedTrayDataModel, SeedTray.SeedTrayEditViewModel>()
-        //        .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
-        //        .ForMember(uio => uio.SeedBatchSpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.SeedBatchGenusName, dm.SeedBatchSpeciesName)))
-        //        .ForMember(uio => uio.SeedBatchLocation, opt => opt.MapFrom(dm => dm.SeedBatchLocation))
-        //        .ForMember(uio => uio.SeedBatchDateCollected, opt => opt.MapFrom(dm => dm.SeedBatchDateCollected))
-        //        .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
-        //        .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
-
-        //    CreateMap<SeedTrayDataModel, SeedTray.SeedTrayListViewModel>()
-        //        .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
-        //        .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.SeedBatchGenusName, dm.SeedBatchSpeciesName)))
-        //        .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
-        //        .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
-
-        //    CreateMap<SeedTrayDataModel, SeedTray.SeedTrayNewViewModel>()
-        //        .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
-        //        .ForMember(uio => uio.SeedBatchId, opt => opt.Ignore())  // don't need to map seed batch up for new seed tray (TODO: Check this)
-        //        .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
-        //        .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
-
-        //    CreateMap<SeedTrayDataModel, SeedTray.SeedTrayShowViewModel>()
-        //        .ForMember(uio => uio.DateSown, opt => opt.MapFrom(dm => dm.DateSown))
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
-        //        .ForMember(uio => uio.SeedBatchId, opt => opt.MapFrom(dm => dm.SeedBatchId))
-        //        .ForMember(uio => uio.SeedBatchSpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.SeedBatchGenusName, dm.SeedBatchSpeciesName)))
-        //        .ForMember(uio => uio.SeedBatchLocation, opt => opt.MapFrom(dm => dm.SeedBatchLocation))
-        //        .ForMember(uio => uio.SeedBatchDateCollected, opt => opt.MapFrom(dm => dm.SeedBatchDateCollected))
-        //        .ForMember(uio => uio.ThrownOut, opt => opt.MapFrom(dm => dm.ThrownOut))
-        //        .ForMember(uio => uio.Treatment, opt => opt.MapFrom(dm => dm.Treatment));
-        //}
-
         //private void ConfigureSaleEventViewModels()
         //{
         //    // SaleEvent
@@ -309,28 +280,6 @@ namespace PlantData.Web.Blazor.Mappers
         //        .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
         //        .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity));
 
-        //}
-        //private void ConfigureProductTypeViewModels()
-        //{
-        //    // ProductType
-        //    CreateMap<ProductTypeDataModel, ProductType.ProductTypeDeleteViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
-
-        //    CreateMap<ProductTypeDataModel, ProductType.ProductTypeEditViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
-
-        //    CreateMap<ProductTypeDataModel, ProductType.ProductTypeListViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
-
-        //    CreateMap<ProductTypeDataModel, ProductType.ProductTypeNewViewModel>()
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
-
-        //    CreateMap<ProductTypeDataModel, ProductType.ProductTypeShowViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
         //}
 
         //private void ConfigurePriceListTypeViewModels()

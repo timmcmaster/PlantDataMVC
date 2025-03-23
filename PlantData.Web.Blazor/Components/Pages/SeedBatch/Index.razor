@@ -19,13 +19,13 @@
 <GenericGrid GridType="@GridType" TGridItem=SeedBatchGridModel ViewModel="_viewModel">
     <GenericGridColumns>
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.Id))" FieldName="@nameof(SeedBatchGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesId))" FieldName="@nameof(SeedBatchGridModel.SpeciesId)" IsVisible="false"/>
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesId))" FieldName="@nameof(SeedBatchGridModel.SpeciesId)" />
+        <GenericGridForeignColumn TGridItem=SeedBatchGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedBatchGridModel.SpeciesId)"
+                                  TForeignDataItem=SpeciesDataModel ForeignKeyField="@_fcmSpecies.ForeignKeyField" ForeignKeyValue="@_fcmSpecies.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSpecies.ForeignDataUrl" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.DateCollected))" FieldName="@nameof(SeedBatchGridModel.DateCollected)" Format="dd/MM/yyyy" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteId))" FieldName="@nameof(SeedBatchGridModel.SiteId)" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteName))" FieldName="@nameof(SeedBatchGridModel.SiteName)" />
         <GenericGridForeignColumn TGridItem=SeedBatchGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteName))" FieldName="@nameof(SeedBatchGridModel.SiteId)"
                                   TForeignDataItem=SiteDataModel ForeignKeyField="@_fcmSite.ForeignKeyField" ForeignKeyValue="@_fcmSite.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSite.ForeignDataUrl" />
-
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.Location))" FieldName="@nameof(SeedBatchGridModel.Location)" />
     </GenericGridColumns>
 </GenericGrid>
@@ -38,6 +38,7 @@
     private BaseGridModel<SeedBatchGridModel> _viewModel;
 
     private ForeignColumnModel<SiteDataModel> _fcmSite;
+    private ForeignColumnModel<SpeciesDataModel> _fcmSpecies;
 
     protected override async Task OnInitializedAsync()
     {
@@ -55,12 +56,13 @@
     };
         _viewModel.Options.AllowSorting = false;
 
-        // TODO: Define foreign column info for SpeciesId, somehow get speciesbinomial info
-        // _fcmSpecies = new ForeignColumnModel<pla>(
-        //     foreignKeyField: x => nameof(x.Id),
-        //     foreignKeyValue: x => nameof(x.b),
-        //     GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.PlantGrid, PlantDataMvcAppControllers.DataRoutes.List)
-        // );
+        // Define foreign column info for SpeciesId 
+        // TODO:, somehow get speciesbinomial info
+        _fcmSpecies = new ForeignColumnModel<SpeciesDataModel>(
+            foreignKeyField: x => nameof(x.Id),
+            foreignKeyValue: x => nameof(x.SpecificName),
+            GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.PlantGrid, PlantDataMvcAppControllers.DataRoutes.List)
+        );
 
         // Define foreign column info for SiteId
         _fcmSite = new ForeignColumnModel<SiteDataModel>(
