@@ -8,6 +8,7 @@
         public const string Site = "/site";
         public const string SeedTray = "/seedtray";
         public const string ProductType = "/productType";
+        public const string SaleEvent = "/saleEvent";
 
         //public const string Header = "Header";
         //public const string Home = "Home";
@@ -15,7 +16,6 @@
         //public const string PlantStock = "PlantStock";
         //public const string PriceListType = "PriceListType";
         //public const string ProductPrice = "ProductPrice";
-        //public const string SaleEvent = "SaleEvent";
         //public const string Transaction = "Transaction";
         //public const string Label = "Label";
         //public const string StocktakeHeader = "StocktakeHeader";

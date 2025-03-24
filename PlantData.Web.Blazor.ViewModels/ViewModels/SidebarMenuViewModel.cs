@@ -55,7 +55,7 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels
                 //new MenuItemViewModel("sfInvStocktakeSheets", "Stocktake Sheets", "sfInv",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.StocktakeHeader) ?? string.Empty),
 
                 new MenuItemViewModel("sfSales", "Sales", null, string.Empty, "bi-calendar-fill"),
-                //new MenuItemViewModel("sfSalesEvents", "Sale Events", "sfSales",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.SaleEvent) ?? string.Empty),
+                new MenuItemViewModel("sfSalesEvents", "Sale Events", "sfSales",  PlantDataRoutes.SaleEvent),
 
                 new MenuItemViewModel("sfProd", "Products and Pricing", null, string.Empty, "bi-currency-dollar"),
                 new MenuItemViewModel("sfProdProducts", "Products", "sfProd",  PlantDataRoutes.ProductType),

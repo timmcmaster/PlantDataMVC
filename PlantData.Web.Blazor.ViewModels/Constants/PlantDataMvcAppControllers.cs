@@ -9,8 +9,8 @@
         public const string SiteGrid = "SiteGrid";
         public const string SeedTrayGrid = "SeedTrayGrid";
         public const string ProductTypeGrid = "ProductTypeGrid";
+        public const string SaleEventGrid = "SaleEventGrid";
 
-        //public const string SaleEventGrid = "SaleEventGrid";
         //public const string PlantStockGrid = "PlantStockGrid";
         //public const string ProductPriceGrid = "ProductPriceGrid";
         //public const string PriceListTypeGrid = "PriceListTypeGrid";

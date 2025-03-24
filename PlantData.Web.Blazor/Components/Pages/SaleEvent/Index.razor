@@ -1,0 +1,51 @@
+﻿@using Microsoft.Extensions.Configuration
+@using PlantData.Web.Blazor.DisplayHelpers
+@using PlantData.Web.Blazor.Features.Genus
+@using PlantData.Web.Blazor.SharedComponents.Grid
+@using PlantData.Web.Blazor.SharedComponents.Paging
+@using PlantData.Web.Blazor.UIModels.Constants
+@using PlantData.Web.Blazor.UIModels.ViewModels.SaleEvent
+@using System.ComponentModel
+@using PlantDataMVC.Api.Models.DataModels
+
+@attribute [Route(PlantDataRoutes.SaleEvent)]
+
+@inject IConfiguration configuration
+
+
+<h2>Sale Event List</h2>
+<p>This is a list of all Sale Events</p>
+
+<GenericGrid GridType="@GridType" TGridItem=SaleEventGridModel ViewModel="_viewModel">
+    <GenericGridColumns>
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SaleEventGridModel>(x => x.Id))" FieldName="@nameof(SaleEventGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SaleEventGridModel>(x => x.Name))" FieldName="@nameof(SaleEventGridModel.Name)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SaleEventGridModel>(x => x.SaleDate))" FieldName="@nameof(SaleEventGridModel.SaleDate)" Format="dd/MM/yyyy" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SaleEventGridModel>(x => x.Location))" FieldName="@nameof(SaleEventGridModel.Location)" />
+    </GenericGridColumns>
+</GenericGrid>
+
+
+@code 
+{
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;
+
+    private BaseGridModel<SaleEventGridModel> _viewModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var pageSize = 20;
+        var pageNumber = 1;
+        var itemCount = 100; // Hack: should be from url
+
+        _viewModel = new BaseGridModel<SaleEventGridModel>()
+        {
+            Options = GridOptionsModel.Default,
+            Paging = new PagingModel(pageSize, pageNumber, itemCount),
+            Sorting = new GridSortingModel(),
+            Links = new GridLinksModel(PlantDataRoutes.SaleEvent),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.SaleEventGrid),
+        };
+        _viewModel.Options.AllowSorting = false;
+    }
+}

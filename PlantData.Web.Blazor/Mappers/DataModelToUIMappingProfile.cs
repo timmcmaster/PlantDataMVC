@@ -7,11 +7,12 @@ using SeedBatch = PlantData.Web.Blazor.UIModels.ViewModels.SeedBatch;
 using Site = PlantData.Web.Blazor.UIModels.ViewModels.Site;
 using SeedTray = PlantData.Web.Blazor.UIModels.ViewModels.SeedTray;
 using ProductType = PlantData.Web.Blazor.UIModels.ViewModels.ProductType;
+using SaleEvent = PlantData.Web.Blazor.UIModels.ViewModels.SaleEvent;
 //using Label = PlantData.Web.Mvc.Models.ViewModels.Label;
 //using PlantStock = PlantData.Web.Mvc.Models.ViewModels.PlantStock;
 //using PriceListType = PlantData.Web.Mvc.Models.ViewModels.PriceListType;
 //using ProductPrice = PlantData.Web.Mvc.Models.ViewModels.ProductPrice;
-//using SaleEvent = PlantData.Web.Mvc.Models.ViewModels.SaleEvent;
+
 //using SaleEventStock = PlantData.Web.Mvc.Models.ViewModels.SaleEventStock;
 //using StocktakeHeader = PlantData.Web.Mvc.Models.ViewModels.StocktakeHeader;
 //using Transaction = PlantData.Web.Mvc.Models.ViewModels.Transaction;
@@ -42,9 +43,9 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigureSiteViewModels();
             ConfigureSeedTrayViewModels();
             ConfigureProductTypeViewModels();
+            ConfigureSaleEventViewModels();
             //ConfigurePlantStockViewModels();
             //ConfigureTransactionViewModels();
-            //ConfigureSaleEventViewModels();
             //ConfigureSaleEventStockViewModels();
             //ConfigurePriceListTypeViewModels();
             //ConfigureProductPriceViewModels();
@@ -111,6 +112,15 @@ namespace PlantData.Web.Blazor.Mappers
             CreateMap<ProductTypeDataModel, ProductType.ProductTypeGridModel>()
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
+        }
+
+        private void ConfigureSaleEventViewModels()
+        {
+            CreateMap<SaleEventDataModel, SaleEvent.SaleEventGridModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
+                .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dm => dm.SaleDate))
+                .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location));
         }
 
         //private void ConfigurePlantStockViewModels()
@@ -227,46 +237,6 @@ namespace PlantData.Web.Blazor.Mappers
         //        .ForMember(uio => uio.Discrepancy, opt => opt.MapFrom(dm => 0))
         //        .ForMember(uio => uio.Reason, opt => opt.MapFrom(dm => string.Empty))
         //        .ForMember(uio => uio.IsStock, opt => opt.MapFrom(dm => true));
-        //}
-
-        //private void ConfigureSaleEventViewModels()
-        //{
-        //    // SaleEvent
-        //    CreateMap<SaleEventDataModel, SaleEvent.SaleEventDeleteViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
-        //        .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dm => dm.SaleDate))
-        //        .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location));
-
-        //    CreateMap<SaleEventDataModel, SaleEvent.SaleEventEditViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
-        //        .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dm => dm.SaleDate))
-        //        .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location));
-
-        //    CreateMap<SaleEventDataModel, SaleEvent.SaleEventListViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
-        //        .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dm => dm.SaleDate))
-        //        .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location));
-
-        //    CreateMap<SaleEventDataModel, SaleEvent.SaleEventNewViewModel>()
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
-        //        .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dm => dm.SaleDate))
-        //        .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location));
-
-        //    CreateMap<SaleEventDataModel, SaleEvent.SaleEventShowViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
-        //        .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dm => dm.SaleDate))
-        //        .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location));
-
-        //    CreateMap<SaleEventDataModel, SaleEvent.SaleEventDetailsViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
-        //        .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dm => dm.SaleDate))
-        //        .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location))
-        //        .ForMember(uio => uio.SaleEventStocks, opt => opt.MapFrom(dm => dm.SaleEventStocks));
         //}
 
         //private void ConfigureSaleEventStockViewModels()
