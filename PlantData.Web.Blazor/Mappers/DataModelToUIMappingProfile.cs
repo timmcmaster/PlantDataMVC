@@ -8,11 +8,11 @@ using Site = PlantData.Web.Blazor.UIModels.ViewModels.Site;
 using SeedTray = PlantData.Web.Blazor.UIModels.ViewModels.SeedTray;
 using ProductType = PlantData.Web.Blazor.UIModels.ViewModels.ProductType;
 using SaleEvent = PlantData.Web.Blazor.UIModels.ViewModels.SaleEvent;
-//using Label = PlantData.Web.Mvc.Models.ViewModels.Label;
+using Label = PlantData.Web.Blazor.UIModels.ViewModels.Label;
+
 //using PlantStock = PlantData.Web.Mvc.Models.ViewModels.PlantStock;
 //using PriceListType = PlantData.Web.Mvc.Models.ViewModels.PriceListType;
 //using ProductPrice = PlantData.Web.Mvc.Models.ViewModels.ProductPrice;
-
 //using SaleEventStock = PlantData.Web.Mvc.Models.ViewModels.SaleEventStock;
 //using StocktakeHeader = PlantData.Web.Mvc.Models.ViewModels.StocktakeHeader;
 //using Transaction = PlantData.Web.Mvc.Models.ViewModels.Transaction;
@@ -44,12 +44,12 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigureSeedTrayViewModels();
             ConfigureProductTypeViewModels();
             ConfigureSaleEventViewModels();
+            ConfigureLabelViewModels();
             //ConfigurePlantStockViewModels();
             //ConfigureTransactionViewModels();
             //ConfigureSaleEventStockViewModels();
             //ConfigurePriceListTypeViewModels();
             //ConfigureProductPriceViewModels();
-            //ConfigureLabelViewModels();
             //ConfigureStocktakeHeaderViewModels();
         }
 
@@ -121,6 +121,14 @@ namespace PlantData.Web.Blazor.Mappers
                 .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
                 .ForMember(uio => uio.SaleDate, opt => opt.MapFrom(dm => dm.SaleDate))
                 .ForMember(uio => uio.Location, opt => opt.MapFrom(dm => dm.Location));
+        }
+
+        private void ConfigureLabelViewModels()
+        {
+            CreateMap<SpeciesDataModel, Label.PlantLabelGridModel>()
+               .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.Id))
+               .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
+               .ForMember(uio => uio.LabelQuantity, opt => opt.MapFrom(dm => 0));
         }
 
         //private void ConfigurePlantStockViewModels()
@@ -334,15 +342,6 @@ namespace PlantData.Web.Blazor.Mappers
         //        .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
         //        .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price))
         //        .ForMember(uio => uio.BarcodeSKU, opt => opt.MapFrom(dm => dm.BarcodeSKU));
-        //}
-
-        //private void ConfigureLabelViewModels()
-        //{
-
-        //    CreateMap<SpeciesDataModel, Label.PlantLabelListViewModel>()
-        //       .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.Id))
-        //       .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
-        //       .ForMember(uio => uio.LabelQuantity, opt => opt.MapFrom(dm => 0));
         //}
 
         //private void ConfigureStocktakeHeaderViewModels()

@@ -9,6 +9,8 @@
         public const string SeedTray = "/seedtray";
         public const string ProductType = "/productType";
         public const string SaleEvent = "/saleEvent";
+        public const string PlantLabel = "/label/plant";
+        public const string BarcodeLabel = "/label/barcode";
 
         //public const string Header = "Header";
         //public const string Home = "Home";

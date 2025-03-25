@@ -62,8 +62,8 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels
                 //new MenuItemViewModel("sfProdPricelists", "Price Lists", "sfProd",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.PriceListType) ?? string.Empty),
 
                 new MenuItemViewModel("sfPrint", "Labels", null, string.Empty, "bi-stickies"),
-                //new MenuItemViewModel("sfPrintLabels", "Information Labels", "sfPrint", _linkGen.GetPathByAction("Plants", PlantDataMvcAppControllers.Label) ?? string.Empty),
-                //new MenuItemViewModel("sfPrintBarcodes", "Barcode Labels", "sfPrint", _linkGen.GetPathByAction("Barcodes", PlantDataMvcAppControllers.Label) ?? string.Empty)
+                new MenuItemViewModel("sfPrintLabels", "Information Labels", "sfPrint", PlantDataRoutes.PlantLabel),
+                new MenuItemViewModel("sfPrintBarcodes", "Barcode Labels", "sfPrint", PlantDataRoutes.BarcodeLabel)
             };
 
             Items = menuItems;
