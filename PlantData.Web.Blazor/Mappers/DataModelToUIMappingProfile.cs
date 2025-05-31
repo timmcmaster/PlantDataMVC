@@ -125,7 +125,7 @@ namespace PlantData.Web.Blazor.Mappers
 
         private void ConfigureLabelViewModels()
         {
-            CreateMap<SpeciesDataModel, Label.PlantLabelGridModel>()
+            CreateMap<SpeciesDataModel, Label.PlantLabelRequestGridModel>()
                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.Id))
                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
                .ForMember(uio => uio.LabelQuantity, opt => opt.MapFrom(dm => 0));

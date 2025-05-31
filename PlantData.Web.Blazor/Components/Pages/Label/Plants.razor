@@ -1,14 +1,48 @@
-﻿@model ListViewModelStatic<PlantData.Web.Mvc.Models.ViewModels.Label.PlantLabelListViewModel>
-@{
-    ViewBag.Title = "Plant Labels";
-}
-<h2>Plant Labels</h2>
-<div class="container-lg">
-    <form asp-controller=@PlantDataMvcAppControllers.Label asp-action="PlantsPrint">
+﻿@using Microsoft.Extensions.Configuration
+@using PlantData.Web.Blazor.DisplayHelpers
+@using PlantData.Web.Blazor.Features.Genus
+@using PlantData.Web.Blazor.SharedComponents.Grid
+@using PlantData.Web.Blazor.SharedComponents.Paging
+@using PlantData.Web.Blazor.UIModels.Constants
+@using PlantData.Web.Blazor.UIModels.ViewModels.Label
+@using System.ComponentModel
+@using PlantDataMVC.Api.Models.DataModels
 
-        @await Component.InvokeAsync("PlantLabelGrid", new { model = Model, gridOptions = Model.GridOptions })
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </form>
-</div>
+@attribute [Route(PlantDataRoutes.PlantLabel)]
+
+@inject IConfiguration configuration
+
+
+<h2>Plant Labels</h2>
+
+<GenericGrid GridType="@GridType" TGridItem=PlantLabelRequestGridModel ViewModel="_viewModel">
+    <GenericGridColumns>
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantLabelRequestGridModel>(x => x.SpeciesId))" FieldName="@nameof(PlantLabelRequestGridModel.SpeciesId)" IsPrimaryKey="true" IsVisible="false" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantLabelRequestGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(PlantLabelRequestGridModel.SpeciesBinomial)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantLabelRequestGridModel>(x => x.LabelQuantity))" FieldName="@nameof(PlantLabelRequestGridModel.LabelQuantity)" />
+    </GenericGridColumns>
+</GenericGrid>
+
+@code 
+{
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;
+
+    private BaseGridModel<PlantLabelRequestGridModel> _viewModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var pageSize = 20;
+        var pageNumber = 1;
+        var itemCount = 100; // Hack: should be from url
+
+        _viewModel = new BaseGridModel<PlantLabelRequestGridModel>()
+        {
+            Options = GridOptionsModel.Default,
+            Paging = new PagingModel(pageSize, pageNumber, itemCount),
+            Sorting = new GridSortingModel(),
+            Links = new GridLinksModel(PlantDataRoutes.PlantLabel),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.PlantLabelRequestGrid),
+        };
+        _viewModel.Options.AllowSorting = false;
+    }
+}

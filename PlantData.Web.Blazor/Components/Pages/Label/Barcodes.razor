@@ -1,0 +1,85 @@
+﻿@using Microsoft.Extensions.Configuration
+@using PlantData.Web.Blazor.DisplayHelpers
+@using PlantData.Web.Blazor.SharedComponents.Paging
+@using PlantData.Web.Blazor.UIModels.Constants
+@using PlantData.Web.Blazor.SharedComponents.Grid
+@using PlantData.Web.Blazor.UIModels.ViewModels.Label
+
+@* @inject PlantData.Web.Blazor.Services.IBarcodeLayoutLookupService layoutLookup *@
+
+@attribute [Route(PlantDataRoutes.BarcodeLabel)]
+
+@inject IConfiguration configuration
+
+@* @{
+    ViewBag.Title = "Barcode Labels";
+    var labelLayouts = layoutLookup.GetData()
+                                   .OrderByDescending(x => x.IsDefault)
+                                   .ThenBy(x => x.LayoutName)
+                                   .Select(x => new { LayoutName = x.LayoutName, LayoutDescription = x.LayoutDescription });
+    var selectedLayout = labelLayouts.FirstOrDefault();
+} *@
+
+<h2>Barcode Labels</h2>
+@* <div class="container-lg">
+    <form asp-controller=@PlantDataMvcAppControllers.Label asp-action="BarcodesPrint">
+        <fieldset>
+            <legend>Barcode Labels</legend>
+
+            <div class="row mb-3">
+                <label asp-for="LayoutName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(
+                             Model => Model.LayoutName,
+                             new SelectList(labelLayouts, nameof(selectedLayout.LayoutName), nameof(selectedLayout.LayoutDescription),selectedLayout),
+                             "--Select Layout--",
+                             new { @class = "form-select" })
+                    <span asp-validation-for="LayoutName"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label asp-for="BarcodeLabels"></label>
+                <div class="child-table">
+                    @await Component.InvokeAsync("BarcodeLabelGrid", new { barcodeLabels = Model.BarcodeLabels, gridOptions = Model.GridOptions })
+                </div>
+            </div>
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    </form>
+</div>
+ *@
+<GenericGrid GridType="@GridType" TGridItem=BarcodeLabelRequestGridModel ViewModel="_viewModel">
+    <GenericGridColumns>
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceText))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceText)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.LabelQuantity))" FieldName="@nameof(BarcodeLabelRequestGridModel.LabelQuantity)" />
+    </GenericGridColumns>
+</GenericGrid>
+
+
+@code
+{
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;
+
+    private BaseGridModel<BarcodeLabelRequestGridModel> _viewModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var pageSize = 20;
+        var pageNumber = 1;
+        var itemCount = 100; // Hack: should be from url
+
+        _viewModel = new BaseGridModel<BarcodeLabelRequestGridModel>()
+            {
+                Options = GridOptionsModel.Default,
+                Paging = new PagingModel(pageSize, pageNumber, itemCount),
+                Sorting = new GridSortingModel(),
+                Links = new GridLinksModel(PlantDataRoutes.SaleEvent),
+                UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.BarcodeLabelRequestGrid),
+            };
+        _viewModel.Options.AllowSorting = false;
+    }
+}

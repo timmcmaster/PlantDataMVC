@@ -3,7 +3,7 @@
 
 namespace PlantData.Web.Blazor.UIModels.ViewModels.Label
 {
-    public class PlantLabelGridModel
+    public class PlantLabelRequestGridModel
     {
         [Display(Name = "Species Name")]
         public int SpeciesId { get; set; }
@@ -15,7 +15,7 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels.Label
         public int LabelQuantity { get; set; }
 
 
-        public PlantLabelGridModel()
+        public PlantLabelRequestGridModel()
         {
         }
     }

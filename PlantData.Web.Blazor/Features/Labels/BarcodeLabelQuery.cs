@@ -1,5 +1,5 @@
 ﻿using Framework.Web.Views;
-using PlantData.Web.Mvc.Models.ViewModels.Label;
+using PlantData.Web.Blazor.UIModels.ViewModels.Label;
 
 namespace PlantData.Web.Blazor.Features.Labels
 

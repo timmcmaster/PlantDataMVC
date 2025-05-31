@@ -10,9 +10,9 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels.Label
         public string LayoutName { get; set; } = string.Empty;
 
         [Display(Name = "Barcode Labels")]
-        public IEnumerable<BarcodeLabelGridModel> BarcodeLabels { get; set; } = new List<BarcodeLabelGridModel>();
+        public IEnumerable<BarcodeLabelRequestGridModel> BarcodeLabelRequests { get; set; } = new List<BarcodeLabelRequestGridModel>();
 
-        public GridOptionsModel GridOptions { get; set; } = new();
+        //public GridOptionsModel GridOptions { get; set; } = new();
 
     }
 }

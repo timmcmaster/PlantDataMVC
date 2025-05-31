@@ -3,7 +3,7 @@
 
 namespace PlantData.Web.Blazor.UIModels.ViewModels.Label
 {
-    public class BarcodeLabelGridModel
+    public class BarcodeLabelRequestGridModel
     {
         [Display(Name = "Price Record")]
         public int ProductPriceId { get; set; }
@@ -14,7 +14,7 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels.Label
         [Display(Name = "Label Qty")]
         public int LabelQuantity { get; set; }
 
-        public BarcodeLabelGridModel()
+        public BarcodeLabelRequestGridModel()
         {
         }
     }

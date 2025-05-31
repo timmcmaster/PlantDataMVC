@@ -1,6 +1,5 @@
 ﻿using Framework.Web.Views;
-using PlantData.Web.Mvc.Controllers.Queries.Label;
-using PlantData.Web.Mvc.Models.ViewModels.Label;
+using PlantData.Web.Blazor.UIModels.ViewModels.Label;
 using System.Threading;
 using System.Threading.Tasks;
 

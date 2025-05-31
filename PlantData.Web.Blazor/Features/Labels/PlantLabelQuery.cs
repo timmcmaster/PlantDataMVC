@@ -1,11 +1,11 @@
 ﻿using Framework.Web.Views;
-using PlantData.Web.Mvc.Models.ViewModels;
-using PlantData.Web.Mvc.Models.ViewModels.Label;
+using PlantData.Web.Blazor.SharedComponents.Grid;
+using PlantData.Web.Blazor.UIModels.ViewModels.Label;
 
 namespace PlantData.Web.Mvc.Controllers.Queries.Label
 
 {
-    public class PlantLabelQuery : IQuery<ListViewModelStatic<PlantLabelListViewModel>>
+    public class PlantLabelQuery : IQuery<GridDataModel<PlantLabelRequestGridModel>>
     {
         public PlantLabelQuery(int? page, int? pageSize, string sortBy, bool sortAscending)
         {

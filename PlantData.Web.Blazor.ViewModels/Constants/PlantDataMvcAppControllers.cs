@@ -10,7 +10,8 @@
         public const string SeedTrayGrid = "SeedTrayGrid";
         public const string ProductTypeGrid = "ProductTypeGrid";
         public const string SaleEventGrid = "SaleEventGrid";
-        public const string PlantLabelGrid = "PlantLabelGrid";
+        public const string PlantLabelRequestGrid = "PlantLabelRequestGrid";
+        public const string BarcodeLabelRequestGrid = "BarcodeLabelRequestGrid";
 
         //public const string PlantStockGrid = "PlantStockGrid";
         //public const string ProductPriceGrid = "ProductPriceGrid";

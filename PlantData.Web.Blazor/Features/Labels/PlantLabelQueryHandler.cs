@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace PlantData.Web.Blazor.Features.Labels
 {
-    public class PlantLabelQueryHandler : IQueryHandler<PlantLabelQuery, GridDataModel<PlantLabelGridModel>>
+    public class PlantLabelQueryHandler : IQueryHandler<PlantLabelQuery, GridDataModel<PlantLabelRequestGridModel>>
     {
         public PlantLabelQueryHandler()
         {
         }
 
-        public Task<GridDataModel<PlantLabelGridModel>> Handle(PlantLabelQuery query, CancellationToken cancellationToken)
+        public Task<GridDataModel<PlantLabelRequestGridModel>> Handle(PlantLabelQuery query, CancellationToken cancellationToken)
         {
-            var modelList = new List<PlantLabelGridModel>();
+            var modelList = new List<PlantLabelRequestGridModel>();
 
-            var model = new GridDataModel<PlantLabelGridModel>(modelList, 1, 0, 0, query.SortBy, query.SortAscending);
+            var model = new GridDataModel<PlantLabelRequestGridModel>(modelList, 1, 0, 0, query.SortBy, query.SortAscending);
 
             return Task.FromResult(model);
         }
