@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Index</h2>
+<h2>Stocktake Header</h2>
+<p>Stocktake header for lines?</p>
 
 @await Component.InvokeAsync("StocktakeHeaderGrid", new { model = Model, gridOptions = Model.GridOptions })

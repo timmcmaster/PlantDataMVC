@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Index</h2>
+<h2>Plant Stock</h2>
+<p>Plant stock (from static records)</p>
 
 @await Component.InvokeAsync("PlantStockGrid", new { model = Model, gridOptions = Model.GridOptions })

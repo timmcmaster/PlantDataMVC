@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Index</h2>
+<h2>Seed Trays</h2>
+<p>This is a list of all seed trays potted out</p>
 
 @await Component.InvokeAsync("SeedTrayGrid", new { model = Model, gridOptions = Model.GridOptions })

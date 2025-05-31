@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Stock Summary";
 }
-<h2>Index</h2>
+<h2>Stock Summary</h2>
+<p>Plant stock (calculated from transactions)</p>
 
 @await Component.InvokeAsync("TransactionStockSummaryGrid", new { model = Model, gridOptions = Model.GridOptions })
