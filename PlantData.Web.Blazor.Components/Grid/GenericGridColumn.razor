@@ -15,7 +15,14 @@
     }
     else if (GridType == GridType.SfGrid)
     {
-        <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey"></GridColumn>
+        if (DisplayAsCheckbox)
+        {
+            <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey" DisplayAsCheckBox=@DisplayAsCheckbox EditType="EditType.BooleanEdit"></GridColumn>
+        }
+        else
+        {
+            <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey"></GridColumn>
+        }
     }
 </div>
 <style>
@@ -47,4 +54,7 @@
 
     [Parameter]
     public bool IsVisible { get; set; } = true;
+
+    [Parameter]
+    public bool DisplayAsCheckbox { get; set; } = false;
 }

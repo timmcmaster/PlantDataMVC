@@ -61,7 +61,7 @@
         // TODO:, somehow get speciesbinomial info
         _fcmSpecies = new ForeignColumnModel<SpeciesDataModel>(
             foreignKeyField: x => nameof(x.Id),
-            foreignKeyValue: x => nameof(x.SpecificName),
+            foreignKeyValue: x => nameof(x.SpeciesBinomial),
             GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.PlantGrid, PlantDataMvcAppControllers.DataRoutes.List)
         );
 
