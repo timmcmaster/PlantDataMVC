@@ -9,11 +9,11 @@ namespace PlantData.Web.Mvc.ViewComponents.SeedBatchGrid
 {
     public class SeedBatchGrid : ViewComponent
     {
-        private readonly bool _useBasicMvcViews = false;
+        private readonly bool _UseBasicHtmlViews = false;
 
         public SeedBatchGrid(IConfiguration configuration)
         {
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
+            _UseBasicHtmlViews = Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]);
         }
 
         public IViewComponentResult Invoke(ListViewModelStatic<SeedBatchListViewModel> model, GridOptionsModel gridOptions)
@@ -21,7 +21,7 @@ namespace PlantData.Web.Mvc.ViewComponents.SeedBatchGrid
             // TODO: Need edit with dropdowns and proper selction of species/genus
             string viewName = "Default";
 
-            if (_useBasicMvcViews)
+            if (_UseBasicHtmlViews)
                 viewName = "Basic";
 
             var gridModel = new SeedBatchGridViewModel()

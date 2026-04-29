@@ -10,18 +10,18 @@ namespace PlantData.Web.Mvc.ViewComponents.PriceListTypeGrid
 {
     public class PriceListTypeGrid : ViewComponent
     {
-        private readonly bool _useBasicMvcViews = false;
+        private readonly bool _UseBasicHtmlViews = false;
 
         public PriceListTypeGrid(IConfiguration configuration)
         {
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
+            _UseBasicHtmlViews = Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]);
         }
 
         public IViewComponentResult Invoke(ListViewModelStatic<PriceListTypeListViewModel> model, GridOptionsModel gridOptions)
         {
             string viewName = "Default";
 
-            if (_useBasicMvcViews)
+            if (_UseBasicHtmlViews)
                 viewName = "Basic";
 
             var gridModel = new PriceListTypeGridViewModel()

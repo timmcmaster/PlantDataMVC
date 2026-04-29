@@ -165,7 +165,7 @@ namespace PlantData.Web.Mvc
         // here if you need to resolve things from the container.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JEaF5cXmRCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXhccHRWQ2deWE11X0pWYEk=");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JHaF5cWWdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdlWXtcd3RWRWRfVEd/XEZWYEo=");
 
             // Stop trying to map tokens to .Net claim types
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;

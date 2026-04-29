@@ -10,18 +10,18 @@ namespace PlantData.Web.Mvc.ViewComponents.PlantStockGrid
 {
     public class PlantStockGrid : ViewComponent
     {
-        private readonly bool _useBasicMvcViews = false;
+        private readonly bool _UseBasicHtmlViews = false;
 
         public PlantStockGrid(IConfiguration configuration)
         {
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
+            _UseBasicHtmlViews = Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]);
         }
 
         public IViewComponentResult Invoke(ListViewModelStatic<PlantStockListViewModel> model, GridOptionsModel gridOptions)
         {
             string viewName = "Default";
 
-            if (_useBasicMvcViews)
+            if (_UseBasicHtmlViews)
                 viewName = "Basic";
 
             var gridModel = new PlantStockGridViewModel()

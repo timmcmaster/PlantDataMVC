@@ -62,7 +62,7 @@
 
 @code
 {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
 
     private BaseGridModel<BarcodeLabelRequestGridModel> _viewModel;
 

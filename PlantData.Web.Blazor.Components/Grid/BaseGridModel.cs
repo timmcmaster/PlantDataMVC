@@ -1,5 +1,4 @@
-﻿﻿using System.Collections.Generic;
-using PlantData.Web.Blazor.SharedComponents.Paging;
+﻿using PlantData.Web.Blazor.SharedComponents.Paging;
 
 namespace PlantData.Web.Blazor.SharedComponents.Grid
 {

@@ -11,18 +11,18 @@ namespace PlantData.Web.Mvc.ViewComponents.ProductPriceGrid
 {
     public class ProductPriceGrid : ViewComponent
     {
-        private readonly bool _useBasicMvcViews = false;
+        private readonly bool _UseBasicHtmlViews = false;
 
         public ProductPriceGrid(IConfiguration configuration)
         {
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
+            _UseBasicHtmlViews = Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]);
         }
 
         public IViewComponentResult Invoke(IEnumerable<ProductPriceListViewModel> productPrices, DateTime effectiveDate, GridOptionsModel gridOptions, int? priceListTypeId = null)
         {
             string viewName = "Default";
 
-            if (_useBasicMvcViews)
+            if (_UseBasicHtmlViews)
             {
                 viewName = "Basic";
             }
