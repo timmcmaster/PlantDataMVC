@@ -10,24 +10,24 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels
     public class SidebarMenuViewModel : BaseViewModel, ISidebarMenuViewModel
     {
         private readonly LinkGenerator _linkGen;
-        private readonly bool _useBasicMvcViews;
+        private readonly bool _useBasicHtmlViews;
         public List<MenuItemViewModel> Items { get; set; } = new();
         public MenuFieldsViewModel Fields { get; set; } = new();
 
         public SidebarMenuViewModel(IConfiguration configuration, NavigationManager navMan, LinkGenerator linkGen) : base(navMan)
         {
             _linkGen = linkGen;
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
+            _useBasicHtmlViews = Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]);
         }
 
         public void Initialise()
         {
-            LoadItems(_useBasicMvcViews);
+            LoadItems(_useBasicHtmlViews);
         }
 
-        private void LoadItems(bool useBasicMvcViews)
+        private void LoadItems(bool useBasicHtmlViews)
         {
-            var mainMenuHeaderText = useBasicMvcViews ? "Menu - Basic MVC" : "Menu - Syncfusion";
+            var mainMenuHeaderText = useBasicHtmlViews ? "Menu - Basic Grid" : "Menu - Syncfusion";
             var menuItems = new List<MenuItemViewModel>()
             {
                 // Menu header

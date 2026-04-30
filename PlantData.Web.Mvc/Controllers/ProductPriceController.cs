@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.Scaffolding.Shared.Project;
 using PlantData.Web.Mvc.Constants;
-using PlantDataMVC.Api.Models.DataModels;
 using PlantData.Web.Mvc.Controllers.Queries.ProductPrice;
-using PlantData.Web.Mvc.Models.ViewComponents.ViewModels;
-using System.Threading.Tasks;
 using PlantData.Web.Mvc.Models.EditModels.ProductPrice;
+using PlantData.Web.Mvc.Models.ViewComponents.ViewModels;
 using PlantData.Web.Mvc.Models.ViewModels.ProductPrice;
+using PlantDataMVC.Api.Models.DataModels;
+using System.Threading.Tasks;
 
 namespace PlantData.Web.Mvc.Controllers
 {

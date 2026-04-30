@@ -24,14 +24,14 @@
                                   TForeignDataItem=GenusDataModel ForeignKeyField="@_fcm.ForeignKeyField" ForeignKeyValue="@_fcm.ForeignKeyValue" ForeignDataSourceUrl="@_fcm.ForeignDataUrl" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Species))" FieldName="@nameof(PlantGridModel.Species)" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.CommonName))" FieldName="@nameof(PlantGridModel.CommonName)" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Native))" FieldName="@nameof(PlantGridModel.Native)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Native))" FieldName="@nameof(PlantGridModel.Native)" DisplayAsCheckbox="true"/>
     </GenericGridColumns>
 </GenericGrid>
 
 
 @code 
 {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
 
     private BaseGridModel<PlantGridModel> _viewModel;
 

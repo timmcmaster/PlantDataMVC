@@ -10,18 +10,18 @@ namespace PlantData.Web.Mvc.ViewComponents.TransactionGrid
 {
     public class TransactionGrid : ViewComponent
     {
-        private readonly bool _useBasicMvcViews = false;
+        private readonly bool _UseBasicHtmlViews = false;
 
         public TransactionGrid(IConfiguration configuration)
         {
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
+            _UseBasicHtmlViews = Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]);
         }
 
         public IViewComponentResult Invoke(IEnumerable<TransactionListViewModel> transactions, GridOptionsModel gridOptions, int? speciesId = null, int? productTypeId = null)
         {
             string viewName = "Default";
 
-            if (_useBasicMvcViews)
+            if (_UseBasicHtmlViews)
             {
                 viewName = "Basic";
             }

@@ -34,7 +34,7 @@
 
 @code 
 {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]) == true ? GridType.Basic : GridType.SfGrid;
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
 
     private BaseGridModel<SeedBatchGridModel> _viewModel;
 
@@ -61,7 +61,7 @@
         // TODO:, somehow get speciesbinomial info
         _fcmSpecies = new ForeignColumnModel<SpeciesDataModel>(
             foreignKeyField: x => nameof(x.Id),
-            foreignKeyValue: x => nameof(x.SpecificName),
+            foreignKeyValue: x => nameof(x.SpeciesBinomial),
             GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.PlantGrid, PlantDataMvcAppControllers.DataRoutes.List)
         );
 

@@ -12,6 +12,8 @@ namespace PlantDataMVC.Api.Models.DataModels
         public string Description { get; set; }
         public int? PropagationTime { get; set; }
         public bool Native { get; set; }
+
+        public string SpeciesBinomial =>  $"{GenusName} {SpecificName}";
         public ICollection<PlantStockDataModel> PlantStocks { get; set; }
         public ICollection<SeedBatchDataModel> SeedBatches { get; set; }
     }

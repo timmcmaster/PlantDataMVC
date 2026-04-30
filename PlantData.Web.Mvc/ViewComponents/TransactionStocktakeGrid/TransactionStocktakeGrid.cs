@@ -10,18 +10,18 @@ namespace PlantData.Web.Mvc.ViewComponents.TransactionStocktakeGrid
 {
     public class TransactionStocktakeGrid : ViewComponent
     {
-        private readonly bool _useBasicMvcViews = false;
+        private readonly bool _UseBasicHtmlViews = false;
 
         public TransactionStocktakeGrid(IConfiguration configuration)
         {
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
+            _UseBasicHtmlViews = Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]);
         }
 
         public IViewComponentResult Invoke(ListViewModelStatic<TransactionStocktakeListViewModel> model, GridOptionsModel gridOptions)
         {
             string viewName = "Default";
 
-            if (_useBasicMvcViews)
+            if (_UseBasicHtmlViews)
                 viewName = "Basic";
 
             var gridModel = new TransactionStocktakeGridViewModel()

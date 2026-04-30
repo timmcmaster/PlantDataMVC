@@ -9,11 +9,11 @@ namespace PlantData.Web.Mvc.ViewComponents.SidebarMenu
 {
     public class SidebarMenu : ViewComponent
     {
-        private readonly bool _useBasicMvcViews = false;
+        private readonly bool _UseBasicHtmlViews = false;
 
         public SidebarMenu(IConfiguration configuration)
         {
-            _useBasicMvcViews = Convert.ToBoolean(configuration["WebUI:UseBasicMvcViews"]);
+            _UseBasicHtmlViews = Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]);
         }
 
         public IViewComponentResult Invoke(string targetCss, string width, string dockWidth)
@@ -30,7 +30,7 @@ namespace PlantData.Web.Mvc.ViewComponents.SidebarMenu
                 TargetCss = targetCss,
                 Width = width,
                 DockWidth = dockWidth,
-                UseBasicMvcViews = _useBasicMvcViews
+                UseBasicHtmlViews = _UseBasicHtmlViews
             };
 
             LoadMenuModel(sidebarMenuModel);
@@ -42,7 +42,7 @@ namespace PlantData.Web.Mvc.ViewComponents.SidebarMenu
         {
             var menuModel = model.Menu;
 
-            var mainMenuHeaderText = model.UseBasicMvcViews ? "Menu - Basic MVC" : "Menu - Syncfusion";
+            var mainMenuHeaderText = model.UseBasicHtmlViews ? "Menu - Basic MVC" : "Menu - Syncfusion";
 
             var menuItems = new List<MenuItemViewModel>()
             {
