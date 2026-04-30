@@ -11,7 +11,5 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
         public GridLinksModel Links { get; set; }
 
         public GridUrlDataSourceModel UrlDataSource { get; set; }
-
-        public GridDataModel<T> Items { get; set; }
     }
 }

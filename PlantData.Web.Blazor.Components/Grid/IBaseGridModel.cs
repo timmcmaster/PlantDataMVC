@@ -10,7 +10,6 @@ namespace PlantData.Web.Blazor.SharedComponents.Grid
         GridSortingModel Sorting { get; set; }
         GridLinksModel Links { get; set; }
 
-        GridDataModel<T> Items { get; set; }
         GridUrlDataSourceModel UrlDataSource { get; set; }
     }
 }

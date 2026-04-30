@@ -4,6 +4,7 @@
 
 <CascadingValue IsFixed="true" Value="this">
     @GridColumns
+    @DataManager
 </CascadingValue>
 
 @* Render the grid *@
@@ -34,7 +35,7 @@
         <tbody>
             @{
                 int count = 0; 
-                @foreach (var entry in Items)
+                @foreach (var entry in CurrentItems)
                 {
                     <tr @key="entry.GetHashCode()">
 
@@ -64,8 +65,8 @@
 </div>
 
 @code {
-    [Parameter, EditorRequired]
-    public required IEnumerable<TRowData> Items { get; set; }
+    [Parameter]
+    public IEnumerable<TRowData>? Items { get; set; }
 
     [Parameter]
     public bool AllowAdd { get; set; }
@@ -85,12 +86,39 @@
     [Parameter]
     public RenderFragment? GridColumns { get; set; } = default!; // Should contain all columns
 
-    private readonly List<BasicGridColumn<TRowData>> columns = new List<BasicGridColumn<TRowData>>();
+    /// <summary>
+    /// Optional slot for a BasicGridDataManager child component that loads data from a controller.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? DataManager { get; set; }
 
-    
+    private readonly List<BasicGridColumn<TRowData>> columns = new List<BasicGridColumn<TRowData>>();
+    private IEnumerable<TRowData>? _dataManagerItems;
+    private int _totalCount;
+    private BasicGridDataManager<TRowData>? _dataManager;
+
+    private IEnumerable<TRowData> CurrentItems => _dataManagerItems ?? Items ?? [];
+
+    /// <summary>
+    /// Reference to the DataManager child, if any. Can be used to trigger CRUD operations.
+    /// </summary>
+    public BasicGridDataManager<TRowData>? GridDataManager => _dataManager;
+
     internal void AddColumn(BasicGridColumn<TRowData> column)
     {
         columns.Add(column);
+    }
+
+    internal void SetDataManager(BasicGridDataManager<TRowData> dataManager)
+    {
+        _dataManager = dataManager;
+    }
+
+    internal void SetItems(IEnumerable<TRowData> items, int totalCount)
+    {
+        _dataManagerItems = items;
+        _totalCount = totalCount;
+        StateHasChanged();
     }
 
     protected override void OnAfterRender(bool firstRender)

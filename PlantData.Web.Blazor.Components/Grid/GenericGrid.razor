@@ -10,9 +10,16 @@
     <div class="container-lg">
         @if (@GridType == GridType.Basic)
         {
-            <BasicGrid Items="@ViewModel.Items" Links="@ViewModel.Links" AllowAdd="@ViewModel.Options.AllowAdd" AllowEdit="@ViewModel.Options.AllowEdit" AllowDelete="@ViewModel.Options.AllowDelete" AllowPaging="@ViewModel.Options.AllowPaging">
+            <BasicGrid TRowData="TGridItem" Links="@ViewModel.Links" AllowAdd="@ViewModel.Options.AllowAdd" AllowEdit="@ViewModel.Options.AllowEdit" AllowDelete="@ViewModel.Options.AllowDelete" AllowPaging="@ViewModel.Options.AllowPaging">
+                <DataManager>
+                    <BasicGridDataManager TRowData="TGridItem"
+                                          UrlDataSource="@ViewModel.UrlDataSource"
+                                          Paging="@ViewModel.Paging"
+                                          Sorting="@ViewModel.Sorting"
+                                          AllowPaging="@ViewModel.Options.AllowPaging" />
+                </DataManager>
                 <GridColumns>
-                    @GenericGridColumns(@ViewModel.Items)
+                    @GenericGridColumns
                 </GridColumns>
             </BasicGrid>
         }
@@ -31,7 +38,7 @@
                 <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
                 <GridEditSettings AllowAdding="@ViewModel.Options.AllowAdd" AllowEditing="@ViewModel.Options.AllowEdit" AllowDeleting="@ViewModel.Options.AllowDelete" Mode="EditMode.Dialog"></GridEditSettings>
                 <GridColumns>
-                    @GenericGridColumns(@ViewModel.Items)
+                    @GenericGridColumns
                 </GridColumns>
             </SfGrid>
         }
@@ -55,7 +62,7 @@
     public GridType GridType { get; set; }
 
     [Parameter]
-    public RenderFragment<IEnumerable<TGridItem>>? GenericGridColumns { get; set; } = default!; // Should contain all columns
+    public RenderFragment? GenericGridColumns { get; set; } = default!; // Should contain all columns
 
     public Query GridQuery { get; set; }
 
