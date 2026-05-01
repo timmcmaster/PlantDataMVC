@@ -11,12 +11,12 @@
         public const string ProductTypeGrid = "ProductTypeGrid";
         public const string PriceListTypeGrid = "PriceListTypeGrid";
         public const string SaleEventGrid = "SaleEventGrid";
+        public const string StocktakeHeaderGrid = "StocktakeHeaderGrid";
         public const string PlantLabelRequestGrid = "PlantLabelRequestGrid";
         public const string BarcodeLabelRequestGrid = "BarcodeLabelRequestGrid";
 
         //public const string PlantStockGrid = "PlantStockGrid";
         //public const string ProductPriceGrid = "ProductPriceGrid";
-        //public const string StocktakeHeaderGrid = "StocktakeHeaderGrid";
         //public const string TransactionStockSummaryGrid = "TransactionStockSummaryGrid";
         //public const string TransactionGrid = "TransactionGrid";
         //public const string TransactionStocktakeGrid = "TransactionStocktakeGrid";

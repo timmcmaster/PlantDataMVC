@@ -9,6 +9,7 @@ using PlantData.Web.Blazor.Features.SaleEvent;
 using PlantData.Web.Blazor.Features.SeedBatch;
 using PlantData.Web.Blazor.Features.SeedTray;
 using PlantData.Web.Blazor.Features.Site;
+using PlantData.Web.Blazor.Features.StocktakeHeader;
 using Serilog;
 using System;
 using System.Linq;
@@ -42,6 +43,7 @@ namespace PlantData.Web.Blazor.DependencyInjection
             services.AddTransient<ISeedTrayLookupService, SeedTrayLookupService>();
             services.AddTransient<ISiteLookupService, SiteLookupService>();
             services.AddTransient<ISpeciesLookupService, SpeciesLookupService>();
+            services.AddTransient<IStocktakeHeaderLookupService, StocktakeHeaderLookupService>();
             //services.AddTransient<IBarcodeLayoutLookupService, BarcodeLayoutLookupService>();
 
             /// Extensions to scan for MediatR handlers and registers them.

@@ -10,12 +10,11 @@ using ProductType = PlantData.Web.Blazor.UIModels.ViewModels.ProductType;
 using SaleEvent = PlantData.Web.Blazor.UIModels.ViewModels.SaleEvent;
 using Label = PlantData.Web.Blazor.UIModels.ViewModels.Label;
 using PriceListType = PlantData.Web.Blazor.UIModels.ViewModels.PriceListType;
-using Microsoft.VisualBasic.FileIO;
+using StocktakeHeader = PlantData.Web.Blazor.UIModels.ViewModels.StocktakeHeader;
 
 //using PlantStock = PlantData.Web.Mvc.Models.ViewModels.PlantStock;
 //using ProductPrice = PlantData.Web.Mvc.Models.ViewModels.ProductPrice;
 //using SaleEventStock = PlantData.Web.Mvc.Models.ViewModels.SaleEventStock;
-//using StocktakeHeader = PlantData.Web.Mvc.Models.ViewModels.StocktakeHeader;
 //using Transaction = PlantData.Web.Mvc.Models.ViewModels.Transaction;
 
 namespace PlantData.Web.Blazor.Mappers
@@ -47,11 +46,11 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigureSaleEventViewModels();
             ConfigureLabelViewModels();
             ConfigurePriceListTypeViewModels();
+            ConfigureStocktakeHeaderViewModels();
             //ConfigurePlantStockViewModels();
             //ConfigureTransactionViewModels();
             //ConfigureSaleEventStockViewModels();
             //ConfigureProductPriceViewModels();
-            //ConfigureStocktakeHeaderViewModels();
         }
 
         #region Configure View Models
@@ -139,6 +138,15 @@ namespace PlantData.Web.Blazor.Mappers
                 .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
                 .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
                 .ForMember(uio => uio.Kind, opt => opt.MapFrom(dm => dm.Kind));
+        }
+
+        private void ConfigureStocktakeHeaderViewModels()
+        {
+            // StocktakeHeader
+            CreateMap<StocktakeDataModel, StocktakeHeader.StocktakeHeaderGridModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Reference, opt => opt.MapFrom(dm => dm.Reference))
+                .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
         }
 
         //private void ConfigurePlantStockViewModels()
@@ -321,34 +329,6 @@ namespace PlantData.Web.Blazor.Mappers
         //        .ForMember(uio => uio.DateEffective, opt => opt.MapFrom(dm => dm.DateEffective))
         //        .ForMember(uio => uio.Price, opt => opt.MapFrom(dm => dm.Price))
         //        .ForMember(uio => uio.BarcodeSKU, opt => opt.MapFrom(dm => dm.BarcodeSKU));
-        //}
-
-        //private void ConfigureStocktakeHeaderViewModels()
-        //{
-        //    // StocktakeHeader
-        //    CreateMap<StocktakeDataModel, StocktakeHeader.StocktakeHeaderDeleteViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Reference, opt => opt.MapFrom(dm => dm.Reference))
-        //        .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
-
-        //    CreateMap<StocktakeDataModel, StocktakeHeader.StocktakeHeaderEditViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Reference, opt => opt.MapFrom(dm => dm.Reference))
-        //        .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
-
-        //    CreateMap<StocktakeDataModel, StocktakeHeader.StocktakeHeaderListViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Reference, opt => opt.MapFrom(dm => dm.Reference))
-        //        .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
-
-        //    CreateMap<StocktakeDataModel, StocktakeHeader.StocktakeHeaderNewViewModel>()
-        //        .ForMember(uio => uio.Reference, opt => opt.MapFrom(dm => dm.Reference))
-        //        .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
-
-        //    CreateMap<StocktakeDataModel, StocktakeHeader.StocktakeHeaderShowViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Reference, opt => opt.MapFrom(dm => dm.Reference))
-        //        .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
         //}
 
         #endregion Configure View Models

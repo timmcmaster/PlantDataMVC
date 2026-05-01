@@ -10,6 +10,7 @@
         public const string ProductType = "/productType";
         public const string PriceListType = "/priceListType";
         public const string SaleEvent = "/saleEvent";
+        public const string StocktakeHeader = "/stocktakeHeader";
         public const string PlantLabel = "/label/plant";
         public const string BarcodeLabel = "/label/barcode";
 
@@ -19,6 +20,5 @@
         //public const string ProductPrice = "ProductPrice";
         //public const string Transaction = "Transaction";
         //public const string Label = "Label";
-        //public const string StocktakeHeader = "StocktakeHeader";
     }
 }

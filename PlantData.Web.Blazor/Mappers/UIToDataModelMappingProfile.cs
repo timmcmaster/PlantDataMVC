@@ -8,10 +8,10 @@ using SeedTray = PlantData.Web.Blazor.UIModels.EditModels.SeedTray;
 using ProductType = PlantData.Web.Blazor.UIModels.EditModels.ProductType;
 using SaleEvent = PlantData.Web.Blazor.UIModels.EditModels.SaleEvent;
 using PriceListType = PlantData.Web.Blazor.UIModels.EditModels.PriceListType;
+using StocktakeHeader = PlantData.Web.Blazor.UIModels.EditModels.StocktakeHeader;
 
 //using PlantStock = PlantData.Web.Mvc.Models.EditModels.PlantStock;
 //using ProductPrice = PlantData.Web.Mvc.Models.EditModels.ProductPrice;
-//using StocktakeHeader = PlantData.Web.Mvc.Models.EditModels.StocktakeHeader;
 //using Transaction = PlantData.Web.Mvc.Models.EditModels.Transaction;
 
 namespace PlantData.Web.Blazor.Mappers
@@ -36,11 +36,11 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigureSeedTrayEditModels();
             ConfigureProductTypeEditModels();
             ConfigureSaleEventEditModels();
+            ConfigurePriceListTypeEditModels();
+            ConfigureStocktakeHeaderEditModels();
             //ConfigurePlantStockEditModels();
             //ConfigureTransactionEditModels();
-            ConfigurePriceListTypeEditModels();
             //ConfigureProductPriceEditModels();
-            //ConfigureStocktakeHeaderEditModels();
         }
 
         #region Configure Edit Models
@@ -264,7 +264,6 @@ namespace PlantData.Web.Blazor.Mappers
         //}
 
 
-
         private void ConfigurePriceListTypeEditModels()
         {
             // Price list
@@ -307,22 +306,22 @@ namespace PlantData.Web.Blazor.Mappers
         //        .ForMember(dm => dm.BarcodeSKU, opt => opt.MapFrom(uio => uio.BarcodeSKU));
         //}
 
-        //private void ConfigureStocktakeHeaderEditModels()
-        //{
-        //    // StocktakeHeaderDTO
-        //    CreateMap<StocktakeHeader.StocktakeHeaderCreateEditModel, CreateUpdateStocktakeHeaderDataModel>()
-        //        .ForMember(dm => dm.Reference, opt => opt.MapFrom(uio => uio.Reference))
-        //        .ForMember(dm => dm.StocktakeDate, opt => opt.MapFrom(uio => uio.StocktakeDate));
+        private void ConfigureStocktakeHeaderEditModels()
+        {
+            // StocktakeHeaderDTO
+            CreateMap<StocktakeHeader.StocktakeHeaderCreateEditModel, CreateUpdateStocktakeHeaderDataModel>()
+                .ForMember(dm => dm.Reference, opt => opt.MapFrom(uio => uio.Reference))
+                .ForMember(dm => dm.StocktakeDate, opt => opt.MapFrom(uio => uio.StocktakeDate));
 
-        //    CreateMap<StocktakeHeader.StocktakeHeaderDestroyEditModel, StocktakeDataModel>()
-        //        .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
-        //        .ForMember(dm => dm.Reference, opt => opt.Ignore())
-        //        .ForMember(dm => dm.StocktakeDate, opt => opt.Ignore());
+            CreateMap<StocktakeHeader.StocktakeHeaderDestroyEditModel, StocktakeDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dm => dm.Reference, opt => opt.Ignore())
+                .ForMember(dm => dm.StocktakeDate, opt => opt.Ignore());
 
-        //    CreateMap<StocktakeHeader.StocktakeHeaderUpdateEditModel, CreateUpdateStocktakeHeaderDataModel>()
-        //        .ForMember(dm => dm.Reference, opt => opt.MapFrom(uio => uio.Reference))
-        //        .ForMember(dm => dm.StocktakeDate, opt => opt.MapFrom(uio => uio.StocktakeDate));
-        //}
+            CreateMap<StocktakeHeader.StocktakeHeaderUpdateEditModel, CreateUpdateStocktakeHeaderDataModel>()
+                .ForMember(dm => dm.Reference, opt => opt.MapFrom(uio => uio.Reference))
+                .ForMember(dm => dm.StocktakeDate, opt => opt.MapFrom(uio => uio.StocktakeDate));
+        }
 
         #endregion Configure Edit Models
     }
