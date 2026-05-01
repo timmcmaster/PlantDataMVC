@@ -7,10 +7,10 @@ using Site = PlantData.Web.Blazor.UIModels.EditModels.Site;
 using SeedTray = PlantData.Web.Blazor.UIModels.EditModels.SeedTray;
 using ProductType = PlantData.Web.Blazor.UIModels.EditModels.ProductType;
 using SaleEvent = PlantData.Web.Blazor.UIModels.EditModels.SaleEvent;
+using PriceListType = PlantData.Web.Blazor.UIModels.EditModels.PriceListType;
 
 //using PlantStock = PlantData.Web.Mvc.Models.EditModels.PlantStock;
 //using ProductPrice = PlantData.Web.Mvc.Models.EditModels.ProductPrice;
-//using PriceListType = PlantData.Web.Mvc.Models.EditModels.PriceListType;
 //using StocktakeHeader = PlantData.Web.Mvc.Models.EditModels.StocktakeHeader;
 //using Transaction = PlantData.Web.Mvc.Models.EditModels.Transaction;
 
@@ -38,7 +38,7 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigureSaleEventEditModels();
             //ConfigurePlantStockEditModels();
             //ConfigureTransactionEditModels();
-            //ConfigurePriceListTypeEditModels();
+            ConfigurePriceListTypeEditModels();
             //ConfigureProductPriceEditModels();
             //ConfigureStocktakeHeaderEditModels();
         }
@@ -265,22 +265,22 @@ namespace PlantData.Web.Blazor.Mappers
 
 
 
-        //private void ConfigurePriceListTypeEditModels()
-        //{
-        //    // Price list
-        //    CreateMap<PriceListType.PriceListTypeCreateEditModel, CreateUpdatePriceListTypeDataModel>()
-        //        .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name))
-        //        .ForMember(dm => dm.Kind, opt => opt.MapFrom(uio => uio.Kind));
+        private void ConfigurePriceListTypeEditModels()
+        {
+            // Price list
+            CreateMap<PriceListType.PriceListTypeCreateEditModel, CreateUpdatePriceListTypeDataModel>()
+                .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name))
+                .ForMember(dm => dm.Kind, opt => opt.MapFrom(uio => uio.Kind));
 
-        //    CreateMap<PriceListType.PriceListTypeDestroyEditModel, PriceListTypeDataModel>()
-        //        .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
-        //        .ForMember(dm => dm.Name, opt => opt.Ignore())
-        //        .ForMember(dm => dm.Kind, opt => opt.Ignore());
+            CreateMap<PriceListType.PriceListTypeDestroyEditModel, PriceListTypeDataModel>()
+                .ForMember(dm => dm.Id, opt => opt.MapFrom(uio => uio.Id))
+                .ForMember(dm => dm.Name, opt => opt.Ignore())
+                .ForMember(dm => dm.Kind, opt => opt.Ignore());
 
-        //    CreateMap<PriceListType.PriceListTypeUpdateEditModel, CreateUpdatePriceListTypeDataModel>()
-        //        .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name))
-        //        .ForMember(dm => dm.Kind, opt => opt.MapFrom(uio => uio.Kind));
-        //}
+            CreateMap<PriceListType.PriceListTypeUpdateEditModel, CreateUpdatePriceListTypeDataModel>()
+                .ForMember(dm => dm.Name, opt => opt.MapFrom(uio => uio.Name))
+                .ForMember(dm => dm.Kind, opt => opt.MapFrom(uio => uio.Kind));
+        }
 
         //private void ConfigureProductPriceEditModels()
         //{

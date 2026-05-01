@@ -9,9 +9,10 @@ using SeedTray = PlantData.Web.Blazor.UIModels.ViewModels.SeedTray;
 using ProductType = PlantData.Web.Blazor.UIModels.ViewModels.ProductType;
 using SaleEvent = PlantData.Web.Blazor.UIModels.ViewModels.SaleEvent;
 using Label = PlantData.Web.Blazor.UIModels.ViewModels.Label;
+using PriceListType = PlantData.Web.Blazor.UIModels.ViewModels.PriceListType;
+using Microsoft.VisualBasic.FileIO;
 
 //using PlantStock = PlantData.Web.Mvc.Models.ViewModels.PlantStock;
-//using PriceListType = PlantData.Web.Mvc.Models.ViewModels.PriceListType;
 //using ProductPrice = PlantData.Web.Mvc.Models.ViewModels.ProductPrice;
 //using SaleEventStock = PlantData.Web.Mvc.Models.ViewModels.SaleEventStock;
 //using StocktakeHeader = PlantData.Web.Mvc.Models.ViewModels.StocktakeHeader;
@@ -45,10 +46,10 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigureProductTypeViewModels();
             ConfigureSaleEventViewModels();
             ConfigureLabelViewModels();
+            ConfigurePriceListTypeViewModels();
             //ConfigurePlantStockViewModels();
             //ConfigureTransactionViewModels();
             //ConfigureSaleEventStockViewModels();
-            //ConfigurePriceListTypeViewModels();
             //ConfigureProductPriceViewModels();
             //ConfigureStocktakeHeaderViewModels();
         }
@@ -129,6 +130,15 @@ namespace PlantData.Web.Blazor.Mappers
                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.Id))
                .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpecificName)))
                .ForMember(uio => uio.LabelQuantity, opt => opt.MapFrom(dm => 0));
+        }
+
+        private void ConfigurePriceListTypeViewModels()
+        {
+            // PriceListType
+            CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeGridModel>()
+                .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+                .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
+                .ForMember(uio => uio.Kind, opt => opt.MapFrom(dm => dm.Kind));
         }
 
         //private void ConfigurePlantStockViewModels()
@@ -260,37 +270,6 @@ namespace PlantData.Web.Blazor.Mappers
 
         //}
 
-        //private void ConfigurePriceListTypeViewModels()
-        //{
-        //    // PriceListType
-        //    CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeDeleteViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
-
-        //    CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeEditViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
-
-        //    CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeListViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
-
-        //    CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeNewViewModel>()
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
-
-        //    CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeShowViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name));
-
-        //    CreateMap<PriceListTypeDataModel, PriceListType.PriceListTypeDetailsViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Name, opt => opt.MapFrom(dm => dm.Name))
-        //        .ForMember(uio => uio.Kind, opt => opt.MapFrom(dm => dm.Kind))
-        //        .ForMember(uio => uio.EffectiveDates, opt => opt.MapFrom(dm => dm.ProductPrices.Select(m => m.DateEffective).Distinct().ToList()))
-        //        .ForMember(uio => uio.SelectedEffectiveDate, opt => opt.MapFrom(dm => dm.ProductPrices.OrderBy(m => m.DateEffective).Select(m => m.DateEffective).FirstOrDefault()))
-        //        .ForMember(uio => uio.ProductPrices, opt => opt.MapFrom(dm => dm.ProductPrices))
-        //        ;
-        //}
 
         //private void ConfigureProductPriceViewModels()
         //{

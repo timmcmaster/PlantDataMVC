@@ -3,6 +3,7 @@ using Framework.Web.Services;
 using Microsoft.Extensions.DependencyInjection;
 using PlantData.Web.Blazor.Features.Genus;
 using PlantData.Web.Blazor.Features.Plant;
+using PlantData.Web.Blazor.Features.PriceListType;
 using PlantData.Web.Blazor.Features.ProductType;
 using PlantData.Web.Blazor.Features.SaleEvent;
 using PlantData.Web.Blazor.Features.SeedBatch;
@@ -33,7 +34,7 @@ namespace PlantData.Web.Blazor.DependencyInjection
             // Used in view injections
             services.AddTransient<IGenusLookupService, GenusLookupService>();
             //services.AddTransient<IJournalEntryTypeLookupService, JournalEntryTypeLookupService>();
-            //services.AddTransient<IPriceListTypeLookupService, PriceListTypeLookupService>();
+            services.AddTransient<IPriceListTypeLookupService, PriceListTypeLookupService>();
             //services.AddTransient<IProductPriceLookupService, ProductPriceLookupService>();
             services.AddTransient<IProductTypeLookupService, ProductTypeLookupService>();
             services.AddTransient<ISaleEventLookupService, SaleEventLookupService>();

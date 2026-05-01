@@ -58,7 +58,7 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels
 
                 new MenuItemViewModel("sfProd", "Products and Pricing", null, string.Empty, "bi-currency-dollar"),
                 new MenuItemViewModel("sfProdProducts", "Products", "sfProd",  PlantDataRoutes.ProductType),
-                //new MenuItemViewModel("sfProdPricelists", "Price Lists", "sfProd",  _linkGen.GetPathByAction("Index", PlantDataMvcAppControllers.PriceListType) ?? string.Empty),
+                new MenuItemViewModel("sfProdPricelists", "Price Lists", "sfProd",  PlantDataRoutes.PriceListType),
 
                 new MenuItemViewModel("sfPrint", "Labels", null, string.Empty, "bi-stickies"),
                 new MenuItemViewModel("sfPrintLabels", "Information Labels", "sfPrint", PlantDataRoutes.PlantLabel),
