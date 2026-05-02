@@ -26,7 +26,7 @@ namespace PlantData.Web.Mvc.Handlers.Forms.StocktakeHeader
                 // Map local model to dataModel
                 CreateUpdateStocktakeHeaderDataModel item = _mapper.Map<StocktakeHeaderCreateEditModel, CreateUpdateStocktakeHeaderDataModel>(form);
 
-                var uri = "api/Stocktake";
+                var uri = "api/StocktakeHeader";
                 var response = await _plantDataApiClient.PostAsync(uri, item, cancellationToken).ConfigureAwait(false);
 
                 return response.Success;

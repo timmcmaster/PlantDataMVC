@@ -24,7 +24,7 @@ namespace PlantData.Web.Mvc.Handlers.Forms.StocktakeHeader
         {
             try
             {
-                var uri = "api/Stocktake/" + form.Id;
+                var uri = "api/StocktakeHeader/" + form.Id;
                 var response = await _plantDataApiClient.DeleteAsync(uri, cancellationToken).ConfigureAwait(false);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {

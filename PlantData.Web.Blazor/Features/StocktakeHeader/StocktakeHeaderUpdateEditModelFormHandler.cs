@@ -29,7 +29,7 @@ namespace PlantData.Web.Mvc.Handlers.Forms.StocktakeHeader
                 CreateUpdateStocktakeHeaderDataModel item = _mapper.Map<StocktakeHeaderUpdateEditModel, CreateUpdateStocktakeHeaderDataModel>(form);
 
                 // Update with PUT
-                var uri = "api/Stocktake/" + form.Id;
+                var uri = "api/StocktakeHeader/" + form.Id;
                 var response = await _plantDataApiClient.PutAsync(uri, item, cancellationToken).ConfigureAwait(false);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {

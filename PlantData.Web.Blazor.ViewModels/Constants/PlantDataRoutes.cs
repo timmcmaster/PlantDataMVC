@@ -11,6 +11,7 @@
         public const string PriceListType = "/priceListType";
         public const string SaleEvent = "/saleEvent";
         public const string StocktakeHeader = "/stocktakeHeader";
+        public const string StockSummary = "/transaction/stockSummary";
         public const string PlantLabel = "/label/plant";
         public const string BarcodeLabel = "/label/barcode";
 

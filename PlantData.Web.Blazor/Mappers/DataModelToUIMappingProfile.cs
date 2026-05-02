@@ -11,11 +11,11 @@ using SaleEvent = PlantData.Web.Blazor.UIModels.ViewModels.SaleEvent;
 using Label = PlantData.Web.Blazor.UIModels.ViewModels.Label;
 using PriceListType = PlantData.Web.Blazor.UIModels.ViewModels.PriceListType;
 using StocktakeHeader = PlantData.Web.Blazor.UIModels.ViewModels.StocktakeHeader;
+using Transaction = PlantData.Web.Blazor.UIModels.ViewModels.Transaction;
 
 //using PlantStock = PlantData.Web.Mvc.Models.ViewModels.PlantStock;
 //using ProductPrice = PlantData.Web.Mvc.Models.ViewModels.ProductPrice;
 //using SaleEventStock = PlantData.Web.Mvc.Models.ViewModels.SaleEventStock;
-//using Transaction = PlantData.Web.Mvc.Models.ViewModels.Transaction;
 
 namespace PlantData.Web.Blazor.Mappers
 {
@@ -47,8 +47,8 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigureLabelViewModels();
             ConfigurePriceListTypeViewModels();
             ConfigureStocktakeHeaderViewModels();
+            ConfigureTransactionViewModels();
             //ConfigurePlantStockViewModels();
-            //ConfigureTransactionViewModels();
             //ConfigureSaleEventStockViewModels();
             //ConfigureProductPriceViewModels();
         }
@@ -149,6 +149,81 @@ namespace PlantData.Web.Blazor.Mappers
                 .ForMember(uio => uio.StocktakeDate, opt => opt.MapFrom(dm => dm.StocktakeDate));
         }
 
+        private void ConfigureTransactionViewModels()
+        {
+            // StockSummary
+            CreateMap<PlantDataMVC.Repository.Models.JournalEntryStockSummaryDataModel, Transaction.StockSummaryGridModel>()
+                .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+                .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+                .ForMember(uio => uio.GenusName, opt => opt.MapFrom(dm => dm.GenusName))
+                .ForMember(uio => uio.SpeciesName, opt => opt.MapFrom(dm => dm.SpeciesName))
+                .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
+                .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock));
+
+            //    // JournalEntryDTO
+            //    CreateMap<JournalEntryDataModel, Transaction.TransactionDeleteViewModel>()
+            //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+            //        .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes))
+            //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+            //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+            //        .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
+            //        .ForMember(uio => uio.EffectiveQuantity, opt => opt.MapFrom(dm => dm.EffectiveQuantity))
+            //        .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId))
+            //        .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
+            //        .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dm => dm.Source))
+            //        .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dm => dm.JournalEntryTypeName));
+
+            //    CreateMap<JournalEntryDataModel, Transaction.TransactionEditViewModel>()
+            //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+            //        .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes))
+            //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+            //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+            //        .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
+            //        .ForMember(uio => uio.EffectiveQuantity, opt => opt.MapFrom(dm => dm.EffectiveQuantity))
+            //        .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId))
+            //        .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
+            //        .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dm => dm.Source))
+            //        .ForMember(uio => uio.TransactionTypeId, opt => opt.MapFrom(dm => dm.JournalEntryTypeId));
+
+            //    CreateMap<JournalEntryDataModel, Transaction.TransactionListViewModel>()
+            //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
+            //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+            //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+            //        .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
+            //        .ForMember(uio => uio.EffectiveQuantity, opt => opt.MapFrom(dm => dm.EffectiveQuantity))
+            //        .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
+            //        .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dm => dm.JournalEntryTypeName));
+
+            //    CreateMap<JournalEntryDataModel, Transaction.TransactionNewViewModel>()
+            //        .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes))
+            //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+            //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+            //        .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
+            //        .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId))
+            //        .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
+            //        .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dm => dm.Source))
+            //        .ForMember(uio => uio.TransactionTypeId, opt => opt.MapFrom(dm => dm.JournalEntryTypeId));
+
+            //    CreateMap<JournalEntryStockSummaryDataModel, Transaction.TransactionStockSummaryDetailsViewModel>()
+            //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+            //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+            //        .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
+            //        .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock))
+            //        .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
+            //        .ForMember(uio => uio.Transactions, opt => opt.MapFrom(dm => dm.JournalEntries));
+
+            //    CreateMap<JournalEntryStockSummaryDataModel, Transaction.TransactionStocktakeListViewModel>()
+            //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
+            //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
+            //        .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
+            //        .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock))
+            //        .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
+            //        .ForMember(uio => uio.CountedQuantity, opt => opt.MapFrom(dm => dm.QuantityInStock))
+            //        .ForMember(uio => uio.Discrepancy, opt => opt.MapFrom(dm => 0))
+            //        .ForMember(uio => uio.Reason, opt => opt.MapFrom(dm => string.Empty))
+            //        .ForMember(uio => uio.IsStock, opt => opt.MapFrom(dm => true));
+        }
+
         //private void ConfigurePlantStockViewModels()
         //{
         //    // PlantStockDTO
@@ -192,78 +267,6 @@ namespace PlantData.Web.Blazor.Mappers
         //    // TODO: What about ProductTypeId from dm?
         //}
 
-        //private void ConfigureTransactionViewModels()
-        //{
-        //    // JournalEntryDTO
-        //    CreateMap<JournalEntryDataModel, Transaction.TransactionDeleteViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes))
-        //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
-        //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
-        //        .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
-        //        .ForMember(uio => uio.EffectiveQuantity, opt => opt.MapFrom(dm => dm.EffectiveQuantity))
-        //        .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId))
-        //        .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
-        //        .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dm => dm.Source))
-        //        .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dm => dm.JournalEntryTypeName));
-
-        //    CreateMap<JournalEntryDataModel, Transaction.TransactionEditViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes))
-        //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
-        //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
-        //        .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
-        //        .ForMember(uio => uio.EffectiveQuantity, opt => opt.MapFrom(dm => dm.EffectiveQuantity))
-        //        .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId))
-        //        .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
-        //        .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dm => dm.Source))
-        //        .ForMember(uio => uio.TransactionTypeId, opt => opt.MapFrom(dm => dm.JournalEntryTypeId));
-
-        //    CreateMap<JournalEntryDataModel, Transaction.TransactionListViewModel>()
-        //        .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
-        //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
-        //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
-        //        .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
-        //        .ForMember(uio => uio.EffectiveQuantity, opt => opt.MapFrom(dm => dm.EffectiveQuantity))
-        //        .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
-        //        .ForMember(uio => uio.TransactionTypeName, opt => opt.MapFrom(dm => dm.JournalEntryTypeName));
-
-        //    CreateMap<JournalEntryDataModel, Transaction.TransactionNewViewModel>()
-        //        .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes))
-        //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
-        //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
-        //        .ForMember(uio => uio.Quantity, opt => opt.MapFrom(dm => dm.Quantity))
-        //        .ForMember(uio => uio.SeedTrayId, opt => opt.MapFrom(dm => dm.SeedTrayId))
-        //        .ForMember(uio => uio.TransactionDate, opt => opt.MapFrom(dm => dm.TransactionDate))
-        //        .ForMember(uio => uio.TransactionSource, opt => opt.MapFrom(dm => dm.Source))
-        //        .ForMember(uio => uio.TransactionTypeId, opt => opt.MapFrom(dm => dm.JournalEntryTypeId));
-
-        //    CreateMap<JournalEntryStockSummaryDataModel, Transaction.TransactionStockSummaryListViewModel>()
-        //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
-        //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
-        //        .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
-        //        .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock))
-        //        .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)));
-
-        //    CreateMap<JournalEntryStockSummaryDataModel, Transaction.TransactionStockSummaryDetailsViewModel>()
-        //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
-        //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
-        //        .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
-        //        .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock))
-        //        .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
-        //        .ForMember(uio => uio.Transactions, opt => opt.MapFrom(dm => dm.JournalEntries));
-
-        //    CreateMap<JournalEntryStockSummaryDataModel, Transaction.TransactionStocktakeListViewModel>()
-        //        .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
-        //        .ForMember(uio => uio.ProductTypeId, opt => opt.MapFrom(dm => dm.ProductTypeId))
-        //        .ForMember(uio => uio.ProductTypeName, opt => opt.MapFrom(dm => dm.ProductTypeName))
-        //        .ForMember(uio => uio.QuantityInStock, opt => opt.MapFrom(dm => dm.QuantityInStock))
-        //        .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
-        //        .ForMember(uio => uio.CountedQuantity, opt => opt.MapFrom(dm => dm.QuantityInStock))
-        //        .ForMember(uio => uio.Discrepancy, opt => opt.MapFrom(dm => 0))
-        //        .ForMember(uio => uio.Reason, opt => opt.MapFrom(dm => string.Empty))
-        //        .ForMember(uio => uio.IsStock, opt => opt.MapFrom(dm => true));
-        //}
 
         //private void ConfigureSaleEventStockViewModels()
         //{

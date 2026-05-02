@@ -22,7 +22,7 @@ namespace PlantData.Web.Mvc.Handlers.Views.StocktakeHeader
         public override async Task<IEnumerable<StocktakeDataModel>> Handle(ListQuery<StocktakeDataModel> query, CancellationToken cancellationToken)
         {
             bool success = true;
-            string? uri = "api/Stocktake";
+            string? uri = "api/StocktakeHeader";
             IEnumerable<StocktakeDataModel> fullDataModelList = Enumerable.Empty<StocktakeDataModel>();
 
             while (!string.IsNullOrEmpty(uri))

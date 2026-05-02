@@ -38,8 +38,8 @@ namespace PlantData.Web.Blazor.Mappers
             ConfigureSaleEventEditModels();
             ConfigurePriceListTypeEditModels();
             ConfigureStocktakeHeaderEditModels();
+            ConfigureTransactionEditModels();
             //ConfigurePlantStockEditModels();
-            //ConfigureTransactionEditModels();
             //ConfigureProductPriceEditModels();
         }
 
@@ -227,8 +227,8 @@ namespace PlantData.Web.Blazor.Mappers
         //        .ForMember(dm => dm.SpeciesId, opt => opt.MapFrom(uio => uio.SpeciesId));
         //}
 
-        //private void ConfigureTransactionEditModels()
-        //{
+        private void ConfigureTransactionEditModels()
+        {
         //    // JournalEntryDTO
         //    CreateMap<Transaction.TransactionCreateEditModel, CreateUpdateJournalEntryDataModel>()
         //        .ForMember(dm => dm.JournalEntryTypeId, opt => opt.MapFrom(uio => uio.TransactionType.Id))
@@ -261,7 +261,7 @@ namespace PlantData.Web.Blazor.Mappers
         //        .ForMember(dm => dm.SeedTrayId, opt => opt.MapFrom(uio => uio.SeedTrayId))
         //        .ForMember(dm => dm.Source, opt => opt.MapFrom(uio => uio.TransactionSource))
         //        .ForMember(dm => dm.TransactionDate, opt => opt.MapFrom(uio => uio.TransactionDate));
-        //}
+        }
 
 
         private void ConfigurePriceListTypeEditModels()

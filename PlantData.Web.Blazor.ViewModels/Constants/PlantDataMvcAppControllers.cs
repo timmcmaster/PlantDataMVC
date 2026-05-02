@@ -12,6 +12,7 @@
         public const string PriceListTypeGrid = "PriceListTypeGrid";
         public const string SaleEventGrid = "SaleEventGrid";
         public const string StocktakeHeaderGrid = "StocktakeHeaderGrid";
+        public const string StockSummaryGrid = "StockSummaryGrid";
         public const string PlantLabelRequestGrid = "PlantLabelRequestGrid";
         public const string BarcodeLabelRequestGrid = "BarcodeLabelRequestGrid";
 

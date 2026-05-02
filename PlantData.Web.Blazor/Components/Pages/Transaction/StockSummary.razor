@@ -1,0 +1,50 @@
+@using Microsoft.Extensions.Configuration
+@using PlantData.Web.Blazor.DisplayHelpers
+@using PlantData.Web.Blazor.SharedComponents.Grid
+@using PlantData.Web.Blazor.SharedComponents.Paging
+@using PlantData.Web.Blazor.UIModels.Constants
+@using PlantData.Web.Blazor.UIModels.ViewModels.Transaction
+@using System.ComponentModel
+
+@attribute [Route(PlantDataRoutes.StockSummary)]
+@inject IConfiguration configuration
+
+<h2>Stock Summary</h2>
+
+<h2>Stock Summary List</h2>
+<p>This is a summary of all stock levels by product type and species</p>
+
+<GenericGrid GridType="@GridType" TGridItem="StockSummaryGridModel" ViewModel="_viewModel">
+    <GenericGridColumns>
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<StockSummaryGridModel>(x => x.SpeciesId))" FieldName="@nameof(StockSummaryGridModel.SpeciesId)" IsVisible="false" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<StockSummaryGridModel>(x => x.ProductTypeId))" FieldName="@nameof(StockSummaryGridModel.ProductTypeId)" IsVisible="false" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<StockSummaryGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(StockSummaryGridModel.SpeciesBinomial)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<StockSummaryGridModel>(x => x.ProductTypeName))" FieldName="@nameof(StockSummaryGridModel.ProductTypeName)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<StockSummaryGridModel>(x => x.QuantityInStock))" FieldName="@nameof(StockSummaryGridModel.QuantityInStock)" />
+    </GenericGridColumns>
+</GenericGrid>
+
+
+@code 
+{
+    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
+
+    private BaseGridModel<StockSummaryGridModel> _viewModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var pageSize = 20;
+        var pageNumber = 1;
+        var itemCount = 100; // Hack: should be from url
+
+        _viewModel = new BaseGridModel<StockSummaryGridModel>()
+        {
+            Options = GridOptionsModel.Default,
+            Paging = new PagingModel(pageSize, pageNumber, itemCount),
+            Sorting = new GridSortingModel(),
+            Links = new GridLinksModel(PlantDataRoutes.StockSummary),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.StockSummaryGrid),
+        };
+        _viewModel.Options.AllowSorting = false;
+    }
+}

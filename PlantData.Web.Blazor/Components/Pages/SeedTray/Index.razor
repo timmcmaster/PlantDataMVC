@@ -13,13 +13,15 @@
 @inject IConfiguration configuration
 
 
-<h2>Seed Batch List</h2>
-<p>This is a list of all Seed Batches</p>
+<h2>Seed Tray List</h2>
+<p>This is a list of all Seed Trays</p>
 
 <GenericGrid GridType="@GridType" TGridItem=SeedTrayGridModel ViewModel="_viewModel">
     <GenericGridColumns>
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.Id))" FieldName="@nameof(SeedTrayGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SeedBatchId))" FieldName="@nameof(SeedTrayGridModel.SeedBatchId)" />
+        <GenericGridForeignColumn TGridItem=SeedTrayGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedTrayGridModel.SeedBatchId)"
+                                  TForeignDataItem=SeedBatchDataModel ForeignKeyField="@_fcmSeedBatch.ForeignKeyField" ForeignKeyValue="@_fcmSeedBatch.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSeedBatch.ForeignDataUrl" />
         <GenericGridColumn TGridItem=SeedTrayGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedTrayGridModel.SpeciesBinomial)" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.DateSown))" FieldName="@nameof(SeedTrayGridModel.DateSown)" Format="dd/MM/yyyy" />
     </GenericGridColumns>
