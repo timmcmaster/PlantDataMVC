@@ -24,6 +24,8 @@
                                   TForeignDataItem=SeedBatchDataModel ForeignKeyField="@_fcmSeedBatch.ForeignKeyField" ForeignKeyValue="@_fcmSeedBatch.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSeedBatch.ForeignDataUrl" />
         <GenericGridColumn TGridItem=SeedTrayGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedTrayGridModel.SpeciesBinomial)" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.DateSown))" FieldName="@nameof(SeedTrayGridModel.DateSown)" Format="dd/MM/yyyy" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.Treatment))" FieldName="@nameof(SeedTrayGridModel.Treatment)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.ThrownOut))" FieldName="@nameof(SeedTrayGridModel.ThrownOut)" DisplayAsCheckbox="true" />
     </GenericGridColumns>
 </GenericGrid>
 
@@ -50,7 +52,7 @@
             Links = new GridLinksModel(PlantDataRoutes.SeedTray),
             UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.SeedTrayGrid),
     };
-        _viewModel.Options.AllowSorting = false;
+        _viewModel.Options.AllowSorting = true;
 
         // Define foreign column info for SpeciesId 
         // TODO:, somehow get speciesbinomial info

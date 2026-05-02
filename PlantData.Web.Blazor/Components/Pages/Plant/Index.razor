@@ -51,7 +51,7 @@
             Links = new GridLinksModel(PlantDataRoutes.Plant),
             UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.PlantGrid),
         };
-        _viewModel.Options.AllowSorting = false;
+        _viewModel.Options.AllowSorting = true;
 
         // Define foreign column info for GenusId
         _fcm = new ForeignColumnModel<GenusDataModel>(

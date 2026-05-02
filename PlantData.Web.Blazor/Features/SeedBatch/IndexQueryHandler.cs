@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
+using PlantData.Web.Blazor.Helpers;
 using PlantData.Web.Blazor.SharedComponents.Grid;
 using PlantData.Web.Blazor.UIModels.ViewModels.SeedBatch;
 using PlantDataMVC.Api.Models.DataModels;
@@ -38,17 +39,17 @@ namespace PlantData.Web.Blazor.Features.SeedBatch
             }
 
             // add sorting if it maps ok
-            //if (!string.IsNullOrEmpty(query.SortBy))
-            //{
-            //    var apiSortField = MapSortField(query.SortBy);
-            //    if (!string.IsNullOrEmpty(apiSortField))
-            //    {
-            //        var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
-            //        if (sortString != "")
-            //            queryParams.Add("sort", sortString);
+            if (!string.IsNullOrEmpty(query.SortBy))
+            {
+                var apiSortField = MapSortField(query.SortBy);
+                if (!string.IsNullOrEmpty(apiSortField))
+                {
+                    var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
+                    if (sortString != "")
+                        queryParams.Add("sort", sortString);
 
-            //    }
-            //}
+                }
+            }
 
             var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
             var response = await _plantDataApiClient.GetAsync<IEnumerable<SeedBatchDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
@@ -77,38 +78,34 @@ namespace PlantData.Web.Blazor.Features.SeedBatch
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        //private static string MapSortField(string querySortBy)
-        //{
-        //    var sortField = "";
+        private static string MapSortField(string querySortBy)
+        {
+            var sortField = "";
 
-        //    // TODO: Got to be a more rigorous way to convert columns back to API fields
-        //    // supplied sortBy field should belong to display object (as it is generated from model metadata)
-        //    if (querySortBy == nameof(SeedBatchListViewModel.Id))
-        //    {
-        //        sortField = nameof(SeedBatchDataModel.Id);
-        //    }
-        //    else if (querySortBy == nameof(SeedBatchListViewModel.DateCollected))
-        //    {
-        //        sortField = nameof(SeedBatchDataModel.DateCollected);
-        //    }
-        //    else if (querySortBy == nameof(SeedBatchListViewModel.Location))
-        //    {
-        //        sortField = nameof(SeedBatchDataModel.Location);
-        //    }
-        //    else if (querySortBy == nameof(SeedBatchListViewModel.SiteName))
-        //    {
-        //        sortField = nameof(SeedBatchDataModel.SiteName);
-        //    }
-        //    else if (querySortBy == nameof(SeedBatchListViewModel.SpeciesBinomial))
-        //    {
-        //        sortField = $"{nameof(SeedBatchDataModel.GenusName)},{nameof(SeedBatchDataModel.SpeciesName)}";
-        //    }
-        //    else if (querySortBy == nameof(SeedBatchListViewModel.SpeciesId))
-        //    {
-        //        sortField = nameof(SeedBatchDataModel.SpeciesId);
-        //    }
+            // TODO: Got to be a more rigorous way to convert columns back to API fields
+            // supplied sortBy field should belong to display object (as it is generated from model metadata)
+            if (querySortBy == nameof(SeedBatchGridModel.Id))
+            {
+                sortField = nameof(SeedBatchDataModel.Id);
+            }
+            else if (querySortBy == nameof(SeedBatchGridModel.DateCollected))
+            {
+                sortField = nameof(SeedBatchDataModel.DateCollected);
+            }
+            else if (querySortBy == nameof(SeedBatchGridModel.Location))
+            {
+                sortField = nameof(SeedBatchDataModel.Location);
+            }
+            else if (querySortBy == nameof(SeedBatchGridModel.SiteName))
+            {
+                sortField = nameof(SeedBatchDataModel.SiteName);
+            }
+            else if (querySortBy == nameof(SeedBatchGridModel.SpeciesBinomial))
+            {
+                sortField = $"{nameof(SeedBatchDataModel.GenusName)},{nameof(SeedBatchDataModel.SpeciesName)}";
+            }
 
-        //    return sortField;
-        //}
+            return sortField;
+        }
     }
 }

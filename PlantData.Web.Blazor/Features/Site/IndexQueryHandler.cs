@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
+using PlantData.Web.Blazor.Helpers;
 using PlantData.Web.Blazor.SharedComponents.Grid;
 using PlantData.Web.Blazor.UIModels.ViewModels.Site;
 using PlantDataMVC.Api.Models.DataModels;
@@ -37,18 +38,18 @@ namespace PlantData.Web.Blazor.Features.Site
                 queryParams.Add("pageSize", query.PageSize.ToString());
             }
 
-            //// add sorting if it maps ok
-            //if (!string.IsNullOrEmpty(query.SortBy))
-            //{
-            //    var apiSortField = MapSortField(query.SortBy);
-            //    if (!string.IsNullOrEmpty(apiSortField))
-            //    {
-            //        var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
-            //        if (sortString != "")
-            //            queryParams.Add("sort", sortString);
+            // add sorting if it maps ok
+            if (!string.IsNullOrEmpty(query.SortBy))
+            {
+                var apiSortField = MapSortField(query.SortBy);
+                if (!string.IsNullOrEmpty(apiSortField))
+                {
+                    var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
+                    if (sortString != "")
+                        queryParams.Add("sort", sortString);
 
-            //    }
-            //}
+                }
+            }
 
             var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
             var response = await _plantDataApiClient.GetAsync<IEnumerable<SiteDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
@@ -79,34 +80,34 @@ namespace PlantData.Web.Blazor.Features.Site
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        //private static string MapSortField(string querySortBy)
-        //{
-        //    var sortField = "";
+        private static string MapSortField(string querySortBy)
+        {
+            var sortField = "";
 
-        //    // TODO: Got to be a more rigorous way to convert columns back to API fields
-        //    // supplied sortBy field should belong to display object (as it is generated from model metadata)
-        //    if (querySortBy == nameof(SiteListViewModel.Id))
-        //    {
-        //        sortField = nameof(SiteDataModel.Id);
-        //    }
-        //    else if (querySortBy == nameof(SiteListViewModel.Latitude))
-        //    {
-        //        sortField = nameof(SiteDataModel.Latitude);
-        //    }
-        //    else if (querySortBy == nameof(SiteListViewModel.Longitude))
-        //    {
-        //        sortField = nameof(SiteDataModel.Longitude);
-        //    }
-        //    else if (querySortBy == nameof(SiteListViewModel.SiteName))
-        //    {
-        //        sortField = nameof(SiteDataModel.SiteName);
-        //    }
-        //    else if (querySortBy == nameof(SiteListViewModel.Suburb))
-        //    {
-        //        sortField = nameof(SiteDataModel.Suburb);
-        //    }
+            // TODO: Got to be a more rigorous way to convert columns back to API fields
+            // supplied sortBy field should belong to display object (as it is generated from model metadata)
+            if (querySortBy == nameof(SiteGridModel.Id))
+            {
+                sortField = nameof(SiteDataModel.Id);
+            }
+            //else if (querySortBy == nameof(SiteGridModel.Latitude))
+            //{
+            //    sortField = nameof(SiteDataModel.Latitude);
+            //}
+            //else if (querySortBy == nameof(SiteGridModel.Longitude))
+            //{
+            //    sortField = nameof(SiteDataModel.Longitude);
+            //}
+            else if (querySortBy == nameof(SiteGridModel.SiteName))
+            {
+                sortField = nameof(SiteDataModel.SiteName);
+            }
+            else if (querySortBy == nameof(SiteGridModel.Suburb))
+            {
+                sortField = nameof(SiteDataModel.Suburb);
+            }
 
-        //    return sortField;
-        //}
+            return sortField;
+        }
     }
 }

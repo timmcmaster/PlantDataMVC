@@ -2,6 +2,7 @@
 using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
+using PlantData.Web.Blazor.Helpers;
 using PlantData.Web.Blazor.SharedComponents.Grid;
 using PlantData.Web.Blazor.UIModels.ViewModels.SaleEvent;
 using PlantData.Web.Mvc.Controllers.Queries.SaleEvent;
@@ -40,17 +41,17 @@ namespace PlantData.Web.Blazor.Features.SaleEvent
             }
 
             // add sorting if it maps ok
-            //if (!string.IsNullOrEmpty(query.SortBy))
-            //{
-            //    var apiSortField = MapSortField(query.SortBy);
-            //    if (!string.IsNullOrEmpty(apiSortField))
-            //    {
-            //        var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
-            //        if (sortString != "")
-            //            queryParams.Add("sort", sortString);
+            if (!string.IsNullOrEmpty(query.SortBy))
+            {
+                var apiSortField = MapSortField(query.SortBy);
+                if (!string.IsNullOrEmpty(apiSortField))
+                {
+                    var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
+                    if (sortString != "")
+                        queryParams.Add("sort", sortString);
 
-            //    }
-            //}
+                }
+            }
 
             var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
             var response = await _plantDataApiClient.GetAsync<IEnumerable<SaleEventDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
@@ -81,30 +82,30 @@ namespace PlantData.Web.Blazor.Features.SaleEvent
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        //private static string MapSortField(string querySortBy)
-        //{
-        //    var sortField = "";
+        private static string MapSortField(string querySortBy)
+        {
+            var sortField = "";
 
-        //    // TODO: Got to be a more rigorous way to convert columns back to API fields
-        //    // supplied sortBy field should belong to display object (as it is generated from model metadata)
-        //    if (querySortBy == nameof(SaleEventListViewModel.Id))
-        //    {
-        //        sortField = nameof(SaleEventDataModel.Id);
-        //    }
-        //    else if (querySortBy == nameof(SaleEventListViewModel.Name))
-        //    {
-        //        sortField = nameof(SaleEventDataModel.Name);
-        //    }
-        //    else if (querySortBy == nameof(SaleEventListViewModel.SaleDate))
-        //    {
-        //        sortField = nameof(SaleEventDataModel.SaleDate);
-        //    }
-        //    else if (querySortBy == nameof(SaleEventListViewModel.Location))
-        //    {
-        //        sortField = nameof(SaleEventDataModel.Location);
-        //    }
+            // TODO: Got to be a more rigorous way to convert columns back to API fields
+            // supplied sortBy field should belong to display object (as it is generated from model metadata)
+            if (querySortBy == nameof(SaleEventGridModel.Id))
+            {
+                sortField = nameof(SaleEventDataModel.Id);
+            }
+            else if (querySortBy == nameof(SaleEventGridModel.Name))
+            {
+                sortField = nameof(SaleEventDataModel.Name);
+            }
+            else if (querySortBy == nameof(SaleEventGridModel.SaleDate))
+            {
+                sortField = nameof(SaleEventDataModel.SaleDate);
+            }
+            else if (querySortBy == nameof(SaleEventGridModel.Location))
+            {
+                sortField = nameof(SaleEventDataModel.Location);
+            }
 
-        //    return sortField;
-        //}
+            return sortField;
+        }
     }
 }

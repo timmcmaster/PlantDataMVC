@@ -2,6 +2,7 @@
 using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
+using PlantData.Web.Blazor.Helpers;
 using PlantData.Web.Blazor.SharedComponents.Grid;
 using PlantData.Web.Blazor.UIModels.ViewModels.Genus;
 using PlantDataMVC.Api.Models.DataModels;
@@ -39,16 +40,16 @@ namespace PlantData.Web.Blazor.Features.Genus
             }
 
             // add sorting if it maps ok
-            //if (!string.IsNullOrEmpty(query.SortBy))
-            //{
-            //    var apiSortField = MapSortField(query.SortBy);
-            //    if (!string.IsNullOrEmpty(apiSortField))
-            //    {
-            //        var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
-            //        if (sortString != "")
-            //            queryParams.Add("sort", sortString);
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(query.SortBy))
+            {
+                var apiSortField = MapSortField(query.SortBy);
+                if (!string.IsNullOrEmpty(apiSortField))
+                {
+                    var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
+                    if (sortString != "")
+                        queryParams.Add("sort", sortString);
+                }
+            }
 
             var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
             var response = await _plantDataApiClient.GetAsync<IEnumerable<GenusDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
@@ -79,22 +80,22 @@ namespace PlantData.Web.Blazor.Features.Genus
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        //private static string MapSortField(string querySortBy)
-        //{
-        //    var sortField = "";
+        private static string MapSortField(string querySortBy)
+        {
+            var sortField = "";
 
-        //    // TODO: Got to be a more rigorous way to convert columns back to API fields
-        //    // supplied sortBy field should belong to display object (as it is generated from model metadata)
-        //    if (querySortBy == nameof(GenusListViewModel.Id))
-        //    {
-        //        sortField = nameof(GenusDataModel.Id);
-        //    }
-        //    else if (querySortBy == nameof(GenusListViewModel.LatinName))
-        //    {
-        //        sortField = nameof(GenusDataModel.LatinName);
-        //    }
+            // TODO: Got to be a more rigorous way to convert columns back to API fields
+            // supplied sortBy field should belong to display object (as it is generated from model metadata)
+            if (querySortBy == nameof(GenusGridModel.Id))
+            {
+                sortField = nameof(GenusDataModel.Id);
+            }
+            else if (querySortBy == nameof(GenusGridModel.LatinName))
+            {
+                sortField = nameof(GenusDataModel.LatinName);
+            }
 
-        //    return sortField;
-        //}
+            return sortField;
+        }
     }
 }

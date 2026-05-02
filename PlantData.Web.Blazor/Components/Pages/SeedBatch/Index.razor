@@ -55,7 +55,7 @@
             Links = new GridLinksModel(PlantDataRoutes.SeedBatch),
             UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.SeedBatchGrid),
     };
-        _viewModel.Options.AllowSorting = false;
+        _viewModel.Options.AllowSorting = true;
 
         // Define foreign column info for SpeciesId 
         _fcmSpecies = new ForeignColumnModel<SpeciesDataModel>(

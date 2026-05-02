@@ -2,6 +2,7 @@
 using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
 using PlantData.Web.Blazor.Features.ProductType;
+using PlantData.Web.Blazor.Helpers;
 using PlantData.Web.Blazor.SharedComponents.Grid;
 using PlantData.Web.Blazor.UIModels.ViewModels.ProductType;
 using PlantDataMVC.Api.Models.DataModels;
@@ -39,16 +40,16 @@ namespace PlantData.Web.Mvc.Handlers.Views.ProductType
             }
 
             // add sorting if it maps ok
-            //if (!string.IsNullOrEmpty(query.SortBy))
-            //{
-            //    var apiSortField = MapSortField(query.SortBy);
-            //    if (!string.IsNullOrEmpty(apiSortField))
-            //    {
-            //        var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
-            //        if (sortString != "")
-            //            queryParams.Add("sort", sortString);
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(query.SortBy))
+            {
+                var apiSortField = MapSortField(query.SortBy);
+                if (!string.IsNullOrEmpty(apiSortField))
+                {
+                    var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
+                    if (sortString != "")
+                        queryParams.Add("sort", sortString);
+                }
+            }
 
             var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
             var response = await _plantDataApiClient.GetAsync<IEnumerable<ProductTypeDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
@@ -82,22 +83,22 @@ namespace PlantData.Web.Mvc.Handlers.Views.ProductType
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        //private static string MapSortField(string querySortBy)
-        //{
-        //    var sortField = "";
+        private static string MapSortField(string querySortBy)
+        {
+            var sortField = "";
 
-        //    // TODO: Got to be a more rigorous way to convert columns back to API fields
-        //    // supplied sortBy field should belong to display object (as it is generated from model metadata)
-        //    if (querySortBy == nameof(ProductTypeListViewModel.Id))
-        //    {
-        //        sortField = nameof(ProductTypeDataModel.Id);
-        //    }
-        //    else if (querySortBy == nameof(ProductTypeListViewModel.Name))
-        //    {
-        //        sortField = nameof(ProductTypeDataModel.Name);
-        //    }
+            // TODO: Got to be a more rigorous way to convert columns back to API fields
+            // supplied sortBy field should belong to display object (as it is generated from model metadata)
+            if (querySortBy == nameof(ProductTypeGridModel.Id))
+            {
+                sortField = nameof(ProductTypeDataModel.Id);
+            }
+            else if (querySortBy == nameof(ProductTypeGridModel.Name))
+            {
+                sortField = nameof(ProductTypeDataModel.Name);
+            }
 
-        //    return sortField;
-        //}
+            return sortField;
+        }
     }
 }

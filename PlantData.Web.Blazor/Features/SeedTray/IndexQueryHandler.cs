@@ -2,6 +2,7 @@
 using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
+using PlantData.Web.Blazor.Helpers;
 using PlantData.Web.Blazor.SharedComponents.Grid;
 using PlantData.Web.Blazor.UIModels.ViewModels.SeedTray;
 using PlantDataMVC.Api.Models.DataModels;
@@ -38,18 +39,18 @@ namespace PlantData.Web.Blazor.Features.SeedTray
                 queryParams.Add("pageSize", query.PageSize.ToString());
             }
 
-            //// add sorting if it maps ok
-            //if (!string.IsNullOrEmpty(query.SortBy))
-            //{
-            //    var apiSortField = MapSortField(query.SortBy);
-            //    if (!string.IsNullOrEmpty(apiSortField))
-            //    {
-            //        var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
-            //        if (sortString != "")
-            //            queryParams.Add("sort", sortString);
+            // add sorting if it maps ok
+            if (!string.IsNullOrEmpty(query.SortBy))
+            {
+                var apiSortField = MapSortField(query.SortBy);
+                if (!string.IsNullOrEmpty(apiSortField))
+                {
+                    var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
+                    if (sortString != "")
+                        queryParams.Add("sort", sortString);
 
-            //    }
-            //}
+                }
+            }
 
             var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
             var response = await _plantDataApiClient.GetAsync<IEnumerable<SeedTrayDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
@@ -80,34 +81,34 @@ namespace PlantData.Web.Blazor.Features.SeedTray
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        //private static string MapSortField(string querySortBy)
-        //{
-        //    var sortField = "";
+        private static string MapSortField(string querySortBy)
+        {
+            var sortField = "";
 
-        //    // TODO: Got to be a more rigorous way to convert columns back to API fields
-        //    // supplied sortBy field should belong to display object (as it is generated from model metadata)
-        //    if (querySortBy == nameof(SeedTrayListViewModel.Id))
-        //    {
-        //        sortField = nameof(SeedTrayDataModel.Id);
-        //    }
-        //    else if (querySortBy == nameof(SeedTrayListViewModel.DateSown))
-        //    {
-        //        sortField = nameof(SeedTrayDataModel.DateSown);
-        //    }
-        //    else if (querySortBy == nameof(SeedTrayListViewModel.SeedBatchId))
-        //    {
-        //        sortField = nameof(SeedTrayDataModel.SeedBatchId);
-        //    }
-        //    else if (querySortBy == nameof(SeedTrayListViewModel.ThrownOut))
-        //    {
-        //        sortField = nameof(SeedTrayDataModel.ThrownOut);
-        //    }
-        //    else if (querySortBy == nameof(SeedTrayListViewModel.Treatment))
-        //    {
-        //        sortField = nameof(SeedTrayDataModel.Treatment);
-        //    }
+            // TODO: Got to be a more rigorous way to convert columns back to API fields
+            // supplied sortBy field should belong to display object (as it is generated from model metadata)
+            if (querySortBy == nameof(SeedTrayGridModel.Id))
+            {
+                sortField = nameof(SeedTrayDataModel.Id);
+            }
+            else if (querySortBy == nameof(SeedTrayGridModel.DateSown))
+            {
+                sortField = nameof(SeedTrayDataModel.DateSown);
+            }
+            else if (querySortBy == nameof(SeedTrayGridModel.SeedBatchId))
+            {
+                sortField = nameof(SeedTrayDataModel.SeedBatchId);
+            }
+            else if (querySortBy == nameof(SeedTrayGridModel.ThrownOut))
+            {
+                sortField = nameof(SeedTrayDataModel.ThrownOut);
+            }
+            else if (querySortBy == nameof(SeedTrayGridModel.Treatment))
+            {
+                sortField = nameof(SeedTrayDataModel.Treatment);
+            }
 
-        //    return sortField;
-        //}
+            return sortField;
+        }
     }
 }

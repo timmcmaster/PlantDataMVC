@@ -2,6 +2,7 @@
 using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
+using PlantData.Web.Blazor.Helpers;
 using PlantData.Web.Blazor.SharedComponents.Grid;
 using PlantData.Web.Blazor.UIModels.ViewModels.Plant;
 using PlantDataMVC.Api.Models.DataModels;
@@ -39,16 +40,19 @@ namespace PlantData.Web.Blazor.Features.Plant
             }
 
             // add sorting if it maps ok
-            //if (!string.IsNullOrEmpty(query.SortBy))
-            //{
-            //    var apiSortField = MapSortField(query.SortBy);
-            //    if (!string.IsNullOrEmpty(apiSortField))
-            //    {
-            //        var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
-            //        if (sortString != "")
-            //            queryParams.Add("sort", sortString);
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(query.SortBy))
+            {
+                var apiSortField = MapSortField(query.SortBy);
+                if (!string.IsNullOrEmpty(apiSortField))
+                {
+                    var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
+                    if (sortString != "")
+                        queryParams.Add("sort", sortString);
+                }
+            }
+
+            // Make sure we include genus name property
+            //queryParams.Add("fields", "GenusName");
 
             var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
             var response = await _plantDataApiClient.GetAsync<IEnumerable<SpeciesDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
@@ -79,22 +83,38 @@ namespace PlantData.Web.Blazor.Features.Plant
         /// </summary>
         /// <param name="querySortBy">The query sort by.</param>
         /// <returns></returns>
-        //private static string MapSortField(string querySortBy)
-        //{
-        //    var sortField = "";
+        private static string MapSortField(string querySortBy)
+        {
+            var sortField = "";
 
-        //    // TODO: Got to be a more rigorous way to convert columns back to API fields
-        //    // supplied sortBy field should belong to display object (as it is generated from model metadata)
-        //    if (querySortBy == nameof(GenusListViewModel.Id))
-        //    {
-        //        sortField = nameof(GenusDataModel.Id);
-        //    }
-        //    else if (querySortBy == nameof(GenusListViewModel.LatinName))
-        //    {
-        //        sortField = nameof(GenusDataModel.LatinName);
-        //    }
+            // TODO: Got to be a more rigorous way to convert columns back to API fields
+            // supplied sortBy field should belong to display object (as it is generated from model metadata)
+            if (querySortBy == nameof(PlantGridModel.Id))
+            {
+                sortField = nameof(SpeciesDataModel.Id);
+            }
+            else if (querySortBy == nameof(PlantGridModel.Binomial))
+            {
+                sortField = nameof(SpeciesDataModel.SpeciesBinomial);
+            }
+            else if (querySortBy == nameof(PlantGridModel.Genus))
+            {
+                sortField = nameof(SpeciesDataModel.GenusName);
+            }
+            else if (querySortBy == nameof(PlantGridModel.Species))
+            {
+                sortField = nameof(SpeciesDataModel.SpecificName);
+            }
+            else if (querySortBy == nameof(PlantGridModel.CommonName))
+            {
+                sortField = nameof(SpeciesDataModel.CommonName);
+            }
+            else if (querySortBy == nameof(PlantGridModel.Native))
+            {
+                sortField = nameof(SpeciesDataModel.Native);
+            }
 
-        //    return sortField;
-        //}
+            return sortField;
+        }
     }
 }
