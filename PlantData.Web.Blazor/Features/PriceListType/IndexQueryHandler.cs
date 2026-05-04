@@ -1,7 +1,6 @@
 using AutoMapper;
 using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
-using PlantData.Web.Blazor.Features.PriceListType;
 using PlantData.Web.Blazor.Helpers;
 using PlantData.Web.Blazor.SharedComponents.Grid;
 using PlantData.Web.Blazor.UIModels.ViewModels.PriceListType;
@@ -13,7 +12,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Mvc.Handlers.Views.PriceListType
+namespace PlantData.Web.Blazor.Features.PriceListType
 {
     public class IndexQueryHandler : IQueryHandler<IndexQuery, GridDataModel<PriceListTypeGridModel>>
     {

@@ -1,5 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using PlantData.Web.Blazor.Features.PriceListType;
+using PlantData.Web.Blazor.Features.ProductPrice;
 using PlantData.Web.Blazor.UIModels.EditModels.PriceListType;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.Data;
@@ -7,17 +9,17 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.PriceListType
+namespace PlantData.Web.Mvc.Controllers.ViewComponents
 {
-    public class PriceListTypeGridController : Controller
+    public class ProductPriceGridController : Controller
     {
         private readonly IMediator _mediator;
-        private readonly IPriceListTypeLookupService _priceListTypeLookupService;
+        private readonly IProductPriceLookupService _productPriceLookupService;
 
-        public PriceListTypeGridController(IMediator mediator, IPriceListTypeLookupService priceListTypeLookupService)
+        public ProductPriceGridController(IMediator mediator, IProductPriceLookupService productPriceLookupService)
         {
             _mediator = mediator;
-            this._priceListTypeLookupService = priceListTypeLookupService;
+            this._productPriceLookupService = productPriceLookupService;
         }
 
         [HttpPost]
@@ -91,7 +93,7 @@ namespace PlantData.Web.Blazor.Features.PriceListType
         [Route("data/[controller]/List")]
         public async Task<ActionResult> List([FromBody] DataManagerRequest request)
         {
-            var dataSource = await _priceListTypeLookupService.GetData();
+            var dataSource = await _productPriceLookupService.GetData();
 
             if (request.Where != null && request.Where.Count > 0)
             {

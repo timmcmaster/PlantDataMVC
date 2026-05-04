@@ -8,27 +8,26 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.PriceListType
+namespace PlantData.Web.Blazor.Features.ProductPrice
 {
-    public class PriceListTypeDataModelListQueryHandler : ListQueryHandler<PriceListTypeDataModel>
+    public class ProductPriceDataModelListQueryHandler : ListQueryHandler<ProductPriceDataModel>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
 
-        public PriceListTypeDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
+        public ProductPriceDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
         {
             _plantDataApiClient = plantDataApiClient;
         }
 
-        public override async Task<IEnumerable<PriceListTypeDataModel>> Handle(ListQuery<PriceListTypeDataModel> query, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<ProductPriceDataModel>> Handle(ListQuery<ProductPriceDataModel> query, CancellationToken cancellationToken)
         {
             bool success = true;
-            string? uri = "api/PriceListType";
-            IEnumerable<PriceListTypeDataModel> fullDataModelList = Enumerable.Empty<PriceListTypeDataModel>();
+            string? uri = "api/ProductPrice";
+            IEnumerable<ProductPriceDataModel> fullDataModelList = Enumerable.Empty<ProductPriceDataModel>();
 
             while (!string.IsNullOrEmpty(uri))
             {
-                var response = await _plantDataApiClient.GetAsync<IEnumerable<PriceListTypeDataModel>>(uri, cancellationToken).ConfigureAwait(false);
-
+                var response = await _plantDataApiClient.GetAsync<IEnumerable<ProductPriceDataModel>>(uri, cancellationToken).ConfigureAwait(false);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     throw new UnauthorizedAccessException();
@@ -38,7 +37,7 @@ namespace PlantData.Web.Blazor.Features.PriceListType
                     var dataModelList = response.Content;
 
                     // Concatenate page to full list
-                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<PriceListTypeDataModel>()).Concat(dataModelList ?? Enumerable.Empty<PriceListTypeDataModel>());
+                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<ProductPriceDataModel>()).Concat(dataModelList ?? Enumerable.Empty<ProductPriceDataModel>());
 
                     // if we haven't got all the items, follow paging links (link will be null if no next page)
                     uri = response.LinkInfo?.NextPageLink?.ToString();

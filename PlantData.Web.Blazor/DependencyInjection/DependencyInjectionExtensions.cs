@@ -16,6 +16,8 @@ using Serilog;
 using System;
 using System.Linq;
 using System.Reflection;
+using PlantData.Web.Blazor.Features.TransactionType;
+using PlantData.Web.Blazor.Features.ProductPrice;
 
 namespace PlantData.Web.Blazor.DependencyInjection
 {
@@ -36,9 +38,9 @@ namespace PlantData.Web.Blazor.DependencyInjection
 
             // Used in view injections
             services.AddTransient<IGenusLookupService, GenusLookupService>();
-            //services.AddTransient<IJournalEntryTypeLookupService, JournalEntryTypeLookupService>();
+            services.AddTransient<IJournalEntryTypeLookupService, JournalEntryTypeLookupService>();
             services.AddTransient<IPriceListTypeLookupService, PriceListTypeLookupService>();
-            //services.AddTransient<IProductPriceLookupService, ProductPriceLookupService>();
+            services.AddTransient<IProductPriceLookupService, ProductPriceLookupService>();
             services.AddTransient<IProductTypeLookupService, ProductTypeLookupService>();
             services.AddTransient<ISaleEventLookupService, SaleEventLookupService>();
             services.AddTransient<ISeedBatchLookupService, SeedBatchLookupService>();

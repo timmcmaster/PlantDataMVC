@@ -8,7 +8,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Mvc.Handlers.Forms.PriceListType
+namespace PlantData.Web.Blazor.Features.PriceListType
 {
     public class PriceListTypeUpdateEditModelFormHandler : IFormHandler<PriceListTypeUpdateEditModel, bool>
     {

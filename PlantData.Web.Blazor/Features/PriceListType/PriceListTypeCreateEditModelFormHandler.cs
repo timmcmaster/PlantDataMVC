@@ -6,7 +6,7 @@ using PlantDataMVC.Common.Client;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Mvc.Handlers.Forms.PriceListType
+namespace PlantData.Web.Blazor.Features.PriceListType
 {
     public class PriceListTypeCreateEditModelFormHandler : IFormHandler<PriceListTypeCreateEditModel, bool>
     {

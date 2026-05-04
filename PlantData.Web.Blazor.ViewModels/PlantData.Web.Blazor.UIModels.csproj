@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Framework.Web\Framework.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EditModels\ProductPrice\" />
+    <Folder Include="ViewModels\ProductPrice\" />
+  </ItemGroup>
+
 </Project>

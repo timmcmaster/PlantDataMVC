@@ -17,11 +17,15 @@
     {
         if (DisplayAsCheckbox)
         {
-            <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey" DisplayAsCheckBox=@DisplayAsCheckbox EditType="EditType.BooleanEdit"></GridColumn>
+            <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey" DisplayAsCheckBox=@DisplayAsCheckbox EditType="Syncfusion.Blazor.Grids.EditType.BooleanEdit"></GridColumn>
+        }
+        else if (EditType.HasValue)
+        {
+            <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey" EditType="@EditType.Value"/>
         }
         else
         {
-            <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey"></GridColumn>
+            <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey" />
         }
     }
 </div>
@@ -57,4 +61,7 @@
 
     [Parameter]
     public bool DisplayAsCheckbox { get; set; } = false;
+
+    [Parameter]
+    public EditType? EditType { get; set; }
 }

@@ -1,16 +1,20 @@
 ﻿@using Microsoft.Extensions.Configuration
 @using PlantData.Web.Blazor.DisplayHelpers
+@using PlantData.Web.Blazor.Features.ProductPrice
 @using PlantData.Web.Blazor.SharedComponents.Paging
 @using PlantData.Web.Blazor.UIModels.Constants
 @using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.UIModels.EditModels.Label
 @using PlantData.Web.Blazor.UIModels.ViewModels.Label
 @using PlantData.Web.Blazor.Features.Labels
-@using Syncfusion.Blazor.DropDowns
+@using PlantDataMVC.Api.Models.DataModels
+@using Syncfusion.Blazor.DropDowns 
+@using Syncfusion.Blazor.Grids
 
 @attribute [Route(PlantDataRoutes.BarcodeLabel)]
 
 @inject IBarcodeLayoutLookupService layoutLookup
+@inject IProductPriceLookupService productPriceLookup
 @inject IConfiguration configuration
 
 <h2>Barcode Labels</h2>
@@ -20,7 +24,7 @@
 <p></p>
 <GenericGrid GridType="@GridType" TGridItem=BarcodeLabelRequestGridModel ViewModel="_gridViewModel">
     <GenericGridColumns>
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)" />
+        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)" EditType="EditType.DropDownEdit"/>
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceText))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceText)" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.LabelQuantity))" FieldName="@nameof(BarcodeLabelRequestGridModel.LabelQuantity)" />
     </GenericGridColumns>
@@ -60,6 +64,8 @@
 
     private List<LayoutModel> _labelLayouts;
     private string _selectedLayoutName;
+    
+    private List<ProductPriceDataModel> _productPrices;
 
     private string errorMessage = string.Empty;
     private string successMessage = string.Empty;
@@ -96,6 +102,10 @@
                             .Select(x => new LayoutModel { Name = x.LayoutName, Description = x.LayoutDescription })
                             .ToList();
         _selectedLayoutName = _labelLayouts.FirstOrDefault()?.Name;
+
+        // Load product prices for dropdown
+        var productPriceData = await productPriceLookup.GetData();
+        _productPrices = productPriceData.ToList();
     }
 
     private async Task GenerateLabels()
