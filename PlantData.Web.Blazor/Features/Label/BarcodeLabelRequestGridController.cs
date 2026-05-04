@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantData.Web.Blazor.Features.Plant;
 using PlantData.Web.Blazor.SharedComponents.Grid;
-using PlantData.Web.Blazor.UIModels.EditModels.Label;
 using PlantData.Web.Blazor.UIModels.ViewModels.Label;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.Data;
@@ -40,7 +39,7 @@ namespace PlantData.Web.Blazor.Features.Labels
             var localSortBy = firstSort == null ? string.Empty : firstSort.Name;
             var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
 
-            var allowPaging = ((JsonElement)request.Params["allowPaging"]).GetBoolean();
+            var allowPaging = request.Params is null ? false : ((JsonElement)request.Params["allowPaging"]).GetBoolean();
 
             if (!allowPaging)
             {
