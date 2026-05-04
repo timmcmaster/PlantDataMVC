@@ -39,8 +39,4 @@
     <ProjectReference Include="..\PlantDataMVC.Constants\PlantDataMVC.Constants.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Labels\" />
-  </ItemGroup>
-
 </Project>

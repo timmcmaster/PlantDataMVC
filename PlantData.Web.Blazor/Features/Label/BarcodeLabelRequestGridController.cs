@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantData.Web.Blazor.Features.Plant;
 using PlantData.Web.Blazor.SharedComponents.Grid;
+using PlantData.Web.Blazor.UIModels.EditModels.Label;
 using PlantData.Web.Blazor.UIModels.ViewModels.Label;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.Data;
