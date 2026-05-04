@@ -1,11 +1,8 @@
 using AutoMapper;
 using Framework.Web.Views;
 using Microsoft.AspNetCore.WebUtilities;
-using PlantData.Web.Blazor.Features.StocktakeHeader;
 using PlantData.Web.Blazor.SharedComponents.Grid;
-using PlantData.Web.Blazor.UIModels.ViewModels.StocktakeHeader;
 using PlantData.Web.Blazor.UIModels.ViewModels.Transaction;
-using PlantDataMVC.Api.Models.DataModels;
 using PlantDataMVC.Common.Client;
 using PlantDataMVC.Repository.Models;
 using System;

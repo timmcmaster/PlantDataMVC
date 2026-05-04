@@ -4,21 +4,13 @@
 @using PlantData.Web.Blazor.UIModels.Constants
 @using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.UIModels.ViewModels.Label
-
-@* @inject PlantData.Web.Blazor.Services.IBarcodeLayoutLookupService layoutLookup *@
+@using PlantData.Web.Blazor.Features.Labels
+@using Syncfusion.Blazor.DropDowns
 
 @attribute [Route(PlantDataRoutes.BarcodeLabel)]
 
+@inject IBarcodeLayoutLookupService layoutLookup
 @inject IConfiguration configuration
-
-@* @{
-    ViewBag.Title = "Barcode Labels";
-    var labelLayouts = layoutLookup.GetData()
-                                   .OrderByDescending(x => x.IsDefault)
-                                   .ThenBy(x => x.LayoutName)
-                                   .Select(x => new { LayoutName = x.LayoutName, LayoutDescription = x.LayoutDescription });
-    var selectedLayout = labelLayouts.FirstOrDefault();
-} *@
 
 <h2>Barcode Labels</h2>
 @* <div class="container-lg">
@@ -51,6 +43,10 @@
     </form>
 </div>
  *@
+<SfDropDownList TValue="string" TItem="LayoutModel" Placeholder="Select a layout" DataSource="@_labelLayouts">
+    <DropDownListFieldSettings Value="Name" Text="Description"></DropDownListFieldSettings>
+</SfDropDownList>
+<p></p>
 <GenericGrid GridType="@GridType" TGridItem=BarcodeLabelRequestGridModel ViewModel="_viewModel">
     <GenericGridColumns>
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)" />
@@ -65,6 +61,9 @@
     public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
 
     private BaseGridModel<BarcodeLabelRequestGridModel> _viewModel;
+
+    private List<LayoutModel> _labelLayouts;
+    private LayoutModel _selectedLayout;
 
     protected override async Task OnInitializedAsync()
     {
@@ -81,5 +80,14 @@
                 UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.BarcodeLabelRequestGrid),
             };
         _viewModel.Options.AllowSorting = false;
+
+        // Use await to properly handle async GetData() call
+        var layoutData = await layoutLookup.GetData();
+        _labelLayouts = layoutData
+                            .OrderByDescending(x => x.IsDefault)
+                            .ThenBy(x => x.LayoutName)
+                            .Select(x => new LayoutModel { Name = x.LayoutName, Description = x.LayoutDescription })
+                            .ToList();
+        _selectedLayout = _labelLayouts.FirstOrDefault();
     }
 }

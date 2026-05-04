@@ -2,8 +2,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PlantData.Web.Blazor.Features.Transaction;
 using Syncfusion.Blazor;
-using Syncfusion.Blazor.Data;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 

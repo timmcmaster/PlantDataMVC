@@ -7,13 +7,16 @@
 @using PlantData.Web.Blazor.UIModels.ViewModels.Label
 @using System.ComponentModel
 @using PlantDataMVC.Api.Models.DataModels
+@using Newtonsoft.Json
 
 @attribute [Route(PlantDataRoutes.PlantLabel)]
 
 @inject IConfiguration configuration
+@inject NavigationManager navigationManager
 
 
 <h2>Plant Labels</h2>
+<p>Select species and quantities to generate plant information labels</p>
 
 <GenericGrid GridType="@GridType" TGridItem=PlantLabelRequestGridModel ViewModel="_viewModel">
     <GenericGridColumns>
@@ -23,11 +26,23 @@
     </GenericGridColumns>
 </GenericGrid>
 
+<div style="margin-top: 20px;">
+    <button class="btn btn-primary" @onclick="GenerateLabels">Generate Labels</button>
+</div>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @errorMessage
+    </div>
+}
+
 @code 
 {
     public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
 
     private BaseGridModel<PlantLabelRequestGridModel> _viewModel;
+    private string errorMessage = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -44,5 +59,15 @@
             UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.PlantLabelRequestGrid),
         };
         _viewModel.Options.AllowSorting = false;
+        _viewModel.Options.AllowAdd = true;
+        _viewModel.Options.AllowEdit = true;
+        _viewModel.Options.AllowDelete = true;
+    }
+
+    private void GenerateLabels()
+    {
+        // This would trigger the form submission
+        // The actual implementation depends on the GenericGrid component's edit capabilities
+        errorMessage = "Label generation feature coming soon. Please use the grid to edit label quantities.";
     }
 }
