@@ -39,7 +39,7 @@
 
         _viewModel = new BaseGridModel<StockSummaryGridModel>()
         {
-            Options = GridOptionsModel.Default,
+            Options = GridOptionsModel.ViewOnly,
             Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel(PlantDataRoutes.StockSummary),
