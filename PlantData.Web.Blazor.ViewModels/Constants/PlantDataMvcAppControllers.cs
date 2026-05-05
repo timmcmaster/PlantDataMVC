@@ -15,10 +15,9 @@
         public const string StockSummaryGrid = "StockSummaryGrid";
         public const string PlantLabelRequestGrid = "PlantLabelRequestGrid";
         public const string BarcodeLabelRequestGrid = "BarcodeLabelRequestGrid";
+        public const string ProductPriceGrid = "ProductPriceGrid";
 
         //public const string PlantStockGrid = "PlantStockGrid";
-        //public const string ProductPriceGrid = "ProductPriceGrid";
-        //public const string TransactionStockSummaryGrid = "TransactionStockSummaryGrid";
         //public const string TransactionGrid = "TransactionGrid";
         //public const string TransactionStocktakeGrid = "TransactionStocktakeGrid";
 
