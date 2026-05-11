@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DelegateDecompiler;
+using System;
 
 namespace PlantDataMVC.Api.Models.DataModels
 {
@@ -12,5 +13,8 @@ namespace PlantDataMVC.Api.Models.DataModels
         public DateTime DateEffective { get; set; }
         public decimal Price { get; set; }
         public string BarcodeSKU { get; set; }
+
+        [Computed]
+        public string ProductPriceText => $"{PriceListTypeName}, {ProductTypeName}, {Price.ToString("C")}, {DateEffective.ToString("dd/MM/yyyy")}";
     }
 }

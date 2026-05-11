@@ -24,8 +24,9 @@
 <p></p>
 <GenericGrid GridType="@GridType" TGridItem=BarcodeLabelRequestGridModel ViewModel="_gridViewModel">
     <GenericGridColumns>
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)" EditType="EditType.DropDownEdit"/>
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceText))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceText)" />
+        @* <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)" EditType="EditType.DropDownEdit"/>
+         *@<GenericGridForeignColumn TGridItem=BarcodeLabelRequestGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)"
+                                       TForeignDataItem=ProductPriceDataModel ForeignKeyField="@_fcmProductPrices.ForeignKeyField" ForeignKeyValue="@_fcmProductPrices.ForeignKeyValue" ForeignDataSourceUrl="@_fcmProductPrices.ForeignDataUrl" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.LabelQuantity))" FieldName="@nameof(BarcodeLabelRequestGridModel.LabelQuantity)" />
     </GenericGridColumns>
 </GenericGrid>
@@ -64,8 +65,8 @@
 
     private List<LayoutModel> _labelLayouts;
     private string _selectedLayoutName;
-    
-    private List<ProductPriceDataModel> _productPrices;
+
+    private ForeignColumnModel<ProductPriceDataModel> _fcmProductPrices;
 
     private string errorMessage = string.Empty;
     private string successMessage = string.Empty;
@@ -94,6 +95,13 @@
             };
         _gridViewModel.Options.AllowSorting = false;
 
+        // Load product prices for dropdown
+        _fcmProductPrices = new ForeignColumnModel<ProductPriceDataModel>(
+            foreignKeyField: x => nameof(x.Id),
+            foreignKeyValue: x => nameof(x.ProductPriceText),
+            GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.ProductPriceGrid, PlantDataMvcAppControllers.DataRoutes.List)
+        );
+
         // Use await to properly handle async GetData() call
         var layoutData = await layoutLookup.GetData();
         _labelLayouts = layoutData
@@ -103,9 +111,6 @@
                             .ToList();
         _selectedLayoutName = _labelLayouts.FirstOrDefault()?.Name;
 
-        // Load product prices for dropdown
-        var productPriceData = await productPriceLookup.GetData();
-        _productPrices = productPriceData.ToList();
     }
 
     private async Task GenerateLabels()
