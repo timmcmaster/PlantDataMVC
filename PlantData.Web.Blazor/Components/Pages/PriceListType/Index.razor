@@ -40,7 +40,7 @@
             Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel(PlantDataRoutes.PriceListType),
-            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.PriceListTypeGrid),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.PriceListTypeGrid),
         };
         _viewModel.Options.AllowSorting = true;
     }

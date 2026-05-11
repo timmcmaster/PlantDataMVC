@@ -43,7 +43,7 @@
             Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel(PlantDataRoutes.StockSummary),
-            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.StockSummaryGrid),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.StockSummaryGrid),
         };
         _viewModel.Options.AllowSorting = true;
     }

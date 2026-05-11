@@ -50,7 +50,7 @@
             Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel(PlantDataRoutes.SeedTray),
-            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.SeedTrayGrid),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.SeedTrayGrid),
     };
         _viewModel.Options.AllowSorting = true;
 
@@ -59,7 +59,7 @@
         _fcmSeedBatch = new ForeignColumnModel<SeedBatchDataModel>(
             foreignKeyField: x => nameof(x.Id),
             foreignKeyValue: x => nameof(x.SpeciesName),
-            GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.SeedBatchGrid, PlantDataMvcAppControllers.DataRoutes.List)
+            GridUrlDataSourceModel.GetUrl(PlantDataBlazorAppControllers.SeedBatchGrid, PlantDataBlazorAppControllers.DataRoutes.List)
         );
     }
 }

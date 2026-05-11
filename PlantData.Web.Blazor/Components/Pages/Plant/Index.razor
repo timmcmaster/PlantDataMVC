@@ -49,7 +49,7 @@
             Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel(PlantDataRoutes.Plant),
-            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.PlantGrid),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.PlantGrid),
         };
         _viewModel.Options.AllowSorting = true;
 
@@ -57,7 +57,7 @@
         _fcm = new ForeignColumnModel<GenusDataModel>(
             foreignKeyField: x => nameof(x.Id),
             foreignKeyValue: x => nameof(x.LatinName),
-            GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.GenusGrid, PlantDataMvcAppControllers.DataRoutes.List)
+            GridUrlDataSourceModel.GetUrl(PlantDataBlazorAppControllers.GenusGrid, PlantDataBlazorAppControllers.DataRoutes.List)
         );
     }
 }

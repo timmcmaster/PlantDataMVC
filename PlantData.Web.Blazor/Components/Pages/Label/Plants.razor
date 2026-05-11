@@ -56,7 +56,7 @@
             Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel(PlantDataRoutes.PlantLabel),
-            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.PlantLabelRequestGrid),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.PlantLabelRequestGrid),
         };
         _viewModel.Options.AllowSorting = false;
         _viewModel.Options.AllowAdd = true;

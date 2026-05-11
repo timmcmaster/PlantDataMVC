@@ -41,7 +41,7 @@
             Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel(PlantDataRoutes.StocktakeHeader),
-            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.StocktakeHeaderGrid),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.StocktakeHeaderGrid),
         };
         _viewModel.Options.AllowSorting = true;
     }

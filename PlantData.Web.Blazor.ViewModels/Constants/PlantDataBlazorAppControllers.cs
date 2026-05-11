@@ -1,8 +1,9 @@
 ﻿namespace PlantData.Web.Blazor.UIModels.Constants
 {
     
-    public static class PlantDataMvcAppControllers
+    public static class PlantDataBlazorAppControllers
     {
+        // Grid data controllers
         public const string GenusGrid = "GenusGrid";
         public const string PlantGrid = "PlantGrid";
         public const string SeedBatchGrid = "SeedBatchGrid";
@@ -17,10 +18,14 @@
         public const string BarcodeLabelRequestGrid = "BarcodeLabelRequestGrid";
         public const string ProductPriceGrid = "ProductPriceGrid";
 
+        // Other controllers
+        public const string LabelsPrint = "LabelsPrint";
+
         //public const string PlantStockGrid = "PlantStockGrid";
         //public const string TransactionGrid = "TransactionGrid";
         //public const string TransactionStocktakeGrid = "TransactionStocktakeGrid";
 
+        // Routes for Data controllers
         public static class DataRoutes
         {
             public const string Insert = "Insert";

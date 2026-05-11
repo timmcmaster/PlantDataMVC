@@ -44,7 +44,7 @@
             Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel(PlantDataRoutes.SaleEvent),
-            UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.SaleEventGrid),
+            UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.SaleEventGrid),
         };
         _viewModel.Options.AllowSorting = true;
     }

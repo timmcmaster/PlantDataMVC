@@ -16,34 +16,42 @@
 @inject IBarcodeLayoutLookupService layoutLookup
 @inject IProductPriceLookupService productPriceLookup
 @inject IConfiguration configuration
+@inject NavigationManager navigationManager
 
 <h2>Barcode Labels</h2>
-<SfDropDownList TValue="string" TItem="LayoutModel" Placeholder="Select a layout" DataSource="@_labelLayouts">
-    <DropDownListFieldSettings Value="Name" Text="Description"></DropDownListFieldSettings>
-</SfDropDownList>
-<p></p>
-<GenericGrid GridType="@GridType" TGridItem=BarcodeLabelRequestGridModel ViewModel="_gridViewModel">
-    <GenericGridColumns>
-        @* <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)" EditType="EditType.DropDownEdit"/>
-         *@<GenericGridForeignColumn TGridItem=BarcodeLabelRequestGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)"
-                                       TForeignDataItem=ProductPriceDataModel ForeignKeyField="@_fcmProductPrices.ForeignKeyField" ForeignKeyValue="@_fcmProductPrices.ForeignKeyValue" ForeignDataSourceUrl="@_fcmProductPrices.ForeignDataUrl" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.LabelQuantity))" FieldName="@nameof(BarcodeLabelRequestGridModel.LabelQuantity)" />
-    </GenericGridColumns>
-</GenericGrid>
+<EditForm Model="_viewModel" OnValidSubmit="Submit" FormName="BarcodeLabelsForm">
+    <DataAnnotationsValidator />
 
-<div class="mt-3">
-    <button class="btn btn-primary" @onclick="GenerateLabels" disabled="@isProcessing">
-        @if (isProcessing)
-        {
-            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-            <span>Processing...</span>
-        }
-        else
-        {
-            <span>Generate Barcode Labels</span>
-        }
-    </button>
-</div>
+    <SfDropDownList TValue="string" TItem="LayoutModel" Placeholder="Select a layout" DataSource="@_labelLayouts" @bind-Value="_viewModel.LayoutName">
+        <DropDownListFieldSettings Value="Name" Text="Description" />
+    </SfDropDownList>
+
+    <p></p>
+
+    <GenericGrid GridType="@GridType" TGridItem=BarcodeLabelRequestGridModel ViewModel="_gridViewModel">
+        <GenericGridColumns>
+        <GenericGridForeignColumn TGridItem=BarcodeLabelRequestGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)"
+                                       TForeignDataItem=ProductPriceDataModel ForeignKeyField="@_fcmProductPrices.ForeignKeyField" ForeignKeyValue="@_fcmProductPrices.ForeignKeyValue" ForeignDataSourceUrl="@_fcmProductPrices.ForeignDataUrl" />
+            <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.LabelQuantity))" FieldName="@nameof(BarcodeLabelRequestGridModel.LabelQuantity)" />
+        </GenericGridColumns>
+    </GenericGrid>
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary" disabled="@isProcessing">
+            @if (isProcessing)
+            {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                <span>Processing...</span>
+            }
+            else
+            {
+                <span>Generate Barcode Labels</span>
+            }
+        </button>
+    </div>
+
+    <ValidationSummary />
+</EditForm>
 
 @if (!string.IsNullOrEmpty(errorMessage))
 {
@@ -64,7 +72,7 @@
     private BaseGridModel<BarcodeLabelRequestGridModel> _gridViewModel;
 
     private List<LayoutModel> _labelLayouts;
-    private string _selectedLayoutName;
+    //private string _selectedLayoutName;
 
     private ForeignColumnModel<ProductPriceDataModel> _fcmProductPrices;
 
@@ -91,7 +99,7 @@
                 Paging = new PagingModel(pageSize, pageNumber, itemCount),
                 Sorting = new GridSortingModel(),
                 Links = new GridLinksModel(PlantDataRoutes.SaleEvent),
-                UrlDataSource = new GridUrlDataSourceModel(PlantDataMvcAppControllers.BarcodeLabelRequestGrid),
+                UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.BarcodeLabelRequestGrid),
             };
         _gridViewModel.Options.AllowSorting = false;
 
@@ -99,7 +107,7 @@
         _fcmProductPrices = new ForeignColumnModel<ProductPriceDataModel>(
             foreignKeyField: x => nameof(x.Id),
             foreignKeyValue: x => nameof(x.ProductPriceText),
-            GridUrlDataSourceModel.GetUrl(PlantDataMvcAppControllers.ProductPriceGrid, PlantDataMvcAppControllers.DataRoutes.List)
+            GridUrlDataSourceModel.GetUrl(PlantDataBlazorAppControllers.ProductPriceGrid, PlantDataBlazorAppControllers.DataRoutes.List)
         );
 
         // Use await to properly handle async GetData() call
@@ -109,16 +117,16 @@
                             .ThenBy(x => x.LayoutName)
                             .Select(x => new LayoutModel { Name = x.LayoutName, Description = x.LayoutDescription })
                             .ToList();
-        _selectedLayoutName = _labelLayouts.FirstOrDefault()?.Name;
+        _viewModel.LayoutName = _labelLayouts.FirstOrDefault()?.Name;
 
     }
 
-    private async Task GenerateLabels()
+    private async Task Submit()
     {
         errorMessage = string.Empty;
         successMessage = string.Empty;
 
-        if (string.IsNullOrEmpty(_selectedLayoutName))
+        if (string.IsNullOrEmpty(_viewModel.LayoutName))
         {
             errorMessage = "Please select a layout before generating labels";
             return;
@@ -128,10 +136,10 @@
 
         try
         {
-            // Get grid data and convert to form model
+            // Get grid data and convert ViewModel to EditModel
             var form = new BarcodeLabelsEditModel
             {
-                LayoutName = _selectedLayoutName,
+                LayoutName = _viewModel.LayoutName,
                 Items = _viewModel.BarcodeLabelRequests
                     .Select(x => new BarcodeLabelListEditModel
                     {
@@ -141,7 +149,6 @@
                     .ToList()
             };
 
-            // 
         }
         catch (Exception ex)
         {
