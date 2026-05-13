@@ -59,7 +59,6 @@ namespace PlantDataMVC.Api.Reports.BarcodeLabels
             string? reportData = null;
             // Create the PDF Document
             _report = new Document();
-            _report.DefaultPageSetup.PageFormat = PageFormat.A4;
 
             CreateDocument();
 

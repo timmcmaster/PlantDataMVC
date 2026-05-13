@@ -20,6 +20,7 @@ using PlantDataMVC.Api.Helpers;
 using Serilog;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using PdfSharp.Fonts;
 
 namespace PlantDataMVC.Api
 {
@@ -33,6 +34,11 @@ namespace PlantDataMVC.Api
             // set up some configuration for you based on your appsettings.json and environment variables. See "Remarks" at
             // https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.host.createdefaultbuilder for details.
             this.Configuration = configuration;
+
+            // This line should be removed for non production use (needed for refs to Courier and Arial fonts in barcode labels)
+            GlobalFontSettings.UseWindowsFontsUnderWindows = true;
+            
+            GlobalFontSettings.FontResolver = new BarcodeFontResolver();
         }
 
         // ConfigureServices is where you register dependencies.

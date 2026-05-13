@@ -1,4 +1,5 @@
-﻿@using Microsoft.Extensions.Configuration
+﻿@using MediatR
+@using Microsoft.Extensions.Configuration
 @using PlantData.Web.Blazor.DisplayHelpers
 @using PlantData.Web.Blazor.Features.ProductPrice
 @using PlantData.Web.Blazor.SharedComponents.Paging
@@ -16,6 +17,7 @@
 @inject IBarcodeLayoutLookupService layoutLookup
 @inject IProductPriceLookupService productPriceLookup
 @inject IConfiguration configuration
+@inject IMediator mediator
 @inject NavigationManager navigationManager
 
 <h2>Barcode Labels</h2>
@@ -28,7 +30,7 @@
 
     <p></p>
 
-    <GenericGrid GridType="@GridType" TGridItem=BarcodeLabelRequestGridModel ViewModel="_gridViewModel">
+    <GenericGrid @ref="_grid" GridType="@GridType" TGridItem=BarcodeLabelRequestGridModel ViewModel="_gridViewModel">
         <GenericGridColumns>
         <GenericGridForeignColumn TGridItem=BarcodeLabelRequestGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)"
                                        TForeignDataItem=ProductPriceDataModel ForeignKeyField="@_fcmProductPrices.ForeignKeyField" ForeignKeyValue="@_fcmProductPrices.ForeignKeyValue" ForeignDataSourceUrl="@_fcmProductPrices.ForeignDataUrl" />
@@ -63,13 +65,13 @@
     <div class="alert alert-success mt-3">@successMessage</div>
 }
 
-@code
-{
+@code {
     public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
 
     private BarcodeLabelsViewModel _viewModel;
 
     private BaseGridModel<BarcodeLabelRequestGridModel> _gridViewModel;
+    private GenericGrid<BarcodeLabelRequestGridModel> _grid;
 
     private List<LayoutModel> _labelLayouts;
     //private string _selectedLayoutName;
@@ -137,18 +139,21 @@
         try
         {
             // Get grid data and convert ViewModel to EditModel
+            var gridData = await _grid.GetCurrentViewRecordsAsync();
+
             var form = new BarcodeLabelsEditModel
             {
                 LayoutName = _viewModel.LayoutName,
-                Items = _viewModel.BarcodeLabelRequests
-                    .Select(x => new BarcodeLabelListEditModel
-                    {
-                        ProductPriceId = x.ProductPriceId,
-                        LabelQuantity = x.LabelQuantity
-                    })
-                    .ToList()
+                Items = gridData.Select(x => new BarcodeLabelListEditModel
+                {
+                    ProductPriceId = x.ProductPriceId,
+                    LabelQuantity = x.LabelQuantity
+                })
+                .ToList()
             };
 
+            // HACK: Move this to the VM, rather than doing here
+            var result = await GetPdfLabelsReport(form);
         }
         catch (Exception ex)
         {
@@ -158,5 +163,26 @@
         {
             isProcessing = false;
         }
+    }
+
+    private async Task<bool> GetPdfLabelsReport(BarcodeLabelsEditModel form)
+    {
+        // Logic to generate or retrieve the PDF labels report.
+
+        var result = await mediator.Send(form);
+
+        var reportBytes = Convert.FromBase64String(result);
+
+        var fileModel = new FileModel()
+        {
+            Name = $"BarcodeLabels-{DateTime.Now:yyyyMMdd_HHmm}.pdf",
+            ContentType = "application/pdf",
+            Data = reportBytes,
+            DataBase64 = result
+        };
+
+        // TODO: View pdf file
+
+        return false;
     }
 }

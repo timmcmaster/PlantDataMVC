@@ -65,6 +65,13 @@
       <_Parameter1>$(MSBuildProjectName).Test</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\free3of9.ttf" />
+    <EmbeddedResource Include="Fonts\3OF9_NEW.TTF" />
+    <EmbeddedResource Include="Fonts\LibreBarcode39-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\LibreBarcode39Text-Regular.ttf" />
+  </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties connectionstrings_1json__JsonSchema="https://json.schemastore.org/appsettings.json" /></VisualStudio></ProjectExtensions>
 
 </Project>

@@ -25,7 +25,7 @@
         }
         else if (GridType == GridType.SfGrid)
         {
-            <SfGrid TValue="TGridItem" Query="@GridQuery" AllowPaging="@ViewModel.Options.AllowPaging"
+            <SfGrid @ref="_sfGrid" TValue="TGridItem" Query="@GridQuery" AllowPaging="@ViewModel.Options.AllowPaging"
                     AllowSorting="@ViewModel.Options.AllowSorting"
                     Height="550" Width="800"
                     Toolbar="@ViewModel.Options.ToolbarItems">
@@ -66,8 +66,23 @@
 
     public Query GridQuery { get; set; }
 
+    private SfGrid<TGridItem> _sfGrid;
+
     protected override void OnInitialized()
     {
         GridQuery = new Query().AddParams("allowPaging", ViewModel.Options.AllowPaging);
+    }
+
+    public async Task<IEnumerable<TGridItem>> GetCurrentViewRecordsAsync()
+    {
+        if (GridType == GridType.Basic)
+        {
+            return Enumerable.Empty<TGridItem>(); // Not supported for BasicGrid
+        }
+        else if (GridType == GridType.SfGrid)
+        {
+            return await _sfGrid.GetCurrentViewRecordsAsync();
+        }
+        return Enumerable.Empty<TGridItem>();
     }
 }
