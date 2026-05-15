@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PlantData.Web.Mvc.Handlers.Forms.Label
 {
-    public class PlantLabelGridEditModelFormHandler : IFormHandler<PlantLabelGridEditModel, string>
+    public class PlantLabelGridEditModelFormHandler : IFormHandler<PlantLabelsEditModel, string>
     {
         private readonly IPlantDataApiClient _plantDataApiClient;
 
@@ -18,7 +18,7 @@ namespace PlantData.Web.Mvc.Handlers.Forms.Label
             _plantDataApiClient = plantDataApiClient;
         }
 
-        public async Task<string> Handle(PlantLabelGridEditModel form, CancellationToken cancellationToken)
+        public async Task<string> Handle(PlantLabelsEditModel form, CancellationToken cancellationToken)
         {
             string reportData = string.Empty;
 

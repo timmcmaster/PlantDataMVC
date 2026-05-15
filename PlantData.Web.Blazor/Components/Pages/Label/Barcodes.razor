@@ -1,24 +1,20 @@
 ﻿@using MediatR
 @using Microsoft.Extensions.Configuration
 @using PlantData.Web.Blazor.DisplayHelpers
-@using PlantData.Web.Blazor.Features.ProductPrice
+@using PlantData.Web.Blazor.Features.Labels
+@using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.SharedComponents.Paging
 @using PlantData.Web.Blazor.UIModels.Constants
-@using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.UIModels.EditModels.Label
 @using PlantData.Web.Blazor.UIModels.ViewModels.Label
-@using PlantData.Web.Blazor.Features.Labels
 @using PlantDataMVC.Api.Models.DataModels
-@using Syncfusion.Blazor.DropDowns 
-@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.DropDowns
 
 @attribute [Route(PlantDataRoutes.BarcodeLabel)]
 
 @inject IBarcodeLayoutLookupService layoutLookup
-@inject IProductPriceLookupService productPriceLookup
 @inject IConfiguration configuration
 @inject IMediator mediator
-@inject NavigationManager navigationManager
 @inject IJSRuntime JS
 
 <h2>Barcode Labels</h2>
@@ -33,8 +29,8 @@
 
     <GenericGrid @ref="_grid" GridType="@GridType" TGridItem=BarcodeLabelRequestGridModel ViewModel="_gridViewModel">
         <GenericGridColumns>
-        <GenericGridForeignColumn TGridItem=BarcodeLabelRequestGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)"
-                                       TForeignDataItem=ProductPriceDataModel ForeignKeyField="@_fcmProductPrices.ForeignKeyField" ForeignKeyValue="@_fcmProductPrices.ForeignKeyValue" ForeignDataSourceUrl="@_fcmProductPrices.ForeignDataUrl" />
+            <GenericGridForeignColumn TGridItem=BarcodeLabelRequestGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)"
+                                      TForeignDataItem=ProductPriceDataModel ForeignKeyField="@_fcmProductPrices.ForeignKeyField" ForeignKeyValue="@_fcmProductPrices.ForeignKeyValue" ForeignDataSourceUrl="@_fcmProductPrices.ForeignDataUrl" />
             <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.LabelQuantity))" FieldName="@nameof(BarcodeLabelRequestGridModel.LabelQuantity)" />
         </GenericGridColumns>
     </GenericGrid>
@@ -75,7 +71,6 @@
     private GenericGrid<BarcodeLabelRequestGridModel> _grid;
 
     private List<LayoutModel> _labelLayouts;
-    //private string _selectedLayoutName;
 
     private ForeignColumnModel<ProductPriceDataModel> _fcmProductPrices;
 
@@ -154,7 +149,10 @@
             };
 
             // HACK: Move this to the VM, rather than doing here
-            var result = await GetPdfLabelsReport(form);
+            var fileModel = await GetPdfLabelsReport(form);
+                        
+            await JS.InvokeVoidAsync("openPdfInNewTab", fileModel.DataBase64, fileModel.Name);
+
         }
         catch (Exception ex)
         {
@@ -166,7 +164,7 @@
         }
     }
 
-    private async Task<bool> GetPdfLabelsReport(BarcodeLabelsEditModel form)
+    private async Task<FileModel> GetPdfLabelsReport(BarcodeLabelsEditModel form)
     {
         // Logic to generate or retrieve the PDF labels report.
 
@@ -182,8 +180,6 @@
             DataBase64 = result
         };
 
-        await JS.InvokeVoidAsync("openPdfInNewTab", result, fileModel.Name);
-
-        return true;
+        return fileModel;
     }
 }

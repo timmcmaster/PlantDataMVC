@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PlantData.Web.Blazor.UIModels.EditModels.Label
 {
-    public class PlantLabelGridEditModel : IForm<string>
+    public class PlantLabelsEditModel : IForm<string>
     {
         public IEnumerable<PlantLabelListEditModel> Items { get; set; } = new List<PlantLabelListEditModel>();
     }
