@@ -19,6 +19,7 @@
 @inject IConfiguration configuration
 @inject IMediator mediator
 @inject NavigationManager navigationManager
+@inject IJSRuntime JS
 
 <h2>Barcode Labels</h2>
 <EditForm Model="_viewModel" OnValidSubmit="Submit" FormName="BarcodeLabelsForm">
@@ -181,8 +182,8 @@
             DataBase64 = result
         };
 
-        // TODO: View pdf file
+        await JS.InvokeVoidAsync("openPdfInNewTab", result, fileModel.Name);
 
-        return false;
+        return true;
     }
 }
