@@ -1,32 +1,31 @@
-﻿namespace PlantData.Web.Blazor.Helpers
+﻿namespace PlantData.Web.Blazor.Helpers;
+
+public static class ApiSorting
 {
-    public static class ApiSorting
+    /// <summary>
+    /// Creates the sort string.
+    /// Currently targeted at just single column sorts (up/down)
+    /// </summary>
+    /// <param name="sortField">The sort field.</param>
+    /// <param name="sortAscending">if set to <c>true</c> [sort ascending].</param>
+    /// <returns></returns>
+    public static string CreateSortString(string sortField, bool sortAscending)
     {
-        /// <summary>
-        /// Creates the sort string.
-        /// Currently targeted at just single column sorts (up/down)
-        /// </summary>
-        /// <param name="sortField">The sort field.</param>
-        /// <param name="sortAscending">if set to <c>true</c> [sort ascending].</param>
-        /// <returns></returns>
-        public static string CreateSortString(string sortField, bool sortAscending)
+        var sortString = sortField;
+
+        // NB: If sort is by multi fields, ascending applies to all fields
+        if (sortString != "" && !sortAscending)
         {
-            var sortString = sortField;
+            var fields = sortString.Split(',');
 
-            // NB: If sort is by multi fields, ascending applies to all fields
-            if (sortString != "" && !sortAscending)
+            for (int i = 0; i < fields.Length; i++)
             {
-                var fields = sortString.Split(',');
-
-                for (int i = 0; i < fields.Length; i++)
-                {
-                    fields[i] = "-" + fields[i];
-                }
-
-                sortString = string.Join(",", fields);
+                fields[i] = "-" + fields[i];
             }
 
-            return sortString;
+            sortString = string.Join(",", fields);
         }
+
+        return sortString;
     }
 }

@@ -13,108 +13,107 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.Plant
+namespace PlantData.Web.Blazor.Features.Plant;
+
+public class IndexQueryHandler : IQueryHandler<IndexQuery, GridDataModel<PlantGridModel>>
 {
-    public class IndexQueryHandler : IQueryHandler<IndexQuery, GridDataModel<PlantGridModel>>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+    private readonly IMapper _mapper;
+
+    public IndexQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper, IConfiguration configuration)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
-        private readonly IMapper _mapper;
+        _plantDataApiClient = plantDataApiClient;
+        _mapper = mapper;
+    }
 
-        public IndexQueryHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper, IConfiguration configuration)
+    public async Task<GridDataModel<PlantGridModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
+    {
+        bool usePaging = query.Page != null && query.PageSize != null;
+
+        // Get paging part of query string
+        var baseUri = "api/Species";
+        var queryParams = new Dictionary<string, string?>();
+        if (usePaging)
         {
-            _plantDataApiClient = plantDataApiClient;
-            _mapper = mapper;
+            queryParams.Add("page", query.Page.ToString());
+            queryParams.Add("pageSize", query.PageSize.ToString());
         }
 
-        public async Task<GridDataModel<PlantGridModel>> Handle(IndexQuery query, CancellationToken cancellationToken)
+        // add sorting if it maps ok
+        if (!string.IsNullOrEmpty(query.SortBy))
         {
-            bool usePaging = query.Page != null && query.PageSize != null;
-
-            // Get paging part of query string
-            var baseUri = "api/Species";
-            var queryParams = new Dictionary<string, string?>();
-            if (usePaging)
+            var apiSortField = MapSortField(query.SortBy);
+            if (!string.IsNullOrEmpty(apiSortField))
             {
-                queryParams.Add("page", query.Page.ToString());
-                queryParams.Add("pageSize", query.PageSize.ToString());
+                var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
+                if (sortString != "")
+                    queryParams.Add("sort", sortString);
             }
-
-            // add sorting if it maps ok
-            if (!string.IsNullOrEmpty(query.SortBy))
-            {
-                var apiSortField = MapSortField(query.SortBy);
-                if (!string.IsNullOrEmpty(apiSortField))
-                {
-                    var sortString = ApiSorting.CreateSortString(apiSortField, query.SortAscending);
-                    if (sortString != "")
-                        queryParams.Add("sort", sortString);
-                }
-            }
-
-            // Make sure we include genus name property
-            //queryParams.Add("fields", "GenusName");
-
-            var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
-            var response = await _plantDataApiClient.GetAsync<IEnumerable<SpeciesDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
-
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                throw new UnauthorizedAccessException();
-            }
-            else if (response.Success && response.Content != null)
-            {
-                var apiPagingInfo = response.PagingInfo;
-
-                var modelList = _mapper.Map<IEnumerable<SpeciesDataModel>, List<PlantGridModel>>(response.Content);
-
-                // Map to a standard grid data model with paging and sorting data
-
-                var model = new GridDataModel<PlantGridModel>(modelList, apiPagingInfo.Page, apiPagingInfo.PageSize, apiPagingInfo.TotalCount, query.SortBy, query.SortAscending);
-
-                return model;
-            }
-
-            // TODO: better way needed to handle failure response
-            return null;
         }
 
-        /// <summary>
-        /// Maps the sort field from display field column to dataModel field as used by API
-        /// </summary>
-        /// <param name="querySortBy">The query sort by.</param>
-        /// <returns></returns>
-        private static string MapSortField(string querySortBy)
+        // Make sure we include genus name property
+        //queryParams.Add("fields", "GenusName");
+
+        var requestUri = QueryHelpers.AddQueryString(baseUri, queryParams);
+        var response = await _plantDataApiClient.GetAsync<IEnumerable<SpeciesDataModel>>(requestUri, cancellationToken).ConfigureAwait(false);
+
+        if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
-            var sortField = "";
-
-            // TODO: Got to be a more rigorous way to convert columns back to API fields
-            // supplied sortBy field should belong to display object (as it is generated from model metadata)
-            if (querySortBy == nameof(PlantGridModel.Id))
-            {
-                sortField = nameof(SpeciesDataModel.Id);
-            }
-            else if (querySortBy == nameof(PlantGridModel.Binomial))
-            {
-                sortField = nameof(SpeciesDataModel.SpeciesBinomial);
-            }
-            else if (querySortBy == nameof(PlantGridModel.Genus))
-            {
-                sortField = nameof(SpeciesDataModel.GenusName);
-            }
-            else if (querySortBy == nameof(PlantGridModel.Species))
-            {
-                sortField = nameof(SpeciesDataModel.SpecificName);
-            }
-            else if (querySortBy == nameof(PlantGridModel.CommonName))
-            {
-                sortField = nameof(SpeciesDataModel.CommonName);
-            }
-            else if (querySortBy == nameof(PlantGridModel.Native))
-            {
-                sortField = nameof(SpeciesDataModel.Native);
-            }
-
-            return sortField;
+            throw new UnauthorizedAccessException();
         }
+        else if (response.Success && response.Content != null)
+        {
+            var apiPagingInfo = response.PagingInfo;
+
+            var modelList = _mapper.Map<IEnumerable<SpeciesDataModel>, List<PlantGridModel>>(response.Content);
+
+            // Map to a standard grid data model with paging and sorting data
+
+            var model = new GridDataModel<PlantGridModel>(modelList, apiPagingInfo.Page, apiPagingInfo.PageSize, apiPagingInfo.TotalCount, query.SortBy, query.SortAscending);
+
+            return model;
+        }
+
+        // TODO: better way needed to handle failure response
+        return null;
+    }
+
+    /// <summary>
+    /// Maps the sort field from display field column to dataModel field as used by API
+    /// </summary>
+    /// <param name="querySortBy">The query sort by.</param>
+    /// <returns></returns>
+    private static string MapSortField(string querySortBy)
+    {
+        var sortField = "";
+
+        // TODO: Got to be a more rigorous way to convert columns back to API fields
+        // supplied sortBy field should belong to display object (as it is generated from model metadata)
+        if (querySortBy == nameof(PlantGridModel.Id))
+        {
+            sortField = nameof(SpeciesDataModel.Id);
+        }
+        else if (querySortBy == nameof(PlantGridModel.Binomial))
+        {
+            sortField = nameof(SpeciesDataModel.SpeciesBinomial);
+        }
+        else if (querySortBy == nameof(PlantGridModel.Genus))
+        {
+            sortField = nameof(SpeciesDataModel.GenusName);
+        }
+        else if (querySortBy == nameof(PlantGridModel.Species))
+        {
+            sortField = nameof(SpeciesDataModel.SpecificName);
+        }
+        else if (querySortBy == nameof(PlantGridModel.CommonName))
+        {
+            sortField = nameof(SpeciesDataModel.CommonName);
+        }
+        else if (querySortBy == nameof(PlantGridModel.Native))
+        {
+            sortField = nameof(SpeciesDataModel.Native);
+        }
+
+        return sortField;
     }
 }

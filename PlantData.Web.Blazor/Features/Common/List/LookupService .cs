@@ -4,35 +4,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PlantData.Web.Blazor.Features.Common.List
+namespace PlantData.Web.Blazor.Features.Common.List;
+
+public abstract class LookupService<TItem> : ILookupService<TItem> where TItem : class
 {
-    public abstract class LookupService<TItem> : ILookupService<TItem> where TItem : class
+    private IMediator _mediator;
+
+    public LookupService(IMediator mediator)
     {
-        private IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public LookupService(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+    public IEnumerable<TItem> GetData()
+    {
+        var query = new ListQuery<TItem>();
 
-        public IEnumerable<TItem> GetData()
-        {
-            var query = new ListQuery<TItem>();
+        var requestTask = _mediator.Send(query);
 
-            var requestTask = _mediator.Send(query);
+        //// NOTE: Need to be careful with this, as waiting on async can cause deadlocks.
+        //// ALSO, lose any exception type management, as it returns AggregateException
+        var dataModelItems = requestTask.Result;
 
-            //// NOTE: Need to be careful with this, as waiting on async can cause deadlocks.
-            //// ALSO, lose any exception type management, as it returns AggregateException
-            var dataModelItems = requestTask.Result;
+        return dataModelItems;
+    }
 
-            return dataModelItems;
-        }
+    public IEnumerable<TItem> GetOrderedData(Func<TItem, string> displayValueSelector)
+    {
+        var orderedData = GetData().OrderBy(x => displayValueSelector(x));
 
-        public IEnumerable<TItem> GetOrderedData(Func<TItem, string> displayValueSelector)
-        {
-            var orderedData = GetData().OrderBy(x => displayValueSelector(x));
-
-            return orderedData;
-        }
+        return orderedData;
     }
 }

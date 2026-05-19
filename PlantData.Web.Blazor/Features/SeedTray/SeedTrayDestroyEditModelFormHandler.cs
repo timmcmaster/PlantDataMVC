@@ -6,36 +6,35 @@ using System.Threading;
 using System.Threading.Tasks;
 using PlantData.Web.Blazor.UIModels.EditModels.SeedTray;
 
-namespace PlantData.Web.Mvc.Handlers.Forms.SeedTray
+namespace PlantData.Web.Blazor.Features.SeedTray;
+
+public class SeedTrayDestroyEditModelFormHandler : IFormHandler<SeedTrayDestroyEditModel, bool>
 {
-    public class SeedTrayDestroyEditModelFormHandler : IFormHandler<SeedTrayDestroyEditModel, bool>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+
+    public SeedTrayDestroyEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
+        _plantDataApiClient = plantDataApiClient;
+    }
 
-        public SeedTrayDestroyEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
+    public async Task<bool> Handle(SeedTrayDestroyEditModel form, CancellationToken cancellationToken)
+    {
+        try
         {
-            _plantDataApiClient = plantDataApiClient;
+            var uri = "api/SeedTray/" + form.Id;
+            var response = await _plantDataApiClient.DeleteAsync(uri, cancellationToken).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                throw new UnauthorizedAccessException();
+            }
+            else
+            {
+                return response.Success;
+            }
         }
-
-        public async Task<bool> Handle(SeedTrayDestroyEditModel form, CancellationToken cancellationToken)
+        catch
         {
-            try
-            {
-                var uri = "api/SeedTray/" + form.Id;
-                var response = await _plantDataApiClient.DeleteAsync(uri, cancellationToken).ConfigureAwait(false);
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-                else
-                {
-                    return response.Success;
-                }
-            }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

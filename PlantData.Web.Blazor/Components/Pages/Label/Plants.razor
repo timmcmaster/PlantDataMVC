@@ -129,7 +129,7 @@
             };
 
             // HACK: Move this to the VM, rather than doing here
-            var fileModel = await GetPdfLabelsReport(form);
+            var fileModel = await _viewModel.GetPdfLabelsReport(mediator, form);
 
             await JS.InvokeVoidAsync("openPdfInNewTab", fileModel.DataBase64, fileModel.Name);
 
@@ -144,23 +144,5 @@
         }
     }
 
-    private async Task<FileModel> GetPdfLabelsReport(PlantLabelsEditModel form)
-    {
-        // Logic to generate or retrieve the PDF labels report.
-
-        var result = await mediator.Send(form);
-
-        var reportBytes = Convert.FromBase64String(result);
-
-        var fileModel = new FileModel()
-        {
-            Name = $"PlantLabels-{DateTime.Now:yyyyMMdd_HHmm}.pdf",
-            ContentType = "application/pdf",
-            Data = reportBytes,
-            DataBase64 = result
-        };
-
-        return fileModel;
-    }
 
 }

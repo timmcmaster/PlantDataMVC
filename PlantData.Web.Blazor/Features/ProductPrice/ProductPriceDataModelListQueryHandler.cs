@@ -8,56 +8,55 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.ProductPrice
+namespace PlantData.Web.Blazor.Features.ProductPrice;
+
+public class ProductPriceDataModelListQueryHandler : ListQueryHandler<ProductPriceDataModel>
 {
-    public class ProductPriceDataModelListQueryHandler : ListQueryHandler<ProductPriceDataModel>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+
+    public ProductPriceDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
+        _plantDataApiClient = plantDataApiClient;
+    }
 
-        public ProductPriceDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
+    public override async Task<IEnumerable<ProductPriceDataModel>> Handle(ListQuery<ProductPriceDataModel> query, CancellationToken cancellationToken)
+    {
+        bool success = true;
+        string? uri = "api/ProductPrice";
+        IEnumerable<ProductPriceDataModel> fullDataModelList = Enumerable.Empty<ProductPriceDataModel>();
+
+        while (!string.IsNullOrEmpty(uri))
         {
-            _plantDataApiClient = plantDataApiClient;
-        }
-
-        public override async Task<IEnumerable<ProductPriceDataModel>> Handle(ListQuery<ProductPriceDataModel> query, CancellationToken cancellationToken)
-        {
-            bool success = true;
-            string? uri = "api/ProductPrice";
-            IEnumerable<ProductPriceDataModel> fullDataModelList = Enumerable.Empty<ProductPriceDataModel>();
-
-            while (!string.IsNullOrEmpty(uri))
+            var response = await _plantDataApiClient.GetAsync<IEnumerable<ProductPriceDataModel>>(uri, cancellationToken).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                var response = await _plantDataApiClient.GetAsync<IEnumerable<ProductPriceDataModel>>(uri, cancellationToken).ConfigureAwait(false);
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-                else if (response.Success && response.Content != null)
-                {
-                    var dataModelList = response.Content;
-
-                    // Concatenate page to full list
-                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<ProductPriceDataModel>()).Concat(dataModelList ?? Enumerable.Empty<ProductPriceDataModel>());
-
-                    // if we haven't got all the items, follow paging links (link will be null if no next page)
-                    uri = response.LinkInfo?.NextPageLink?.ToString();
-                }
-                else
-                {
-                    success = false;
-                    break;
-                }
+                throw new UnauthorizedAccessException();
             }
-
-            if (success)
+            else if (response.Success && response.Content != null)
             {
-                return fullDataModelList;
+                var dataModelList = response.Content;
+
+                // Concatenate page to full list
+                fullDataModelList = (fullDataModelList ?? Enumerable.Empty<ProductPriceDataModel>()).Concat(dataModelList ?? Enumerable.Empty<ProductPriceDataModel>());
+
+                // if we haven't got all the items, follow paging links (link will be null if no next page)
+                uri = response.LinkInfo?.NextPageLink?.ToString();
             }
             else
             {
-                // TODO: better way needed to handle failure response
-                return null;
+                success = false;
+                break;
             }
+        }
+
+        if (success)
+        {
+            return fullDataModelList;
+        }
+        else
+        {
+            // TODO: better way needed to handle failure response
+            return null;
         }
     }
 }

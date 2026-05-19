@@ -1,9 +1,8 @@
-﻿namespace PlantData.Web.Blazor.Helpers
+﻿namespace PlantData.Web.Blazor.Helpers;
+
+public static class AuthorizationPolicies
 {
-    public static class AuthorizationPolicies
-    {
-        public const string RequireReadUserRole = "RequireReadUserRole";
-        public const string RequireWriteUserRole = "RequireWriteUserRole";
-        public const string RequireAdminUserRole = "RequireAdminUserRole";
-    }
+    public const string RequireReadUserRole = "RequireReadUserRole";
+    public const string RequireWriteUserRole = "RequireWriteUserRole";
+    public const string RequireAdminUserRole = "RequireAdminUserRole";
 }

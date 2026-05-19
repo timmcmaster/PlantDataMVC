@@ -7,44 +7,43 @@ using System.Threading;
 using System.Threading.Tasks;
 using PlantData.Web.Blazor.UIModels.EditModels.Label;
 
-namespace PlantData.Web.Mvc.Handlers.Forms.Label
+namespace PlantData.Web.Blazor.Features.Label;
+
+public class BarcodeLabelsEditModelFormHandler : IFormHandler<BarcodeLabelsEditModel, string>
 {
-    public class BarcodeLabelsEditModelFormHandler : IFormHandler<BarcodeLabelsEditModel, string>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+
+    public BarcodeLabelsEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
+        _plantDataApiClient = plantDataApiClient;
+    }
 
-        public BarcodeLabelsEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
+    public async Task<string> Handle(BarcodeLabelsEditModel form, CancellationToken cancellationToken)
+    {
+        string reportData = string.Empty;
+
+        try
         {
-            _plantDataApiClient = plantDataApiClient;
+            FetchBarcodeLabelReportRequestDto requestDTO = new();
+
+            requestDTO.LayoutName = form.LayoutName;
+
+            var labelRequests = form.Items.Select(x => new ProductPriceBarcodeItemRequestModel() { ProductPriceId = x.ProductPriceId, LabelQuantity = x.LabelQuantity }).ToList();
+            requestDTO.LabelRequests = labelRequests;
+
+            var uri = "api/Label/FetchBarcodeLabelReport";
+            var response = await _plantDataApiClient.PostAsync<FetchBarcodeLabelReportRequestDto, FetchBarcodeLabelReportResponseDto>(uri, requestDTO, cancellationToken).ConfigureAwait(false);
+
+            if (response.Success)
+            {
+                reportData = response.Content?.ReportDocument ?? string.Empty;
+            }
+
+            return reportData;
         }
-
-        public async Task<string> Handle(BarcodeLabelsEditModel form, CancellationToken cancellationToken)
+        catch
         {
-            string reportData = string.Empty;
-
-            try
-            {
-                FetchBarcodeLabelReportRequestDto requestDTO = new();
-
-                requestDTO.LayoutName = form.LayoutName;
-
-                var labelRequests = form.Items.Select(x => new ProductPriceBarcodeItemRequestModel() { ProductPriceId = x.ProductPriceId, LabelQuantity = x.LabelQuantity }).ToList();
-                requestDTO.LabelRequests = labelRequests;
-
-                var uri = "api/Label/FetchBarcodeLabelReport";
-                var response = await _plantDataApiClient.PostAsync<FetchBarcodeLabelReportRequestDto, FetchBarcodeLabelReportResponseDto>(uri, requestDTO, cancellationToken).ConfigureAwait(false);
-
-                if (response.Success)
-                {
-                    reportData = response.Content?.ReportDocument ?? string.Empty;
-                }
-
-                return reportData;
-            }
-            catch
-            {
-                return reportData;
-            }
+            return reportData;
         }
     }
 }

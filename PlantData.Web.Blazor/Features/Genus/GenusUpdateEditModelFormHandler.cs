@@ -8,42 +8,41 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Mvc.Handlers.Forms.Genus
+namespace PlantData.Web.Blazor.Features.Genus;
+
+public class GenusUpdateEditModelFormHandler : IFormHandler<GenusUpdateEditModel, bool>
 {
-    public class GenusUpdateEditModelFormHandler : IFormHandler<GenusUpdateEditModel, bool>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+    private readonly IMapper _mapper;
+
+    public GenusUpdateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
-        private readonly IMapper _mapper;
+        _plantDataApiClient = plantDataApiClient;
+        _mapper = mapper;
+    }
 
-        public GenusUpdateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
+    public async Task<bool> Handle(GenusUpdateEditModel form, CancellationToken cancellationToken)
+    {
+        try
         {
-            _plantDataApiClient = plantDataApiClient;
-            _mapper = mapper;
+            // Map local model to DTO
+            CreateUpdateGenusDataModel item = _mapper.Map<GenusUpdateEditModel, CreateUpdateGenusDataModel>(form);
+
+            // Update with PUT
+            var uri = "api/Genus/" + form.Id;
+            var response = await _plantDataApiClient.PutAsync(uri, item, cancellationToken).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                throw new UnauthorizedAccessException();
+            }
+            else
+            {
+                return response.Success;
+            }
         }
-
-        public async Task<bool> Handle(GenusUpdateEditModel form, CancellationToken cancellationToken)
+        catch
         {
-            try
-            {
-                // Map local model to DTO
-                CreateUpdateGenusDataModel item = _mapper.Map<GenusUpdateEditModel, CreateUpdateGenusDataModel>(form);
-
-                // Update with PUT
-                var uri = "api/Genus/" + form.Id;
-                var response = await _plantDataApiClient.PutAsync(uri, item, cancellationToken).ConfigureAwait(false);
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-                else
-                {
-                    return response.Success;
-                }
-            }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

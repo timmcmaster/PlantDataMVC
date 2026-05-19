@@ -3,16 +3,15 @@ using MediatR;
 using PlantData.Web.Blazor.Features.Common.List;
 using PlantDataMVC.Api.Models.DataModels;
 
-namespace PlantData.Web.Blazor.Features.Site
-{
-    public interface ISiteLookupService : ILookupServiceAsync<SiteDataModel>
-    {
-    }
+namespace PlantData.Web.Blazor.Features.Site;
 
-    public class SiteLookupService : LookupServiceAsync<SiteDataModel>, ISiteLookupService
+public interface ISiteLookupService : ILookupServiceAsync<SiteDataModel>
+{
+}
+
+public class SiteLookupService : LookupServiceAsync<SiteDataModel>, ISiteLookupService
+{
+    public SiteLookupService(IMediator mediator) : base(mediator)
     {
-        public SiteLookupService(IMediator mediator) : base(mediator)
-        {
-        }
     }
 }

@@ -8,57 +8,56 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.PriceListType
+namespace PlantData.Web.Blazor.Features.PriceListType;
+
+public class PriceListTypeDataModelListQueryHandler : ListQueryHandler<PriceListTypeDataModel>
 {
-    public class PriceListTypeDataModelListQueryHandler : ListQueryHandler<PriceListTypeDataModel>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+
+    public PriceListTypeDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
+        _plantDataApiClient = plantDataApiClient;
+    }
 
-        public PriceListTypeDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
+    public override async Task<IEnumerable<PriceListTypeDataModel>> Handle(ListQuery<PriceListTypeDataModel> query, CancellationToken cancellationToken)
+    {
+        bool success = true;
+        string? uri = "api/PriceListType";
+        IEnumerable<PriceListTypeDataModel> fullDataModelList = Enumerable.Empty<PriceListTypeDataModel>();
+
+        while (!string.IsNullOrEmpty(uri))
         {
-            _plantDataApiClient = plantDataApiClient;
-        }
+            var response = await _plantDataApiClient.GetAsync<IEnumerable<PriceListTypeDataModel>>(uri, cancellationToken).ConfigureAwait(false);
 
-        public override async Task<IEnumerable<PriceListTypeDataModel>> Handle(ListQuery<PriceListTypeDataModel> query, CancellationToken cancellationToken)
-        {
-            bool success = true;
-            string? uri = "api/PriceListType";
-            IEnumerable<PriceListTypeDataModel> fullDataModelList = Enumerable.Empty<PriceListTypeDataModel>();
-
-            while (!string.IsNullOrEmpty(uri))
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                var response = await _plantDataApiClient.GetAsync<IEnumerable<PriceListTypeDataModel>>(uri, cancellationToken).ConfigureAwait(false);
-
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-                else if (response.Success && response.Content != null)
-                {
-                    var dataModelList = response.Content;
-
-                    // Concatenate page to full list
-                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<PriceListTypeDataModel>()).Concat(dataModelList ?? Enumerable.Empty<PriceListTypeDataModel>());
-
-                    // if we haven't got all the items, follow paging links (link will be null if no next page)
-                    uri = response.LinkInfo?.NextPageLink?.ToString();
-                }
-                else
-                {
-                    success = false;
-                    break;
-                }
+                throw new UnauthorizedAccessException();
             }
-
-            if (success)
+            else if (response.Success && response.Content != null)
             {
-                return fullDataModelList;
+                var dataModelList = response.Content;
+
+                // Concatenate page to full list
+                fullDataModelList = (fullDataModelList ?? Enumerable.Empty<PriceListTypeDataModel>()).Concat(dataModelList ?? Enumerable.Empty<PriceListTypeDataModel>());
+
+                // if we haven't got all the items, follow paging links (link will be null if no next page)
+                uri = response.LinkInfo?.NextPageLink?.ToString();
             }
             else
             {
-                // TODO: better way needed to handle failure response
-                return null;
+                success = false;
+                break;
             }
+        }
+
+        if (success)
+        {
+            return fullDataModelList;
+        }
+        else
+        {
+            // TODO: better way needed to handle failure response
+            return null;
         }
     }
 }

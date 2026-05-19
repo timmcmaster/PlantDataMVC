@@ -7,42 +7,41 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Mvc.Handlers.Forms.Label
+namespace PlantData.Web.Blazor.Features.Label;
+
+public class PlantLabelGridEditModelFormHandler : IFormHandler<PlantLabelsEditModel, string>
 {
-    public class PlantLabelGridEditModelFormHandler : IFormHandler<PlantLabelsEditModel, string>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+
+    public PlantLabelGridEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
+        _plantDataApiClient = plantDataApiClient;
+    }
 
-        public PlantLabelGridEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
+    public async Task<string> Handle(PlantLabelsEditModel form, CancellationToken cancellationToken)
+    {
+        string reportData = string.Empty;
+
+        try
         {
-            _plantDataApiClient = plantDataApiClient;
+            FetchPlantInfoLabelReportRequestDto requestDTO = new();
+
+            var labelRequests = form.Items.Select(x => new SpeciesLabelItemRequestModel() { SpeciesId = x.SpeciesId, LabelQuantity = x.LabelQuantity }).ToList();
+            requestDTO.LabelRequests = labelRequests;
+
+            var uri = "api/Label/FetchPlantInfoLabelReport";
+            var response = await _plantDataApiClient.PostAsync<FetchPlantInfoLabelReportRequestDto, FetchPlantInfoLabelReportResponseDto>(uri, requestDTO, cancellationToken).ConfigureAwait(false);
+
+            if (response.Success)
+            {
+                reportData = response.Content?.ReportDocument ?? string.Empty;
+            }
+
+            return reportData;
         }
-
-        public async Task<string> Handle(PlantLabelsEditModel form, CancellationToken cancellationToken)
+        catch
         {
-            string reportData = string.Empty;
-
-            try
-            {
-                FetchPlantInfoLabelReportRequestDto requestDTO = new();
-
-                var labelRequests = form.Items.Select(x => new SpeciesLabelItemRequestModel() { SpeciesId = x.SpeciesId, LabelQuantity = x.LabelQuantity }).ToList();
-                requestDTO.LabelRequests = labelRequests;
-
-                var uri = "api/Label/FetchPlantInfoLabelReport";
-                var response = await _plantDataApiClient.PostAsync<FetchPlantInfoLabelReportRequestDto, FetchPlantInfoLabelReportResponseDto>(uri, requestDTO, cancellationToken).ConfigureAwait(false);
-
-                if (response.Success)
-                {
-                    reportData = response.Content?.ReportDocument ?? string.Empty;
-                }
-
-                return reportData;
-            }
-            catch
-            {
-                return reportData;
-            }
+            return reportData;
         }
     }
 }

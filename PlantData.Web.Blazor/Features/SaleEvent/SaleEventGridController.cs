@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantData.Web.Blazor.Features.SaleEvent;
 using PlantData.Web.Blazor.UIModels.EditModels.SaleEvent;
-using PlantData.Web.Mvc.Controllers.Queries.SaleEvent;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.Data;
 using System;
@@ -10,104 +9,103 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Mvc.Controllers.ViewComponents
+namespace PlantData.Web.Mvc.Controllers.ViewComponents;
+
+public class SaleEventGridController : Controller
 {
-    public class SaleEventGridController : Controller
+    private readonly IMediator _mediator;
+    private readonly ISaleEventLookupService _saleEventLookupService;
+
+    public SaleEventGridController(IMediator mediator, ISaleEventLookupService saleEventLookupService)
     {
-        private readonly IMediator _mediator;
-        private readonly ISaleEventLookupService _saleEventLookupService;
+        _mediator = mediator;
+        _saleEventLookupService = saleEventLookupService;
+    }
 
-        public SaleEventGridController(IMediator mediator, ISaleEventLookupService saleEventLookupService)
+    [HttpPost]
+    [Route("data/[controller]")]
+    public async Task<ActionResult> UrlDatasource([FromBody] DataManagerRequest request)
+    {
+        // Convert operation to appropriate api call
+        int? localPage = request.Skip != 0 ? request.Skip / request.Take + 1 : 1;
+        int? localPageSize = request.Take != 0 ? request.Take : 20;
+
+        var firstSort = request.Sorted?.FirstOrDefault();
+        var localSortBy = firstSort == null ? string.Empty : firstSort.Name;
+        var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
+
+        var allowPaging = ((JsonElement)request.Params["allowPaging"]).GetBoolean();
+
+        if (!allowPaging)
         {
-            _mediator = mediator;
-            _saleEventLookupService = saleEventLookupService;
+            localPage = null;
+            localPageSize = null;
         }
 
-        [HttpPost]
-        [Route("data/[controller]")]
-        public async Task<ActionResult> UrlDatasource([FromBody] DataManagerRequest request)
+        var query = new IndexQuery(localPage, localPageSize, localSortBy, localAscending);
+        var model = await _mediator.Send(query);
+
+        if (model == null)
         {
-            // Convert operation to appropriate api call
-            int? localPage = request.Skip != 0 ? request.Skip / request.Take + 1 : 1;
-            int? localPageSize = request.Take != 0 ? request.Take : 20;
-
-            var firstSort = request.Sorted?.FirstOrDefault();
-            var localSortBy = firstSort == null ? string.Empty : firstSort.Name;
-            var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
-
-            var allowPaging = ((JsonElement)request.Params["allowPaging"]).GetBoolean();
-
-            if (!allowPaging)
-            {
-                localPage = null;
-                localPageSize = null;
-            }
-
-            var query = new IndexQuery(localPage, localPageSize, localSortBy, localAscending);
-            var model = await _mediator.Send(query);
-
-            if (model == null)
-            {
-                return Content("An error occurred");
-            }
-            else
-            {
-                var jsonResult = request.RequiresCounts ? Json(new { result = model, count = model.TotalCount }) : Json(model);
-
-                return jsonResult;
-            }
+            return Content("An error occurred");
         }
-
-        [HttpPost]
-        [Route("data/[controller]/Insert")]
-        public async Task<ActionResult> Insert([FromBody] CRUDModel<SaleEventCreateEditModel> x)
+        else
         {
-            // TODO: won't be correct, as we can't select the parent genus from the grid
-            var form = x.Value;
-
-            var result = await _mediator.Send(form);
-
-            return Json(form);
-        }
-
-        [HttpPost]
-        [Route("data/[controller]/Update")]
-        public async Task<ActionResult> Update([FromBody] CRUDModel<SaleEventUpdateEditModel> x)
-        {
-            var form = x.Value;
-
-            var result = await _mediator.Send(form);
-
-            return Json(form);
-        }
-
-        [HttpPost]
-        [Route("data/[controller]/Delete")]
-        public async Task<ActionResult> Delete([FromBody] CRUDModel<SaleEventDestroyEditModel> x)
-        {
-            var id = Convert.ToInt32(x.Key.ToString());
-            var form = new SaleEventDestroyEditModel() { Id = id };
-
-            var result = await _mediator.Send(form);
-
-            return Json(form);
-        }
-
-        [HttpPost]
-        [Route("data/[controller]/List")]
-        public async Task<ActionResult> List([FromBody] DataManagerRequest request)
-        {
-            var dataSource = await _saleEventLookupService.GetData();
-
-            if (request.Where != null && request.Where.Count > 0)
-            {
-                // Filtering
-                dataSource = DataOperations.PerformFiltering(dataSource, request.Where, request.Where[0].Condition);
-            }
-
-            var jsonResult = request.RequiresCounts ? Json(new { result = dataSource, count = dataSource.Count() }) : Json(dataSource);
+            var jsonResult = request.RequiresCounts ? Json(new { result = model, count = model.TotalCount }) : Json(model);
 
             return jsonResult;
         }
+    }
+
+    [HttpPost]
+    [Route("data/[controller]/Insert")]
+    public async Task<ActionResult> Insert([FromBody] CRUDModel<SaleEventCreateEditModel> x)
+    {
+        // TODO: won't be correct, as we can't select the parent genus from the grid
+        var form = x.Value;
+
+        var result = await _mediator.Send(form);
+
+        return Json(form);
+    }
+
+    [HttpPost]
+    [Route("data/[controller]/Update")]
+    public async Task<ActionResult> Update([FromBody] CRUDModel<SaleEventUpdateEditModel> x)
+    {
+        var form = x.Value;
+
+        var result = await _mediator.Send(form);
+
+        return Json(form);
+    }
+
+    [HttpPost]
+    [Route("data/[controller]/Delete")]
+    public async Task<ActionResult> Delete([FromBody] CRUDModel<SaleEventDestroyEditModel> x)
+    {
+        var id = Convert.ToInt32(x.Key.ToString());
+        var form = new SaleEventDestroyEditModel() { Id = id };
+
+        var result = await _mediator.Send(form);
+
+        return Json(form);
+    }
+
+    [HttpPost]
+    [Route("data/[controller]/List")]
+    public async Task<ActionResult> List([FromBody] DataManagerRequest request)
+    {
+        var dataSource = await _saleEventLookupService.GetData();
+
+        if (request.Where != null && request.Where.Count > 0)
+        {
+            // Filtering
+            dataSource = DataOperations.PerformFiltering(dataSource, request.Where, request.Where[0].Condition);
+        }
+
+        var jsonResult = request.RequiresCounts ? Json(new { result = dataSource, count = dataSource.Count() }) : Json(dataSource);
+
+        return jsonResult;
     }
 }

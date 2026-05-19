@@ -8,57 +8,56 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.Site
+namespace PlantData.Web.Blazor.Features.Site;
+
+public class SiteDataModelListQueryHandler : ListQueryHandler<SiteDataModel>
 {
-    public class SiteDataModelListQueryHandler : ListQueryHandler<SiteDataModel>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+
+    public SiteDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
+        _plantDataApiClient = plantDataApiClient;
+    }
 
-        public SiteDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
+    public override async Task<IEnumerable<SiteDataModel>> Handle(ListQuery<SiteDataModel> query, CancellationToken cancellationToken)
+    {
+        bool success = true;
+        string? uri = "api/Site";
+        IEnumerable<SiteDataModel> fullDataModelList = Enumerable.Empty<SiteDataModel>();
+
+        while (!string.IsNullOrEmpty(uri))
         {
-            _plantDataApiClient = plantDataApiClient;
-        }
+            var response = await _plantDataApiClient.GetAsync<IEnumerable<SiteDataModel>>(uri, cancellationToken).ConfigureAwait(false);
 
-        public override async Task<IEnumerable<SiteDataModel>> Handle(ListQuery<SiteDataModel> query, CancellationToken cancellationToken)
-        {
-            bool success = true;
-            string? uri = "api/Site";
-            IEnumerable<SiteDataModel> fullDataModelList = Enumerable.Empty<SiteDataModel>();
-
-            while (!string.IsNullOrEmpty(uri))
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                var response = await _plantDataApiClient.GetAsync<IEnumerable<SiteDataModel>>(uri, cancellationToken).ConfigureAwait(false);
-
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-                else if (response.Success && response.Content != null)
-                {
-                    var dataModelList = response.Content;
-
-                    // Concatenate page to full list
-                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<SiteDataModel>()).Concat(dataModelList ?? Enumerable.Empty<SiteDataModel>());
-
-                    // if we haven't got all the items, follow paging links (link will be null if no next page)
-                    uri = response.LinkInfo?.NextPageLink?.ToString();
-                }
-                else
-                {
-                    success = false;
-                    break;
-                }
+                throw new UnauthorizedAccessException();
             }
-
-            if (success)
+            else if (response.Success && response.Content != null)
             {
-                return fullDataModelList;
+                var dataModelList = response.Content;
+
+                // Concatenate page to full list
+                fullDataModelList = (fullDataModelList ?? Enumerable.Empty<SiteDataModel>()).Concat(dataModelList ?? Enumerable.Empty<SiteDataModel>());
+
+                // if we haven't got all the items, follow paging links (link will be null if no next page)
+                uri = response.LinkInfo?.NextPageLink?.ToString();
             }
             else
             {
-                // TODO: better way needed to handle failure response
-                return null;
+                success = false;
+                break;
             }
+        }
+
+        if (success)
+        {
+            return fullDataModelList;
+        }
+        else
+        {
+            // TODO: better way needed to handle failure response
+            return null;
         }
     }
 }

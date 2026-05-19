@@ -8,104 +8,103 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.SeedBatch
+namespace PlantData.Web.Blazor.Features.SeedBatch;
+
+public class SeedBatchGridController : Controller
 {
-    public class SeedBatchGridController : Controller
+    private readonly IMediator _mediator;
+    private readonly ISeedBatchLookupService _seedBatchLookupService;
+
+    public SeedBatchGridController(IMediator mediator, ISeedBatchLookupService seedBatchLookupService)
     {
-        private readonly IMediator _mediator;
-        private readonly ISeedBatchLookupService _seedBatchLookupService;
+        _mediator = mediator;
+        this._seedBatchLookupService = seedBatchLookupService;
+    }
 
-        public SeedBatchGridController(IMediator mediator, ISeedBatchLookupService seedBatchLookupService)
+    [HttpPost]
+    [Route("data/[controller]")]
+    public async Task<ActionResult> Post([FromBody] DataManagerRequest request)
+    {
+        // Convert operation to appropriate api call
+        int? localPage = request.Skip != 0 ? request.Skip / request.Take + 1 : 1;
+        int? localPageSize = request.Take != 0 ? request.Take : 20;
+
+        var firstSort = request.Sorted?.FirstOrDefault();
+        var localSortBy = firstSort == null ? string.Empty : firstSort.Name;
+        var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
+
+        var allowPaging = ((JsonElement)request.Params["allowPaging"]).GetBoolean();
+
+        if (!allowPaging)
         {
-            _mediator = mediator;
-            this._seedBatchLookupService = seedBatchLookupService;
+            localPage = null;
+            localPageSize = null;
         }
 
-        [HttpPost]
-        [Route("data/[controller]")]
-        public async Task<ActionResult> Post([FromBody] DataManagerRequest request)
+        var query = new IndexQuery(localPage, localPageSize, localSortBy, localAscending);
+        var model = await _mediator.Send(query);
+
+        if (model == null)
         {
-            // Convert operation to appropriate api call
-            int? localPage = request.Skip != 0 ? request.Skip / request.Take + 1 : 1;
-            int? localPageSize = request.Take != 0 ? request.Take : 20;
-
-            var firstSort = request.Sorted?.FirstOrDefault();
-            var localSortBy = firstSort == null ? string.Empty : firstSort.Name;
-            var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
-
-            var allowPaging = ((JsonElement)request.Params["allowPaging"]).GetBoolean();
-
-            if (!allowPaging)
-            {
-                localPage = null;
-                localPageSize = null;
-            }
-
-            var query = new IndexQuery(localPage, localPageSize, localSortBy, localAscending);
-            var model = await _mediator.Send(query);
-
-            if (model == null)
-            {
-                return Content("An error occurred");
-            }
-            else
-            {
-                var jsonResult = request.RequiresCounts ? Json(new { result = model, count = model.TotalCount }) : Json(model);
-
-                return jsonResult;
-            }
+            return Content("An error occurred");
         }
-
-        [HttpPost]
-        [Route("data/[controller]/Insert")]
-        public async Task<ActionResult> Insert([FromBody] CRUDModel<SeedBatchCreateEditModel> x)
+        else
         {
-            // TODO: won't be correct, as we can't select the parent genus from the grid
-            var form = x.Value;
-
-            var result = await _mediator.Send(form);
-
-            return Json(form);
-        }
-
-        [HttpPost]
-        [Route("data/[controller]/Update")]
-        public async Task<ActionResult> Update([FromBody] CRUDModel<SeedBatchUpdateEditModel> x)
-        {
-            var form = x.Value;
-
-            var result = await _mediator.Send(form);
-
-            return Json(form);
-        }
-
-        [HttpPost]
-        [Route("data/[controller]/Delete")]
-        public async Task<ActionResult> Delete([FromBody] CRUDModel<SeedBatchDestroyEditModel> x)
-        {
-            var id = Convert.ToInt32(x.Key.ToString());
-            var form = new SeedBatchDestroyEditModel() { Id = id };
-
-            var result = await _mediator.Send(form);
-
-            return Json(form);
-        }
-
-        [HttpPost]
-        [Route("data/[controller]/List")]
-        public async Task<ActionResult> List([FromBody] DataManagerRequest request)
-        {
-            var dataSource = await _seedBatchLookupService.GetData();
-
-            if (request.Where != null && request.Where.Count > 0)
-            {
-                // Filtering
-                dataSource = DataOperations.PerformFiltering(dataSource, request.Where, request.Where[0].Condition);
-            }
-
-            var jsonResult = request.RequiresCounts ? Json(new { result = dataSource, count = dataSource.Count() }) : Json(dataSource);
+            var jsonResult = request.RequiresCounts ? Json(new { result = model, count = model.TotalCount }) : Json(model);
 
             return jsonResult;
         }
+    }
+
+    [HttpPost]
+    [Route("data/[controller]/Insert")]
+    public async Task<ActionResult> Insert([FromBody] CRUDModel<SeedBatchCreateEditModel> x)
+    {
+        // TODO: won't be correct, as we can't select the parent genus from the grid
+        var form = x.Value;
+
+        var result = await _mediator.Send(form);
+
+        return Json(form);
+    }
+
+    [HttpPost]
+    [Route("data/[controller]/Update")]
+    public async Task<ActionResult> Update([FromBody] CRUDModel<SeedBatchUpdateEditModel> x)
+    {
+        var form = x.Value;
+
+        var result = await _mediator.Send(form);
+
+        return Json(form);
+    }
+
+    [HttpPost]
+    [Route("data/[controller]/Delete")]
+    public async Task<ActionResult> Delete([FromBody] CRUDModel<SeedBatchDestroyEditModel> x)
+    {
+        var id = Convert.ToInt32(x.Key.ToString());
+        var form = new SeedBatchDestroyEditModel() { Id = id };
+
+        var result = await _mediator.Send(form);
+
+        return Json(form);
+    }
+
+    [HttpPost]
+    [Route("data/[controller]/List")]
+    public async Task<ActionResult> List([FromBody] DataManagerRequest request)
+    {
+        var dataSource = await _seedBatchLookupService.GetData();
+
+        if (request.Where != null && request.Where.Count > 0)
+        {
+            // Filtering
+            dataSource = DataOperations.PerformFiltering(dataSource, request.Where, request.Where[0].Condition);
+        }
+
+        var jsonResult = request.RequiresCounts ? Json(new { result = dataSource, count = dataSource.Count() }) : Json(dataSource);
+
+        return jsonResult;
     }
 }

@@ -6,36 +6,35 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.SaleEvent
+namespace PlantData.Web.Blazor.Features.SaleEvent;
+
+public class SaleEventDestroyEditModelFormHandler : IFormHandler<SaleEventDestroyEditModel, bool>
 {
-    public class SaleEventDestroyEditModelFormHandler : IFormHandler<SaleEventDestroyEditModel, bool>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+
+    public SaleEventDestroyEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
+        _plantDataApiClient = plantDataApiClient;
+    }
 
-        public SaleEventDestroyEditModelFormHandler(IPlantDataApiClient plantDataApiClient)
+    public async Task<bool> Handle(SaleEventDestroyEditModel form, CancellationToken cancellationToken)
+    {
+        try
         {
-            _plantDataApiClient = plantDataApiClient;
+            var uri = "api/SaleEvent/" + form.Id;
+            var response = await _plantDataApiClient.DeleteAsync(uri, cancellationToken).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                throw new UnauthorizedAccessException();
+            }
+            else
+            {
+                return response.Success;
+            }
         }
-
-        public async Task<bool> Handle(SaleEventDestroyEditModel form, CancellationToken cancellationToken)
+        catch
         {
-            try
-            {
-                var uri = "api/SaleEvent/" + form.Id;
-                var response = await _plantDataApiClient.DeleteAsync(uri, cancellationToken).ConfigureAwait(false);
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-                else
-                {
-                    return response.Success;
-                }
-            }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

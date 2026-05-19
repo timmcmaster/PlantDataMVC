@@ -8,57 +8,56 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Mvc.Handlers.Views.StocktakeHeader
+namespace PlantData.Web.Blazor.Features.StocktakeHeader;
+
+public class StocktakeHeaderDataModelListQueryHandler : ListQueryHandler<StocktakeDataModel>
 {
-    public class StocktakeHeaderDataModelListQueryHandler : ListQueryHandler<StocktakeDataModel>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+
+    public StocktakeHeaderDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
+        _plantDataApiClient = plantDataApiClient;
+    }
 
-        public StocktakeHeaderDataModelListQueryHandler(IPlantDataApiClient plantDataApiClient)
+    public override async Task<IEnumerable<StocktakeDataModel>> Handle(ListQuery<StocktakeDataModel> query, CancellationToken cancellationToken)
+    {
+        bool success = true;
+        string? uri = "api/StocktakeHeader";
+        IEnumerable<StocktakeDataModel> fullDataModelList = Enumerable.Empty<StocktakeDataModel>();
+
+        while (!string.IsNullOrEmpty(uri))
         {
-            _plantDataApiClient = plantDataApiClient;
-        }
+            var response = await _plantDataApiClient.GetAsync<IEnumerable<StocktakeDataModel>>(uri, cancellationToken).ConfigureAwait(false);
 
-        public override async Task<IEnumerable<StocktakeDataModel>> Handle(ListQuery<StocktakeDataModel> query, CancellationToken cancellationToken)
-        {
-            bool success = true;
-            string? uri = "api/StocktakeHeader";
-            IEnumerable<StocktakeDataModel> fullDataModelList = Enumerable.Empty<StocktakeDataModel>();
-
-            while (!string.IsNullOrEmpty(uri))
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                var response = await _plantDataApiClient.GetAsync<IEnumerable<StocktakeDataModel>>(uri, cancellationToken).ConfigureAwait(false);
-
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-                else if (response.Success && response.Content != null)
-                {
-                    var dataModelList = response.Content;
-
-                    // Concatenate page to full list
-                    fullDataModelList = (fullDataModelList ?? Enumerable.Empty<StocktakeDataModel>()).Concat(dataModelList ?? Enumerable.Empty<StocktakeDataModel>());
-
-                    // if we haven't got all the items, follow paging links (link will be null if no next page)
-                    uri = response.LinkInfo?.NextPageLink?.ToString();
-                }
-                else
-                {
-                    success = false;
-                    break;
-                }
+                throw new UnauthorizedAccessException();
             }
-
-            if (success)
+            else if (response.Success && response.Content != null)
             {
-                return fullDataModelList;
+                var dataModelList = response.Content;
+
+                // Concatenate page to full list
+                fullDataModelList = (fullDataModelList ?? Enumerable.Empty<StocktakeDataModel>()).Concat(dataModelList ?? Enumerable.Empty<StocktakeDataModel>());
+
+                // if we haven't got all the items, follow paging links (link will be null if no next page)
+                uri = response.LinkInfo?.NextPageLink?.ToString();
             }
             else
             {
-                // TODO: better way needed to handle failure response
-                return null;
+                success = false;
+                break;
             }
+        }
+
+        if (success)
+        {
+            return fullDataModelList;
+        }
+        else
+        {
+            // TODO: better way needed to handle failure response
+            return null;
         }
     }
 }

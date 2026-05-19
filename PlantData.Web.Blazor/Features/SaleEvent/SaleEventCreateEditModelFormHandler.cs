@@ -6,35 +6,34 @@ using PlantDataMVC.Common.Client;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.SaleEvent
+namespace PlantData.Web.Blazor.Features.SaleEvent;
+
+public class SaleEventCreateEditModelFormHandler : IFormHandler<SaleEventCreateEditModel, bool>
 {
-    public class SaleEventCreateEditModelFormHandler : IFormHandler<SaleEventCreateEditModel, bool>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+    private readonly IMapper _mapper;
+
+    public SaleEventCreateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
-        private readonly IMapper _mapper;
+        _plantDataApiClient = plantDataApiClient;
+        _mapper = mapper;
+    }
 
-        public SaleEventCreateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
+    public async Task<bool> Handle(SaleEventCreateEditModel form, CancellationToken cancellationToken)
+    {
+        try
         {
-            _plantDataApiClient = plantDataApiClient;
-            _mapper = mapper;
+            // Map local model to DTO
+            CreateUpdateSaleEventDataModel item = _mapper.Map<SaleEventCreateEditModel, CreateUpdateSaleEventDataModel>(form);
+
+            var uri = "api/SaleEvent";
+            var response = await _plantDataApiClient.PostAsync(uri, item, cancellationToken).ConfigureAwait(false);
+
+            return response.Success;
         }
-
-        public async Task<bool> Handle(SaleEventCreateEditModel form, CancellationToken cancellationToken)
+        catch
         {
-            try
-            {
-                // Map local model to DTO
-                CreateUpdateSaleEventDataModel item = _mapper.Map<SaleEventCreateEditModel, CreateUpdateSaleEventDataModel>(form);
-
-                var uri = "api/SaleEvent";
-                var response = await _plantDataApiClient.PostAsync(uri, item, cancellationToken).ConfigureAwait(false);
-
-                return response.Success;
-            }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

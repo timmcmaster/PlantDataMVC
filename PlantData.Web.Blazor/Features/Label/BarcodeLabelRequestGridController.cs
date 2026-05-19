@@ -11,94 +11,93 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.Labels
+namespace PlantData.Web.Blazor.Features.Labels;
+
+public class BarcodeLabelRequestGridController : Controller
 {
-    public class BarcodeLabelRequestGridController : Controller
+    public static List<BarcodeLabelRequestGridModel> BarcodeLabelRequests { get; set; } = new List<BarcodeLabelRequestGridModel>();
+
+    private readonly IMediator _mediator;
+    private readonly ISpeciesLookupService _speciesLookupService;
+
+    public BarcodeLabelRequestGridController(IMediator mediator, ISpeciesLookupService speciesLookupService)
     {
-        public static List<BarcodeLabelRequestGridModel> BarcodeLabelRequests { get; set; } = new List<BarcodeLabelRequestGridModel>();
+        _mediator = mediator;
+        _speciesLookupService = speciesLookupService;
+    }
 
-        private readonly IMediator _mediator;
-        private readonly ISpeciesLookupService _speciesLookupService;
+    [HttpPost]
+    [Route("data/[controller]")]
+    public async Task<ActionResult> Post([FromBody] DataManagerRequest request)
+    {
 
-        public BarcodeLabelRequestGridController(IMediator mediator, ISpeciesLookupService speciesLookupService)
+        // Convert operation to appropriate api call
+        int? localPage = request.Skip != 0 ? request.Skip / request.Take + 1 : 1;
+        int? localPageSize = request.Take != 0 ? request.Take : 20;
+
+        var firstSort = request.Sorted?.FirstOrDefault();
+        var localSortBy = firstSort == null ? string.Empty : firstSort.Name;
+        var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
+
+        var allowPaging = request.Params is null ? false : ((JsonElement)request.Params["allowPaging"]).GetBoolean();
+
+        if (!allowPaging)
         {
-            _mediator = mediator;
-            _speciesLookupService = speciesLookupService;
+            localPage = null;
+            localPageSize = null;
         }
 
-        [HttpPost]
-        [Route("data/[controller]")]
-        public async Task<ActionResult> Post([FromBody] DataManagerRequest request)
+
+        var model = new GridDataModel<BarcodeLabelRequestGridModel>(BarcodeLabelRequests, localPage ?? 1, localPageSize ?? BarcodeLabelRequests.Count(), BarcodeLabelRequests.Count(), localSortBy, localAscending);
+
+        if (model == null)
         {
+            return Content("An error occurred");
+        }
+        else
+        {
+            var jsonResult = request.RequiresCounts ? Json(new { result = model, count = model.TotalCount }) : Json(model);
 
-            // Convert operation to appropriate api call
-            int? localPage = request.Skip != 0 ? request.Skip / request.Take + 1 : 1;
-            int? localPageSize = request.Take != 0 ? request.Take : 20;
+            return jsonResult;
+        }
+    }
 
-            var firstSort = request.Sorted?.FirstOrDefault();
-            var localSortBy = firstSort == null ? string.Empty : firstSort.Name;
-            var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
+    [HttpPost]
+    [Route("data/[controller]/Insert")]
+    public async Task<ActionResult> Insert([FromBody] CRUDModel<BarcodeLabelRequestGridModel> x)
+    {
+        var form = x.Value;
 
-            var allowPaging = request.Params is null ? false : ((JsonElement)request.Params["allowPaging"]).GetBoolean();
+        BarcodeLabelRequests.Insert(0, form);
 
-            if (!allowPaging)
-            {
-                localPage = null;
-                localPageSize = null;
-            }
+        return Json(form);
+    }
 
+    [HttpPost]
+    [Route("data/[controller]/Update")]
+    public async Task<ActionResult> Update([FromBody] CRUDModel<BarcodeLabelRequestGridModel> x)
+    {
+        var form = x.Value;
 
-            var model = new GridDataModel<BarcodeLabelRequestGridModel>(BarcodeLabelRequests, localPage ?? 1, localPageSize ?? BarcodeLabelRequests.Count(), BarcodeLabelRequests.Count(), localSortBy, localAscending);
-
-            if (model == null)
-            {
-                return Content("An error occurred");
-            }
-            else
-            {
-                var jsonResult = request.RequiresCounts ? Json(new { result = model, count = model.TotalCount }) : Json(model);
-
-                return jsonResult;
-            }
+        // TODO: get/define proper key value
+        var data = BarcodeLabelRequests.Where(r => r.ProductPriceId == form.ProductPriceId).FirstOrDefault();
+        if (data != null)
+        {
+            data.ProductPriceId = form.ProductPriceId;
+            data.LabelQuantity = form.LabelQuantity;
         }
 
-        [HttpPost]
-        [Route("data/[controller]/Insert")]
-        public async Task<ActionResult> Insert([FromBody] CRUDModel<BarcodeLabelRequestGridModel> x)
-        {
-            var form = x.Value;
+        return Json(form);
+    }
 
-            BarcodeLabelRequests.Insert(0, form);
+    [HttpPost]
+    [Route("data/[controller]/Delete")]
+    public async Task<ActionResult> Delete([FromBody] CRUDModel<BarcodeLabelRequestGridModel> x)
+    {
+        var id = Convert.ToInt32(x.Key.ToString());
 
-            return Json(form);
-        }
+        BarcodeLabelRequests.Remove(BarcodeLabelRequests.Where(r => r.ProductPriceId == id).FirstOrDefault());
 
-        [HttpPost]
-        [Route("data/[controller]/Update")]
-        public async Task<ActionResult> Update([FromBody] CRUDModel<BarcodeLabelRequestGridModel> x)
-        {
-            var form = x.Value;
-
-            // TODO: get/define proper key value
-            var data = BarcodeLabelRequests.Where(r => r.ProductPriceId == form.ProductPriceId).FirstOrDefault();
-            if (data != null)
-            {
-                data.ProductPriceId = form.ProductPriceId;
-                data.LabelQuantity = form.LabelQuantity;
-            }
-
-            return Json(form);
-        }
-
-        [HttpPost]
-        [Route("data/[controller]/Delete")]
-        public async Task<ActionResult> Delete([FromBody] CRUDModel<BarcodeLabelRequestGridModel> x)
-        {
-            var id = Convert.ToInt32(x.Key.ToString());
-
-            BarcodeLabelRequests.Remove(BarcodeLabelRequests.Where(r => r.ProductPriceId == id).FirstOrDefault());
-
-            return Json(x.Value);
-        }
+        return Json(x.Value);
     }
 }

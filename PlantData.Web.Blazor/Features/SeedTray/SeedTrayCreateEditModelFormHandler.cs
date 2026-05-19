@@ -6,35 +6,34 @@ using PlantDataMVC.Common.Client;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.SeedTray
+namespace PlantData.Web.Blazor.Features.SeedTray;
+
+public class SeedTrayCreateEditModelFormHandler : IFormHandler<SeedTrayCreateEditModel, bool>
 {
-    public class SeedTrayCreateEditModelFormHandler : IFormHandler<SeedTrayCreateEditModel, bool>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+    private readonly IMapper _mapper;
+
+    public SeedTrayCreateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
-        private readonly IMapper _mapper;
+        _plantDataApiClient = plantDataApiClient;
+        _mapper = mapper;
+    }
 
-        public SeedTrayCreateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
+    public async Task<bool> Handle(SeedTrayCreateEditModel form, CancellationToken cancellationToken)
+    {
+        try
         {
-            _plantDataApiClient = plantDataApiClient;
-            _mapper = mapper;
+            // Map local model to DTO
+            CreateUpdateSeedTrayDataModel item = _mapper.Map<SeedTrayCreateEditModel, CreateUpdateSeedTrayDataModel>(form);
+
+            var uri = "api/SeedTray";
+            var response = await _plantDataApiClient.PostAsync(uri, item, cancellationToken).ConfigureAwait(false);
+
+            return response.Success;
         }
-
-        public async Task<bool> Handle(SeedTrayCreateEditModel form, CancellationToken cancellationToken)
+        catch
         {
-            try
-            {
-                // Map local model to DTO
-                CreateUpdateSeedTrayDataModel item = _mapper.Map<SeedTrayCreateEditModel, CreateUpdateSeedTrayDataModel>(form);
-
-                var uri = "api/SeedTray";
-                var response = await _plantDataApiClient.PostAsync(uri, item, cancellationToken).ConfigureAwait(false);
-
-                return response.Success;
-            }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

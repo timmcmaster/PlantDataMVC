@@ -3,16 +3,15 @@ using MediatR;
 using PlantData.Web.Blazor.Features.Common.List;
 using PlantDataMVC.Api.Models.DataModels;
 
-namespace PlantData.Web.Blazor.Features.SaleEvent
-{
-    public interface ISaleEventLookupService : ILookupServiceAsync<SaleEventDataModel>
-    {
-    }
+namespace PlantData.Web.Blazor.Features.SaleEvent;
 
-    public class SaleEventLookupService : LookupServiceAsync<SaleEventDataModel>, ISaleEventLookupService
+public interface ISaleEventLookupService : ILookupServiceAsync<SaleEventDataModel>
+{
+}
+
+public class SaleEventLookupService : LookupServiceAsync<SaleEventDataModel>, ISaleEventLookupService
+{
+    public SaleEventLookupService(IMediator mediator) : base(mediator)
     {
-        public SaleEventLookupService(IMediator mediator) : base(mediator)
-        {
-        }
     }
 }

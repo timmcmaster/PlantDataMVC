@@ -8,42 +8,41 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Mvc.Handlers.Forms.ProductType
+namespace PlantData.Web.Blazor.Features.ProductType;
+
+public class ProductTypeUpdateEditModelFormHandler : IFormHandler<ProductTypeUpdateEditModel, bool>
 {
-    public class ProductTypeUpdateEditModelFormHandler : IFormHandler<ProductTypeUpdateEditModel, bool>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+    private readonly IMapper _mapper;
+
+    public ProductTypeUpdateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
-        private readonly IMapper _mapper;
+        _plantDataApiClient = plantDataApiClient;
+        _mapper = mapper;
+    }
 
-        public ProductTypeUpdateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
+    public async Task<bool> Handle(ProductTypeUpdateEditModel form, CancellationToken cancellationToken)
+    {
+        try
         {
-            _plantDataApiClient = plantDataApiClient;
-            _mapper = mapper;
+            // Map local model to DTO
+            CreateUpdateProductTypeDataModel item = _mapper.Map<ProductTypeUpdateEditModel, CreateUpdateProductTypeDataModel>(form);
+
+            // Update with PUT
+            var uri = "api/ProductType/" + form.Id;
+            var response = await _plantDataApiClient.PutAsync(uri, item, cancellationToken).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                throw new UnauthorizedAccessException();
+            }
+            else
+            {
+                return response.Success;
+            }
         }
-
-        public async Task<bool> Handle(ProductTypeUpdateEditModel form, CancellationToken cancellationToken)
+        catch
         {
-            try
-            {
-                // Map local model to DTO
-                CreateUpdateProductTypeDataModel item = _mapper.Map<ProductTypeUpdateEditModel, CreateUpdateProductTypeDataModel>(form);
-
-                // Update with PUT
-                var uri = "api/ProductType/" + form.Id;
-                var response = await _plantDataApiClient.PutAsync(uri, item, cancellationToken).ConfigureAwait(false);
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-                else
-                {
-                    return response.Success;
-                }
-            }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

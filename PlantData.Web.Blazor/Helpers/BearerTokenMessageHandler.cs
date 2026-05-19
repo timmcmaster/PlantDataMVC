@@ -3,26 +3,25 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Helpers
+namespace PlantData.Web.Blazor.Helpers;
+
+public class BearerTokenMessageHandler : DelegatingHandler
 {
-    public class BearerTokenMessageHandler : DelegatingHandler
+    private readonly IIdentityServerClient _identityServerClient;
+
+    public BearerTokenMessageHandler(IIdentityServerClient identityServerClient)
     {
-        private readonly IIdentityServerClient _identityServerClient;
+        _identityServerClient = identityServerClient;
+    }
 
-        public BearerTokenMessageHandler(IIdentityServerClient identityServerClient)
+    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        var accessToken = await _identityServerClient.RequestClientCredentialsTokenAsync();
+        if (accessToken != null)
         {
-            _identityServerClient = identityServerClient;
+            request.SetBearerToken(accessToken);
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            var accessToken = await _identityServerClient.RequestClientCredentialsTokenAsync();
-            if (accessToken != null)
-            {
-                request.SetBearerToken(accessToken);
-            }
-
-            return await base.SendAsync(request, cancellationToken);
-        }
+        return await base.SendAsync(request, cancellationToken);
     }
 }

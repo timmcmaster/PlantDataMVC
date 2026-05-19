@@ -8,7 +8,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Mvc.Handlers.Forms.Plant
+namespace PlantData.Web.Blazor.Features.Plant
 {
     public class PlantUpdateEditModelFormHandler : IFormHandler<PlantUpdateEditModel, bool>
     {

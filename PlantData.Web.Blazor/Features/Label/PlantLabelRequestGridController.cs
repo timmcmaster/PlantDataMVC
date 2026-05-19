@@ -11,90 +11,89 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.Labels
+namespace PlantData.Web.Blazor.Features.Labels;
+
+public class PlantLabelRequestGridController : Controller
 {
-    public class PlantLabelRequestGridController : Controller
+    public static List<PlantLabelRequestGridModel> PlantLabelRequests { get; set; } = new List<PlantLabelRequestGridModel>();
+
+    private readonly IMediator _mediator;
+    private readonly ISpeciesLookupService _speciesLookupService;
+
+    public PlantLabelRequestGridController(IMediator mediator, ISpeciesLookupService speciesLookupService)
     {
-        public static List<PlantLabelRequestGridModel> PlantLabelRequests { get; set; } = new List<PlantLabelRequestGridModel>();
+        _mediator = mediator;
+        _speciesLookupService = speciesLookupService;
+    }
 
-        private readonly IMediator _mediator;
-        private readonly ISpeciesLookupService _speciesLookupService;
+    [HttpPost]
+    [Route("data/[controller]")]
+    public async Task<ActionResult> Post([FromBody] DataManagerRequest request)
+    {
+        int? localPage = request.Skip != 0 ? request.Skip / request.Take + 1 : 1;
+        int? localPageSize = request.Take != 0 ? request.Take : 20;
 
-        public PlantLabelRequestGridController(IMediator mediator, ISpeciesLookupService speciesLookupService)
+        var firstSort = request.Sorted?.FirstOrDefault();
+        var localSortBy = firstSort == null ? string.Empty : firstSort.Name;
+        var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
+
+        var allowPaging = request.Params is null ? false : ((JsonElement)request.Params["allowPaging"]).GetBoolean();
+
+        if (!allowPaging)
         {
-            _mediator = mediator;
-            _speciesLookupService = speciesLookupService;
+            localPage = null;
+            localPageSize = null;
         }
 
-        [HttpPost]
-        [Route("data/[controller]")]
-        public async Task<ActionResult> Post([FromBody] DataManagerRequest request)
+        var model = new GridDataModel<PlantLabelRequestGridModel>(PlantLabelRequests, localPage ?? 1, localPageSize ?? PlantLabelRequests.Count(), PlantLabelRequests.Count(), localSortBy, localAscending);
+
+        if (model == null)
         {
-            int? localPage = request.Skip != 0 ? request.Skip / request.Take + 1 : 1;
-            int? localPageSize = request.Take != 0 ? request.Take : 20;
+            return Content("An error occurred");
+        }
+        else
+        {
+            var jsonResult = request.RequiresCounts ? Json(new { result = model, count = model.TotalCount }) : Json(model);
 
-            var firstSort = request.Sorted?.FirstOrDefault();
-            var localSortBy = firstSort == null ? string.Empty : firstSort.Name;
-            var localAscending = firstSort == null ? true : firstSort.Direction == "ascending";
+            return jsonResult;
+        }
+    }
 
-            var allowPaging = request.Params is null ? false : ((JsonElement)request.Params["allowPaging"]).GetBoolean();
+    [HttpPost]
+    [Route("data/[controller]/Insert")]
+    public async Task<ActionResult> Insert([FromBody] CRUDModel<PlantLabelRequestGridModel> x)
+    {
+        var form = x.Value;
 
-            if (!allowPaging)
-            {
-                localPage = null;
-                localPageSize = null;
-            }
+        PlantLabelRequests.Insert(0, form);
 
-            var model = new GridDataModel<PlantLabelRequestGridModel>(PlantLabelRequests, localPage ?? 1, localPageSize ?? PlantLabelRequests.Count(), PlantLabelRequests.Count(), localSortBy, localAscending);
+        return Json(form);
+    }
 
-            if (model == null)
-            {
-                return Content("An error occurred");
-            }
-            else
-            {
-                var jsonResult = request.RequiresCounts ? Json(new { result = model, count = model.TotalCount }) : Json(model);
+    [HttpPost]
+    [Route("data/[controller]/Update")]
+    public async Task<ActionResult> Update([FromBody] CRUDModel<PlantLabelRequestGridModel> x)
+    {
+        var form = x.Value;
 
-                return jsonResult;
-            }
+        var data = PlantLabelRequests.Where(r => r.SpeciesId == form.SpeciesId).FirstOrDefault();
+        if (data != null)
+        {
+            data.SpeciesId = form.SpeciesId;
+            data.LabelQuantity = form.LabelQuantity;
         }
 
-        [HttpPost]
-        [Route("data/[controller]/Insert")]
-        public async Task<ActionResult> Insert([FromBody] CRUDModel<PlantLabelRequestGridModel> x)
-        {
-            var form = x.Value;
+        return Json(form);
+    }
 
-            PlantLabelRequests.Insert(0, form);
+    [HttpPost]
+    [Route("data/[controller]/Delete")]
+    public async Task<ActionResult> Delete([FromBody] CRUDModel<PlantLabelRequestGridModel> x)
+    {
+        var id = Convert.ToInt32(x.Key.ToString());
 
-            return Json(form);
-        }
+        PlantLabelRequests.Remove(PlantLabelRequests.Where(r => r.SpeciesId == id).FirstOrDefault());
 
-        [HttpPost]
-        [Route("data/[controller]/Update")]
-        public async Task<ActionResult> Update([FromBody] CRUDModel<PlantLabelRequestGridModel> x)
-        {
-            var form = x.Value;
-
-            var data = PlantLabelRequests.Where(r => r.SpeciesId == form.SpeciesId).FirstOrDefault();
-            if (data != null)
-            {
-                data.SpeciesId = form.SpeciesId;
-                data.LabelQuantity = form.LabelQuantity;
-            }
-
-            return Json(form);
-        }
-
-        [HttpPost]
-        [Route("data/[controller]/Delete")]
-        public async Task<ActionResult> Delete([FromBody] CRUDModel<PlantLabelRequestGridModel> x)
-        {
-            var id = Convert.ToInt32(x.Key.ToString());
-
-            PlantLabelRequests.Remove(PlantLabelRequests.Where(r => r.SpeciesId == id).FirstOrDefault());
-
-            return Json(x.Value);
-        }
+        return Json(x.Value);
     }
 }

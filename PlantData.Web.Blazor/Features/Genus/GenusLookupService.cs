@@ -3,16 +3,15 @@ using MediatR;
 using PlantData.Web.Blazor.Features.Common.List;
 using PlantDataMVC.Api.Models.DataModels;
 
-namespace PlantData.Web.Blazor.Features.Genus
-{
-    public interface IGenusLookupService : ILookupServiceAsync<GenusDataModel>
-    {
-    }
+namespace PlantData.Web.Blazor.Features.Genus;
 
-    public class GenusLookupService : LookupServiceAsync<GenusDataModel>, IGenusLookupService
+public interface IGenusLookupService : ILookupServiceAsync<GenusDataModel>
+{
+}
+
+public class GenusLookupService : LookupServiceAsync<GenusDataModel>, IGenusLookupService
+{
+    public GenusLookupService(IMediator mediator) : base(mediator)
     {
-        public GenusLookupService(IMediator mediator) : base(mediator)
-        {
-        }
     }
 }

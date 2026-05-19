@@ -8,42 +8,41 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlantData.Web.Blazor.Features.SaleEvent
+namespace PlantData.Web.Blazor.Features.SaleEvent;
+
+public class SaleEventUpdateEditModelFormHandler : IFormHandler<SaleEventUpdateEditModel, bool>
 {
-    public class SaleEventUpdateEditModelFormHandler : IFormHandler<SaleEventUpdateEditModel, bool>
+    private readonly IPlantDataApiClient _plantDataApiClient;
+    private readonly IMapper _mapper;
+
+    public SaleEventUpdateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
     {
-        private readonly IPlantDataApiClient _plantDataApiClient;
-        private readonly IMapper _mapper;
+        _plantDataApiClient = plantDataApiClient;
+        _mapper = mapper;
+    }
 
-        public SaleEventUpdateEditModelFormHandler(IPlantDataApiClient plantDataApiClient, IMapper mapper)
+    public async Task<bool> Handle(SaleEventUpdateEditModel form, CancellationToken cancellationToken)
+    {
+        try
         {
-            _plantDataApiClient = plantDataApiClient;
-            _mapper = mapper;
+            // Map local model to DTO
+            CreateUpdateSaleEventDataModel item = _mapper.Map<SaleEventUpdateEditModel, CreateUpdateSaleEventDataModel>(form);
+
+            // Update with PUT
+            var uri = "api/SaleEvent/" + form.Id;
+            var response = await _plantDataApiClient.PutAsync(uri, item, cancellationToken).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                throw new UnauthorizedAccessException();
+            }
+            else
+            {
+                return response.Success;
+            }
         }
-
-        public async Task<bool> Handle(SaleEventUpdateEditModel form, CancellationToken cancellationToken)
+        catch
         {
-            try
-            {
-                // Map local model to DTO
-                CreateUpdateSaleEventDataModel item = _mapper.Map<SaleEventUpdateEditModel, CreateUpdateSaleEventDataModel>(form);
-
-                // Update with PUT
-                var uri = "api/SaleEvent/" + form.Id;
-                var response = await _plantDataApiClient.PutAsync(uri, item, cancellationToken).ConfigureAwait(false);
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-                else
-                {
-                    return response.Success;
-                }
-            }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
     }
 }
