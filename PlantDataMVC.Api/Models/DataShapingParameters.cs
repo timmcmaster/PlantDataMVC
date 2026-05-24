@@ -1,7 +1,6 @@
-﻿namespace PlantDataMVC.Api.Models
+﻿namespace PlantDataMVC.Api.Models;
+
+public class DataShapingParameters : IDataShapingParameters
 {
-    public class DataShapingParameters : IDataShapingParameters
-    {
-        public string? Fields { get; set; } = null;
-    }
+    public string? Fields { get; set; } = null;
 }

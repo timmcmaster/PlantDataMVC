@@ -4,350 +4,349 @@ using MigraDoc.Rendering;
 using PlantDataMVC.Api.Reports.BarcodeLabels.Models;
 using PlantDataMVC.Api.Models.DataModels;
 
-namespace PlantDataMVC.Api.Reports.BarcodeLabels
+namespace PlantDataMVC.Api.Reports.BarcodeLabels;
+
+public class BarcodeLabelReportRenderer
 {
-    public class BarcodeLabelReportRenderer
+    private Document _report = new();
+
+    private readonly string _reportFont = "Arial";
+
+    // Page Setup
+    private readonly double _pageTopMargin = 10.7;
+    private readonly double _pageBottomMargin = 0;
+    private readonly double _pageLeftMargin = 4.7;
+    private readonly double _pageRightMargin = 4.7;
+
+    // Column setup
+    private readonly int _columnsPerRow = 9;
+    private readonly double _labelWidthMM = 38.1;
+    private readonly double _labelColumnGapWidthMM = 2.5;
+
+    // Row setup
+    private readonly int _rowsPerPage = 13;
+    private readonly double _labelRowHeightMM = 21.2;
+
+    private readonly List<FontInfo> _barcodeFontInfos;
+    private readonly FontInfo _selectedBarcodeFontInfo;
+
+
+    private readonly BarcodeLabelReportModel _reportModel;
+    private readonly BarcodeLabelLayoutDataModel _layoutDefinition;
+
+    private readonly int _textFontSize = 11;
+    private readonly int _priceFontSize = 14;
+
+    private readonly bool _testFonts = false;
+
+    public BarcodeLabelReportRenderer(BarcodeLabelReportModel reportModel, BarcodeLabelLayoutDataModel layoutDefinition)
     {
-        private Document _report = new();
+        _layoutDefinition = layoutDefinition;
 
-        private readonly string _reportFont = "Arial";
-
-        // Page Setup
-        private readonly double _pageTopMargin = 10.7;
-        private readonly double _pageBottomMargin = 0;
-        private readonly double _pageLeftMargin = 4.7;
-        private readonly double _pageRightMargin = 4.7;
-
-        // Column setup
-        private readonly int _columnsPerRow = 9;
-        private readonly double _labelWidthMM = 38.1;
-        private readonly double _labelColumnGapWidthMM = 2.5;
-
-        // Row setup
-        private readonly int _rowsPerPage = 13;
-        private readonly double _labelRowHeightMM = 21.2;
-
-        private readonly List<FontInfo> _barcodeFontInfos;
-        private readonly FontInfo _selectedBarcodeFontInfo;
-
-
-        private readonly BarcodeLabelReportModel _reportModel;
-        private readonly BarcodeLabelLayoutDataModel _layoutDefinition;
-
-        private readonly int _textFontSize = 11;
-        private readonly int _priceFontSize = 14;
-
-        private readonly bool _testFonts = false;
-
-        public BarcodeLabelReportRenderer(BarcodeLabelReportModel reportModel, BarcodeLabelLayoutDataModel layoutDefinition)
-        {
-            _layoutDefinition = layoutDefinition;
-
-            _reportModel = reportModel;
-            _barcodeFontInfos = new List<FontInfo>() {
-                    new FontInfo("3 of 9 Barcode", 20, (char)33),           // '!'
-                    new FontInfo("Free 3 of 9", 24, (char)95),              // '_'
-                    new FontInfo("Libre Barcode 39", 24, (char)194),        // 'Â'
-                    new FontInfo("Libre Barcode 39 Text", 24, (char)194)    // 'Â'
-                };
-
-            _selectedBarcodeFontInfo = _barcodeFontInfos.First(i => i.Name == "Libre Barcode 39");
-        }
-
-        public string? BuildReport()
-        {
-            string? reportData = null;
-            // Create the PDF Document
-            _report = new Document();
-
-            CreateDocument();
-
-            using MemoryStream ms = new MemoryStream();
-
-            var pdfRenderer = new PdfDocumentRenderer() { Document = _report };
-            pdfRenderer.RenderDocument();
-            pdfRenderer.PdfDocument.Save(ms);
-
-            var reportBytes = ms.ToArray();
-            reportData = Convert.ToBase64String(reportBytes);
-
-            // HACK: Save to file as well, for testing
-            SaveToFileForTesting(reportBytes);
-
-            return reportData;
-        }
-
-        private static void SaveToFileForTesting(byte[] reportBytes)
-        {
-            string filePath = "..\\logs\\BarcodeLabelReport.pdf";
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
-            using (var file = File.OpenWrite(filePath))
-            {
-                file.Write(reportBytes);
-            }
-        }
-
-        private void CreateDocument()
-        {
-            // Add a section to the document
-            Section section = _report.AddSection();
-
-            section.PageSetup = _report.DefaultPageSetup.Clone();
-
-            switch (_layoutDefinition.PageSize)
-            {
-                case "A4":
-                    section.PageSetup.PageFormat = PageFormat.A4;
-                    break;
-
-                default:
-                    section.PageSetup.PageFormat = _report.DefaultPageSetup.PageFormat;
-                    break;
-            }
-
-            section.PageSetup.Orientation = Orientation.Portrait;
-
-            section.PageSetup.LeftMargin = Unit.FromMillimeter(_layoutDefinition.PageLeftMargin);
-            section.PageSetup.RightMargin = Unit.FromMillimeter(_layoutDefinition.PageRightMargin);
-            section.PageSetup.TopMargin = Unit.FromMillimeter(_layoutDefinition.PageTopMargin);
-            section.PageSetup.BottomMargin = Unit.FromMillimeter(_layoutDefinition.PageBottomMargin);
-
-            if (_testFonts)
-            {
-                CreateFontTestPages();
-
-                // Barcode test page
-                Table testTable = CreateBarcodeTestTable();
-                AddBarcodeHeaderRow(testTable);
-                AddBarcodeTestRows(testTable);
-            }
-
-            // Create labels
-            Table table = CreateLabelItemTable();
-
-            foreach (var labelGroup in _reportModel.LabelItems)
-            {
-                // Create a full page for each group
-                Row currentRow;
-
-                for (int rowIndex = 0; rowIndex < _layoutDefinition.RowsPerPage; rowIndex++)
-                {
-                    currentRow = table.AddRow();
-                    currentRow.VerticalAlignment = VerticalAlignment.Center;
-
-                    int colIndex = 0;
-                    while (colIndex < _layoutDefinition.ColumnsPerRow)
-                    {
-                        AddLabelItem(currentRow.Cells[colIndex++], labelGroup);
-                        colIndex++; // Skip gap column
-                    }
-                }
-            }
-        }
-
-
-        private Table CreateLabelItemTable()
-        {
-            // Total width = 210
-            Table table = _report.LastSection.AddTable();
-
-            // table default format
-            table.Format.LineSpacingRule = LineSpacingRule.Single;
-            table.Format.Font.Name = _reportFont;
-            table.Format.Font.Size = _textFontSize;
-            table.Rows.Height = Unit.FromMillimeter(_layoutDefinition.LabelRowHeightMM);
-            table.Rows.HeightRule = RowHeightRule.Exactly;
-            table.Borders.Visible = false;
-
-            // Create columns
-            Column column;
-            int colIndex = 0;
-
-            while (colIndex < _layoutDefinition.ColumnsPerRow)
-            {
-                // Label column
-                column = table.AddColumn();
-                column.Width = Unit.FromMillimeter(_layoutDefinition.LabelWidthMM);
-                column.Format.Alignment = ParagraphAlignment.Center;
-                colIndex++;
-
-                if (colIndex < _layoutDefinition.ColumnsPerRow)
-                {
-                    // Gap column
-                    column = table.AddColumn();
-                    column.Width = Unit.FromMillimeter(_layoutDefinition.LabelColumnGapWidthMM);
-                    colIndex++;
-                }
-            }
-
-            return table;
-        }
-
-        private void AddLabelItem(Cell cell, BarcodeLabelItemModel labelItem)
-        {
-            var para = cell.AddParagraph(labelItem.LabelText ?? "");
-            para.Format.Font.Size = _textFontSize;
-
-            para = cell.AddParagraph(labelItem.Price ?? "");
-            para.Format.Font.Size = _priceFontSize;
-            para.Format.Font.Bold = true;
-
-            if (!string.IsNullOrEmpty(labelItem.BarcodeText))
-            {
-                para = cell.AddParagraph(_selectedBarcodeFontInfo.EncodedText(labelItem.BarcodeText));
-                para.Format.Font.Name = _selectedBarcodeFontInfo.Name;
-                para.Format.Font.Size = _selectedBarcodeFontInfo.Size;
-            }
-        }
-
-        private Table CreateBarcodeTestTable()
-        {
-            // Total width = 210
-            Table table = _report.LastSection.AddTable();
-
-            // table default format
-            table.Format.LineSpacingRule = LineSpacingRule.Single;
-            table.Format.Font.Name = _reportFont;
-            table.Format.Font.Size = _textFontSize;
-            table.Rows.Height = Unit.FromMillimeter(_labelRowHeightMM);
-            table.Rows.HeightRule = RowHeightRule.AtLeast;
-            table.Borders.Visible = true;
-
-            // Create columns
-            // Font name column
-            Column column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(30);
-            column.Format.Alignment = ParagraphAlignment.Left;
-
-            // Font size column
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(20);
-            column.Format.Alignment = ParagraphAlignment.Left;
-
-            // Unencoded data column
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(20);
-            column.Format.Alignment = ParagraphAlignment.Left;
-
-            // Barcode column 1
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(65);
-            column.Format.Alignment = ParagraphAlignment.Left;
-
-            // Barcode column 2
-            column = table.AddColumn();
-            column.Width = Unit.FromMillimeter(65);
-            column.Format.Alignment = ParagraphAlignment.Left;
-
-            return table;
-        }
-
-        private void CreateFontTestPages()
-        {
-            foreach (var font in _barcodeFontInfos)
-            {
-                CreateFontTestPage(font);
-            }
-        }
-
-        private void CreateFontTestPage(FontInfo fontInfo)
-        {
-            var section = _report.LastSection;
-
-            var para = section.AddParagraph(fontInfo.Name);
-            para.Format.Font.Bold = true;
-            para.Format.Font.Size = 20;
-
-            para = section.AddParagraph("");
-            para.Format.Font.Name = _reportFont;
-            para.Format.Font.Size = _textFontSize;
-
-            var baseFont = para.Format.Font.Clone();
-
-            var barcodeFont = para.Format.Font.Clone();
-            barcodeFont.Size = fontInfo.Size;
-            barcodeFont.Name = fontInfo.Name;
-
-            for (int i = 0; i <= 256; i++)
-            {
-                char c = (char)i;
-                string s = $"Value: {i}, Char: {c}, Barcode: ";
-
-                para.AddFormattedText(s, baseFont);
-                para.AddFormattedText($"{c}", barcodeFont);
-                para.AddFormattedText("|\t", baseFont);
-            }
-            section.AddPageBreak();
-        }
-
-        private void AddBarcodeHeaderRow(Table table)
-        {
-            var row = table.AddRow();
-            row.Format.Font.Bold = true;
-
-            row.Cells[0].AddParagraph("Font Name");
-            row.Cells[1].AddParagraph("Font Size");
-            row.Cells[2].AddParagraph("Barcode Text");
-            row.Cells[3].AddParagraph($"Barcode");
-            row.Cells[4].AddParagraph($"Barcode (space subst.)");
-        }
-
-        
-        private void AddBarcodeTestRows(Table table)
-        {
-            BarcodeLabelItemModel labelItem = new BarcodeLabelItemModel()
-            {               
-                BarcodeText = "38 2.5",
-                LabelText = "label text",
-                Price = "$2.50"
+        _reportModel = reportModel;
+        _barcodeFontInfos = new List<FontInfo>() {
+                new FontInfo("3 of 9 Barcode", 20, (char)33),           // '!'
+                new FontInfo("Free 3 of 9", 24, (char)95),              // '_'
+                new FontInfo("Libre Barcode 39", 24, (char)194),        // 'Â'
+                new FontInfo("Libre Barcode 39 Text", 24, (char)194)    // 'Â'
             };
 
-            foreach (var font in _barcodeFontInfos)
-            {
-                AddBarcodeTestRow(table, labelItem, font);
-            }
-        
-            _report.LastSection.AddPageBreak();
-        }
-
-
-        private void AddBarcodeTestRow(Table table, BarcodeLabelItemModel labelItem, FontInfo barcodeFontInfo)
-        {
-            var row = table.AddRow();
-
-            row.Cells[0].AddParagraph(barcodeFontInfo.Name);
-
-            row.Cells[1].AddParagraph(barcodeFontInfo.Size.ToString());
-
-            row.Cells[2].AddParagraph(labelItem.BarcodeText);
-
-            var para = row.Cells[3].AddParagraph($"*{labelItem.BarcodeText}*");
-            para.Format.Font.Name = barcodeFontInfo.Name;
-            para.Format.Font.Size = barcodeFontInfo.Size;
-
-            var encodedText = $"*{labelItem.BarcodeText.Replace(' ', barcodeFontInfo.SpaceSubstitute)}*";
-            para = row.Cells[4].AddParagraph(encodedText);
-            para.Format.Font.Name = barcodeFontInfo.Name;
-            para.Format.Font.Size = barcodeFontInfo.Size;
-        }
+        _selectedBarcodeFontInfo = _barcodeFontInfos.First(i => i.Name == "Libre Barcode 39");
     }
 
-    internal class FontInfo
+    public string? BuildReport()
     {
-        public FontInfo(string name, int size, char spaceSubstitute = ' ')
+        string? reportData = null;
+        // Create the PDF Document
+        _report = new Document();
+
+        CreateDocument();
+
+        using MemoryStream ms = new MemoryStream();
+
+        var pdfRenderer = new PdfDocumentRenderer() { Document = _report };
+        pdfRenderer.RenderDocument();
+        pdfRenderer.PdfDocument.Save(ms);
+
+        var reportBytes = ms.ToArray();
+        reportData = Convert.ToBase64String(reportBytes);
+
+        // HACK: Save to file as well, for testing
+        SaveToFileForTesting(reportBytes);
+
+        return reportData;
+    }
+
+    private static void SaveToFileForTesting(byte[] reportBytes)
+    {
+        string filePath = "..\\logs\\BarcodeLabelReport.pdf";
+        if (File.Exists(filePath))
         {
-            Name = name;
-            Size = size;
-            SpaceSubstitute = spaceSubstitute;
+            File.Delete(filePath);
+        }
+        using (var file = File.OpenWrite(filePath))
+        {
+            file.Write(reportBytes);
+        }
+    }
+
+    private void CreateDocument()
+    {
+        // Add a section to the document
+        Section section = _report.AddSection();
+
+        section.PageSetup = _report.DefaultPageSetup.Clone();
+
+        switch (_layoutDefinition.PageSize)
+        {
+            case "A4":
+                section.PageSetup.PageFormat = PageFormat.A4;
+                break;
+
+            default:
+                section.PageSetup.PageFormat = _report.DefaultPageSetup.PageFormat;
+                break;
         }
 
-        public string Name { get; set; }
-        public int Size { get; set; }
-        public char SpaceSubstitute { get; set; }
+        section.PageSetup.Orientation = Orientation.Portrait;
 
-        public string EncodedText(string originalText) => $"*{originalText.Replace(' ', this.SpaceSubstitute)}*";
+        section.PageSetup.LeftMargin = Unit.FromMillimeter(_layoutDefinition.PageLeftMargin);
+        section.PageSetup.RightMargin = Unit.FromMillimeter(_layoutDefinition.PageRightMargin);
+        section.PageSetup.TopMargin = Unit.FromMillimeter(_layoutDefinition.PageTopMargin);
+        section.PageSetup.BottomMargin = Unit.FromMillimeter(_layoutDefinition.PageBottomMargin);
+
+        if (_testFonts)
+        {
+            CreateFontTestPages();
+
+            // Barcode test page
+            Table testTable = CreateBarcodeTestTable();
+            AddBarcodeHeaderRow(testTable);
+            AddBarcodeTestRows(testTable);
+        }
+
+        // Create labels
+        Table table = CreateLabelItemTable();
+
+        foreach (var labelGroup in _reportModel.LabelItems)
+        {
+            // Create a full page for each group
+            Row currentRow;
+
+            for (int rowIndex = 0; rowIndex < _layoutDefinition.RowsPerPage; rowIndex++)
+            {
+                currentRow = table.AddRow();
+                currentRow.VerticalAlignment = VerticalAlignment.Center;
+
+                int colIndex = 0;
+                while (colIndex < _layoutDefinition.ColumnsPerRow)
+                {
+                    AddLabelItem(currentRow.Cells[colIndex++], labelGroup);
+                    colIndex++; // Skip gap column
+                }
+            }
+        }
     }
+
+
+    private Table CreateLabelItemTable()
+    {
+        // Total width = 210
+        Table table = _report.LastSection.AddTable();
+
+        // table default format
+        table.Format.LineSpacingRule = LineSpacingRule.Single;
+        table.Format.Font.Name = _reportFont;
+        table.Format.Font.Size = _textFontSize;
+        table.Rows.Height = Unit.FromMillimeter(_layoutDefinition.LabelRowHeightMM);
+        table.Rows.HeightRule = RowHeightRule.Exactly;
+        table.Borders.Visible = false;
+
+        // Create columns
+        Column column;
+        int colIndex = 0;
+
+        while (colIndex < _layoutDefinition.ColumnsPerRow)
+        {
+            // Label column
+            column = table.AddColumn();
+            column.Width = Unit.FromMillimeter(_layoutDefinition.LabelWidthMM);
+            column.Format.Alignment = ParagraphAlignment.Center;
+            colIndex++;
+
+            if (colIndex < _layoutDefinition.ColumnsPerRow)
+            {
+                // Gap column
+                column = table.AddColumn();
+                column.Width = Unit.FromMillimeter(_layoutDefinition.LabelColumnGapWidthMM);
+                colIndex++;
+            }
+        }
+
+        return table;
+    }
+
+    private void AddLabelItem(Cell cell, BarcodeLabelItemModel labelItem)
+    {
+        var para = cell.AddParagraph(labelItem.LabelText ?? "");
+        para.Format.Font.Size = _textFontSize;
+
+        para = cell.AddParagraph(labelItem.Price ?? "");
+        para.Format.Font.Size = _priceFontSize;
+        para.Format.Font.Bold = true;
+
+        if (!string.IsNullOrEmpty(labelItem.BarcodeText))
+        {
+            para = cell.AddParagraph(_selectedBarcodeFontInfo.EncodedText(labelItem.BarcodeText));
+            para.Format.Font.Name = _selectedBarcodeFontInfo.Name;
+            para.Format.Font.Size = _selectedBarcodeFontInfo.Size;
+        }
+    }
+
+    private Table CreateBarcodeTestTable()
+    {
+        // Total width = 210
+        Table table = _report.LastSection.AddTable();
+
+        // table default format
+        table.Format.LineSpacingRule = LineSpacingRule.Single;
+        table.Format.Font.Name = _reportFont;
+        table.Format.Font.Size = _textFontSize;
+        table.Rows.Height = Unit.FromMillimeter(_labelRowHeightMM);
+        table.Rows.HeightRule = RowHeightRule.AtLeast;
+        table.Borders.Visible = true;
+
+        // Create columns
+        // Font name column
+        Column column = table.AddColumn();
+        column.Width = Unit.FromMillimeter(30);
+        column.Format.Alignment = ParagraphAlignment.Left;
+
+        // Font size column
+        column = table.AddColumn();
+        column.Width = Unit.FromMillimeter(20);
+        column.Format.Alignment = ParagraphAlignment.Left;
+
+        // Unencoded data column
+        column = table.AddColumn();
+        column.Width = Unit.FromMillimeter(20);
+        column.Format.Alignment = ParagraphAlignment.Left;
+
+        // Barcode column 1
+        column = table.AddColumn();
+        column.Width = Unit.FromMillimeter(65);
+        column.Format.Alignment = ParagraphAlignment.Left;
+
+        // Barcode column 2
+        column = table.AddColumn();
+        column.Width = Unit.FromMillimeter(65);
+        column.Format.Alignment = ParagraphAlignment.Left;
+
+        return table;
+    }
+
+    private void CreateFontTestPages()
+    {
+        foreach (var font in _barcodeFontInfos)
+        {
+            CreateFontTestPage(font);
+        }
+    }
+
+    private void CreateFontTestPage(FontInfo fontInfo)
+    {
+        var section = _report.LastSection;
+
+        var para = section.AddParagraph(fontInfo.Name);
+        para.Format.Font.Bold = true;
+        para.Format.Font.Size = 20;
+
+        para = section.AddParagraph("");
+        para.Format.Font.Name = _reportFont;
+        para.Format.Font.Size = _textFontSize;
+
+        var baseFont = para.Format.Font.Clone();
+
+        var barcodeFont = para.Format.Font.Clone();
+        barcodeFont.Size = fontInfo.Size;
+        barcodeFont.Name = fontInfo.Name;
+
+        for (int i = 0; i <= 256; i++)
+        {
+            char c = (char)i;
+            string s = $"Value: {i}, Char: {c}, Barcode: ";
+
+            para.AddFormattedText(s, baseFont);
+            para.AddFormattedText($"{c}", barcodeFont);
+            para.AddFormattedText("|\t", baseFont);
+        }
+        section.AddPageBreak();
+    }
+
+    private void AddBarcodeHeaderRow(Table table)
+    {
+        var row = table.AddRow();
+        row.Format.Font.Bold = true;
+
+        row.Cells[0].AddParagraph("Font Name");
+        row.Cells[1].AddParagraph("Font Size");
+        row.Cells[2].AddParagraph("Barcode Text");
+        row.Cells[3].AddParagraph($"Barcode");
+        row.Cells[4].AddParagraph($"Barcode (space subst.)");
+    }
+
+    
+    private void AddBarcodeTestRows(Table table)
+    {
+        BarcodeLabelItemModel labelItem = new BarcodeLabelItemModel()
+        {               
+            BarcodeText = "38 2.5",
+            LabelText = "label text",
+            Price = "$2.50"
+        };
+
+        foreach (var font in _barcodeFontInfos)
+        {
+            AddBarcodeTestRow(table, labelItem, font);
+        }
+    
+        _report.LastSection.AddPageBreak();
+    }
+
+
+    private void AddBarcodeTestRow(Table table, BarcodeLabelItemModel labelItem, FontInfo barcodeFontInfo)
+    {
+        var row = table.AddRow();
+
+        row.Cells[0].AddParagraph(barcodeFontInfo.Name);
+
+        row.Cells[1].AddParagraph(barcodeFontInfo.Size.ToString());
+
+        row.Cells[2].AddParagraph(labelItem.BarcodeText);
+
+        var para = row.Cells[3].AddParagraph($"*{labelItem.BarcodeText}*");
+        para.Format.Font.Name = barcodeFontInfo.Name;
+        para.Format.Font.Size = barcodeFontInfo.Size;
+
+        var encodedText = $"*{labelItem.BarcodeText.Replace(' ', barcodeFontInfo.SpaceSubstitute)}*";
+        para = row.Cells[4].AddParagraph(encodedText);
+        para.Format.Font.Name = barcodeFontInfo.Name;
+        para.Format.Font.Size = barcodeFontInfo.Size;
+    }
+}
+
+internal class FontInfo
+{
+    public FontInfo(string name, int size, char spaceSubstitute = ' ')
+    {
+        Name = name;
+        Size = size;
+        SpaceSubstitute = spaceSubstitute;
+    }
+
+    public string Name { get; set; }
+    public int Size { get; set; }
+    public char SpaceSubstitute { get; set; }
+
+    public string EncodedText(string originalText) => $"*{originalText.Replace(' ', this.SpaceSubstitute)}*";
 }

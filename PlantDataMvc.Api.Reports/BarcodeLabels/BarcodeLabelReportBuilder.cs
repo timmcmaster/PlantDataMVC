@@ -1,60 +1,58 @@
 ﻿using Microsoft.Extensions.Logging;
 using PlantDataMVC.Api.Reports.BarcodeLabels.Models;
 using PlantDataMVC.Api.Models.DataModels;
-using PlantDataMVC.Api.Reports.InfoLabels;
 using PlantDataMVC.Service;
 
-namespace PlantDataMVC.Api.Reports.BarcodeLabels
+namespace PlantDataMVC.Api.Reports.BarcodeLabels;
+
+public class BarcodeLabelReportBuilder : IBarcodeLabelReportBuilder
 {
-    public class BarcodeLabelReportBuilder : IBarcodeLabelReportBuilder
+    private readonly ILogger<BarcodeLabelReportBuilder> _logger;
+    private readonly IProductPriceService _service;
+
+    public BarcodeLabelReportBuilder(IProductPriceService service, ILogger<BarcodeLabelReportBuilder> logger)
     {
-        private readonly ILogger<BarcodeLabelReportBuilder> _logger;
-        private readonly IProductPriceService _service;
+        _logger = logger;
+        _service = service;
+    }
 
-        public BarcodeLabelReportBuilder(IProductPriceService service, ILogger<BarcodeLabelReportBuilder> logger)
+    public string? GetBarcodeLabelReport(string layoutName, List<ProductPriceBarcodeItemRequestModel> requestedItems)
+    {
+        try
         {
-            _logger = logger;
-            _service = service;
-        }
+            var reportModel = new BarcodeLabelReportModel();
 
-        public string? GetBarcodeLabelReport(string layoutName, List<ProductPriceBarcodeItemRequestModel> requestedItems)
-        {
-            try
+            LoadLabelItems(reportModel,requestedItems);
+
+            var layoutDefinition = LayoutDefinitions.GetAllLayouts().Where(x => x.LayoutName == layoutName).FirstOrDefault();
+            if (layoutDefinition == null) 
             {
-                var reportModel = new BarcodeLabelReportModel();
-
-                LoadLabelItems(reportModel,requestedItems);
-
-                var layoutDefinition = LayoutDefinitions.GetAllLayouts().Where(x => x.LayoutName == layoutName).FirstOrDefault();
-                if (layoutDefinition == null) 
-                {
-                    layoutDefinition = LayoutDefinitions.GetAllLayouts().Where(x => x.IsDefault).First();
-                }
-
-                return new BarcodeLabelReportRenderer(reportModel, layoutDefinition).BuildReport();
+                layoutDefinition = LayoutDefinitions.GetAllLayouts().Where(x => x.IsDefault).First();
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Exception occurred");
-                return null;
-            }
-        }
 
-        private void LoadLabelItems(BarcodeLabelReportModel reportModel, List<ProductPriceBarcodeItemRequestModel> requestedItems)
+            return new BarcodeLabelReportRenderer(reportModel, layoutDefinition).BuildReport();
+        }
+        catch (Exception ex)
         {
-            foreach (var item in requestedItems)
+            _logger.LogError(ex, "Exception occurred");
+            return null;
+        }
+    }
+
+    private void LoadLabelItems(BarcodeLabelReportModel reportModel, List<ProductPriceBarcodeItemRequestModel> requestedItems)
+    {
+        foreach (var item in requestedItems)
+        {
+            var productPriceEntity = _service.GetItemById(item.ProductPriceId);
+            if (productPriceEntity != null)
             {
-                var productPriceEntity = _service.GetItemById(item.ProductPriceId);
-                if (productPriceEntity != null)
+                var labelItem = new BarcodeLabelItemModel()
                 {
-                    var labelItem = new BarcodeLabelItemModel()
-                    {
-                        LabelText = "Tim McMaster",
-                        Price = $"{productPriceEntity.Price.ToString("C")}",
-                        BarcodeText = productPriceEntity.BarcodeSKU
-                    };
-                    reportModel.LabelItems.Add(labelItem);
-                }
+                    LabelText = "Tim McMaster",
+                    Price = $"{productPriceEntity.Price.ToString("C")}",
+                    BarcodeText = productPriceEntity.BarcodeSKU
+                };
+                reportModel.LabelItems.Add(labelItem);
             }
         }
     }

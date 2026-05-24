@@ -1,15 +1,14 @@
 ﻿using System.Linq;
 using System.Linq.Dynamic.Core;
 
-namespace Framework.Web.Mvc.Sorting
+namespace Framework.Web.Mvc.Sorting;
+
+public static class SortableExtensions
 {
-    public static class SortableExtensions
+    public static IQueryable<T> SortQueryable<T>(this IQueryable<T> source, string sortBy, bool sortAscending)
     {
-        public static IQueryable<T> SortQueryable<T>(this IQueryable<T> source, string sortBy, bool sortAscending)
-        {
-            return string.IsNullOrEmpty(sortBy)
-                ? source
-                : source.OrderBy(sortAscending ? sortBy + " asc" : sortBy + " desc");
-        }
+        return string.IsNullOrEmpty(sortBy)
+            ? source
+            : source.OrderBy(sortAscending ? sortBy + " asc" : sortBy + " desc");
     }
 }

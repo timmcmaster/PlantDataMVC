@@ -1,7 +1,6 @@
-﻿namespace PlantDataMVC.Api.Models
+﻿namespace PlantDataMVC.Api.Models;
+
+public interface ISortingParameters
 {
-    public interface ISortingParameters
-    {
-        public string Sort { get; set; }
-    }
+    public string Sort { get; set; }
 }

@@ -7,83 +7,82 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlantDataMVC.WebApiCore.Tests
+namespace PlantDataMVC.WebApiCore.Tests;
+
+public static class DataHelper
 {
-    public static class DataHelper
+    public static SpeciesDataModel GetSpeciesDataModelTest1()
     {
-        public static SpeciesDataModel GetSpeciesDataModelTest1()
+        var species = new SpeciesDataModel
         {
-            var species = new SpeciesDataModel
+            CommonName = "Brisbane wattle",
+            Description = "Small tree to 10m",
+            GenusId = 1,
+            GenusName = "Acacia",
+            Id = 1,
+            Native = true,
+            PropagationTime = 17,
+            SpecificName = "fimbriata",
+            PlantStocks = new List<PlantStockDataModel>
             {
-                CommonName = "Brisbane wattle",
-                Description = "Small tree to 10m",
-                GenusId = 1,
-                GenusName = "Acacia",
-                Id = 1,
-                Native = true,
-                PropagationTime = 17,
-                SpecificName = "fimbriata",
-                PlantStocks = new List<PlantStockDataModel>
+                new PlantStockDataModel
                 {
-                    new PlantStockDataModel
-                    {
-                        Id = 2, ProductTypeId = 1, SpeciesId = 1, QuantityInStock = 10
-                    },
-                    new PlantStockDataModel
-                    {
-                        Id = 3, ProductTypeId = 2, SpeciesId = 1, QuantityInStock = 5
-                    }
+                    Id = 2, ProductTypeId = 1, SpeciesId = 1, QuantityInStock = 10
                 },
-                SeedBatches = new List<SeedBatchDataModel>
+                new PlantStockDataModel
                 {
-                    new SeedBatchDataModel
-                    {
-                        Id = 6, DateCollected = new DateTime(2016, 1, 30), SpeciesId = 1, Location = "Home",
-                        Notes = "Notes 1"
-                    },
-                    new SeedBatchDataModel
-                    {
-                        Id = 3, DateCollected = new DateTime(2018, 11, 3), SpeciesId = 1, Location = "Grandchester",
-                        Notes = "Notes 2"
-                    },
-                    new SeedBatchDataModel
-                    {
-                        Id = 11, DateCollected = new DateTime(2017, 7, 23), SpeciesId = 1, Location = "Tingalpa",
-                        Notes = "Notes 3"
-                    }
+                    Id = 3, ProductTypeId = 2, SpeciesId = 1, QuantityInStock = 5
                 }
-            };
-
-            return species;
-        }
-
-        public static TreeNode<string> GetFixedFieldTree(string fieldList)
-        {
-            TreeNode<string> tree = new TreeNode<string>("");
-
-            switch (fieldList)
+            },
+            SeedBatches = new List<SeedBatchDataModel>
             {
-                case "":
-                    break;
-                case "commonName":
-                    tree.AddChild("commonName");
-                    break;
-                case "commonName,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location":
-                    tree.AddChild("commonName");
-                    tree.AddChild("plantStocks").AddChild("quantityInStock");
-                    tree.AddChild("seedBatches").AddChildren(new string[] { "DateCollected", "location" });
-                    break;
-                case "emaNnommoc":
-                    tree.AddChild("emaNnommoc");
-                    break;
-                case "emaNnommoc,skcotStnalp.kcotSnIytitnauq,sehctaBdees.detcelloCetaD,sehctaBdees.noitacol":
-                    tree.AddChild("emaNnommoc");
-                    tree.AddChild("skcotStnalp").AddChild("kcotSnIytitnauq");
-                    tree.AddChild("sehctaBdees").AddChildren(new string[] { "detcelloCetaD", "noitacol" });
-                    break;
+                new SeedBatchDataModel
+                {
+                    Id = 6, DateCollected = new DateTime(2016, 1, 30), SpeciesId = 1, Location = "Home",
+                    Notes = "Notes 1"
+                },
+                new SeedBatchDataModel
+                {
+                    Id = 3, DateCollected = new DateTime(2018, 11, 3), SpeciesId = 1, Location = "Grandchester",
+                    Notes = "Notes 2"
+                },
+                new SeedBatchDataModel
+                {
+                    Id = 11, DateCollected = new DateTime(2017, 7, 23), SpeciesId = 1, Location = "Tingalpa",
+                    Notes = "Notes 3"
+                }
             }
+        };
 
-            return tree;
+        return species;
+    }
+
+    public static TreeNode<string> GetFixedFieldTree(string fieldList)
+    {
+        TreeNode<string> tree = new TreeNode<string>("");
+
+        switch (fieldList)
+        {
+            case "":
+                break;
+            case "commonName":
+                tree.AddChild("commonName");
+                break;
+            case "commonName,plantStocks.quantityInStock,seedBatches.DateCollected,seedBatches.location":
+                tree.AddChild("commonName");
+                tree.AddChild("plantStocks").AddChild("quantityInStock");
+                tree.AddChild("seedBatches").AddChildren(new string[] { "DateCollected", "location" });
+                break;
+            case "emaNnommoc":
+                tree.AddChild("emaNnommoc");
+                break;
+            case "emaNnommoc,skcotStnalp.kcotSnIytitnauq,sehctaBdees.detcelloCetaD,sehctaBdees.noitacol":
+                tree.AddChild("emaNnommoc");
+                tree.AddChild("skcotStnalp").AddChild("kcotSnIytitnauq");
+                tree.AddChild("sehctaBdees").AddChildren(new string[] { "detcelloCetaD", "noitacol" });
+                break;
         }
+
+        return tree;
     }
 }

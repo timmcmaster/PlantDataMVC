@@ -1,9 +1,8 @@
 ﻿using PlantDataMVC.Api.Models.DataModels;
 
-namespace PlantDataMVC.Api.Reports.InfoLabels
+namespace PlantDataMVC.Api.Reports.BarcodeLabels;
+
+public interface IBarcodeLabelReportBuilder
 {
-    public interface IBarcodeLabelReportBuilder
-    {
-        string? GetBarcodeLabelReport(string layoutName, List<ProductPriceBarcodeItemRequestModel> requestedItems);
-    }
+    string? GetBarcodeLabelReport(string layoutName, List<ProductPriceBarcodeItemRequestModel> requestedItems);
 }

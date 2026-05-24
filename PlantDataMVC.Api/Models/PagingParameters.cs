@@ -1,22 +1,21 @@
-﻿namespace PlantDataMVC.Api.Models
+﻿namespace PlantDataMVC.Api.Models;
+
+public class PagingParameters : IPagingParameters
 {
-    public class PagingParameters : IPagingParameters
+    const int MaxPageSize = 100;
+    private int _pageSize = MaxPageSize;
+
+    public int Page { get; set; } = 1;
+
+    public int PageSize
     {
-        const int MaxPageSize = 100;
-        private int _pageSize = MaxPageSize;
-
-        public int Page { get; set; } = 1;
-
-        public int PageSize
+        get
         {
-            get
-            {
-                return _pageSize;
-            }
-            set
-            {
-                _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
-            }
+            return _pageSize;
+        }
+        set
+        {
+            _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
     }
 }

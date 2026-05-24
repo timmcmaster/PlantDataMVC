@@ -1,13 +1,12 @@
-﻿namespace PlantDataMVC.Api.Reports.BarcodeLabels.Models
-{
-    public class BarcodeLabelItemModel
-    {
-        public string LabelText { get; set; } = string.Empty;
-        public string Price { get; set; } = string.Empty;
-        public string BarcodeText { get; set; } = string.Empty;
+﻿namespace PlantDataMVC.Api.Reports.BarcodeLabels.Models;
 
-        public BarcodeLabelItemModel()
-        {
-        }
+public class BarcodeLabelItemModel
+{
+    public string LabelText { get; set; } = string.Empty;
+    public string Price { get; set; } = string.Empty;
+    public string BarcodeText { get; set; } = string.Empty;
+
+    public BarcodeLabelItemModel()
+    {
     }
 }

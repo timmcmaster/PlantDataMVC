@@ -7,126 +7,125 @@ using System.IO;
 using System.Linq.Expressions;
 using System.Text.Encodings.Web;
 
-namespace Framework.Web.Mvc.Paging
+namespace Framework.Web.Mvc.Paging;
+
+/// <summary>
+///     Contains Extension methods for HtmlHelper that implement PagingLinks
+/// </summary>
+public static class PagingExtensions
 {
-    /// <summary>
-    ///     Contains Extension methods for HtmlHelper that implement PagingLinks
-    /// </summary>
-    public static class PagingExtensions
+    public static HtmlString PagingLinksFor<TModel, TProperty>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr) //where TModel : IPageable
     {
-        public static HtmlString PagingLinksFor<TModel, TProperty>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr) //where TModel : IPageable
+        //ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
+        var sw = new StringWriter();
+
+        var model = helper.ViewData.Model as IPageable;
+        var currentRequest = helper.ViewContext.HttpContext.Request;
+        var pageLinkHtmlAttributes = new Dictionary<string, object>
+                {
+                    { "class", "page-link" }
+                };
+
+
+        var pageHtmlList = new List<IHtmlContent>();
+
+        if (model != null)
         {
-            //ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
-            var sw = new StringWriter();
+            // Previous link
+            var listItemBuilder = new TagBuilder("li");
 
-            var model = helper.ViewData.Model as IPageable;
-            var currentRequest = helper.ViewContext.HttpContext.Request;
-            var pageLinkHtmlAttributes = new Dictionary<string, object>
-                    {
-                        { "class", "page-link" }
-                    };
-
-
-            var pageHtmlList = new List<IHtmlContent>();
-
-            if (model != null)
+            if (model.HasPreviousPage)
             {
-                // Previous link
-                var listItemBuilder = new TagBuilder("li");
+                var routeDataPrev = new RouteValueDictionary
+                    {{"page", model.PageNumber - 1}, {"pageSize", model.PageSize}};
 
-                if (model.HasPreviousPage)
-                {
-                    var routeDataPrev = new RouteValueDictionary
-                        {{"page", model.PageNumber - 1}, {"pageSize", model.PageSize}};
+                routeDataPrev.AddQueryStringParameters(currentRequest);
+                var prevLink = helper.ActionLink("Previous", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataPrev, pageLinkHtmlAttributes);
 
-                    routeDataPrev.AddQueryStringParameters(currentRequest);
-                    var prevLink = helper.ActionLink("Previous", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataPrev, pageLinkHtmlAttributes);
-
-                    listItemBuilder.AddCssClass("page-item");
-                    listItemBuilder.InnerHtml.AppendHtml(prevLink);
-                }
-                else
-                {
-                    var prevLink = new TagBuilder("span");
-                    prevLink.AddCssClass("page-link");
-                    prevLink.InnerHtml.Append("Previous");
-                    listItemBuilder.AddCssClass("page-item disabled");
-                    listItemBuilder.InnerHtml.AppendHtml(prevLink);
-                }
-                pageHtmlList.Add(listItemBuilder);
+                listItemBuilder.AddCssClass("page-item");
+                listItemBuilder.InnerHtml.AppendHtml(prevLink);
+            }
+            else
+            {
+                var prevLink = new TagBuilder("span");
+                prevLink.AddCssClass("page-link");
+                prevLink.InnerHtml.Append("Previous");
+                listItemBuilder.AddCssClass("page-item disabled");
+                listItemBuilder.InnerHtml.AppendHtml(prevLink);
+            }
+            pageHtmlList.Add(listItemBuilder);
 
 
-                // Add any page links in between
-                for (int i = 1; i <= model.TotalPages; i++)
-                {
-                    listItemBuilder = new TagBuilder("li");
-
-                    if (i == model.PageNumber)
-                    {
-                        var pageLink = new TagBuilder("span");
-                        pageLink.AddCssClass("page-link");
-                        pageLink.InnerHtml.Append(i.ToString());
-                        listItemBuilder.AddCssClass("page-item active");
-                        listItemBuilder.InnerHtml.AppendHtml(pageLink);
-                    }
-                    else
-                    {
-                        var routeData = new RouteValueDictionary { { "page", i}, { "pageSize", model.PageSize}};
-
-                        routeData.AddQueryStringParameters(currentRequest);
-
-                        var pageLink = helper.ActionLink(i.ToString(), helper.ViewContext.RouteData.Values["action"].ToString(), routeData, pageLinkHtmlAttributes);
-
-                        listItemBuilder.AddCssClass("page-item");
-                        listItemBuilder.InnerHtml.AppendHtml(pageLink);
-                    }
-                    pageHtmlList.Add(listItemBuilder);
-                }
-
-                // Next link
+            // Add any page links in between
+            for (int i = 1; i <= model.TotalPages; i++)
+            {
                 listItemBuilder = new TagBuilder("li");
 
-                if (model.HasNextPage)
+                if (i == model.PageNumber)
                 {
-                    var routeDataNext = new RouteValueDictionary
-                        {{"page", model.PageNumber + 1}, {"pageSize", model.PageSize}};
-
-                    routeDataNext.AddQueryStringParameters(currentRequest);
-
-                    var nextLink = helper.ActionLink("Next", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataNext, pageLinkHtmlAttributes);
-
-                    listItemBuilder.AddCssClass("page-item");
-                    listItemBuilder.InnerHtml.AppendHtml(nextLink);
+                    var pageLink = new TagBuilder("span");
+                    pageLink.AddCssClass("page-link");
+                    pageLink.InnerHtml.Append(i.ToString());
+                    listItemBuilder.AddCssClass("page-item active");
+                    listItemBuilder.InnerHtml.AppendHtml(pageLink);
                 }
                 else
                 {
-                    var nextLink = new TagBuilder("span");
-                    nextLink.AddCssClass("page-link");
-                    nextLink.InnerHtml.Append("Next");
-                    listItemBuilder.AddCssClass("page-item disabled");
-                    listItemBuilder.InnerHtml.AppendHtml(nextLink);
+                    var routeData = new RouteValueDictionary { { "page", i}, { "pageSize", model.PageSize}};
+
+                    routeData.AddQueryStringParameters(currentRequest);
+
+                    var pageLink = helper.ActionLink(i.ToString(), helper.ViewContext.RouteData.Values["action"].ToString(), routeData, pageLinkHtmlAttributes);
+
+                    listItemBuilder.AddCssClass("page-item");
+                    listItemBuilder.InnerHtml.AppendHtml(pageLink);
                 }
                 pageHtmlList.Add(listItemBuilder);
             }
 
-            sw.GetStringBuilder().Clear();
+            // Next link
+            listItemBuilder = new TagBuilder("li");
 
-            var navBuilder = new TagBuilder("nav");
-            navBuilder.Attributes.Add("aria-label", "Page navigation");
-
-            var listBuilder = new TagBuilder("ul");
-            listBuilder.AddCssClass("pagination");
-
-            foreach (var item in pageHtmlList)
+            if (model.HasNextPage)
             {
-                listBuilder.InnerHtml.AppendHtml(item);
+                var routeDataNext = new RouteValueDictionary
+                    {{"page", model.PageNumber + 1}, {"pageSize", model.PageSize}};
+
+                routeDataNext.AddQueryStringParameters(currentRequest);
+
+                var nextLink = helper.ActionLink("Next", helper.ViewContext.RouteData.Values["action"].ToString(), routeDataNext, pageLinkHtmlAttributes);
+
+                listItemBuilder.AddCssClass("page-item");
+                listItemBuilder.InnerHtml.AppendHtml(nextLink);
             }
-
-            navBuilder.InnerHtml.AppendHtml(listBuilder);
-
-            navBuilder.WriteTo(sw, HtmlEncoder.Default);
-
-            return new HtmlString(sw.ToString());
+            else
+            {
+                var nextLink = new TagBuilder("span");
+                nextLink.AddCssClass("page-link");
+                nextLink.InnerHtml.Append("Next");
+                listItemBuilder.AddCssClass("page-item disabled");
+                listItemBuilder.InnerHtml.AppendHtml(nextLink);
+            }
+            pageHtmlList.Add(listItemBuilder);
         }
+
+        sw.GetStringBuilder().Clear();
+
+        var navBuilder = new TagBuilder("nav");
+        navBuilder.Attributes.Add("aria-label", "Page navigation");
+
+        var listBuilder = new TagBuilder("ul");
+        listBuilder.AddCssClass("pagination");
+
+        foreach (var item in pageHtmlList)
+        {
+            listBuilder.InnerHtml.AppendHtml(item);
+        }
+
+        navBuilder.InnerHtml.AppendHtml(listBuilder);
+
+        navBuilder.WriteTo(sw, HtmlEncoder.Default);
+
+        return new HtmlString(sw.ToString());
     }
 }

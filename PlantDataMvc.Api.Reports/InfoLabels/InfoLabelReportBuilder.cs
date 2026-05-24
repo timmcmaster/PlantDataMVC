@@ -4,53 +4,52 @@ using PlantDataMVC.Api.Models.DomainFunctions;
 using PlantDataMVC.Api.Reports.InfoLabels.Models;
 using PlantDataMVC.Service;
 
-namespace PlantDataMVC.Api.Reports.InfoLabels
+namespace PlantDataMVC.Api.Reports.InfoLabels;
+
+public class InfoLabelReportBuilder : IInfoLabelReportBuilder
 {
-    public class InfoLabelReportBuilder : IInfoLabelReportBuilder
+    private readonly ISpeciesService _service;
+    private readonly ILogger<InfoLabelReportBuilder> _logger;
+
+    public InfoLabelReportBuilder(ISpeciesService service, ILogger<InfoLabelReportBuilder> logger)
     {
-        private readonly ISpeciesService _service;
-        private readonly ILogger<InfoLabelReportBuilder> _logger;
+        _service = service;
+        _logger = logger;
+    }
 
-        public InfoLabelReportBuilder(ISpeciesService service, ILogger<InfoLabelReportBuilder> logger)
+    public string? GetInfoLabelReport(List<SpeciesLabelItemRequestModel> requestedItems)
+    {
+        try
         {
-            _service = service;
-            _logger = logger;
+            var reportModel = new InfoLabelReportModel();
+
+            LoadLabelItems(reportModel, requestedItems);
+
+            return new InfoLabelReportRenderer(reportModel).BuildReport();
         }
-
-        public string? GetInfoLabelReport(List<SpeciesLabelItemRequestModel> requestedItems)
+        catch (Exception ex)
         {
-            try
-            {
-                var reportModel = new InfoLabelReportModel();
-
-                LoadLabelItems(reportModel, requestedItems);
-
-                return new InfoLabelReportRenderer(reportModel).BuildReport();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Exception occurred");
-                return null;
-            }
+            _logger.LogError(ex, "Exception occurred");
+            return null;
         }
+    }
 
-        private void LoadLabelItems(InfoLabelReportModel reportModel, List<SpeciesLabelItemRequestModel> requestedItems)
+    private void LoadLabelItems(InfoLabelReportModel reportModel, List<SpeciesLabelItemRequestModel> requestedItems)
+    {
+        foreach (var item in requestedItems)
         {
-            foreach (var item in requestedItems)
+            var speciesEntity = _service.GetItemById(item.SpeciesId);
+            if (speciesEntity != null)
             {
-                var speciesEntity = _service.GetItemById(item.SpeciesId);
-                if (speciesEntity != null)
+                var labelItem = new InfoLabelItemModel()
                 {
-                    var labelItem = new InfoLabelItemModel()
-                    {
-                        LabelQuantity = item.LabelQuantity,
-                        SpeciesBinomial = SpeciesFunctions.GetBinomial(speciesEntity.Genus.LatinName, speciesEntity.SpecificName),
-                        CommonName = speciesEntity.CommonName,
-                        Description = speciesEntity.Description
-                    };
+                    LabelQuantity = item.LabelQuantity,
+                    SpeciesBinomial = SpeciesFunctions.GetBinomial(speciesEntity.Genus.LatinName, speciesEntity.SpecificName),
+                    CommonName = speciesEntity.CommonName,
+                    Description = speciesEntity.Description
+                };
 
-                    reportModel.LabelItems.Add(labelItem);
-                }
+                reportModel.LabelItems.Add(labelItem);
             }
         }
     }

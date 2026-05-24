@@ -1,8 +1,7 @@
-﻿namespace PlantDataMVC.Api.Models
+﻿namespace PlantDataMVC.Api.Models;
+
+public interface IPagingParameters
 {
-    public interface IPagingParameters
-    {
-        public int PageSize { get; set; }
-        public int Page { get; set; }
-    }
+    public int PageSize { get; set; }
+    public int Page { get; set; }
 }

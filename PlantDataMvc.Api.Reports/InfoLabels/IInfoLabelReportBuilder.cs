@@ -1,9 +1,8 @@
 ﻿using PlantDataMVC.Api.Models.DataModels;
 
-namespace PlantDataMVC.Api.Reports.InfoLabels
+namespace PlantDataMVC.Api.Reports.InfoLabels;
+
+public interface IInfoLabelReportBuilder
 {
-    public interface IInfoLabelReportBuilder
-    {
-        string? GetInfoLabelReport(List<SpeciesLabelItemRequestModel> requestedItems);
-    }
+    string? GetInfoLabelReport(List<SpeciesLabelItemRequestModel> requestedItems);
 }

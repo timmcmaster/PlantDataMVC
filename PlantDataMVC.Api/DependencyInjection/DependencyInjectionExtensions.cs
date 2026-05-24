@@ -10,75 +10,74 @@ using PlantDataMVC.Repository.Repositories;
 using PlantDataMVC.Service;
 using Serilog;
 
-namespace PlantDataMVC.Api.DependencyInjection
+namespace PlantDataMVC.Api.DependencyInjection;
+
+public static class DependencyInjectionExtensions
 {
-    public static class DependencyInjectionExtensions
+    /// <summary>
+    /// Configures IOC services for main domain.
+    /// </summary>
+    public static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration config)
     {
-        /// <summary>
-        /// Configures IOC services for main domain.
-        /// </summary>
-        public static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration config)
+        //*****************************************
+        // Register data context
+        // This is passed to UnitOfWork constructor
+        //services.AddScoped<IDbContext, PlantDataDbContext>();
+        services.AddDbContext<PlantDataDbContext>(options =>
         {
-            //*****************************************
-            // Register data context
-            // This is passed to UnitOfWork constructor
-            //services.AddScoped<IDbContext, PlantDataDbContext>();
-            services.AddDbContext<PlantDataDbContext>(options =>
-            {
-                options.UseSqlServer(config.GetConnectionString("PlantDataDbContext"));
-                options.AddInterceptors(new EfLoggingInterceptor());
+            options.UseSqlServer(config.GetConnectionString("PlantDataDbContext"));
+            options.AddInterceptors(new EfLoggingInterceptor());
 
-            });
-            services.AddScoped<IDbContext>(provider => provider.GetRequiredService<PlantDataDbContext>());
+        });
+        services.AddScoped<IDbContext>(provider => provider.GetRequiredService<PlantDataDbContext>());
 
-            //*****************************************
-            // Register unit of work
-            // This is passed to Api controller constructors (and Repository constructors)
-            services.AddScoped<IUnitOfWorkAsync, UnitOfWork>();
+        //*****************************************
+        // Register unit of work
+        // This is passed to Api controller constructors (and Repository constructors)
+        services.AddScoped<IUnitOfWorkAsync, UnitOfWork>();
 
-            //*****************************************
-            // Register repository types as open generics because they are only closed at call time
-            // These are passed to Service constructors
+        //*****************************************
+        // Register repository types as open generics because they are only closed at call time
+        // These are passed to Service constructors
 
-            services.AddTransient<IGenusRepository, GenusRepository>();
-            services.AddTransient<IJournalEntryRepository, JournalEntryRepository>();
-            services.AddTransient<IJournalEntryTypeRepository, JournalEntryTypeRepository>();
-            services.AddTransient<IPriceListTypeRepository, PriceListTypeRepository>();
-            services.AddTransient<IProductTypeRepository, ProductTypeRepository>();
-            services.AddTransient<ISeedBatchRepository, SeedBatchRepository>();
-            services.AddTransient<ISiteRepository, SiteRepository>();
-            services.AddTransient<ISpeciesRepository, SpeciesRepository>();
-            services.AddTransient<ISeedTrayRepository, SeedTrayRepository>();
-            services.AddTransient<ISpeciesRepository, SpeciesRepository>();
-            services.AddTransient<IPlantStockRepository, PlantStockRepository>();
-            services.AddTransient<ISaleEventRepository, SaleEventRepository>();
-            services.AddTransient<IProductPriceRepository, ProductPriceRepository>();
-            services.AddTransient<IStocktakeHeaderRepository, StocktakeHeaderRepository>();
-            services.AddTransient<IStocktakeLineRepository, StocktakeLineRepository>();
+        services.AddTransient<IGenusRepository, GenusRepository>();
+        services.AddTransient<IJournalEntryRepository, JournalEntryRepository>();
+        services.AddTransient<IJournalEntryTypeRepository, JournalEntryTypeRepository>();
+        services.AddTransient<IPriceListTypeRepository, PriceListTypeRepository>();
+        services.AddTransient<IProductTypeRepository, ProductTypeRepository>();
+        services.AddTransient<ISeedBatchRepository, SeedBatchRepository>();
+        services.AddTransient<ISiteRepository, SiteRepository>();
+        services.AddTransient<ISpeciesRepository, SpeciesRepository>();
+        services.AddTransient<ISeedTrayRepository, SeedTrayRepository>();
+        services.AddTransient<ISpeciesRepository, SpeciesRepository>();
+        services.AddTransient<IPlantStockRepository, PlantStockRepository>();
+        services.AddTransient<ISaleEventRepository, SaleEventRepository>();
+        services.AddTransient<IProductPriceRepository, ProductPriceRepository>();
+        services.AddTransient<IStocktakeHeaderRepository, StocktakeHeaderRepository>();
+        services.AddTransient<IStocktakeLineRepository, StocktakeLineRepository>();
 
-            //*****************************************
-            // Register services wrapping repositories
-            // These are passed to API controllers
-            services.AddTransient<IGenusService, GenusService>();
-            services.AddTransient<IJournalEntryService, JournalEntryService>();
-            services.AddTransient<IJournalEntryTypeService, JournalEntryTypeService>();
-            services.AddTransient<IPriceListTypeService, PriceListTypeService>();
-            services.AddTransient<IProductTypeService, ProductTypeService>();
-            services.AddTransient<ISeedBatchService, SeedBatchService>();
-            services.AddTransient<ISiteService, SiteService>();
-            services.AddTransient<ISpeciesService, SpeciesService>();
-            services.AddTransient<ISeedTrayService, SeedTrayService>();
-            services.AddTransient<IPlantStockService, PlantStockService>();
-            services.AddTransient<ISaleEventService, SaleEventService>();
-            services.AddTransient<IProductPriceService, ProductPriceService>();
-            services.AddTransient<IStocktakeHeaderService, StocktakeHeaderService>();
-            services.AddTransient<IStocktakeLineService, StocktakeLineService>();
+        //*****************************************
+        // Register services wrapping repositories
+        // These are passed to API controllers
+        services.AddTransient<IGenusService, GenusService>();
+        services.AddTransient<IJournalEntryService, JournalEntryService>();
+        services.AddTransient<IJournalEntryTypeService, JournalEntryTypeService>();
+        services.AddTransient<IPriceListTypeService, PriceListTypeService>();
+        services.AddTransient<IProductTypeService, ProductTypeService>();
+        services.AddTransient<ISeedBatchService, SeedBatchService>();
+        services.AddTransient<ISiteService, SiteService>();
+        services.AddTransient<ISpeciesService, SpeciesService>();
+        services.AddTransient<ISeedTrayService, SeedTrayService>();
+        services.AddTransient<IPlantStockService, PlantStockService>();
+        services.AddTransient<ISaleEventService, SaleEventService>();
+        services.AddTransient<IProductPriceService, ProductPriceService>();
+        services.AddTransient<IStocktakeHeaderService, StocktakeHeaderService>();
+        services.AddTransient<IStocktakeLineService, StocktakeLineService>();
 
-            // Before we leave this method, write our registrations to log file
-            services.LogRegisteredServices(Log.Logger);
+        // Before we leave this method, write our registrations to log file
+        services.LogRegisteredServices(Log.Logger);
 
-            return services;
-        }
-
+        return services;
     }
+
 }

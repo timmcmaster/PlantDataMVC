@@ -1,8 +1,6 @@
-﻿namespace PlantDataMVC.Api.Models
-{
+﻿namespace PlantDataMVC.Api.Models;
 
-    public interface IDataShapingParameters
-    {
-        public string? Fields { get; set; }
-    }
+public interface IDataShapingParameters
+{
+    public string? Fields { get; set; }
 }
