@@ -79,6 +79,27 @@ namespace PlantDataMVC.IdentityServer
                         "roles"
                     }
                 },
+                // Interactive client Blazor App
+                new Client
+                {
+                    Enabled = true,
+                    ClientName = "PlantData Blazor Client (Code Flow)",
+                    ClientId = "blazor.interactive",
+                    // Provide secret to allow for refresh tokens
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireConsent = true,
+                    RedirectUris = { PlantDataMvcConstants.PlantDataBlazorClient + "/signin-oidc" }, // sign-in page
+                    PostLogoutRedirectUris = { PlantDataMvcConstants.PlantDataBlazorClient + "/signout-callback-oidc" }, // sign-out callback page
+                    AllowOfflineAccess = true,
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "plantdataapi",
+                        "roles"
+                    }
+                },
                 // MVC App - client credentials flow
                 new Client
                 {

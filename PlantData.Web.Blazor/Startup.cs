@@ -1,7 +1,8 @@
-using IdentityModel;
-using IdentityModel.Client;
+using Duende.IdentityModel;
+using Duende.IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.StaticFiles;
@@ -45,14 +46,14 @@ namespace PlantData.Web.Blazor
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = "oidc";
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
             })
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddOpenIdConnect("oidc", options =>
+            .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
                 options.Authority = PlantDataMvcConstants.IdSrvBase;
 
-                options.ClientId = "mvc.interactive";
+                options.ClientId = "blazor.interactive";
                 options.ClientSecret = "secret";
                 options.ResponseType = OpenIdConnectResponseType.Code;
 
@@ -90,6 +91,8 @@ namespace PlantData.Web.Blazor
                     policy.RequireRole(AuthorizationRole.WebAdminUser);
                 });
             });
+
+            services.AddCascadingAuthenticationState(); // Enables use of AuthorizeView and other auth related components in Blazor
 
             #region HttpClientFactory
             // -->

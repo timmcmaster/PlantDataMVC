@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Framework.Web.Views;
-using IdentityModel.Client;
+using Duende.IdentityModel.Client;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using PlantData.Web.Mvc.Controllers.Queries.Genus;
