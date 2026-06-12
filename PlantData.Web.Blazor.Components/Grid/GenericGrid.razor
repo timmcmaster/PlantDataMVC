@@ -7,7 +7,7 @@
 @typeparam TGridItem
 
 <CascadingValue IsFixed="true" Value="@GridType">
-    <div class="container-lg">
+    <div class="generic-grid-wrapper">
         @if (@GridType == GridType.Basic)
         {
             <BasicGrid TRowData="TGridItem" Links="@ViewModel.Links" AllowAdd="@ViewModel.Options.AllowAdd" AllowEdit="@ViewModel.Options.AllowEdit" AllowDelete="@ViewModel.Options.AllowDelete" AllowPaging="@ViewModel.Options.AllowPaging">
@@ -27,7 +27,6 @@
         {
             <SfGrid @ref="_sfGrid" TValue="TGridItem" Query="@GridQuery" AllowPaging="@ViewModel.Options.AllowPaging"
                     AllowSorting="@ViewModel.Options.AllowSorting"
-                    Height="550" Width="800"
                     Toolbar="@ViewModel.Options.ToolbarItems">
                 <SfDataManager Url="@ViewModel.UrlDataSource.Url"
                                InsertUrl="@ViewModel.UrlDataSource.InsertUrl"
@@ -37,16 +36,29 @@
                 </SfDataManager>
                 <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
                 <GridEditSettings AllowAdding="@ViewModel.Options.AllowAdd" AllowEditing="@ViewModel.Options.AllowEdit" AllowDeleting="@ViewModel.Options.AllowDelete" Mode="EditMode.Dialog"></GridEditSettings>
+                <GridEvents RowSelected="RowSelectHandler" TValue="TGridItem"></GridEvents>
                 <GridColumns>
                     @GenericGridColumns
                 </GridColumns>
             </SfGrid>
         }
-    </div>
+    </div> 
 </CascadingValue>
 
 
 <style>
+    .generic-grid-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .generic-grid-wrapper ::deep .e-grid {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
     /* styles for SfGrid */
     .e-grid .e-row .e-rowcell {
         padding-top: 2px;
@@ -64,6 +76,9 @@
     [Parameter]
     public RenderFragment? GenericGridColumns { get; set; } = default!; // Should contain all columns
 
+    [Parameter]
+    public EventCallback<TGridItem?> OnRowSelected { get; set; }
+
     public Query GridQuery { get; set; }
 
     private SfGrid<TGridItem> _sfGrid;
@@ -71,6 +86,27 @@
     protected override void OnInitialized()
     {
         GridQuery = new Query().AddParams("allowPaging", ViewModel.Options.AllowPaging);
+    }
+
+    public async Task RowSelectHandler(RowSelectEventArgs<TGridItem> args)
+    {
+        if (OnRowSelected.HasDelegate)
+        {
+            TGridItem? selectedItem = default!;
+            if (GridType == GridType.Basic)
+            {
+                // Not supported for BasicGrid
+            }
+            else if (GridType == GridType.SfGrid)
+            {
+                selectedItem = args.Data;
+            }
+            if (selectedItem != null)
+            {
+                await OnRowSelected.InvokeAsync(selectedItem);
+            }
+        }
+        
     }
 
     public async Task<IEnumerable<TGridItem>> GetCurrentViewRecordsAsync()

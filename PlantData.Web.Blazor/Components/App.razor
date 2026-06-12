@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 
-<CascadingAuthenticationState>
+@* <CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Components.Layout.MainLayout)">
@@ -27,7 +27,7 @@
         </NotFound>
     </Router>
 </CascadingAuthenticationState>
-
+ *@
 <!DOCTYPE html>
 <html lang="en">
 

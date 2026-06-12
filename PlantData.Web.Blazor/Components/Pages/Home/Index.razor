@@ -2,8 +2,8 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @using PlantDataMVC.Constants
 
-<AuthorizeView>
-    <Authorized>
+@* <AuthorizeView>
+    <Authorized> *@
         <PageTitle>Home Page</PageTitle>
 
         <h2>Welcome</h2>
@@ -16,14 +16,14 @@
                 <th align="left">Claim Value</th>
             </tr>
         
-            @foreach (var claim in @context.User.Claims)
+@*             @foreach (var claim in @context.User.Claims)
             {
                 <tr>
                     <td style="font-weight:bold" align="left">@claim.Type</td>
                     <td style="word-wrap:break-word" align="left">@claim.Value</td>
                 </tr>
             }
-        
+ *@        
         </table>
         <br />
         <h3>Roles</h3>
@@ -34,15 +34,15 @@
             </tr>
             <tr>
                 <td style="font-weight:bold" align="left">@AuthorizationRole.WebReadUser</td>
-                <td style="word-wrap:break-word" align="left">@context.User.IsInRole(AuthorizationRole.WebReadUser)</td>
+                @* <td style="word-wrap:break-word" align="left">@context.User.IsInRole(AuthorizationRole.WebReadUser)</td> *@
             </tr>
             <tr>
                 <td style="font-weight:bold" align="left">@AuthorizationRole.WebWriteUser</td>
-                <td style="word-wrap:break-word" align="left">@context.User.IsInRole(AuthorizationRole.WebWriteUser)</td>
+                @* <td style="word-wrap:break-word" align="left">@context.User.IsInRole(AuthorizationRole.WebWriteUser)</td> *@
             </tr>
             <tr>
                 <td style="font-weight:bold" align="left">@AuthorizationRole.WebAdminUser</td>
-                <td style="word-wrap:break-word" align="left">@context.User.IsInRole(AuthorizationRole.WebAdminUser)</td>
+                @* <td style="word-wrap:break-word" align="left">@context.User.IsInRole(AuthorizationRole.WebAdminUser)</td> *@
             </tr>
         </table>
         <br />
@@ -60,9 +60,9 @@
                 </tr>
             }
  *@        </table>
-    </Authorized>
+@*     </Authorized>
     <NotAuthorized>
         <h2>Not Authorized</h2>
         <p>You are not authorized to view this page. Please log in.</p>
     </NotAuthorized>
-</AuthorizeView>
+</AuthorizeView> *@

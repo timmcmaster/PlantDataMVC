@@ -20,5 +20,7 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels.Plant
 
         [Display(Name = "Native")]
         public bool Native { get; set; }
+        
+        public string Description { get; set; }
     }
 }

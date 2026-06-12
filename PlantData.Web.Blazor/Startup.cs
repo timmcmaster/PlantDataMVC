@@ -92,7 +92,7 @@ namespace PlantData.Web.Blazor
                 });
             });
 
-            services.AddCascadingAuthenticationState(); // Enables use of AuthorizeView and other auth related components in Blazor
+            //services.AddCascadingAuthenticationState(); // Enables use of AuthorizeView and other auth related components in Blazor
 
             #region HttpClientFactory
             // -->

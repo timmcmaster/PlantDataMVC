@@ -21,5 +21,7 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels.SeedBatch
         public DateTime DateCollected { get; set; }
 
         public string Location { get; set; }
+
+        public string Notes { get; set; }
     }
 }

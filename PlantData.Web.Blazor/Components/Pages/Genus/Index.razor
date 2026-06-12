@@ -9,19 +9,24 @@
 @attribute [Route(PlantDataRoutes.Genus)]
 @inject IConfiguration configuration
 
-<h2>Genus</h2>
-
-<h2>Genus List</h2>
-<p>This is a list of all genuses recorded</p>
-
-<GenericGrid GridType="@GridType" TGridItem="GenusGridModel" ViewModel="_viewModel">
-    <GenericGridColumns>
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.Id))" FieldName="@nameof(GenusGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.LatinName))" FieldName="@nameof(GenusGridModel.LatinName)" />
-    </GenericGridColumns>
-</GenericGrid>
-
-
+<div class="grid-header">
+    <h2>Genus List</h2>
+    <p>This is a list of all genuses recorded</p>
+</div>
+<div class="grid-container">
+    <!-- Left Panel: Grid -->
+    <div class="grid-panel">
+        <GenericGrid GridType="@GridType" TGridItem="GenusGridModel" ViewModel="_viewModel">
+        <GenericGridColumns>
+            <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.Id))" FieldName="@nameof(GenusGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+            <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.LatinName))" FieldName="@nameof(GenusGridModel.LatinName)" />
+        </GenericGridColumns>
+        </GenericGrid>
+    </div>
+    <!-- Right Panel: Details -->
+    <div class="detail-panel">
+    </div>
+</div>
 @code 
 {
     public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;

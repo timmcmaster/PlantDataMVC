@@ -71,7 +71,8 @@ public class DataModelToUIMappingProfile : Profile
            .ForMember(uio => uio.GenusId, opt => opt.MapFrom(dm => dm.GenusId))
            .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
            .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
-           .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName));
+           .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName))
+           .ForMember(uio => uio.Description, opt => opt.MapFrom(dm => dm.Description));
     }
 
     private void ConfigureSeedBatchViewModels()
@@ -83,7 +84,8 @@ public class DataModelToUIMappingProfile : Profile
             .ForMember(uio => uio.SiteId, opt => opt.MapFrom(dm => dm.SiteId))
             .ForMember(uio => uio.SiteName, opt => opt.MapFrom(dm => dm.SiteName))
             .ForMember(uio => uio.SpeciesId, opt => opt.MapFrom(dm => dm.SpeciesId))
-            .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)));
+            .ForMember(uio => uio.SpeciesBinomial, opt => opt.MapFrom(dm => SpeciesFunctions.GetBinomial(dm.GenusName, dm.SpeciesName)))
+            .ForMember(uio => uio.Notes, opt => opt.MapFrom(dm => dm.Notes));
     }
 
     private void ConfigureSiteViewModels()

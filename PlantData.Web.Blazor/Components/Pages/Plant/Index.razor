@@ -12,30 +12,54 @@
 
 @inject IConfiguration configuration
 
-
-<h2>My Plant List</h2>
-<p>This is a list of all plant descriptions</p>
-
-<GenericGrid GridType="@GridType" TGridItem=PlantGridModel ViewModel="_viewModel">
-    <GenericGridColumns>
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Id))" FieldName="@nameof(PlantGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Binomial))" FieldName="@nameof(PlantGridModel.Binomial)" />
-        <GenericGridForeignColumn TGridItem=PlantGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Genus))" FieldName="@nameof(PlantGridModel.GenusId)"
-                                  TForeignDataItem=GenusDataModel ForeignKeyField="@_fcm.ForeignKeyField" ForeignKeyValue="@_fcm.ForeignKeyValue" ForeignDataSourceUrl="@_fcm.ForeignDataUrl" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Species))" FieldName="@nameof(PlantGridModel.Species)" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.CommonName))" FieldName="@nameof(PlantGridModel.CommonName)" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Native))" FieldName="@nameof(PlantGridModel.Native)" DisplayAsCheckbox="true"/>
-    </GenericGridColumns>
-</GenericGrid>
-
+<div class="grid-header">
+    <h2>My Plant List</h2>
+    <p>This is a list of all plant descriptions</p>
+</div>
+<div class="grid-container">
+    <!-- Left Panel: Grid -->
+    <div class="grid-panel">
+        <GenericGrid GridType="@GridType" TGridItem=PlantGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
+            <GenericGridColumns>
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Id))" FieldName="@nameof(PlantGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Binomial))" FieldName="@nameof(PlantGridModel.Binomial)" />
+                <GenericGridForeignColumn TGridItem=PlantGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Genus))" FieldName="@nameof(PlantGridModel.GenusId)"
+                                            TForeignDataItem=GenusDataModel ForeignKeyField="@_fcm.ForeignKeyField" ForeignKeyValue="@_fcm.ForeignKeyValue" ForeignDataSourceUrl="@_fcm.ForeignDataUrl" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Species))" FieldName="@nameof(PlantGridModel.Species)" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.CommonName))" FieldName="@nameof(PlantGridModel.CommonName)" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Native))" FieldName="@nameof(PlantGridModel.Native)" DisplayAsCheckbox="true"/>
+            </GenericGridColumns>
+        </GenericGrid>
+    </div>
+    <!-- Right Panel: Details -->
+    <div class="detail-panel">
+        @if (_selectedItem != null)
+        {
+            <h3>Plant Details</h3>
+            <div class="detail-content">
+                <p><strong>Binomial:</strong> @_selectedItem.Binomial</p>
+                <p><strong>Genus:</strong> @_selectedItem.Genus</p>
+                <p><strong>Species:</strong> @_selectedItem.Species</p>
+                <p><strong>Common Name:</strong> @_selectedItem.CommonName</p>
+                <p><strong>Native:</strong> @(_selectedItem.Native ? "Yes" : "No")</p>
+                <p><strong>Description:</strong> @_selectedItem.Description</p>
+                <!-- Add more details as needed -->
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">Select an item from the grid to view details</p>
+        }
+    </div>
+</div>
 
 @code 
 {
     public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
 
     private BaseGridModel<PlantGridModel> _viewModel;
-
     private ForeignColumnModel<GenusDataModel> _fcm;
+    private PlantGridModel? _selectedItem;
 
     protected override async Task OnInitializedAsync()
     {
@@ -59,5 +83,10 @@
             foreignKeyValue: x => nameof(x.LatinName),
             GridUrlDataSourceModel.GetUrl(PlantDataBlazorAppControllers.GenusGrid, PlantDataBlazorAppControllers.DataRoutes.List)
         );
+    }
+
+    private void RowSelectedHandler(PlantGridModel row)
+    {
+        _selectedItem = row;
     }
 }

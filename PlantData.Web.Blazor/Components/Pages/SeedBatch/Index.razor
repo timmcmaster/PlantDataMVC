@@ -13,23 +13,48 @@
 @inject IConfiguration configuration
 
 
-<h2>Seed Batch List</h2>
-<p>This is a list of all Seed Batches</p>
-
-<GenericGrid GridType="@GridType" TGridItem=SeedBatchGridModel ViewModel="_viewModel">
-    <GenericGridColumns>
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.Id))" FieldName="@nameof(SeedBatchGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
-@*      <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesId))" FieldName="@nameof(SeedBatchGridModel.SpeciesId)" /> *@
-@*      <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedBatchGridModel.SpeciesBinomial)" /> *@        
-        <GenericGridForeignColumn TGridItem=SeedBatchGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedBatchGridModel.SpeciesId)"
-                                  TForeignDataItem=SpeciesDataModel ForeignKeyField="@_fcmSpecies.ForeignKeyField" ForeignKeyValue="@_fcmSpecies.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSpecies.ForeignDataUrl" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.DateCollected))" FieldName="@nameof(SeedBatchGridModel.DateCollected)" Format="dd/MM/yyyy" />
-@*      <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteId))" FieldName="@nameof(SeedBatchGridModel.SiteId)" /> *@
-        <GenericGridForeignColumn TGridItem=SeedBatchGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteName))" FieldName="@nameof(SeedBatchGridModel.SiteId)"
-                                  TForeignDataItem=SiteDataModel ForeignKeyField="@_fcmSite.ForeignKeyField" ForeignKeyValue="@_fcmSite.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSite.ForeignDataUrl" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.Location))" FieldName="@nameof(SeedBatchGridModel.Location)" />
-    </GenericGridColumns>
-</GenericGrid>
+<div class="grid-header">
+    <h2>Seed Batch List</h2>
+    <p>This is a list of all Seed Batches</p>
+</div>
+<div class="grid-container">
+    <!-- Left Panel: Grid -->
+    <div class="grid-panel">
+        <GenericGrid GridType="@GridType" TGridItem=SeedBatchGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
+        <GenericGridColumns>
+            <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.Id))" FieldName="@nameof(SeedBatchGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+    @*      <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesId))" FieldName="@nameof(SeedBatchGridModel.SpeciesId)" /> *@
+    @*      <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedBatchGridModel.SpeciesBinomial)" /> *@        
+            <GenericGridForeignColumn TGridItem=SeedBatchGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedBatchGridModel.SpeciesId)"
+                                      TForeignDataItem=SpeciesDataModel ForeignKeyField="@_fcmSpecies.ForeignKeyField" ForeignKeyValue="@_fcmSpecies.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSpecies.ForeignDataUrl" />
+            <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.DateCollected))" FieldName="@nameof(SeedBatchGridModel.DateCollected)" Format="dd/MM/yyyy" />
+    @*      <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteId))" FieldName="@nameof(SeedBatchGridModel.SiteId)" /> *@
+            <GenericGridForeignColumn TGridItem=SeedBatchGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteName))" FieldName="@nameof(SeedBatchGridModel.SiteId)"
+                                      TForeignDataItem=SiteDataModel ForeignKeyField="@_fcmSite.ForeignKeyField" ForeignKeyValue="@_fcmSite.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSite.ForeignDataUrl" />
+            <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.Location))" FieldName="@nameof(SeedBatchGridModel.Location)" />
+        </GenericGridColumns>
+    </GenericGrid>
+    </div>
+    <!-- Right Panel: Details -->
+    <div class="detail-panel">
+        @if (_selectedItem != null)
+        {
+            <h3>Seed Batch Details</h3>
+            <div class="detail-content">
+                <p><strong>Binomial:</strong> @_selectedItem.SpeciesBinomial</p>
+                <p><strong>Date Collected:</strong> @_selectedItem.DateCollected</p>
+                <p><strong>Site Name:</strong> @_selectedItem.SiteName</p>
+                <p><strong>Location:</strong> @_selectedItem.Location</p>
+                <p><strong>Notes:</strong> @_selectedItem.Notes</p>
+                <!-- Add more details as needed -->
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">Select an item from the grid to view details</p>
+        }
+    </div>
+</div>
 
 
 @code 
@@ -40,6 +65,7 @@
 
     private ForeignColumnModel<SiteDataModel> _fcmSite;
     private ForeignColumnModel<SpeciesDataModel> _fcmSpecies;
+    private SeedBatchGridModel? _selectedItem;
 
     protected override async Task OnInitializedAsync()
     {
@@ -70,5 +96,9 @@
             foreignKeyValue: x => nameof(x.SiteName),
             GridUrlDataSourceModel.GetUrl(PlantDataBlazorAppControllers.SiteGrid, PlantDataBlazorAppControllers.DataRoutes.List)
         );
+    }
+    private void RowSelectedHandler(SeedBatchGridModel row)
+    {
+        _selectedItem = row;
     }
 }
