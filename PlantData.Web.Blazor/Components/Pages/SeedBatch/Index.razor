@@ -1,11 +1,9 @@
 ﻿@using Microsoft.Extensions.Configuration
 @using PlantData.Web.Blazor.DisplayHelpers
-@using PlantData.Web.Blazor.Features.Genus
 @using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.SharedComponents.Paging
 @using PlantData.Web.Blazor.UIModels.Constants
 @using PlantData.Web.Blazor.UIModels.ViewModels.SeedBatch
-@using System.ComponentModel
 @using PlantDataMVC.Api.Models.DataModels
 
 @attribute [Route(PlantDataRoutes.SeedBatch)]
@@ -97,6 +95,7 @@
             GridUrlDataSourceModel.GetUrl(PlantDataBlazorAppControllers.SiteGrid, PlantDataBlazorAppControllers.DataRoutes.List)
         );
     }
+
     private void RowSelectedHandler(SeedBatchGridModel row)
     {
         _selectedItem = row;

@@ -1,0 +1,29 @@
+﻿.grid-header {
+    flex-shrink: 0;
+    padding: 0px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    flex: 1;
+    overflow: hidden;
+    padding: 0px;
+}
+
+.grid-panel {
+    overflow: hidden;
+}
+
+.detail-panel {
+    overflow: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.map-panel {
+    overflow: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+}

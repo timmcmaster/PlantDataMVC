@@ -1,30 +1,53 @@
 ﻿@using Microsoft.Extensions.Configuration
 @using PlantData.Web.Blazor.DisplayHelpers
-@using PlantData.Web.Blazor.Features.Genus
 @using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.SharedComponents.Paging
 @using PlantData.Web.Blazor.UIModels.Constants
 @using PlantData.Web.Blazor.UIModels.ViewModels.Site
-@using System.ComponentModel
-@using PlantDataMVC.Api.Models.DataModels
 
 @attribute [Route(PlantDataRoutes.Site)]
 
 @inject IConfiguration configuration
 
-
-<h2>Site List</h2>
-<p>This is a list of all Sites</p>
-
-<GenericGrid GridType="@GridType" TGridItem=SiteGridModel ViewModel="_viewModel">
-    <GenericGridColumns>
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Id))" FieldName="@nameof(SiteGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.SiteName))" FieldName="@nameof(SiteGridModel.SiteName)" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Suburb))" FieldName="@nameof(SiteGridModel.Suburb)" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Latitude))" FieldName="@nameof(SiteGridModel.Latitude)" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Longitude))" FieldName="@nameof(SiteGridModel.Longitude)" />
-    </GenericGridColumns>
-</GenericGrid>
+<div class="grid-header">
+    <h2>Site List</h2>
+    <p>This is a list of all Sites</p>
+</div>
+<div class="grid-container">
+    <!-- Left Panel: Grid -->
+    <div class="grid-panel">
+        <GenericGrid GridType="@GridType" TGridItem=SiteGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
+            <GenericGridColumns>
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Id))" FieldName="@nameof(SiteGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.SiteName))" FieldName="@nameof(SiteGridModel.SiteName)" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Suburb))" FieldName="@nameof(SiteGridModel.Suburb)" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Latitude))" FieldName="@nameof(SiteGridModel.Latitude)" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Longitude))" FieldName="@nameof(SiteGridModel.Longitude)" />
+            </GenericGridColumns>
+        </GenericGrid>
+    </div>
+    <!-- Right Panel: Details -->
+    <div class="detail-panel">
+        @if (_selectedItem != null)
+        {
+            <h3>Site Details</h3>
+            <div class="detail-content">
+                <p><strong>Site Name:</strong> @_selectedItem.SiteName</p>
+                <p><strong>Suburb:</strong> @_selectedItem.Suburb</p>
+                <p><strong>Latitude:</strong> @_selectedItem.Latitude</p>
+                <p><strong>Longitude:</strong> @_selectedItem.Longitude</p>
+                <!-- Add more details as needed -->
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">Select an item from the grid to view details</p>
+        }
+    </div>
+    <div class="map-panel">
+        <p class="text-muted">Show map here</p>
+    </div>
+</div>
 
 
 @code 
@@ -32,6 +55,7 @@
     public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
 
     private BaseGridModel<SiteGridModel> _viewModel;
+    private SiteGridModel? _selectedItem;
 
     protected override async Task OnInitializedAsync()
     {
@@ -48,5 +72,10 @@
             UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.SiteGrid),
     };
         _viewModel.Options.AllowSorting = true;
+    }
+
+    private void RowSelectedHandler(SiteGridModel row)
+    {
+        _selectedItem = row;
     }
 }
