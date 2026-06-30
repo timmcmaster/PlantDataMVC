@@ -45,7 +45,7 @@
         }
     </div>
     <div class="map-panel">
-        <p class="text-muted">Show map here</p>
+        <LeafletMap Latitude="@((double)(_selectedItem?.Latitude ?? 0))" Longitude="@((double)(_selectedItem?.Longitude ?? 0))" Zoom="10" />
     </div>
 </div>
 
@@ -77,5 +77,6 @@
     private void RowSelectedHandler(SiteGridModel row)
     {
         _selectedItem = row;
+
     }
 }

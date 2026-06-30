@@ -1,0 +1,43 @@
+﻿@inject IJSRuntime JSRuntime
+@implements IAsyncDisposable
+
+<div id="@MapId" style="height: @Height; width: @Width;"></div>
+
+@code {
+    [Parameter] public string MapId { get; set; } = "map-" + Guid.NewGuid().ToString();
+    [Parameter] public string Height { get; set; } = "400px";
+    [Parameter] public string Width { get; set; } = "100%";
+    [Parameter] public double Latitude { get; set; } = 0;
+    [Parameter] public double Longitude { get; set; } = 0;
+    [Parameter] public int Zoom { get; set; } = 13;
+
+    private IJSObjectReference? _module;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Initialize map using JavaScript Interop
+            await JSRuntime.InvokeVoidAsync("mapInterop.initialize", MapId, Latitude, Longitude, Zoom);
+        }
+    }
+
+    public async Task AddMarkerAsync(double lat, double lng, string popupText)
+    {
+        await JSRuntime.InvokeVoidAsync("mapInterop.addMarker", MapId, lat, lng, popupText);
+    }
+
+    public async Task UpdateMapLocationAsync(double lat, double lng, string name)
+    {
+        // 1. Move the camera view
+        await JSRuntime.InvokeVoidAsync("mapInterop.updateView", MapId, lat, lng, Zoom);
+
+        // 2. Drop a pinpoint marker at the new location
+        await JSRuntime.InvokeVoidAsync("mapInterop.addMarker", MapId, lat, lng, name);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        // Cleanup wrapper logic if needed
+    }
+}
