@@ -11,6 +11,11 @@
     [Parameter] public double Longitude { get; set; } = 0;
     [Parameter] public int Zoom { get; set; } = 13;
 
+    // When true, a single marker is shown at (Latitude, Longitude) and moved
+    // whenever those change (e.g. when a grid row is selected).
+    [Parameter] public bool ShowMarker { get; set; }
+    [Parameter] public string? MarkerText { get; set; }
+
     private IJSObjectReference? _module;
     private bool _initialized;
 
@@ -31,6 +36,11 @@
         if (_initialized)
         {
             await JSRuntime.InvokeVoidAsync("mapInterop.updateView", MapId, Latitude, Longitude, Zoom);
+
+            if (ShowMarker)
+            {
+                await JSRuntime.InvokeVoidAsync("mapInterop.setMarker", MapId, Latitude, Longitude, MarkerText);
+            }
         }
     }
 

@@ -45,7 +45,7 @@
         }
     </div>
     <div class="map-panel">
-        <LeafletMap @ref="mapComponent" Latitude="@((double)(_selectedItem?.Latitude ?? 0))" Longitude="@((double)(_selectedItem?.Longitude ?? 0))" Zoom="10" />
+        <LeafletMap @ref="mapComponent" Latitude="@((double)(_selectedItem?.Latitude ?? 0))" Longitude="@((double)(_selectedItem?.Longitude ?? 0))" Zoom="10" ShowMarker="@(_selectedItem != null)" MarkerText="@_selectedItem?.SiteName" />
     </div>
 </div>
 

@@ -4,6 +4,10 @@
     // which Blazor's JS interop does not guarantee when invoking by name.
     const maps = {};
 
+    // Tracks a single "selection" marker per map so it can be moved/replaced
+    // (rather than accumulating one marker per row selection).
+    const selectionMarkers = {};
+
     window.mapInterop = {
         initialize: function (elementId, lat, lng, zoom) {
             // Prevent duplicate re-initialization error
@@ -29,6 +33,27 @@
                 map.setView([lat, lng], zoom);
                 // Recalculate size in case the container was resized/relaid out
                 map.invalidateSize();
+            }
+        },
+
+        setMarker: function (elementId, lat, lng, popupText) {
+            const map = maps[elementId];
+            if (!map) {
+                return;
+            }
+
+            // Move the existing selection marker, or create it the first time
+            if (selectionMarkers[elementId]) {
+                selectionMarkers[elementId].setLatLng([lat, lng]);
+            } else {
+                selectionMarkers[elementId] = L.marker([lat, lng]).addTo(map);
+            }
+
+            const marker = selectionMarkers[elementId];
+            if (popupText) {
+                marker.bindPopup(popupText);
+            } else {
+                marker.unbindPopup();
             }
         },
 
