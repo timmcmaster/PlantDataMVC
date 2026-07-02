@@ -6,6 +6,10 @@
 .grid-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "grid detail"
+        "grid map";
     gap: 20px;
     flex: 1;
     overflow: hidden;
@@ -13,16 +17,19 @@
 }
 
 .grid-panel {
+    grid-area: grid;
     overflow: hidden;
 }
 
 .detail-panel {
+    grid-area: detail;
     overflow: auto;
     border: 1px solid #ddd;
     padding: 10px;
 }
 
 .map-panel {
+    grid-area: map;
     overflow: auto;
     border: 1px solid #ddd;
     padding: 10px;
