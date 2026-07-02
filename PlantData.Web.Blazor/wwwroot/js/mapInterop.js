@@ -1,35 +1,45 @@
-let map;
+(function () {
+    // Keyed by element id so multiple maps can coexist. Kept in a closure
+    // rather than on the object so it does not depend on `this` binding,
+    // which Blazor's JS interop does not guarantee when invoking by name.
+    const maps = {};
 
-window.mapInterop = {
-    initialize: function (elementId, lat, lng, zoom) {
-        // Prevent duplicate re-initialization error
-        if (map) {
-            map.remove();
-        }
+    window.mapInterop = {
+        initialize: function (elementId, lat, lng, zoom) {
+            // Prevent duplicate re-initialization error
+            if (maps[elementId]) {
+                maps[elementId].remove();
+            }
 
-        // Initialize the Leaflet map instance
-        map = L.map(elementId).setView([lat, lng], zoom);
+            // Initialize the Leaflet map instance
+            const map = L.map(elementId).setView([lat, lng], zoom);
 
-        // Load and display OpenStreetMap tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-    },
+            // Load and display OpenStreetMap tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
 
-    updateView: function (elementId, lat, lng, zoom) {
-        const map = this.maps[elementId];
-        if (map) {
-            map.setView([lat, lng], zoom);
-        }
-    },
+            maps[elementId] = map;
+        },
 
-    addMarker: function (lat, lng, popupText) {
-        if (map) {
-            let marker = L.marker([lat, lng]).addTo(map);
-            if (popupText) {
-                marker.bindPopup(popupText).openPopup();
+        updateView: function (elementId, lat, lng, zoom) {
+            const map = maps[elementId];
+            if (map) {
+                map.setView([lat, lng], zoom);
+                // Recalculate size in case the container was resized/relaid out
+                map.invalidateSize();
+            }
+        },
+
+        addMarker: function (elementId, lat, lng, popupText) {
+            const map = maps[elementId];
+            if (map) {
+                let marker = L.marker([lat, lng]).addTo(map);
+                if (popupText) {
+                    marker.bindPopup(popupText).openPopup();
+                }
             }
         }
-    }
-};
+    };
+})();

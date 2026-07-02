@@ -12,6 +12,7 @@
     [Parameter] public int Zoom { get; set; } = 13;
 
     private IJSObjectReference? _module;
+    private bool _initialized;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -19,6 +20,17 @@
         {
             // Initialize map using JavaScript Interop
             await JSRuntime.InvokeVoidAsync("mapInterop.initialize", MapId, Latitude, Longitude, Zoom);
+            _initialized = true;
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // Recenter the map whenever Latitude/Longitude change (e.g. a grid row is selected).
+        // Skip until the map has been created in the first render.
+        if (_initialized)
+        {
+            await JSRuntime.InvokeVoidAsync("mapInterop.updateView", MapId, Latitude, Longitude, Zoom);
         }
     }
 
@@ -33,7 +45,7 @@
         await JSRuntime.InvokeVoidAsync("mapInterop.updateView", MapId, lat, lng, Zoom);
 
         // 2. Drop a pinpoint marker at the new location
-        await JSRuntime.InvokeVoidAsync("mapInterop.addMarker", MapId, lat, lng, name);
+        //await JSRuntime.InvokeVoidAsync("mapInterop.addMarker", MapId, lat, lng, name);
     }
 
     public async ValueTask DisposeAsync()
