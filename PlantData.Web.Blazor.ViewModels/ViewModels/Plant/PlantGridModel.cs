@@ -20,7 +20,10 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels.Plant
 
         [Display(Name = "Native")]
         public bool Native { get; set; }
-        
+
         public string Description { get; set; }
+
+        [Display(Name = "Propagation Time")]
+        public int? PropagationTime { get; set; }
     }
 }

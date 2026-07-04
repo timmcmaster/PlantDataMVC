@@ -1,16 +1,23 @@
-﻿@using Microsoft.Extensions.Configuration
+@using Microsoft.Extensions.Configuration
 @using PlantData.Web.Blazor.DisplayHelpers
 @using PlantData.Web.Blazor.Features.Genus
 @using PlantData.Web.Blazor.SharedComponents.Grid
 @using PlantData.Web.Blazor.SharedComponents.Paging
 @using PlantData.Web.Blazor.UIModels.Constants
+@using PlantData.Web.Blazor.UIModels.EditModels.Plant
 @using PlantData.Web.Blazor.UIModels.ViewModels.Plant
 @using System.ComponentModel
+@using MediatR
 @using PlantDataMVC.Api.Models.DataModels
+@using Syncfusion.Blazor.Data
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Buttons
 
 @attribute [Route(PlantDataRoutes.Plant)]
 
 @inject IConfiguration configuration
+@inject IMediator mediator
 
 <div class="grid-header">
     <h2>My Plant List</h2>
@@ -19,7 +26,7 @@
 <div class="grid-container">
     <!-- Left Panel: Grid -->
     <div class="grid-panel">
-        <GenericGrid GridType="@GridType" TGridItem=PlantGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
+        <GenericGrid @ref="_grid" GridType="@GridType" TGridItem=PlantGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
             <GenericGridColumns>
                 <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Id))" FieldName="@nameof(PlantGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
                 <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Binomial))" FieldName="@nameof(PlantGridModel.Binomial)" />
@@ -31,35 +38,128 @@
             </GenericGridColumns>
         </GenericGrid>
     </div>
-    <!-- Right Panel: Details -->
+    <!-- Right Panel: Details / Edit -->
     <div class="detail-panel">
-        @if (_selectedItem != null)
+        <div class="detail-header">
+            <h3>
+                @switch (_paneMode)
+                {
+                    case PaneMode.Edit:
+                        <text>Edit Plant</text>
+                        break;
+                    case PaneMode.Add:
+                        <text>New Plant</text>
+                        break;
+                    default:
+                        <text>Plant Details</text>
+                        break;
+                }
+            </h3>
+            @if (_paneMode == PaneMode.View)
+            {
+                <div class="detail-actions">
+                    <button type="button" class="btn-secondary" @onclick="StartAdd">New</button>
+                    @if (_selectedItem != null)
+                    {
+                        <button type="button" class="btn-primary" @onclick="StartEdit">Edit</button>
+                    }
+                </div>
+            }
+        </div>
+
+        @if (_paneMode == PaneMode.View)
         {
-            <h3>Plant Details</h3>
-            <div class="detail-content">
-                <p><strong>Binomial:</strong> @_selectedItem.Binomial</p>
-                <p><strong>Genus:</strong> @_selectedItem.Genus</p>
-                <p><strong>Species:</strong> @_selectedItem.Species</p>
-                <p><strong>Common Name:</strong> @_selectedItem.CommonName</p>
-                <p><strong>Native:</strong> @(_selectedItem.Native ? "Yes" : "No")</p>
-                <p><strong>Description:</strong> @_selectedItem.Description</p>
-                <!-- Add more details as needed -->
-            </div>
+            @if (_selectedItem != null)
+            {
+                <div class="detail-content">
+                    <p><strong>Binomial:</strong> @_selectedItem.Binomial</p>
+                    <p><strong>Genus:</strong> @_selectedItem.Genus</p>
+                    <p><strong>Species:</strong> @_selectedItem.Species</p>
+                    <p><strong>Common Name:</strong> @_selectedItem.CommonName</p>
+                    <p><strong>Native:</strong> @(_selectedItem.Native ? "Yes" : "No")</p>
+                    <p><strong>Propagation Time:</strong> @(_selectedItem.PropagationTime?.ToString() ?? "-")</p>
+                    <p><strong>Description:</strong> @_selectedItem.Description</p>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">Select an item from the grid to view details</p>
+            }
         }
         else
         {
-            <p class="text-muted">Select an item from the grid to view details</p>
+            <div class="detail-form">
+                @if (_paneMode == PaneMode.Edit)
+                {
+                    <div class="form-field">
+                        <label>Binomial</label>
+                        <span class="form-readonly">@_selectedGenusName @_form.Species</span>
+                    </div>
+                }
+
+                <div class="form-field">
+                    <label>Genus</label>
+                    <SfDropDownList TValue="int" TItem="GenusDataModel" @bind-Value="_form.GenusId" AllowFiltering="true" Placeholder="Select a genus">
+                        <DropDownListFieldSettings Value="Id" Text="LatinName"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="int" TItem="GenusDataModel" ValueChange="OnGenusChanged"></DropDownListEvents>
+                        <SfDataManager Url="@_fcm.ForeignDataUrl" CrossDomain="true" Adaptor="Adaptors.UrlAdaptor"></SfDataManager>
+                    </SfDropDownList>
+                </div>
+
+                <div class="form-field">
+                    <label>Species</label>
+                    <SfTextBox @bind-Value="_form.Species" Placeholder="Specific name"></SfTextBox>
+                </div>
+
+                <div class="form-field">
+                    <label>Common Name</label>
+                    <SfTextBox @bind-Value="_form.CommonName" Placeholder="Common name"></SfTextBox>
+                </div>
+
+                <div class="form-field">
+                    <label>Propagation Time</label>
+                    <SfNumericTextBox TValue="int?" @bind-Value="_form.PropagationTime" Min="0"></SfNumericTextBox>
+                </div>
+
+                <div class="form-field">
+                    <SfCheckBox TChecked="bool" @bind-Checked="_form.Native" Label="Native"></SfCheckBox>
+                </div>
+
+                <div class="form-field">
+                    <label>Description</label>
+                    <SfTextBox @bind-Value="_form.Description" Multiline="true" Placeholder="Description"></SfTextBox>
+                </div>
+
+                @if (!string.IsNullOrEmpty(_errorMessage))
+                {
+                    <p class="form-error">@_errorMessage</p>
+                }
+
+                <div class="form-actions">
+                    <button type="button" class="btn-primary" disabled="@_saving" @onclick="SaveAsync">@(_saving ? "Saving..." : "Save")</button>
+                    <button type="button" class="btn-secondary" disabled="@_saving" @onclick="CancelEdit">Cancel</button>
+                </div>
+            </div>
         }
     </div>
 </div>
 
-@code 
+@code
 {
+    private enum PaneMode { View, Edit, Add }
+
     public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
 
     private BaseGridModel<PlantGridModel> _viewModel;
     private ForeignColumnModel<GenusDataModel> _fcm;
+    private GenericGrid<PlantGridModel> _grid;
     private PlantGridModel? _selectedItem;
+
+    private PaneMode _paneMode = PaneMode.View;
+    private PlantUpdateEditModel _form = new();
+    private string? _selectedGenusName;
+    private string? _errorMessage;
+    private bool _saving;
 
     protected override async Task OnInitializedAsync()
     {
@@ -88,5 +188,124 @@
     private void RowSelectedHandler(PlantGridModel row)
     {
         _selectedItem = row;
+
+        // A new selection cancels any in-progress edit and returns to view mode
+        _paneMode = PaneMode.View;
+        _errorMessage = null;
+    }
+
+    private void StartEdit()
+    {
+        if (_selectedItem == null)
+        {
+            return;
+        }
+
+        _form = new PlantUpdateEditModel
+        {
+            Id = _selectedItem.Id,
+            GenusId = _selectedItem.GenusId,
+            Species = _selectedItem.Species,
+            CommonName = _selectedItem.CommonName,
+            Description = _selectedItem.Description,
+            PropagationTime = _selectedItem.PropagationTime,
+            Native = _selectedItem.Native
+        };
+        _selectedGenusName = _selectedItem.Genus;
+        _errorMessage = null;
+        _paneMode = PaneMode.Edit;
+    }
+
+    private void StartAdd()
+    {
+        _form = new PlantUpdateEditModel();
+        _selectedGenusName = null;
+        _errorMessage = null;
+        _paneMode = PaneMode.Add;
+    }
+
+    private void CancelEdit()
+    {
+        _errorMessage = null;
+        _paneMode = PaneMode.View;
+    }
+
+    private void OnGenusChanged(ChangeEventArgs<int, GenusDataModel> args)
+    {
+        _selectedGenusName = args.ItemData?.LatinName;
+    }
+
+    private async Task SaveAsync()
+    {
+        if (_saving)
+        {
+            return;
+        }
+
+        // Light client-side validation for the required fields
+        if (_form.GenusId <= 0 || string.IsNullOrWhiteSpace(_form.Species))
+        {
+            _errorMessage = "Genus and Species are required.";
+            return;
+        }
+
+        _saving = true;
+        _errorMessage = null;
+
+        try
+        {
+            bool success;
+            if (_paneMode == PaneMode.Add)
+            {
+                var createModel = new PlantCreateEditModel
+                {
+                    GenusId = _form.GenusId,
+                    Species = _form.Species,
+                    CommonName = _form.CommonName,
+                    Description = _form.Description,
+                    PropagationTime = _form.PropagationTime,
+                    Native = _form.Native
+                };
+                success = await mediator.Send(createModel);
+            }
+            else
+            {
+                success = await mediator.Send(_form);
+
+                if (success && _selectedItem != null)
+                {
+                    // Keep the read-only view in sync with the edited values
+                    _selectedItem.GenusId = _form.GenusId;
+                    _selectedItem.Genus = _selectedGenusName;
+                    _selectedItem.Species = _form.Species;
+                    _selectedItem.CommonName = _form.CommonName;
+                    _selectedItem.Description = _form.Description;
+                    _selectedItem.PropagationTime = _form.PropagationTime;
+                    _selectedItem.Native = _form.Native;
+                    _selectedItem.Binomial = $"{_selectedGenusName} {_form.Species}".Trim();
+                }
+            }
+
+            if (!success)
+            {
+                _errorMessage = "Save failed. Please check the values and try again.";
+                return;
+            }
+
+            if (_grid != null)
+            {
+                await _grid.RefreshAsync();
+            }
+
+            _paneMode = PaneMode.View;
+        }
+        catch
+        {
+            _errorMessage = "An unexpected error occurred while saving.";
+        }
+        finally
+        {
+            _saving = false;
+        }
     }
 }

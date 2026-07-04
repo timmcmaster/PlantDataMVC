@@ -109,6 +109,15 @@
         
     }
 
+    public async Task RefreshAsync()
+    {
+        if (GridType == GridType.SfGrid && _sfGrid != null)
+        {
+            await _sfGrid.Refresh();
+        }
+        // Not supported for BasicGrid
+    }
+
     public async Task<IEnumerable<TGridItem>> GetCurrentViewRecordsAsync()
     {
         if (GridType == GridType.Basic)
