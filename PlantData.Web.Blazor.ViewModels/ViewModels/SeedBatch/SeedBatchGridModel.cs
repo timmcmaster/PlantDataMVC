@@ -10,12 +10,12 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels.SeedBatch
         public int SpeciesId { get; set; }
 
         [Display(Name = "Species Name")]
-        public string SpeciesBinomial { get; private set; }
+        public string SpeciesBinomial { get; set; }
 
         public int SiteId { get; set; }
 
         [Display(Name = "Site Name")]
-        public string SiteName { get; private set; }
+        public string SiteName { get; set; }
 
         [Display(Name = "Date Collected")]
         public DateTime DateCollected { get; set; }

@@ -72,7 +72,8 @@ public class DataModelToUIMappingProfile : Profile
            .ForMember(uio => uio.Id, opt => opt.MapFrom(dm => dm.Id))
            .ForMember(uio => uio.Native, opt => opt.MapFrom(dm => dm.Native))
            .ForMember(uio => uio.Species, opt => opt.MapFrom(dm => dm.SpecificName))
-           .ForMember(uio => uio.Description, opt => opt.MapFrom(dm => dm.Description));
+           .ForMember(uio => uio.Description, opt => opt.MapFrom(dm => dm.Description))
+           .ForMember(uio => uio.PropagationTime, opt => opt.MapFrom(dm => dm.PropagationTime));
     }
 
     private void ConfigureSeedBatchViewModels()

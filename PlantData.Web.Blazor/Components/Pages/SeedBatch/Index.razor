@@ -21,12 +21,9 @@
         <GenericGrid GridType="@GridType" TGridItem=SeedBatchGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
         <GenericGridColumns>
             <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.Id))" FieldName="@nameof(SeedBatchGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
-    @*      <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesId))" FieldName="@nameof(SeedBatchGridModel.SpeciesId)" /> *@
-    @*      <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedBatchGridModel.SpeciesBinomial)" /> *@        
             <GenericGridForeignColumn TGridItem=SeedBatchGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedBatchGridModel.SpeciesId)"
                                       TForeignDataItem=SpeciesDataModel ForeignKeyField="@_fcmSpecies.ForeignKeyField" ForeignKeyValue="@_fcmSpecies.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSpecies.ForeignDataUrl" />
             <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.DateCollected))" FieldName="@nameof(SeedBatchGridModel.DateCollected)" Format="dd/MM/yyyy" />
-    @*      <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteId))" FieldName="@nameof(SeedBatchGridModel.SiteId)" /> *@
             <GenericGridForeignColumn TGridItem=SeedBatchGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.SiteName))" FieldName="@nameof(SeedBatchGridModel.SiteId)"
                                       TForeignDataItem=SiteDataModel ForeignKeyField="@_fcmSite.ForeignKeyField" ForeignKeyValue="@_fcmSite.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSite.ForeignDataUrl" />
             <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedBatchGridModel>(x => x.Location))" FieldName="@nameof(SeedBatchGridModel.Location)" />
