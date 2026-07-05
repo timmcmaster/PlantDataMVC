@@ -16,7 +16,7 @@
 <div class="grid-container">
     <!-- Left Panel: Grid -->
     <div class="grid-panel">
-        <GenericGrid GridType="@GridType" TGridItem="GenusGridModel" ViewModel="_viewModel">
+        <GenericGrid TGridItem="GenusGridModel" ViewModel="_viewModel">
         <GenericGridColumns>
             <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.Id))" FieldName="@nameof(GenusGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
             <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<GenusGridModel>(x => x.LatinName))" FieldName="@nameof(GenusGridModel.LatinName)" />
@@ -29,8 +29,6 @@
 </div>
 @code 
 {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
-
     private BaseGridModel<GenusGridModel> _viewModel;
 
     protected override async Task OnInitializedAsync()

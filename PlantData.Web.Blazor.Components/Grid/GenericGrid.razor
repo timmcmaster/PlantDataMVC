@@ -1,49 +1,27 @@
-﻿@using Microsoft.AspNetCore.Components.QuickGrid
-@using PlantData.Web.Blazor.SharedComponents.Grid
-@using Syncfusion.Blazor.Grids
+﻿@using Syncfusion.Blazor.Grids
 @using Syncfusion.Blazor.Data
 
 @attribute [CascadingTypeParameter(nameof(TGridItem))]
 @typeparam TGridItem
 
-<CascadingValue IsFixed="true" Value="@GridType">
-    <div class="generic-grid-wrapper">
-        @if (@GridType == GridType.Basic)
-        {
-            <BasicGrid TRowData="TGridItem" Links="@ViewModel.Links" AllowAdd="@ViewModel.Options.AllowAdd" AllowEdit="@ViewModel.Options.AllowEdit" AllowDelete="@ViewModel.Options.AllowDelete" AllowPaging="@ViewModel.Options.AllowPaging">
-                <DataManager>
-                    <BasicGridDataManager TRowData="TGridItem"
-                                          UrlDataSource="@ViewModel.UrlDataSource"
-                                          Paging="@ViewModel.Paging"
-                                          Sorting="@ViewModel.Sorting"
-                                          AllowPaging="@ViewModel.Options.AllowPaging" />
-                </DataManager>
-                <GridColumns>
-                    @GenericGridColumns
-                </GridColumns>
-            </BasicGrid>
-        }
-        else if (GridType == GridType.SfGrid)
-        {
-            <SfGrid @ref="_sfGrid" TValue="TGridItem" Query="@GridQuery" AllowPaging="@ViewModel.Options.AllowPaging"
-                    AllowSorting="@ViewModel.Options.AllowSorting"
-                    Toolbar="@ViewModel.Options.ToolbarItems">
-                <SfDataManager Url="@ViewModel.UrlDataSource.Url"
-                               InsertUrl="@ViewModel.UrlDataSource.InsertUrl"
-                               UpdateUrl="@ViewModel.UrlDataSource.UpdateUrl"
-                               RemoveUrl="@ViewModel.UrlDataSource.DeleteUrl"
-                               Adaptor="Adaptors.UrlAdaptor">
-                </SfDataManager>
-                <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
-                <GridEditSettings AllowAdding="@ViewModel.Options.AllowAdd" AllowEditing="@ViewModel.Options.AllowEdit" AllowDeleting="@ViewModel.Options.AllowDelete" Mode="EditMode.Dialog"></GridEditSettings>
-                <GridEvents RowSelected="RowSelectHandler" TValue="TGridItem"></GridEvents>
-                <GridColumns>
-                    @GenericGridColumns
-                </GridColumns>
-            </SfGrid>
-        }
-    </div> 
-</CascadingValue>
+<div class="generic-grid-wrapper">
+    <SfGrid @ref="_sfGrid" TValue="TGridItem" Query="@GridQuery" AllowPaging="@ViewModel.Options.AllowPaging"
+            AllowSorting="@ViewModel.Options.AllowSorting"
+            Toolbar="@ViewModel.Options.ToolbarItems">
+        <SfDataManager Url="@ViewModel.UrlDataSource.Url"
+                        InsertUrl="@ViewModel.UrlDataSource.InsertUrl"
+                        UpdateUrl="@ViewModel.UrlDataSource.UpdateUrl"
+                        RemoveUrl="@ViewModel.UrlDataSource.DeleteUrl"
+                        Adaptor="Adaptors.UrlAdaptor">
+        </SfDataManager>
+        <GridPageSettings PageSize="@ViewModel.Paging.PageSize" CurrentPage="@ViewModel.Paging.PageNumber"></GridPageSettings>
+        <GridEditSettings AllowAdding="@ViewModel.Options.AllowAdd" AllowEditing="@ViewModel.Options.AllowEdit" AllowDeleting="@ViewModel.Options.AllowDelete" Mode="EditMode.Dialog"></GridEditSettings>
+        <GridEvents RowSelected="RowSelectHandler" TValue="TGridItem"></GridEvents>
+        <GridColumns>
+            @GenericGridColumns
+        </GridColumns>
+    </SfGrid>
+</div> 
 
 
 <style>
@@ -70,9 +48,6 @@
     [Parameter, EditorRequired]
     public IBaseGridModel<TGridItem> ViewModel { get; set; }
 
-    [Parameter, EditorRequired]
-    public GridType GridType { get; set; }
-
     [Parameter]
     public RenderFragment? GenericGridColumns { get; set; } = default!; // Should contain all columns
 
@@ -93,14 +68,7 @@
         if (OnRowSelected.HasDelegate)
         {
             TGridItem? selectedItem = default!;
-            if (GridType == GridType.Basic)
-            {
-                // Not supported for BasicGrid
-            }
-            else if (GridType == GridType.SfGrid)
-            {
-                selectedItem = args.Data;
-            }
+            selectedItem = args.Data;
             if (selectedItem != null)
             {
                 await OnRowSelected.InvokeAsync(selectedItem);
@@ -111,20 +79,15 @@
 
     public async Task RefreshAsync()
     {
-        if (GridType == GridType.SfGrid && _sfGrid != null)
+        if (_sfGrid != null)
         {
             await _sfGrid.Refresh();
         }
-        // Not supported for BasicGrid
     }
 
     public async Task<IEnumerable<TGridItem>> GetCurrentViewRecordsAsync()
     {
-        if (GridType == GridType.Basic)
-        {
-            return Enumerable.Empty<TGridItem>(); // Not supported for BasicGrid
-        }
-        else if (GridType == GridType.SfGrid)
+        if (_sfGrid != null)
         {
             return await _sfGrid.GetCurrentViewRecordsAsync();
         }

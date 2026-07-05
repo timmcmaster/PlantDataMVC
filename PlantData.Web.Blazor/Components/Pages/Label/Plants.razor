@@ -24,7 +24,7 @@
 <EditForm Model="_viewModel" OnValidSubmit="Submit" FormName="PlantLabelsForm">
     <DataAnnotationsValidator />
     
-    <GenericGrid @ref="_grid" GridType="@GridType" TGridItem=PlantLabelRequestGridModel ViewModel="_gridViewModel">
+    <GenericGrid @ref="_grid" TGridItem=PlantLabelRequestGridModel ViewModel="_gridViewModel">
         <GenericGridColumns>
             <GenericGridForeignColumn TGridItem=PlantLabelRequestGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantLabelRequestGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(PlantLabelRequestGridModel.SpeciesId)"
                                       TForeignDataItem=SpeciesDataModel ForeignKeyField="@_fcmSpecies.ForeignKeyField" ForeignKeyValue="@_fcmSpecies.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSpecies.ForeignDataUrl" />
@@ -63,8 +63,6 @@
 
 @code 
 {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
-
     private PlantLabelsViewModel _viewModel;
 
     private BaseGridModel<PlantLabelRequestGridModel> _gridViewModel;

@@ -14,7 +14,7 @@
 <h2>PriceListType List</h2>
 <p>This is a list of all PriceListTypes recorded</p>
 
-<GenericGrid GridType="@GridType" TGridItem="PriceListTypeGridModel" ViewModel="_viewModel">
+<GenericGrid TGridItem="PriceListTypeGridModel" ViewModel="_viewModel">
     <GenericGridColumns>
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PriceListTypeGridModel>(x => x.Id))" FieldName="@nameof(PriceListTypeGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PriceListTypeGridModel>(x => x.Name))" FieldName="@nameof(PriceListTypeGridModel.Name)" />
@@ -24,8 +24,6 @@
 
 @code 
 {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
-
     private BaseGridModel<PriceListTypeGridModel> _viewModel;
 
     protected override async Task OnInitializedAsync()

@@ -11,19 +11,10 @@
 
 
 <div class="container-lg">
-    @if (@GridType == GridType.Basic)
-    {
-        @* No special behaviour (yet) for basic column *@
-        <BasicGridColumn TRowData="TGridItem" Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey"></BasicGridColumn>
-    }
-    else if (GridType == GridType.SfGrid)
-    {
-@*         <GridForeignColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey" ForeignKeyValue="@ForeignKeyValue" ForeignDataSource="@ForeignDataSource"></GridForeignColumn> *@
-        <GridForeignColumn TValue="TForeignDataItem" Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey" ForeignKeyField="@ForeignKeyField" ForeignKeyValue="@ForeignKeyValue">
-            <Syncfusion.Blazor.Data.SfDataManager Url="@ForeignDataSourceUrl" CrossDomain="true" Adaptor="Adaptors.UrlAdaptor">
-            </Syncfusion.Blazor.Data.SfDataManager>
-        </GridForeignColumn>
-    }
+    <GridForeignColumn TValue="TForeignDataItem" Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey" ForeignKeyField="@ForeignKeyField" ForeignKeyValue="@ForeignKeyValue">
+        <Syncfusion.Blazor.Data.SfDataManager Url="@ForeignDataSourceUrl" CrossDomain="true" Adaptor="Adaptors.UrlAdaptor">
+        </Syncfusion.Blazor.Data.SfDataManager>
+    </GridForeignColumn>
 </div>
 <style>
     /* styles for SfGrid */
@@ -35,9 +26,6 @@
 
 @code 
 {
-    [CascadingParameter]
-    public GridType GridType { get; set; }
-
     [Parameter]
     public IBaseGridModel<TGridItem> ViewModel { get; set; }
 

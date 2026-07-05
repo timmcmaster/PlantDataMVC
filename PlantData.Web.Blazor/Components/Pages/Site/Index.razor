@@ -16,7 +16,7 @@
 <div class="grid-container">
     <!-- Left Panel: Grid -->
     <div class="grid-panel">
-        <GenericGrid GridType="@GridType" TGridItem=SiteGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
+        <GenericGrid TGridItem=SiteGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
             <GenericGridColumns>
                 <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.Id))" FieldName="@nameof(SiteGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
                 <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SiteGridModel>(x => x.SiteName))" FieldName="@nameof(SiteGridModel.SiteName)" />
@@ -52,8 +52,6 @@
 
 @code 
 {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
-
     private BaseGridModel<SiteGridModel> _viewModel;
     private SiteGridModel? _selectedItem;
     private LeafletMap mapComponent;

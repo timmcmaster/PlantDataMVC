@@ -26,7 +26,7 @@
 <div class="grid-container">
     <!-- Left Panel: Grid -->
     <div class="grid-panel">
-        <GenericGrid @ref="_grid" GridType="@GridType" TGridItem=PlantGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
+        <GenericGrid @ref="_grid" TGridItem=PlantGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
             <GenericGridColumns>
                 <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Id))" FieldName="@nameof(PlantGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
                 <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<PlantGridModel>(x => x.Binomial))" FieldName="@nameof(PlantGridModel.Binomial)" />
@@ -148,8 +148,6 @@
 {
     private enum PaneMode { View, Edit, Add }
 
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
-
     private BaseGridModel<PlantGridModel> _viewModel;
     private ForeignColumnModel<GenusDataModel> _fcm;
     private GenericGrid<PlantGridModel> _grid;
@@ -169,7 +167,7 @@
 
         _viewModel = new BaseGridModel<PlantGridModel>()
         {
-            Options = GridOptionsModel.Default,
+            Options = new GridOptionsModel(){ AllowAdd = false, AllowEdit = false, AllowDelete = true, AllowPaging = true, AllowSorting = true},
             Paging = new PagingModel(pageSize, pageNumber, itemCount),
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel(PlantDataRoutes.Plant),

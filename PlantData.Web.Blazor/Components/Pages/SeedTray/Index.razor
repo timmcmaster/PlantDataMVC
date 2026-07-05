@@ -20,7 +20,7 @@
 <div class="grid-container">
     <!-- Left Panel: Grid -->
     <div class="grid-panel">
-        <GenericGrid GridType="@GridType" TGridItem=SeedTrayGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
+        <GenericGrid TGridItem=SeedTrayGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
             <GenericGridColumns>
                 <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.Id))" FieldName="@nameof(SeedTrayGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
                 <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SeedBatchId))" FieldName="@nameof(SeedTrayGridModel.SeedBatchId)" />
@@ -55,8 +55,6 @@
 
 @code 
 {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
-
     private BaseGridModel<SeedTrayGridModel> _viewModel;
 
     private ForeignColumnModel<SeedBatchDataModel> _fcmSeedBatch;

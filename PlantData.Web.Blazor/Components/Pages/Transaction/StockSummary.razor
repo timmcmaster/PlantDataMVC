@@ -14,7 +14,7 @@
 <h2>Stock Summary List</h2>
 <p>This is a summary of all stock levels by product type and species</p>
 
-<GenericGrid GridType="@GridType" TGridItem="StockSummaryGridModel" ViewModel="_viewModel">
+<GenericGrid TGridItem="StockSummaryGridModel" ViewModel="_viewModel">
     <GenericGridColumns>
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<StockSummaryGridModel>(x => x.SpeciesId))" FieldName="@nameof(StockSummaryGridModel.SpeciesId)" IsVisible="false" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<StockSummaryGridModel>(x => x.ProductTypeId))" FieldName="@nameof(StockSummaryGridModel.ProductTypeId)" IsVisible="false" />
@@ -27,8 +27,6 @@
 
 @code 
 {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
-
     private BaseGridModel<StockSummaryGridModel> _viewModel;
 
     protected override async Task OnInitializedAsync()

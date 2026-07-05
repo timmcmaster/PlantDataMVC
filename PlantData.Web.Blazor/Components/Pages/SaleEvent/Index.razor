@@ -16,7 +16,7 @@
 <h2>Sale Event List</h2>
 <p>This is a list of all Sale Events</p>
 
-<GenericGrid GridType="@GridType" TGridItem=SaleEventGridModel ViewModel="_viewModel">
+<GenericGrid TGridItem=SaleEventGridModel ViewModel="_viewModel">
     <GenericGridColumns>
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SaleEventGridModel>(x => x.Id))" FieldName="@nameof(SaleEventGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SaleEventGridModel>(x => x.Name))" FieldName="@nameof(SaleEventGridModel.Name)" />
@@ -28,8 +28,6 @@
 
 @code 
 {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
-
     private BaseGridModel<SaleEventGridModel> _viewModel;
 
     protected override async Task OnInitializedAsync()

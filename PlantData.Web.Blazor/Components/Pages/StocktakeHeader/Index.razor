@@ -14,7 +14,7 @@
 <h2>StocktakeHeader List</h2>
 <p>This is a list of all StocktakeHeaders recorded</p>
 
-<GenericGrid GridType="@GridType" TGridItem="StocktakeHeaderGridModel" ViewModel="_viewModel">
+<GenericGrid TGridItem="StocktakeHeaderGridModel" ViewModel="_viewModel">
     <GenericGridColumns>
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<StocktakeHeaderGridModel>(x => x.Id))" FieldName="@nameof(StocktakeHeaderGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
         <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<StocktakeHeaderGridModel>(x => x.Reference))" FieldName="@nameof(StocktakeHeaderGridModel.Reference)" />
@@ -25,8 +25,6 @@
 
 @code 
 {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
-
     private BaseGridModel<StocktakeHeaderGridModel> _viewModel;
 
     protected override async Task OnInitializedAsync()

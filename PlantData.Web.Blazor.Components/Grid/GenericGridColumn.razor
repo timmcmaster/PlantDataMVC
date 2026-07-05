@@ -9,24 +9,17 @@
 @typeparam TGridItem
 
 <div class="container-lg">
-    @if (@GridType == GridType.Basic)
+    @if (DisplayAsCheckbox)
     {
-        <BasicGridColumn TRowData="TGridItem" Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" IsPrimaryKey="@IsPrimaryKey"></BasicGridColumn>
+        <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey" DisplayAsCheckBox=@DisplayAsCheckbox EditType="Syncfusion.Blazor.Grids.EditType.BooleanEdit"></GridColumn>
     }
-    else if (GridType == GridType.SfGrid)
+    else if (EditType.HasValue)
     {
-        if (DisplayAsCheckbox)
-        {
-            <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey" DisplayAsCheckBox=@DisplayAsCheckbox EditType="Syncfusion.Blazor.Grids.EditType.BooleanEdit"></GridColumn>
-        }
-        else if (EditType.HasValue)
-        {
-            <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey" EditType="@EditType.Value"/>
-        }
-        else
-        {
-            <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey" />
-        }
+        <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey" EditType="@EditType.Value"/>
+    }
+    else
+    {
+        <GridColumn Visible="@IsVisible" HeaderText="@HeaderText" Field="@FieldName" Format="@Format" IsPrimaryKey="@IsPrimaryKey" />
     }
 </div>
 <style>
@@ -38,9 +31,6 @@
 </style>
 
 @code {
-    [CascadingParameter]
-    public GridType GridType { get; set; }
-
     [Parameter]
     public IBaseGridModel<TGridItem> ViewModel { get; set; }
 

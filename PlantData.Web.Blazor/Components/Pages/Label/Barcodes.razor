@@ -27,7 +27,7 @@
 
     <p></p>
 
-    <GenericGrid @ref="_grid" GridType="@GridType" TGridItem=BarcodeLabelRequestGridModel ViewModel="_gridViewModel">
+    <GenericGrid @ref="_grid" TGridItem=BarcodeLabelRequestGridModel ViewModel="_gridViewModel">
         <GenericGridColumns>
             <GenericGridForeignColumn TGridItem=BarcodeLabelRequestGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<BarcodeLabelRequestGridModel>(x => x.ProductPriceId))" FieldName="@nameof(BarcodeLabelRequestGridModel.ProductPriceId)"
                                       TForeignDataItem=ProductPriceDataModel ForeignKeyField="@_fcmProductPrices.ForeignKeyField" ForeignKeyValue="@_fcmProductPrices.ForeignKeyValue" ForeignDataSourceUrl="@_fcmProductPrices.ForeignDataUrl" />
@@ -62,9 +62,8 @@
     <div class="alert alert-success mt-3">@successMessage</div>
 }
 
-@code {
-    public GridType GridType => Convert.ToBoolean(configuration["WebUI:UseBasicHtmlViews"]) == true ? GridType.Basic : GridType.SfGrid;
-
+@code 
+{
     private BarcodeLabelsViewModel _viewModel;
 
     private BaseGridModel<BarcodeLabelRequestGridModel> _gridViewModel;
