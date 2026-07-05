@@ -11,7 +11,7 @@ namespace PlantData.Web.Blazor.UIModels.ViewModels.SeedTray
         public int SeedBatchId { get; set; }
 
         [Display(Name = "Species Name")]
-        public string SpeciesBinomial { get; private set; }
+        public string SpeciesBinomial { get; set; }
 
         [Display(Name = "Date Sown")]
         public DateTime DateSown { get; set; }

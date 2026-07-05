@@ -37,7 +37,7 @@
             <h3>Seed Batch Details</h3>
             <div class="detail-content">
                 <p><strong>Binomial:</strong> @_selectedItem.SpeciesBinomial</p>
-                <p><strong>Date Collected:</strong> @_selectedItem.DateCollected</p>
+                <p><strong>Date Collected:</strong> @($"{_selectedItem.DateCollected:dd/MM/yyyy}")</p>
                 <p><strong>Site Name:</strong> @_selectedItem.SiteName</p>
                 <p><strong>Location:</strong> @_selectedItem.Location</p>
                 <p><strong>Notes:</strong> @_selectedItem.Notes</p>
@@ -75,7 +75,7 @@
             Sorting = new GridSortingModel(),
             Links = new GridLinksModel(PlantDataRoutes.SeedBatch),
             UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.SeedBatchGrid),
-    };
+        };
         _viewModel.Options.AllowSorting = true;
 
         // Define foreign column info for SpeciesId 

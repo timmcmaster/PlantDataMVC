@@ -13,22 +13,45 @@
 @inject IConfiguration configuration
 
 
-<h2>Seed Tray List</h2>
-<p>This is a list of all Seed Trays</p>
-
-<GenericGrid GridType="@GridType" TGridItem=SeedTrayGridModel ViewModel="_viewModel">
-    <GenericGridColumns>
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.Id))" FieldName="@nameof(SeedTrayGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SeedBatchId))" FieldName="@nameof(SeedTrayGridModel.SeedBatchId)" />
-        <GenericGridForeignColumn TGridItem=SeedTrayGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedTrayGridModel.SeedBatchId)"
-                                  TForeignDataItem=SeedBatchDataModel ForeignKeyField="@_fcmSeedBatch.ForeignKeyField" ForeignKeyValue="@_fcmSeedBatch.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSeedBatch.ForeignDataUrl" />
-        <GenericGridColumn TGridItem=SeedTrayGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedTrayGridModel.SpeciesBinomial)" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.DateSown))" FieldName="@nameof(SeedTrayGridModel.DateSown)" Format="dd/MM/yyyy" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.Treatment))" FieldName="@nameof(SeedTrayGridModel.Treatment)" />
-        <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.ThrownOut))" FieldName="@nameof(SeedTrayGridModel.ThrownOut)" DisplayAsCheckbox="true" />
-    </GenericGridColumns>
-</GenericGrid>
-
+<div class="grid-header">
+    <h2>Seed Tray List</h2>
+    <p>This is a list of all Seed Trays</p>
+</div>
+<div class="grid-container">
+    <!-- Left Panel: Grid -->
+    <div class="grid-panel">
+        <GenericGrid GridType="@GridType" TGridItem=SeedTrayGridModel ViewModel="_viewModel" OnRowSelected="RowSelectedHandler">
+            <GenericGridColumns>
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.Id))" FieldName="@nameof(SeedTrayGridModel.Id)" IsPrimaryKey="true" IsVisible="false" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SeedBatchId))" FieldName="@nameof(SeedTrayGridModel.SeedBatchId)" />
+@*                 <GenericGridForeignColumn TGridItem=SeedTrayGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedTrayGridModel.SeedBatchId)"
+                                          TForeignDataItem=SeedBatchDataModel ForeignKeyField="@_fcmSeedBatch.ForeignKeyField" ForeignKeyValue="@_fcmSeedBatch.ForeignKeyValue" ForeignDataSourceUrl="@_fcmSeedBatch.ForeignDataUrl" /> *@
+                <GenericGridColumn TGridItem=SeedTrayGridModel HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.SpeciesBinomial))" FieldName="@nameof(SeedTrayGridModel.SpeciesBinomial)" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.DateSown))" FieldName="@nameof(SeedTrayGridModel.DateSown)" Format="dd/MM/yyyy" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.Treatment))" FieldName="@nameof(SeedTrayGridModel.Treatment)" />
+                <GenericGridColumn HeaderText="@(ReflectionExtensions.GetPropertyDisplayName<SeedTrayGridModel>(x => x.ThrownOut))" FieldName="@nameof(SeedTrayGridModel.ThrownOut)" DisplayAsCheckbox="true" />
+            </GenericGridColumns>
+        </GenericGrid>
+    </div>
+    <!-- Right Panel: Details -->
+    <div class="detail-panel">
+        @if (_selectedItem != null)
+        {
+            <h3>Seed Tray Details</h3>
+            <div class="detail-content">
+                <p><strong>Binomial:</strong> @_selectedItem.SpeciesBinomial</p>
+                <p><strong>Date Sown:</strong> @($"{_selectedItem.DateSown:dd/MM/yyyy}")</p>
+                <p><strong>Treatment:</strong> @_selectedItem.Treatment</p>
+                <p><strong>Thrown Out:</strong> @_selectedItem.ThrownOut ? "Yes" : "No"</p>
+                <!-- Add more details as needed -->
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">Select an item from the grid to view details</p>
+        }
+    </div>
+</div>
 
 @code 
 {
@@ -37,6 +60,7 @@
     private BaseGridModel<SeedTrayGridModel> _viewModel;
 
     private ForeignColumnModel<SeedBatchDataModel> _fcmSeedBatch;
+    private SeedTrayGridModel? _selectedItem;
 
     protected override async Task OnInitializedAsync()
     {
@@ -45,13 +69,13 @@
         var itemCount = 100; // Hack: should be from url
 
         _viewModel = new BaseGridModel<SeedTrayGridModel>()
-        {
-            Options = GridOptionsModel.Default,
-            Paging = new PagingModel(pageSize, pageNumber, itemCount),
-            Sorting = new GridSortingModel(),
-            Links = new GridLinksModel(PlantDataRoutes.SeedTray),
-            UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.SeedTrayGrid),
-    };
+            {
+                Options = GridOptionsModel.Default,
+                Paging = new PagingModel(pageSize, pageNumber, itemCount),
+                Sorting = new GridSortingModel(),
+                Links = new GridLinksModel(PlantDataRoutes.SeedTray),
+                UrlDataSource = new GridUrlDataSourceModel(PlantDataBlazorAppControllers.SeedTrayGrid),
+            };
         _viewModel.Options.AllowSorting = true;
 
         // Define foreign column info for SpeciesId 
@@ -61,5 +85,10 @@
             foreignKeyValue: x => nameof(x.SpeciesName),
             GridUrlDataSourceModel.GetUrl(PlantDataBlazorAppControllers.SeedBatchGrid, PlantDataBlazorAppControllers.DataRoutes.List)
         );
+    }
+
+    private void RowSelectedHandler(SeedTrayGridModel row)
+    {
+        _selectedItem = row;
     }
 }
